@@ -23,7 +23,7 @@ export async function proxy(request: NextRequest) {
     },
   );
   await client.auth.getClaims();
-  if (["/app", "/sites", "/profile"].includes(request.nextUrl.pathname)) {
+  if (["/app", "/sites", "/profile", "/documents"].includes(request.nextUrl.pathname) || request.nextUrl.pathname.startsWith("/documents/")) {
     response.headers.set("Cache-Control", "private, no-store, max-age=0");
   }
   return response;

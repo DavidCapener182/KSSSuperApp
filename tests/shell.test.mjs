@@ -34,7 +34,7 @@ async function port() {
 const paths = ['/app', '/sites', '/profile'];
 
 test('return targets allow only implemented local routes', () => {
-  for (const path of [...paths, '/sites?view=mine']) assert.equal(safeReturnTarget(path), path);
+  for (const path of [...paths, '/sites?view=mine', '/documents', '/documents/10000000-0000-4000-8000-000000000003']) assert.equal(safeReturnTarget(path), path);
   for (const path of ['//evil.example', 'https://evil.example', '/\\evil', '/sites#fragment', '/sites/../app', '/admin', '/sites%2F..', '/sites?x=1\nLocation: evil']) assert.equal(safeReturnTarget(path), null, path);
 });
 
@@ -60,8 +60,8 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.equal((await me(undefined))[0], 401);
     assert.deepEqual(await me('unmapped'), [403, { error: 'No Enterprise access' }]);
     const expected = {
-      admin: ['/app', '/sites', '/profile'], office: ['/app', '/sites', '/profile'],
-      staff: ['/app', '/sites', '/profile'], zero: ['/app', '/sites', '/profile'],
+      admin: ['/app', '/sites', '/documents', '/profile'], office: ['/app', '/sites', '/documents', '/profile'],
+      staff: ['/app', '/sites', '/documents', '/profile'], zero: ['/app', '/sites', '/documents', '/profile'],
       operations: ['/app', '/profile'],
     };
     for (const [as, links] of Object.entries(expected)) {

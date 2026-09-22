@@ -86,3 +86,19 @@ h1 { margin: 18px 0 21px; font-size: clamp(42px, 6vw, 72px); line-height: 1.05; 
   .enterprise-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }.enterprise-nav a { text-align: center; padding: 10px 5px; }
   .enterprise-main { padding: 32px 16px 70px; }.enterprise-profile { padding: 4px 17px; }.enterprise-profile div { grid-template-columns: 1fr; gap: 5px; }
 }
+/* TASK-02A: bounded synthetic document request journey. */
+.documents-main h1 { margin-bottom: 14px; }
+.documents-grid { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 20px; margin-top: 30px; align-items: start; }
+.documents-card { min-width: 0; background: #fff; border: 1px solid #d4e3d2; border-radius: 12px; padding: 24px; }
+.documents-card h2 { margin: 0 0 18px; font-size: 21px; }.documents-card h3 { margin: 22px 0 14px; font-size: 16px; }
+.documents-card p { color: #4d6956; line-height: 1.55; font-size: 13px; }
+.documents-list { padding: 0; margin: 0; list-style: none; }.documents-list li { border-top: 1px solid #e1e9e0; }
+.documents-list a { display: grid; gap: 5px; padding: 12px 0; color: #17382e; text-decoration: none; overflow-wrap: anywhere; }
+.documents-list a[aria-current="page"] { border-left: 3px solid #173f31; padding-left: 10px; }.documents-list span { color: #617b67; font-size: 12px; }
+.documents-form { display: grid; gap: 13px; border-top: 1px solid #e1e9e0; margin-top: 20px; padding-top: 8px; }
+.documents-form label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; }
+.documents-form input, .documents-form select { max-width: 100%; min-width: 0; padding: 10px; border: 1px solid #b9cdbd; border-radius: 7px; font: inherit; color: #17382e; background: #fff; }
+.documents-form button, .documents-download { justify-self: start; display: inline-block; border: 0; border-radius: 7px; padding: 10px 14px; background: #173f31; color: #fff; text-decoration: none; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+.documents-form button:disabled { opacity: .55; cursor: wait; }.documents-message { background: #eaf1e8; border: 1px solid #d4e3d2; padding: 12px; border-radius: 8px; font-size: 13px; }
+.documents-submission { border-top: 1px solid #e1e9e0; margin-top: 18px; padding-top: 8px; }
+@media (max-width: 700px) { .documents-grid { grid-template-columns: 1fr; }.documents-card { padding: 18px; } }
