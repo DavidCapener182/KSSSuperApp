@@ -1,0 +1,8 @@
+name = "kss_risk_reviewer"
+description = "Targeted correctness/security/finance/evidence review of an implemented change."
+model = "gpt-5.6-sol"
+model_reasoning_effort = "high"
+sandbox_mode = "read-only"
+developer_instructions = """
+Review the supplied diff, relevant source paths, tests and invariants. Prioritise demonstrated security, data integrity, finance, state-transition and missing-test issues. Return severity, file references and reproduction/test evidence. Do not edit code, invent test results, perform live actions or delegate again. Return control when the bounded review is complete.
+"""

@@ -1,0 +1,478 @@
+[
+  {
+    "n": 0,
+    "title": "Inspect, plan and prepare the build",
+    "refs": "R01, R02, R26, R30; C3, C5, C7–C10",
+    "depends": "None; inspect any existing repository before changing it.",
+    "demo": "A repository-aware build plan, verified capability/model map and first implementation task ready for David to approve. No application build is claimed.",
+    "scope": [
+      "Read the complete master once, distinguish baseline from proposed additions, inspect current code, package manifests, schema, tests, Git status and existing agent instructions. Preserve working code and uncommitted user changes.",
+      "Recommend a maintainable stack only after inspection. Record unresolved identity, document-store, LMS, rostering and finance choices; only block work that genuinely depends on a missing decision.",
+      "Check the actual Codex client, permitted models, reasoning settings, delegation tools and loaded configuration. Prepare project-scoped instructions and configurations without replacing user/global settings or weakening approvals.",
+      "Create a concise architecture map, permission matrix, requirement/phase coverage map, status ledger and a small first implementation task. Review the security-critical foundation with a stronger agent."
+    ],
+    "tasks": [
+      [
+        "00A",
+        "Inventory the repository, requirements and current systems; record facts separately from assumptions."
+      ],
+      [
+        "00B",
+        "Draft the architecture, permission boundaries, data ownership and phase coverage map."
+      ],
+      [
+        "00C",
+        "Prepare and verify agent settings; create TASK-01A and report readiness."
+      ]
+    ],
+    "exclude": "No product implementation, new paid services, production accounts, bulk migration, database reset or live deployment.",
+    "model": "Sol Medium for the initial architecture decision; Terra for organising the work; Luna for bounded read-only inventory. Astra is not required by default.",
+    "checks": [
+      "All original areas and R01–R30 have a phase, dependency or explicit deferred status.",
+      "Existing repository changes are preserved; no credentials or personal records are printed.",
+      "Selected versus observed model settings are recorded; an unavailable capability is not pretended.",
+      "TASK-01A contains scope, allowed files, risks, test commands or justified discovery steps and a stopping point."
+    ]
+  },
+  {
+    "n": 1,
+    "title": "Secure foundation and shared records",
+    "refs": "R01–R03, R26, R30; C2–C3, C6",
+    "depends": "Phase 00 approved; identity and minimal storage decisions agreed.",
+    "demo": "An office user and a test employee sign in, see different permitted workspaces and access the same underlying records only within their scopes.",
+    "scope": [
+      "Create or extend the application shell, reproducible local setup, error handling and test harness using the chosen stack. Work in development with synthetic fixtures.",
+      "Implement verified sign-in, session handling, server-side authorisation and dated role/scope assignments; a person is distinct from their login. Do not invent a production identity provider.",
+      "Add the minimum real Person, Client, Contact and Site records, stable IDs and meaningful activity/audit events. Defer sophisticated CRM and all-module screens.",
+      "Provide permission-aware navigation and authorised launch points for existing apps, with unknown URLs/configuration marked rather than fabricated."
+    ],
+    "tasks": [
+      [
+        "01A",
+        "Set up the runnable shell and baseline smoke test without changing existing conventions unnecessarily."
+      ],
+      [
+        "01B",
+        "Implement identity, scope policy and cross-user/cross-site denial tests."
+      ],
+      [
+        "01C",
+        "Implement one shared-record journey and audit trail."
+      ],
+      [
+        "01D",
+        "Connect role-specific navigation and app-link settings; review the complete foundation."
+      ]
+    ],
+    "exclude": "No payroll, full rostering, full HR import, AI assistant, public release or decorative mock dashboards presented as working modules.",
+    "model": "Terra Medium for implementation; Sol High for permission/security review; Luna for isolated fixtures, copy and routine layout work.",
+    "checks": [
+      "Anonymous and unauthorised API requests fail, including altered record IDs.",
+      "Employee self-access cannot expose another person, pay field or unrelated site.",
+      "The same client/person identifiers are reused across views.",
+      "Local setup and the smallest real journey pass documented tests."
+    ]
+  },
+  {
+    "n": 2,
+    "title": "Controlled documents, tasks and basic approvals",
+    "refs": "R04, R15, R25, R27; C4",
+    "depends": "Phase 01 verified; document storage/access boundary agreed.",
+    "demo": "The office publishes a site instruction, the right employee acknowledges that exact version, and an assigned task is tracked to completion.",
+    "scope": [
+      "Implement Document and DocumentVersion metadata, secure upload/download, validation and scoped record links against the selected storage provider. Keep credentials server-side.",
+      "Add draft/review/published/superseded states and exact-version acknowledgements. Private files do not gain a wider audience merely because another record links them.",
+      "Build a narrow Task model and board/list/My Work views sharing the same task IDs. Implement assignment, due date, comments and simple task dependencies as needed for the journey.",
+      "Introduce typed approval records sufficient for document review; do not build a universal visual workflow designer. Knowledge links reference approved instructions rather than copied text."
+    ],
+    "tasks": [
+      [
+        "02A",
+        "Implement private document upload and authorised retrieval with denial tests."
+      ],
+      [
+        "02B",
+        "Implement versioned publication and employee acknowledgement."
+      ],
+      [
+        "02C",
+        "Implement one assigned-task journey and document review hand-off."
+      ],
+      [
+        "02D",
+        "Test version replacement, restricted linking and the complete mobile journey."
+      ]
+    ],
+    "exclude": "No mass SharePoint migration, all-purpose automation engine, offline private-file cache or AI search.",
+    "model": "Terra Medium implementation; Sol review of document permissions and approval/version semantics; Luna for narrow UI and test fixtures.",
+    "checks": [
+      "An HR file linked to a site remains private.",
+      "Version 2 becomes current without rewriting the employee’s version 1 acknowledgement.",
+      "A known object URL does not bypass authorisation.",
+      "One task edited from My Work changes the same task shown on its board."
+    ]
+  },
+  {
+    "n": 3,
+    "title": "Onboarding, verification and training status",
+    "refs": "R05, R06, R13, R20; C1",
+    "depends": "Phases 01–02 verified; pilot role requirements and review responsibilities agreed.",
+    "demo": "Office creates one new starter; the employee uploads evidence; an authorised reviewer verifies it; training evidence produces an explained eligibility result.",
+    "scope": [
+      "Create versioned onboarding requirements for one initial role and site. Distinguish requested, supplied, under review, rejected, verified and expired.",
+      "Build employee upload and office review using the existing document service, with accountable reviewers, reasons and audit events.",
+      "Connect the actual LMS through a confirmed interface or use a clearly labelled manual/imported status path with provenance. Unknown LMS capability is a tracked dependency, not an invented completed integration.",
+      "Calculate eligibility for a defined assignment period with clear blockers. Do not make employment decisions or allow a note to waive a non-overridable requirement."
+    ],
+    "tasks": [
+      [
+        "03A",
+        "Build create-starter plus versioned checklist for one role, using the existing Person record."
+      ],
+      [
+        "03B",
+        "Complete upload → review → reject/resubmit → verify for one document requirement."
+      ],
+      [
+        "03C",
+        "Add one training assignment/result path with source and freshness."
+      ],
+      [
+        "03D",
+        "Combine evidence into eligibility and test expired/missing/conflicting cases."
+      ]
+    ],
+    "exclude": "No LMS authoring engine, whole-workforce import, automated vetting judgement, legal-policy invention or full recruitment marketing system.",
+    "model": "Terra Medium for the workflow; Sol for verification/eligibility review; Luna for small form components and test data, not eligibility decisions.",
+    "checks": [
+      "All uploads supplied does not equal all checks verified.",
+      "Reviewer actions require permission and retain submitted evidence/history.",
+      "Training result replay does not create duplicate completions.",
+      "A requirement invalid during the relevant shift is evaluated under the agreed rule and explains its blocker."
+    ]
+  },
+  {
+    "n": 4,
+    "title": "Employee portal, questions, expenses and lifecycle",
+    "refs": "R05, R07, R08, R21",
+    "depends": "Phases 01–03 verified; staff-visible fields and approval owners agreed.",
+    "demo": "A test employee finds documents/training, asks a pay question, submits an expense and tracks the response without seeing internal notes or approving their own claim.",
+    "scope": [
+      "Complete a usable mobile My Profile/My Work experience around real existing records; prioritise documents, training, questions and expenses.",
+      "Add a small service-desk Request/Conversation workflow with assigned office teams, internal notes and employee-visible replies.",
+      "Implement expense capture, evidence, submission and independent approval. Display approved, exported and paid separately; payment itself remains outside this phase.",
+      "Implement reviewed sensitive profile changes and minimum leave/absence and leaver handling. Leave requests that affect booked work generate conflicts; offboarding revokes access while preserving authorised historical records."
+    ],
+    "tasks": [
+      [
+        "04A",
+        "Complete employee portal navigation using actual records and permissions."
+      ],
+      [
+        "04B",
+        "Implement ask-question → office reply → resolution with private-note tests."
+      ],
+      [
+        "04C",
+        "Implement receipt-backed claim → query → approval with no self-approval."
+      ],
+      [
+        "04D",
+        "Implement essential lifecycle changes, absence conflict and account revocation."
+      ],
+      [
+        "04E",
+        "Run first useful internal-product demonstration; assess a limited pilot against the Phase 11 gate before any live release."
+      ]
+    ],
+    "exclude": "No banking/payment execution, broad HR case-management suite or automatically approved leave.",
+    "model": "Terra Medium lead/implementation; Luna for bounded UI/fixture work; Sol for claim approval, private notes and leaver security review.",
+    "checks": [
+      "Employee cannot read Finance’s private reply notes through API or notification.",
+      "Claimant cannot approve their own expense, including a manager with several roles.",
+      "Paid status is not inferred from manager approval.",
+      "Leaver access ends; authorised historic hours/evidence remain intact.",
+      "Mobile pages have no unintended page-wide horizontal overflow."
+    ]
+  },
+  {
+    "n": 5,
+    "title": "CRM, client requests and mobilisation",
+    "refs": "R09–R11, R15",
+    "depends": "Phases 01–02 verified; client ownership, contract and approval process agreed. Phase 04 request service is reused where available.",
+    "demo": "A prospect becomes a client without duplicate records, launches a site mobilisation and records an authorised request for additional cover.",
+    "scope": [
+      "Extend existing organisations/contacts with opportunities, relationship labels, activity and next actions; use reviewed duplicate handling.",
+      "Convert won work into a linked contract/site/mobilisation, retaining quote history and contacts.",
+      "Add relative-date mobilisation templates with real owner roles, dependency rules and explicit readiness decisions.",
+      "Track client requests and effective-dated commercial variations with operational acceptance and required client/PO approval. Internal pay/cost information stays private."
+    ],
+    "tasks": [
+      [
+        "05A",
+        "Implement opportunity → won client conversion and record associations."
+      ],
+      [
+        "05B",
+        "Implement one static-site mobilisation template and date-change behaviour."
+      ],
+      [
+        "05C",
+        "Implement extra-cover request → authorised variation, preserving original terms."
+      ],
+      [
+        "05D",
+        "Validate commercial confidentiality and mobilisation readiness evidence."
+      ]
+    ],
+    "exclude": "No marketing platform, public tender scraping, bulk mailbox ingestion or unapproved live-client publication.",
+    "model": "Terra Medium for delivery; Sol review of commercial approval/state changes; Luna for scoped record forms and fixture work.",
+    "checks": [
+      "Conversion does not create a second client or contact.",
+      "Changed go-live dates update eligible outstanding tasks, not completed history.",
+      "Requested additional cover is not treated as accepted/chargeable before its required approval.",
+      "Published/client-visible data omits internal cost and individual pay."
+    ]
+  },
+  {
+    "n": 6,
+    "title": "Events, staffing, attendance and approved hours",
+    "refs": "R12–R14, R15",
+    "depends": "Shared records and eligibility from Phases 01–03; operational requirements and rostering ownership confirmed.",
+    "demo": "Create one event or recurring site shift, allocate an eligible test worker, record attendance and separately approve payable and billable hours.",
+    "scope": [
+      "Add event/deployment and role/post requirements, briefings and explicit accreditation-readiness references where needed; reuse existing clients/sites.",
+      "Integrate existing rostering where justified and supported. Define one source of truth for shifts and staff IDs before write-back.",
+      "Check availability, overlaps and requirements across the actual shift period; explain eligibility without disclosing private source documents.",
+      "Record scheduled, observed, submitted and approved payable/billable hours separately, with attributable changes. Relative deadlines respect the real event lifecycle."
+    ],
+    "tasks": [
+      [
+        "06A",
+        "Create one event/recurring shift template and role/post requirement."
+      ],
+      [
+        "06B",
+        "Implement allocation/confirmation with eligibility and overlap tests."
+      ],
+      [
+        "06C",
+        "Capture attendance and controlled hour approvals, including an overnight case."
+      ],
+      [
+        "06D",
+        "Reconcile the pilot rostering source or demonstrate a labelled development adapter."
+      ]
+    ],
+    "exclude": "No autonomous staff allocation, invented employment-law thresholds, public ticketing, payroll calculation or silently replacing existing rostering.",
+    "model": "Terra Medium implementation; Sol High for temporal/rule and hours-review work; Luna for well-defined UI and test fixtures.",
+    "checks": [
+      "Worker qualification validity covers the required assignment period under the agreed policy.",
+      "A template never imports old attendance, issued passes or confirmations.",
+      "Overlapping allocations are flagged.",
+      "Observed attendance is not automatically an approved pay or charge amount."
+    ]
+  },
+  {
+    "n": 7,
+    "title": "Operational delivery, evidence and equipment",
+    "refs": "R16–R20, R29",
+    "depends": "Foundations, documents/tasks and appropriate Phase 06 operational records; privacy and operational owners agreed.",
+    "demo": "A checkpoint observation or audit defect becomes an owned action; a supervisor can hand over an incident and track equipment without losing original evidence.",
+    "scope": [
+      "Keep MagSecure and Footasylum launch workflows working. Add confirmed data adapters and visible last-sync/failure status; do not equate a launch link with integration.",
+      "Separate patrol requirement, checkpoint, observation and exceptions. Tags open the correct context but do not by themselves certify a completed check.",
+      "Implement original reports linked to managed incidents, decisions and accepted handovers, with restricted safeguarding information.",
+      "Separate reusable audit templates from fresh answers/photos; attach evidence to the exact question and link existing corrective actions.",
+      "Add focused asset/kit issue-return with component condition and key custody. Define offline capture per action, with visible pending/server-received states."
+    ],
+    "tasks": [
+      [
+        "07A",
+        "Integrate one confirmed patrol observation/status path and missed/defect follow-up."
+      ],
+      [
+        "07B",
+        "Implement report → incident → action → accepted handover."
+      ],
+      [
+        "07C",
+        "Implement fresh audit instance and question-specific evidence with corrective-action reuse."
+      ],
+      [
+        "07D",
+        "Implement one radio/kit issue-return and maintenance exception."
+      ],
+      [
+        "07E",
+        "Test the selected low-connectivity capture journey and cross-module links."
+      ]
+    ],
+    "exclude": "No standalone SOS/lone-worker emergency replacement, visitor suite by default, all-bodycam footage migration or copying last audit’s observations into a new one.",
+    "model": "Terra Medium lead; Sol High for evidence, sensitive incidents and offline consistency review; Luna for narrow forms/fixtures.",
+    "checks": [
+      "A duplicate source observation creates one record/action.",
+      "An amended report retains its original and attributable correction.",
+      "A new audit has no old photos/answers/signatures.",
+      "A damaged kit component prevents full-available status.",
+      "Offline save is visibly pending until accepted by the server."
+    ]
+  },
+  {
+    "n": 8,
+    "title": "Finance preparation and specialist integration",
+    "refs": "R14, R21, R22",
+    "depends": "Agreed Finance rules, approved-hours pipeline and provider sandbox. Claims/variations are reused from earlier phases.",
+    "demo": "Approved test work produces a reproducible pay/invoice preparation batch that survives a partial export failure and reconciles without duplication.",
+    "scope": [
+      "Implement effective-dated pay/charge rules with explicit precedence and separately approved payable/billable inputs.",
+      "Persist financial snapshots and period locks; later changes create controlled adjustments rather than rewriting posted history.",
+      "Prepare claims, payroll and invoice batches with POs, variations and external IDs; integrate the selected Finance-approved engine through verified contracts.",
+      "Show queued, sent, accepted, rejected, posted and reconciled states. Missing rates and partial failures go to accountable exception queues; never substitute zero silently."
+    ],
+    "tasks": [
+      [
+        "08A",
+        "Agree and implement tested rate examples and financial snapshots."
+      ],
+      [
+        "08B",
+        "Build exception queue and draft pay/invoice preparation from approved work."
+      ],
+      [
+        "08C",
+        "Implement sandbox export/import acknowledgements with idempotency and partial-failure tests."
+      ],
+      [
+        "08D",
+        "Validate closed-period adjustment and reconciliation with Finance."
+      ]
+    ],
+    "exclude": "No new statutory tax/payroll/banking engine, live money movement, live invoice dispatch or unauthorised pay-rate decisions.",
+    "model": "Sol for financial rule design/review; Terra for bounded implementation; Luna only for non-financial formatting/fixtures. Astra only after explicit escalation approval.",
+    "checks": [
+      "Future rates do not rewrite a closed period.",
+      "Missing data blocks preparation rather than creating zero-value records.",
+      "Partial retry creates no duplicate external invoices/payroll entries.",
+      "Submitted/sent/approved does not imply posted/reconciled/paid.",
+      "Finance confirms expected results using agreed examples."
+    ]
+  },
+  {
+    "n": 9,
+    "title": "Client portal, controlled reports and analytics",
+    "refs": "R23–R25",
+    "depends": "Reliable upstream operational data, approved publication matrix and tested access controls.",
+    "demo": "An authorised client sees an approved report for its site; its totals reconcile to permitted source work and no other client/private staff data is exposed.",
+    "scope": [
+      "Build the external workspace with explicit client/site memberships and approved publications, not a filter over unrestricted internal screens.",
+      "Provide selected requests, reports, current documents and commercial status; preserve report periods and revisions.",
+      "Implement a small metric dictionary with source, numerator/denominator, timing, freshness and scope; add drill-down only to authorised records.",
+      "Add trusted knowledge/search refinements with owner/review dates and current-version references. Test titles, snippets, counts and exports for leaks."
+    ],
+    "tasks": [
+      [
+        "09A",
+        "Implement publication and client-scoped document/report access."
+      ],
+      [
+        "09B",
+        "Implement a client request/status journey."
+      ],
+      [
+        "09C",
+        "Implement and reconcile three agreed useful measures; add freshness indicators."
+      ],
+      [
+        "09D",
+        "Test cross-client links, exports, search and stale/superseded content."
+      ]
+    ],
+    "exclude": "No whole-database client analytics access, raw medical/HR log publication, staff-quality ranking or enterprise BI rebuild.",
+    "model": "Terra Medium implementation; Sol access/publication review; Luna for ordinary report layout and bounded transformations.",
+    "checks": [
+      "Altered client/report identifiers cannot disclose unrelated data.",
+      "Every reported total traces to its defined permitted source set.",
+      "Missing integration data displays unknown/stale, not zero or 100% compliant.",
+      "Private titles/snippets are not discoverable."
+    ]
+  },
+  {
+    "n": 10,
+    "title": "Broader automation and permission-aware AI",
+    "refs": "R26–R29",
+    "depends": "Relevant module workflows proven; permission tests and data freshness validated. Basic approvals/integrations already exist from earlier phases.",
+    "demo": "A user gets a cited explanation of a missing requirement or uninvoiced work and can explicitly approve a permitted suggested action.",
+    "scope": [
+      "Extend existing typed approvals and triggers into versioned reusable workflows with retries, audit, reasons and failure ownership.",
+      "Complete useful confirmed connectors alongside their business process. Do not postpone every integration until this phase or introduce uncontrolled two-way sync.",
+      "Pilot narrow retrieval/summarisation or draft-generation over authorised data with exact sources and freshness. Enforce permission before retrieval and before any action.",
+      "Add malicious-document, confidential-data, stale-answer and confirmation tests. Keep consequential actions explicit and record model/runtime usage separately from Codex build costs."
+    ],
+    "tasks": [
+      [
+        "10A",
+        "Extend one proven workflow with duplicate/retry/failure handling."
+      ],
+      [
+        "10B",
+        "Implement one narrow cited AI question on authorised data."
+      ],
+      [
+        "10C",
+        "Implement one preview-and-confirm low-risk action with audit."
+      ],
+      [
+        "10D",
+        "Run adversarial disclosure and untrusted-content tests."
+      ]
+    ],
+    "exclude": "No autonomous payroll, disciplinary decisions, fabricated incident reports, waived mandatory requirements or unbounded always-running agent system.",
+    "model": "Sol for AI/tool security design/review; Terra bounded implementation; Luna for routine tests/formatting. Runtime product AI model choice is a separate decision.",
+    "checks": [
+      "Untrusted source text cannot override system permissions or trigger an unauthorised tool call.",
+      "An unsupported answer states the evidence gap.",
+      "Material amendments invalidate relevant old approvals.",
+      "A replay creates no duplicate task or financial action."
+    ]
+  },
+  {
+    "n": 11,
+    "title": "Pilot and production readiness — reusable release gate",
+    "refs": "R18, R29, R30; C7–C10 and QA01–QA24",
+    "depends": "The selected release scope is implemented and verified. This gate applies to an early Phase 04 pilot as well as later full releases.",
+    "demo": "An accountable owner can approve a defined release using executed test evidence, migration/restore results, monitoring, support and rollback instructions.",
+    "scope": [
+      "Define exactly which features, users/sites and data are in this release; future modules do not need to be built to pilot the selected scope.",
+      "Run security, end-to-end, mobile/accessibility, data migration and backup/restore checks for included journeys; review gaps with accountable people.",
+      "Set staging/production separation, secrets, monitoring, support escalation, data retention responsibilities, rollback and release evidence.",
+      "Record an explicit go/no-go decision. Production deployment, live staff-data import and live external notifications require separate authorisation."
+    ],
+    "tasks": [
+      [
+        "11A",
+        "Define release scope, pilot participants and acceptance evidence checklist."
+      ],
+      [
+        "11B",
+        "Execute restore/migration and realistic user-journey tests."
+      ],
+      [
+        "11C",
+        "Review security/support/rollback and unresolved operational risks."
+      ],
+      [
+        "11D",
+        "Present go/no-go evidence and stop before production action unless explicitly authorised."
+      ]
+    ],
+    "exclude": "No automatic production deployment, live payroll or external email by interpreting passed local tests as permission. SOS remains a separate safety-gated project.",
+    "model": "Terra coordinates evidence; Sol performs targeted independent high-risk review; Astra only for an approved difficult issue, not a routine final ritual.",
+    "checks": [
+      "Evidence distinguishes tests executed, passed, failed and not run.",
+      "Restore recovers correct document versions, IDs and permissions.",
+      "Human pilot users verify the intended office/frontline/client journeys.",
+      "Release scope, accountable owner, support and rollback are documented."
+    ]
+  }
+]
