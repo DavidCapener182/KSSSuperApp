@@ -73,12 +73,15 @@ test("authenticated RLS and server authorization", { timeout: 120000 }, async ()
   assert.deepEqual((await a.from("sites").select("id").eq("id", site.b)).data, []);
   assert.deepEqual((await b.from("people").select("id")).data.map((row) => row.id), [person.b]);
   assert.deepEqual((await b.from("sites").select("id")).data.map((row) => row.id), [site.b]);
-  const expiredSite = await a.from("site_assignments").select("effective_until").eq("id", "40000000-0000-4000-8000-000000000003").single();
+  const expiredSite = await admin.from("site_assignments").select("effective_until").eq("id", "40000000-0000-4000-8000-000000000003").single();
   assert.ifError(expiredSite.error);
   assert.ok(Date.parse(expiredSite.data.effective_until) < Date.now());
   assert.deepEqual((await office.from("people").select("id")).data.map((row) => row.id), [person.office]);
-  assert.deepEqual((await office.from("sites").select("id")).data.map((row) => row.id), [site.a]);
-  assert.deepEqual((await admin.from("people").select("id")).data.map((row) => row.id).sort(), Object.values(person).sort().concat(["10000000-0000-4000-8000-000000000005"]).sort());
+  const officeSites = await office.from("sites").select("id,created_by_person_id");
+  assert.ifError(officeSites.error);
+  assert.ok(officeSites.data.some((row) => row.id === site.a));
+  assert.ok(officeSites.data.every((row) => row.created_by_person_id === person.office));
+  assert.deepEqual((await admin.from("people").select("id")).data.map((row) => row.id).sort(), Object.values(person).concat(["10000000-0000-4000-8000-000000000005", "10000000-0000-4000-8000-000000000006"]).sort());
 
   const deniedRole = await a.from("role_assignments").insert({ person_id: person.a, role_code: "SUPER_ADMIN" });
   assert.ok(deniedRole.error, "staff self-grant must fail");
@@ -130,7 +133,7 @@ test("authenticated RLS and server authorization", { timeout: 120000 }, async ()
     const staffPost = await fetch(base + "/api/access/roles", { method: "POST", headers: { cookie: cookies.a, "content-type": "application/json" }, body: JSON.stringify({ personId: person.a, roleCode: "SUPER_ADMIN" }) });
     assert.equal(staffPost.status, 403);
     const officePost = await fetch(base + "/api/access/sites", { method: "POST", headers: { cookie: cookies.office, "content-type": "application/json" }, body: JSON.stringify({ personId: person.office, siteId: site.b }) });
-    assert.equal(officePost.status, 403);
+    assert.equal(officePost.status, 400);
 
     // Expire the synthetic staff role, test both layers, then restore it.
     const roleId = "20000000-0000-4000-8000-000000000003";

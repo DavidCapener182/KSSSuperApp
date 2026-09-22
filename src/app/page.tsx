@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
 
 type AccessView = {
   person: { id: string; displayName: string };
   roles: string[];
   view: string;
-  sites: { id: string; name: string }[];
 };
 
 const supabase = createBrowserSupabase();
@@ -91,8 +91,7 @@ export default function Home() {
               <p>Signed in as <strong>{view.person.displayName}</strong></p>
               <p className="small-line">Person ID: <code>{view.person.id}</code></p>
               <p className="small-line">Active role{view.roles.length === 1 ? "" : "s"}: {view.roles.join(", ")}</p>
-              <h3>Permitted sites</h3>
-              {view.sites.length ? <ul>{view.sites.map((site) => <li key={site.id}>{site.name} <code>{site.id}</code></li>)}</ul> : <p>No assigned sites.</p>}
+              <p><Link className="site-link" href="/sites">Open permitted Sites</Link></p>
               <form className="record-check" onSubmit={checkRecord}>
                 <h3>Check a record ID</h3>
                 <div className="record-fields"><select aria-label="Record type" value={recordType} onChange={(event) => setRecordType(event.target.value as "people" | "sites")}><option value="sites">Site</option><option value="people">Person</option></select><input aria-label="Record ID" placeholder="Record UUID" required value={recordId} onChange={(event) => setRecordId(event.target.value)} /><button type="submit">Check access</button></div>

@@ -1,6 +1,6 @@
-# TASK-01C — one shared Site journey (proposal for approval)
+# TASK-01C — one shared Site journey (approved brief)
 
-Status: **proposal only**. No TASK-01C migration, policy, API, UI or fixture has been implemented. TASK-01B accepted baseline: `74c60fb`; see `TASK-01B-REPORT.md` for its separate close-out.
+Status: **implemented in the dedicated development project; awaiting David's review**. This file preserves the approved brief and original decision context. See `TASK-01C-REPORT.md` for implementation and verification evidence. TASK-01B accepted baseline: `74c60fb`.
 
 ## Business outcome and boundary
 

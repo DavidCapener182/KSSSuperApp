@@ -32,3 +32,26 @@ h1 { margin: 18px 0 21px; font-size: clamp(42px, 6vw, 72px); line-height: 1.05; 
 .access-panel ul { list-style: none; padding: 0; }.access-panel li { border-top: 1px solid #e1e9e0; padding: 10px 0; display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
 .record-check { border-top: 1px solid #e1e9e0; margin-top: 20px; }.record-fields { display: flex; gap: 8px; }.record-fields select { width: 105px; flex: none; }.record-fields button { flex: none; }
 @media (max-width: 600px) { .record-fields { flex-direction: column; }.record-fields select { width: 100%; }.panel-heading { align-items: center; } }
+.site-link { display: inline-block; margin: 4px 0 10px; color: #173f31; font-weight: 700; }
+.sites-shell { max-width: 1180px; margin: 0 auto; padding: 28px 24px 90px; }
+.sites-header { display: flex; justify-content: space-between; gap: 20px; align-items: start; border-bottom: 1px solid #dce5dc; padding-bottom: 24px; }
+.sites-header h1 { margin: 8px 0 12px; font-size: clamp(36px, 5vw, 58px); }
+.sites-header p { margin: 0; color: #526b5e; }.sites-header .eyebrow { margin-top: 28px; }
+.sites-header > span { font-size: 11px; color: #526b5e; border: 1px solid #dce5dc; border-radius: 99px; padding: 8px 12px; }
+.sites-header a { color: #173f31; font-size: 13px; font-weight: 700; }
+.sites-notice { background: #eaf1e8; border: 1px solid #d4e3d2; border-radius: 8px; padding: 12px 14px; }
+.sites-grid { display: grid; grid-template-columns: minmax(270px, 360px) minmax(0, 1fr); gap: 20px; margin-top: 26px; align-items: start; }
+.sites-card { min-width: 0; background: white; border: 1px solid #d4e3d2; border-radius: 12px; padding: 22px; }
+.sites-card h2 { margin: 0 0 14px; font-size: 21px; }.sites-card h3 { margin: 28px 0 12px; border-top: 1px solid #e1e9e0; padding-top: 20px; font-size: 16px; }
+.sites-card p, .sites-card li { font-size: 13px; line-height: 1.55; color: #4d6956; }
+.sites-card input { width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid #b9cdbd; border-radius: 7px; font: inherit; color: #17382e; }
+.sites-card button { border: 0; border-radius: 7px; background: #173f31; color: white; padding: 10px 13px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+.sites-card button:disabled { opacity: .6; cursor: wait; }.sites-card button.subtle { background: #e8f0e9; color: #173f31; }
+.sites-search { display: flex; gap: 8px; }.sites-count { margin: 18px 0 8px; }
+.sites-list, .sites-assignments, .sites-history { list-style: none; margin: 0; padding: 0; }
+.sites-list li, .sites-assignments li, .sites-history li { border-top: 1px solid #e1e9e0; padding: 10px 0; overflow-wrap: anywhere; }
+.sites-list button { width: 100%; padding: 6px 0; background: transparent; color: #17382e; text-align: left; }.sites-list button span { display: block; margin-top: 3px; color: #6b806f; font-weight: 400; }
+.sites-title { display: flex; justify-content: space-between; gap: 16px; align-items: start; }.sites-title h2 { margin-top: 5px; }.sites-title .eyebrow { margin: 0; }
+.sites-id { overflow-wrap: anywhere; }.sites-form { display: grid; gap: 12px; }.sites-form label { display: grid; gap: 5px; text-transform: capitalize; font-size: 12px; font-weight: 700; }
+.sites-form button { justify-self: start; }.sites-assignments li { display: flex; gap: 12px; justify-content: space-between; }.sites-assignments li > div { display: flex; gap: 6px; align-self: start; }
+@media (max-width: 700px) { .sites-shell { padding: 18px 16px 60px; }.sites-grid { grid-template-columns: 1fr; }.sites-header { flex-direction: column; }.sites-header > span { max-width: 100%; overflow-wrap: anywhere; }.sites-assignments li { flex-direction: column; }.sites-assignments li > div { flex-wrap: wrap; } }
