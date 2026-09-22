@@ -15,10 +15,11 @@ from (values
   ('kss01b.admin@example.test', '10000000-0000-4000-8000-000000000001'),
   ('kss01b.office@example.test', '10000000-0000-4000-8000-000000000002'),
   ('kss01b.staff-a@example.test', '10000000-0000-4000-8000-000000000003'),
-  ('kss01b.staff-b@example.test', '10000000-0000-4000-8000-000000000004')
+  ('kss01b.staff-b2@example.test', '10000000-0000-4000-8000-000000000004')
 ) as mapping(email, person_id)
 join auth.users users on users.email = mapping.email
-on conflict (provider, provider_subject) do nothing;
+on conflict (person_id, provider) do update
+  set provider_subject = excluded.provider_subject, active = true;
 
 insert into public.role_assignments (id, person_id, role_code, effective_from, effective_until) values
   ('20000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', 'SUPER_ADMIN', now() - interval '1 day', null),

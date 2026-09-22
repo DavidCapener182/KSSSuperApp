@@ -60,7 +60,7 @@ test("authenticated RLS and server authorization", { timeout: 120000 }, async ()
   assert.ok((await anon.from("people").select("id")).error);
   assert.ok((await anon.from("sites").select("id")).error);
 
-  const [admin, office, a] = await Promise.all([signIn("admin"), signIn("office"), signIn("a")]);
+  const [admin, office, a, b] = await Promise.all([signIn("admin"), signIn("office"), signIn("a"), signIn("b")]);
   const staffPeople = await a.from("people").select("id").order("id");
   assert.ifError(staffPeople.error);
   assert.deepEqual(staffPeople.data.map((row) => row.id), [person.a]);
@@ -71,6 +71,8 @@ test("authenticated RLS and server authorization", { timeout: 120000 }, async ()
   assert.equal(otherCount.count, 0);
   assert.deepEqual((await a.from("sites").select("id")).data.map((row) => row.id), [site.a]);
   assert.deepEqual((await a.from("sites").select("id").eq("id", site.b)).data, []);
+  assert.deepEqual((await b.from("people").select("id")).data.map((row) => row.id), [person.b]);
+  assert.deepEqual((await b.from("sites").select("id")).data.map((row) => row.id), [site.b]);
   const expiredSite = await a.from("site_assignments").select("effective_until").eq("id", "40000000-0000-4000-8000-000000000003").single();
   assert.ifError(expiredSite.error);
   assert.ok(Date.parse(expiredSite.data.effective_until) < Date.now());
@@ -108,7 +110,7 @@ test("authenticated RLS and server authorization", { timeout: 120000 }, async ()
     for (let i = 0; i < 80; i++) {
       try { await fetch(base); break; } catch { await new Promise((resolve) => setTimeout(resolve, 200)); }
     }
-    const cookies = { admin: await cookieFor("admin"), office: await cookieFor("office"), a: await cookieFor("a") };
+    const cookies = { admin: await cookieFor("admin"), office: await cookieFor("office"), a: await cookieFor("a"), b: await cookieFor("b") };
     const get = (path, as) => fetch(base + path, { headers: as ? { cookie: cookies[as] } : {} });
     assert.equal((await get(`/api/people/${person.a}`)).status, 401);
     assert.equal((await get(`/api/sites/${site.a}`)).status, 401);
@@ -117,6 +119,9 @@ test("authenticated RLS and server authorization", { timeout: 120000 }, async ()
     assert.equal((await get("/api/people/50000000-0000-4000-8000-000000000001", "a")).status, 404);
     assert.equal((await get(`/api/sites/${site.a}`, "a")).status, 200);
     assert.equal((await get(`/api/sites/${site.b}`, "a")).status, 404);
+    assert.equal((await get(`/api/people/${person.b}`, "b")).status, 200);
+    assert.equal((await get(`/api/sites/${site.b}`, "b")).status, 200);
+    assert.equal((await get(`/api/people/${person.a}`, "b")).status, 404);
     assert.equal((await get(`/api/people/${person.office}`, "office")).status, 200);
     assert.equal((await get(`/api/people/${person.a}`, "office")).status, 404);
     assert.equal((await get(`/api/sites/${site.a}`, "office")).status, 200);
