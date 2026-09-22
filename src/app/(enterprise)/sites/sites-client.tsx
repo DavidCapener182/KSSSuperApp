@@ -118,11 +118,11 @@ export default function SitesPage() {
   }
 
   if (authState === "loading") return <main className="sites-shell"><p>Checking Site access…</p></main>;
-  if (authState === "denied") return <main className="sites-shell"><h1>Sign in required</h1><p>This account has no active Site access.</p><Link href="/">Return to sign in</Link></main>;
+  if (authState === "denied") return <main className="sites-shell"><h1>Site access unavailable</h1><p>Your current Enterprise access could not be confirmed.</p><Link href="/app">Return Home</Link></main>;
   const office = roles.includes("OFFICE_ADMIN") || roles.includes("SUPER_ADMIN");
 
   return <main className="sites-shell">
-    <header className="sites-header"><div><Link href="/">← KSS Enterprise</Link><p className="eyebrow">Synthetic development journey</p><h1>Sites</h1><p>Only Sites in your authorised scope appear here.</p></div><span>{roles.join(", ")}</span></header>
+    <header className="sites-header"><div><Link href="/app">← Home</Link><p className="eyebrow">Synthetic development journey</p><h1>Sites</h1><p>Only Sites in your authorised scope appear here.</p></div></header>
     {notice && <p className="sites-notice" role="status">{notice}</p>}
     <section className="sites-grid">
       <div className="sites-card">
@@ -133,7 +133,7 @@ export default function SitesPage() {
         </form>
         <p className="sites-count">{count} permitted Site{count === 1 ? "" : "s"}</p>
         <ul className="sites-list">{sites.map((site) => <li key={site.id}><button onClick={() => void act(() => openSite(site.id))}><strong>{site.name}</strong><span>{site.siteReference} · {site.townCity} · {site.status}</span></button></li>)}</ul>
-        {!sites.length && <p>No permitted Sites match this search.</p>}
+        {!sites.length && <p>{search ? "No permitted Sites match this search." : "You have no permitted Sites yet."}</p>}
       </div>
 
       <div className="sites-card">

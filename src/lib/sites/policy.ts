@@ -1,5 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { hasRole, type Principal } from "@/lib/auth/principal";
+import { hasCapability } from "@/lib/auth/capabilities";
 
 export type Site = {
   id: string;
@@ -19,7 +20,7 @@ export const SITE_COLUMNS = "id,site_reference,name,address_line1,town_city,post
 export const PUBLIC_SITE_FIELDS = "id,site_reference,name,address_line1,town_city,postcode,reporting_point,status";
 
 export function canUseSites(principal: Principal) {
-  return principal.roles.some((role) => ["SUPER_ADMIN", "OFFICE_ADMIN", "SECURITY_STAFF"].includes(role));
+  return hasCapability(principal, "SITES_VIEW");
 }
 
 export function canManageSite(principal: Principal, site: Site) {

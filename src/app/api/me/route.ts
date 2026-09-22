@@ -1,14 +1,17 @@
-import { getPrincipal, hasRole } from "@/lib/auth/principal";
+import { getEnterpriseAccess } from "@/lib/auth/principal";
+import { navigationFor } from "@/lib/auth/capabilities";
 import { privateJson, unauthorised } from "@/lib/auth/responses";
 import { createServerSupabase } from "@/lib/supabase/server";
 
 export async function GET() {
   const client = await createServerSupabase();
-  const principal = await getPrincipal(client);
-  if (!principal) return unauthorised();
+  const access = await getEnterpriseAccess(client);
+  if (access.state === "unauthenticated") return unauthorised();
+  if (access.state !== "active") return privateJson({ error: "No Enterprise access" }, 403);
+  const { principal } = access;
   return privateJson({
     person: { id: principal.personId, displayName: principal.displayName },
     roles: principal.roles,
-    view: hasRole(principal, "SUPER_ADMIN") ? "Access administration" : hasRole(principal, "OFFICE_ADMIN") ? "Office access proof" : hasRole(principal, "OPERATIONS") ? "Operations access proof" : "Security Staff access proof",
+    navigation: navigationFor(principal),
   });
 }

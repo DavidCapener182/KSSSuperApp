@@ -9,7 +9,8 @@
     "lint": "eslint",
     "smoke": "node --test tests/smoke.test.mjs",
     "test:access": "node --env-file=.env.local --env-file=.env.test.local --test tests/access.test.mjs",
-    "test:sites": "node --env-file=.env.local --env-file=.env.test.local --test tests/site-journey.test.mjs"
+    "test:sites": "node --env-file=.env.local --env-file=.env.test.local --test tests/site-journey.test.mjs",
+    "test:shell": "node --env-file=.env.local --env-file=.env.test.local --test tests/shell.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
