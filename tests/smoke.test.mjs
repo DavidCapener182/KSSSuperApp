@@ -36,7 +36,8 @@ test("built KSS foundation serves the correct, honest page", { timeout: 30000 },
     assert.equal(response.status, 200);
     const html = await response.text();
     assert.match(html, /KSS Enterprise Platform/);
-    assert.match(html, /Operational and business data is not connected yet/);
+    assert.match(html, /Operational systems and live staff data are not connected/);
+    assert.match(html, /Development accounts only/);
     assert.doesNotMatch(html, /Create Next App|Deploy Now|Next\.js logo/);
   } finally {
     server.kill("SIGTERM");

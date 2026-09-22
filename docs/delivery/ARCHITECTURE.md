@@ -1,12 +1,12 @@
 # Phase 00 architecture recommendation
 
-Status: updated 22 September 2026. David accepted the platform direction and identity separation for future tasks; no identity or data service is implemented.
+Status: updated 22 September 2026. TASK-01B now implements the identity and scoped access proof in the dedicated development Supabase project. Wider platform architecture remains a recommendation.
 
 ## Repository facts
 
 - The GitHub repository was empty when cloned. The local tree now contains a default Next.js 16.3.6 App Router, React 19.2.8, TypeScript and Tailwind 4 starter, with npm dependencies installed.
-- `src/app/page.tsx` is the generated starter screen. There is no database schema, authentication, domain API, test suite, deployment configuration or connected KSS data.
-- The starter was added before the build pack arrived; it is not a product implementation. The current working tree has no committed baseline.
+- `src/app/page.tsx` is a synthetic sign-in/access proof. The six-table TASK-01B schema, API routes, RLS policies and access tests are recorded in `TASK-01B-REPORT.md`.
+- The TASK-01A shell has a committed baseline. No live KSS data or production deployment is connected.
 
 ## Recommended shape
 

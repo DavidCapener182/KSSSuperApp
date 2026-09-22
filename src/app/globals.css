@@ -20,3 +20,15 @@ h1 { margin: 18px 0 21px; font-size: clamp(42px, 6vw, 72px); line-height: 1.05; 
 .notice strong { font-size: 13px; }.notice p { color: #4d6956; font-size: 13px; line-height: 1.6; margin: 6px 0 0; }
 .shell-footer { min-height: 66px; border-top: 1px solid #dce5dc; display: flex; justify-content: space-between; align-items: center; gap: 20px; color: #759080; font-size: 11px; }
 @media (max-width: 600px) { .shell-header { min-height: 76px; }.identity-name { white-space: normal; line-height: 1.25; }.identity-name span { display: block; font-size: 11px; }.phase-label { font-size: 0; width: 9px; height: 9px; padding: 0; border: 0; background: #6a9c72; }.welcome { padding: 70px 0 90px; }.notice { padding: 20px; }.shell-footer { align-items: flex-start; flex-direction: column; justify-content: center; gap: 3px; } }
+.access-status { margin: 22px 0 0; color: #4d6956; font-size: 14px; }
+.access-panel { margin-top: 28px; padding: 24px; border: 1px solid #d4e3d2; border-radius: 12px; background: #fff; }
+.access-panel h2 { margin: 0 0 18px; font-size: 20px; }.access-panel h3 { margin: 23px 0 9px; font-size: 14px; }
+.access-panel label { display: block; margin: 13px 0; font-size: 13px; font-weight: 700; }
+.access-panel input, .access-panel select { width: 100%; min-width: 0; margin-top: 6px; padding: 11px 12px; border: 1px solid #b9cdbd; border-radius: 7px; background: white; color: #17382e; font: inherit; font-weight: 400; }
+.access-panel button { border: 0; border-radius: 7px; background: #173f31; color: #fff; padding: 11px 15px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }.access-panel button:disabled { opacity: .6; cursor: wait; }
+.access-panel .secondary { background: #e8f0e9; color: #173f31; }
+.panel-heading { display: flex; justify-content: space-between; gap: 14px; align-items: start; }.panel-heading h2 { margin-bottom: 0; }
+.access-panel p { color: #4d6956; font-size: 13px; line-height: 1.55; }.access-panel code { overflow-wrap: anywhere; font-size: 11px; }.small-line { margin: 6px 0; }
+.access-panel ul { list-style: none; padding: 0; }.access-panel li { border-top: 1px solid #e1e9e0; padding: 10px 0; display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
+.record-check { border-top: 1px solid #e1e9e0; margin-top: 20px; }.record-fields { display: flex; gap: 8px; }.record-fields select { width: 105px; flex: none; }.record-fields button { flex: none; }
+@media (max-width: 600px) { .record-fields { flex-direction: column; }.record-fields select { width: 100%; }.panel-heading { align-items: center; } }
