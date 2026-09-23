@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
-import { BriefcaseBusiness, ClipboardList, FileText, House, MapPin, MoreHorizontal, UserRound, UsersRound } from "lucide-react";
+import { BriefcaseBusiness, Building2, ClipboardList, FileText, House, MapPin, MoreHorizontal, UserRound, UsersRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { NavigationItem } from "@/lib/auth/capabilities";
@@ -33,7 +33,7 @@ export function EnterpriseShell({ person, roles, navigation, children }: Props) 
   const current = (href: string) => pathname === href || (href !== "/app" && pathname.startsWith(`${href}/`));
   const iconFor = (href: string) => {
     const Icon = href === "/app" ? House : href === "/onboarding" ? ClipboardList : href === "/documents"
-      ? FileText : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/sites" ? MapPin : UserRound;
+      ? FileText : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/crm" ? Building2 : href === "/sites" ? MapPin : UserRound;
     return <Icon size={19} strokeWidth={1.9} aria-hidden="true" />;
   };
 

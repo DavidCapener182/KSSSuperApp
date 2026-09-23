@@ -60,7 +60,7 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.equal((await me(undefined))[0], 401);
     assert.deepEqual(await me('unmapped'), [403, { error: 'No Enterprise access' }]);
     const expected = {
-      admin: ['/app', '/work', '/people', '/sites', '/documents', '/onboarding', '/profile'], office: ['/app', '/work', '/people', '/sites', '/documents', '/onboarding', '/profile'],
+      admin: ['/app', '/work', '/people', '/crm', '/sites', '/documents', '/onboarding', '/profile'], office: ['/app', '/work', '/people', '/crm', '/sites', '/documents', '/onboarding', '/profile'],
       staff: ['/app', '/sites', '/documents', '/onboarding', '/profile'], zero: ['/app', '/sites', '/documents', '/onboarding', '/profile'],
       operations: ['/app', '/people', '/profile'],
     };
