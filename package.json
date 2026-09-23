@@ -16,7 +16,8 @@
     "test:work": "node --env-file=.env.local --env-file=.env.test.local --test tests/work.test.mjs",
     "test:onboarding": "node --env-file=.env.local --env-file=.env.test.local --test tests/onboarding.test.mjs",
     "test:profile-sia": "node --env-file=.env.local --env-file=.env.test.local --test tests/profile-sia.test.mjs",
-    "test:controlled": "node --env-file=.env.local --env-file=.env.test.local --test tests/controlled-documents.test.mjs"
+    "test:controlled": "node --env-file=.env.local --env-file=.env.test.local --test tests/controlled-documents.test.mjs",
+    "test:identity": "node --env-file=.env.local --env-file=.env.test.local --test tests/identity-evidence.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

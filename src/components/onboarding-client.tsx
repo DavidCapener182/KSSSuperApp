@@ -13,7 +13,7 @@ type Requirement = { id: string; code: string; title: string; position: number; 
     publishedAt: string | null; effectiveOn: string | null; scanState: string;
     accessedAt: string | null; acknowledgedAt: string | null; acknowledgedBy: string | null } | null };
 type Case = { id: string; starterName: string; personId: string; siteName: string; intendedRole: string;
-  templateVersion: number; state: string; createdAt: string; canManage: boolean; verifiedCount: number; totalCount: number;
+  templateVersion: number; state: string; createdAt: string; canManage: boolean; canIssueIdentity: boolean; verifiedCount: number; totalCount: number;
   requirements: Requirement[];
   profile: Record<string, string | null> | null; submittedProfile: Record<string, string | null> | null; profileSubmittedAt: string | null;
   siaCredential: { category: string; synthetic_reference: string; expires_on: string } | null;
@@ -33,6 +33,14 @@ const label: Record<string,string> = {
   AWAITING_DOCUMENT_ACCESS: "Document access needed", AWAITING_ACKNOWLEDGEMENT: "Acknowledgement needed",
   ACKNOWLEDGED: "Acknowledged",
 };
+function requirementLabel(requirement: Requirement) {
+  if (requirement.code !== "IDENTITY_EVIDENCE") return label[requirement.state] ?? requirement.state;
+  if (requirement.state === "VERIFIED") return "Verified — synthetic workflow";
+  if (requirement.state === "UNDER_REVIEW" && requirement.evidenceState === "ACCEPTED_AS_EVIDENCE")
+    return "Office verification needed";
+  if (requirement.state === "UNDER_REVIEW") return "Submitted — awaiting review";
+  return label[requirement.state] ?? requirement.state;
+}
 
 export function OnboardingClient({ office, selectedCaseId }: { office: boolean; selectedCaseId?: string }) {
   const router = useRouter();
@@ -114,20 +122,24 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
       const response = await fetch(`/api/onboarding/${detail.id}/${path}`, { method: "POST" });
       if (!response.ok) throw new Error("action denied");
       await load();
-      setMessage(path === "rtw-request" ? "Synthetic RTW evidence request issued." : path === "start" ? "Case started." : "Case cancelled; history retained.");
+      setMessage(path === "rtw-request" ? "Synthetic RTW evidence request issued." :
+        path === "identity-request" ? "Protected synthetic Identity Evidence request issued." :
+          path === "start" ? "Case started." : "Case cancelled; history retained.");
     } catch { setMessage("Action could not be completed. Refresh and check your current authority."); }
     finally { setBusy(false); }
   }
-  async function verifyRtw() {
+  async function verifyEvidenceRequirement() {
     if (!detail || !verify?.acceptedVersionId) return;
     setBusy(true); setMessage("");
     try {
-      const response = await fetch(`/api/onboarding/${detail.id}/verify`, { method: "POST",
+      const identity = verify.code === "IDENTITY_EVIDENCE";
+      const response = await fetch(`/api/onboarding/${detail.id}/${identity ? "identity-verify" : "verify"}`, { method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ requirementId: verify.id, versionId: verify.acceptedVersionId }) });
       if (!response.ok) throw new Error("verification denied");
       setVerify(null); await load();
-      setMessage("Synthetic RTW workflow verification recorded. This is not a statutory Right to Work check.");
+      setMessage(identity ? "Synthetic Identity Evidence workflow verification recorded. Identity was not authenticated." :
+        "Synthetic RTW workflow verification recorded. This is not a statutory Right to Work check.");
     } catch { setMessage("Verification was not recorded. Check the exact accepted version and your authority."); }
     finally { setBusy(false); }
   }
@@ -246,7 +258,7 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
       </section>
       <section className="onboarding-panel" aria-labelledby="onboarding-detail-title">
         <h2 id="onboarding-detail-title">Case detail</h2>
-        {!detail ? <EmptyState title={selectedCaseId ? "Case unavailable" : "Choose a case"}
+        {loading && selectedCaseId ? <p role="status">Loading this onboarding case…</p> : !detail ? <EmptyState title={selectedCaseId ? "Case unavailable" : "Choose a case"}
           description={selectedCaseId ? "This case is not available to your account." : "Open a case to see its checklist and next actions."} /> : <>
           <div className="onboarding-summary">
             <div><p className="eyebrow">{office ? detail.starterName : "Your starter checklist"}</p>
@@ -282,7 +294,7 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
           </div>}
           {office && detail.canManage && detail.state === "DRAFT" && <ActionButton onClick={() => void action("start")} disabled={busy}>Start onboarding</ActionButton>}
           <ol className="onboarding-requirements">{detail.requirements.map((r) => <li key={r.id}>
-            <div className="onboarding-requirement-head"><h4>{r.position}. {r.title}</h4><span className={`onboarding-badge onboarding-badge--${r.state.toLowerCase()}`}>{label[r.state] ?? r.state}</span></div>
+            <div className="onboarding-requirement-head"><h4>{r.position}. {r.title}</h4><span className={`onboarding-badge onboarding-badge--${r.state.toLowerCase()}`}>{requirementLabel(r)}</span></div>
             <p>{r.nextAction}</p><small>Next actor: {r.actor.replaceAll("_", " ").toLowerCase()}</small>
             {r.evidenceState && <p className="onboarding-evidence">Evidence: {r.evidenceState.replaceAll("_", " ").toLowerCase()}. Requirement: {label[r.state] ?? r.state}.</p>}
             {r.feedback && <FeedbackBanner tone="error">Evidence review feedback: {r.feedback}</FeedbackBanner>}
@@ -324,6 +336,12 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
               <ActionButton onClick={() => void action("rtw-request")} disabled={busy}>Issue synthetic evidence request</ActionButton>}
             {office && detail.canManage && detail.state === "IN_PROGRESS" && r.code === "RIGHT_TO_WORK" && r.acceptedVersionId && r.state === "UNDER_REVIEW" &&
               <ActionButton onClick={() => setVerify(r)} disabled={busy}>Verify synthetic RTW workflow</ActionButton>}
+            {office && detail.canIssueIdentity && detail.state === "IN_PROGRESS" && detail.templateVersion === 2 &&
+              r.code === "IDENTITY_EVIDENCE" && !r.documentRequestId &&
+              <ActionButton onClick={() => void action("identity-request")} disabled={busy}>Issue protected Identity Evidence request</ActionButton>}
+            {office && detail.canManage && detail.state === "IN_PROGRESS" && r.code === "IDENTITY_EVIDENCE" &&
+              r.acceptedVersionId && r.state === "UNDER_REVIEW" && r.evidenceState === "ACCEPTED_AS_EVIDENCE" &&
+              <ActionButton onClick={() => setVerify(r)} disabled={busy}>Verify exact Identity Evidence requirement</ActionButton>}
             {office && detail.canManage && detail.state === "IN_PROGRESS" && r.code === "SIA_LICENCE" &&
               r.siaSubmissionId && !r.documentRequestId && r.state === "AWAITING_EVIDENCE_REQUEST" &&
               <ActionButton onClick={() => void siaAction("sia-request", r)} disabled={busy}>Issue protected SIA evidence request</ActionButton>}
@@ -338,9 +356,11 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
       </section>
     </div>
     <ConfirmDialog open={verify !== null} title="Record synthetic requirement verification?"
-      description="This records a separate decision for the exact accepted evidence version. It is a development workflow proof, not a statutory UK Right to Work check."
+      description={verify?.code === "IDENTITY_EVIDENCE" ?
+        "This separately verifies the exact accepted synthetic evidence version. It does not authenticate identity or validate a real identity document." :
+        "This records a separate decision for the exact accepted evidence version. It is a development workflow proof, not a statutory UK Right to Work check."}
       confirmLabel="Record synthetic verification" variant="primary" busy={busy}
-      onClose={() => setVerify(null)} onConfirm={() => void verifyRtw()}>
+      onClose={() => setVerify(null)} onConfirm={() => void verifyEvidenceRequirement()}>
       <p className="ui-help">Evidence accepted is a prerequisite. The document review Task being Done is not this decision.</p>
     </ConfirmDialog>
   </main>;

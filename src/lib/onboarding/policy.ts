@@ -184,10 +184,12 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
       state = "NOT_AVAILABLE"; nextAction = "Contract acknowledgement is not yet available in KSS Enterprise."; actor = "SYSTEM";
     } else if (d.provider_state === "NOT_CONNECTED") {
       state = "NOT_CONNECTED"; nextAction = "Training provider not connected — induction outstanding."; actor = "EXTERNAL_PROVIDER";
-    } else if (d.provider_state === "NOT_CONFIGURED") {
+    } else if (d.provider_state === "NOT_CONFIGURED" && !(d.code === "IDENTITY_EVIDENCE" && requestId)) {
       state = "NOT_CONFIGURED"; nextAction = d.code === "PERSONAL_DETAILS"
-        ? "The starter profile process is not yet configured." : "This requirement is outstanding; its fulfilment process is not yet configured.";
-      actor = "SYSTEM";
+        ? "The starter profile process is not yet configured." : d.code === "IDENTITY_EVIDENCE" && version.version_number === 2
+          ? "Office needs to issue a protected synthetic Identity Evidence request."
+          : "This requirement is outstanding; its fulfilment process is not yet configured.";
+      actor = d.code === "IDENTITY_EVIDENCE" && version.version_number === 2 ? "OFFICE" : "SYSTEM";
     } else if (d.code === "PERSONAL_DETAILS") {
       actor = "STAFF";
       if (!profileReady(profile)) {
@@ -222,6 +224,21 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
         state = "UNDER_REVIEW"; nextAction = "Office verification needed. Evidence acceptance did not verify SIA."; actor = "OFFICE";
         if (verification && verification.evidence_version_id === document.version?.id) {
           state = "VERIFIED"; nextAction = "Synthetic SIA workflow verification recorded. No register check was made."; actor = "NONE";
+        }
+      }
+    } else if (d.code === "IDENTITY_EVIDENCE" && version.version_number === 2) {
+      if (!document) { state = "NOT_CONFIGURED"; nextAction = "Office needs to issue a protected synthetic Identity Evidence request."; actor = "OFFICE"; }
+      else if (document.workflowStatus === "REQUESTED") {
+        state = "AWAITING_EVIDENCE"; nextAction = "Submit synthetic Identity Evidence in the protected Documents area."; actor = "STAFF";
+      } else if (document.workflowStatus === "REJECTED_ACTION_REQUIRED") {
+        state = "ACTION_REQUIRED"; nextAction = "Replace the rejected synthetic Identity Evidence using the protected request."; actor = "STAFF";
+      } else if (document.workflowStatus === "AWAITING_REVIEW") {
+        state = "UNDER_REVIEW"; nextAction = "Office needs to review the submitted synthetic Identity Evidence."; actor = "OFFICE";
+      } else if (document.workflowStatus === "ACCEPTED_AS_EVIDENCE") {
+        state = "UNDER_REVIEW"; nextAction = "Office requirement verification needed. Evidence acceptance did not establish identity."; actor = "OFFICE";
+        if (verification && verification.evidence_version_id === document.version?.id &&
+          verification.synthetic_valid_until === null) {
+          state = "VERIFIED"; nextAction = "Synthetic Identity Evidence workflow verification recorded. Identity was not authenticated."; actor = "NONE";
         }
       }
     } else if (d.code === "RIGHT_TO_WORK") {
@@ -270,7 +287,10 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
     ownerPersonId: c.owner_person_id, siteId: c.site_id, siteName: site?.name ?? "Company onboarding",
     intendedRole: c.intended_role, templateVersion: version.version_number, state: c.state,
     createdAt: c.created_at, startedAt: c.started_at, cancelledAt: c.cancelled_at,
-    canManage: canManageOnboarding(principal, c), verifiedCount: sorted.filter((row) =>
+    canManage: canManageOnboarding(principal, c),
+    canIssueIdentity: c.state === "IN_PROGRESS" && version.version_number === 2 &&
+      principal.roles.includes("OFFICE_ADMIN") && c.owner_person_id === principal.personId && c.person_id !== principal.personId,
+    verifiedCount: sorted.filter((row) =>
       row.state === "VERIFIED" || row.state === "COMPLETE" || row.state === "ACKNOWLEDGED").length,
     totalCount: sorted.length, requirements: sorted,
     profile, submittedProfile: profileRevision, profileSubmittedAt: profileSubmission?.submitted_at ?? null,
