@@ -5,5 +5,5 @@
 output/
 tests/
 docs/
-supabase/
+/supabase/
 coverage/
