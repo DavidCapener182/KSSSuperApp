@@ -65,11 +65,17 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
   const { data: c, error } = await client.from("onboarding_cases")
     .select("id,person_id,intended_role,site_id,template_version_id,owner_person_id,state,created_at,started_at,cancelled_at")
     .eq("id", id).maybeSingle<CaseRow>();
-  if (error || !c || (!principal.roles.includes("SUPER_ADMIN") && c.person_id !== principal.personId && c.owner_person_id !== principal.personId)) return null;
+  if (error || !c) return null;
+  const officeAccess = principal.roles.includes("OFFICE_ADMIN") || principal.roles.includes("SUPER_ADMIN")
+    ? await client.rpc("get_onboarding_case_access", { requested_case: c.id }) : null;
+  if (officeAccess?.error) return null;
+  const access = officeAccess?.data as { canAct: boolean; isCover: boolean; completedRequirementIds: string[]; starterName: string;
+    siteName: string; ownerName: string; teamId: string; canReassign: boolean } | null;
+  if (c.person_id !== principal.personId && !access) return null;
   const { data: version } = await client.from("onboarding_template_versions")
     .select("version_number").eq("id", c.template_version_id).maybeSingle<{ version_number: number }>();
   if (!version) return null;
-  const superPrivate = principal.roles.includes("SUPER_ADMIN") && version.version_number >= 2
+  const superPrivate = (principal.roles.includes("SUPER_ADMIN") || access?.isCover) && version.version_number >= 2
     ? await client.rpc("read_onboarding_private_profile", { requested_case: c.id }) : null;
   if (superPrivate?.error) return null;
   const superValues = superPrivate?.data as {
@@ -154,10 +160,11 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
       (d.code !== "SIA_LICENCE" || row.sia_submission_id === siaSubmission?.id)) ?? null;
     const requestId = d.code === "SIA_LICENCE" ? siaSubmission?.document_request_id ?? null : instance.document_request_id;
     const source = requestId ? await readDocumentRequest(client, requestId) : null;
-    if (requestId && !source) return null;
-    if (source && (source.request.target_person_id !== c.person_id || source.request.requester_person_id !== c.owner_person_id ||
+    if (requestId && !source && !access?.isCover) return null;
+    if (source && (source.request.target_person_id !== c.person_id ||
       source.request.site_id !== c.site_id)) return null;
     const document = source ? publicDocument(source) : null;
+    const completedForCover = Boolean(access?.isCover && !document && access.completedRequirementIds?.includes(instance.id));
     let state = "NOT_STARTED";
     let nextAction = "This requirement is not configured yet.";
     let actor = d.initial_actor;
@@ -212,6 +219,8 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
         state = "UPDATE_NEEDS_SUBMISSION"; nextAction = "Synthetic SIA details changed. Submit a new credential revision.";
       } else if (siaExpired(siaRevision?.expires_on ?? null)) {
         state = "EXPIRED"; nextAction = "Synthetic SIA expiry date has passed. Submit new details and evidence.";
+      } else if (completedForCover) {
+        state = "VERIFIED"; nextAction = "Synthetic SIA workflow verification recorded. Historical evidence remains restricted."; actor = "NONE";
       } else if (!document) {
         state = "AWAITING_EVIDENCE_REQUEST"; nextAction = "Office needs to issue a protected SIA evidence request."; actor = "OFFICE";
       } else if (document.workflowStatus === "REQUESTED") {
@@ -227,7 +236,8 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
         }
       }
     } else if (d.code === "IDENTITY_EVIDENCE" && version.version_number === 2) {
-      if (!document) { state = "NOT_CONFIGURED"; nextAction = "Office needs to issue a protected synthetic Identity Evidence request."; actor = "OFFICE"; }
+      if (completedForCover) { state = "VERIFIED"; nextAction = "Synthetic Identity Evidence workflow verification recorded. Historical evidence remains restricted."; actor = "NONE"; }
+      else if (!document) { state = access?.isCover && requestId ? "UNDER_REVIEW" : "NOT_CONFIGURED"; nextAction = access?.isCover && requestId ? "Historical evidence is restricted to the current owner." : "Office needs to issue a protected synthetic Identity Evidence request."; actor = "OFFICE"; }
       else if (document.workflowStatus === "REQUESTED") {
         state = "AWAITING_EVIDENCE"; nextAction = "Submit synthetic Identity Evidence in the protected Documents area."; actor = "STAFF";
       } else if (document.workflowStatus === "REJECTED_ACTION_REQUIRED") {
@@ -242,7 +252,8 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
         }
       }
     } else if (d.code === "RIGHT_TO_WORK") {
-      if (!document) { nextAction = "Office needs to issue a synthetic evidence request."; actor = "OFFICE"; }
+      if (completedForCover) { state = "VERIFIED"; nextAction = "Synthetic workflow verification recorded. Historical evidence remains restricted."; actor = "NONE"; }
+      else if (!document) { nextAction = access?.isCover && requestId ? "Historical evidence is restricted to the current owner." : "Office needs to issue a synthetic evidence request."; actor = "OFFICE"; }
       else if (document.workflowStatus === "REQUESTED") {
         state = "AWAITING_EVIDENCE"; nextAction = "Staff needs to submit synthetic evidence."; actor = "STAFF";
       } else if (document.workflowStatus === "REJECTED_ACTION_REQUIRED") {
@@ -260,7 +271,7 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
       }
     }
     return { id: instance.id, code: d.code, title: d.title, position: d.position, mandatory: d.mandatory,
-      state, nextAction, actor, documentRequestId: requestId,
+      state, nextAction, actor, documentRequestId: source ? requestId : null,
       evidenceState: document?.workflowStatus ?? null,
       acceptedVersionId: document?.version?.review?.decision === "ACCEPTED_AS_EVIDENCE" ? document.version.id : null,
       feedback: document?.version?.review?.decision === "REJECTED" ? document.version.review.reviewer_comment : null,
@@ -283,11 +294,13 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
     .sort((a, b) => a.position - b.position);
   const legalName = [profile?.legal_first_name ?? profileRevision?.legal_first_name,
     profile?.surname ?? profileRevision?.surname].filter(Boolean).join(" ");
-  return { id: c.id, personId: c.person_id, starterName: (person?.display_name ?? legalName) || "Authorised starter",
-    ownerPersonId: c.owner_person_id, siteId: c.site_id, siteName: site?.name ?? "Company onboarding",
+  return { id: c.id, personId: c.person_id, starterName: access?.starterName ?? ((person?.display_name ?? legalName) || "Authorised starter"),
+    ownerPersonId: c.owner_person_id, ownerName: access?.ownerName ?? null, teamId: access?.teamId ?? null,
+    isCover: access?.isCover ?? false, canReassign: access?.canReassign ?? false,
+    siteId: c.site_id, siteName: access?.siteName ?? site?.name ?? "Company onboarding",
     intendedRole: c.intended_role, templateVersion: version.version_number, state: c.state,
     createdAt: c.created_at, startedAt: c.started_at, cancelledAt: c.cancelled_at,
-    canManage: canManageOnboarding(principal, c),
+    canManage: access?.canAct ?? canManageOnboarding(principal, c),
     canIssueIdentity: c.state === "IN_PROGRESS" && version.version_number === 2 &&
       principal.roles.includes("OFFICE_ADMIN") && c.owner_person_id === principal.personId && c.person_id !== principal.personId,
     verifiedCount: sorted.filter((row) =>

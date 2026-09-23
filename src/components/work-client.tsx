@@ -5,7 +5,8 @@ import Link from "next/link";
 import { EmptyState, FeedbackBanner, PageHeader } from "@/components/ui/workflow";
 
 type WorkTask = {
-  id: string; title: string; state: "OPEN" | "DONE"; createdAt: string; completedAt: string | null;
+  id: string; title: string; state: "OPEN" | "DONE" | "CANCELLED"; covering: boolean;
+  createdAt: string; completedAt: string | null;
   sourceKind: "DOCUMENT_VERSION"; sourceId: string; versionNumber: number;
   requestTitle: string; subjectName: string | null;
 };
@@ -16,7 +17,7 @@ const date = (value: string) => new Date(value).toLocaleDateString("en-GB", {
 function TaskCard({ task }: { task: WorkTask }) {
   return <li className="work-card">
     <div className="work-card-heading"><strong>{task.title}</strong>
-      <span className={`ui-status ui-status--${task.state.toLowerCase()}`}>{task.state === "OPEN" ? "Open" : "Done"}</span></div>
+      <span className={`ui-status ui-status--${task.state.toLowerCase()}`}>{task.state === "OPEN" ? task.covering ? "Covering" : "Open" : task.state === "DONE" ? "Done" : "Cancelled"}</span></div>
     <p>{task.subjectName ?? "Authorised personnel evidence"} · {task.requestTitle}</p>
     <p>Document Version {task.versionNumber} · Created {date(task.createdAt)}
       {task.completedAt ? ` · Completed ${date(task.completedAt)}` : ""}</p>
@@ -40,8 +41,10 @@ export function WorkClient() {
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, []);
-  const open = tasks.filter((task) => task.state === "OPEN");
+  const open = tasks.filter((task) => task.state === "OPEN" && !task.covering);
+  const covering = tasks.filter((task) => task.state === "OPEN" && task.covering);
   const done = tasks.filter((task) => task.state === "DONE");
+  const cancelled = tasks.filter((task) => task.state === "CANCELLED");
   return <main className="enterprise-main work-main">
     <PageHeader eyebrow="Synthetic development work" title="My Work"
       description="Your document review work appears here. Decisions are made on the document record." />
@@ -51,10 +54,16 @@ export function WorkClient() {
         {open.length ? <ul className="work-list">{open.map((task) => <TaskCard key={task.id} task={task} />)}</ul> :
           <EmptyState title="No open tasks" description="There is no assigned document review work right now." />}
       </section>
+      {covering.length > 0 && <section aria-labelledby="covering-work-heading"><h2 id="covering-work-heading">Covering</h2>
+        <ul className="work-list">{covering.map((task) => <TaskCard key={task.id} task={task} />)}</ul>
+      </section>}
       <section aria-labelledby="done-work-heading"><h2 id="done-work-heading">Completed history</h2>
         {done.length ? <ul className="work-list">{done.map((task) => <TaskCard key={task.id} task={task} />)}</ul> :
           <EmptyState title="No completed tasks" description="Resolved document review work will appear here." />}
       </section>
+      {cancelled.length > 0 && <section aria-labelledby="cancelled-work-heading"><h2 id="cancelled-work-heading">Cancelled history</h2>
+        <ul className="work-list">{cancelled.map((task) => <TaskCard key={task.id} task={task} />)}</ul>
+      </section>}
     </div>}
   </main>;
 }

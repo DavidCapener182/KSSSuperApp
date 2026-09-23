@@ -15,8 +15,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   const id = (await params).id;
   const item = await readDocumentRequest(client, id);
   if (!item) return notFound();
-  if (principal.personId === item.request.target_person_id ||
-    (!principal.roles.includes("SUPER_ADMIN") && item.request.requester_person_id !== principal.personId)) return notFound();
+  const { data: canReview, error: authorityError } = await client.rpc("can_review_document_request", { requested_id: id });
+  if (authorityError || !canReview || principal.personId === item.request.target_person_id) return notFound();
   const input = await request.json().catch(() => null);
   const versionId = input?.versionId;
   const decision = input?.decision;

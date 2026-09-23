@@ -227,3 +227,58 @@ h1 { margin: 18px 0 21px; font-size: clamp(42px, 6vw, 72px); line-height: 1.05; 
   .controlled-publisher { padding: 18px; }.controlled-publisher-heading .ui-action, .controlled-publisher-actions .ui-action,
   .controlled-confirm .ui-action, .controlled-assign-form .ui-action { width: 100%; }
 }
+
+/* TASK-03E Office case workspace. Queue cards never render private evidence fields. */
+.office-onboarding-main { display: grid; gap: 22px; }
+.office-onboarding-start a { display: inline-flex; padding: 10px 14px; border-radius: 9px; background: #214b37; color: white; font-weight: 700; text-decoration: none; }
+.office-onboarding-stats { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 10px; }
+.office-onboarding-stats > div { min-width: 0; padding: 17px; background: #fff; border: 1px solid #d8e4d8; border-radius: 11px; display: grid; gap: 6px; }
+.office-onboarding-stats strong { color: #1c5038; font-size: 28px; line-height: 1; }
+.office-onboarding-stats span { color: #506858; font-size: 12px; font-weight: 700; }
+.office-onboarding-toolbar { display: flex; align-items: end; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.office-onboarding-views { display: flex; flex-wrap: wrap; gap: 7px; }
+.office-onboarding-views button { border: 1px solid #cbdacb; background: white; color: #24503a; border-radius: 999px; padding: 8px 11px; font-size: 12px; font-weight: 750; cursor: pointer; }
+.office-onboarding-views button.is-active { color: #fff; background: #214b37; border-color: #214b37; }
+.office-onboarding-toolbar form { display: grid; gap: 6px; }
+.office-onboarding-toolbar label,.office-onboarding-dialog label,.office-onboarding-team-admin label { font-size: 12px; font-weight: 800; color: #365743; }
+.office-onboarding-toolbar form div { display: flex; gap: 7px; }
+.office-onboarding-toolbar input { min-width: 180px; }
+.office-onboarding-main input,.office-onboarding-main select,.office-onboarding-main textarea { border: 1px solid #b7ccb9; background: #fff; border-radius: 8px; padding: 9px 11px; color: #183d2d; font: inherit; }
+.office-onboarding-main button { font: inherit; cursor: pointer; }
+.office-onboarding-main button:disabled { opacity: .5; cursor: default; }
+.office-onboarding-toolbar form button,.office-onboarding-actions button,.office-onboarding-team-admin button,.office-onboarding-pager button { border: 1px solid #bdcfbf; background: #f6faf5; color: #214b37; border-radius: 8px; padding: 8px 10px; font-size: 12px; font-weight: 750; }
+.office-onboarding-table-wrap { overflow-x: auto; border: 1px solid #d7e3d7; border-radius: 12px; background: #fff; }
+.office-onboarding-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+.office-onboarding-table th { color: #4a6854; background: #f2f7f1; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.office-onboarding-table th,.office-onboarding-table td { padding: 14px 12px; border-bottom: 1px solid #e4ece3; vertical-align: top; }
+.office-onboarding-table tr:last-child td { border-bottom: 0; }
+.office-onboarding-table strong { display: block; color: #1b3d2d; }
+.office-onboarding-table small { display: block; color: #587061; margin-top: 5px; line-height: 1.4; }
+.office-onboarding-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+.office-onboarding-actions a { display: inline-block; border-radius: 8px; padding: 8px 10px; color: #fff; background: #214b37; text-decoration: none; font-size: 12px; font-weight: 750; }
+.office-onboarding-actions span { color: #587061; font-size: 12px; }
+.office-onboarding-pager { display: flex; align-items: center; justify-content: end; gap: 8px; font-size: 12px; color: #506858; }
+.office-onboarding-mobile-list { display: none; list-style: none; padding: 0; margin: 0; }
+.office-onboarding-team-admin { padding: 22px; border: 1px solid #d8e4d8; border-radius: 12px; background: #fff; display: grid; justify-items: start; gap: 10px; }
+.office-onboarding-team-admin h2 { margin: 0; font-size: 19px; }.office-onboarding-team-admin p { margin: 0; color: #587061; font-size: 13px; }
+.office-onboarding-team-admin ul { padding: 0; margin: 4px 0; list-style: none; width: 100%; }
+.office-onboarding-team-admin li { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; padding: 9px 0; border-bottom: 1px solid #e4ece3; font-size: 13px; }
+.office-onboarding-team-admin li span { flex: 1; }
+.office-onboarding-team-admin form { display: grid; gap: 9px; max-width: 420px; width: 100%; }
+.office-onboarding-dialog-backdrop { position: fixed; inset: 0; z-index: 100; background: #16372799; display: grid; place-items: center; padding: 16px; }
+.office-onboarding-dialog { max-width: 500px; width: 100%; max-height: calc(100vh - 32px); overflow: auto; padding: 24px; border-radius: 14px; background: #fff; box-shadow: 0 18px 60px #10302144; }
+.office-onboarding-dialog h2 { margin: 0 0 8px; font-size: 20px; }.office-onboarding-dialog p { color: #526b5e; font-size: 13px; }
+.office-onboarding-dialog form { display: grid; gap: 9px; }.office-onboarding-dialog textarea { min-height: 90px; resize: vertical; }
+.office-onboarding-dialog ul { padding-left: 18px; }.office-onboarding-dialog li { padding: 6px 0; font-size: 13px; }
+.office-onboarding-dialog li button { margin-left: 9px; }
+@media (max-width: 800px) { .office-onboarding-stats { grid-template-columns: repeat(2,minmax(0,1fr)); }.office-onboarding-table-wrap { display: none; }.office-onboarding-mobile-list { display: grid; gap: 10px; }
+  .office-onboarding-mobile-list li { min-width: 0; padding: 16px; background: #fff; border: 1px solid #d8e4d8; border-radius: 11px; }
+  .office-onboarding-mobile-list li > div:first-child { display: flex; justify-content: space-between; gap: 10px; color: #1b3d2d; }
+  .office-onboarding-mobile-list li > div:first-child span { flex: none; font-weight: 800; color: #1c5038; }
+  .office-onboarding-mobile-list p { color: #526b5e; font-size: 12px; line-height: 1.45; margin: 8px 0; }
+}
+@media (max-width: 430px) { .office-onboarding-main { gap: 16px; }.office-onboarding-stats > div { padding: 13px; }
+  .office-onboarding-stats strong { font-size: 23px; }.office-onboarding-toolbar form,.office-onboarding-toolbar form div { width: 100%; }
+  .office-onboarding-toolbar input { min-width: 0; flex: 1; }.office-onboarding-views button { font-size: 11px; }
+  .office-onboarding-dialog { padding: 18px; }.office-onboarding-dialog select,.office-onboarding-dialog input,.office-onboarding-dialog textarea { width: 100%; }
+}
