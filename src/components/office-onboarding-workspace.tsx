@@ -37,6 +37,7 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
   const [members, setMembers] = useState<Member[]>([]);
   const [eligible, setEligible] = useState<Person[]>([]);
   const [selectedTeam, setSelectedTeam] = useState("");
+  const [newTeamName, setNewTeamName] = useState("");
   const [selectedRow, setSelectedRow] = useState<QueueRow | null>(null);
   const [action, setAction] = useState<"reassign" | "cover" | null>(null);
   const [target, setTarget] = useState("");
@@ -127,6 +128,23 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
     else setError("Membership grant denied.");
     setBusy(false);
   }
+  async function createTeam(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const name = newTeamName.trim();
+    if (name.length < 3) return;
+    setBusy(true); setError("");
+    try {
+      const response = await fetch("/api/onboarding/teams", {
+        method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name }),
+      });
+      if (!response.ok) throw new Error();
+      const result = await response.json();
+      setSelectedTeam(result.id); setNewTeamName("");
+      await loadTeams(result.id);
+      setNotice("Onboarding team created.");
+    } catch { setError("Team creation was denied."); }
+    finally { setBusy(false); }
+  }
   async function updateMember(member: Member, remove: boolean) {
     setBusy(true);
     const response = await fetch(`/api/onboarding/teams/members/${member.membershipId}`, {
@@ -201,6 +219,14 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
     {superAdmin && <section className="office-onboarding-team-admin" aria-labelledby="team-admin-heading">
       <h2 id="team-admin-heading">Onboarding team administration</h2>
       <p>Team membership enables queue triage. It does not grant private case or evidence access.</p>
+      <form onSubmit={createTeam}>
+        <label htmlFor="new-onboarding-team">Create onboarding team</label>
+        <div className="office-onboarding-actions">
+          <input id="new-onboarding-team" value={newTeamName} minLength={3} maxLength={100}
+            onChange={(event) => setNewTeamName(event.target.value)} placeholder="Team name" required />
+          <button type="submit" disabled={busy || newTeamName.trim().length < 3}>Create team</button>
+        </div>
+      </form>
       <label htmlFor="onboarding-team-select">Team</label>
       <select id="onboarding-team-select" value={effectiveTeam} onChange={(event) => setSelectedTeam(event.target.value)}>
         {teams.map((team) => <option key={team.id} value={team.id}>{team.name}</option>)}
