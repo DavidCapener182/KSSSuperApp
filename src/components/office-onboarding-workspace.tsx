@@ -38,6 +38,9 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
   const [eligible, setEligible] = useState<Person[]>([]);
   const [selectedTeam, setSelectedTeam] = useState("");
   const [newTeamName, setNewTeamName] = useState("");
+  const [publisherPersonId, setPublisherPersonId] = useState("");
+  const [publisherUntil, setPublisherUntil] = useState("");
+  const [publisherGrantId, setPublisherGrantId] = useState("");
   const [selectedRow, setSelectedRow] = useState<QueueRow | null>(null);
   const [action, setAction] = useState<"reassign" | "cover" | null>(null);
   const [target, setTarget] = useState("");
@@ -145,6 +148,34 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
     } catch { setError("Team creation was denied."); }
     finally { setBusy(false); }
   }
+  async function grantPublisher(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!publisherPersonId || !publisherUntil) return;
+    const expiresAt = new Date(publisherUntil).toISOString();
+    setBusy(true); setError("");
+    try {
+      const response = await fetch("/api/controlled-documents/grants", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ personId: publisherPersonId, expiresAt }),
+      });
+      if (!response.ok) throw new Error();
+      const result = await response.json();
+      setPublisherGrantId(result.grantId);
+      setNotice("Time-limited synthetic onboarding terms publisher capability granted.");
+    } catch { setError("Publisher grant denied. Check active Office role, expiry within 90 days and existing grants."); }
+    finally { setBusy(false); }
+  }
+  async function revokePublisher() {
+    if (!publisherGrantId) return;
+    setBusy(true); setError("");
+    const response = await fetch("/api/controlled-documents/grants", {
+      method: "DELETE", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ grantId: publisherGrantId }),
+    });
+    if (response.ok) { setPublisherGrantId(""); setNotice("Synthetic publisher capability revoked."); }
+    else setError("Publisher revocation was denied.");
+    setBusy(false);
+  }
   async function updateMember(member: Member, remove: boolean) {
     setBusy(true);
     const response = await fetch(`/api/onboarding/teams/members/${member.membershipId}`, {
@@ -243,6 +274,24 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
         <label><input type="checkbox" name="coordinator" /> Same-team reassignment coordinator</label>
         <button type="submit" disabled={busy || !effectiveTeam}>Grant membership</button>
       </form>
+    </section>}
+    {superAdmin && <section className="office-onboarding-team-admin" aria-labelledby="publisher-admin-heading">
+      <h2 id="publisher-admin-heading">Synthetic terms publication</h2>
+      <p>Grant one active Office person time-limited publication authority for synthetic onboarding terms only. Case access is checked separately.</p>
+      <form onSubmit={grantPublisher}>
+        <label htmlFor="publisher-person">Office publisher</label>
+        <select id="publisher-person" required value={publisherPersonId} onChange={(event) => setPublisherPersonId(event.target.value)}>
+          <option value="">Select active Office person</option>
+          {eligible.map((person) => <option key={person.personId} value={person.personId}>{person.displayName}</option>)}
+        </select>
+        <label htmlFor="publisher-until">Grant expires</label>
+        <input id="publisher-until" type="datetime-local" required value={publisherUntil}
+          onChange={(event) => setPublisherUntil(event.target.value)} />
+        <button type="submit" disabled={busy || !publisherPersonId || !publisherUntil}>Grant synthetic publisher capability</button>
+      </form>
+      {publisherGrantId && <button type="button" disabled={busy} onClick={() => void revokePublisher()}>
+        Revoke grant created here
+      </button>}
     </section>}
     {action && selectedRow && <div className="office-onboarding-dialog-backdrop" role="presentation">
       <section role="dialog" aria-modal="true" aria-labelledby="onboarding-action-heading" className="office-onboarding-dialog">
