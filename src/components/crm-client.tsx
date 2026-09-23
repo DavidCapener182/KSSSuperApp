@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CrmPipeline, CrmRecordWork } from "@/components/crm-operational";
+import { CrmOperationalLinks } from "@/components/crm-operational-links";
 
 type Row = Record<string, unknown>;
 type Props = { view: "overview" | "pipeline" | "organisations" | "contacts" | "opportunities" | "organisation" | "opportunity"; id?: string; currentPersonId: string };
@@ -143,7 +144,8 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
         {rows("ownerHistory").map((item)=><p key={String(item.id)}>Account owner: {personName(item.old_owner_person_id)} → {personName(item.new_owner_person_id)} · {date(item.occurred_at)} · by {personName(item.actor_person_id)}</p>)}</section></div>
       <CrmRecordWork kind="organisation" id={String(org.id)} organisationId={String(org.id)} owners={owners}
         currentPersonId={currentPersonId} commercialHistory={[...rows("history"),...rows("ownerHistory")]} />
-      <p className="enterprise-honesty">Sites, Events and commercial Documents are not connected in this CRM foundation.</p>
+      <CrmOperationalLinks organisationId={String(org.id)} />
+      <p className="enterprise-honesty">Commercial Documents and staffing remain separate future work.</p>
     </>}
     {!loading && opportunity && view==="opportunity" && <>
       <div className="crm-record-summary"><span className="crm-state">{title(opportunity.stage)}</span><Link href={`/crm/organisations/${opportunity.organisation_id}`}>{String((data?.organisation as Row)?.name ?? "Organisation")}</Link><span>{title(opportunity.opportunity_type)}</span></div>
@@ -166,6 +168,7 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
       </div>
       <CrmRecordWork kind="opportunity" id={String(opportunity.id)} organisationId={String(opportunity.organisation_id)}
         owners={owners} currentPersonId={currentPersonId} accountableOwnerId={String(opportunity.owner_person_id)} commercialHistory={rows("history")} />
+      {opportunity.stage==="WON"&&<p><Link href={`/events?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Create operational Event from this Won Opportunity</Link></p>}
       <p className="enterprise-honesty">Estimated value is not contracted or invoiced revenue.</p>
     </>}
     {form && <div className="crm-dialog-backdrop" role="presentation"><section className="crm-dialog" role="dialog" aria-modal="true" aria-labelledby="crm-dialog-title">

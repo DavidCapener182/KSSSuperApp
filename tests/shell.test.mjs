@@ -60,9 +60,9 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.equal((await me(undefined))[0], 401);
     assert.deepEqual(await me('unmapped'), [403, { error: 'No Enterprise access' }]);
     const expected = {
-      admin: ['/app', '/work', '/people', '/crm', '/sites', '/documents', '/onboarding', '/profile'], office: ['/app', '/work', '/people', '/crm', '/sites', '/documents', '/onboarding', '/profile'],
+      admin: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/documents', '/onboarding', '/profile'], office: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/documents', '/onboarding', '/profile'],
       staff: ['/app', '/sites', '/documents', '/onboarding', '/profile'], zero: ['/app', '/sites', '/documents', '/onboarding', '/profile'],
-      operations: ['/app', '/people', '/profile'],
+      operations: ['/app', '/people', '/sites', '/events', '/profile'],
     };
     for (const [as, links] of Object.entries(expected)) {
       const [status, body] = await me(as);
@@ -71,7 +71,11 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
       assert.equal((await get('/app', as)).status, 200);
       assert.equal((await get('/profile', as)).status, 200);
     }
-    assert.equal((await get('/sites', 'operations')).status, 404);
+    assert.equal((await get('/sites', 'operations')).status, 200);
+    assert.equal((await get('/events', 'operations')).status, 200);
+    assert.equal((await get('/events', 'staff')).status, 404);
+    assert.equal((await get('/api/events', 'staff')).status, 403);
+    assert.equal((await get('/crm', 'operations')).status, 404);
     assert.equal((await get('/work', 'operations')).status, 404);
     assert.equal((await get('/onboarding', 'operations')).status, 404);
     assert.equal((await get('/people', 'operations')).status, 200);

@@ -8,6 +8,7 @@ export async function GET(request: Request) {
   const principal = await getPrincipal(client);
   if (!principal) return unauthorised();
   if (!canUseSites(principal)) return forbidden();
+  if (!hasRole(principal, "SUPER_ADMIN") && !hasRole(principal, "OFFICE_ADMIN") && !hasRole(principal, "SECURITY_STAFF")) return forbidden();
   const search = new URL(request.url).searchParams.get("search")?.trim() ?? "";
   if (search.length > 80 || !/^[a-zA-Z0-9 -]*$/.test(search)) return privateJson({ error: "Invalid search" }, 400);
   let query = client.from("sites").select(SITE_COLUMNS, { count: "exact" }).order("name").limit(50);

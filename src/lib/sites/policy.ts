@@ -10,14 +10,15 @@ export type Site = {
   town_city: string;
   postcode: string;
   reporting_point: string;
+  site_type: string | null;
   status: "DRAFT" | "ACTIVE" | "RETIRED";
   created_by_person_id: string;
   created_at: string;
   updated_at: string;
 };
 
-export const SITE_COLUMNS = "id,site_reference,name,address_line1,town_city,postcode,reporting_point,status,created_by_person_id,created_at,updated_at";
-export const PUBLIC_SITE_FIELDS = "id,site_reference,name,address_line1,town_city,postcode,reporting_point,status";
+export const SITE_COLUMNS = "id,site_reference,name,address_line1,town_city,postcode,reporting_point,site_type,status,created_by_person_id,created_at,updated_at";
+export const PUBLIC_SITE_FIELDS = "id,site_reference,name,address_line1,town_city,postcode,reporting_point,site_type,status";
 
 export function canUseSites(principal: Principal) {
   return hasCapability(principal, "SITES_VIEW");
@@ -45,7 +46,7 @@ export function parseSiteFields(value: unknown, create: boolean) {
   const body = value as Record<string, unknown>;
   const fields = ["name", "address_line1", "town_city", "postcode", "reporting_point"] as const;
   const limits = { name: 120, address_line1: 160, town_city: 100, postcode: 20, reporting_point: 500 };
-  const output: Partial<Record<(typeof fields)[number], string>> & { site_reference?: string; status?: string } = {};
+  const output: Partial<Record<(typeof fields)[number], string>> & { site_reference?: string; status?: string; site_type?: string | null } = {};
   for (const field of fields) {
     if (body[field] === undefined && !create) continue;
     if (typeof body[field] !== "string" || !body[field].trim() || body[field].trim().length > limits[field]) return null;
@@ -60,6 +61,10 @@ export function parseSiteFields(value: unknown, create: boolean) {
   if (body.status !== undefined) {
     if (create || !["ACTIVE", "RETIRED"].includes(String(body.status))) return null;
     output.status = String(body.status);
+  }
+  if (body.site_type !== undefined) {
+    if (body.site_type !== null && body.site_type !== "" && (typeof body.site_type !== "string" || !["STADIUM","VENUE","RETAIL","WAREHOUSE","OFFICE","FESTIVAL_SITE","STATIC_SITE","OTHER"].includes(body.site_type))) return null;
+    output.site_type = body.site_type === "" ? null : body.site_type as string | null;
   }
   return Object.keys(output).length ? output : null;
 }

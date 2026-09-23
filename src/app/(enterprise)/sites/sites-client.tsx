@@ -4,11 +4,12 @@ import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 
 type SiteListItem = { id: string; siteReference: string; name: string; townCity: string; status: string; canManage: boolean };
-type SiteDetail = { id: string; site_reference: string; name: string; address_line1: string; town_city: string; postcode: string; reporting_point: string; status: string };
+type SiteDetail = { id: string; site_reference: string; name: string; address_line1: string; town_city: string; postcode: string; reporting_point: string; site_type: string | null; status: string };
 type Assignment = { id: string; person_id: string; effective_from: string; effective_until: string | null; revoked_at: string | null; change_reason: string };
 type Event = { id: string; actor_person_id: string | null; entity_type: string; action: string; reason: string | null; occurred_at: string };
 
-const emptySite = { site_reference: "", name: "", address_line1: "", town_city: "", postcode: "", reporting_point: "" };
+const emptySite = { site_reference: "", name: "", address_line1: "", town_city: "", postcode: "", reporting_point: "", site_type: "" };
+const siteTypes = ["STADIUM","VENUE","RETAIL","WAREHOUSE","OFFICE","FESTIVAL_SITE","STATIC_SITE","OTHER"];
 
 async function json(url: string, init?: RequestInit) {
   const response = await fetch(url, { ...init, cache: "no-store" });
@@ -32,6 +33,9 @@ export default function SitesPage() {
   const [startAt, setStartAt] = useState("");
   const [endAt, setEndAt] = useState("");
   const [reason, setReason] = useState("");
+  const [operationalSite,setOperationalSite] = useState<Record<string,unknown>|null>(null);
+  const [clientChoices,setClientChoices] = useState<{id:string;name:string}[]>([]);
+  const [clientId,setClientId] = useState("");
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -46,8 +50,12 @@ export default function SitesPage() {
     setDraft({
       site_reference: body.site.site_reference, name: body.site.name,
       address_line1: body.site.address_line1, town_city: body.site.town_city,
-      postcode: body.site.postcode, reporting_point: body.site.reporting_point,
+      postcode: body.site.postcode, reporting_point: body.site.reporting_point, site_type: body.site.site_type ?? "",
     });
+    if (roles.includes("OFFICE_ADMIN") || roles.includes("SUPER_ADMIN")) {
+      const related = await json(`/api/operational-sites/${id}`);
+      setOperationalSite(related.site);
+    } else setOperationalSite(null);
     if (body.canManage) {
       const [a, h] = await Promise.all([
         json(`/api/sites/${id}/assignments`), json(`/api/sites/${id}/history`),
@@ -61,6 +69,9 @@ export default function SitesPage() {
       try {
         const me = await json("/api/me");
         setRoles(me.roles); setAuthState("ready");
+        if(me.roles.includes("OFFICE_ADMIN")||me.roles.includes("SUPER_ADMIN")){
+          const choices=await json("/api/events/choices");setClientChoices(choices.clients ?? []);
+        }
         const body = await json("/api/sites?search=");
         setSites(body.sites); setCount(body.count);
       } catch { setAuthState("denied"); }
@@ -87,6 +98,12 @@ export default function SitesPage() {
       await json(`/api/sites/${selected.id}`, { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify(fields) });
       await loadSites(); await openSite(selected.id); setNotice("Site change saved and audited.");
     });
+  }
+
+  async function linkClient(event: FormEvent) {
+    event.preventDefault();if(!selected||!clientId)return;
+    await act(async()=>{await json(`/api/sites/${selected.id}/client`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({organisationId:clientId})});
+      await openSite(selected.id);setNotice("Exact Client link recorded; Site ownership and Staff access are unchanged.");});
   }
 
   async function assign(event: FormEvent) {
@@ -122,7 +139,7 @@ export default function SitesPage() {
   const office = roles.includes("OFFICE_ADMIN") || roles.includes("SUPER_ADMIN");
 
   return <main className="sites-shell">
-    <header className="sites-header"><div><Link href="/app">← Home</Link><p className="eyebrow">Synthetic development journey</p><h1>Sites</h1><p>Only Sites in your authorised scope appear here.</p></div></header>
+    <header className="sites-header"><div><Link href="/app">← Home</Link><p className="eyebrow">Synthetic development journey</p><h1>Sites</h1><p>Only Sites in your authorised scope appear here. {office&&<Link href="/sites?view=operational">Browse operational Sites</Link>}</p></div></header>
     {notice && <p className="sites-notice" role="status">{notice}</p>}
     <section className="sites-grid">
       <div className="sites-card">
@@ -141,13 +158,19 @@ export default function SitesPage() {
           <div className="sites-title"><div><p className="eyebrow">{selected.site_reference} · {selected.status}</p><h2>{selected.name}</h2></div><button className="subtle" onClick={() => { setSelected(null); setDraft(emptySite); }}>Close</button></div>
           <p>{selected.address_line1}, {selected.town_city}, {selected.postcode}</p>
           <p><strong>Reporting point:</strong> {selected.reporting_point}</p>
+          <p><strong>Type:</strong> {selected.site_type?.replaceAll("_"," ") ?? "Unclassified"}</p>
+          {office&&<><p><strong>Client:</strong> {operationalSite?.client_name ? <Link href={`/crm/organisations/${operationalSite.organisation_id}`}>{String(operationalSite.client_name)}</Link> : "Not linked"}</p>
+            {((operationalSite?.events as {id:string;name:string}[])??[]).length>0&&<p>Events: {((operationalSite?.events as {id:string;name:string}[])??[]).map((item)=><Link key={item.id} href={`/events/${item.id}`}>{item.name}</Link>)}</p>}</>}
           <p className="sites-id">Site ID: {selected.id}</p>
           {canManage && <>
             <h3>Manage Site</h3>
-            <form className="sites-form" onSubmit={(event) => { event.preventDefault(); void changeSite({ name: draft.name, address_line1: draft.address_line1, town_city: draft.town_city, postcode: draft.postcode, reporting_point: draft.reporting_point }); }}>
+            <form className="sites-form" onSubmit={(event) => { event.preventDefault(); void changeSite({ name: draft.name, address_line1: draft.address_line1, town_city: draft.town_city, postcode: draft.postcode, reporting_point: draft.reporting_point, site_type:draft.site_type }); }}>
               {(["name", "address_line1", "town_city", "postcode", "reporting_point"] as const).map((field) => <label key={field}>{field.replaceAll("_", " ")}<input value={draft[field]} onChange={(event) => setDraft({ ...draft, [field]: event.target.value })} required /></label>)}
+              <label>Site type<select value={draft.site_type} onChange={(event)=>setDraft({...draft,site_type:event.target.value})}><option value="">Unclassified</option>{siteTypes.map((type)=><option key={type} value={type}>{type.replaceAll("_"," ")}</option>)}</select></label>
               <button disabled={busy}>Save Site fields</button>
             </form>
+            {!operationalSite?.organisation_id&&office&&<><h3>Link Client</h3><p>Choose the exact Client. This does not grant CRM or Site administration access.</p>
+              <form className="sites-form" onSubmit={linkClient}><label>Client Organisation<select required value={clientId} onChange={(event)=>setClientId(event.target.value)}><option value="">Choose Client</option>{clientChoices.map((item)=><option key={item.id} value={item.id}>{item.name}</option>)}</select></label><button disabled={busy||!clientId}>Link Client</button></form></>}
             {selected.status === "DRAFT" && <button disabled={busy} onClick={() => void changeSite({ status: "ACTIVE" })}>Activate Site</button>}
             {selected.status === "ACTIVE" && <button disabled={busy} className="subtle" onClick={() => void changeSite({ status: "RETIRED" })}>Retire Site</button>}
             <h3>Staff assignments</h3>
@@ -164,6 +187,7 @@ export default function SitesPage() {
           </>}
         </> : office ? <><h2>Create a synthetic Site</h2><p>Draft Sites remain private until activated and assigned.</p><form className="sites-form" onSubmit={createSite}>
           {(["site_reference", "name", "address_line1", "town_city", "postcode", "reporting_point"] as const).map((field) => <label key={field}>{field.replaceAll("_", " ")}<input value={draft[field]} onChange={(event) => setDraft({ ...draft, [field]: event.target.value })} required /></label>)}
+          <label>Site type<select value={draft.site_type} onChange={(event)=>setDraft({...draft,site_type:event.target.value})}><option value="">Unclassified</option>{siteTypes.map((type)=><option key={type} value={type}>{type.replaceAll("_"," ")}</option>)}</select></label>
           <button disabled={busy}>Create Draft Site</button>
         </form></> : <><h2>Select a Site</h2><p>Choose one of your assigned active Sites to view its location and reporting point.</p></>}
       </div>

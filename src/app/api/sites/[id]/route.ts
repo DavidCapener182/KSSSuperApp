@@ -15,7 +15,7 @@ export async function GET(_request: Request, { params }: RouteContext<"/api/site
   return privateJson({ site: {
     id: site.id, site_reference: site.site_reference, name: site.name,
     address_line1: site.address_line1, town_city: site.town_city,
-    postcode: site.postcode, reporting_point: site.reporting_point, status: site.status,
+    postcode: site.postcode, reporting_point: site.reporting_point, site_type: site.site_type, status: site.status,
   }, canManage: canManageSite(principal, site) });
 }
 
