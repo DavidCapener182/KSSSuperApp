@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ActionButton, ConfirmDialog, EmptyState, FeedbackBanner, PageHeader } from "@/components/ui/workflow";
+import { ActionButton, ConfirmDialog, EmptyState, FeedbackBanner, LoadingBlock, PageHeader } from "@/components/ui/workflow";
+import { Progress } from "@/components/ui/progress";
 
 type Summary = { id: string; starterName: string; siteName: string; intendedRole: string; state: string; createdAt: string; templateVersion: number };
 type Requirement = { id: string; code: string; title: string; position: number; state: string; nextAction: string;
@@ -60,16 +61,19 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
   const [publisherDocs, setPublisherDocs] = useState<PublisherDocument[]>([]);
   const [canPublish, setCanPublish] = useState(false);
   const [selectedControlledVersion, setSelectedControlledVersion] = useState("");
+  const [showOlderCases, setShowOlderCases] = useState(false);
 
   const load = useCallback(async () => {
     try {
-      const listing = await fetch("/api/onboarding", { cache: "no-store" });
+      const [listing, selected] = await Promise.all([
+        fetch("/api/onboarding", { cache: "no-store" }),
+        selectedCaseId ? fetch(`/api/onboarding/${selectedCaseId}`, { cache: "no-store" }) : Promise.resolve(null),
+      ]);
       if (!listing.ok) throw new Error("list unavailable");
       setCases((await listing.json()).cases ?? []);
-      if (selectedCaseId) {
-        const response = await fetch(`/api/onboarding/${selectedCaseId}`, { cache: "no-store" });
-        if (!response.ok) throw new Error("case unavailable");
-        setDetail((await response.json()).case);
+      if (selected) {
+        if (!selected.ok) throw new Error("case unavailable");
+        setDetail((await selected.json()).case);
       } else setDetail(null);
       setError(false);
     } catch { setError(true); }
@@ -205,10 +209,12 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
     finally { setBusy(false); }
   }
 
+  const shownCases = office || showOlderCases ? cases : cases.slice(0, 5);
   return <main className="enterprise-main onboarding-main">
     <PageHeader eyebrow="Synthetic development onboarding" title={office ? "Onboarding" : "My Onboarding"}
-      description="Follow one starter checklist. Evidence acceptance, requirement verification and deployment eligibility are separate decisions." />
-    <FeedbackBanner>Development workflow only. No legal Right to Work check, compliance decision or deployment approval is recorded here.</FeedbackBanner>
+      description={office ? "Manage each starter checklist. Evidence review and requirement verification remain separate decisions."
+        : "See what is complete and what needs your attention next."} />
+    {office && <FeedbackBanner>Development workflow only. No legal Right to Work check, compliance decision or deployment approval is recorded here.</FeedbackBanner>}
     {message && <FeedbackBanner tone={message.includes("could not") || message.includes("not recorded") ? "error" : "success"}>{message}</FeedbackBanner>}
     {error && <FeedbackBanner tone="error">Onboarding is unavailable. Refresh to try again.</FeedbackBanner>}
     {office && canPublish && <section className="controlled-publisher" aria-labelledby="controlled-publisher-title">
@@ -237,10 +243,12 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
     <div className="onboarding-grid">
       <section className="onboarding-panel" aria-labelledby="onboarding-list-title">
         <h2 id="onboarding-list-title">{office ? "Authorised starters" : "My cases"}</h2>
-        {loading ? <p role="status">Loading onboarding…</p> : cases.length ?
-          <ul className="onboarding-list">{cases.map((c) => <li key={c.id}><Link href={`/onboarding/${c.id}`} aria-current={selectedCaseId === c.id ? "page" : undefined}>
+        {loading ? <LoadingBlock label="Loading onboarding cases…" /> : cases.length ?
+          <><ul className="onboarding-list">{shownCases.map((c) => <li key={c.id}><Link href={`/onboarding/${c.id}`} aria-current={selectedCaseId === c.id ? "page" : undefined}>
             <strong>{office ? c.starterName : c.intendedRole.replaceAll("_", " ")}</strong>
-            <span>{c.siteName} · Template V{c.templateVersion} · {label[c.state] ?? c.state} · Started {new Date(c.createdAt).toLocaleString("en-GB")}</span></Link></li>)}</ul> :
+            <span>{c.siteName} · Template V{c.templateVersion} · {label[c.state] ?? c.state} · Started {new Date(c.createdAt).toLocaleString("en-GB")}</span></Link></li>)}</ul>
+          {!office && cases.length > 5 && <button type="button" className="onboarding-history-toggle" onClick={() => setShowOlderCases(!showOlderCases)}>
+            {showOlderCases ? "Show current cases" : `Show ${cases.length - 5} older synthetic cases`}</button>}</> :
           <EmptyState title="No onboarding cases" description={office ? "Start a synthetic Security Staff case below." : "An authorised Office user will start your onboarding case."} />}
         {office && <form className="onboarding-form" onSubmit={(event) => void createCase(event)}>
           <h3>Start a synthetic starter</h3>
@@ -258,7 +266,7 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
       </section>
       <section className="onboarding-panel" aria-labelledby="onboarding-detail-title">
         <h2 id="onboarding-detail-title">Case detail</h2>
-        {loading && selectedCaseId ? <p role="status">Loading this onboarding case…</p> : !detail ? <EmptyState title={selectedCaseId ? "Case unavailable" : "Choose a case"}
+        {loading && selectedCaseId ? <LoadingBlock label="Loading this onboarding case…" /> : !detail ? <EmptyState title={selectedCaseId ? "Case unavailable" : "Choose a case"}
           description={selectedCaseId ? "This case is not available to your account." : "Open a case to see its checklist and next actions."} /> : <>
           <div className="onboarding-summary">
             <div><p className="eyebrow">{office ? detail.starterName : "Your starter checklist"}</p>
@@ -266,7 +274,9 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
             <span className="onboarding-state">{label[detail.state] ?? detail.state}</span>
           </div>
           <div className="onboarding-progress"><strong>{detail.verifiedCount} of {detail.totalCount} requirements complete</strong>
+            <Progress value={100 * detail.verifiedCount / detail.totalCount} aria-label={`${detail.verifiedCount} of ${detail.totalCount} requirements complete`} />
             <p>Mandatory unavailable or unconnected requirements remain outstanding. This is not a compliance or deployment score.</p></div>
+          {!office && <p className="onboarding-development-note">Synthetic workflow only. No legal checking or deployment decision is recorded here.</p>}
           {office && detail.templateVersion >= 2 && <div className="onboarding-private-summary">
             <h3>Submitted starter information</h3>
             <p>Current Personal Details are visible only for this authorised case. Office cannot edit them here.</p>

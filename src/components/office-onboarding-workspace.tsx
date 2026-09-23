@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
-import { EmptyState, FeedbackBanner, PageHeader } from "@/components/ui/workflow";
+import { EmptyState, FeedbackBanner, LoadingBlock, PageHeader } from "@/components/ui/workflow";
 
 type QueueView = "MY_CASES" | "TEAM_QUEUE" | "NEEDS_OFFICE" | "WAITING_STAFF" | "BLOCKED" | "CANCELLED";
 type QueueRow = { id: string; starterName: string; intendedRole: string; templateVersion: number;
@@ -165,7 +165,7 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
           placeholder="Starter, owner, state or Site" /><button type="submit">Search</button></div>
       </form>
     </div>
-    {loading ? <p role="status">Loading onboarding queue…</p> : data?.rows.length ? <>
+    {loading ? <LoadingBlock label="Loading onboarding queue…" /> : data?.rows.length ? <>
       <div className="office-onboarding-table-wrap"><table className="office-onboarding-table">
         <thead><tr><th>Starter / case</th><th>Progress</th><th>Next action</th><th>Owner</th><th>Last activity</th><th>Actions</th></tr></thead>
         <tbody>{data.rows.map((row) => <tr key={row.id}>

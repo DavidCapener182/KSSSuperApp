@@ -36,6 +36,37 @@ export function canManageOnboarding(principal: Principal, row: { person_id: stri
 
 export async function listOnboardingCases(client: SupabaseClient, principal: Principal) {
   if (!canUseOnboarding(principal)) return [];
+  const staffOnly = principal.roles.length === 1 && principal.roles[0] === "SECURITY_STAFF";
+  if (staffOnly) {
+    const { data: own, error: ownError } = await client.from("onboarding_cases")
+      .select("id,person_id,intended_role,site_id,template_version_id,owner_person_id,state,created_at,started_at,cancelled_at")
+      .eq("person_id", principal.personId).order("created_at", { ascending: false }).limit(200).returns<CaseRow[]>();
+    if (ownError || !own) return null;
+    if (!own.length) return [];
+    const siteIds = [...new Set(own.map((row) => row.site_id).filter((id): id is string => Boolean(id)))];
+    const versionIds = [...new Set(own.map((row) => row.template_version_id))];
+    const [sites, versions, person, verifications] = await Promise.all([
+      siteIds.length ? client.from("sites").select("id,name").in("id", siteIds) : Promise.resolve({ data: [], error: null }),
+      client.from("onboarding_template_versions").select("id,version_number").in("id", versionIds),
+      client.from("people").select("display_name").eq("id", principal.personId).maybeSingle<{ display_name: string }>(),
+      client.from("onboarding_requirement_verifications").select("case_id,decided_at")
+        .eq("target_person_id", principal.personId).order("decided_at", { ascending: false }).limit(200),
+    ]);
+    if (sites.error || versions.error || person.error || verifications.error) return null;
+    const siteNames = new Map((sites.data ?? []).map((row) => [row.id, row.name]));
+    const versionNumbers = new Map((versions.data ?? []).map((row) => [row.id, row.version_number]));
+    const recentDecision = new Map<string, number>();
+    for (const row of verifications.data ?? []) recentDecision.set(row.case_id,
+      Math.max(recentDecision.get(row.case_id) ?? 0, Date.parse(row.decided_at)));
+    return own.sort((a, b) => Number(b.state === "IN_PROGRESS") - Number(a.state === "IN_PROGRESS") ||
+      (recentDecision.get(b.id) ?? 0) - (recentDecision.get(a.id) ?? 0) ||
+      Date.parse(b.created_at) - Date.parse(a.created_at)).map((row) => ({
+      id: row.id, personId: row.person_id, starterName: person.data?.display_name ?? "Authorised starter",
+      siteName: row.site_id ? siteNames.get(row.site_id) ?? "Company onboarding" : "Company onboarding",
+      intendedRole: row.intended_role, templateVersion: versionNumbers.get(row.template_version_id) ?? null,
+      state: row.state, createdAt: row.created_at,
+    }));
+  }
   const { data, error } = await client.from("onboarding_cases")
     .select("id,person_id,intended_role,site_id,template_version_id,owner_person_id,state,created_at,started_at,cancelled_at")
     .order("created_at", { ascending: false }).limit(50).returns<CaseRow[]>();

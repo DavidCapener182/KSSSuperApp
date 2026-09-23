@@ -23,7 +23,9 @@ export async function proxy(request: NextRequest) {
     },
   );
   await client.auth.getClaims();
-  if (["/app", "/sites", "/profile", "/documents"].includes(request.nextUrl.pathname) || request.nextUrl.pathname.startsWith("/documents/")) {
+  if (request.nextUrl.pathname.startsWith("/api/") ||
+    ["/app", "/sites", "/profile", "/documents", "/onboarding", "/work"].some((path) =>
+      request.nextUrl.pathname === path || request.nextUrl.pathname.startsWith(`${path}/`))) {
     response.headers.set("Cache-Control", "private, no-store, max-age=0");
   }
   return response;

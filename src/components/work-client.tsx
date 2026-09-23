@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { EmptyState, FeedbackBanner, PageHeader } from "@/components/ui/workflow";
+import { EmptyState, FeedbackBanner, LoadingBlock, PageHeader } from "@/components/ui/workflow";
 
 type WorkTask = {
   id: string; title: string; state: "OPEN" | "DONE" | "CANCELLED"; covering: boolean;
@@ -49,7 +49,7 @@ export function WorkClient() {
     <PageHeader eyebrow="Synthetic development work" title="My Work"
       description="Your document review work appears here. Decisions are made on the document record." />
     {error && <FeedbackBanner tone="error">Work is unavailable. Refresh to try again.</FeedbackBanner>}
-    {loading ? <p role="status">Loading your work…</p> : !error && <div className="work-sections">
+    {loading ? <LoadingBlock label="Loading your work…" /> : !error && <div className="work-sections">
       <section aria-labelledby="open-work-heading"><h2 id="open-work-heading">Open work</h2>
         {open.length ? <ul className="work-list">{open.map((task) => <TaskCard key={task.id} task={task} />)}</ul> :
           <EmptyState title="No open tasks" description="There is no assigned document review work right now." />}

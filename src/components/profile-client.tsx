@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
-import { FeedbackBanner, PageHeader } from "@/components/ui/workflow";
+import { FeedbackBanner, LoadingBlock, PageHeader } from "@/components/ui/workflow";
 import { PROFILE_FIELDS, SIA_CATEGORIES, SIA_LABELS, type ProfileField, type SiaCategory } from "@/lib/profile/policy";
 
 type ProfileValues = Record<ProfileField, string>;
@@ -115,7 +115,7 @@ export function ProfileClient() {
       description="Keep your Personal Details current and submit them for your onboarding case. Synthetic SIA details use a separate evidence workflow." />
     <FeedbackBanner>Contact email is separate from your sign-in account. Saving this form does not change your authentication email or verify your identity.</FeedbackBanner>
     {message && <FeedbackBanner tone={/failed|could not|denied|required|requires|not interchangeable|Check|Complete/.test(message) ? "error" : "success"}>{message}</FeedbackBanner>}
-    {loading ? <p role="status">Loading Profile…</p> : <>
+    {loading ? <LoadingBlock label="Loading Profile…" /> : <>
       <div className="profile-context">
         <span>Sign-in account: <strong>{signInEmail ?? "Not displayed"}</strong></span>
         {selectedCase ? <Link href={`/onboarding/${selectedCase.id}`}>Open Template V{selectedCase.templateVersion} onboarding</Link> :

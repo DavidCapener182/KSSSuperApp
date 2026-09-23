@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useRef, type ButtonHTMLAttributes, type FormEvent, type ReactNode } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export type WorkflowStatus = "REQUESTED" | "AWAITING_REVIEW" | "REJECTED_ACTION_REQUIRED" | "ACCEPTED_AS_EVIDENCE";
 const STATUS: Record<WorkflowStatus, string> = {
@@ -14,7 +17,7 @@ export function PageHeader({ eyebrow, title, description }: { eyebrow: string; t
   return <header className="ui-page-header"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p>{description}</p></header>;
 }
 export function StatusBadge({ state }: { state: WorkflowStatus }) {
-  return <span className={`ui-status ui-status--${state.toLowerCase()}`}>{STATUS[state]}</span>;
+  return <Badge variant="secondary" className={`ui-status ui-status--${state.toLowerCase()}`}>{STATUS[state]}</Badge>;
 }
 export function FeedbackBanner({ children, tone = "info" }: { children: ReactNode; tone?: "info" | "error" | "success" }) {
   return <p className={`ui-feedback ui-feedback--${tone}`} role={tone === "error" ? "alert" : "status"}>{children}</p>;
@@ -22,10 +25,16 @@ export function FeedbackBanner({ children, tone = "info" }: { children: ReactNod
 export function EmptyState({ title, description }: { title: string; description: string }) {
   return <div className="ui-empty"><strong>{title}</strong><p>{description}</p></div>;
 }
+export function LoadingBlock({ label = "Loading content…" }: { label?: string }) {
+  return <div className="ui-loading" role="status" aria-label={label}><span>{label}</span>
+    <Skeleton className="h-5 w-2/5" /><Skeleton className="h-11 w-full" /><Skeleton className="h-11 w-4/5" />
+  </div>;
+}
 export function ActionButton({ children, variant = "primary", ...props }: ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary" | "caution" | "destructive";
 }) {
-  return <button className={`ui-action ui-action--${variant}`} {...props}>{children}</button>;
+  return <Button variant={variant === "destructive" ? "destructive" : variant === "secondary" ? "secondary" : "default"}
+    className={`ui-action ui-action--${variant}`} {...props}>{children}</Button>;
 }
 export function ConfirmDialog({ open, title, description, confirmLabel, variant, busy, error, onClose, onConfirm, children }: {
   open: boolean; title: string; description: string; confirmLabel: string;

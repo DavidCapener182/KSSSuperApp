@@ -4,6 +4,9 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
+import { BriefcaseBusiness, ClipboardList, FileText, House, MapPin, MoreHorizontal, UserRound } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { NavigationItem } from "@/lib/auth/capabilities";
 import type { RoleCode } from "@/lib/auth/principal";
 
@@ -21,6 +24,17 @@ export function EnterpriseShell({ person, roles, navigation, children }: Props) 
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [signOutError, setSignOutError] = useState("");
+  const isStaff = roles.length === 1 && roles[0] === "SECURITY_STAFF";
+  const primaryDestinations = isStaff ? ["/app", "/onboarding", "/documents", "/profile"]
+    : ["/app", "/onboarding", "/work", "/sites"];
+  const mobilePrimary = navigation.filter((item) => primaryDestinations.includes(item.href));
+  const mobileSecondary = navigation.filter((item) => !primaryDestinations.includes(item.href));
+  const current = (href: string) => pathname === href || (href !== "/app" && pathname.startsWith(`${href}/`));
+  const iconFor = (href: string) => {
+    const Icon = href === "/app" ? House : href === "/onboarding" ? ClipboardList : href === "/documents"
+      ? FileText : href === "/work" ? BriefcaseBusiness : href === "/sites" ? MapPin : UserRound;
+    return <Icon size={19} strokeWidth={1.9} aria-hidden="true" />;
+  };
 
   const refreshAuthority = useCallback(async () => {
     try {
@@ -61,14 +75,26 @@ export function EnterpriseShell({ person, roles, navigation, children }: Props) 
       </div>
       <div className="enterprise-user-row">
         <div className="enterprise-user"><strong>{person.name}</strong><span>{roles.map((role) => role.replaceAll("_", " ")).join(" · ")}</span></div>
-        <button className="enterprise-sign-out" onClick={() => void signOut()} disabled={busy}>{busy ? "Signing out…" : "Sign out"}</button>
+        <Button className="enterprise-sign-out" variant="ghost" onClick={() => void signOut()} disabled={busy}>{busy ? "Signing out…" : "Sign out"}</Button>
       </div>
       {signOutError && <p className="enterprise-error" role="alert">{signOutError}</p>}
       <nav className="enterprise-nav" aria-label="Primary navigation">
-        {navigation.map((item) => <Link key={item.href} href={item.href} aria-current={pathname === item.href ? "page" : undefined}>{item.label}</Link>)}
+        {navigation.map((item) => <Link key={item.href} href={item.href} aria-current={current(item.href) ? "page" : undefined}>{iconFor(item.href)}{item.label}</Link>)}
       </nav>
     </header>
     {children}
+    <nav className="enterprise-mobile-nav" aria-label="Mobile navigation">
+      {mobilePrimary.map((item) => <Link key={item.href} href={item.href} aria-current={current(item.href) ? "page" : undefined}>
+        {iconFor(item.href)}<span>{item.label === "My Onboarding" ? "Onboarding" : item.label}</span>
+      </Link>)}
+      <Sheet><SheetTrigger asChild><button type="button" className="enterprise-mobile-more"><MoreHorizontal size={20} aria-hidden="true" /><span>More</span></button></SheetTrigger>
+        <SheetContent side="bottom" className="enterprise-mobile-sheet">
+          <SheetHeader><SheetTitle>More destinations</SheetTitle><SheetDescription>Signed in as {person.name} · Synthetic development data</SheetDescription></SheetHeader>
+          <div className="enterprise-mobile-sheet-links">{mobileSecondary.map((item) => <Link key={item.href} href={item.href}>{iconFor(item.href)}{item.label}</Link>)}</div>
+          <Button variant="outline" onClick={() => void signOut()} disabled={busy}>{busy ? "Signing out…" : "Sign out"}</Button>
+        </SheetContent>
+      </Sheet>
+    </nav>
     <footer className="enterprise-footer">KSS Enterprise Platform · Synthetic development data only</footer>
   </div>;
 }
