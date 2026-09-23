@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { NavigationItem } from "@/lib/auth/capabilities";
 import type { RoleCode } from "@/lib/auth/principal";
+import { environmentLabel } from "@/lib/environment-label";
 
 const supabase = createBrowserSupabase();
 
@@ -71,7 +72,7 @@ export function EnterpriseShell({ person, roles, navigation, children }: Props) 
     <header className="enterprise-header">
       <div className="enterprise-header-top">
         <Link className="enterprise-brand" href="/app"><span className="identity-mark" aria-hidden="true">K</span><span>KSS <span>Enterprise</span></span></Link>
-        <span className="enterprise-environment">Development</span>
+        <span className="enterprise-environment">{environmentLabel}</span>
       </div>
       <div className="enterprise-user-row">
         <div className="enterprise-user"><strong>{person.name}</strong><span>{roles.map((role) => role.replaceAll("_", " ")).join(" · ")}</span></div>

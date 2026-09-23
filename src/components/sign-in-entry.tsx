@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { environmentLabel, isStaging } from "@/lib/environment-label";
 
 const supabase = createBrowserSupabase();
 type EntryState = "checking" | "unauthenticated" | "no_enterprise_access" | "unavailable";
@@ -46,12 +47,12 @@ export function SignInEntry({ returnTarget }: { returnTarget: string }) {
   return <main className="shell">
     <header className="shell-header" aria-label="KSS Enterprise Platform">
       <div className="identity"><span className="identity-mark" aria-hidden="true">K</span><span className="identity-name">KSS <span>Enterprise Platform</span></span></div>
-      <span className="phase-label">Development</span>
+      <span className="phase-label">{environmentLabel}</span>
     </header>
     <section className="welcome" aria-labelledby="welcome-title">
       <div className="welcome-copy"><p className="eyebrow">KSS Enterprise</p>
         <h1 id="welcome-title">A secure place to start.</h1>
-        <p className="lead">Sign in to your development workspace. Operational systems and live staff data are not connected.</p>
+        <p className="lead">Sign in to your {isStaging ? "staging" : "development"} workspace. Operational systems and live staff data are not connected.</p>
         <div className="notice"><span className="notice-dot" aria-hidden="true" /><div><strong>Development accounts only</strong><p>Use synthetic test accounts. This is not an operational dashboard.</p></div></div>
       </div>
       <div className="welcome-access">
@@ -61,7 +62,7 @@ export function SignInEntry({ returnTarget }: { returnTarget: string }) {
         <h2>Sign in</h2>
         <label>Email<Input type="email" autoComplete="username" required value={email} onChange={(event) => setEmail(event.target.value)} /></label>
         <label>Password<Input type="password" autoComplete="current-password" required value={password} onChange={(event) => setPassword(event.target.value)} /></label>
-        <Button type="submit" disabled={busy}>{busy ? "Signing in…" : "Sign in to development"}</Button>
+        <Button type="submit" disabled={busy}>{busy ? "Signing in…" : `Sign in to ${isStaging ? "staging" : "development"}`}</Button>
       </form>}
       {state === "no_enterprise_access" && <div className="access-panel" role="status">
         <h2>No Enterprise access</h2>
