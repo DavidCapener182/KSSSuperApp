@@ -16,7 +16,7 @@ export default async function AppHome() {
     <h1>{staffOnly ? "My Work" : "Home"}</h1>
     <p className="enterprise-intro">Welcome, {principal.displayName}. These are the functions currently available to your account.</p>
     <div className="enterprise-card-grid">
-      {links.map((link) => <Link className="enterprise-card" href={link.href} key={link.href}><strong>{link.label}</strong><span>{link.href === "/sites" ? "Open the Sites you are authorised to use." : link.href === "/documents" ? "View your authorised synthetic document requests." : "View your current Enterprise identity and roles."}</span></Link>)}
+      {links.map((link) => <Link className="enterprise-card" href={link.href} key={link.href}><strong>{link.label}</strong><span>{link.href === "/work" ? "Open your assigned document review work." : link.href === "/sites" ? "Open the Sites you are authorised to use." : link.href === "/documents" ? "View your authorised synthetic document requests." : "View your current Enterprise identity and roles."}</span></Link>)}
     </div>
     <p className="enterprise-honesty">This development workspace does not contain live operational data.</p>
   </main>;

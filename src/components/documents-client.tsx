@@ -15,14 +15,14 @@ type Item = { id: string; title: string; status: "REQUESTED" | "SUBMITTED"; crea
   version: Version | null; versions: Version[] };
 type Site = { id: string; name: string; canManage: boolean; status: string };
 type Target = { person_id: string; display_name: string };
-type Props = { requestId?: string; mayCreate: boolean; mayUpload: boolean; mayReview: boolean; isSuperAdmin: boolean; personId: string };
+type Props = { requestId?: string; highlightVersionId?: string; mayCreate: boolean; mayUpload: boolean; mayReview: boolean; isSuperAdmin: boolean; personId: string };
 const REASONS: Record<string, string> = {
   UNREADABLE: "Unreadable", WRONG_DOCUMENT: "Wrong document", INCOMPLETE: "Incomplete",
   EXPIRED_OR_OUTDATED: "Expired or outdated", DETAILS_DO_NOT_MATCH: "Details do not match", OTHER: "Other",
 };
 const date = (value: string | null | undefined) => value ? new Date(value).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "—";
 
-export function DocumentsClient({ requestId, mayCreate, mayUpload, mayReview, isSuperAdmin, personId }: Props) {
+export function DocumentsClient({ requestId, highlightVersionId, mayCreate, mayUpload, mayReview, isSuperAdmin, personId }: Props) {
   const router = useRouter();
   const [items, setItems] = useState<Item[]>([]);
   const [selected, setSelected] = useState<Item | null>(null);
@@ -54,6 +54,11 @@ export function DocumentsClient({ requestId, mayCreate, mayUpload, mayReview, is
     } catch { setMessageTone("error"); setMessage("Unable to load document requests."); }
   }, [requestId]);
   useEffect(() => { void Promise.resolve().then(() => load()); }, [load]);
+  useEffect(() => {
+    if (selected && highlightVersionId && selected.versions.some((version) => version.id === highlightVersionId)) {
+      document.getElementById(`document-version-${highlightVersionId}`)?.scrollIntoView({ block: "center" });
+    }
+  }, [selected, highlightVersionId]);
   useEffect(() => {
     if (!mayCreate) return;
     void fetch("/api/sites", { cache: "no-store" }).then(async (response) => {
@@ -112,7 +117,9 @@ export function DocumentsClient({ requestId, mayCreate, mayUpload, mayReview, is
   }
 
   const queue = items.filter((item) => item.workflowStatus === "AWAITING_REVIEW" && item.targetPersonId !== personId);
-  const mayDecide = mayReview && selected?.version && !selected.version.review && selected.targetPersonId !== personId;
+  const highlightedVersion = selected?.versions.find((version) => version.id === highlightVersionId);
+  const viewingHistorical = Boolean(highlightedVersion && selected?.version?.id !== highlightedVersion.id);
+  const mayDecide = mayReview && selected?.version && !selected.version.review && selected.targetPersonId !== personId && !viewingHistorical;
   const maySubmit = mayUpload && selected && (selected.workflowStatus === "REQUESTED" || selected.canUploadReplacement);
   return <main className="enterprise-main documents-main">
     <PageHeader eyebrow="Synthetic personnel evidence" title="Documents"
@@ -154,6 +161,10 @@ export function DocumentsClient({ requestId, mayCreate, mayUpload, mayReview, is
           description={requestId ? "This request is not available to your account." : "Select a request to view its evidence and history."} /> : <>
           <div className="documents-record-header"><div><p className="eyebrow">{selected.subjectName ?? "Your evidence"}</p><h3>{selected.title}</h3>
             <p>Requested {date(selected.createdAt)}</p></div><StatusBadge state={selected.workflowStatus} /></div>
+          {highlightedVersion && <FeedbackBanner>
+            Viewing exact Version {highlightedVersion.number}{viewingHistorical ? " in history. Review actions are unavailable for this historical version." : "."}
+            {viewingHistorical && <> <Link href={`/documents/${selected.id}`}>Return to current version</Link></>}
+          </FeedbackBanner>}
           {selected.hasPendingUpload && <FeedbackBanner>Upload pending. Any earlier rejection remains in the history until the replacement is submitted.</FeedbackBanner>}
           {selected.version ? <div className="documents-current">
             <h4>Current evidence · Version {selected.version.number}</h4>
@@ -176,7 +187,9 @@ export function DocumentsClient({ requestId, mayCreate, mayUpload, mayReview, is
             <ActionButton disabled={busy || !file} type="submit">{busy ? "Uploading…" : selected.canUploadReplacement ? "Upload replacement" : "Upload and submit"}</ActionButton>
           </form>}
           {selected.versions.length > 0 && <div className="documents-history"><h4>Version and decision history</h4>
-            <ol>{selected.versions.map((version) => <li key={version.id}>
+            <ol>{selected.versions.map((version) => <li key={version.id} id={`document-version-${version.id}`}
+              className={highlightVersionId === version.id ? "documents-history-highlight" : undefined}
+              aria-current={highlightVersionId === version.id ? "true" : undefined}>
               <div><strong>Version {version.number}</strong><span>Submitted {date(version.submittedAt)}</span></div>
               <p>{version.review ? version.review.decision === "REJECTED" ? `Rejected · ${REASONS[version.review.reason_code ?? ""] ?? "Other"} · ${date(version.review.decided_at)}` : `Accepted as evidence · ${date(version.review.decided_at)}` : "Awaiting review"}</p>
               {version.review && <p>Reviewer Person ID: <code>{version.review.reviewer_person_id}</code></p>}
