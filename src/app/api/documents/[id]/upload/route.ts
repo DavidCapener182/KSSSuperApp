@@ -15,7 +15,10 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   const id = (await params).id;
   const item = await readDocumentRequest(client, id);
   if (!item || item.request.target_person_id !== principal.personId) return notFound();
-  if (item.request.status === "SUBMITTED") return privateJson({ error: "Already submitted" }, 409);
+  const latest = item.versions.find((row) => row.upload_state === "SUBMITTED");
+  const latestReview = latest && item.reviews.find((row) => row.version_id === latest.id);
+  if (latest && latestReview?.decision !== "REJECTED") return privateJson({ error: "Review or accepted evidence prevents replacement" }, 409);
+  if (item.request.status === "SUBMITTED" && !latest) return privateJson({ error: "Upload conflict" }, 409);
   let form: FormData | null;
   try { form = await boundedMultipart(request, MAX_DOCUMENT_BYTES + 262144); }
   catch (error) { if (error instanceof RangeError) return privateJson({ error: "File too large" }, 413); throw error; }

@@ -12,5 +12,5 @@ export default async function DocumentDetail({ params }: { params: Promise<{ req
   if (!principal) redirect(`/?next=${encodeURIComponent(`/documents/${requestId}`)}`);
   const mayReview = hasCapability(principal, "DOCUMENT_OFFICE_REVIEW");
   if (!mayReview && !hasCapability(principal, "DOCUMENT_SELF_READ")) notFound();
-  return <DocumentsClient requestId={requestId} mayCreate={hasCapability(principal, "DOCUMENT_REQUEST_CREATE")} mayUpload={hasCapability(principal, "DOCUMENT_SELF_SUBMIT")} isSuperAdmin={principal.roles.includes("SUPER_ADMIN")} />;
+  return <DocumentsClient requestId={requestId} mayCreate={hasCapability(principal, "DOCUMENT_REQUEST_CREATE")} mayUpload={hasCapability(principal, "DOCUMENT_SELF_SUBMIT")} mayReview={hasCapability(principal, "DOCUMENT_EVIDENCE_REVIEW")} isSuperAdmin={principal.roles.includes("SUPER_ADMIN")} personId={principal.personId} />;
 }
