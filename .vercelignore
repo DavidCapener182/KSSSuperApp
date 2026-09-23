@@ -1,0 +1,9 @@
+# Deployment input contains application source only; local test artifacts and
+# synthetic evidence fixtures must not be uploaded with a Vercel CLI build.
+.env*
+.playwright-cli/
+output/
+tests/
+docs/
+supabase/
+coverage/
