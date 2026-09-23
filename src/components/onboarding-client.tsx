@@ -8,7 +8,10 @@ import { ActionButton, ConfirmDialog, EmptyState, FeedbackBanner, PageHeader } f
 type Summary = { id: string; starterName: string; siteName: string; intendedRole: string; state: string; createdAt: string; templateVersion: number };
 type Requirement = { id: string; code: string; title: string; position: number; state: string; nextAction: string;
   actor: string; documentRequestId: string | null; evidenceState: string | null; acceptedVersionId: string | null;
-  feedback: string | null; verifiedAt: string | null; syntheticValidUntil: string | null; siaSubmissionId: string | null };
+  feedback: string | null; verifiedAt: string | null; syntheticValidUntil: string | null; siaSubmissionId: string | null;
+  controlled: { assignmentId: string; versionId: string; title: string; versionNumber: number;
+    publishedAt: string | null; effectiveOn: string | null; scanState: string;
+    accessedAt: string | null; acknowledgedAt: string | null; acknowledgedBy: string | null } | null };
 type Case = { id: string; starterName: string; personId: string; siteName: string; intendedRole: string;
   templateVersion: number; state: string; createdAt: string; canManage: boolean; verifiedCount: number; totalCount: number;
   requirements: Requirement[];
@@ -17,6 +20,9 @@ type Case = { id: string; starterName: string; personId: string; siteName: strin
   submittedSia: { id: string; category: string; synthetic_reference: string; expires_on: string } | null; siaSubmittedAt: string | null };
 type Site = { id: string; name: string; status: string; canManage: boolean };
 type Target = { person_id: string; display_name: string };
+type PublisherVersion = { id: string; version_number: number; title: string; state: string;
+  upload_state: string; published_at: string | null; effective_on: string | null };
+type PublisherDocument = { id: string; title: string; versions: PublisherVersion[] };
 const label: Record<string,string> = {
   DRAFT: "Draft", IN_PROGRESS: "In progress", CANCELLED: "Cancelled", NOT_STARTED: "Not started",
   AWAITING_EVIDENCE: "Awaiting evidence", UNDER_REVIEW: "Under review", ACTION_REQUIRED: "Action required",
@@ -24,6 +30,8 @@ const label: Record<string,string> = {
   NOT_CONNECTED: "Not connected", NOT_CONFIGURED: "Not configured", COMPLETE: "Complete — self-submitted",
   AWAITING_SUBMISSION: "Needs submission", UPDATE_NEEDS_SUBMISSION: "Update needs submission",
   AWAITING_EVIDENCE_REQUEST: "Office request needed",
+  AWAITING_DOCUMENT_ACCESS: "Document access needed", AWAITING_ACKNOWLEDGEMENT: "Acknowledgement needed",
+  ACKNOWLEDGED: "Acknowledged",
 };
 
 export function OnboardingClient({ office, selectedCaseId }: { office: boolean; selectedCaseId?: string }) {
@@ -40,6 +48,10 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
   const [verify, setVerify] = useState<Requirement | null>(null);
+  const [confirmed, setConfirmed] = useState(false);
+  const [publisherDocs, setPublisherDocs] = useState<PublisherDocument[]>([]);
+  const [canPublish, setCanPublish] = useState(false);
+  const [selectedControlledVersion, setSelectedControlledVersion] = useState("");
 
   const load = useCallback(async () => {
     try {
@@ -56,6 +68,18 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
     finally { setLoading(false); }
   }, [selectedCaseId]);
   useEffect(() => { void Promise.resolve().then(() => load()); }, [load]);
+  const loadPublisher = useCallback(async () => {
+    const response = await fetch("/api/controlled-documents", { cache: "no-store" });
+    if (!response.ok) return;
+    const body = await response.json();
+    setCanPublish(Boolean(body.canPublish)); setPublisherDocs(body.documents ?? []);
+  }, []);
+  useEffect(() => { if (office) void Promise.resolve().then(() => loadPublisher()); }, [office, loadPublisher]);
+  useEffect(() => {
+    const refresh = () => { if (document.visibilityState === "visible") void load(); };
+    window.addEventListener("focus", refresh);
+    return () => window.removeEventListener("focus", refresh);
+  }, [load]);
   useEffect(() => {
     if (!office) return;
     void fetch("/api/sites?search=Synthetic Static Security Site", { cache: "no-store" })
@@ -123,6 +147,51 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
     } catch { setMessage("SIA action could not be completed. Check the exact submission, evidence and your current authority."); }
     finally { setBusy(false); }
   }
+  async function controlledAction(path: string, body?: object) {
+    if (!detail) return;
+    setBusy(true); setMessage("");
+    try {
+      const response = await fetch(`/api/onboarding/${detail.id}/contract/${path}`, { method: "POST",
+        headers: { "content-type": "application/json" }, body: JSON.stringify(body ?? {}) });
+      if (!response.ok) throw new Error("action denied");
+      setConfirmed(false); await load();
+      setMessage(path === "assign" ? "Exact published synthetic document assigned to this case." :
+        "Exact synthetic document version acknowledged. This is not a signature.");
+    } catch { setMessage("Controlled document action could not be completed. Check exact-version access and authority."); }
+    finally { setBusy(false); }
+  }
+  async function createControlledDocument() {
+    setBusy(true); setMessage("");
+    try {
+      const response = await fetch("/api/controlled-documents", { method: "POST" });
+      if (!response.ok) throw new Error("denied");
+      await loadPublisher(); setMessage("Synthetic controlled document created. Upload the first PDF version.");
+    } catch { setMessage("Controlled document creation could not be completed."); }
+    finally { setBusy(false); }
+  }
+  async function uploadControlled(documentId: string, file: File | undefined) {
+    if (!file) return;
+    setBusy(true); setMessage("");
+    try {
+      const form = new FormData(); form.set("file", file);
+      const response = await fetch(`/api/controlled-documents/${documentId}/versions`, { method: "POST", body: form });
+      if (!response.ok) throw new Error("denied");
+      await loadPublisher(); setMessage("Synthetic PDF uploaded as a Draft. Publish the exact version when ready.");
+    } catch { setMessage("PDF upload could not be completed. Use a synthetic PDF below 1 MB."); }
+    finally { setBusy(false); }
+  }
+  async function publishControlled(documentId: string, versionId: string) {
+    setBusy(true); setMessage("");
+    try {
+      const response = await fetch(`/api/controlled-documents/${documentId}/versions/${versionId}/publish`, {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ effectiveOn: new Date().toISOString().slice(0, 10) }),
+      });
+      if (!response.ok) throw new Error("denied");
+      await loadPublisher(); setMessage("Exact synthetic version published. Earlier versions and acknowledgements remain historical.");
+    } catch { setMessage("Publication could not be completed. Resolve outstanding assignments and check authority."); }
+    finally { setBusy(false); }
+  }
 
   return <main className="enterprise-main onboarding-main">
     <PageHeader eyebrow="Synthetic development onboarding" title={office ? "Onboarding" : "My Onboarding"}
@@ -130,6 +199,29 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
     <FeedbackBanner>Development workflow only. No legal Right to Work check, compliance decision or deployment approval is recorded here.</FeedbackBanner>
     {message && <FeedbackBanner tone={message.includes("could not") || message.includes("not recorded") ? "error" : "success"}>{message}</FeedbackBanner>}
     {error && <FeedbackBanner tone="error">Onboarding is unavailable. Refresh to try again.</FeedbackBanner>}
+    {office && canPublish && <section className="controlled-publisher" aria-labelledby="controlled-publisher-title">
+      <div className="controlled-publisher-heading"><div><p className="eyebrow">Scoped synthetic publisher</p>
+        <h2 id="controlled-publisher-title">Controlled terms</h2>
+        <p>Publish exact development-only PDF versions. Publication does not grant access to a starter case.</p></div>
+        <ActionButton onClick={() => void createControlledDocument()} disabled={busy}>Create synthetic document</ActionButton></div>
+      <div className="controlled-publisher-list">{publisherDocs.map((doc) => <article key={doc.id} className="controlled-publisher-card">
+        <h3>{doc.title}</h3>{doc.versions.length === 0 && <p>No version uploaded yet.</p>}
+        {doc.versions.map((version) => <div key={version.id} className="controlled-publisher-version">
+          <div><strong>Version {version.version_number}</strong> · {label[version.state] ?? version.state}
+            {version.published_at && <span> · Published {new Date(version.published_at).toLocaleString("en-GB")}</span>}</div>
+          <div className="controlled-publisher-actions">
+            {version.upload_state === "READY" && <a className="ui-action ui-action--secondary"
+              href={`/api/controlled-documents/${doc.id}/versions/${version.id}/file`} target="_blank" rel="noreferrer">Preview exact PDF</a>}
+            {version.state === "DRAFT" && version.upload_state === "READY" &&
+              <ActionButton onClick={() => void publishControlled(doc.id, version.id)} disabled={busy}>Publish Version {version.version_number}</ActionButton>}
+          </div>
+        </div>)}
+        {!doc.versions.some((version) => version.state === "DRAFT") && <label className="ui-field">Upload next synthetic PDF version
+          <input type="file" accept="application/pdf,.pdf" disabled={busy}
+            onChange={(event) => { const file = event.currentTarget.files?.[0];
+              if (file) void uploadControlled(doc.id, file); event.currentTarget.value = ""; }} /></label>}
+      </article>)}</div>
+    </section>}
     <div className="onboarding-grid">
       <section className="onboarding-panel" aria-labelledby="onboarding-list-title">
         <h2 id="onboarding-list-title">{office ? "Authorised starters" : "My cases"}</h2>
@@ -196,6 +288,34 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
             {r.feedback && <FeedbackBanner tone="error">Evidence review feedback: {r.feedback}</FeedbackBanner>}
             {r.documentRequestId && <Link className="ui-action ui-action--secondary" href={`/documents/${r.documentRequestId}${r.acceptedVersionId ? `?version=${r.acceptedVersionId}` : ""}`}>
               {office ? "Open protected evidence" : "Open my evidence request"}</Link>}
+            {r.code === "CONTRACT_TERMS" && r.controlled && <div className="controlled-assignment">
+              <strong>{r.controlled.title}</strong>
+              <p>Version {r.controlled.versionNumber} · Published {r.controlled.publishedAt ? new Date(r.controlled.publishedAt).toLocaleString("en-GB") : "—"}
+                {r.controlled.effectiveOn ? ` · Effective ${r.controlled.effectiveOn}` : ""} · {r.controlled.scanState}</p>
+              <a className="ui-action ui-action--secondary" href={`/api/onboarding/${detail.id}/contract/file`}
+                target="_blank" rel="noreferrer">Open exact synthetic PDF</a>
+              <p>{r.controlled.accessedAt ? `Document accessed ${new Date(r.controlled.accessedAt).toLocaleString("en-GB")}. This does not prove reading or comprehension.` :
+                "The exact PDF must be opened before acknowledgement. Opening alone does not acknowledge it."}</p>
+              {r.controlled.acknowledgedAt && <p><strong>Acknowledged — Version {r.controlled.versionNumber}</strong> ·
+                {" "}{new Date(r.controlled.acknowledgedAt).toLocaleString("en-GB")}</p>}
+              {!office && !r.controlled.acknowledgedAt && detail.state === "IN_PROGRESS" && <div className="controlled-confirm">
+                <ActionButton variant="secondary" onClick={() => void load()} disabled={busy}>Refresh access status</ActionButton>
+                {r.controlled.accessedAt && <><label><input type="checkbox" checked={confirmed}
+                  onChange={(event) => setConfirmed(event.target.checked)} />
+                  I confirm that this exact document version was made available to me and I acknowledge it.</label>
+                  <ActionButton onClick={() => void controlledAction("acknowledge", { confirmed: true })}
+                    disabled={busy || !confirmed}>Acknowledge Version {r.controlled.versionNumber}</ActionButton></>}
+              </div>}
+            </div>}
+            {office && canPublish && detail.canManage && detail.state === "IN_PROGRESS" && r.code === "CONTRACT_TERMS" && !r.controlled &&
+              <div className="controlled-assign-form"><label className="ui-field">Published synthetic terms version
+                <select value={selectedControlledVersion} onChange={(event) => setSelectedControlledVersion(event.target.value)}>
+                  <option value="">Choose exact version</option>
+                  {publisherDocs.flatMap((doc) => doc.versions.filter((v) => v.state === "PUBLISHED")
+                    .map((v) => <option key={v.id} value={v.id}>{doc.title} · Version {v.version_number} · Published {v.published_at ? new Date(v.published_at).toLocaleString("en-GB") : "unknown"}</option>))}
+                </select></label>
+                <ActionButton onClick={() => void controlledAction("assign", { versionId: selectedControlledVersion })}
+                  disabled={busy || !selectedControlledVersion}>Assign exact published version</ActionButton></div>}
             {!office && detail.templateVersion >= 2 && detail.state === "IN_PROGRESS" &&
               (r.code === "PERSONAL_DETAILS" || r.code === "SIA_LICENCE") &&
               <Link className="ui-action ui-action--secondary" href="/profile">

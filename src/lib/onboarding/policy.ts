@@ -17,6 +17,13 @@ type VerificationRow = { id: string; requirement_id: string; evidence_version_id
 type ProfileSubmission = { id: string; requirement_id: string; revision_id: string; submitted_at: string };
 type SiaSubmission = { id: string; requirement_id: string; revision_id: string;
   document_request_id: string | null; submitted_at: string };
+type ControlledAssignment = { id: string; requirement_id: string; target_person_id: string;
+  document_id: string; version_id: string; assigned_at: string };
+type ControlledVersion = { id: string; document_id: string; title: string; version_number: number;
+  state: string; published_at: string | null; effective_on: string | null; scan_state: string };
+type ControlledAccess = { id: string; assignment_id: string; person_id: string; version_id: string; accessed_at: string };
+type ControlledAcknowledgement = { id: string; assignment_id: string; actor_person_id: string;
+  version_id: string; acknowledged_at: string };
 
 export function canUseOnboarding(principal: Principal) {
   return hasCapability(principal, "ONBOARDING_SELF_READ") || hasCapability(principal, "ONBOARDING_OFFICE_READ");
@@ -79,7 +86,8 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
   const { data: definitions, error: definitionsError } = await client.from("onboarding_requirement_definitions")
     .select("id,code,title,position,mandatory,fulfilment_kind,provider_state,initial_actor,expected_sia_category")
     .in("id", instances.map((row) => row.definition_id)).returns<DefinitionRow[]>();
-  const [verificationResult, profileResult, profileSubmissionResult, siaResult, siaSubmissionResult] = await Promise.all([
+  const [verificationResult, profileResult, profileSubmissionResult, siaResult, siaSubmissionResult,
+    controlledAssignmentResult] = await Promise.all([
     client.from("onboarding_requirement_verifications")
       .select("id,requirement_id,evidence_version_id,decided_at,synthetic_valid_until,sia_submission_id")
       .eq("case_id", c.id).returns<VerificationRow[]>(),
@@ -96,9 +104,13 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
     client.from("onboarding_sia_submissions").select("id,requirement_id,revision_id,document_request_id,submitted_at")
       .eq("case_id", c.id).order("submitted_at", { ascending: false }).order("id", { ascending: false })
       .returns<SiaSubmission[]>(),
+    client.from("onboarding_controlled_assignments")
+      .select("id,requirement_id,target_person_id,document_id,version_id,assigned_at")
+      .eq("case_id", c.id).returns<ControlledAssignment[]>(),
   ]);
   if (definitionsError || verificationResult.error || profileResult.error || profileSubmissionResult.error ||
-    siaResult.error || siaSubmissionResult.error || !definitions || definitions.length !== 6) return null;
+    siaResult.error || siaSubmissionResult.error || controlledAssignmentResult.error ||
+    !definitions || definitions.length !== 6) return null;
   const verifications = verificationResult.data;
   const profile = superValues?.profile ?? profileResult.data;
   const siaCredential = superValues?.siaCredential ?? siaResult.data;
@@ -114,6 +126,26 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
   const siaRevision = superValues?.submittedSia ?? siaRevisionResult.data;
   if (profileRevisionResult.error || siaRevisionResult.error ||
     (profileSubmission && !profileRevision) || (siaSubmission && !siaRevision)) return null;
+  const controlledAssignment = controlledAssignmentResult.data?.[0] ?? null;
+  const [controlledVersionResult, controlledAccessResult, controlledAckResult] = await Promise.all([
+    controlledAssignment ? client.from("controlled_document_versions")
+      .select("id,document_id,title,version_number,state,published_at,effective_on,scan_state")
+      .eq("id", controlledAssignment.version_id).maybeSingle<ControlledVersion>()
+      : Promise.resolve({ data: null, error: null }),
+    controlledAssignment ? client.from("controlled_document_accesses")
+      .select("id,assignment_id,person_id,version_id,accessed_at")
+      .eq("assignment_id", controlledAssignment.id).order("accessed_at", { ascending: false }).limit(1)
+      .returns<ControlledAccess[]>() : Promise.resolve({ data: null, error: null }),
+    controlledAssignment ? client.from("controlled_acknowledgements")
+      .select("id,assignment_id,actor_person_id,version_id,acknowledged_at")
+      .eq("assignment_id", controlledAssignment.id).maybeSingle<ControlledAcknowledgement>()
+      : Promise.resolve({ data: null, error: null }),
+  ]);
+  if (controlledVersionResult.error || controlledAccessResult.error || controlledAckResult.error ||
+    (controlledAssignment && !controlledVersionResult.data)) return null;
+  const controlledVersion = controlledVersionResult.data;
+  const controlledAccess = controlledAccessResult.data?.[0] ?? null;
+  const controlledAck = controlledAckResult.data;
   const byDefinition = new Map(definitions.map((row) => [row.id, row]));
   const requirements = await Promise.all(instances.map(async (instance) => {
     const d = byDefinition.get(instance.definition_id);
@@ -129,7 +161,26 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
     let state = "NOT_STARTED";
     let nextAction = "This requirement is not configured yet.";
     let actor = d.initial_actor;
-    if (d.provider_state === "NOT_AVAILABLE") {
+    const assignedContract = d.code === "CONTRACT_TERMS" && d.fulfilment_kind === "CONTROLLED_ACKNOWLEDGEMENT"
+      && controlledAssignment?.requirement_id === instance.id && controlledAssignment.target_person_id === c.person_id
+      && controlledVersion?.id === controlledAssignment.version_id
+      && controlledVersion.document_id === controlledAssignment.document_id;
+    if (assignedContract) {
+      if (controlledAck?.assignment_id === controlledAssignment.id &&
+        controlledAck.actor_person_id === c.person_id && controlledAck.version_id === controlledVersion.id &&
+        controlledAccess?.assignment_id === controlledAssignment.id) {
+        state = "ACKNOWLEDGED"; nextAction = "This exact synthetic document version was acknowledged. No signature or proof of reading is recorded.";
+        actor = "NONE";
+      } else if (controlledAccess?.assignment_id === controlledAssignment.id) {
+        state = "AWAITING_ACKNOWLEDGEMENT";
+        nextAction = "Document accessed. Confirm acknowledgement of this exact version when ready.";
+        actor = "STAFF";
+      } else {
+        state = "AWAITING_DOCUMENT_ACCESS";
+        nextAction = "Open this exact synthetic document version, then explicitly acknowledge it.";
+        actor = "STAFF";
+      }
+    } else if (d.provider_state === "NOT_AVAILABLE") {
       state = "NOT_AVAILABLE"; nextAction = "Contract acknowledgement is not yet available in KSS Enterprise."; actor = "SYSTEM";
     } else if (d.provider_state === "NOT_CONNECTED") {
       state = "NOT_CONNECTED"; nextAction = "Training provider not connected — induction outstanding."; actor = "EXTERNAL_PROVIDER";
@@ -200,6 +251,14 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
       syntheticValidUntil: verification?.synthetic_valid_until ?? null,
       profileSubmissionId: d.code === "PERSONAL_DETAILS" ? profileSubmission?.id ?? null : null,
       siaSubmissionId: d.code === "SIA_LICENCE" ? siaSubmission?.id ?? null : null,
+      controlled: assignedContract && controlledAssignment && controlledVersion ? {
+        assignmentId: controlledAssignment.id, documentId: controlledAssignment.document_id,
+        versionId: controlledVersion.id, title: controlledVersion.title,
+        versionNumber: controlledVersion.version_number, publishedAt: controlledVersion.published_at,
+        effectiveOn: controlledVersion.effective_on, scanState: controlledVersion.scan_state,
+        accessedAt: controlledAccess?.accessed_at ?? null, acknowledgedAt: controlledAck?.acknowledged_at ?? null,
+        acknowledgedBy: controlledAck?.actor_person_id ?? null,
+      } : null,
       expectedSiaCategory: d.expected_sia_category };
   }));
   if (requirements.some((row) => row === null)) return null;
@@ -212,7 +271,7 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
     intendedRole: c.intended_role, templateVersion: version.version_number, state: c.state,
     createdAt: c.created_at, startedAt: c.started_at, cancelledAt: c.cancelled_at,
     canManage: canManageOnboarding(principal, c), verifiedCount: sorted.filter((row) =>
-      row.state === "VERIFIED" || row.state === "COMPLETE").length,
+      row.state === "VERIFIED" || row.state === "COMPLETE" || row.state === "ACKNOWLEDGED").length,
     totalCount: sorted.length, requirements: sorted,
     profile, submittedProfile: profileRevision, profileSubmittedAt: profileSubmission?.submitted_at ?? null,
     siaCredential, submittedSia: siaRevision, siaSubmittedAt: siaSubmission?.submitted_at ?? null };

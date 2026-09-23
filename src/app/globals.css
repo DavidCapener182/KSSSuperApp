@@ -206,7 +206,24 @@ h1 { margin: 18px 0 21px; font-size: clamp(42px, 6vw, 72px); line-height: 1.05; 
 .onboarding-badge { max-width: 100%; border-radius: 999px; padding: 6px 10px; background: #edf2ea; color: #365d49; font-size: 11px; font-weight: 800; text-align: center; }
 .onboarding-badge--verified { background: #d8eee0; color: #184f37; }.onboarding-badge--action_required, .onboarding-badge--expired { background: #f9e5e3; color: #8e302d; }
 .onboarding-badge--not_connected, .onboarding-badge--not_available, .onboarding-badge--not_configured { background: #f6ebd8; color: #694d21; }
+.onboarding-badge--acknowledged { background: #d8eee0; color: #184f37; }
+.controlled-publisher { margin-top: 24px; padding: 22px; background: #fff; border: 1px solid #d4e3d2; border-radius: 12px; }
+.controlled-publisher-heading { display: flex; align-items: start; justify-content: space-between; flex-wrap: wrap; gap: 18px; }
+.controlled-publisher-heading h2 { margin: 0 0 6px; font-size: 21px; }.controlled-publisher-heading p:last-child { color: #526b5e; font-size: 13px; }
+.controlled-publisher-list { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,320px),1fr)); gap: 15px; margin-top: 16px; }
+.controlled-publisher-card { min-width: 0; padding: 16px; border: 1px solid #dce7dc; border-radius: 10px; }
+.controlled-publisher-card h3 { font-size: 16px; margin: 0 0 10px; }.controlled-publisher-card p { font-size: 13px; color: #526b5e; }
+.controlled-publisher-version { border-top: 1px solid #e1e9e0; padding: 12px 0; font-size: 13px; overflow-wrap: anywhere; }
+.controlled-publisher-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 9px; }
+.controlled-publisher .ui-field { display: grid; gap: 8px; font-size: 13px; }.controlled-publisher input[type="file"] { max-width: 100%; }
+.controlled-assignment { display: grid; justify-items: start; gap: 8px; margin-top: 12px; padding: 14px; background: #f7faf6; border: 1px solid #d4e3d2; border-radius: 9px; }
+.controlled-assignment p { margin: 0; }.controlled-confirm { display: grid; justify-items: start; gap: 12px; margin-top: 4px; }
+.controlled-confirm label { display: flex; align-items: start; gap: 9px; line-height: 1.45; font-size: 13px; }
+.controlled-confirm input { margin-top: 3px; }.controlled-assign-form { display: grid; gap: 12px; margin-top: 12px; }
+.controlled-assign-form .ui-field { display: grid; gap: 7px; }.controlled-assign-form select { max-width: 100%; }
 @media (max-width: 760px) {
   .onboarding-grid { grid-template-columns: 1fr; }.onboarding-panel { padding: 18px; }
   .onboarding-form .ui-action, .onboarding-requirements .ui-action { width: 100%; }
+  .controlled-publisher { padding: 18px; }.controlled-publisher-heading .ui-action, .controlled-publisher-actions .ui-action,
+  .controlled-confirm .ui-action, .controlled-assign-form .ui-action { width: 100%; }
 }
