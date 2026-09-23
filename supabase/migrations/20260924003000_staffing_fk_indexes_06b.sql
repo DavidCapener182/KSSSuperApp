@@ -1,0 +1,5 @@
+-- Focused 06B index corrections from Dev database adviser readback.
+create index event_staffing_requirement_creator_idx on public.event_staffing_requirements(created_by_person_id);
+create index event_staffing_revision_source_idx on public.event_staffing_requirement_revisions(requirement_id,event_id);
+create index event_staffing_revision_actor_idx on public.event_staffing_requirement_revisions(actor_person_id);
+create index event_staffing_revision_role_idx on public.event_staffing_requirement_revisions(role_id);

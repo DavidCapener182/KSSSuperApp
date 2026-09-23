@@ -75,6 +75,9 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.equal((await get('/events', 'operations')).status, 200);
     assert.equal((await get('/events', 'staff')).status, 404);
     assert.equal((await get('/api/events', 'staff')).status, 403);
+    assert.equal((await get('/api/events/staffing-roles', 'staff')).status, 403);
+    assert.equal((await get('/api/events/b2fef3a7-68ae-4241-a1ce-2a9cb36c8490/staffing-requirements', 'staff')).status, 403);
+    assert.equal((await get('/api/events/b2fef3a7-68ae-4241-a1ce-2a9cb36c8490/staffing-requirements', 'operations')).status, 200);
     assert.equal((await get('/crm', 'operations')).status, 404);
     assert.equal((await get('/work', 'operations')).status, 404);
     assert.equal((await get('/onboarding', 'operations')).status, 404);
