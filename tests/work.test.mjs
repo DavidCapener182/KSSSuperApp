@@ -56,7 +56,8 @@ test('02C exact-version work follows submission and review without granting sour
     const createdBody = await created.text();
     assert.equal(created.status,201,createdBody);
     const id = JSON.parse(createdBody).id;
-    assert.equal((await upload(id,'staff',firstFile,'synthetic-work-v1.pdf','application/pdf')).status,201);
+    const firstUpload = await upload(id,'staff',firstFile,'synthetic-work-v1.pdf','application/pdf');
+    assert.equal(firstUpload.status,201,await firstUpload.text());
     const current1 = (await (await request(`/api/documents/${id}`,'office')).json()).request.version;
     const v1 = current1.id;
     const task1Result = await actors.admin.db.from('tasks').select('*').eq('source_id',v1);

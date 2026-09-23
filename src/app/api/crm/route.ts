@@ -31,7 +31,7 @@ export async function GET(request: Request) {
     return privateJson({ error: "Invalid CRM query" }, 400);
 
   if (view === "overview") {
-    const [organisations, contacts, open, newLeads, proposals, won, lost] = await Promise.all([
+    const [organisations, contacts, open, newLeads, proposals, won, lost, operational] = await Promise.all([
       client.from("crm_organisations").select("id", { count: "exact", head: true }),
       client.from("crm_contacts").select("id", { count: "exact", head: true }),
       client.from("crm_opportunities").select("id", { count: "exact", head: true }).not("stage", "in", '("WON","LOST")'),
@@ -39,18 +39,20 @@ export async function GET(request: Request) {
       client.from("crm_opportunities").select("id", { count: "exact", head: true }).eq("stage", "PROPOSAL_TENDER"),
       client.from("crm_opportunities").select("id", { count: "exact", head: true }).eq("stage", "WON"),
       client.from("crm_opportunities").select("id", { count: "exact", head: true }).eq("stage", "LOST"),
+      client.rpc("crm_operational_summary"),
     ]);
-    if ([organisations, contacts, open, newLeads, proposals, won, lost].some((result) => result.error)) return privateJson({ error: "CRM unavailable" }, 503);
+    if ([organisations, contacts, open, newLeads, proposals, won, lost, operational].some((result) => result.error)) return privateJson({ error: "CRM unavailable" }, 503);
     return privateJson({ organisations: organisations.count, contacts: contacts.count,
-      open: open.count, newLeads: newLeads.count, proposals: proposals.count, won: won.count, lost: lost.count });
+      open: open.count, newLeads: newLeads.count, proposals: proposals.count, won: won.count, lost: lost.count,
+      operational: operational.data });
   }
   if (view === "organisation") {
     const [organisation, contacts, opportunities, history, ownerHistory] = await Promise.all([
       client.from("crm_organisations").select("*").eq("id", id!).maybeSingle(),
       client.from("crm_contacts").select("*").eq("organisation_id", id!).order("created_at"),
       client.from("crm_opportunities").select("*").eq("organisation_id", id!).order("created_at", { ascending: false }),
-      client.from("crm_relationship_events").select("*").eq("organisation_id", id!).order("occurred_at", { ascending: false }),
-      client.from("crm_organisation_owner_events").select("*").eq("organisation_id", id!).order("occurred_at", { ascending: false }),
+      client.from("crm_relationship_events").select("*").eq("organisation_id", id!).order("occurred_at", { ascending: false }).limit(100),
+      client.from("crm_organisation_owner_events").select("*").eq("organisation_id", id!).order("occurred_at", { ascending: false }).limit(100),
     ]);
     if (organisation.error || contacts.error || opportunities.error || history.error || ownerHistory.error) return privateJson({ error: "CRM unavailable" }, 503);
     if (!organisation.data) return privateJson({ error: "Not found" }, 404);
@@ -63,7 +65,7 @@ export async function GET(request: Request) {
     const [organisation, contact, history] = await Promise.all([
       client.from("crm_organisations").select("id,name,relationship_status").eq("id", opportunity.data.organisation_id).single(),
       opportunity.data.primary_contact_id ? client.from("crm_contacts").select("id,first_name,last_name").eq("id", opportunity.data.primary_contact_id).single() : Promise.resolve({ data: null, error: null }),
-      client.from("crm_opportunity_events").select("*").eq("opportunity_id", id!).order("occurred_at", { ascending: false }),
+      client.from("crm_opportunity_events").select("*").eq("opportunity_id", id!).order("occurred_at", { ascending: false }).limit(100),
     ]);
     if (organisation.error || contact.error || history.error) return privateJson({ error: "CRM unavailable" }, 503);
     return privateJson({ opportunity: opportunity.data, organisation: organisation.data, contact: contact.data, history: history.data });

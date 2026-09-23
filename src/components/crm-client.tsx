@@ -5,9 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { CrmPipeline, CrmRecordWork } from "@/components/crm-operational";
 
 type Row = Record<string, unknown>;
-type Props = { view: "overview" | "organisations" | "contacts" | "opportunities" | "organisation" | "opportunity"; id?: string; currentPersonId: string };
+type Props = { view: "overview" | "pipeline" | "organisations" | "contacts" | "opportunities" | "organisation" | "opportunity"; id?: string; currentPersonId: string };
 const stageNames = ["NEW_LEAD","CONTACTED","QUALIFIED","PROPOSAL_TENDER","NEGOTIATION","WON","LOST"];
 const typeNames = ["TENDER","DIRECT_ENQUIRY","EXISTING_CLIENT_EXPANSION","RENEWAL","PROSPECTING"];
 const title = (value: unknown) => String(value ?? "").replaceAll("_", " ").toLowerCase().replace(/(^|\s)\S/g, (c) => c.toUpperCase());
@@ -31,6 +32,7 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
   const [stage, setStage] = useState("");
   const [confirm, setConfirm] = useState(false);
   const load = useCallback(async () => {
+    if (view === "pipeline") { setLoading(false); return; }
     setLoading(true); setError("");
     const qs = new URLSearchParams({view, offset:String(offset)});
     if (id) qs.set("id", id);
@@ -98,14 +100,17 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
     <div className="crm-heading"><div><h1>{view === "organisation" ? String(org?.name ?? "Organisation") : view === "opportunity" ? String(opportunity?.title ?? "Opportunity") : "CRM"}</h1>
       <p className="enterprise-intro">{view === "overview" ? "Organisations, business contacts and opportunities in one place." : "Commercial records remain separate from private Staff information."}</p></div></div>
     <nav className="crm-tabs" aria-label="CRM sections">
-      {[["overview","Overview"],["organisations","Organisations"],["contacts","Contacts"],["opportunities","Opportunities"]].map(([key,label])=><Link key={key} href={key==="overview"?"/crm":`/crm?view=${key}`} aria-current={view===key||(view==="organisation"&&key==="organisations")||(view==="opportunity"&&key==="opportunities")?"page":undefined}>{label}</Link>)}
+      {[["overview","Overview"],["pipeline","Pipeline"],["organisations","Organisations"],["contacts","Contacts"],["opportunities","Opportunities"]].map(([key,label])=><Link key={key} href={key==="overview"?"/crm":`/crm?view=${key}`} aria-current={view===key||(view==="organisation"&&key==="organisations")||(view==="opportunity"&&key==="opportunities")?"page":undefined}>{label}</Link>)}
     </nav>
+    {view==="pipeline" && <CrmPipeline owners={owners} />}
     {error && <p role="alert" className="enterprise-error">{error} <button type="button" onClick={()=>void load()}>Retry</button></p>}
     {loading ? <div className="crm-skeleton" role="status">Loading CRM…</div> : null}
     {!loading && data && view==="overview" && <><div className="crm-stat-grid">
       {([["open","Open opportunities"],["newLeads","New leads"],["proposals","Proposal / Tender"],["won","Won"],["lost","Lost"]] as const).map(([key,label])=><section className="crm-stat" key={key}><span>{label}</span><strong>{String(data[key] ?? 0)}</strong></section>)}
       </div><p className="enterprise-honesty">Opportunity stages describe sales progress. Won does not establish a signed contract or active service.</p>
-      <div className="crm-actions"><Link href="/crm?view=organisations">Browse Organisations</Link><Link href="/crm?view=opportunities">Browse Opportunities</Link></div></>}
+      <div className="crm-operational-summary">{([["dueToday","CRM follow-ups due today"],["overdue","Overdue CRM follow-ups"],["noFutureFollowUp","Open Opportunities without a future follow-up"],["decisionsNextSevenDays","Expected decisions in the next 7 days"]] as const)
+        .map(([key,label])=><section className="crm-stat" key={key}><span>{label}</span><strong>{String((data.operational as Row)?.[key] ?? 0)}</strong></section>)}</div>
+      <div className="crm-actions"><Link href="/crm?view=pipeline">Open pipeline</Link><Link href="/crm?view=organisations">Browse Organisations</Link><Link href="/crm?view=opportunities">Browse Opportunities</Link></div></>}
     {!loading && data && ["organisations","contacts","opportunities"].includes(view) && <>
       <form className="crm-filters" onSubmit={(event)=>{event.preventDefault();setOffset(0);setSearch(fields.search ?? "");setFilter(fields.filter ?? "");}}>
         <label>Search<Input placeholder={view==="contacts"?"Contact name or email":"Name or title"} value={fields.search ?? ""} onChange={(e)=>setFields({...fields,search:e.target.value})}/></label>
@@ -136,6 +141,8 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
         {rows("opportunities").length?rows("opportunities").map((item)=><Link className="crm-subrow" key={String(item.id)} href={`/crm/opportunities/${item.id}`}><strong>{String(item.title)}</strong><span>{title(item.stage)}</span><span>{value(item.estimated_value_gbp_pence)}</span></Link>):<p>No Opportunities yet.</p>}
       </section><section className="crm-panel"><h2>Relationship history</h2>{rows("history").length?rows("history").map((item)=><p key={String(item.id)}>{title(item.old_status)} → {title(item.new_status)} · {date(item.occurred_at)} · by {personName(item.actor_person_id)}</p>):<p>No relationship transition yet.</p>}
         {rows("ownerHistory").map((item)=><p key={String(item.id)}>Account owner: {personName(item.old_owner_person_id)} → {personName(item.new_owner_person_id)} · {date(item.occurred_at)} · by {personName(item.actor_person_id)}</p>)}</section></div>
+      <CrmRecordWork kind="organisation" id={String(org.id)} organisationId={String(org.id)} owners={owners}
+        currentPersonId={currentPersonId} commercialHistory={[...rows("history"),...rows("ownerHistory")]} />
       <p className="enterprise-honesty">Sites, Events and commercial Documents are not connected in this CRM foundation.</p>
     </>}
     {!loading && opportunity && view==="opportunity" && <>
@@ -156,7 +163,9 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
         <label className="crm-field">Estimated value (£)<Input type="number" min="0" step="0.01" value={fields.value ?? ""} onChange={(e)=>setFields({...fields,value:e.target.value})}/></label>
         <Button variant="outline" disabled={busy} onClick={()=>void act("changeValue",{id:opportunity.id,valuePence:fields.value===""?null:Math.round(Number(fields.value)*100)})}>Update estimate</Button>
       </>:<><p><strong>{title(opportunity.stage)} recorded</strong></p><p>This outcome is terminal in 05A. The record and its history remain available; corrections require a future approved process.</p></>}</section>
-      <section className="crm-panel"><h2>Commercial history</h2>{rows("history").length?rows("history").map((event)=><p key={String(event.id)}>{title(event.kind)} · {event.kind==="STAGE"?`${title(event.old_stage)} → ${title(event.new_stage)}`:event.kind==="OWNER"?`${personName(event.old_owner_person_id)} → ${personName(event.new_owner_person_id)}`:`${value(event.old_value_gbp_pence)} → ${value(event.new_value_gbp_pence)}`} · {date(event.occurred_at)} · by {personName(event.actor_person_id)}{event.reason?` · ${event.reason}`:""}</p>):<p>No changes yet.</p>}</section></div>
+      </div>
+      <CrmRecordWork kind="opportunity" id={String(opportunity.id)} organisationId={String(opportunity.organisation_id)}
+        owners={owners} currentPersonId={currentPersonId} accountableOwnerId={String(opportunity.owner_person_id)} commercialHistory={rows("history")} />
       <p className="enterprise-honesty">Estimated value is not contracted or invoiced revenue.</p>
     </>}
     {form && <div className="crm-dialog-backdrop" role="presentation"><section className="crm-dialog" role="dialog" aria-modal="true" aria-labelledby="crm-dialog-title">

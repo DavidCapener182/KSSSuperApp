@@ -10,6 +10,6 @@ export default async function CrmPage({ searchParams }: { searchParams: Promise<
   if (!principal) redirect("/?next=%2Fcrm");
   if (!hasCapability(principal,"CRM_USE")) notFound();
   const raw = (await searchParams).view;
-  const view = raw==="organisations"||raw==="contacts"||raw==="opportunities" ? raw : "overview";
+  const view = raw==="pipeline"||raw==="organisations"||raw==="contacts"||raw==="opportunities" ? raw : "overview";
   return <CrmClient view={view} currentPersonId={principal.personId}/>;
 }

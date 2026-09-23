@@ -550,6 +550,25 @@ body { min-width: 320px; }
 .crm-dialog-backdrop { position:fixed; inset:0; z-index:80; background:rgb(15 23 42 / .48); display:grid; place-items:center; padding:16px; }
 .crm-dialog { width:min(520px,100%); max-height:calc(100dvh - 32px); overflow:auto; padding:22px; border-radius:16px; background:var(--kss-surface); box-shadow:0 20px 60px rgb(15 23 42 / .2); }
 .crm-dialog form { display:grid; gap:12px; margin-top:20px; }.crm-dialog-actions { display:flex; justify-content:end; gap:10px; margin-top:10px; }
+.crm-operational-tools { display:flex; flex-wrap:wrap; align-items:end; justify-content:space-between; gap:14px; margin:0 0 18px; }
+.crm-operational-summary { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin:18px 0; }
+.crm-view-switch { display:flex; gap:8px; }.crm-mobile-stage { display:none; }
+.crm-org-filter { display:flex; align-items:end; gap:8px; }.crm-org-filter .crm-field { min-width:180px; }
+.crm-board { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; align-items:start; }
+.crm-board--closed { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.crm-board-column { min-width:0; min-height:280px; padding:12px; border:1px solid var(--kss-border); border-radius:14px; background:var(--kss-surface-muted); }
+.crm-board-heading { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:2px 2px 12px; }
+.crm-board-heading h2 { margin:0; font-size:14px; }.crm-board-heading span { color:var(--kss-ink-soft); font-size:12px; }
+.crm-board-card { display:grid; gap:8px; min-width:0; margin:0 0 10px; padding:14px; border:1px solid var(--kss-border); border-radius:12px; background:var(--kss-surface); box-shadow:0 2px 8px rgb(15 23 42 / .04); }
+.crm-board-card a { color:var(--kss-ink); text-decoration:none; overflow-wrap:anywhere; }.crm-board-card a:hover { color:var(--kss-blue-strong); }
+.crm-board-card span,.crm-board-empty { color:var(--kss-ink-soft); font-size:12px; line-height:1.4; overflow-wrap:anywhere; }
+.crm-board-stage-action { display:grid; gap:5px; font-size:11px; font-weight:700; color:var(--kss-ink-soft); }
+.crm-board-stage-action select { max-width:100%; min-height:42px; border:1px solid var(--kss-border); border-radius:9px; background:var(--kss-surface); color:var(--kss-ink); }
+.crm-operational-record { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:14px; }
+.crm-operational-form { display:grid; gap:12px; }.crm-operational-form textarea { min-height:90px; padding:10px; border:1px solid var(--kss-border); border-radius:9px; background:var(--kss-surface); color:var(--kss-ink); }
+.crm-task-row,.crm-timeline-entry { display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; padding:12px 0; border-top:1px solid var(--kss-border); }
+.crm-task-row > div:first-child,.crm-timeline-entry { display:grid; gap:5px; }.crm-task-row span,.crm-timeline-entry span { color:var(--kss-ink-soft); font-size:12px; }
+.crm-task-actions { display:flex; flex-wrap:wrap; gap:4px; }.crm-timeline-entry { display:grid; }.crm-timeline-entry p { margin:0; font-size:13px; }
 @media (max-width:760px) {
  .crm-stat-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
  .crm-detail-grid { grid-template-columns:1fr; }
@@ -559,6 +578,11 @@ body { min-width: 320px; }
  .crm-list-heading { flex-wrap:wrap; }.crm-list-heading h2 { width:100%; }
  .crm-panel dl div { grid-template-columns:1fr; gap:3px; }
  .crm-dialog { padding:18px; }.crm-tabs { flex-wrap:wrap; overflow:visible; }.crm-tabs a { flex:1 1 40%; justify-content:center; padding:0 8px; }
+ .crm-board { display:block; }.crm-board-column { min-height:160px; }.crm-board-column.crm-mobile-hidden { display:none; }
+ .crm-board--closed .crm-board-column { margin-bottom:12px; }.crm-mobile-stage { display:grid; width:100%; }
+ .crm-operational-record { grid-template-columns:1fr; }.crm-operational-tools .crm-field { width:100%; }
+ .crm-org-filter { width:100%; }.crm-org-filter .crm-field { min-width:0; flex:1; }
+ .crm-operational-summary { grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
 @media (max-width: 700px) {
   .people-section-heading { align-items: start; flex-direction: column; }
