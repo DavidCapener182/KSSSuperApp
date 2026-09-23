@@ -1,12 +1,99 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Principal } from "@/lib/auth/principal";
 import { getPrincipal, isUuid } from "@/lib/auth/principal";
-import { readDirectory } from "@/lib/people/directory";
+import { readDirectory, type DirectoryPerson } from "@/lib/people/directory";
+import { readStaffRecordSections } from "@/lib/people/record";
+import { requiredProfileMatches, SIA_LABELS } from "@/lib/profile/policy";
 import { createServerSupabase } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
+const complete = new Set(["VERIFIED", "COMPLETE", "ACKNOWLEDGED"]);
+const roleLabel = (value: string) => value.replaceAll("_", " ").toLowerCase().replace(/^./, (c) => c.toUpperCase());
+const dateLabel = (value: string | null) => value ? new Intl.DateTimeFormat("en-GB", { dateStyle: "medium", timeZone: "Europe/London" }).format(new Date(value)) : "Open-ended";
+const sections = ["Overview", "Personal details", "Onboarding", "Credentials", "Documents", "Training", "Sites", "Activity"];
+function Restricted({ name }: { name: string }) {
+  return <p className="people-restricted">{name} restricted. Directory access does not include private personnel records.</p>;
+}
 
-const title = (role: string) => role.replaceAll("_", " ").toLowerCase().replace(/^./, (c) => c.toUpperCase());
+async function StaffRecordBody({ client, principal, person }: { client: SupabaseClient; principal: Principal; person: DirectoryPerson }) {
+  const self = principal.personId === person.id;
+  const detail = await readStaffRecordSections(client, principal, person.id, person.onboardingCaseId);
+  const currentCase = detail.cases.find((row) => row.state === "IN_PROGRESS") ?? detail.cases[0] ?? null;
+  const nextRequirement = currentCase?.requirements.find((row) => !complete.has(row.state));
+  const sia = currentCase?.requirements.find((row) => row.code === "SIA_LICENCE");
+  const credential = currentCase?.submittedSia ?? currentCase?.siaCredential ?? null;
+  const profile = detail.profile;
+  const submitted = detail.submittedProfile;
+  const profileChanged = Boolean(profile && submitted && !requiredProfileMatches(profile, submitted));
+  const safeStatus = person.onboardingState === "IN_PROGRESS"
+    ? person.completed === null ? "Onboarding in progress" : `${person.completed} of ${person.totalRequirements} requirements complete`
+    : person.onboardingState === "DRAFT" ? "Onboarding draft" : "No current onboarding case";
+  return <div className="people-record-grid">
+    <section id="overview" className="people-record-section people-record-overview">
+      <div className="people-section-heading"><h2>Overview</h2><span className="people-record-state">{safeStatus}</span></div>
+      <dl className="people-overview-list">
+        <div><dt>Active roles</dt><dd>{person.roles.length ? person.roles.map(roleLabel).join(" · ") : "No active role"}</dd></div>
+        <div><dt>Current work context</dt><dd>{person.sites.length ? person.sites.join(" · ") : "No permitted Site context shown"}</dd></div>
+        <div><dt>Training</dt><dd>Provider not connected</dd></div>
+        {profile?.preferred_name && <div><dt>Preferred name</dt><dd>{profile.preferred_name}</dd></div>}
+        {currentCase && <div><dt>Authorised case</dt><dd>{currentCase.verifiedCount} of {currentCase.totalCount} requirements complete · Template v{currentCase.templateVersion}</dd></div>}
+        {sia && <div><dt>Synthetic SIA workflow</dt><dd>{roleLabel(sia.state)}</dd></div>}
+      </dl>
+      {nextRequirement && <p className="people-next-action"><strong>Next action · {nextRequirement.title}</strong><span>{nextRequirement.nextAction}</span></p>}
+      <p className="enterprise-honesty">This record does not establish compliance, legal identity or deployment eligibility.</p>
+    </section>
+    <section id="personal-details" className="people-record-section"><h2>Personal details</h2>
+      {profile ? <><dl className="people-details-list">
+        <div><dt>Legal name</dt><dd>{[profile.legal_first_name, profile.surname].filter(Boolean).join(" ") || "Not supplied"}</dd></div>
+        <div><dt>Contact email</dt><dd>{profile.contact_email || "Not supplied"}</dd></div>
+        <div><dt>Mobile</dt><dd>{profile.mobile || "Not supplied"}</dd></div>
+        <div><dt>Address</dt><dd>{[profile.address_line1, profile.address_line2, profile.town_city, profile.postcode].filter(Boolean).join(", ") || "Not supplied"}</dd></div>
+      </dl><p className="people-section-note">{submitted ? profileChanged
+        ? "Current required details differ from the last submitted revision. Staff resubmission is needed."
+        : `Last submitted ${dateLabel(submitted.submitted_at)}. Submission is not identity verification.`
+        : "No authorised submitted Personal Details revision is available."}</p>
+      </> : detail.canReadPrivate
+        ? <p>No current Personal Details are available under this record.</p> : <Restricted name="Personal details" />}
+      {self && <Link href="/profile">Open my Profile</Link>}
+    </section>
+    <section id="onboarding" className="people-record-section"><h2>Onboarding</h2>
+      {detail.cases.length ? <ul className="people-record-list">{detail.cases.map((item) => {
+        const blocker = item.requirements.find((row) => !complete.has(row.state));
+        return <li key={item.id}><div><strong>{roleLabel(item.intendedRole)} · Template v{item.templateVersion}</strong><span>{roleLabel(item.state)} · {item.verifiedCount} of {item.totalCount} complete</span>{blocker && <small>Next: {blocker.title} — {blocker.nextAction}</small>}</div><Link href={`/onboarding/${item.id}`}>Open case</Link></li>;
+      })}</ul> : detail.canReadPrivate ? <p>No authorised onboarding case is available.</p>
+        : <p>{safeStatus}. Detailed onboarding history is restricted.</p>}
+      {detail.cases.length > 0 && <p className="people-section-note"><Link href="/onboarding">View all authorised onboarding cases</Link></p>}
+    </section>
+    <section id="credentials" className="people-record-section"><h2>Credentials</h2>
+      {sia && credential ? <><dl className="people-details-list">
+        <div><dt>Synthetic SIA category</dt><dd>{SIA_LABELS[credential.category]}</dd></div>
+        <div><dt>Requirement state</dt><dd>{roleLabel(sia.state)} — synthetic workflow</dd></div>
+        <div><dt>Synthetic expiry</dt><dd>{dateLabel(credential.expires_on)}</dd></div>
+        <div><dt>Evidence</dt><dd>{sia.evidenceState ? roleLabel(sia.evidenceState) : "No authorised evidence state"}</dd></div>
+      </dl><p className="people-section-note">No licence authenticity or entitlement is asserted. The SIA reference stays in its protected source workflow.</p>
+      {currentCase && <Link href={`/onboarding/${currentCase.id}`}>Open authorised SIA requirement</Link>}</>
+        : detail.canReadPrivate ? <p>No authorised submitted SIA credential is available in the current case.</p>
+          : <Restricted name="Credential details" />}
+    </section>
+    <section id="documents" className="people-record-section"><h2>Documents</h2>
+      {detail.documents === null ? <Restricted name="Documents" /> : detail.documents.length
+        ? <ul className="people-record-list">{detail.documents.map((item) => <li key={item.id}><div><strong>{item.title}</strong><span>{roleLabel(item.status)}</span></div><Link href={`/documents/${item.id}`}>Open request</Link></li>)}</ul>
+        : <p>No document requests are available under your current authority.</p>}
+      {detail.documents !== null && <p className="people-section-note">Files and exact versions open through the protected Document service. Controlled Terms acknowledgement remains in its onboarding case.</p>}
+      {detail.documents !== null && self && <Link href="/documents">View all my Documents</Link>}
+    </section>
+    <section id="training" className="people-record-section"><h2>Training</h2><p>Training provider not connected. No course completion, certificate or eligibility is inferred.</p></section>
+    <section id="sites" className="people-record-section"><h2>Sites / assignments</h2>
+      {detail.sites?.length ? <ul className="people-record-list">{detail.sites.map((site, index) => <li key={`${site.name}-${site.from}-${index}`}><div><strong>{site.name}</strong><span>{site.ended ? "Ended" : "Current"} · {dateLabel(site.from)} to {dateLabel(site.until)}</span></div></li>)}</ul>
+        : <p>{person.sites.length ? `Current permitted context: ${person.sites.join(" · ")}.` : "No Site assignment detail is visible under your current access."}</p>}
+      <p className="people-section-note">Site assignment does not grant access to private personnel sections.</p>
+    </section>
+    <section id="activity" className="people-record-section"><h2>Activity</h2><p>Activity timeline not yet available. Business history remains in the authorised source workflows.</p></section>
+  </div>;
+}
 
 export default async function PersonRecord({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -18,23 +105,13 @@ export default async function PersonRecord({ params }: { params: Promise<{ id: s
     { search: "", role: "", onboarding: "", offset: 0, limit: 1 }, id);
   const person = result?.items[0];
   if (!person) notFound();
-  const self = principal.personId === id;
-  const canOpenCase = Boolean(person.onboardingCaseId);
-  const caseHref = person.onboardingCaseId ? `/onboarding/${person.onboardingCaseId}` : null;
-  const backHref = principal.roles.some((r) => r === "OFFICE_ADMIN" || r === "OPERATIONS" || r === "SUPER_ADMIN") ? "/people" : "/profile";
+  const backHref = principal.roles.some((role) => role === "OFFICE_ADMIN" || role === "OPERATIONS" || role === "SUPER_ADMIN") ? "/people" : "/profile";
   return <main className="enterprise-main people-record">
     <Link className="people-back" href={backHref}>← {backHref === "/people" ? "People" : "Profile"}</Link>
-    <header className="people-record-header"><div><p className="eyebrow">Staff record · synthetic development data</p><h1>{person.displayName}</h1><p>{person.roles.length ? person.roles.map(title).join(" · ") : "No active role"}</p></div><span className="people-record-state">{person.onboardingState === "IN_PROGRESS" ? "Onboarding in progress" : person.onboardingState === "DRAFT" ? "Onboarding draft" : "No current onboarding case"}</span></header>
-    <nav className="people-record-nav" aria-label="Staff record sections">{["Overview", "Personal details", "Onboarding", "Credentials", "Documents", "Training", "Sites", "Activity"].map((section) => <a href={`#${section.toLowerCase().replaceAll(" ", "-")}`} key={section}>{section}</a>)}</nav>
-    <div className="people-record-grid">
-      <section id="overview" className="people-record-section"><h2>Overview</h2><dl><div><dt>Active roles</dt><dd>{person.roles.length ? person.roles.map(title).join(" · ") : "None"}</dd></div><div><dt>Onboarding</dt><dd>{person.onboardingState === "IN_PROGRESS" && person.completed !== null ? `${person.completed} of ${person.totalRequirements} requirements complete` : person.onboardingState === "NONE" ? "No current case" : title(person.onboardingState)}</dd></div><div><dt>Site context</dt><dd>{person.sites.length ? person.sites.join(" · ") : "No permitted Site context shown"}</dd></div></dl><p className="enterprise-honesty">Directory information does not establish compliance or deployment eligibility.</p></section>
-      <section id="personal-details" className="people-record-section"><h2>Personal details</h2><p>{self ? "Your current details are managed in Profile. Submitted onboarding history remains separate." : "Private contact and address details require separate personnel authority."}</p>{self ? <Link href="/profile">Open my Profile</Link> : canOpenCase && caseHref ? <Link href={caseHref}>Open authorised onboarding details</Link> : <span className="people-restricted">Restricted</span>}</section>
-      <section id="onboarding" className="people-record-section"><h2>Onboarding</h2><p>{person.onboardingState === "NONE" ? "No current onboarding case." : person.completed === null ? "A current onboarding case exists. Detailed progress is restricted." : `${person.completed} of ${person.totalRequirements} requirements complete. The case is ${title(person.onboardingState)}.`}</p>{caseHref && <Link href={caseHref}>Open authorised case</Link>}</section>
-      <section id="credentials" className="people-record-section"><h2>Credentials</h2><p>Credential values and evidence remain in the protected Profile and onboarding workflows.</p>{self ? <Link href="/profile">Open my credential section</Link> : caseHref ? <Link href={caseHref}>Open authorised onboarding case</Link> : <span className="people-restricted">Details restricted</span>}</section>
-      <section id="documents" className="people-record-section"><h2>Documents</h2><p>Personnel documents retain their own exact audience and file access controls. This record does not expose filenames or counts.</p>{self ? <Link href="/documents">Open my Documents</Link> : caseHref ? <Link href={caseHref}>Open authorised case documents</Link> : <span className="people-restricted">Details restricted</span>}</section>
-      <section id="training" className="people-record-section"><h2>Training</h2><p>Training provider not connected. No completion or eligibility is inferred.</p></section>
-      <section id="sites" className="people-record-section"><h2>Sites / assignments</h2><p>{person.sites.length ? person.sites.join(" · ") : "No Site assignment is visible under your current access."}</p></section>
-      <section id="activity" className="people-record-section"><h2>Activity</h2><p>A safe staff activity timeline has not been configured. Business and audit histories remain in their authorised source workflows.</p></section>
-    </div>
+    <header className="people-record-header"><div><p className="eyebrow">Staff record · synthetic development data</p><h1>{person.displayName}</h1><p>{person.roles.length ? person.roles.map(roleLabel).join(" · ") : "No active role"}</p></div></header>
+    <nav className="people-record-nav" aria-label="Staff record sections">{sections.map((section) => <a href={`#${section.toLowerCase().replaceAll(" ", "-")}`} key={section}>{section}</a>)}</nav>
+    <Suspense fallback={<div className="people-record-loading" role="status">Loading authorised Staff Record sections…</div>}>
+      <StaffRecordBody client={client} principal={principal} person={person} />
+    </Suspense>
   </main>;
 }

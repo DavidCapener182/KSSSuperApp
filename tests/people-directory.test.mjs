@@ -110,7 +110,7 @@ test('04A directory projection, direct RLS and protected routes', { timeout: 180
     assert.equal((await opsResponse.json()).completed, null);
     assert.equal((await get('/api/people?limit=500', 'office')).status, 400);
     const page = await (await get(`/people/${ids.staffA}`, 'office')).text();
-    assert.ok(page.includes('Private contact and address details require separate personnel authority'));
+    assert.ok(page.includes('This record does not establish compliance'));
     assert.ok(!page.includes('contact_email'));
   } finally {
     server.kill('SIGTERM');

@@ -503,3 +503,23 @@ body { min-width: 320px; }
   .onboarding-grid:has(.onboarding-summary) > section { width: 100%; }
 }
 .onboarding-development-note { margin: -5px 0 15px; color: var(--kss-ink-subtle); font-size: 12px; line-height: 1.45; }
+.people-record-loading { padding: 32px 20px; border: 1px solid var(--kss-border); border-radius: 12px; background: var(--kss-surface); color: var(--kss-ink-soft); }
+.people-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.people-section-heading h2 { margin: 0; }
+.people-section-heading .people-record-state { margin: 0; }
+.people-record-section .people-overview-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.people-record-section .people-details-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.people-record-section .people-next-action { display: grid; gap: 4px; margin: 8px 0 16px; padding: 12px 14px; border-left: 3px solid var(--kss-blue); border-radius: 7px; background: var(--kss-blue-soft); color: var(--kss-ink); }
+.people-next-action strong { font-size: 13px; }.people-next-action span { font-size: 13px; color: var(--kss-ink-soft); }
+.people-record-section .people-section-note { margin-top: 12px; color: var(--kss-ink-subtle); }
+.people-record-list { display: grid; gap: 9px; padding: 0; margin: 0; list-style: none; }
+.people-record-list li { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 0; border-top: 1px solid var(--kss-border); }
+.people-record-list li:first-child { border-top: 0; padding-top: 0; }
+.people-record-list li > div { display: grid; gap: 4px; min-width: 0; }
+.people-record-list strong { font-size: 13px; overflow-wrap: anywhere; }.people-record-list span, .people-record-list small { color: var(--kss-ink-soft); font-size: 12px; line-height: 1.45; }
+.people-record-list a { flex: none; min-height: 44px; display: inline-flex; align-items: center; font-size: 12px; }
+@media (max-width: 700px) {
+  .people-section-heading { align-items: start; flex-direction: column; }
+  .people-record-section .people-overview-list, .people-record-section .people-details-list { grid-template-columns: 1fr; }
+  .people-record-list li { align-items: start; flex-direction: column; gap: 4px; }
+}
