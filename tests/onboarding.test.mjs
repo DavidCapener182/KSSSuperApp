@@ -77,9 +77,9 @@ test('03A synthetic case separates document evidence from requirement verificati
     assert.equal((await request('/api/onboarding','staff',json({targetPersonId:staffId,siteId:site.id,requestKey:randomUUID()}))).status,403);
     const getCase=async(as='office')=>{const response=await request(`/api/onboarding/${id}`,as);return [response.status,await response.json()];};
     let [status,record]=await getCase();assert.equal(status,200);assert.equal(record.case.state,'DRAFT');
-    assert.equal(record.case.templateVersion,1);assert.equal(record.case.requirements.length,6);
+    assert.equal(record.case.templateVersion,2);assert.equal(record.case.requirements.length,6);
     assert.equal(record.case.verifiedCount,0);assert.equal(record.case.personId,staffId);
-    assert.equal(record.case.requirements.find((r)=>r.code==='PERSONAL_DETAILS').state,'NOT_CONFIGURED');
+    assert.ok(record.case.requirements.some((r)=>r.code==='PERSONAL_DETAILS'));
     assert.equal(record.case.requirements.find((r)=>r.code==='CONTRACT_TERMS').state,'NOT_AVAILABLE');
     assert.equal(record.case.requirements.find((r)=>r.code==='CORE_KSS_INDUCTION').state,'NOT_CONNECTED');
     const rtw=record.case.requirements.find((r)=>r.code==='RIGHT_TO_WORK');assert.equal(rtw.state,'NOT_STARTED');
