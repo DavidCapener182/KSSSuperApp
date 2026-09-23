@@ -34,7 +34,7 @@ async function port() {
 const paths = ['/app', '/sites', '/profile'];
 
 test('return targets allow only implemented local routes', () => {
-  for (const path of [...paths, '/sites?view=mine', '/documents', '/documents/10000000-0000-4000-8000-000000000003', '/work', '/work/10000000-0000-4000-8000-000000000003']) assert.equal(safeReturnTarget(path), path);
+  for (const path of [...paths, '/sites?view=mine', '/documents', '/documents/10000000-0000-4000-8000-000000000003', '/work', '/work/10000000-0000-4000-8000-000000000003', '/onboarding', '/onboarding/10000000-0000-4000-8000-000000000003']) assert.equal(safeReturnTarget(path), path);
   for (const path of ['//evil.example', 'https://evil.example', '/\\evil', '/sites#fragment', '/sites/../app', '/admin', '/sites%2F..', '/sites?x=1\nLocation: evil']) assert.equal(safeReturnTarget(path), null, path);
 });
 
@@ -60,8 +60,8 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.equal((await me(undefined))[0], 401);
     assert.deepEqual(await me('unmapped'), [403, { error: 'No Enterprise access' }]);
     const expected = {
-      admin: ['/app', '/work', '/sites', '/documents', '/profile'], office: ['/app', '/work', '/sites', '/documents', '/profile'],
-      staff: ['/app', '/sites', '/documents', '/profile'], zero: ['/app', '/sites', '/documents', '/profile'],
+      admin: ['/app', '/work', '/sites', '/documents', '/onboarding', '/profile'], office: ['/app', '/work', '/sites', '/documents', '/onboarding', '/profile'],
+      staff: ['/app', '/sites', '/documents', '/onboarding', '/profile'], zero: ['/app', '/sites', '/documents', '/onboarding', '/profile'],
       operations: ['/app', '/profile'],
     };
     for (const [as, links] of Object.entries(expected)) {
@@ -73,6 +73,7 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     }
     assert.equal((await get('/sites', 'operations')).status, 404);
     assert.equal((await get('/work', 'operations')).status, 404);
+    assert.equal((await get('/onboarding', 'operations')).status, 404);
     assert.equal((await get('/api/sites', 'operations')).status, 403);
     assert.equal((await get('/sites', 'zero')).status, 200);
     const zeroList = await get('/api/sites', 'zero');

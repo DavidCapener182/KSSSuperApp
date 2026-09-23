@@ -13,7 +13,8 @@
     "test:shell": "node --env-file=.env.local --env-file=.env.test.local --test tests/shell.test.mjs",
     "test:documents": "node --env-file=.env.local --env-file=.env.test.local --test tests/documents.test.mjs",
     "test:document-review": "node --env-file=.env.local --env-file=.env.test.local --test tests/document-review.test.mjs",
-    "test:work": "node --env-file=.env.local --env-file=.env.test.local --test tests/work.test.mjs"
+    "test:work": "node --env-file=.env.local --env-file=.env.test.local --test tests/work.test.mjs",
+    "test:onboarding": "node --env-file=.env.local --env-file=.env.test.local --test tests/onboarding.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

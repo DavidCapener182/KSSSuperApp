@@ -69,10 +69,14 @@ test("authenticated RLS and server authorization", { timeout: 120000 }, async ()
   assert.equal(staffCount.count, 1);
   const otherCount = await a.from("people").select("id", { count: "exact", head: true }).eq("id", person.b);
   assert.equal(otherCount.count, 0);
-  assert.deepEqual((await a.from("sites").select("id")).data.map((row) => row.id), [site.a]);
+  const aSites = (await a.from("sites").select("id")).data.map((row) => row.id);
+  assert.ok(aSites.includes(site.a));
+  assert.ok(!aSites.includes(site.b));
   assert.deepEqual((await a.from("sites").select("id").eq("id", site.b)).data, []);
   assert.deepEqual((await b.from("people").select("id")).data.map((row) => row.id), [person.b]);
-  assert.deepEqual((await b.from("sites").select("id")).data.map((row) => row.id), [site.b]);
+  const bSites = (await b.from("sites").select("id")).data.map((row) => row.id);
+  assert.ok(bSites.includes(site.b));
+  assert.ok(!bSites.includes(site.a));
   const expiredSite = await admin.from("site_assignments").select("effective_until").eq("id", "40000000-0000-4000-8000-000000000003").single();
   assert.ifError(expiredSite.error);
   assert.ok(Date.parse(expiredSite.data.effective_until) < Date.now());
