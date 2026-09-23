@@ -43,4 +43,13 @@ Do not place `KSS_TEST_*` credentials or a Supabase secret/service-role key in t
 
 ## Stop condition
 
-Until all remaining configuration gates pass, stop before creating a Vercel deployment. No staging URL is available yet. Training remains `NOT_CONNECTED`; live personnel and production gates remain open.
+Do not give David a staging URL for use until the isolated protected deployment, staging Auth configuration, synthetic fixtures and post-deployment checks are verified. Training remains `NOT_CONNECTED`; live personnel and production gates remain open.
+
+## 23 September continuation: isolated Vercel staging project
+
+- David approved a **separate** Vercel staging project after Vercel's documented rule was confirmed: a new project's first successful deployment is Production-classified even when initiated from a non-production branch or without `--prod`. The earlier `kss-super-app` project remains without a successful deployment. The new project is `kss-enterprise-staging`, ID `prj_4jIvF5zewGzJqWKRukfqr4i7gwU1`, in the same Vercel team.
+- Before code deployment, the new project's Vercel Authentication was set to **All Deployments** (including its Production-classified first deployment). Framework preset is Next.js. The five staging variables listed above were saved to this staging-only project's Production environment; the signing secret is hidden/Sensitive. `vercel env ls` read back all five names and their Production scope. The project was connected to `DavidCapener182/KSSSuperApp` only after protection and variables were configured.
+- The first staging-only CLI build, deployment `dpl_2gP3chLKDktwfTWzHLQuNcrtHMhn`, failed because `.vercelignore` matched `src/lib/supabase/` as well as root `supabase/`. Build logs showed missing `@/lib/supabase/browser` and `@/lib/supabase/server`. Commit `7796b93` narrowed the rule to `/supabase/`. A deployment dry run then confirmed both application Supabase client files included and no root migration or `.env.local` file in the upload list. The clean commit was pushed to the remote `staging` branch.
+- Local CLI source upload of the corrected commit failed with a transport `fetch failed` before creating a new deployment. Git-backed deployment is being prepared; this failure is not a successful release. Do not describe any staging URL as ready until a later build is Ready, Vercel protection is tested against an unauthenticated request, and the app is smoke-tested.
+
+The earlier Preview-only plan is superseded by the approved staging-only Vercel project. Its first successful build will be Production-classified **within that staging-only project** and must remain Vercel-auth protected with synthetic Supabase data. All application and live-data gates remain unchanged.
