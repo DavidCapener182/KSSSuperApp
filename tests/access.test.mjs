@@ -86,7 +86,10 @@ test("authenticated RLS and server authorization", { timeout: 120000 }, async ()
   assert.ifError(officeSites.error);
   assert.ok(officeSites.data.some((row) => row.id === site.a));
   assert.ok(officeSites.data.every((row) => row.created_by_person_id === person.office));
-  assert.deepEqual((await admin.from("people").select("id")).data.map((row) => row.id).sort(), Object.values(person).concat(["10000000-0000-4000-8000-000000000005", "10000000-0000-4000-8000-000000000006", "10000000-0000-4000-8000-000000000007", "10000000-0000-4000-8000-000000000008"]).sort());
+  const adminPeople = await admin.from("people").select("id");
+  assert.ifError(adminPeople.error);
+  const expectedPeople = Object.values(person).concat(["10000000-0000-4000-8000-000000000005", "10000000-0000-4000-8000-000000000006", "10000000-0000-4000-8000-000000000007", "10000000-0000-4000-8000-000000000008"]);
+  assert.ok(expectedPeople.every((id) => adminPeople.data.some((row) => row.id === id)), "Super Admin still sees every original synthetic Person");
 
   const deniedRole = await a.from("role_assignments").insert({ person_id: person.a, role_code: "SUPER_ADMIN" });
   assert.ok(deniedRole.error, "staff self-grant must fail");

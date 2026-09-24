@@ -12,5 +12,5 @@ export default async function EventPage({ params, searchParams }: { params: Prom
   if (!principal) redirect("/?next=%2Fevents");
   if (!hasCapability(principal, "EVENTS_USE")) notFound();
   const search = await searchParams;
-  return <><main className="enterprise-main"><p><Link href={`/events/${id}/attendance`}>Event attendance</Link> · <Link href={`/events/${id}/work-time`}>Worked-time review</Link></p></main><EventsClient roles={principal.roles} id={id} focusRequirement={search.requirement && isUuid(search.requirement) ? search.requirement : undefined} /></>;
+  return <><main className="enterprise-main"><p><Link href={`/events/${id}/attendance`}>Event attendance</Link> · <Link href={`/events/${id}/work-time`}>Worked-time review</Link> · <Link href={`/operational-contacts/manage?kind=EVENT&id=${id}`}>Operational contacts</Link></p></main><EventsClient roles={principal.roles} id={id} focusRequirement={search.requirement && isUuid(search.requirement) ? search.requirement : undefined} /></>;
 }

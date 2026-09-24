@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { getPrincipal, isUuid } from "@/lib/auth/principal";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { SiteServiceDetailClient } from "@/components/site-service-detail-client";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 export default async function SiteServiceDetailPage({ params, searchParams }: { params: Promise<{ siteId: string; serviceId: string }>; searchParams: Promise<{ demand?: string }> }) {
@@ -10,6 +11,6 @@ export default async function SiteServiceDetailPage({ params, searchParams }: { 
   if (!principal.roles.some((role) => ["SUPER_ADMIN", "OFFICE_ADMIN", "OPERATIONS"].includes(role))) notFound();
   const { siteId, serviceId } = await params; if (!isUuid(siteId) || !isUuid(serviceId)) notFound();
   const query=await searchParams;
-  return <SiteServiceDetailClient siteId={siteId} serviceId={serviceId} initialDemandId={query.demand && isUuid(query.demand) ? query.demand : undefined}
-    canAdmin={principal.roles.some((role) => ["SUPER_ADMIN", "OFFICE_ADMIN"].includes(role))} />;
+  return <><main className="enterprise-main"><p><Link href={`/operational-contacts/manage?kind=SITE_SERVICE&id=${serviceId}`}>Operational contacts for this Site Service</Link></p></main><SiteServiceDetailClient siteId={siteId} serviceId={serviceId} initialDemandId={query.demand && isUuid(query.demand) ? query.demand : undefined}
+    canAdmin={principal.roles.some((role) => ["SUPER_ADMIN", "OFFICE_ADMIN"].includes(role))} /></>;
 }

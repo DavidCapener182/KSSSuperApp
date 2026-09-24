@@ -162,6 +162,7 @@ export default function SitesPage() {
           {office&&<><p><strong>Client:</strong> {operationalSite?.client_name ? <Link href={`/crm/organisations/${operationalSite.organisation_id}`}>{String(operationalSite.client_name)}</Link> : "Not linked"}</p>
             {((operationalSite?.events as {id:string;name:string}[])??[]).length>0&&<p>Events: {((operationalSite?.events as {id:string;name:string}[])??[]).map((item)=><Link key={item.id} href={`/events/${item.id}`}>{item.name}</Link>)}</p>}</>}
           {operationalSite?.organisation_id&&<p><Link href={`/sites/${selected.id}/services`}>Ongoing Site Services and shift demand</Link></p>}
+          <p><Link href={`/operational-contacts/manage?kind=SITE&id=${selected.id}`}>Operational contacts for this Site</Link></p>
           <p className="sites-id">Site ID: {selected.id}</p>
           {canManage && <>
             <h3>Manage Site</h3>
