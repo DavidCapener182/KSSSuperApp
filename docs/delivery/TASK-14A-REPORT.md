@@ -1,6 +1,12 @@
 # TASK-14A delivery report — synthetic Dev Site Book
 
-Date: 24 September 2026. Status: implementation complete for David's acceptance review; **not** human accepted, staged or production ready. This report covers only the approved routine Site Service book.
+Date: 24 September 2026. Status: **accepted by David in synthetic Dev on 24 September 2026**; not staged or production ready. This report covers only the approved routine Site Service book.
+
+## David's acceptance — TASK-14A
+
+David accepted the routine Site Occurrence and Shift Handover Book in synthetic Dev. The accepted first slice covers routine Site Service entries, outstanding items, multi-contributor shift handover, individual acknowledgement of the exact revision, reasoned resolution/reopening, immutable correction/history and finite relief-Staff contributor access. David accepted the synthetic security/integration proof, related regressions, build and authenticated 1280px/390px browser evidence. Reusing two synthetic Staff accounts for outgoing contributions and incoming acknowledgements is not an acceptance blocker; a four-person roster remains a future synthetic proof.
+
+Site Book remains separate from Incidents, MagSecure patrols, Assets, attendance, worked time and Tasks. An entry or handover acknowledgement does not establish attendance, asset custody, Incident status or work/pay facts. Retention, legal hold/erasure, special-category handling and final privacy policy remain mandatory pre-live gates. Acceptance authorises no staging, production or real KSS data. Narrow Control Room facts, exact Asset references and explicit Incident creation are separate future tasks, with no automatic conversion or custody transfer.
 
 ## Delivered
 
@@ -38,4 +44,4 @@ Authenticated local browser proof with synthetic Staff and Office accounts verif
 
 The implementation deliberately has no real records, client view, attachment, notification, Incident automation, MagSecure data, asset ID, payroll/attendance/worked-time effect, staging migration or production deployment. TASK-13A can later consume only an explicitly authorised safe read projection; TASK-15A can later add an exact asset reference. Neither is wired into 14A. Retention duration, legal hold/erasure process, special-category handling and controller policy remain pre-live decisions. The 48-hour Staff timeline, current open items and latest handover are the first-slice read boundary; manager search is Service scoped. No claim of emergency response or verified client instruction is made.
 
-**STOP:** Await David's review and acceptance of this synthetic-Dev implementation. Do not advance to staging, production, real data or a follow-on feature under this task.
+**STOP:** TASK-14A is accepted in synthetic Dev. Do not advance to staging, production, real data or a follow-on feature under this task.
