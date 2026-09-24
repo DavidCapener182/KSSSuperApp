@@ -54,7 +54,7 @@ export function MyDeploymentsClient({focus}:{focus?:string}) {
     {item.status === "ALLOCATED" && item.event_status !== "COMPLETED" && item.event_status !== "CANCELLED" && <div className="deployment-actions"><Button disabled={busy} onClick={() => void respond(item, "ACCEPTED")}>Accept allocation</Button><Button variant="outline" disabled={busy} onClick={() => { setDeclining(item); setError(""); }}>Decline</Button></div>}
   </article>;
   return <main className="enterprise-main deployment-self"><div className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Your operational work</p><h1>My Deployments</h1><p>See only your own allocations. Accepting does not record attendance or hours worked.</p></div></div>
-    <p className="enterprise-honesty">Responses and availability are separate from attendance. <Link href="/my-schedule">My Schedule</Link></p>
+    <p className="enterprise-honesty">Responses and availability are separate from attendance. <Link href="/my-schedule">My Schedule</Link> · <Link href="/my-attendance">My Attendance</Link></p>
     {notice && <p className="enterprise-honesty" role="status">{notice}</p>}
     {error && <p className="enterprise-error" role="alert">{error} <Button variant="outline" onClick={() => void load(offset)}>Retry</Button></p>}
     {loading ? <p className="crm-skeleton" role="status">Loading your deployments…</p> : items.length === 0 ? <div className="crm-empty">No deployments to show.</div> : <>

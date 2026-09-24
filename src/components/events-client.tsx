@@ -122,7 +122,7 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
         <strong>{label(row.kind)} {row.new_status?`· ${label(row.new_status)}`:""}</strong><span>{london(row.occurred_at)} · {String(row.actor_name ?? "Office / Operations")}</span>
         {Boolean(row.reason) && <p>Reason: {String(row.reason)}</p>}</div>)}</section>
       <StaffingPlanClient eventId={id} eventStatus={String(event.status)} eventStarts={String(event.starts_at)} eventEnds={String(event.ends_at)} focusRequirement={focusRequirement}/>
-      <section className="crm-panel"><h2>Operational briefings</h2><p>Briefing packs are not connected yet. Allocations above do not record attendance or completed work.</p></section>
+      <section className="crm-panel"><h2>Attendance</h2><p>Record and review factual attendance against this Event’s allocations. Attendance does not calculate worked time.</p><Button asChild><Link href={`/events/${id}/attendance`}>Open Event attendance</Link></Button></section>
     </>}
     {creating && <div className="crm-dialog-backdrop"><section className="crm-dialog" role="dialog" aria-modal="true" aria-label="Create Event">
       <h2>Create operational Event</h2><p>One multi-day Event can span several dates. Staffing times come later.</p>
