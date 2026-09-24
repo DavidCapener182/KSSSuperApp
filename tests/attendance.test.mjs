@@ -4,14 +4,14 @@ import { createClient } from '@supabase/supabase-js';
 import { signInWithTestSession } from './helpers/auth-session.mjs';
 
 const url=process.env.NEXT_PUBLIC_SUPABASE_URL,key=process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-const credentials={office:[process.env.KSS_TEST_OFFICE_EMAIL,process.env.KSS_TEST_OFFICE_PASSWORD],operations:[process.env.KSS_TEST_OPERATIONS_EMAIL,process.env.KSS_TEST_OPERATIONS_PASSWORD],staffA:[process.env.KSS_TEST_STAFF_A_EMAIL,process.env.KSS_TEST_STAFF_A_PASSWORD],staffB:[process.env.KSS_TEST_STAFF_B_EMAIL,process.env.KSS_TEST_STAFF_B_PASSWORD]};
+const credentials={admin:[process.env.KSS_TEST_ADMIN_EMAIL,process.env.KSS_TEST_ADMIN_PASSWORD],office:[process.env.KSS_TEST_OFFICE_EMAIL,process.env.KSS_TEST_OFFICE_PASSWORD],operations:[process.env.KSS_TEST_OPERATIONS_EMAIL,process.env.KSS_TEST_OPERATIONS_PASSWORD],staffA:[process.env.KSS_TEST_STAFF_A_EMAIL,process.env.KSS_TEST_STAFF_A_PASSWORD],staffB:[process.env.KSS_TEST_STAFF_B_EMAIL,process.env.KSS_TEST_STAFF_B_PASSWORD]};
 const person={office:'10000000-0000-4000-8000-000000000002',staffA:'10000000-0000-4000-8000-000000000003',staffB:'10000000-0000-4000-8000-000000000004'};
 async function signed(name){const client=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});const {error}=await signInWithTestSession(client,{email:credentials[name][0],password:credentials[name][1]});assert.ifError(error);return client;}
 async function rpc(client,name,args){const {data,error}=await client.rpc(name,args);assert.ifError(error);return data;}
 
 test('TASK-09A Event attendance authority, immutability, retry and cancellation review',{timeout:180000},async()=>{
  assert.ok(url&&key&&Object.values(credentials).every(x=>x[0]&&x[1]));
- const [office,operations,staffA,staffB]=await Promise.all(Object.keys(credentials).map(signed));
+ const [admin,office,operations,staffA,staffB]=await Promise.all(Object.keys(credentials).map(signed));
  const day=`${2035+Math.floor(Math.random()*12)}-07-${String(1+Math.floor(Math.random()*20)).padStart(2,'0')}`;const stamp=Date.now();
  const org=await rpc(office,'crm_create_organisation',{p_name:`09A Synthetic Client ${stamp}`});
  const won=await rpc(office,'crm_create_opportunity',{p_organisation:org,p_title:'09A synthetic event',p_type:'DIRECT_ENQUIRY',p_owner:person.office});
@@ -67,7 +67,30 @@ test('TASK-09A Event attendance authority, immutability, retry and cancellation 
   operations.rpc('deployment_cancel',{p_event:event,p_requirement:requirements.get(cancelRace),p_allocation:cancelRace,p_expected_revision:2,p_reason:'Synthetic concurrent cancellation'})]);
  assert.ifError(cancelResults[1].error,'allocation cancellation commits through its authoritative lifecycle');
  if(!cancelResults[0].error){const cancellationView=await rpc(operations,'attendance_event_overview',{p_event:event,p_offset:0,p_limit:100});const cancelRow=cancellationView.items.find(i=>i.allocation_id===cancelRace);assert.ok(cancelRow.attendance.check_in_at);assert.equal(cancelRow.attendance.review_required,true,'check-in committed first, then cancellation raised review');}
- else {const own=await rpc(staffA,'my_event_attendance',{p_offset:0,p_limit:50});const cancelRow=own.items.find(i=>i.allocation_id===cancelRace);assert.equal(cancelRow?.attendance.check_in_at,null,'cancellation committed first, so no check-in fact was accepted');}
+ else {const own=await rpc(staffA,'my_event_attendance',{p_offset:0,p_limit:50,p_allocation_id:cancelRace});const cancelRow=own.items.find(i=>i.allocation_id===cancelRace);assert.equal(cancelRow?.attendance.check_in_at,null,'cancellation committed first, so no check-in fact was accepted');}
+ const paginationEvent=await rpc(office,'operational_create_event',{p_site:site.data.id,p_organisation:org,p_name:'09A Synthetic Attendance Paging',p_type:'FOOTBALL_MATCH',p_starts:'2050-07-01T00:00:00Z',p_ends:'2050-07-08T00:00:00Z',p_owner:person.office});
+ const pagingAllocations=[];
+ for(let index=0;index<26;index++){
+  const dayOffset=Math.floor(index/5),slot=index%5,date=new Date(Date.parse('2050-07-01T00:00:00Z')+dayOffset*86400000).toISOString().slice(0,10),hour=6+slot;
+  const req=await rpc(office,'staffing_create_confirmed',{p_event:paginationEvent,p_role:role,p_quantity:1,p_report:`${date}T${String(hour-1).padStart(2,'0')}:30:00Z`,p_start:`${date}T${String(hour).padStart(2,'0')}:00:00Z`,p_end:`${date}T${String(hour).padStart(2,'0')}:30:00Z`,p_area:`Paging ${index}`,p_instructions:'Synthetic pagination proof',p_reason:null,p_confirm_duplicate:false,p_confirm_exception:false});
+  const id=await rpc(operations,'deployment_allocate',{p_event:paginationEvent,p_requirement:req,p_person:person.staffA,p_expected_revision:1,p_acknowledge_warnings:true,p_reason:'Synthetic pagination proof allocation'});
+  await rpc(staffA,'deployment_respond',{p_allocation:id,p_expected_revision:1,p_response:'ACCEPTED'});pagingAllocations.push({id,req});
+ }
+ const target=pagingAllocations[0].id,firstPage=await rpc(staffA,'my_event_attendance',{p_offset:0,p_limit:25});
+ assert.equal(firstPage.items.length,25);assert.ok(firstPage.items.every(item=>pagingAllocations.some(allocation=>allocation.id===item.allocation_id)),'accepted actionable work is prominent ahead of older history');
+ assert.ok(!firstPage.items.some(item=>item.allocation_id===target),'the test allocation is beyond the first page');
+ const focused=await rpc(staffA,'my_event_attendance',{p_offset:0,p_limit:25,p_allocation_id:target});
+ assert.equal(focused.total,1);assert.deepEqual(focused.items.map(item=>item.allocation_id),[target],'the exact accepted own allocation is directly reachable');
+ const pageTwo=await rpc(staffA,'my_event_attendance',{p_offset:25,p_limit:25});assert.ok(pageTwo.items.some(item=>item.allocation_id===target),'next page reaches the same exact allocation');
+ const peerFocus=await rpc(staffB,'my_event_attendance',{p_offset:0,p_limit:25,p_allocation_id:target});assert.equal(peerFocus.total,0);assert.deepEqual(peerFocus.items,[],'peer allocation focus reveals no record');
+ const guessedFocus=await rpc(staffA,'my_event_attendance',{p_offset:0,p_limit:25,p_allocation_id:crypto.randomUUID()});assert.equal(guessedFocus.total,0);assert.deepEqual(guessedFocus.items,[],'unknown allocation focus reveals no record');
+ const stableTotal=firstPage.total,allIds=[];for(let offset=0;offset<stableTotal;offset+=25){const page=await rpc(staffA,'my_event_attendance',{p_offset:offset,p_limit:25});allIds.push(...page.items.map(item=>item.allocation_id));}
+ assert.equal(allIds.length,stableTotal,'bounded pages cover the complete projection');assert.equal(new Set(allIds).size,stableTotal,'bounded pages contain no duplicate or missing allocation identities');assert.ok(allIds.includes(target));
+ const staffRoles=await admin.from('role_assignments').select('id,effective_until').eq('person_id',person.staffA).eq('role_code','SECURITY_STAFF').is('revoked_at',null);assert.ifError(staffRoles.error);assert.ok(staffRoles.data.length);
+ const roleRow=staffRoles.data[0],expired=await admin.from('role_assignments').update({effective_until:new Date(Date.now()-1000).toISOString()}).eq('id',roleRow.id);assert.ifError(expired.error);
+ try{const denied=await staffA.rpc('my_event_attendance',{p_offset:0,p_limit:25,p_allocation_id:target});assert.ok(denied.error,'an expired Staff role cannot use exact allocation focus');}
+ finally{const restored=await admin.from('role_assignments').update({effective_until:roleRow.effective_until}).eq('id',roleRow.id);assert.ifError(restored.error);}
+ await rpc(office,'operational_change_event',{p_event:paginationEvent,p_action:'STATUS',p_status:'CANCELLED',p_reason:'Synthetic attendance pagination proof complete'});
  for(const id of [first,second,race,fifth]) await rpc(operations,'deployment_cancel',{p_event:event,p_requirement:requirements.get(id),p_allocation:id,p_expected_revision:2,p_reason:'Synthetic TASK-09A proof complete'});
  await rpc(office,'operational_change_event',{p_event:event,p_action:'STATUS',p_status:'CANCELLED',p_reason:'Synthetic TASK-09A proof complete'});
 });
