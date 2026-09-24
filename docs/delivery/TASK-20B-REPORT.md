@@ -1,6 +1,6 @@
 # TASK-20B delivery report — Native Training Catalogue & Course Versioning
 
-**Status:** Implemented in synthetic Dev on 24 September 2026; awaiting David's acceptance. No staging or production changes.
+**Status:** Accepted by David in synthetic Dev on 24 September 2026 at commit `9ccfd88`. No staging or production changes. TASK-20B is closed; TASK-20C is proposal preparation only.
 
 ## Scope delivered
 
@@ -37,7 +37,7 @@ A failed publish or edit produced no half-published version. Publication/superse
 
 An isolated copy under `/tmp/kss-task-20b-preview` was built with the installed Node and Next.js 16.3.6 using `node node_modules/next/dist/bin/next build --webpack`: compilation, TypeScript, page generation and route collection passed; `/training`, `/training/[courseId]`, `/training-admin` and `/api/training` were present. The build was repeated after the final text-list renderer change and passed. Targeted ESLint for 20B source passed. `tests/external-apps.test.mjs` passed 4/4; the return-target case in `tests/shell.test.mjs` passed 1/1, including the new Training paths. The external shortcut's source/configuration was not modified. Direct readback of both Core KSS Induction requirement definitions remained `NOT_CONNECTED`. No TrainingAssignment, enrolment, progress, Attempt, score, Completion, certificate, training matrix, credential or eligibility table/function was created.
 
-The shared checkout's ordinary `tsc --noEmit` encountered duplicate generated `.next/types` files while parallel lanes ran builds; a temporary source-only TypeScript config passed before unrelated in-progress 22B files appeared. Subsequent source-only TypeScript reported missing/incomplete 22B files, while the isolated final production build passed. The temporary config was removed. A broad regression suite was not run against the shared Dev fixture while other approved lanes were active; the focused Training, external shortcut and return-target checks above are the actual executed regressions.
+The shared checkout's ordinary `tsc --noEmit` encountered duplicate generated `.next/types` files while parallel lanes ran builds; a temporary source-only TypeScript config passed before unrelated in-progress 22B files appeared. Subsequent source-only TypeScript reported missing/incomplete 22B files, while the isolated final production build passed. The temporary config was removed. A broad regression suite was not run against the shared Dev fixture while other approved lanes were active; the focused Training, external shortcut and return-target checks above are the actual executed regressions. David accepted this as a known evidence limitation; it does not reopen the accepted 20B architecture.
 
 ## Authenticated browser evidence
 
@@ -56,4 +56,4 @@ The Office browser created a v3 draft, showed the draft editor and preview; it w
 
 `/usr/bin/git` invoked the local Xcode licence check. All Git work used `/Library/Developer/CommandLineTools/usr/bin/git`; Node/npm/npx were available under `/Users/davidcapener/.local/bin`. No Xcode licence, installation, global developer directory or machine configuration was changed. An isolated preview build avoided the shared `.next` directory.
 
-No live KSS data, external Training provider, SSO, import, controlled DocumentVersion link, Staff learning result, staging or production deployment was added. David's acceptance is required before advancing beyond TASK-20B.
+No live KSS data, external Training provider, SSO, import, controlled DocumentVersion link, Staff learning result, staging or production deployment was added. David accepted TASK-20B only. Assignment, progress, assessment, completion and all later Training work require separate bounded approval.

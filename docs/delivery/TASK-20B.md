@@ -1,6 +1,6 @@
 # TASK-20B — Native Training Catalogue & Course Versioning
 
-**Authority:** David approved bounded synthetic-Dev implementation on 24 September 2026. Synthetic Dev project `dnfhkmmnlbiabqypclqg` only; protected staging `kwpgjbxepxuhwxxydaca` is excluded. Stop after separate TASK-20B commit and delivery report for David's acceptance.
+**Status:** Accepted by David in synthetic Dev on 24 September 2026 at commit `9ccfd88`. Synthetic Dev project `dnfhkmmnlbiabqypclqg` only; protected staging `kwpgjbxepxuhwxxydaca` remains excluded. TASK-20B implementation is closed. The next Training work is the TASK-20C proposal only.
 
 ## Outcome
 
@@ -28,4 +28,4 @@ TASK-11A's external Training shortcut and its unverified provider URL remain unc
 
 ## Evidence and stop point
 
-See `TASK-20B-REPORT.md` for actual migration/RLS/function readback, immutability, concurrent publication and retry, negative access, build/regression, and authenticated desktop/390px browser evidence. David's acceptance remains pending after the separate 20B-owned commit. No staging, production or real KSS training data is authorised.
+See `TASK-20B-REPORT.md` for actual migration/RLS/function readback, immutability, concurrent publication and retry, negative access, build/regression, and authenticated desktop/390px browser evidence. David accepted that evidence, including the recorded broad-regression limitation. No staging, production or real KSS training data is authorised.
