@@ -1,6 +1,6 @@
-# TASK-20C — Training Assignments & Staff Learning proposal
+# TASK-20C — Training Assignments & Staff Learning
 
-**Status:** Approved by David for bounded synthetic-Dev implementation on 24 September 2026. TASK-20B was accepted in synthetic Dev at `9ccfd88`. The implementation and evidence are in [TASK-20C-REPORT.md](TASK-20C-REPORT.md); David's acceptance of 20C remains a separate decision.
+**Status: ACCEPTED — SYNTHETIC DEV.** David formally accepted TASK-20C on 24 September 2026. Implementation commit: `3755a7b`. The delivered evidence is in [TASK-20C-REPORT.md](TASK-20C-REPORT.md). No staging, production or live KSS Training approval is implied.
 
 ## Intended outcome
 
@@ -14,7 +14,7 @@ The identity chain is `Person → TrainingAssignment → CourseVersion → immut
 - An assigned learner's exact page can be identified by CourseVersion ID and one-based module/page ordinals. Those ordinals are stable within the immutable package and avoid rewriting existing published versions to add page IDs. Every progress write validates the ordinals against that package.
 - `TRAINING_AUTHOR` and `TRAINING_PUBLISHER` remain separate from assignment authority. The external TASK-11A Training shortcut, Core KSS induction `NOT_CONNECTED`, controlled documents, credentials and staffing eligibility remain independent.
 
-## Proposed bounded 20C data and lifecycle
+## Original bounded 20C proposal and delivered lifecycle
 
 1. **TrainingAssignment:** stable opaque ID; exact target Person, Course, CourseVersion; assigned-by Person, assigned-at server time, explicit due date, assignment reason, current state and revision. Only one active Assignment for one Person/Course at a time. A repeat or retake after cancellation/supersession gets a new ID; history is retained. No CourseVersion is copied or modified.
 2. **Initial assignment:** named authorised Office Admin selects an active Security Staff Person and the Course's **current, published, unretired** version. The guarded transaction locks/rechecks the Course pointer and Person authority so a concurrent publish either leaves a valid v1 Assignment committed first or rejects a stale v1 selection. No automatic assignment to every Staff member when a course is published. Opening the catalogue does not enrol anyone.
@@ -22,7 +22,7 @@ The identity chain is `Person → TrainingAssignment → CourseVersion → immut
 4. **Cancellation:** reasoned `CANCELLED` transition stops new progress writes. Existing Assignment, exact version and page history remain readable to authorised Training administrators and the Person. Cancellation does not erase learning activity.
 5. **Supersession:** one guarded, reasoned transaction marks the old Assignment `SUPERSEDED` and creates a new Assignment pinned to the then-current CourseVersion. It does **not** copy or convert the old page markers. The old and new Assignments remain linked by an explicit supersession event. Publishing v2 never invokes this transition automatically.
 6. **Learning position and page markers:** an active assigned Person can explicitly **Save my place** at a valid page and **Mark page viewed**. Save-place supports resume; page markers support a factual “X of Y pages marked viewed” display and module navigation. Both actions record actor/server time against exact Assignment, CourseVersion and module/page ordinals. Repeating the same mark is idempotent. Opening or navigating a page alone still writes nothing. These markers do not assert that content was understood or a course was completed.
-7. **Historical access:** an active v1 Assignment continues to open its exact v1 package after v2 becomes current. A cancelled/superseded Assignment becomes read-only history for that Person. Proposed safety default for an explicitly **retired** version is to suspend Staff page access and show “content retired—assignment needs review” without changing the Assignment automatically; an authorised assigner must cancel or supersede it. This retirement rule needs David's decision before implementation.
+7. **Historical access:** an active v1 Assignment continues to open its exact v1 package after v2 becomes current. A cancelled/superseded Assignment becomes read-only history for that Person. David approved suspending Staff page access to an explicitly **retired** version and showing “Content retired — assignment needs review” without changing the Assignment automatically; an authorised assigner must cancel or supersede it.
 
 ## Proposed authority and privacy
 
@@ -56,3 +56,13 @@ Every action resolves AuthIdentity → Person and rechecks active role, named ca
 ## David's approved decisions — 24 September 2026
 
 David approved `TRAINING_ASSIGNER` as an explicit, separately granted capability. Super Admin has grant/revocation and read-only oversight; the role alone does not perform assignment actions. An assigner must have an active named grant. Every assignment has an explicit Europe/London calendar due date; a reasoned, revision-checked correction may move it earlier or later. Learning actions are exactly **Save my place** and **Mark page viewed**. All pages marked viewed remains factual progress and creates no Completion. One active Assignment per Person and Course is allowed. Assignment, cancellation and version supersession are manual, individual and attributable. A retired exact version blocks Staff content and progress while preserving its Assignment; a merely superseded published version remains available to its active assignee. 20D and later Training work is not authorised.
+
+## Formal acceptance and lane close-out — 24 September 2026
+
+David accepted the exact CourseVersion-pinned Assignment, one active Person/Course constraint, individual manual assignment, separate finite `TRAINING_ASSIGNER` authority, explicit Europe/London due date and reasoned earlier/later correction, explicit Save my place and Mark page viewed, and the rule that passive navigation and even all pages viewed create no Completion or proof of understanding. Publication never migrates an Assignment. Reasoned explicit supersession creates a new Assignment with no inherited progress, while cancelled and superseded Assignments retain immutable history. Historical published versions remain tied to their exact Assignments; retirement suspends Staff content and progress access until an assigner explicitly cancels or supersedes. No publication, catalogue, onboarding or operational event automatically assigns learning.
+
+The accepted proof is synthetic-Dev database, RLS, grant, concurrency, idempotency, lifecycle and negative-access readback; a production Webpack build; TypeScript and focused ESLint; 20B, TASK-11A external-shortcut, 03A onboarding and return-target regressions; and authenticated Staff, Office and Super Admin desktop/390px browser evidence. The complete shell test's expected-navigation mismatch is shared test drift after parallel lanes added `/management-reports` and `/operational-documents`; those routes must remain. Its expectation can be reconciled in a controlled integration/test-maintenance pass.
+
+TASK-11A's external Training shortcut remains unchanged and Core KSS Induction remains `NOT_CONNECTED`. Acceptance excludes assessments, questions, answers, Attempts, scoring, pass/fail, Completion, certificates, Training requirements/matrix, onboarding fulfilment, credential verification, deployment eligibility, bulk or automatic assignment, reminders/notifications, external Training migration/sync, staging, production and real KSS Training data.
+
+**Lane closed.** Maximum two active implementation threads at a time. Completion or acceptance of one task does not automatically authorise its successor. Do not begin TASK-20D without David's separate approval.

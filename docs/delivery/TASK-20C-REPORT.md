@@ -1,6 +1,6 @@
 # TASK-20C delivery report — Training Assignments & Staff Learning
 
-**Status:** Implemented for David's acceptance review in synthetic Dev on 24 September 2026. No staging, production, live KSS training data or TASK-20D work was changed.
+**Status: ACCEPTED — SYNTHETIC DEV.** David formally accepted TASK-20C on 24 September 2026. Delivery commit: `3755a7b`. No staging, production, live KSS training data or TASK-20D work was changed.
 
 ## Delivered boundary
 
@@ -57,6 +57,16 @@ The authenticated Super Admin browser showed read-only Assignment oversight and 
 
 ## Limits and acceptance stop
 
-20C writes no assignment from publication, catalogue reading, onboarding, operational allocation, credentials or controlled documents. It adds no reminders, bulk assignment, assessment, answer, Attempt, score, pass/fail, Completion, certificate, training matrix, onboarding fulfilment, credential verification, deployment result, provider sync or external Training replacement. A past due date is display state only. The broad shared regression suite and any staging/production deployment are outside this evidence. David's acceptance is still required; no 20D work is authorised.
+20C writes no assignment from publication, catalogue reading, onboarding, operational allocation, credentials or controlled documents. It adds no reminders, bulk assignment, assessment, answer, Attempt, score, pass/fail, Completion, certificate, training matrix, onboarding fulfilment, credential verification, deployment result, provider sync or external Training replacement. A past due date is display state only. The broad shared regression suite and any staging/production deployment are outside this evidence. David accepted this evidence limitation and the 20C architecture; no 20D work is authorised.
 
 All Git operations for this task used `/Library/Developer/CommandLineTools/usr/bin/git`, bypassing the macOS Xcode shim without accepting the Xcode licence or changing machine configuration. Parallel checkout changes were left untouched; the 20C commit stages only 20C-owned paths.
+
+## David's formal acceptance — 24 September 2026
+
+David accepted the delivered exact-version Assignment and factual-progress contract, including one active Person/Course Assignment, explicit manual authority, due-date history, separate Author/Publisher/Assigner capabilities, no passive tracking, no Completion from 100% viewed, explicit supersession with zero progress inheritance, retained cancelled/superseded evidence, and retired-version access suspension pending assigner review. The accepted database, RLS, grant, concurrency, idempotency, lifecycle, negative-access, build, TypeScript, lint, 20B, external-shortcut, onboarding, return-target and authenticated browser evidence is recorded above.
+
+The complete shell expected-navigation failure is shared test drift from parallel lanes adding `/management-reports` and `/operational-documents`; it is not a 20C architecture failure. Do not weaken or remove those routes. Reconcile the expectation in a controlled integration/test-maintenance pass. The TASK-11A external Training shortcut remains unchanged; Core KSS Induction remains `NOT_CONNECTED`.
+
+Acceptance authorises no assessment, question/answer, Attempt, score, pass/fail, Completion, certificate, Training requirement/matrix, onboarding fulfilment, credential verification, deployment eligibility, bulk/automatic assignment, reminder/notification, external Training migration/sync, staging, production or real KSS Training data.
+
+**Close-out rule:** Maximum two active implementation threads at a time. An accepted task does not automatically authorise its successor. TASK-20C is closed; do not begin TASK-20D without David's separate approval.
