@@ -1,16 +1,16 @@
-# TASK-08D proposal — Static horizon maintenance
+# TASK-08D — Static horizon maintenance
 
-**Status:** Approved for synthetic Dev implementation on 24 September 2026, subject to its written gates. Implementation is limited to accepted 08A static demand horizon maintenance. Workforce, availability, and all other read paths remain read-only. See `TASK-08D-REPORT.md` for actual Dev evidence.
+**Status:** **ACCEPTED — SYNTHETIC DEV** by David on 24 September 2026. Implementation is limited to accepted 08A static demand horizon maintenance. Workforce, availability, and all other read paths remain read-only. See `TASK-08D-REPORT.md` for actual Dev evidence and accepted limitations.
 
-**Decision update (24 September 2026):** David approved the database-local `pg_cron` approach for synthetic Dev after confirmation that Cron has no separate fee on the existing plan and `pg_cron` is supported by this Postgres project. The synthetic Dev operational owner is David/KSS Admin. Production ownership remains a pre-live decision. This update supersedes the earlier proposal text below that described cost, plan eligibility, or synthetic operational ownership as unverified. Implementation evidence and outstanding acceptance checks are recorded in `TASK-08D-REPORT.md`.
+**Decision update (24 September 2026):** David approved the database-local `pg_cron` approach for synthetic Dev after confirmation that Cron has no separate fee on the existing plan and `pg_cron` is supported by this Postgres project. The synthetic Dev operational owner is David/KSS Admin. Production ownership remains a pre-live decision. This update supersedes earlier proposal text below that described cost, plan eligibility, or synthetic operational ownership as unverified. Acceptance evidence and accepted limitations are recorded in `TASK-08D-REPORT.md`.
 
 ## Purpose and boundary
 
 Keep the configurable, bounded forward demand window materialised for active Site Services by invoking the delivered 08A generator as scheduled maintenance. The Dev default remains eight weeks; `site_shift_settings.horizon_weeks` remains the configurable control, currently constrained to 1–26. Maintenance creates or reconciles only dates in `[Europe/London today, today + horizon_weeks)`. It does not generate an unbounded future, attendance, finance, or other workforce records.
 
-This is an implementation proposal only. TASK-08A is accepted in synthetic Dev; its desktop/390px UI walkthrough and human review remain outstanding. Do not run this process in staging or production under this proposal.
+TASK-08A is accepted in synthetic Dev; its desktop/390px UI walkthrough remains a separate follow-up. TASK-08D is accepted in synthetic Dev only. Do not run this process in staging or production.
 
-## Delivered contract and material issue to resolve
+## Delivered 08A contract and pause/end decision
 
 The source-controlled 08A contract is in `site_shift_settings`, `site_services`, `site_service_pauses`, `site_shift_template_versions`, `site_shift_demands`, and `site_shift_demand_events` (migrations `20260924150000`–`20260924153400`). `private.site_shift_generate_08a(service, from, until, actor, reason)` locks one Service, bounds the range to `horizon_weeks`, resolves Europe/London report dates and DST-safe UTC instants, and inserts or types changes on stable occurrence IDs. A unique `(template_line_id, service_date)` occurrence key and the Service row lock provide per-Service serialization. Published template versions are immutable; the manager publication path invokes bounded generation. Active `ALLOCATED`/`ACCEPTED` rows block automatic reconciliation where a demand would change or be cancelled. Workforce's `workforce_week_08a` is `STABLE` and only reports `static_horizon_covered`; it does not generate demand.
 
@@ -81,19 +81,16 @@ Use synthetic Services, templates, exceptions, and allocations in the dedicated 
 7. Verify RLS/direct table denial; authenticated/anon users cannot call the private scheduler, alter ledger/history, or see another manager's hidden details. Workforce, Site Service display, availability, and Staff reads do not invoke writes. Verify system event actor provenance is distinct from manager actions.
 8. Verify disabled job stops new runs; a new correct run and explicit manager reconciliation recover a failed Service without deleting history. Read back the exact job schedule, active state, cron run details, ledger, demand/history counts, and current horizon status.
 
-Run the existing accepted 08A focused regression and relevant allocation/Workforce regressions serially with the project's existing session reuse. Record actual synthetic test evidence, migration/object readback, cron run history, security review, source diff, cost/plan confirmation, and named operational owner in `docs/delivery/TASK-08D-REPORT.md`. Do not claim staging, production, browser, or human acceptance from Dev tests.
+Run the existing accepted 08A focused regression and relevant allocation/Workforce regressions serially with the project's existing session reuse. Record actual synthetic test evidence, migration/object readback, cron run history, security review, source diff, cost/plan confirmation, and named operational owner in `docs/delivery/TASK-08D-REPORT.md`. Tests alone do not establish staging, production, browser, or human acceptance.
 
-## Acceptance criteria and approval boundary
+## David's formal acceptance — 24 September 2026
 
-TASK-08D Dev implementation is authorised. Before acceptance, the report must record:
+David accepts TASK-08D Static Horizon Maintenance in synthetic Dev. The accepted contract is one database-local `pg_cron` job named `kss-site-shift-horizon-08d`, active at `17 3 * * *` (03:17 UTC daily), with `cron.timezone=GMT` and command `select private.site_shift_maintenance_run_08d();`. The job computes its bounded half-open `[Europe/London today, today + horizon_weeks)` window, currently eight weeks, and performs no unbounded or read-side generation.
 
-- Pause/end rule applied as specified above.
-- Supabase Pro plan and absence of a separate Cron fee verified; no add-on or scale-up introduced.
-- Named operational owner and failure response route supplied.
-- One daily 03:17 UTC bounded Dev job; no application read-side writes or unbounded generation.
-- Global and per-Service concurrency guards, retry/idempotency, partial failure ledger, maintenance system actor, and manager-visible overdue/coverage state verified.
-- Allocated/accepted demand and all historical identities/evidence stay intact; effective dates and London DST rules pass negative cases.
-- Scheduler can be disabled and recovered without deleting demand or audit history.
-- TASK-08D delivery report contains actual Dev evidence and records the outstanding 08A desktop/mobile walkthrough separately.
+Pause dates suppress new demand during the effective pause; ENDED Services suppress new demand on and after the exclusive end date. Existing dated demand remains visible and is not automatically cancelled due to pause/end. Existing Staff allocations are never moved or cancelled by maintenance; explicit manager reconciliation remains required.
 
-**Scope stop:** Synthetic Dev only. No staging, production, or real data. Stop after the 08D report and separate commit for David's acceptance.
+Acceptance preserves stable demand IDs and template-version/date identity; the global advisory lock and existing per-Service lock; atomic per-Service attempts with partial-failure continuation; immutable maintenance history and SYSTEM actor provenance; bounded Super Admin reruns without caller-supplied windows; idempotent current-window replay; and the 36-hour overdue indicator. Workforce and all other read paths remain read-only.
+
+The report records the accepted scheduled-run, ledger, disable/re-enable, failure-isolation/recovery, regression/security, and final deployed-runner readback evidence. Accepted limitations are recorded there and are not TASK-08D blockers.
+
+**Acceptance boundary:** Synthetic Dev only. No staging, production, real KSS data, production owner, alerts, application/Vercel scheduler, payroll, attendance, worked-time, finance, or unbounded generation is authorised. David/KSS Admin is the synthetic-Dev operational owner only. Stop this implementation lane after the acceptance close-out; do not automatically start another 08-series task.

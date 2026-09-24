@@ -1,6 +1,6 @@
 # TASK-08D report — Static horizon maintenance
 
-**Status:** Implemented in synthetic Dev; acceptance pending. No staging, production, or real data was used. This report records the checks completed in this task and the evidence gaps that remain before acceptance.
+**Status:** **ACCEPTED — SYNTHETIC DEV** by David on 24 September 2026. No staging, production, or real data was used. This report records the accepted implementation evidence and limitations.
 
 ## Plan and scheduler cost
 
@@ -45,15 +45,14 @@ tests 8; pass 8; fail 0
 
 The 08A regression verified stable demand IDs and preservation of PLANNED dated rows through pause, resume, and end; it also exercised template version reconciliation, allocation/capacity rules, availability checks, and cross-source Event/static conflict protection. Its fixture scans the full generated horizon and cleans only the exact availability declarations it creates. The Site shift generator rejects an ambiguous 01:30 London clock on 25 October 2026; failed activation leaves the synthetic Service in DRAFT with zero demand. London DST helper regressions passed spring 23-hour, autumn 25-hour, nonexistent-time, and ambiguous-time cases. The 08D integration verified concurrent bounded manual reruns, role denial, direct private ledger denial, idempotent reruns, and that Workforce reads do not add maintenance history. The Admin health RPC returned the current eight-week London window, `last_run_state=SUCCEEDED`, `overdue=false`, and `overdue_after_hours=36`; Operations was denied. Scheduler job, extension version, schema, timezone, disabled/active states, and exact job definition were read back.
 
-## Evidence gaps and acceptance gates
+## Accepted limitations
 
-- Per-Service isolation and recovery were exercised with a transient synthetic Dev fault probe. Inside one database transaction, the runner definition was temporarily instrumented to raise for one existing synthetic ACTIVE Service, then immediately restored to the exact deployed definition. The ledger recorded `PARTIAL_FAILURE`, one `DATABASE_ERROR`, and 27 successful Services. A normal authenticated rerun then recorded `SUCCEEDED` and the same Service succeeded. No persistent test hook or business-row corruption was left by the probe; its run ledger evidence remains.
-- London date calculation passed helper tests for both DST transition dates, and 08A's autumn repeated-clock rejection passed through guarded Service activation. A spring generator transition is outside the current eight-week horizon and was not tested end-to-end.
-- Existing RLS denial is covered for the private maintenance ledger; a complete fresh role matrix across every new RPC/table was not run as a standalone 08D suite. The ordinary authenticated negative checks passed in the focused integration test.
-- No manager/browser overdue-state walkthrough was completed. The manager-facing status RPC exists; UI acceptance and the outstanding 08A desktop/390px walkthrough remain separate.
-- David/KSS Admin is the operational owner for synthetic Dev. No production operational owner or response route is inferred or selected.
-- No separate commit has been made yet. The working Git binary is `/Library/Developer/CommandLineTools/usr/bin/git`; use it for the final owned-path review and separate 08D commit. Several unrelated files are dirty, so stage only reviewed 08D-owned paths.
+- **Failure isolation and recovery accepted:** a transient synthetic Dev fault probe failed one Service. The ledger recorded `PARTIAL_FAILURE`, one `DATABASE_ERROR`, and 27 successful Services. The runner definition was immediately restored, and a bounded rerun succeeded for the failed Service. No business-row corruption or permanent test hook remains; the run ledger evidence is retained.
+- **DST limitation accepted:** spring generator behavior was not tested end-to-end because it lies outside the current eight-week horizon. The London DST helper and guarded autumn generator test are sufficient for this slice. No dates were manufactured to extend coverage.
+- **Security limitation accepted:** no separate exhaustive role-matrix suite was run for every new RPC/table. Focused tests covered role denial, private-ledger denial, and read-side behavior; this limitation is not a blocker.
+- **UI limitation accepted:** no manager/browser overdue-state walkthrough was completed. That check, along with the 08A desktop/390px walkthrough, remains on the broader hands-on walkthrough list and does not block scheduler acceptance.
+- **Ownership:** David/KSS Admin is the operational owner for synthetic Dev only. Production ownership remains unset by design.
 
 ## Stop point
 
-Changes and migrations are limited to synthetic Dev. No staging/production action or real data was used. The owned-path review and separate commit are complete; acceptance is for David. Do not infer production ownership or enable the job outside this Dev project.
+Changes and migrations are limited to synthetic Dev. No staging/production action or real data was used. David's acceptance is recorded above. Do not infer production ownership or enable the job outside this Dev project. Stop this implementation lane here.
