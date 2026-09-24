@@ -19,7 +19,7 @@ type Candidate = { id: string; display_name: string };
 const london = (value: string) => new Date(value).toLocaleString("en-GB", { timeZone: "Europe/London", weekday: "short", day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
 
 export function EventWorkTimeClient({ eventId, canAdminGrants }: { eventId: string; canAdminGrants: boolean }) {
-  const [items, setItems] = useState<WorkCase[]>([]); const [canReview, setCanReview] = useState(false); const [canApprove, setCanApprove] = useState(false);
+  const [items, setItems] = useState<WorkCase[]>([]); const [actorPersonId, setActorPersonId] = useState(""); const [canReview, setCanReview] = useState(false); const [canApprove, setCanApprove] = useState(false);
   const [grants, setGrants] = useState<Grant[]>([]); const [people, setPeople] = useState<Candidate[]>([]); const [loading, setLoading] = useState(true);
   const [grantLoading, setGrantLoading] = useState(false); const [busy, setBusy] = useState(""); const [error, setError] = useState(""); const [notice, setNotice] = useState("");
   const [reasons, setReasons] = useState<Record<string, string>>({}); const [personId, setPersonId] = useState(""); const [capability, setCapability] = useState("WORK_TIME_REVIEW");
@@ -31,8 +31,8 @@ export function EventWorkTimeClient({ eventId, canAdminGrants }: { eventId: stri
       const response = await fetch(`/api/events/${eventId}/work-time`, { cache: "no-store" });
       const data = await response.json();
       if (!response.ok) throw new Error("No active Event-scoped work-time review grant is available for this account.");
-      setItems(data.workTime?.items ?? []); setCanReview(Boolean(data.workTime?.can_review)); setCanApprove(Boolean(data.workTime?.can_approve)); setError("");
-    } catch (caught) { setItems([]); setCanReview(false); setCanApprove(false); setError(caught instanceof Error ? caught.message : "Worked-time review unavailable."); }
+      setItems(data.workTime?.items ?? []); setActorPersonId(data.workTime?.actor_person_id ?? ""); setCanReview(Boolean(data.workTime?.can_review)); setCanApprove(Boolean(data.workTime?.can_approve)); setError("");
+    } catch (caught) { setItems([]); setActorPersonId(""); setCanReview(false); setCanApprove(false); setError(caught instanceof Error ? caught.message : "Worked-time review unavailable."); }
     finally { setLoading(false); }
   }, [eventId]);
   const loadGrants = useCallback(async () => {
@@ -102,7 +102,7 @@ export function EventWorkTimeClient({ eventId, canAdminGrants }: { eventId: stri
   const itemsUi = items.map((item) => {
     const revision = item.revisions.find((entry) => entry.revision === item.current_revision && entry.kind === "SUBMITTED") ??
       [...item.revisions].reverse().find((entry) => entry.kind === "SUBMITTED");
-    const submitterCannotApprove = revision?.author_person_id === item.person_id;
+    const submitterCannotApprove = Boolean(actorPersonId) && revision?.author_person_id === actorPersonId;
     return <article className={styles.card} key={item.case_id}>
       <div className={styles.cardHeader}><div><p className={styles.eyebrow}>Event allocation · {item.status.replaceAll("_", " ")}</p>
         <h2>{item.person_name}</h2><p>{item.event_name} · {item.site_name} · {item.role_name}{item.area_label ? ` · ${item.area_label}` : ""}</p></div>

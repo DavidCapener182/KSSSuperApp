@@ -4,11 +4,12 @@ import { createServerSupabase } from "@/lib/supabase/server";
 
 export async function GET(_request: Request, context: { params: Promise<{ id: string }> }) {
   const client = await createServerSupabase();
-  if (!await getPrincipal(client)) return unauthorised();
+  const principal = await getPrincipal(client);
+  if (!principal) return unauthorised();
   const { id } = await context.params;
   if (!isUuid(id)) return privateJson({ error: "Worked-time review unavailable" }, 404);
   const { data, error } = await client.rpc("event_work_time_manager_read", { p_event: id });
-  return error ? privateJson({ error: "Worked-time review unavailable" }, 404) : privateJson({ workTime: data });
+  return error ? privateJson({ error: "Worked-time review unavailable" }, 404) : privateJson({ workTime: { ...data, actor_person_id: principal.personId } });
 }
 
 export async function POST(request: Request, context: { params: Promise<{ id: string }> }) {

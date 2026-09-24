@@ -71,9 +71,9 @@ export function MyWorkTimeClient({ allocationId }: { allocationId?: string }) {
 
   const save = async (item: Item, action: "SAVE_DRAFT" | "SUBMIT") => {
     const current = drafts[item.allocation_id] ?? [];
-    const payload = action === "SAVE_DRAFT" ? current.map((segment) => ({ type: segment.type,
+    const payload = action === "SAVE_DRAFT" ? current.map((segment) => ({ kind: segment.type,
       startAt: londonInstant(segment.start), endAt: londonInstant(segment.end) })) : undefined;
-    if (action === "SAVE_DRAFT" && (payload?.some((segment) => !segment.startAt || !segment.endAt) || !payload?.some((segment) => segment.type === "WORK"))) {
+    if (action === "SAVE_DRAFT" && (payload?.some((segment) => !segment.startAt || !segment.endAt) || !payload?.some((segment) => segment.kind === "WORK"))) {
       setError("Enter each interval in Europe/London time. Repeated or skipped clock times cannot be used."); return;
     }
     setBusy(item.allocation_id); setError(""); setNotice("");
