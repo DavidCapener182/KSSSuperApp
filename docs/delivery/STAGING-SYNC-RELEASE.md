@@ -13,7 +13,7 @@ Status: PREPARED, NOT APPLIED. This ledger is for the isolated `kss-integration-
 ## Release gates
 
 1. Freeze this exact Git candidate and confirm no newer accepted correction to any included module.
-2. Capture a recoverable staging backup/snapshot including Auth, public schema, and private Storage; verify restore ownership and available rollback mechanism.
+2. Verify a recoverable staging database backup/snapshot covering Auth and public schema, and separately export/verify private Storage objects. Supabase database backups do not include Storage object bytes. Confirm restore ownership and rollback mechanism.
 3. Review every listed SQL file for staging data effects, prerequisites, cron/scheduler side effects, and Dev fixture assumptions. Exclude any fixture or 19A SQL. Reconcile the exact 03E/03G divergence before replay.
 4. Rehearse the ordered SQL against a disposable copy of staging, not against protected staging. Check migration success, existing synthetic Staff A 5-of-6 onboarding case and David's Super Admin identity, role and login, RLS/direct-write denials, private file access, and project-wide regression.
 5. Apply to protected staging in controlled groups with migration history/readback and stop on first mismatch. Update the Vercel staging code only after schema postflight. Preserve Vercel Authentication and separate Supabase environment variables.
