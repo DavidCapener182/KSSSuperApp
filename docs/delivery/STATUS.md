@@ -19,3 +19,7 @@ David reviews TASK-07B, then a bounded end-to-end product walkthrough should ass
 ## TASK-15A acceptance
 
 David accepted the Asset, Stock & Custody foundation in synthetic Dev on 24 September 2026 at `45f75f1`. See [TASK-15A-REPORT.md](TASK-15A-REPORT.md). The accepted ledger remains independent of attendance, worked time, payroll and fault findings. Pagination, uniform picker, kits, scanning and narrow Mobilisation/Site Book/Control Room links are backlog; no staging, production or real KSS asset import is authorised.
+
+## TASK-17B acceptance
+
+David accepted the Time Away Requests Foundation in synthetic Dev on 24 September 2026. The implementation is at `b8cac06`; see [TASK-17B-REPORT.md](TASK-17B-REPORT.md) for the accepted authority and request boundaries, Dev readback, focused proof and authenticated browser evidence. The full shared regression suite was not run while parallel approved lanes migrated the same synthetic Dev project; that is an evidence limitation. This lane is stopped. TASK-17C Leave Scheduling Constraint Policy needs separate approval; no staging, production or real Staff leave data is authorised by this acceptance.

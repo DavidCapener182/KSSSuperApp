@@ -1,6 +1,14 @@
 # TASK-17B — Time Away Requests Foundation
 
-**Implementation:** 24 September 2026 · synthetic Dev only · pending David's acceptance.
+**Implementation:** 24 September 2026 · synthetic Dev only · accepted by David on 24 September 2026. Implementation commit: `b8cac06`.
+
+## David's acceptance — 24 September 2026
+
+David accepted TASK-17B in synthetic Dev with the dedicated Time Away team and effective-dated membership boundary, finite action-specific approver grants, no role-derived decision authority, self-approval denial and narrower calendar-only authority. He accepted the neutral request categories, London date-only whole days, explicit partial-day instants and wall-clock context, DST invalid-time rejection, exact team binding at submission and the immutable request, decision and authority history. Approved leave remains effective during a pending cancellation; terminal states have no reopen path. Controlled decision reason codes are sufficient, and decision notes remain disabled.
+
+The manager calendar and conflict view remain authorised planning facts. Time Away makes no writes to Availability, Event or Site Shift allocations, attendance, worked time or staffing demand. Approval does not imply an unavailable declaration, absence fact, worked time or allocation change. The recorded synthetic Dev migration, authority, isolation, concurrency, idempotency, conflict, build and authenticated desktop/390px browser evidence below was accepted. The full shared regression suite was not run because parallel approved lanes were migrating the same synthetic Dev project; this remains an evidence limitation, not an open TASK-17B architecture decision.
+
+Acceptance authorises no entitlement, allowance, accrual, carry-over, sickness or medical workflow, payroll or paid-leave calculation, notifications, automatic cover or reassignment, scheduling hard block, staging, production or real Staff leave data. TASK-17C Leave Scheduling Constraint Policy requires a separate decision and has not begun.
 
 ## Delivered
 
@@ -56,4 +64,4 @@ The isolated worktree was built with Next.js 16.3.6 Webpack. `npm run build` com
 - The final UI reason-control wording, partial-day calendar display and calendar-only read hardening were covered by the final build, lint, authenticated RPC test and refreshed desktop/390px screenshots.
 - The focused test was rerun during hardening and left multiple clearly synthetic request/history fixtures in Dev. They are immutable proof records. No real Staff leave record was created.
 - The full shared Dev regression suite was not run while other approved lanes were migrating the same Dev project. The TASK-17B test, build, lint and smoke checks passed. No staging, production, live source, notifications, payroll, entitlement policy, scheduling hard block or automatic cover was introduced.
-- David's acceptance and any TASK-17C scheduling constraint decision remain separate.
+- David accepted TASK-17B in synthetic Dev on 24 September 2026. TASK-17C scheduling constraint policy remains a separate, unauthorised decision.
