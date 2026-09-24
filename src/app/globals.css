@@ -676,3 +676,69 @@ body { min-width: 320px; }
 .availability-preview .staffing-confirm { display: flex; align-items: flex-start; gap: .6rem; margin: 1rem 0; }
 .availability-sheet { max-height: 100dvh; }
 @media (max-width: 640px) { .availability-card { flex-direction: column; } .availability-actions { width: 100%; } .availability-actions > button { flex: 1; } .availability-form { grid-template-columns: 1fr; } .availability-sheet { width: 100vw; } }
+.workforce-page,.my-schedule-page { max-width: 1440px; }
+.workforce-tabs,.workforce-toolbar,.workforce-filters,.workforce-day-picker,.workforce-selected-person { display:flex; align-items:center; flex-wrap:wrap; gap:10px; }
+.workforce-tabs { margin: 18px 0; }
+.workforce-toolbar { margin: 14px 0 18px; }
+.workforce-toolbar label,.workforce-filters label,.workforce-day-picker label { display:grid; gap:5px; color:var(--kss-ink-soft); font-size:13px; font-weight:600; }
+.workforce-toolbar strong { margin-left:auto; color:var(--kss-ink); }
+.workforce-filters { padding:14px 0; border-block:1px solid var(--kss-border); align-items:end; }
+.workforce-filter-toggle { display:none; }
+.workforce-filters select { min-height:40px; min-width:130px; max-width:190px; border:1px solid var(--kss-border-strong); border-radius:10px; padding:7px 10px; background:var(--kss-surface); color:var(--kss-ink); }
+.workforce-filters .workforce-check { display:flex; align-items:center; gap:8px; min-height:40px; }
+.workforce-check input { width:17px; height:17px; accent-color:var(--kss-blue); }
+.workforce-totals { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:9px; margin:20px 0 12px; }
+.workforce-totals > p { grid-column:1/-1; margin:0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--kss-ink-subtle); }
+.workforce-totals > div { display:grid; gap:3px; padding:13px; border:1px solid var(--kss-border); border-radius:13px; background:var(--kss-surface); }
+.workforce-totals strong { font-size:25px; line-height:1.1; color:var(--kss-ink); }
+.workforce-totals span { font-size:12px; color:var(--kss-ink-soft); }
+.workforce-week,.my-schedule-days { display:grid; gap:17px; margin:20px 0; }
+.workforce-day,.my-schedule-day { min-width:0; }
+.workforce-day > h2,.my-schedule-day > h2 { display:flex; align-items:baseline; gap:12px; padding-bottom:8px; border-bottom:1px solid var(--kss-border); font-size:18px; }
+.workforce-day > h2 span { color:var(--kss-ink-subtle); font-size:12px; font-weight:500; }
+.workforce-event { margin:12px 0; padding:16px; border:1px solid var(--kss-border); border-radius:15px; background:var(--kss-surface); }
+.workforce-event-head { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+.workforce-event-head h3 { margin:2px 0 5px; font-size:17px; }
+.workforce-event-head p { margin:0; max-width:340px; font-size:13px; line-height:1.5; color:var(--kss-ink-soft); }
+.workforce-event-head small { color:var(--kss-ink-subtle); }
+.workforce-alert { color:var(--kss-red); font-weight:650; }
+.workforce-lines { margin-top:12px; border-top:1px solid var(--kss-border); }
+.workforce-line { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px 0; border-bottom:1px solid var(--kss-border); }
+.workforce-line:last-child { border-bottom:0; padding-bottom:0; }
+.workforce-line > div { display:grid; min-width:0; gap:3px; }
+.workforce-line span,.workforce-line small { color:var(--kss-ink-soft); line-height:1.4; }
+.workforce-line .workforce-warnings { color:var(--kss-amber); }
+.workforce-action { flex:none; padding:9px 11px; border:1px solid var(--kss-border-strong); border-radius:9px; font-size:12px; font-weight:650; text-decoration:none; }
+.workforce-action:hover { border-color:var(--kss-blue); }
+.workforce-day-picker { display:none; }
+.workforce-staff { margin:22px 0; max-width:900px; }
+.workforce-staff form { display:flex; align-items:end; gap:10px; margin:14px 0; }
+.workforce-staff form label { display:grid; gap:5px; flex:1; }
+.workforce-staff-choices { display:flex; flex-wrap:wrap; gap:9px; }
+.workforce-person-list { display:grid; gap:10px; margin:14px 0; }
+.workforce-person-list article { padding:15px; }
+.workforce-person-list h3 { margin:5px 0; }
+.my-schedule-work { margin:10px 0; padding:16px; }
+.my-schedule-work h3 { margin:5px 0; }
+.my-schedule-declaration { display:flex; justify-content:space-between; gap:10px; margin:8px 0; padding:11px 14px; border-left:3px solid var(--kss-blue); border-radius:8px; background:var(--kss-surface-muted); font-size:13px; }
+@media (max-width:700px) {
+  .workforce-toolbar strong { width:100%; margin-left:0; }
+  .workforce-toolbar button { flex:1; }
+  .workforce-toolbar label { width:100%; }
+  .workforce-filter-toggle { display:inline-flex; margin:4px 0 10px; }
+  .workforce-filters { display:none; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .workforce-filters.is-open { display:grid; }
+  .workforce-filters label { min-width:0; }
+  .workforce-filters select { min-width:0; width:100%; }
+  .workforce-totals { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .workforce-totals > div { padding:10px; }
+  .workforce-totals strong { font-size:21px; }
+  .workforce-day-picker { display:flex; justify-content:space-between; margin-top:18px; }
+  .workforce-day-picker button { flex:1; font-size:12px; }
+  .workforce-day-picker label { width:100%; order:-1; }
+  .workforce-day:not(.is-selected) { display:none; }
+  .workforce-event-head,.workforce-line { display:grid; }
+  .workforce-event-head p { max-width:none; }
+  .workforce-action { width:max-content; }
+  .my-schedule-declaration { display:grid; }
+}

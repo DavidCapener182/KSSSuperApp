@@ -27,8 +27,9 @@ const dateLabel = (value:string) => new Date(`${value}T12:00:00Z`).toLocaleDateS
 async function request(path:string,init?:RequestInit){const response=await fetch(path,{...init,cache:"no-store"});const data=await response.json().catch(()=>({}));
   if(!response.ok)throw new Error(data.error??"Staffing plan unavailable");return data;}
 
-export function StaffingPlanClient({eventId,eventStatus,eventStarts,eventEnds}:{eventId:string;eventStatus:string;eventStarts:string;eventEnds:string}) {
+export function StaffingPlanClient({eventId,eventStatus,eventStarts,eventEnds,focusRequirement}:{eventId:string;eventStatus:string;eventStarts:string;eventEnds:string;focusRequirement?:string}) {
   const roleSelectRef=useRef<HTMLSelectElement>(null);
+  const focusedRef=useRef(false);
   const [lines,setLines]=useState<Line[]>([]);const [roles,setRoles]=useState<Role[]>([]);const [required,setRequired]=useState(0);
   const [summary,setSummary]=useState<Summary|null>(null); const [deploymentLine,setDeploymentLine]=useState<Line|null>(null);
   const [loading,setLoading]=useState(true);const [busy,setBusy]=useState(false);const [error,setError]=useState("");const [notice,setNotice]=useState("");
@@ -40,6 +41,10 @@ export function StaffingPlanClient({eventId,eventStatus,eventStarts,eventEnds}:{
     setLines(plan.plan.items??[]);setRequired(plan.plan.required_total??0);setRoles(choice.roles??[]);setSummary(counts.summary);setError("");}
     catch(caught){setError(caught instanceof Error?caught.message:"Staffing plan unavailable");}finally{setLoading(false);}},[eventId]);
   useEffect(()=>{const timer=setTimeout(()=>void load(),0);return()=>clearTimeout(timer);},[load]);
+  useEffect(()=>{if(!focusRequirement||focusedRef.current||loading)return;
+    const exact=lines.find((line)=>line.id===focusRequirement&&line.state==="PLANNED");
+    if(exact){focusedRef.current=true;const timer=setTimeout(()=>setDeploymentLine(exact),0);return()=>clearTimeout(timer);}
+  },[focusRequirement,lines,loading]);
   const terminal=eventStatus==="COMPLETED"||eventStatus==="CANCELLED";
   const report=londonDueToIso(draft.reportLocal);const start=londonDueToIso(draft.startLocal);const end=londonDueToIso(draft.endLocal);
   const duration=start&&end?(Date.parse(end)-Date.parse(start))/3_600_000:0;

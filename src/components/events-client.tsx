@@ -24,7 +24,7 @@ async function read(path: string, init?: RequestInit) {
   if (!response.ok) throw new Error(data.error ?? "Operational request denied"); return data;
 }
 
-export function EventsClient({ roles, id, organisation, opportunity }: { roles: string[]; id?: string; organisation?: string; opportunity?: string }) {
+export function EventsClient({ roles, id, organisation, opportunity, focusRequirement }: { roles: string[]; id?: string; organisation?: string; opportunity?: string; focusRequirement?: string }) {
   const router = useRouter(); const office = roles.includes("OFFICE_ADMIN") || roles.includes("SUPER_ADMIN");
   const [items,setItems] = useState<Row[]>([]); const [total,setTotal] = useState(0); const [event,setEvent] = useState<Row|null>(null);
   const [clients,setClients] = useState<Choice[]>([]); const [sites,setSites] = useState<Row[]>([]); const [owners,setOwners] = useState<Choice[]>([]);
@@ -121,7 +121,7 @@ export function EventsClient({ roles, id, organisation, opportunity }: { roles: 
       <section className="crm-panel"><h2>History</h2>{((event.history as Row[])??[]).map((row)=><div className="crm-timeline-entry" key={String(row.id)}>
         <strong>{label(row.kind)} {row.new_status?`· ${label(row.new_status)}`:""}</strong><span>{london(row.occurred_at)} · {String(row.actor_name ?? "Office / Operations")}</span>
         {Boolean(row.reason) && <p>Reason: {String(row.reason)}</p>}</div>)}</section>
-      <StaffingPlanClient eventId={id} eventStatus={String(event.status)} eventStarts={String(event.starts_at)} eventEnds={String(event.ends_at)}/>
+      <StaffingPlanClient eventId={id} eventStatus={String(event.status)} eventStarts={String(event.starts_at)} eventEnds={String(event.ends_at)} focusRequirement={focusRequirement}/>
       <section className="crm-panel"><h2>Operational briefings</h2><p>Briefing packs are not connected yet. Allocations above do not record attendance or completed work.</p></section>
     </>}
     {creating && <div className="crm-dialog-backdrop"><section className="crm-dialog" role="dialog" aria-modal="true" aria-label="Create Event">
