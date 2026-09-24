@@ -1,6 +1,6 @@
 # TASK-15A — Asset, stock and custody register implementation brief
 
-**Status:** David approved a bounded synthetic-Dev implementation on 24 September 2026. No staging, production or real KSS asset records are authorised. This brief addresses master specification R19 equipment custody, excluding visitor access.
+**Status:** David accepted the bounded synthetic-Dev implementation on 24 September 2026 at `45f75f1`. No staging, production or real KSS asset records are authorised. This brief addresses master specification R19 equipment custody, excluding visitor access.
 
 **Approved first slice:** Native KSS Enterprise register; one synthetic Site and Event; generic controlled KSS store; one radio, restricted key/card, phone/laptop-style device and small uniform stock. Prove Register → Store → Issue → Staff acknowledgement/dispute → Transfer/Return with receiving handover evidence → Condition inspection → immutable History. Radio damaged return must become unavailable/in repair until inspection restores availability. Key custody must show both issue and return acknowledgements. Uniform stock must demonstrate size-based quantities, including 20 medium polo shirts → issue 2 → balance 18 and a controlled return/exchange. Use explicit scoped Asset capability for Operations. Full kits, maintenance Tasks, mobilisation writes, fleet, purchasing/reordering, scanning and payroll deductions are excluded from this first slice.
 
@@ -54,4 +54,4 @@ Before real KSS stock, KSS must name store and restricted-key owners, prove an o
 
 Future seams only: full component-level kits; vehicle/fleet compliance, booking and telematics; barcode/QR/NFC scanning; external asset/evidence providers; purchase/reorder automation; maintenance Task adapter; mobilisation write integration; visitor/contractor access; payroll deductions or charges. All other product areas consume/reference authoritative asset IDs; they never change custody automatically.
 
-**STOP / approval gate:** Only the first synthetic-Dev slice above is approved. Stop after its checks and delivery report for David's acceptance. Do not connect real asset data, stage, deploy to production, or advance the deferred adapters without separate approval.
+**Acceptance boundary:** The first synthetic-Dev slice above is accepted. Do not connect real asset data, stage, deploy to production, or advance the deferred adapters without separate approval. See [TASK-15A-REPORT.md](TASK-15A-REPORT.md) for David's acceptance, evidence and backlog.

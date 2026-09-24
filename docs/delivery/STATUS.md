@@ -15,3 +15,7 @@ Development remains on dedicated Supabase project `dnfhkmmnlbiabqypclqg`. Separa
 
 ## Next recommended action
 David reviews TASK-07B, then a bounded end-to-end product walkthrough should assess CRM → Client → Site → Event → Staffing Plan → Allocation → Availability → Workforce → Staff self-service before choosing another build stream. The synthetic Staff password handoff remains separate. The LMS provider/interface is still unknown. Onboarding and synthetic SIA staffing checks do not establish identity, legal compliance or live operational eligibility.
+
+## TASK-15A acceptance
+
+David accepted the Asset, Stock & Custody foundation in synthetic Dev on 24 September 2026 at `45f75f1`. See [TASK-15A-REPORT.md](TASK-15A-REPORT.md). The accepted ledger remains independent of attendance, worked time, payroll and fault findings. Pagination, uniform picker, kits, scanning and narrow Mobilisation/Site Book/Control Room links are backlog; no staging, production or real KSS asset import is authorised.

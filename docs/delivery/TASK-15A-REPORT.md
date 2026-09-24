@@ -1,6 +1,12 @@
 # TASK-15A delivery report — synthetic asset custody slice
 
-Date: 24 September 2026. **Status:** implemented in dedicated synthetic Dev for David's review. No staging, production or real KSS asset data was added.
+Date: 24 September 2026. **Status:** accepted by David in synthetic Dev on 24 September 2026 at `45f75f1`. No staging, production or real KSS asset data was added.
+
+## David's acceptance — TASK-15A
+
+David accepted the bounded Asset, Stock & Custody foundation in synthetic Dev. The accepted slice covers individually tracked radios, restricted keys/cards, phones, laptops/tablets and bodycams; uniform stock by garment, size and store; exact custody and observed location; issue, acknowledgement/dispute, transfer and return; damage, loss, recovery, repair, quarantine and inspection; finite scoped Operations asset grants; Office administration; Staff My Equipment; and immutable custody and stock histories. The radio damaged-return lifecycle, two-sided restricted-key handover and 20 → 18 medium polo stock sequence formed the synthetic proof.
+
+Asset custody remains independent from attendance, worked time, payroll, deductions and disciplinary conclusions. An issue does not establish attendance or use; a loss or discrepancy does not establish fault. David accepted the synthetic database, security and concurrency checks, authenticated route checks, production Webpack build, and Office/Staff browser evidence at desktop and 390px. Acceptance authorises no staging, production or real KSS asset or stock import.
 
 ## Delivered
 
@@ -23,6 +29,8 @@ Readback confirmed all eight base asset tables plus the grant-event table have R
 - The authenticated `tests/assets-routes.test.mjs` passed against that build: anonymous return targets, Office/Operations/Super Admin register access, Staff-only My Equipment, dedicated self projection and denied role/actions.
 - Authenticated browser readback used synthetic Office and Staff sessions. The Office register and Staff My Equipment rendered at 390px with document width equal to viewport width, no horizontal overflow, and the intended navigation links. The Office desktop register rendered at 1440px without overflow. Screenshots: [Office desktop](../../output/playwright/task-15a/office-desktop.png), [Office mobile](../../output/playwright/task-15a/office-mobile.png), [Staff mobile](../../output/playwright/task-15a/staff-mobile.png). This was a layout/content review; the detailed mutation chain was verified by the database test rather than browser clicks.
 
-## Limits and acceptance gate
+## Backlog and integration boundaries
 
-Repeated synthetic tests left append-only test records in Dev; these are not real stock counts. The read projection is for the bounded synthetic pilot and must gain server-side search/pagination, retention and operational stocktake policy before any large live register. Uniform issue/return currently requires manual exact Person/issue UUID entry, and Staff history covers currently held items; both need product review. Visual checks establish the local synthetic layout, not David's acceptance or live readiness. David's acceptance is the next gate. Do not stage, deploy or import real KSS stock from this report.
+Repeated synthetic tests left append-only test records in Dev; these are not real stock counts. Before a large live register, add server-side search/pagination, retention and operational stocktake policy. Replace manual exact Person/issue UUID entry for uniform with a Staff picker and garment/size/quantity journey. Review Staff history beyond currently held items. Full kits with independent component custody/history and QR, NFC or barcode scanning remain later work; scanning must still write through the guarded asset ledger.
+
+Future Mobilisation may read factual asset requirement and fulfilment counts but keeps its own explicit human handover decision, without deriving “Ready”. Site Book may reference an exact asset and resulting custody event, but an entry cannot itself transfer custody. Control Room may consume a minimal exception projection without restricted key details or custody writes. These integrations remain separate tasks. No staging, production, real stock import or deferred integration is authorised by this acceptance.
