@@ -12,7 +12,7 @@ type Deployment = { source:"EVENT"|"SITE_SHIFT"; id: string; status: "ALLOCATED"
 const time = (value: string) => new Date(value).toLocaleString("en-GB", { timeZone: "Europe/London", weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 const labels = { ALLOCATED: "Awaiting your response", ACCEPTED: "Accepted", DECLINED: "Declined", CANCELLED: "Cancelled" };
 
-export function MyDeploymentsClient({focus}:{focus?:string}) {
+export function MyDeploymentsClient({focus,focusSource}:{focus?:string;focusSource?:"EVENT"|"SITE_SHIFT"}) {
   const [items, setItems] = useState<Deployment[]>([]);
   const [total, setTotal] = useState(0);
   const [offset, setOffset] = useState(0);
@@ -26,13 +26,13 @@ export function MyDeploymentsClient({focus}:{focus?:string}) {
   const load = useCallback(async (page = 0) => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/deployments/me?offset=${page}${focus?`&allocationId=${encodeURIComponent(focus)}`:""}`, { cache: "no-store" });
+      const response = await fetch(`/api/deployments/me?offset=${page}${focus?`&allocationId=${encodeURIComponent(focus)}${focusSource?`&source=${focusSource}`:""}`:""}`, { cache: "no-store" });
       if (!response.ok) throw new Error("Your deployments are unavailable. Please retry.");
       const data = await response.json();
       setItems(data.deployments?.items ?? []); setTotal(data.deployments?.total ?? 0); setOffset(page); setError("");
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Your deployments are unavailable."); }
     finally { setLoading(false); }
-  }, [focus]);
+  }, [focus, focusSource]);
   useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); }, [load]);
   async function respond(item: Deployment, response: "ACCEPTED"|"DECLINED") {
     setBusy(true); setError(""); setNotice("");

@@ -8,7 +8,11 @@ export async function GET(request: Request) {
   const q = new URL(request.url).searchParams;
   const offset = Number(q.get("offset") ?? "0");
   const focus = q.get("allocationId");
-  if (!Number.isInteger(offset) || offset < 0 || offset > 10000 || (focus && !isUuid(focus))) return privateJson({ error: "Invalid page" }, 400);
-  const { data, error } = await client.rpc("my_deployments_08a", { p_offset: offset, p_limit: 25, p_focus: focus || null });
+  const source = q.get("source");
+  if (!Number.isInteger(offset) || offset < 0 || offset > 10000 || (focus && !isUuid(focus)) ||
+    (source !== null && (!focus || !["EVENT", "SITE_SHIFT"].includes(source)))) return privateJson({ error: "Invalid page" }, 400);
+  const { data, error } = await client.rpc("my_deployments_08c", {
+    p_offset: offset, p_limit: 25, p_focus: focus || null, p_focus_source: source,
+  });
   return error ? privateJson({ error: "My Deployments unavailable" }, 503) : privateJson({ deployments: data });
 }

@@ -5,10 +5,12 @@ import { createServerSupabase } from "@/lib/supabase/server";
 import { MyDeploymentsClient } from "@/components/my-deployments-client";
 
 export const dynamic = "force-dynamic";
-export default async function MyDeploymentsPage({ searchParams }: { searchParams: Promise<{ allocationId?: string }> }) {
+export default async function MyDeploymentsPage({ searchParams }: { searchParams: Promise<{ allocationId?: string; source?: string }> }) {
   const principal = await getPrincipal(await createServerSupabase());
   if (!principal) redirect("/?next=%2Fmy-deployments");
   if (!hasCapability(principal, "DEPLOYMENTS_SELF_READ")) notFound();
   const query=await searchParams;
-  return <MyDeploymentsClient focus={query.allocationId && isUuid(query.allocationId) ? query.allocationId : undefined} />;
+  const focus = query.allocationId && isUuid(query.allocationId) ? query.allocationId : undefined;
+  const focusSource = focus && (query.source === "EVENT" || query.source === "SITE_SHIFT") ? query.source : undefined;
+  return <MyDeploymentsClient focus={focus} focusSource={focusSource} />;
 }

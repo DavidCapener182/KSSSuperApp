@@ -1,0 +1,11 @@
+-- TASK-08C follow-up: cover new static source foreign-key lookups.
+create index site_shift_allocation_events_allocation_person_08c_idx
+ on public.site_shift_allocation_events(allocation_id,person_id);
+create index staff_in_app_notifications_site_alloc_person_08c_idx
+ on public.staff_in_app_notifications(site_shift_allocation_id,recipient_person_id);
+create index staff_in_app_notifications_site_event_source_08c_idx
+ on public.staff_in_app_notifications(site_shift_allocation_event_id,site_shift_allocation_id,recipient_person_id);
+create index staff_in_app_notification_events_site_alloc_person_08c_idx
+ on public.staff_in_app_notification_events(site_shift_allocation_id,recipient_person_id);
+create index staff_in_app_notification_events_site_event_source_08c_idx
+ on public.staff_in_app_notification_events(site_shift_allocation_event_id,site_shift_allocation_id,recipient_person_id);

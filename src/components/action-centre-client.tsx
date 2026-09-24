@@ -10,6 +10,7 @@ type Section = "UNREAD" | "REQUIRES_ACTION" | "RECENT" | "DISMISSED";
 type Counts = { unread: number; requires_action: number; recent: number; dismissed: number };
 type Notification = {
   id: string; allocationId: string; createdAt: string; readAt: string | null; dismissedAt: string | null;
+  source?: "SITE_SHIFT";
   allocationStatus: "ALLOCATED" | "ACCEPTED" | "DECLINED" | "CANCELLED";
   eventStatus: string; requirementState: string; eventName: string; siteName: string; roleName: string;
   serviceDate: string; reportAt: string; shiftStartsAt: string; shiftEndsAt: string;
@@ -88,13 +89,15 @@ export function ActionCentreClient() {
         : !payload?.items.length ? <p className={styles.empty}>Nothing to show here.</p>
           : <div className={styles.list}>{payload.items.map((item) => <article className={styles.card} key={item.id}>
             <div className={styles.cardHeading}>
-              <div className={styles.titleGroup}><span className={styles.source}>Deployment</span>
-                <h2>{item.currentMessage === "Your response is required in My Deployments." ? "New deployment request" : "Deployment update"}</h2></div>
+              <div className={styles.titleGroup}><span className={styles.source}>{item.source === "SITE_SHIFT" ? "Site shift" : "Deployment"}</span>
+                <h2>{item.source === "SITE_SHIFT"
+                  ? item.currentMessage === "Your response is required in My Deployments." ? "New Site shift allocation" : "Site shift update"
+                  : item.currentMessage === "Your response is required in My Deployments." ? "New deployment request" : "Deployment update"}</h2></div>
               <span className={styles.state}>{item.dismissedAt ? "Dismissed" : item.readAt ? "Read" : "Unread"}</span>
             </div>
             <p className={styles.message}>{item.currentMessage}</p>
             <dl className={styles.facts}>
-              <div><dt>Event</dt><dd>{item.eventName}</dd></div><div><dt>Site</dt><dd>{item.siteName}</dd></div>
+              <div><dt>{item.source === "SITE_SHIFT" ? "Site service" : "Event"}</dt><dd>{item.eventName}</dd></div><div><dt>Site</dt><dd>{item.siteName}</dd></div>
               <div><dt>Role</dt><dd>{item.roleName}</dd></div><div><dt>Service date</dt><dd>{dateOnly(item.serviceDate)}</dd></div>
               <div><dt>Report</dt><dd>{dateTime(item.reportAt)}</dd></div>
               <div><dt>Shift</dt><dd>{dateTime(item.shiftStartsAt)} – {dateTime(item.shiftEndsAt)}</dd></div>
@@ -102,7 +105,7 @@ export function ActionCentreClient() {
             <div className={styles.footer}>
               <time dateTime={item.createdAt}>Received {dateTime(item.createdAt)}</time>
               <div className={styles.actions}>
-                <Link className={styles.openLink} href={`/my-deployments?allocationId=${encodeURIComponent(item.allocationId)}`}>
+                <Link className={styles.openLink} href={`/my-deployments?allocationId=${encodeURIComponent(item.allocationId)}${item.source === "SITE_SHIFT" ? "&source=SITE_SHIFT" : ""}`}>
                   Open in My Deployments <ArrowUpRight size={15} aria-hidden="true" />
                 </Link>
                 {!item.readAt && <Button variant="outline" size="sm" disabled={busyId === item.id} onClick={() => void changeState(item, "READ")}>Mark read</Button>}
