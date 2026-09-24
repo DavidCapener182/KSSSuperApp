@@ -1,7 +1,13 @@
 # TASK-21B delivery report — Service Delivery Foundation
 
 **Date:** 24 September 2026
-**Status:** Implemented in synthetic Dev; awaiting David's acceptance. No 21C work, staging, production or real KSS records were added.
+**Status:** Accepted by David in synthetic Dev on 24 September 2026. Implementation commit `82dfb9f`. No 21C work, staging, production or real KSS records were added.
+
+## David's acceptance — TASK-21B
+
+David accepted the stable Service Delivery identity for the exact Site Service and historical Site Client Link, both explicit start paths, guarded administrative lifecycle, manual review periods, meetings, independent management actions and blockers, typed paginated history, and Office/Super authority. Mobilisation and the other source modules retain their own authority. Service Delivery states and held meetings carry no readiness, Client agreement, compliance, contract or billing conclusion.
+
+David accepted the synthetic Dev migration, security, test and authenticated browser evidence recorded below. The Site Client Link transfer scenario and full browser owner-loss/reassignment journey remain follow-up evidence gaps; they do not reopen the accepted 21B architecture. This acceptance authorises no source cards, operational integrations, recurring generation, shared Task synchronisation, notifications, exports, Operations or Client access, staging, production or real KSS records. TASK-21C requires a separate approval.
 
 ## Approved boundary and implementation
 
@@ -38,4 +44,4 @@ Readback found RLS enabled on all seven tables, zero authenticated base-table gr
 
 The current 06A source contract prevents transferring a Site Client Link, so a live transfer/reparent scenario was not executed. The immutable stored IDs, exact foreign keys and no reparent mutation path were inspected; a later source transfer feature will need a fresh regression. The rollback-only owner-loss check did not exercise a full authenticated browser reassignment after role loss. No Client login fixture was available; the server role predicate and navigation map provide no Client grant. The authenticated browser checked list/detail and an action save, while deeper form transitions were covered through guarded RPC integration tests.
 
-These checks establish a synthetic Dev implementation, not human acceptance or production readiness. David's review is the stop gate. TASK-21C source cards and later work remain unauthorised.
+These checks establish the accepted synthetic Dev implementation, not staging or production readiness. The implementation lane stops here. TASK-21C source cards and later work remain unauthorised.
