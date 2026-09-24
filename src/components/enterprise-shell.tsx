@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
-import { BriefcaseBusiness, Building2, ClipboardList, FileText, House, MapPin, MoreHorizontal, UserRound, UsersRound } from "lucide-react";
+import { BriefcaseBusiness, Building2, ClipboardList, FileText, House, MapPin, MoreHorizontal, UserRound, UsersRound, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { NavigationItem } from "@/lib/auth/capabilities";
@@ -26,14 +26,14 @@ export function EnterpriseShell({ person, roles, navigation, children }: Props) 
   const [busy, setBusy] = useState(false);
   const [signOutError, setSignOutError] = useState("");
   const isStaff = roles.length === 1 && roles[0] === "SECURITY_STAFF";
-  const primaryDestinations = isStaff ? ["/app", "/onboarding", "/documents", "/profile"]
+  const primaryDestinations = isStaff ? ["/app", "/my-deployments", "/onboarding", "/profile"]
     : ["/app", "/onboarding", "/work", "/people"];
   const mobilePrimary = navigation.filter((item) => primaryDestinations.includes(item.href));
   const mobileSecondary = navigation.filter((item) => !primaryDestinations.includes(item.href));
   const current = (href: string) => pathname === href || (href !== "/app" && pathname.startsWith(`${href}/`));
   const iconFor = (href: string) => {
     const Icon = href === "/app" ? House : href === "/onboarding" ? ClipboardList : href === "/documents"
-      ? FileText : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/crm" ? Building2 : href === "/sites" ? MapPin : UserRound;
+      ? FileText : href === "/my-deployments" ? CalendarDays : href === "/events" ? CalendarDays : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/crm" ? Building2 : href === "/sites" ? MapPin : UserRound;
     return <Icon size={19} strokeWidth={1.9} aria-hidden="true" />;
   };
 
@@ -86,7 +86,7 @@ export function EnterpriseShell({ person, roles, navigation, children }: Props) 
     {children}
     <nav className="enterprise-mobile-nav" aria-label="Mobile navigation">
       {mobilePrimary.map((item) => <Link key={item.href} href={item.href} aria-current={current(item.href) ? "page" : undefined}>
-        {iconFor(item.href)}<span>{item.label === "My Onboarding" ? "Onboarding" : item.label}</span>
+        {iconFor(item.href)}<span>{item.href === "/my-deployments" ? "Deployments" : item.label === "My Onboarding" ? "Onboarding" : item.label}</span>
       </Link>)}
       <Sheet><SheetTrigger asChild><button type="button" className="enterprise-mobile-more"><MoreHorizontal size={20} aria-hidden="true" /><span>More</span></button></SheetTrigger>
         <SheetContent side="bottom" className="enterprise-mobile-sheet">

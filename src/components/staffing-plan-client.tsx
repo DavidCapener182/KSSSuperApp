@@ -5,11 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { londonDueToIso } from "@/lib/crm/due-time";
+import { DeploymentLineClient } from "@/components/deployment-line-client";
 
 type Line = { id:string; role_id:string; role_name:string; service_date:string; required_quantity:number;
   report_at:string; shift_starts_at:string; shift_ends_at:string; area_label:string; instructions:string;
   state:"PLANNED"|"CANCELLED"; revision:number };
 type Role = { id:string; name:string; code:string; active:boolean };
+type Counts = { required:number; allocated:number; remaining:number; accepted:number };
+type Summary = Counts & { lines:Record<string,Counts> };
 type History = { revision:number;kind:string;role_name:string;required_quantity:number;area_label:string;
   report_at:string;shift_starts_at:string;shift_ends_at:string;reason:string|null;actor_name:string;occurred_at:string };
 const empty = { roleId:"",quantity:"1",reportLocal:"",startLocal:"",endLocal:"",area:"",instructions:"",reason:"",confirmException:false,confirmDuplicate:false };
@@ -27,13 +30,14 @@ async function request(path:string,init?:RequestInit){const response=await fetch
 export function StaffingPlanClient({eventId,eventStatus,eventStarts,eventEnds}:{eventId:string;eventStatus:string;eventStarts:string;eventEnds:string}) {
   const roleSelectRef=useRef<HTMLSelectElement>(null);
   const [lines,setLines]=useState<Line[]>([]);const [roles,setRoles]=useState<Role[]>([]);const [required,setRequired]=useState(0);
+  const [summary,setSummary]=useState<Summary|null>(null); const [deploymentLine,setDeploymentLine]=useState<Line|null>(null);
   const [loading,setLoading]=useState(true);const [busy,setBusy]=useState(false);const [error,setError]=useState("");const [notice,setNotice]=useState("");
   const [editing,setEditing]=useState<Line|null>(null);const [creating,setCreating]=useState(false);const [draft,setDraft]=useState<Draft>(empty);
   const [cancelLine,setCancelLine]=useState<Line|null>(null);const [cancelReason,setCancelReason]=useState("");
   const [historyLine,setHistoryLine]=useState<Line|null>(null);const [history,setHistory]=useState<History[]>([]);
-  const load=useCallback(async()=>{setLoading(true);try{const [plan,choice]=await Promise.all([
-    request(`/api/events/${eventId}/staffing-requirements`),request("/api/events/staffing-roles")]);
-    setLines(plan.plan.items??[]);setRequired(plan.plan.required_total??0);setRoles(choice.roles??[]);setError("");}
+  const load=useCallback(async()=>{setLoading(true);try{const [plan,choice,counts]=await Promise.all([
+    request(`/api/events/${eventId}/staffing-requirements`),request("/api/events/staffing-roles"),request(`/api/events/${eventId}/deployment-summary`)]);
+    setLines(plan.plan.items??[]);setRequired(plan.plan.required_total??0);setRoles(choice.roles??[]);setSummary(counts.summary);setError("");}
     catch(caught){setError(caught instanceof Error?caught.message:"Staffing plan unavailable");}finally{setLoading(false);}},[eventId]);
   useEffect(()=>{const timer=setTimeout(()=>void load(),0);return()=>clearTimeout(timer);},[load]);
   const terminal=eventStatus==="COMPLETED"||eventStatus==="CANCELLED";
@@ -67,7 +71,7 @@ export function StaffingPlanClient({eventId,eventStatus,eventStarts,eventEnds}:{
   async function showHistory(line:Line){setHistoryLine(line);setHistory([]);try{const result=await request(`/api/events/${eventId}/staffing-requirements/${line.id}`);
     setHistory(result.history??[]);}catch(caught){setError(caught instanceof Error?caught.message:"History unavailable");}}
   return <section className="crm-panel staffing-plan" aria-label="Staffing plan">
-    <div className="staffing-heading"><div><h2>Staffing plan</h2><p>Required: <strong>{required}</strong> positions · Allocation not connected</p></div>
+    <div className="staffing-heading"><div><h2>Staffing plan</h2><p>{summary ? `${summary.required} required · ${summary.allocated} allocated · ${summary.remaining} remaining · ${summary.accepted} accepted` : `Required: ${required}`}</p></div>
       {!terminal&&<Button onClick={()=>begin()}>Add requirement</Button>}</div>
     {error&&!creating&&!cancelLine&&!historyLine&&<p className="enterprise-error" role="alert">{error} <Button variant="ghost" onClick={()=>void load()}>Retry</Button></p>}
     {notice&&<p className="enterprise-honesty" role="status">{notice}</p>}
@@ -75,20 +79,22 @@ export function StaffingPlanClient({eventId,eventStatus,eventStarts,eventEnds}:{
       Object.keys(groups).length===0?<p className="crm-empty">No current staffing requirements. Add role, quantity and times to define demand.</p>:
       Object.entries(groups).sort(([a],[b])=>a.localeCompare(b)).map(([day,dayLines])=><div className="staffing-day" key={day}>
         <div className="staffing-day-title"><h3>{dateLabel(day)}</h3><span>{dayLines.reduce((sum,line)=>sum+line.required_quantity,0)} required</span></div>
-        <div className="staffing-table-wrap"><table className="staffing-table"><thead><tr><th>Role / area</th><th>Qty</th><th>Report</th><th>Shift</th><th>Actions</th></tr></thead><tbody>
+        <div className="staffing-table-wrap"><table className="staffing-table"><thead><tr><th>Role / area</th><th>Allocation</th><th>Report</th><th>Shift</th><th>Actions</th></tr></thead><tbody>
           {dayLines.map((line)=><tr key={line.id}><td><strong>{line.role_name}</strong><small>{line.area_label}{line.instructions?` · ${line.instructions}`:""}</small></td>
-            <td>{line.required_quantity}</td><td>{clock(line.report_at)}</td><td>{clock(line.shift_starts_at)} → {clock(line.shift_ends_at)}</td>
-            <td><div className="staffing-actions"><Button variant="outline" onClick={()=>void showHistory(line)}>History</Button>
+            <td>{summary?.lines?.[line.id] ? `${line.required_quantity} required · ${summary.lines[line.id].allocated} allocated · ${summary.lines[line.id].remaining} remaining · ${summary.lines[line.id].accepted} accepted` : `${line.required_quantity} required`}</td><td>{clock(line.report_at)}</td><td>{clock(line.shift_starts_at)} → {clock(line.shift_ends_at)}</td>
+            <td><div className="staffing-actions"><Button variant="outline" onClick={()=>setDeploymentLine(line)}>Allocations</Button><Button variant="outline" onClick={()=>void showHistory(line)}>History</Button>
               {!terminal&&<><Button variant="outline" onClick={()=>begin(line)}>Edit</Button><Button variant="outline" onClick={()=>{setCancelLine(line);setCancelReason("");}}>Cancel</Button></>}</div></td></tr>)}</tbody></table></div>
         <div className="staffing-mobile-list">{dayLines.map((line)=><article className="staffing-card" key={line.id}>
           <div><strong>{line.required_quantity} × {line.role_name}</strong><span>{line.area_label}</span></div>
           <p>Report {clock(line.report_at)}<br/>Shift {clock(line.shift_starts_at)} → {clock(line.shift_ends_at)}</p>
-          {line.instructions&&<p>{line.instructions}</p>}<div className="staffing-actions"><Button variant="outline" onClick={()=>void showHistory(line)}>History</Button>
+          <p>{summary?.lines?.[line.id] ? `${summary.lines[line.id].allocated} allocated · ${summary.lines[line.id].remaining} remaining · ${summary.lines[line.id].accepted} accepted` : "Loading allocations…"}</p>
+          {line.instructions&&<p>{line.instructions}</p>}<div className="staffing-actions"><Button variant="outline" onClick={()=>setDeploymentLine(line)}>Allocations</Button><Button variant="outline" onClick={()=>void showHistory(line)}>History</Button>
             {!terminal&&<><Button variant="outline" onClick={()=>begin(line)}>Edit</Button><Button variant="outline" onClick={()=>{setCancelLine(line);setCancelReason("");}}>Cancel</Button></>}</div>
         </article>)}</div></div>)}
     {cancelled.length>0&&<details className="staffing-cancelled"><summary>{cancelled.length} cancelled requirement{cancelled.length===1?"":"s"} · history</summary>
       {cancelled.map((line)=><p key={line.id}>{line.role_name} · {dateLabel(line.service_date)} · {line.area_label} · {line.required_quantity} previously required <Button variant="ghost" onClick={()=>void showHistory(line)}>History</Button></p>)}</details>}
     {terminal&&<p className="enterprise-honesty">This Event is {eventStatus.toLowerCase()}; staffing history is read-only.</p>}
+    {deploymentLine&&<DeploymentLineClient eventId={eventId} requirementId={deploymentLine.id} revision={deploymentLine.revision} roleName={deploymentLine.role_name} area={deploymentLine.area_label} disabled={terminal} open={Boolean(deploymentLine)} onClose={()=>setDeploymentLine(null)} onChanged={load}/>}
     <Sheet open={creating} onOpenChange={(open)=>{if(!open){setCreating(false);setEditing(null);setError("");}}}><SheetContent className="staffing-sheet" showCloseButton={!busy} onOpenAutoFocus={(event)=>{event.preventDefault();roleSelectRef.current?.focus();}} onEscapeKeyDown={(event)=>{if(busy)event.preventDefault();}}>
       <SheetTitle>{editing?"Edit requirement":"Add staffing requirement"}</SheetTitle><form onSubmit={(e)=>void save(e)} className="staffing-form">
         <label>Operational role<select ref={roleSelectRef} required value={draft.roleId} onChange={(e)=>setDraft({...draft,roleId:e.target.value})}><option value="">Choose role</option>

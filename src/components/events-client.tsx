@@ -72,7 +72,7 @@ export function EventsClient({ roles, id, organisation, opportunity }: { roles: 
   return <main className="enterprise-main events-page">
     <p className="eyebrow">Operations · synthetic development data</p>
     <div className="crm-heading"><div><h1>{id ? String(event?.name ?? "Event") : "Events"}</h1>
-      <p className="enterprise-intro">Client, venue, overall Event times and staffing demand. Actual Staff allocation follows in a later task.</p></div>
+      <p className="enterprise-intro">Client, venue, overall Event times, staffing demand and current allocations. Attendance and worked hours are not recorded here.</p></div>
       {!id && office && <Button onClick={()=>setCreating(true)}>Create Event</Button>}</div>
     <nav className="crm-tabs" aria-label="Operational sections"><Link href="/events" aria-current={!id?"page":undefined}>Events</Link><Link href="/sites">Sites / Venues</Link></nav>
     {error && <p className="enterprise-error" role="alert">{error} <Button variant="ghost" onClick={()=>void load()}>Retry</Button></p>}
@@ -122,7 +122,7 @@ export function EventsClient({ roles, id, organisation, opportunity }: { roles: 
         <strong>{label(row.kind)} {row.new_status?`· ${label(row.new_status)}`:""}</strong><span>{london(row.occurred_at)} · {String(row.actor_name ?? "Office / Operations")}</span>
         {Boolean(row.reason) && <p>Reason: {String(row.reason)}</p>}</div>)}</section>
       <StaffingPlanClient eventId={id} eventStatus={String(event.status)} eventStarts={String(event.starts_at)} eventEnds={String(event.ends_at)}/>
-      <section className="crm-panel"><h2>Deployment and briefings</h2><p>Not built yet. No Staff allocation or document access is implied by this Event.</p></section>
+      <section className="crm-panel"><h2>Operational briefings</h2><p>Briefing packs are not connected yet. Allocations above do not record attendance or completed work.</p></section>
     </>}
     {creating && <div className="crm-dialog-backdrop"><section className="crm-dialog" role="dialog" aria-modal="true" aria-label="Create Event">
       <h2>Create operational Event</h2><p>One multi-day Event can span several dates. Staffing times come later.</p>

@@ -630,3 +630,30 @@ body { min-width: 320px; }
   .people-record-section .people-overview-list, .people-record-section .people-details-list { grid-template-columns: 1fr; }
   .people-record-list li { align-items: start; flex-direction: column; gap: 4px; }
 }
+
+/* 06C deployment surfaces: factual counts and private Staff response. */
+.deployment-sheet { overflow-y: auto; width: min(100vw, 34rem); max-width: 100vw; }
+.deployment-sheet section { border-top: 1px solid var(--border); padding-block: 1rem; }
+.deployment-sheet h3 { font-size: 1rem; font-weight: 650; margin-bottom: .75rem; }
+.deployment-allocated-list, .deployment-candidate-list, .deployment-self-list { display: grid; gap: .75rem; }
+.deployment-allocated-row, .deployment-candidate { display: flex; gap: .75rem; align-items: flex-start; justify-content: space-between; padding: .75rem; border: 1px solid var(--border); border-radius: .75rem; }
+.deployment-allocated-row > div, .deployment-candidate > div { display: grid; gap: .2rem; min-width: 0; }
+.deployment-allocated-row span, .deployment-candidate span, .deployment-candidate small { color: var(--muted-foreground); font-size: .84rem; }
+.deployment-candidate small { overflow-wrap: anywhere; }
+.deployment-confirm { background: var(--muted); border-radius: .75rem; padding: 1rem; }
+.deployment-confirm label, .deployment-sheet label { display: grid; gap: .4rem; margin-block: .7rem; }
+.deployment-sheet textarea, .deployment-self textarea, .deployment-self select { width: 100%; min-height: 2.75rem; border: 1px solid var(--border); border-radius: .6rem; padding: .65rem; background: var(--background); color: var(--foreground); }
+.deployment-actions, .deployment-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-top: .9rem; }
+.deployment-self-list { max-width: 62rem; }
+.deployment-history { max-width: 62rem; margin-top: 1rem; }
+.deployment-history summary { cursor: pointer; padding: .8rem; border: 1px solid var(--border); border-radius: .7rem; }
+.deployment-history[open] .deployment-self-list { margin-top: .75rem; }
+.deployment-self-card { padding: 1.2rem; }
+.deployment-self-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: .75rem; }
+.deployment-self-top h2 { font-size: 1.15rem; margin: 0; }
+.deployment-self-top p { color: var(--muted-foreground); margin: .25rem 0 0; }
+.deployment-state { border: 1px solid var(--border); border-radius: .5rem; padding: .3rem .5rem; font-size: .8rem; }
+.deployment-self-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin-block: 1rem; }
+.deployment-self-facts dt { font-size: .8rem; color: var(--muted-foreground); }
+.deployment-self-facts dd { margin: .2rem 0 0; overflow-wrap: anywhere; }
+@media (max-width: 640px) { .deployment-self-facts { grid-template-columns: 1fr; } .deployment-allocated-row, .deployment-candidate { flex-wrap: wrap; } .deployment-sheet { width: 100vw; } }
