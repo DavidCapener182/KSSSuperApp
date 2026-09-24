@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { LeaveReconciliation } from "@/components/leave-reconciliation";
 
 type Allocation = { id: string; person_id: string; person_name: string; status: string; revision: number; allocated_at: string; availability_conflict: string|null };
 type Candidate = { id: string; display_name: string; role: string; check: { result: "BLOCKED"|"REVIEW_REQUIRED"|"SYNTHETIC_CHECKS_PASSED_WITH_WARNINGS"; availability: string; reasons: string[]; policy_version: number|null } };
@@ -14,6 +15,7 @@ const reasonLabels: Record<string,string> = {
   ROLE_QUALIFICATION_RULE_NOT_CONFIGURED: "Role qualification rule not configured",
   SYNTHETIC_SIA_CHECK_SATISFIED: "Synthetic staffing check satisfied (development only)",
   ACTIVE_SECURITY_STAFF_ROLE_REQUIRED: "Active Security Staff role required", RECORDED_ALLOCATION_CLASH: "Overlapping allocation",
+  APPROVED_TIME_AWAY_CONFLICT: "Approved time away overlaps this duty",
   SIA_SYNTHETIC_RULE_DISABLED: "Synthetic SIA rule not configured", SYNTHETIC_SIA_CHECK_NOT_SATISFIED: "Synthetic SIA check not satisfied",
   REQUIREMENT_NOT_ACTIVE: "Requirement or Event is not active",
 };
@@ -50,7 +52,7 @@ export function DeploymentLineClient({ eventId, requirementId, revision, roleNam
     <SheetTitle>{roleName} · {area}</SheetTitle><p className="enterprise-honesty">Exact requirement · {detail ? `${detail.required} required · ${detail.allocated} allocated · ${detail.remaining} remaining · ${detail.accepted} accepted` : "Loading counts…"}</p>
     {error && <p className="enterprise-error" role="alert">{error} <Button variant="ghost" onClick={() => void load(search, offset)}>Retry</Button></p>}
     {loading && <p className="crm-skeleton" role="status">Checking current allocations and candidates…</p>}
-    {detail && <section><h3>Current allocations</h3>{detail.allocations.length === 0 ? <p className="crm-empty">No one allocated yet.</p> : <div className="deployment-allocated-list">{detail.allocations.map((item) => <div className="deployment-allocated-row" key={item.id}><div><strong>{item.person_name}</strong><span>{item.status === "ALLOCATED" ? "Awaiting Staff response" : item.status[0] + item.status.slice(1).toLowerCase()}</span>{item.availability_conflict && <small role="status">{item.availability_conflict === "UNAVAILABLE_CONFLICT" ? "Availability conflict with existing allocation" : "Declaration no longer covers this allocation"}</small>}</div>
+    {detail && <section><h3>Current allocations</h3>{detail.allocations.length === 0 ? <p className="crm-empty">No one allocated yet.</p> : <div className="deployment-allocated-list">{detail.allocations.map((item) => <div className="deployment-allocated-row" key={item.id}><div><strong>{item.person_name}</strong><span>{item.status === "ALLOCATED" ? "Awaiting Staff response" : item.status[0] + item.status.slice(1).toLowerCase()}</span>{item.availability_conflict && <small role="status">{item.availability_conflict === "UNAVAILABLE_CONFLICT" ? "Availability conflict with existing allocation" : "Declaration no longer covers this allocation"}</small>}<LeaveReconciliation source="EVENT" allocationId={item.id} /></div>
       {!disabled && ["ALLOCATED", "ACCEPTED"].includes(item.status) && <Button variant="outline" disabled={busy} onClick={() => { setCancel(item); setCancelReason(""); }}>Cancel allocation</Button>}</div>)}</div>}</section>}
     {!disabled && <section><h3>Find a candidate</h3><label>Search Security Staff by name<Input value={search} maxLength={80} onChange={(event) => { setSearch(event.target.value); setSelected(null); }} placeholder="Search name" /></label>
       <p className="enterprise-honesty">Declarations, clashes and configured checks are separate. Candidate checks are synthetic development checks, not live eligibility.</p>

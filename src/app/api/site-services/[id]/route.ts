@@ -108,5 +108,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     default: return privateJson({ error: "Invalid Service action" }, 400);
   }
   const { data, error } = await client.rpc(functionName, args);
-  return error ? privateJson({ error: "Service action could not be completed" }, 400) : privateJson({ result: data });
+  return error ? privateJson({ error: error.message.includes("APPROVED_TIME_AWAY_CONFLICT")
+    ? "APPROVED_TIME_AWAY_CONFLICT: Approved time away overlaps this duty. Reload the allocation."
+    : "Service action could not be completed" }, error.message.includes("APPROVED_TIME_AWAY_CONFLICT") ? 409 : 400)
+    : privateJson({ result: data });
 }

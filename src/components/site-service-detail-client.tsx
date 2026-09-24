@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { addCivilDays, londonToday, londonWeekStart } from "@/lib/events/workforce-week";
 import { londonDueToIso } from "@/lib/crm/due-time";
+import { LeaveReconciliation } from "@/components/leave-reconciliation";
 
 type Service = { id:string;name:string;type:string;state:string;effective_from:string;effective_until:string|null;
   revision:number;client_name:string;site_name:string };
@@ -123,10 +124,10 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
          <Button variant="outline" disabled={busy} onClick={()=>void act("amend",{demandId:demand.id,expectedRevision:demand.revision,kind:"CHANGE_QUANTITY",quantity:exceptionQuantity,reason})}>Set quantity</Button>
          <Input aria-label="New quantity" type="number" min={1} value={exceptionQuantity} onChange={(event)=>setExceptionQuantity(Number(event.target.value))} /></div>}
         {selected===demand.id&&<div className="staffing-sheet"><h4>Named allocations</h4><p>Active allocations consume capacity. Acceptance is a separate Staff response.</p>
-          {allocations.length?<ul>{allocations.map((allocation)=><li key={allocation.id}>{allocation.person_name} · {allocation.status} {!["CANCELLED","DECLINED"].includes(allocation.status)&&<Button variant="outline" disabled={busy} onClick={()=>void act("cancelAllocation",{demandId:demand.id,allocationId:allocation.id,expectedRevision:allocation.revision,reason})}>Cancel allocation</Button>}</li>)}</ul>:<p>No named allocations.</p>}
+          {allocations.length?<ul>{allocations.map((allocation)=><li key={allocation.id}>{allocation.person_name} · {allocation.status} {!["CANCELLED","DECLINED"].includes(allocation.status)&&<Button variant="outline" disabled={busy} onClick={()=>void act("cancelAllocation",{demandId:demand.id,allocationId:allocation.id,expectedRevision:allocation.revision,reason})}>Cancel allocation</Button>}<LeaveReconciliation source="SITE_SHIFT" allocationId={allocation.id} /></li>)}</ul>:<p>No named allocations.</p>}
           <form onSubmit={(event)=>{event.preventDefault();void findCandidates();}}><label>Search Security Staff<Input value={search} maxLength={80} onChange={(event)=>setSearch(event.target.value)} /></label><Button>Find candidates</Button></form>
           <label>Review reason for warnings<Input value={warningReason} maxLength={300} onChange={(event)=>setWarningReason(event.target.value)} /></label>
-          {candidates.length?<ul>{candidates.map((candidate)=><li key={candidate.id}>{candidate.display_name} · {candidate.check.result.replaceAll("_"," ")} · {candidate.check.availability}
+          {candidates.length?<ul>{candidates.map((candidate)=><li key={candidate.id}>{candidate.display_name} · {candidate.check.result.replaceAll("_"," ")} · {candidate.check.availability}{candidate.check.reasons.includes("APPROVED_TIME_AWAY_CONFLICT") ? " · Approved time away overlaps this duty" : ""}
             <Button variant="outline" disabled={busy||candidate.check.result==="BLOCKED"} onClick={()=>void allocate(candidate.id)}>Allocate</Button></li>)}</ul>:null}
          </div>}</article>)}</div>}
     </section>
