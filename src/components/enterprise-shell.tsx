@@ -33,7 +33,7 @@ export function EnterpriseShell({ person, roles, navigation, children }: Props) 
   const current = (href: string) => pathname === href || (href !== "/app" && pathname.startsWith(`${href}/`));
   const iconFor = (href: string) => {
     const Icon = href === "/app" ? House : href === "/onboarding" ? ClipboardList : href === "/documents"
-      ? FileText : href === "/my-deployments" ? CalendarDays : href === "/events" ? CalendarDays : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/crm" ? Building2 : href === "/sites" ? MapPin : UserRound;
+      ? FileText : href === "/my-deployments" || href === "/my-availability" ? CalendarDays : href === "/events" ? CalendarDays : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/crm" ? Building2 : href === "/sites" ? MapPin : UserRound;
     return <Icon size={19} strokeWidth={1.9} aria-hidden="true" />;
   };
 

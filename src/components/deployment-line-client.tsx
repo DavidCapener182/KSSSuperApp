@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 
-type Allocation = { id: string; person_id: string; person_name: string; status: string; revision: number; allocated_at: string };
-type Candidate = { id: string; display_name: string; role: string; check: { result: "BLOCKED"|"REVIEW_REQUIRED"|"SYNTHETIC_CHECKS_PASSED_WITH_WARNINGS"; reasons: string[]; policy_version: number|null } };
+type Allocation = { id: string; person_id: string; person_name: string; status: string; revision: number; allocated_at: string; availability_conflict: string|null };
+type Candidate = { id: string; display_name: string; role: string; check: { result: "BLOCKED"|"REVIEW_REQUIRED"|"SYNTHETIC_CHECKS_PASSED_WITH_WARNINGS"; availability: string; reasons: string[]; policy_version: number|null } };
 type Detail = { required: number; allocated: number; accepted: number; remaining: number; allocations: Allocation[] };
 type Page = { total: number; items: Candidate[] };
 const reasonLabels: Record<string,string> = {
-  AVAILABILITY_NOT_RECORDED: "Availability not recorded", TRAVEL_REST_NOT_ASSESSED: "Travel/rest not assessed",
+  AVAILABILITY_NOT_RECORDED: "Not declared", AVAILABILITY_NOT_DECLARED: "Not declared", AVAILABILITY_NOT_FULLY_COVERED: "Not fully covered", DECLARED_AVAILABLE: "Declared available", DECLARED_UNAVAILABLE: "Declared unavailable", TRAVEL_REST_NOT_ASSESSED: "Travel/rest not assessed",
   ROLE_QUALIFICATION_RULE_NOT_CONFIGURED: "Role qualification rule not configured",
   SYNTHETIC_SIA_CHECK_SATISFIED: "Synthetic staffing check satisfied (development only)",
   ACTIVE_SECURITY_STAFF_ROLE_REQUIRED: "Active Security Staff role required", RECORDED_ALLOCATION_CLASH: "Overlapping allocation",
@@ -50,10 +50,10 @@ export function DeploymentLineClient({ eventId, requirementId, revision, roleNam
     <SheetTitle>{roleName} · {area}</SheetTitle><p className="enterprise-honesty">Exact requirement · {detail ? `${detail.required} required · ${detail.allocated} allocated · ${detail.remaining} remaining · ${detail.accepted} accepted` : "Loading counts…"}</p>
     {error && <p className="enterprise-error" role="alert">{error} <Button variant="ghost" onClick={() => void load(search, offset)}>Retry</Button></p>}
     {loading && <p className="crm-skeleton" role="status">Checking current allocations and candidates…</p>}
-    {detail && <section><h3>Current allocations</h3>{detail.allocations.length === 0 ? <p className="crm-empty">No one allocated yet.</p> : <div className="deployment-allocated-list">{detail.allocations.map((item) => <div className="deployment-allocated-row" key={item.id}><div><strong>{item.person_name}</strong><span>{item.status === "ALLOCATED" ? "Awaiting Staff response" : item.status[0] + item.status.slice(1).toLowerCase()}</span></div>
+    {detail && <section><h3>Current allocations</h3>{detail.allocations.length === 0 ? <p className="crm-empty">No one allocated yet.</p> : <div className="deployment-allocated-list">{detail.allocations.map((item) => <div className="deployment-allocated-row" key={item.id}><div><strong>{item.person_name}</strong><span>{item.status === "ALLOCATED" ? "Awaiting Staff response" : item.status[0] + item.status.slice(1).toLowerCase()}</span>{item.availability_conflict && <small role="status">{item.availability_conflict === "UNAVAILABLE_CONFLICT" ? "Availability conflict with existing allocation" : "Declaration no longer covers this allocation"}</small>}</div>
       {!disabled && ["ALLOCATED", "ACCEPTED"].includes(item.status) && <Button variant="outline" disabled={busy} onClick={() => { setCancel(item); setCancelReason(""); }}>Cancel allocation</Button>}</div>)}</div>}</section>}
     {!disabled && <section><h3>Find a candidate</h3><label>Search Security Staff by name<Input value={search} maxLength={80} onChange={(event) => { setSearch(event.target.value); setSelected(null); }} placeholder="Search name" /></label>
-      <p className="enterprise-honesty">No recorded clash does not prove availability. Candidate checks are synthetic development checks, not live eligibility.</p>
+      <p className="enterprise-honesty">Declarations, clashes and configured checks are separate. Candidate checks are synthetic development checks, not live eligibility.</p>
       {candidates && <>{candidates.items.length === 0 ? <p className="crm-empty">No matching candidates.</p> : <div className="deployment-candidate-list">{candidates.items.map((person) => <div className="deployment-candidate" key={person.id}><div><strong>{person.display_name}</strong><span>{person.check.result === "BLOCKED" ? "Blocked" : person.check.result === "REVIEW_REQUIRED" ? "Review required" : "Synthetic checks passed with warnings"}</span><small>{person.check.result !== "BLOCKED" ? "No recorded allocation clash · Travel/rest not assessed · " : ""}{person.check.reasons.map(label).join(" · ")}</small></div><Button variant="outline" disabled={busy || person.check.result === "BLOCKED" || (detail?.remaining ?? 0) < 1} onClick={() => { setSelected(person); setAck(false); setReason(""); }}>Select</Button></div>)}</div>}
         {candidates.total > 20 && <div className="deployment-pagination"><Button variant="outline" disabled={offset === 0} onClick={() => void load(search, Math.max(0, offset - 20))}>Previous</Button><span>{offset + 1}–{Math.min(offset + 20, candidates.total)} of {candidates.total}</span><Button variant="outline" disabled={offset + 20 >= candidates.total} onClick={() => void load(search, offset + 20)}>Next</Button></div>}</>}
     </section>}

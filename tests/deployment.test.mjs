@@ -37,8 +37,9 @@ test('06C guarded allocation, Staff response and Event reconciliation', {timeout
  assert.ok(manager&&supervisor&&sia&&steward);
  const siaCandidates=await rpc(office,'deployment_candidates',{p_event:event,p_requirement:sia,p_search:'',p_offset:0,p_limit:20});
  assert.equal(siaCandidates.items.find((item)=>item.id===person.staffA).check.policy_version,1);
- const syntheticSiaCandidate=siaCandidates.items.find((item)=>item.check.result==='SYNTHETIC_CHECKS_PASSED_WITH_WARNINGS');
+ const syntheticSiaCandidate=siaCandidates.items.find((item)=>item.check.reasons.includes('SYNTHETIC_SIA_CHECK_SATISFIED'));
  assert.ok(syntheticSiaCandidate,'development-only exact synthetic SIA chain has a passing fixture');
+ assert.equal(syntheticSiaCandidate.check.result,'REVIEW_REQUIRED','undeclared availability remains a separate review warning');
  assert.ok(siaCandidates.items.some((item)=>item.check.result==='BLOCKED'));
  assert.ok((await office.from('event_staff_allocations').select('id')).error);
  assert.ok((await office.from('event_staff_allocation_events').insert({allocation_id:crypto.randomUUID()})).error);
@@ -100,7 +101,10 @@ test('06C guarded allocation, Staff response and Event reconciliation', {timeout
  assert.notEqual(second,allocation);
  await rpc(office,'operational_change_event',{p_event:event,p_action:'STATUS',p_status:'CANCELLED',p_reason:'Synthetic Event cancelled'});
  summary=await rpc(operations,'deployment_event_summary',{p_event:event});assert.equal(summary.allocated,0);
- assert.equal((await rpc(staffA,'my_deployments',{})).items.find((item)=>item.id===second).status,'CANCELLED');
+ let cancelledRow;
+ for(let offset=0;offset<=10000;offset+=50){const page=await rpc(staffA,'my_deployments',{p_offset:offset,p_limit:50});
+  cancelledRow=page.items.find((item)=>item.id===second);if(cancelledRow||offset+50>=page.total)break;}
+ assert.equal(cancelledRow?.status,'CANCELLED','cancelled work remains in paginated Staff history');
  assert.ok((await office.rpc('deployment_allocate',{...allocationArgs,p_acknowledge_warnings:true,p_reason:'Terminal Event'})).error);
  assert.ok((await staffA.rpc('operational_event_detail',{p_event:event})).error);
 });

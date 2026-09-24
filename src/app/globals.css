@@ -657,3 +657,22 @@ body { min-width: 320px; }
 .deployment-self-facts dt { font-size: .8rem; color: var(--muted-foreground); }
 .deployment-self-facts dd { margin: .2rem 0 0; overflow-wrap: anywhere; }
 @media (max-width: 640px) { .deployment-self-facts { grid-template-columns: 1fr; } .deployment-allocated-row, .deployment-candidate { flex-wrap: wrap; } .deployment-sheet { width: 100vw; } }
+
+.availability-self { max-width: 72rem; }
+.availability-self section > h2 { margin: 1.6rem 0 .8rem; font-size: 1.1rem; }
+.availability-list { display: grid; gap: .75rem; max-width: 62rem; }
+.availability-card { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 1.1rem 1.25rem; }
+.availability-card p { color: var(--muted-foreground); margin: .3rem 0 0; overflow-wrap: anywhere; }
+.availability-card .availability-note { color: var(--foreground); font-size: .9rem; }
+.availability-actions { display: flex; gap: .5rem; }
+.availability-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 1.2rem 0; }
+.availability-form label { display: grid; gap: .4rem; font-size: .9rem; color: var(--muted-foreground); }
+.availability-form input,.availability-form select,.availability-form textarea { width: 100%; min-width: 0; min-height: 2.75rem; border: 1px solid var(--border); border-radius: .6rem; padding: .65rem; background: var(--background); color: var(--foreground); }
+.availability-form textarea { min-height: 5rem; }
+.availability-form .availability-wide { grid-column: 1 / -1; }
+.availability-preview { padding: 1rem; border: 1px solid var(--border); border-radius: .8rem; background: var(--muted); }
+.availability-preview h3 { margin: 0 0 .5rem; font-size: 1rem; }
+.availability-preview ul { padding-left: 1.2rem; overflow-wrap: anywhere; }
+.availability-preview .staffing-confirm { display: flex; align-items: flex-start; gap: .6rem; margin: 1rem 0; }
+.availability-sheet { max-height: 100dvh; }
+@media (max-width: 640px) { .availability-card { flex-direction: column; } .availability-actions { width: 100%; } .availability-actions > button { flex: 1; } .availability-form { grid-template-columns: 1fr; } .availability-sheet { width: 100vw; } }
