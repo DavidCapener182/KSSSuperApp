@@ -18,7 +18,7 @@ export function hasCapability(principal: Principal, capability: Capability): boo
   return capabilitiesFor(principal).has(capability);
 }
 
-export type NavigationItem = { href: "/app" | "/work" | "/people" | "/crm" | "/sites" | "/events" | "/workforce" | "/my-schedule" | "/my-deployments" | "/action-centre" | "/my-availability" | "/documents" | "/onboarding" | "/profile" | "/incidents" | "/access/incident-reviewers"; label: string };
+export type NavigationItem = { href: "/app" | "/work" | "/people" | "/crm" | "/sites" | "/events" | "/workforce" | "/my-schedule" | "/my-deployments" | "/my-work-time" | "/action-centre" | "/my-availability" | "/documents" | "/onboarding" | "/profile" | "/incidents" | "/access/incident-reviewers"; label: string };
 
 export function navigationFor(principal: Principal): NavigationItem[] {
   const allowed = capabilitiesFor(principal);
@@ -33,6 +33,7 @@ export function navigationFor(principal: Principal): NavigationItem[] {
     { href: "/workforce" as const, label: "Workforce", capability: "WORKFORCE_USE" as const },
     { href: "/my-schedule" as const, label: "My Schedule", capability: "SCHEDULE_SELF_READ" as const },
     { href: "/my-deployments" as const, label: "My Deployments", capability: "DEPLOYMENTS_SELF_READ" as const },
+    { href: "/my-work-time" as const, label: "My Worked Time", capability: "DEPLOYMENTS_SELF_READ" as const },
     { href: "/action-centre" as const, label: "Action Centre", capability: "ACTION_CENTRE_SELF_READ" as const },
     { href: "/my-availability" as const, label: "My Availability", capability: "AVAILABILITY_SELF_READ" as const },
     { href: "/documents" as const, label: "Documents", capability: "DOCUMENT_SELF_READ" as const },
