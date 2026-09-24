@@ -161,6 +161,7 @@ export default function SitesPage() {
           <p><strong>Type:</strong> {selected.site_type?.replaceAll("_"," ") ?? "Unclassified"}</p>
           {office&&<><p><strong>Client:</strong> {operationalSite?.client_name ? <Link href={`/crm/organisations/${operationalSite.organisation_id}`}>{String(operationalSite.client_name)}</Link> : "Not linked"}</p>
             {((operationalSite?.events as {id:string;name:string}[])??[]).length>0&&<p>Events: {((operationalSite?.events as {id:string;name:string}[])??[]).map((item)=><Link key={item.id} href={`/events/${item.id}`}>{item.name}</Link>)}</p>}</>}
+          {operationalSite?.organisation_id&&<p><Link href={`/sites/${selected.id}/services`}>Ongoing Site Services and shift demand</Link></p>}
           <p className="sites-id">Site ID: {selected.id}</p>
           {canManage && <>
             <h3>Manage Site</h3>

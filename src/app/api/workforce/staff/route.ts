@@ -18,7 +18,7 @@ export async function GET(request: Request) {
     (person && !isUuid(person)) || !Number.isInteger(offset) || offset < 0 || offset > 10000)
     return privateJson({ error: "Invalid Staff schedule filter" }, 400);
   const { data, error } = person
-    ? await client.rpc("workforce_person_week", { p_person: person, p_week: week, p_offset: offset, p_limit: 30 })
+    ? await client.rpc("workforce_person_week_08a", { p_person: person, p_week: week, p_offset: offset, p_limit: 30 })
     : await client.rpc("workforce_staff_choices", { p_search: search, p_offset: offset, p_limit: 20 });
   return error ? privateJson({ error: "Staff schedule unavailable" }, 503)
     : privateJson(person ? { schedule: data } : { choices: data });

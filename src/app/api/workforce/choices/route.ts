@@ -11,6 +11,6 @@ export async function GET(request: Request) {
   if (!hasCapability(principal, "WORKFORCE_USE")) return forbidden();
   const week = londonWeekStart(new URL(request.url).searchParams.get("week") ?? londonToday());
   if (!week) return privateJson({ error: "Invalid Workforce week" }, 400);
-  const { data, error } = await client.rpc("workforce_filter_choices", { p_week: week });
+  const { data, error } = await client.rpc("workforce_filter_choices_08a", { p_week: week });
   return error ? privateJson({ error: "Workforce filters unavailable" }, 503) : privateJson({ choices: data });
 }

@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { addCivilDays, londonToday, londonWeekStart } from "@/lib/events/workforce-week";
 import { londonDueToIso } from "@/lib/crm/due-time";
 
-type Work = { id:string;status:string;service_date:string;report_at:string;shift_starts_at:string;shift_ends_at:string;
+type Work = { source:"EVENT"|"SITE_SHIFT";id:string;status:string;service_date:string;report_at:string;shift_starts_at:string;shift_ends_at:string;
   area_label:string;role_name:string;event_name:string;site_name:string;reporting_point:string;
   availability:string;availability_conflict:string|null };
 type Declaration = { id:string;state:"AVAILABLE"|"UNAVAILABLE";starts_at:string;ends_at:string };
@@ -46,7 +46,7 @@ export function MyScheduleClient() {
         const declarations=schedule.availability.filter((item)=>item.ends_at>dayStart&&item.starts_at<dayEnd);
         return <section key={day} className="my-schedule-day"><h2>{dayLabel(day)}</h2>
           {work.length===0&&declarations.length===0?<p className="crm-empty">No work or declaration shown for this day.</p>:<>
-            {work.map((item)=><article className="crm-panel my-schedule-work" key={item.id}><p className="enterprise-eyebrow">Allocated work · {item.status==="ALLOCATED"?"Awaiting your response":"Accepted"}</p>
+            {work.map((item)=><article className="crm-panel my-schedule-work" key={item.id}><p className="enterprise-eyebrow">{item.source==="EVENT"?"Event work":"Ongoing Site shift"} · {item.status==="ALLOCATED"?"Awaiting your response":"Accepted"}</p>
               <h3>{item.event_name}</h3><p>{item.site_name} · {item.role_name} · {item.area_label}</p>
               {item.reporting_point&&<p>Reporting point: {item.reporting_point}</p>}
               <p>Report {clock(item.report_at)} · Shift {clock(item.shift_starts_at)} → {clock(item.shift_ends_at)}</p>

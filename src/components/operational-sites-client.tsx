@@ -38,6 +38,7 @@ export function OperationalSitesClient({ selected, office }: { selected?: string
       {site&&<section className="crm-panel"><h2>{String(site.name)}</h2><p>{String(site.site_reference)} · {labels(site.site_type)} · {labels(site.status)}</p>
         <p>{String(site.address_line1)}, {String(site.town_city)} {String(site.postcode)} · Reporting point: {String(site.reporting_point)}</p>
         <p>Client: {site.client_name ? office ? <Link href={`/crm/organisations/${site.organisation_id}`}>{String(site.client_name)}</Link> : String(site.client_name) : "Not linked"}</p>
+        {Boolean(site.client_name)&&<p><Link href={`/sites/${site.id}/services`}>Ongoing Site Services and shift demand</Link></p>}
         <h3>Upcoming / active Events</h3>{((site.events as Row[])??[]).length===0?<p>No active Events at this Site.</p>:<ul>{((site.events as Row[])??[]).map((event)=><li key={String(event.id)}><Link href={`/events/${event.id}`}>{String(event.name)} · {labels(event.status)}</Link></li>)}</ul>}
         {Boolean(site.can_manage)&&office&&<p>Site administration remains in <Link href="/sites">Manage my Sites</Link>.</p>}</section>}
       <p className="enterprise-honesty">{total} authorised Site{total===1?"":"s"}. Unlinked Sites remain valid.</p>

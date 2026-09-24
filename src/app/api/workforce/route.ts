@@ -22,7 +22,7 @@ export async function GET(request: Request) {
     !yesNo(q.get("gaps")) || !yesNo(q.get("conflicts")) ||
     !Number.isInteger(offset) || offset < 0 || offset > 10000)
     return privateJson({ error: "Invalid Workforce filter" }, 400);
-  const { data, error } = await client.rpc("workforce_week", {
+  const { data, error } = await client.rpc("workforce_week_08a", {
     p_week: week, p_event: event, p_site: site, p_client: clientName, p_role: role, p_owner: owner,
     p_gaps: q.get("gaps") === "true", p_conflicts: q.get("conflicts") === "true", p_offset: offset, p_limit: 40,
   });

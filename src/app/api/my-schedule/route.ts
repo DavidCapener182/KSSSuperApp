@@ -14,6 +14,6 @@ export async function GET(request: Request) {
   const offset = Number(q.get("offset") ?? 0);
   if (!week || !Number.isInteger(offset) || offset < 0 || offset > 10000)
     return privateJson({ error: "Invalid schedule week" }, 400);
-  const { data, error } = await client.rpc("my_schedule", { p_week: week, p_offset: offset, p_limit: 50 });
+  const { data, error } = await client.rpc("my_schedule_08a", { p_week: week, p_offset: offset, p_limit: 50 });
   return error ? privateJson({ error: "My Schedule unavailable" }, 503) : privateJson({ schedule: data });
 }

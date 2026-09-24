@@ -8,20 +8,20 @@ import { addCivilDays, londonToday, londonWeekStart } from "@/lib/events/workfor
 
 type Allocation = { id:string; person_id:string; person_name:string; status:string; availability:string;
   availability_conflict:string|null; allocation_clash:boolean };
-type Line = { requirement_id:string; event_id:string; service_date:string; report_at:string; shift_starts_at:string;
+type Line = { source:"EVENT"|"SITE_SHIFT"; requirement_id:string; event_id:string|null; service_id:string|null; site_id:string; service_date:string; report_at:string; shift_starts_at:string;
   shift_ends_at:string; required_quantity:number; area_label:string; role_name:string; role_code:string;
   event_name:string; event_status:string; site_name:string; client_name:string; allocated:number; accepted:number;
   remaining:number; unavailable_conflicts:number; coverage_conflicts:number; not_declared:number; partial_coverage:number;
   awaiting_response:number; clashes:number; allocations:Allocation[] };
-type Totals = { events:number;required:number;allocated:number;remaining:number;accepted:number;gap_lines:number;
+type Totals = { events:number;services:number;required:number;allocated:number;remaining:number;accepted:number;gap_lines:number;
   availability_conflicts:number;unavailable_conflicts:number;coverage_conflicts:number;allocation_clashes:number };
-type Schedule = { week_start:string; total_lines:number;totals:Totals;items:Line[] };
+type Schedule = { week_start:string; static_horizon_covered:boolean; total_lines:number;totals:Totals;items:Line[] };
 type Choice = { id:string;name:string };
 type FilterChoices = { events:Choice[];sites:Choice[];clients:string[];roles:Choice[];owners:Choice[] };
 type PersonChoice = { id:string;display_name:string };
-type PersonRow = { id:string;status:string;service_date:string;report_at:string;shift_starts_at:string;
+type PersonRow = { source:"EVENT"|"SITE_SHIFT";service_id:string|null;site_id?:string;id:string;status:string;service_date:string;report_at:string;shift_starts_at:string;
   shift_ends_at:string;area_label:string;role_name:string;event_name:string;site_name:string;
-  event_id:string;requirement_id:string;availability:string;availability_conflict:string|null };
+  event_id:string|null;requirement_id:string;availability:string;availability_conflict:string|null };
 type PersonSchedule = { total:number;items:PersonRow[] };
 const initialFilters = { event:"",site:"",client:"",role:"",owner:"",gaps:false,conflicts:false };
 const dayLabel = (value:string) => new Date(`${value}T12:00:00Z`).toLocaleDateString("en-GB",{timeZone:"Europe/London",weekday:"long",day:"numeric",month:"long"});
@@ -72,7 +72,7 @@ export function WorkforceClient() {
   const totals=schedule?.totals;
   return <main className="enterprise-main workforce-page">
     <header className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Operational planning · synthetic development data</p>
-      <h1>Workforce</h1><p>Event demand, allocation, Staff response and availability remain separate facts.</p></div></header>
+      <h1>Workforce</h1><p>Event and ongoing Site shift demand, allocation, Staff response and availability remain separate facts.</p></div></header>
     <div className="workforce-tabs" role="tablist" aria-label="Workforce views"><Button role="tab" aria-selected={view==="week"} variant={view==="week"?"default":"outline"} onClick={()=>setView("week")}>Week schedule</Button>
       <Button role="tab" aria-selected={view==="staff"} variant={view==="staff"?"default":"outline"} onClick={()=>setView("staff")}>Staff schedule</Button></div>
     <section className="workforce-toolbar" aria-label="Choose schedule week"><Button variant="outline" onClick={()=>changeWeek(addCivilDays(week,-7))}>Previous week</Button>
@@ -94,31 +94,32 @@ export function WorkforceClient() {
         {filtered&&<Button variant="ghost" onClick={()=>{setFilters(initialFilters);setOffset(0);}}>Clear filters</Button>}
       </div>
       <div className="workforce-totals" aria-label="Weekly totals"><p>{filtered?"For this view":"This week"}</p>
-        {[['Events',totals?.events],['Required',totals?.required],['Allocated',totals?.allocated],['Remaining',totals?.remaining],['Accepted',totals?.accepted],['Availability conflicts',totals?.availability_conflicts]].map(([name,value])=><div key={String(name)}><strong>{loading?"…":value??0}</strong><span>{name}</span></div>)}
+        {[['Events',totals?.events],['Site Services',totals?.services],['Required',totals?.required],['Allocated',totals?.allocated],['Remaining',totals?.remaining],['Accepted',totals?.accepted],['Availability conflicts',totals?.availability_conflicts]].map(([name,value])=><div key={String(name)}><strong>{loading?"…":value??0}</strong><span>{name}</span></div>)}
       </div>
+      {schedule&&!schedule.static_horizon_covered&&<p className="enterprise-honesty">This week is beyond the current Site shift generation horizon. Ask Office to reconcile the Service before treating missing Site demand as complete.</p>}
       <p className="enterprise-honesty">{totals?.gap_lines??0} requirement lines have remaining positions. Availability conflicts count explicit Unavailable and removed coverage only; missing declarations are separate warnings.</p>
       <div className="workforce-day-picker" aria-label="Choose day"><Button variant="outline" onClick={()=>setSelectedDay(addCivilDays(selectedDay,-1))} disabled={selectedDay===week}>Previous day</Button>
         <label>Selected day <Input type="date" min={week} max={days[6]} value={selectedDay} onChange={(event)=>{if(days.includes(event.target.value))setSelectedDay(event.target.value);}} /></label>
         <Button variant="outline" onClick={()=>setSelectedDay(addCivilDays(selectedDay,1))} disabled={selectedDay===days[6]}>Next day</Button></div>
       {loading?<p className="crm-skeleton" role="status">Loading authorised workforce schedule…</p>:schedule&&<>
-        {schedule.total_lines===0?<p className="crm-empty">No planned Event staffing demand for this view.</p>:
+        {schedule.total_lines===0?<p className="crm-empty">No planned Event or Site shift demand for this view.</p>:
           <div className="workforce-week">{days.map((day)=>{const dayLines=schedule.items.filter((line)=>line.service_date===day);
-            const eventIds=[...new Set(dayLines.map((line)=>line.event_id))];return <section key={day} className={`workforce-day ${selectedDay===day?"is-selected":""}`} aria-label={dayLabel(day)}>
+            const groupIds=[...new Set(dayLines.map((line)=>`${line.source}:${line.event_id??line.service_id}`))];return <section key={day} className={`workforce-day ${selectedDay===day?"is-selected":""}`} aria-label={dayLabel(day)}>
               <h2>{dayLabel(day)} <span>{dayLines.length} requirement lines on this page</span></h2>
-              {dayLines.length===0?<p className="crm-empty">No demand on this page.</p>:eventIds.map((eventId)=>{const eventLines=dayLines.filter((line)=>line.event_id===eventId);const first=eventLines[0];
-                const total=(key:"required_quantity"|"allocated"|"remaining"|"accepted"|"unavailable_conflicts"|"coverage_conflicts")=>eventLines.reduce((sum,line)=>sum+line[key],0);
-                return <article className="workforce-event" key={eventId}><div className="workforce-event-head"><div><p className="enterprise-eyebrow">{first.client_name} · {first.site_name}</p>
-                  <h3><Link href={`/events/${eventId}`}>{first.event_name}</Link></h3><small>{first.event_status.replaceAll("_"," ")}</small></div>
+              {dayLines.length===0?<p className="crm-empty">No demand on this page.</p>:groupIds.map((groupId)=>{const groupLines=dayLines.filter((line)=>`${line.source}:${line.event_id??line.service_id}`===groupId);const first=groupLines[0];
+                const total=(key:"required_quantity"|"allocated"|"remaining"|"accepted"|"unavailable_conflicts"|"coverage_conflicts")=>groupLines.reduce((sum,line)=>sum+line[key],0);
+                return <article className="workforce-event" key={groupId}><div className="workforce-event-head"><div><p className="enterprise-eyebrow">{first.client_name} · {first.site_name}</p>
+                  <h3><Link href={first.source==="EVENT"?`/events/${first.event_id}`:`/sites/${first.site_id}/services/${first.service_id}`}>{first.event_name}</Link></h3><small>{first.source==="EVENT"?"Event work":"Ongoing Site shift"} · {first.event_status.replaceAll("_"," ")}</small></div>
                   <p>{total("required_quantity")} required · {total("allocated")} allocated · {total("remaining")} remaining · {total("accepted")} accepted
                     {total("unavailable_conflicts")+total("coverage_conflicts")>0&&<strong className="workforce-alert"> · {total("unavailable_conflicts")+total("coverage_conflicts")} availability conflicts</strong>}</p></div>
-                  <div className="workforce-lines">{eventLines.map((line)=><div className="workforce-line" key={line.requirement_id}><div><strong>{line.role_name} · {line.area_label}</strong><span>Report {clock(line.report_at)} · Shift {clock(line.shift_starts_at)} → {clock(line.shift_ends_at)}</span>
+                  <div className="workforce-lines">{groupLines.map((line)=><div className="workforce-line" key={line.requirement_id}><div><strong>{line.role_name} · {line.area_label}</strong><span>Report {clock(line.report_at)} · Shift {clock(line.shift_starts_at)} → {clock(line.shift_ends_at)}</span>
                     <small>{line.required_quantity} required · {line.allocated} allocated · {line.remaining} remaining · {line.accepted} accepted</small>
                     {(line.clashes>0||line.unavailable_conflicts>0||line.remaining>0||line.coverage_conflicts>0||line.awaiting_response>0||line.not_declared>0||line.partial_coverage>0)&&<small className="workforce-warnings">{[
                       line.clashes>0?`${line.clashes} allocation clash`:null,line.unavailable_conflicts>0?`${line.unavailable_conflicts} unavailable conflict`:null,
                       line.remaining>0?`${line.remaining} staffing gap`:null,line.coverage_conflicts>0?`${line.coverage_conflicts} coverage changed`:null,
                       line.awaiting_response>0?`${line.awaiting_response} awaiting response`:null,line.not_declared>0?`${line.not_declared} not declared`:null,
                       line.partial_coverage>0?`${line.partial_coverage} partially covered`:null].filter(Boolean).join(" · ")}</small>}</div>
-                    <Link className="workforce-action" href={`/events/${eventId}?requirement=${line.requirement_id}`}>Open allocations</Link></div>)}</div>
+                    <Link className="workforce-action" href={line.source==="EVENT"?`/events/${line.event_id}?requirement=${line.requirement_id}`:`/sites/${line.site_id}/services/${line.service_id}?demand=${line.requirement_id}`}>Open allocations</Link></div>)}</div>
                 </article>;})}</section>;})}</div>}
         {schedule.total_lines>40&&<div className="deployment-pagination"><Button variant="outline" disabled={offset===0} onClick={()=>setOffset(Math.max(0,offset-40))}>Previous page</Button>
           <span>{offset+1}–{Math.min(offset+40,schedule.total_lines)} of {schedule.total_lines} requirement lines</span>
@@ -132,10 +133,10 @@ export function WorkforceClient() {
         {staffTotal>20&&<div className="deployment-pagination"><Button variant="outline" disabled={staffOffset===0} onClick={()=>void searchStaff(staffSearch,Math.max(0,staffOffset-20))}>Previous</Button>
           <span>{staffOffset+1}–{Math.min(staffOffset+20,staffTotal)} of {staffTotal}</span><Button variant="outline" disabled={staffOffset+20>=staffTotal} onClick={()=>void searchStaff(staffSearch,staffOffset+20)}>Next</Button></div>}</>:
         <><div className="workforce-selected-person"><h3>{person.display_name}</h3><Button variant="outline" onClick={()=>{setPerson(null);setPersonSchedule(null);}}>Choose another</Button></div>
-          {personSchedule?.items.length===0?<p className="crm-empty">No active Event allocations for this Person in this week.</p>:
-            <div className="workforce-person-list">{personSchedule?.items.map((item)=><article className="crm-panel" key={item.id}><p className="enterprise-eyebrow">{dayLabel(item.service_date)} · {item.status==="ALLOCATED"?"Awaiting Staff response":"Accepted"}</p>
+          {personSchedule?.items.length===0?<p className="crm-empty">No active allocations for this Person in this week.</p>:
+            <div className="workforce-person-list">{personSchedule?.items.map((item)=><article className="crm-panel" key={item.id}><p className="enterprise-eyebrow">{item.source==="EVENT"?"Event work":"Ongoing Site shift"} · {dayLabel(item.service_date)} · {item.status==="ALLOCATED"?"Awaiting Staff response":"Accepted"}</p>
               <h3>{item.event_name}</h3><p>{item.site_name} · {item.role_name} · {item.area_label}</p><p>Report {clock(item.report_at)} · Shift {clock(item.shift_starts_at)} → {clock(item.shift_ends_at)}</p>
-              <p>{status(item.availability_conflict??item.availability)}</p><Link href={`/events/${item.event_id}?requirement=${item.requirement_id}`}>Open requirement</Link></article>)}</div>}
+              <p>{status(item.availability_conflict??item.availability)}</p><Link href={item.source==="EVENT"?`/events/${item.event_id}?requirement=${item.requirement_id}`:`/sites/${item.site_id}/services/${item.service_id}?demand=${item.requirement_id}`}>Open requirement</Link></article>)}</div>}
           {(personSchedule?.total??0)>30&&<div className="deployment-pagination"><Button variant="outline" disabled={personOffset===0} onClick={()=>void loadPerson(person.id,Math.max(0,personOffset-30))}>Previous</Button>
             <span>{personOffset+1}–{Math.min(personOffset+30,personSchedule!.total)} of {personSchedule!.total}</span><Button variant="outline" disabled={personOffset+30>=personSchedule!.total} onClick={()=>void loadPerson(person.id,personOffset+30)}>Next</Button></div>}</>}
     </section>}
