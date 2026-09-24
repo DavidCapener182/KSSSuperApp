@@ -6,9 +6,10 @@ Status: PREPARED, NOT APPLIED. This ledger is for the isolated `kss-integration-
 
 - Online protected staging Supabase project: `kwpgjbxepxuhwxxydaca`; 39 migration-history entries. Its Vercel deployment is based on the old `origin/staging` ancestor `de24b6a`.
 - Synthetic Dev Supabase project: `dnfhkmmnlbiabqypclqg`; 177 migration-history entries.
-- The accepted code candidate builds locally and includes accepted TASK-17B and TASK-21B/21C from their separate branches. The candidate is isolated from the dirty shared checkout and omits uncommitted TASK-19A.
+- The code candidate builds locally and includes accepted TASK-17B and TASK-21B/21C from their separate branches. It also contains technically delivered TASK-12A Incident Reporting, whose authenticated visual acceptance is still pending; staging would be for that walkthrough, not a claim of acceptance. The candidate is isolated from the dirty shared checkout and omits uncommitted TASK-19A.
 - Ten 03E migrations are already present on staging under different version numbers. They must be matched by *name and applied effect*, not replayed by absent Dev version. The two staging-only 03G reconciliation/seed migrations remain staging history.
 - The 122 entries below are source-controlled migrations present in Dev by name but not staging by name, in the actual Dev application order. Their local filename timestamps differ from Dev history for some entries. This is an application candidate, not proof that the SQL has been safely replayed on staging.
+- The Supabase staging dashboard showed physical scheduled database backups at 24 September 05:45:25 UTC and 23 September 09:00:45 UTC. The latest predates David's staging Auth account creation that evening. Neither backup includes Storage object bytes. No third Supabase project or paid clone is authorised; the in-place path must wait for a fresh recoverable backup or obtain a separate no-cost logical export without exposing credentials.
 
 ## Release gates
 
