@@ -1,6 +1,6 @@
 # Protected staging alignment — release ledger (24 September 2026)
 
-Status: PARTIAL STAGING SCHEMA UPDATE, STOPPED AT AUTOMATIC APPROVAL REVIEW. This ledger is for the isolated `kss-integration-preview` branch. Do not run `supabase db push` or fast-forward the Vercel staging branch until the review block is resolved and the remaining gates pass.
+Status: ALL 122 LISTED SCHEMA MIGRATIONS APPLIED TO SYNTHETIC STAGING; APP DEPLOYMENT AND AUTHENTICATED POSTFLIGHT PENDING. This ledger is for the isolated `kss-integration-preview` branch. Do not run `supabase db push`; migration names and remote versions differ from Dev history.
 
 ## Verified current split
 
@@ -13,7 +13,17 @@ Status: PARTIAL STAGING SCHEMA UPDATE, STOPPED AT AUTOMATIC APPROVAL REVIEW. Thi
 
 ## In-place attempt and stop point
 
+### Latest staging checkpoint
+
+David gave explicit follow-up authorisation for the listed synthetic staging rollout, including 09A, 08D's daily job, 10B's Event worked-time slice, the accepted Dev modules, TASK-12A solely for its visual walkthrough, and the 17B any-active-role self-service rule with exact manager grants. Automatic review then permitted those previously blocked migrations. All 122 candidate migration names were confirmed in staging migration history; total history is 161 entries (39 prior + 122 listed). The three later source files that repeated an identical previously created function were corrected to use `create or replace function` in this isolated release branch: 22B duty window, 23B missing materialisation, and 22B London window. No table reset, data backfill, or third database was used.
+
+Postflight SQL readback after the complete schema rollout found five Auth users, five People, one `IN_PROGRESS` onboarding case with six requirement rows, four Storage objects, one active David `SUPER_ADMIN` role, and the active 08D job `kss-site-shift-horizon-08d` at `17 3 * * *`. The exact 5-of-6 UI projection, role-scoped browser journeys, and app deployment remain unverified at this checkpoint.
+
 David explicitly authorised proceeding in place on 24 September 2026, accepting that his synthetic staging account could be recreated if an old backup had to be restored. The first four listed migrations applied successfully to staging: `people_directory_04a`, `people_directory_case_link_fix_04a`, `crm_foundation_05a`, and `crm_account_owner_history_05a`. Staging migration history increased from 39 to 43 entries. The fifth migration, `operational_crm_05b`, was rejected by automatic approval review because it broadly rewrites shared Task constraints and triggers while adding CRM activities/follow-up workflows, with a stated risk of disrupting other modules. No bypass, split, alternate SQL route, or retry was attempted. No further migrations or Vercel deployment occurred.
+
+After David specifically requested continuation, the Task compatibility review found the 05B CRM tests passing. The document-review regression passed when run alone; its earlier concurrent run had failed at a PDF authorization check. The onboarding regression initially assumed its exact case appeared in the first 50 queue rows; the isolated release branch test was corrected to page to the exact case and then passed. The original `operational_crm_05b` migration and its two documented 05B follow-up migrations (`crm_operational_summary_05b`, `document_task_conflict_05b`) applied successfully to staging. Existing staging `tasks` still contained the same three completed `DOCUMENT_REVIEW` rows after the first 05B migration.
+
+The next migration, `client_site_event_06a`, was rejected by automatic approval review as an additional Client–Site–Event scope expansion beyond the specifically approved CRM/Task staging rollout. The review stated that the general request to make staging work did not authorize that additional scope and forbade bypass. No 06A or later migration was applied. The Vercel staging app was not deployed.
 
 Post-stop readback: staging still has five Auth users, five People, one onboarding case with six requirement rows and `IN_PROGRESS` state, and four Storage objects. David's exact Auth identity still maps to one `SUPER_ADMIN` assignment. This does not establish the 5-of-6 UI state after the partial schema update; that browser check remains open.
 

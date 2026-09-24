@@ -52,7 +52,14 @@ test('03E bounded team triage, cover, reassignment and cancellation', {timeout:3
     assert.equal(acceptedStatus,200,JSON.stringify(acceptedRecord));
     const acceptedBefore=acceptedRecord.case?.verifiedCount;
     assert.ok(Number.isInteger(acceptedBefore) && acceptedBefore>=0 && acceptedBefore<=6);
-    const teamId=initial.rows.find((row)=>row.id===acceptedCase)?.teamId;assert.ok(teamId);
+    let acceptedQueueRow=initial.rows.find((row)=>row.id===acceptedCase);
+    for(let offset=50;!acceptedQueueRow && offset<10000 && initial.rows.length===50;offset+=50){
+      const [pageStatus,page]=await json(`/api/onboarding/queue?view=TEAM_QUEUE&limit=50&offset=${offset}`,'office');
+      assert.equal(pageStatus,200);
+      acceptedQueueRow=page.rows.find((row)=>row.id===acceptedCase);
+      if(page.rows.length<50)break;
+    }
+    const teamId=acceptedQueueRow?.teamId;assert.ok(teamId);
     const site=(await actors.office.db.from('sites').select('id').eq('name','Synthetic Static Security Site')
       .eq('created_by_person_id',officeId).single());assert.ifError(site.error);
     const createCase=async()=>{const [status,body]=await json('/api/onboarding','office',post({
