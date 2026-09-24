@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
-import { BriefcaseBusiness, Building2, ClipboardList, FileText, House, MapPin, MoreHorizontal, UserRound, UsersRound, CalendarDays, Bell, Siren } from "lucide-react";
+import { BriefcaseBusiness, Building2, BookOpenText, ClipboardList, FileText, House, MapPin, MoreHorizontal, UserRound, UsersRound, CalendarDays, Bell, Siren } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { NavigationItem } from "@/lib/auth/capabilities";
@@ -27,13 +27,18 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
   const [busy, setBusy] = useState(false);
   const [signOutError, setSignOutError] = useState("");
   const isStaff = roles.length === 1 && roles[0] === "SECURITY_STAFF";
+  const bookNavigation = roles.some((role) => role === "SECURITY_STAFF" || role === "OPERATIONS" || role === "SUPER_ADMIN")
+    ? [{ href: "/site-book", label: "Site Book" }] : [];
+  const bookAccessNavigation = roles.some((role) => role === "OFFICE_ADMIN" || role === "SUPER_ADMIN")
+    ? [{ href: "/site-book/access", label: "Site Book access" }] : [];
+  const destinations = [...navigation, ...bookNavigation, ...bookAccessNavigation];
   const primaryDestinations = isStaff ? ["/app", "/incidents", "/my-schedule", "/action-centre"]
     : ["/app", "/incidents", "/onboarding", "/work"];
-  const mobilePrimary = navigation.filter((item) => primaryDestinations.includes(item.href));
-  const mobileSecondary = navigation.filter((item) => !primaryDestinations.includes(item.href));
-  const current = (href: string) => pathname === href || (href !== "/app" && pathname.startsWith(`${href}/`));
+  const mobilePrimary = destinations.filter((item) => primaryDestinations.includes(item.href));
+  const mobileSecondary = destinations.filter((item) => !primaryDestinations.includes(item.href));
+  const current = (href: string) => pathname === href || (href === "/site-book" && pathname === "/site-book/access" ? false : href !== "/app" && pathname.startsWith(`${href}/`));
   const iconFor = (href: string) => {
-    const Icon = href === "/app" ? House : href === "/incidents" ? Siren : href === "/onboarding" ? ClipboardList : href === "/documents"
+    const Icon = href === "/app" ? House : href.startsWith("/site-book") ? BookOpenText : href === "/incidents" ? Siren : href === "/onboarding" ? ClipboardList : href === "/documents"
       ? FileText : href === "/action-centre" ? Bell : ["/my-schedule", "/my-deployments", "/my-availability", "/events", "/workforce"].includes(href) ? CalendarDays : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/crm" ? Building2 : href === "/sites" ? MapPin : UserRound;
     return <Icon size={19} strokeWidth={1.9} aria-hidden="true" />;
   };
@@ -81,7 +86,7 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
       </div>
       {signOutError && <p className="enterprise-error" role="alert">{signOutError}</p>}
       <nav className="enterprise-nav" aria-label="Primary navigation">
-        {navigation.map((item) => <Link key={item.href} href={item.href} aria-current={current(item.href) ? "page" : undefined}>{iconFor(item.href)}{item.label}</Link>)}
+        {destinations.map((item) => <Link key={item.href} href={item.href} aria-current={current(item.href) ? "page" : undefined}>{iconFor(item.href)}{item.label}</Link>)}
       </nav>
     </header>
     {children}
