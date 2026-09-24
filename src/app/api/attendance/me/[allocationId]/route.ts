@@ -15,7 +15,9 @@ export async function POST(request: Request, context: { params: Promise<{ alloca
     return privateJson({ error: "Invalid attendance action" }, 400);
   }
   const actualAt = new Date(body.actualAt).toISOString();
-  const { data, error } = await client.rpc("attendance_self_action", {
+  const source = new URL(request.url).searchParams.get("source") ?? "EVENT";
+  if (!["EVENT", "SITE_SHIFT"].includes(source)) return privateJson({ error: "Invalid attendance source" }, 400);
+  const { data, error } = await client.rpc(source === "SITE_SHIFT" ? "attendance_site_self_action" : "attendance_self_action", {
     p_allocation: allocationId, p_action: body.action, p_actual_at: actualAt,
     p_expected_case_revision: body.expectedRevision, p_idempotency_key: body.idempotencyKey,
   });

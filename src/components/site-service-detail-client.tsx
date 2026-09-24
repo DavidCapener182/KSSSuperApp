@@ -73,7 +73,7 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
  const service=detail?.service;
  return <main className="enterprise-main"><header className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Ongoing Site shift · synthetic development data</p>
    <h1>{service?.name??"Site Service"}</h1><p>{service?.client_name} · {service?.site_name}</p></div></header>
-   <p><Link href={`/sites/${siteId}/services`}>All Site Services</Link> · <Link href="/workforce">Workforce</Link></p>
+   <p><Link href={`/sites/${siteId}/services`}>All Site Services</Link> · <Link href="/workforce">Workforce</Link> · <Link href={`/sites/${siteId}/services/${serviceId}/attendance`}>Attendance</Link></p>
    {error&&<p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={()=>void load()}>Retry</Button></p>}
    {notice&&<p role="status" className="enterprise-honesty">{notice}</p>}
    {loading?<p role="status" className="crm-skeleton">Loading Service…</p>:service&&<>
@@ -117,6 +117,7 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
         <h3>{demand.role_name} · {demand.area_label}</h3><p>Report {time(demand.report_at)} · Shift {time(demand.shift_starts_at)} → {time(demand.shift_ends_at)}</p>
         <p>{demand.required_quantity} required · {demand.allocated} allocated · {demand.required_quantity-demand.allocated} remaining · {demand.accepted} accepted</p>
         <p>Reporting point: {demand.reporting_point||"Not specified"}</p>
+        <p><Link href={`/sites/${siteId}/services/${serviceId}/attendance?demand=${encodeURIComponent(demand.id)}`}>Open attendance for this shift</Link></p>
         {demand.state==="PLANNED"&&<div className="deployment-actions"><Button variant="outline" onClick={()=>void loadAllocation(demand.id)}>Allocations</Button>
          <Button variant="outline" disabled={busy} onClick={()=>void act("amend",{demandId:demand.id,expectedRevision:demand.revision,kind:"SKIP",reason})}>Skip this date</Button>
          <Button variant="outline" disabled={busy} onClick={()=>void act("amend",{demandId:demand.id,expectedRevision:demand.revision,kind:"CHANGE_QUANTITY",quantity:exceptionQuantity,reason})}>Set quantity</Button>

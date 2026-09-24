@@ -10,12 +10,14 @@ export async function GET(request: Request) {
   const params = new URL(request.url).searchParams;
   const offset = Number(params.get("offset") ?? "0");
   const allocationId = params.get("allocationId");
+  const source = params.get("source") ?? (allocationId ? "EVENT" : null);
   if (!Number.isInteger(offset) || offset < 0 || offset > 10000 ||
-    (allocationId !== null && (!isUuid(allocationId) || offset !== 0))) {
+    (allocationId !== null && (!isUuid(allocationId) || offset !== 0 || !["EVENT", "SITE_SHIFT"].includes(source ?? ""))) ||
+    (allocationId === null && source !== null)) {
     return privateJson({ error: "Invalid attendance selection" }, 400);
   }
-  const { data, error } = await client.rpc("my_event_attendance", {
-    p_offset: offset, p_limit: 25, p_allocation_id: allocationId,
+  const { data, error } = await client.rpc("my_attendance_09b", {
+    p_offset: offset, p_limit: 25, p_allocation_id: allocationId, p_source: source,
   });
   return error ? privateJson({ error: "Attendance unavailable" }, 503) : privateJson({ attendance: data });
 }
