@@ -1,6 +1,6 @@
 # TASK-18A proposal — explicit client mobilisation workspace
 
-**Status:** David approved bounded synthetic-Dev implementation on 24 September 2026, with separate versioned Static Site and Event templates, Office/Super only access, no asset integration and an explicit acceptance stop. The implementation and actual checks are recorded in `TASK-18A-REPORT.md`. No real data, staging, production, finance, live integration or phase advance was approved. The master specification remains the product reference.
+**Status:** David accepted the bounded synthetic-Dev implementation on 24 September 2026 at commit `8b0bf9e`, with separate versioned Static Site and Event templates, Office/Super only access, no asset integration and explicit human handover. The implementation, checks and acceptance are recorded in `TASK-18A-REPORT.md`. No real data, staging, production, finance, live integration or phase advance was approved. The master specification remains the product reference.
 
 ## Purpose and present contracts
 
@@ -50,6 +50,6 @@ Negative: Won transition alone creates zero mobilisations; Prospect, Lost/cross-
 
 ## Decisions and future seams
 
-David must approve: this standalone mobilisation identity and Office/Super start authority; whether multiple named mobilisations per Client/Opportunity are allowed as proposed; the state vocabulary and handover decision requirements; the first versioned action template for one static Site and one Event, including real stop/go evidence; whether any Operations read is needed; retention and sensitive-text limits. Contract, PO, rates, compliance verification, go-live release authority, client signoff, automatic source reconciliation, notifications, live integrations and any template that asserts readiness need separate product decisions. The later 15A asset, 13A control-room and 14A handover source contracts must be inspected before implementing typed links.
+David approved the standalone identity, Office/Super start authority, multiple named scopes, state vocabulary, explicit handover and separate Static Site/Event V1 templates for synthetic Dev. Operations read, retention and sensitive-text policy remain future decisions. Contract, PO, rates, compliance verification, go-live release authority, client signoff, automatic source reconciliation, notifications, live integrations and any template that asserts readiness need separate product decisions. The later 15A Asset, 13A Control Room and 14A Site Book source contracts must be inspected before implementing typed links.
 
-**STOP / acceptance gate:** David approved this bounded synthetic-Dev task. Stop after implementation, tests, desktop and 390px evidence, and `TASK-18A-REPORT.md` for his review. Do not connect real data, deploy to staging or production, advance phase or infer human acceptance from local checks.
+**Accepted boundary:** David accepted this bounded synthetic-Dev task after reviewing implementation, tests, desktop and 390px evidence, and `TASK-18A-REPORT.md`. Do not connect real data, deploy to staging or production, advance phase or infer approval for later integrations from this acceptance.

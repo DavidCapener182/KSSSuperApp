@@ -1,6 +1,14 @@
 # TASK-18A delivery report — explicit Mobilisation
 
-Date: 24 September 2026. **Status:** implemented in synthetic Dev, awaiting David's acceptance. This report records actual checks, not a staging or production readiness claim. No real Client data, staging deployment, production deployment, notification, finance, contract, PO, asset integration, Control Room integration or Site Book integration was added by 18A.
+Date: 24 September 2026. **Status:** accepted by David in synthetic Dev on 24 September 2026 at implementation commit `8b0bf9e`. This report records actual checks, not a staging or production readiness claim. No real Client data, staging deployment, production deployment, notification, finance, contract, PO, asset integration, Control Room integration or Site Book integration was added by 18A.
+
+## David's acceptance — TASK-18A
+
+David accepted TASK-18A Explicit Client Mobilisation in synthetic Dev on 24 September 2026. Mobilisation is a distinct operational coordination domain connecting CRM handover to subsequent Site/Event/Service setup. CRM Opportunity state, Mobilisation actions and action counts do not establish operational readiness.
+
+The accepted first slice includes explicit Office/Super authorisation, separate Static Site and Event V1 templates, actions, dependencies, blockers, decisions, exact guarded source links, owner and target-date management, explicit go-live review and handover, and immutable history. CRM `WON` does not automatically create Mobilisation. Source records remain authoritative and retain their independent permissions.
+
+Mobilisation does not establish contract approval, staffing readiness, training completion, asset availability, compliance, billing authority or operational eligibility. David accepted the synthetic integration/security tests, relevant source regressions, production Webpack build and authenticated desktop/390px Office browser evidence recorded below. This acceptance authorises no staging, production, real KSS data, finance, notifications, Asset, Control Room or Site Book integration.
 
 ## Approved boundary and delivery
 
@@ -47,4 +55,8 @@ V1 template actions are versioned and factual, but their due dates are entered p
 
 The two existing templates serve distinct Static Site and Event scopes. Their actual workstream defaults and any target-relative due-date rules should be reviewed with KSS before live use. A handover decision is an attributable human record with outstanding items visible; it is not a release, compliance or contract approval.
 
-**STOP / acceptance gate:** TASK-18A is implemented and verified only in synthetic Dev. David should review this report and the desktop/390px evidence before acceptance. No staging, production, real data, asset integration, finance, notifications or further phase work follows from these local results.
+## Follow-on backlog, not authorised by this acceptance
+
+Keep 18A stable. After their source modules are stable, consider exact factual links from 15A Assets, Documents/SOP publication and acknowledgement, and native Training completion. Training remains `external / not connected` meanwhile. A future Control Room view may link back narrowly after explicit handover without displaying Mobilisation actions there. Curated, permission-aware Site/Event/Document source pickers are a high-priority usability improvement over manual UUID entry. Each integration needs its own bounded source contract and approval.
+
+**Acceptance boundary:** TASK-18A is accepted only in synthetic Dev. No staging, production, real data or follow-on integration is authorised by this acceptance.
