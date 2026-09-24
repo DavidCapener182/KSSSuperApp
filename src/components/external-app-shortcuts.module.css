@@ -1,0 +1,132 @@
+.section {
+  margin: 38px 0 26px;
+  min-width: 0;
+}
+
+.headingRow {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--kss-ink-subtle);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.heading {
+  margin: 0;
+  color: var(--kss-ink);
+  font-size: 21px;
+  line-height: 1.25;
+}
+
+.note {
+  max-width: 250px;
+  margin: 0;
+  color: var(--kss-ink-subtle);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.card {
+  display: flex;
+  min-width: 0;
+  min-height: 124px;
+  flex-direction: column;
+  gap: 10px;
+  padding: 17px;
+  border: 1px solid var(--kss-border);
+  border-radius: 14px;
+  background: var(--kss-surface);
+  color: var(--kss-ink);
+  text-decoration: none;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+a.card:hover {
+  border-color: var(--kss-blue);
+  box-shadow: 0 10px 26px #1d2d4814;
+  transform: translateY(-1px);
+}
+
+a.card:focus-visible {
+  outline: 3px solid var(--kss-blue);
+  outline-offset: 3px;
+}
+
+.unavailable {
+  background: var(--kss-surface-muted, var(--kss-surface));
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 34px;
+}
+
+.iconWrap {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  place-items: center;
+  border: 1px solid var(--kss-border);
+  border-radius: 10px;
+  background: var(--kss-surface);
+  color: var(--kss-blue);
+}
+
+.externalCue,
+.status {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  color: var(--kss-ink-subtle);
+  font-size: 11px;
+  line-height: 1.35;
+  text-align: right;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.description {
+  color: var(--kss-ink-soft);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+@media (max-width: 560px) {
+  .section { margin-top: 30px; }
+  .headingRow { align-items: start; flex-direction: column; gap: 6px; }
+  .note { max-width: none; text-align: left; }
+  .grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .card { min-height: 96px; padding: 15px; }
+  a.card { min-height: 112px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+  a.card:hover { transform: none; }
+}

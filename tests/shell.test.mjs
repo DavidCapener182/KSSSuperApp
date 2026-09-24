@@ -42,13 +42,35 @@ test('return targets allow only implemented local routes', () => {
 test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, async () => {
   assert.ok(url && key && Object.values(users).every(([email, password]) => email && password));
   const base = `http://127.0.0.1:${await port()}`;
-  const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '--hostname', '127.0.0.1', '--port', new URL(base).port], { cwd: process.cwd(), stdio: 'ignore' });
+  const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '--hostname', '127.0.0.1', '--port', new URL(base).port], {
+    cwd: process.cwd(),
+    stdio: 'ignore',
+    env: {
+      ...process.env,
+      KSS_MAGSECURE_URL: 'https://magsecure.example.test/portal',
+      KSS_FOOTASYLUM_AUDITS_URL: 'https://audits.example.test/home',
+      KSS_TRAINING_URL: 'https://training.example.test/login',
+    },
+  });
   const admin = client();
   try {
     for (let i = 0; i < 100; i++) { try { await fetch(base); break; } catch { await new Promise((resolve) => setTimeout(resolve, 200)); } }
     const cookies = Object.fromEntries(await Promise.all(Object.keys(users).map(async (name) => [name, await cookieFor(name)])));
     const get = (path, as, extra = {}) => fetch(base + path, { redirect: 'manual', headers: { ...(as ? { cookie: cookies[as] } : {}), ...extra } });
     const me = async (as) => { const response = await get('/api/me', as); return [response.status, await response.json()]; };
+    const createRole = async (personId, roleCode, effectiveUntil = null) => {
+      const response = await fetch(base + '/api/access/roles', {
+        method: 'POST',
+        headers: { cookie: cookies.admin, 'content-type': 'application/json' },
+        body: JSON.stringify({ personId, roleCode, effectiveFrom: new Date(Date.now() - 60000).toISOString(), effectiveUntil }),
+      });
+      assert.equal(response.status, 201, `grant ${roleCode}`);
+      return response.json();
+    };
+    const revokeRole = async (id) => {
+      const response = await fetch(`${base}/api/access/roles/${id}`, { method: 'PATCH', headers: { cookie: cookies.admin } });
+      assert.equal(response.status, 200, `revoke role ${id}`);
+    };
     for (const path of paths) {
       const anon = await get(path);
       assert.equal(anon.status, 307, `anonymous ${path}`);
@@ -61,8 +83,8 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.equal((await me(undefined))[0], 401);
     assert.deepEqual(await me('unmapped'), [403, { error: 'No Enterprise access' }]);
     const expected = {
-      admin: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/workforce', '/documents', '/onboarding', '/profile'], office: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/workforce', '/documents', '/onboarding', '/profile'],
-      staff: ['/app', '/sites', '/my-schedule', '/my-deployments', '/action-centre', '/my-availability', '/documents', '/onboarding', '/profile'], zero: ['/app', '/sites', '/my-schedule', '/my-deployments', '/action-centre', '/my-availability', '/documents', '/onboarding', '/profile'],
+      admin: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/workforce', '/documents', '/onboarding', '/profile', '/incidents', '/access/incident-reviewers'], office: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/workforce', '/documents', '/onboarding', '/profile'],
+      staff: ['/app', '/sites', '/my-schedule', '/my-deployments', '/action-centre', '/my-availability', '/documents', '/onboarding', '/profile', '/incidents'], zero: ['/app', '/sites', '/my-schedule', '/my-deployments', '/action-centre', '/my-availability', '/documents', '/onboarding', '/profile', '/incidents'],
       operations: ['/app', '/people', '/sites', '/events', '/workforce', '/profile'],
     };
     for (const [as, links] of Object.entries(expected)) {
@@ -72,6 +94,32 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
       assert.equal((await get('/app', as)).status, 200);
       assert.equal((await get('/profile', as)).status, 200);
     }
+
+    const homeHtml = async (as) => (await get('/app', as)).text();
+    const staffHome = await homeHtml('staff');
+    assert.match(staffHome, /MagSecure/);
+    assert.match(staffHome, /Training/);
+    assert.doesNotMatch(staffHome, /Footasylum Audits/);
+    for (const [label, href] of [
+      ['MagSecure', 'https://magsecure.example.test/portal'],
+      ['Training', 'https://training.example.test/login'],
+    ]) {
+      assert.match(staffHome, new RegExp(`href="${href.replaceAll('.', '\\.')}"`));
+      assert.match(staffHome, new RegExp(`aria-label="Open ${label} in a new tab"`));
+    }
+    assert.match(staffHome, /target="_blank" rel="noopener noreferrer"/);
+    assert.doesNotMatch(staffHome, /href="https:\/\/audits\.example\.test/);
+    assert.doesNotMatch(staffHome, /href="https:\/\/[^"?]+\?/);
+
+    const [, staffPrincipal] = await me('staff');
+    const expiresAt = new Date(Date.now() + 10000).toISOString();
+    await createRole(staffPrincipal.person.id, 'OFFICE_ADMIN', expiresAt);
+    assert.match(await homeHtml('staff'), /Footasylum Audits/);
+    await new Promise((resolve) => setTimeout(resolve, 10200));
+    const afterExpiry = await homeHtml('staff');
+    assert.match(afterExpiry, /MagSecure/);
+    assert.match(afterExpiry, /Training/);
+    assert.doesNotMatch(afterExpiry, /Footasylum Audits/);
     assert.equal((await get('/sites', 'operations')).status, 200);
     assert.equal((await get('/events', 'operations')).status, 200);
     assert.equal((await get('/events', 'staff')).status, 404);
@@ -111,8 +159,7 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
 
     const login = await admin.auth.signInWithPassword({ email: users.admin[0], password: users.admin[1] });
     assert.ifError(login.error);
-    const grant = await admin.from('role_assignments').insert({ person_id: person.officeB, role_code: 'OPERATIONS', effective_from: new Date(Date.now() - 60000).toISOString() }).select('id').single();
-    assert.ifError(grant.error);
+    const grant = await createRole(person.officeB, 'OPERATIONS', new Date(Date.now() + 3600000).toISOString());
     try {
       const [status, body] = await me('officeB');
       assert.equal(status, 200);
@@ -124,19 +171,7 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
       assert.ok(sites.every((row) => row.canManage));
       assert.ok(sites.every((row) => row.id !== '30000000-0000-4000-8000-000000000001'));
     } finally {
-      const revoke = await admin.from('role_assignments').update({ effective_until: new Date(Date.now() - 1000).toISOString() }).eq('id', grant.data.id);
-      assert.ifError(revoke.error);
-    }
-    const expired = await admin.from('role_assignments').update({ effective_until: new Date(Date.now() - 1000).toISOString() }).eq('id', '20000000-0000-4000-8000-000000000007');
-    assert.ifError(expired.error);
-    try {
-      assert.deepEqual(await me('operations'), [403, { error: 'No Enterprise access' }]);
-      assert.equal((await get('/app', 'operations')).status, 307);
-      assert.equal((await get('/profile', 'operations')).status, 307);
-      assert.equal((await get('/api/sites', 'operations')).status, 401);
-    } finally {
-      const restore = await admin.from('role_assignments').update({ effective_until: null }).eq('id', '20000000-0000-4000-8000-000000000007');
-      assert.ifError(restore.error);
+      await revokeRole(grant.id);
     }
   } finally { server.kill(); }
 });

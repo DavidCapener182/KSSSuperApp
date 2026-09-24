@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { navigationFor } from "@/lib/auth/capabilities";
 import { getPrincipal } from "@/lib/auth/principal";
 import { createServerSupabase } from "@/lib/supabase/server";
+import { ExternalAppShortcuts } from "@/components/external-app-shortcuts";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +19,7 @@ export default async function AppHome() {
     <div className="enterprise-card-grid">
       {links.map((link) => <Link className="enterprise-card" href={link.href} key={link.href}><strong>{link.label}</strong><span>{link.href === "/people" ? "Find staff and open a permission-scoped staff record." : link.href === "/work" ? "Open your assigned document reviews and CRM follow-ups." : link.href === "/crm" ? "Manage the commercial pipeline, activities and follow-ups." : link.href === "/sites" ? "Open the Sites you are authorised to use." : link.href === "/events" ? "Manage Events and staffing demand without assigning People yet." : link.href === "/documents" ? "View your authorised synthetic document requests." : link.href === "/onboarding" ? "See your authorised synthetic starter checklist and next actions." : "View your current Enterprise identity and roles."}</span></Link>)}
     </div>
+    <ExternalAppShortcuts roles={principal.roles} />
     <p className="enterprise-honesty">This development workspace does not contain live operational data.</p>
   </main>;
 }
