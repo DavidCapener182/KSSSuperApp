@@ -1,0 +1,24 @@
+.page { max-width: 1100px; margin-inline: auto; width: 100%; padding-bottom: 4rem; }
+.page h1 { font-size: clamp(2rem, 5vw, 3.4rem); }
+.page h2 { font-size: 1.25rem; font-weight: 700; margin: 0 0 1rem; }
+.page h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .7rem; }
+.card { background: var(--kss-surface); border: 1px solid var(--kss-border); border-radius: 14px; padding: clamp(1rem, 3vw, 1.5rem); margin: 1.4rem 0; min-width: 0; }
+.form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.form label, .stack label { display: grid; gap: .4rem; color: var(--kss-ink-soft); font-size: .84rem; font-weight: 700; min-width: 0; }
+.form input, .form select, .form textarea, .stack input, .stack select, .stack textarea { width: 100%; min-width: 0; padding: .62rem .7rem; border: 1px solid var(--kss-border-strong); border-radius: 8px; color: var(--kss-ink); background: var(--kss-surface); font: inherit; font-weight: 400; }
+.formActions { grid-column: 1 / -1; }
+.list { display: grid; gap: .7rem; }
+.row { display: grid; grid-template-columns: 1.4fr 1fr 1fr .8fr; gap: 1rem; padding: 1rem; color: var(--kss-ink); text-decoration: none; background: var(--kss-surface); border: 1px solid var(--kss-border); border-radius: 10px; }
+.row:hover, .row:focus-visible { border-color: var(--kss-blue); outline-offset: 2px; }
+.row span { color: var(--kss-ink-soft); font-size: .85rem; }
+.pager, .buttons { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }
+.stack { display: grid; gap: .85rem; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.action { border-top: 1px solid var(--kss-border); padding: .9rem 0; display: grid; gap: .4rem; }
+.action:first-child { border-top: 0; }
+.meta { color: var(--kss-ink-soft); font-size: .83rem; }
+.counts { display: flex; flex-wrap: wrap; gap: .6rem; }
+.counts span { border-radius: 8px; background: var(--kss-surface-muted); padding: .55rem .75rem; font-weight: 700; }
+.warning { background: var(--kss-amber-soft); border: 1px solid var(--kss-border-strong); border-radius: 8px; padding: .8rem; }
+.code { overflow-wrap: anywhere; font-size: .79rem; }
+@media (max-width: 650px) { .form, .grid { grid-template-columns: 1fr; } .row { grid-template-columns: 1fr; gap: .35rem; } .card { padding: 1rem; } }

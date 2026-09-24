@@ -134,6 +134,7 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
     </>}
     {!loading && org && view==="organisation" && <>
       <div className="crm-record-summary"><span className="crm-state">{title(org.relationship_status)}</span><span>Account owner: {owners.find((o)=>o.id===org.owner_person_id)?.displayName ?? "Assigned Office"}</span><span>Created {date(org.created_at)}</span></div>
+      {org.relationship_status==="CLIENT"&&<p><Link href={`/mobilisations?organisation=${org.id}`}>Authorise mobilisation for this Client</Link></p>}
       <div className="crm-detail-grid"><section className="crm-panel"><div className="crm-panel-heading"><h2>Overview</h2><Button variant="outline" onClick={openOrganisationEdit}>Edit</Button></div>
         <dl><div><dt>Trading name</dt><dd>{String(org.trading_name ?? "—")}</dd></div><div><dt>Website</dt><dd>{String(org.website ?? "—")}</dd></div><div><dt>General email</dt><dd>{String(org.general_email ?? "—")}</dd></div><div><dt>Main phone</dt><dd>{String(org.main_phone ?? "—")}</dd></div></dl>
       </section><section className="crm-panel"><div className="crm-panel-heading"><h2>Contacts</h2><Button variant="outline" onClick={()=>setForm("contact")}>Add Contact</Button></div>
@@ -168,7 +169,7 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
       </div>
       <CrmRecordWork kind="opportunity" id={String(opportunity.id)} organisationId={String(opportunity.organisation_id)}
         owners={owners} currentPersonId={currentPersonId} accountableOwnerId={String(opportunity.owner_person_id)} commercialHistory={rows("history")} />
-      {opportunity.stage==="WON"&&<p><Link href={`/events?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Create operational Event from this Won Opportunity</Link></p>}
+      {opportunity.stage==="WON"&&<p><Link href={`/mobilisations?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Authorise mobilisation from this Won Opportunity</Link> · <Link href={`/events?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Create operational Event</Link></p>}
       <p className="enterprise-honesty">Estimated value is not contracted or invoiced revenue.</p>
     </>}
     {form && <div className="crm-dialog-backdrop" role="presentation"><section className="crm-dialog" role="dialog" aria-modal="true" aria-labelledby="crm-dialog-title">
