@@ -2,6 +2,10 @@
 
 Date: 24 September 2026. Scope: approved Static Guarding / Site Shift Demand at the accepted TASK-07B / E-01 baseline. This report records development evidence, not human acceptance or production readiness.
 
+## Acceptance decision — 24 September 2026
+
+David accepted TASK-08A at delivered commit `40277b7`: the Static Guarding / Site Shift Demand foundation is complete in synthetic Dev. Acceptance does not imply production or staging approval. Two follow-ups remain: an authenticated Office, Operations and Staff UI walkthrough at desktop and 390px when the Mac is available; and a later design for safe scheduled maintenance of the configurable materialisation horizon. Workforce reads must remain read-only. Neither follow-up reopens the accepted 08A architecture.
+
 ## Delivered
 
 - Kept CRM Organisation as Client and the existing Site identity. Added Site Service as the ongoing operational identity; versioned weekly template lines; effective-dated pause periods; stable, materialised dated demand with typed revisions; and a dedicated static allocation table. An eight-week horizon is a configurable Dev default, with bounded explicit generation and a Workforce coverage indicator.
