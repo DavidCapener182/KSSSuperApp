@@ -32,7 +32,7 @@ async function port() {
   const server = createServer(); server.listen(0, '127.0.0.1'); await once(server, 'listening');
   const value = server.address().port; server.close(); await once(server, 'close'); return value;
 }
-const paths = ['/app', '/assets', '/my-equipment', '/sites', '/profile', '/people', '/workforce', '/mobilisations', '/my-schedule', '/my-deployments', '/my-work-time', '/my-attendance', '/my-availability', '/action-centre'];
+const paths = ['/app', '/assets', '/my-equipment', '/sites', '/profile', '/people', '/workforce', '/mobilisations', '/service-delivery', '/my-schedule', '/my-deployments', '/my-work-time', '/my-attendance', '/my-availability', '/action-centre'];
 
 test('return targets allow only implemented local routes', () => {
   for (const path of [...paths, '/sites?view=mine', '/documents', '/documents/10000000-0000-4000-8000-000000000003', '/work', '/work/10000000-0000-4000-8000-000000000003', '/onboarding', '/onboarding/10000000-0000-4000-8000-000000000003', '/people/10000000-0000-4000-8000-000000000003', '/mobilisations/10000000-0000-4000-8000-000000000003', '/events/10000000-0000-4000-8000-000000000003?requirement=10000000-0000-4000-8000-000000000004', '/events/10000000-0000-4000-8000-000000000003/attendance', '/events/10000000-0000-4000-8000-000000000003/work-time']) assert.equal(safeReturnTarget(path), path);
@@ -83,7 +83,7 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.equal((await me(undefined))[0], 401);
     assert.deepEqual(await me('unmapped'), [403, { error: 'No Enterprise access' }]);
     const expected = {
-      admin: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/mobilisations', '/workforce', '/control-room', '/assets', '/documents', '/onboarding', '/profile', '/incidents', '/access/incident-reviewers'], office: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/mobilisations', '/workforce', '/control-room', '/assets', '/documents', '/onboarding', '/profile'],
+      admin: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/mobilisations', '/service-delivery', '/workforce', '/control-room', '/assets', '/documents', '/onboarding', '/profile', '/incidents', '/access/incident-reviewers'], office: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/mobilisations', '/service-delivery', '/workforce', '/control-room', '/assets', '/documents', '/onboarding', '/profile'],
       staff: ['/app', '/sites', '/my-schedule', '/my-deployments', '/my-equipment', '/my-work-time', '/action-centre', '/my-availability', '/documents', '/onboarding', '/profile', '/incidents'], zero: ['/app', '/sites', '/my-schedule', '/my-deployments', '/my-equipment', '/my-work-time', '/action-centre', '/my-availability', '/documents', '/onboarding', '/profile', '/incidents'],
       operations: ['/app', '/people', '/sites', '/events', '/workforce', '/control-room', '/assets', '/profile'],
     };
@@ -126,6 +126,12 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.equal((await get('/mobilisations', 'office')).status, 200);
     assert.equal((await get('/mobilisations', 'operations')).status, 404);
     assert.equal((await get('/mobilisations', 'staff')).status, 404);
+    assert.equal((await get('/service-delivery', 'admin')).status, 200);
+    assert.equal((await get('/service-delivery', 'office')).status, 200);
+    assert.equal((await get('/service-delivery', 'operations')).status, 404);
+    assert.equal((await get('/service-delivery', 'staff')).status, 404);
+    assert.equal((await get('/api/service-delivery', 'operations')).status, 403);
+    assert.equal((await get('/api/service-delivery', 'staff')).status, 403);
     assert.equal((await get('/api/mobilisations', 'operations')).status, 403);
     assert.equal((await get('/workforce', 'staff')).status, 404);
     assert.equal((await get('/workforce', 'operations')).status, 200);
