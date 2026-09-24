@@ -83,9 +83,9 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.equal((await me(undefined))[0], 401);
     assert.deepEqual(await me('unmapped'), [403, { error: 'No Enterprise access' }]);
     const expected = {
-      admin: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/mobilisations', '/service-delivery', '/workforce', '/control-room', '/assets', '/documents', '/onboarding', '/profile', '/incidents', '/access/incident-reviewers'], office: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/mobilisations', '/service-delivery', '/workforce', '/control-room', '/assets', '/documents', '/onboarding', '/profile'],
-      staff: ['/app', '/sites', '/my-schedule', '/my-deployments', '/my-equipment', '/my-work-time', '/action-centre', '/my-availability', '/documents', '/onboarding', '/profile', '/incidents'], zero: ['/app', '/sites', '/my-schedule', '/my-deployments', '/my-equipment', '/my-work-time', '/action-centre', '/my-availability', '/documents', '/onboarding', '/profile', '/incidents'],
-      operations: ['/app', '/people', '/sites', '/events', '/workforce', '/control-room', '/assets', '/profile'],
+      admin: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/mobilisations', '/service-delivery', '/workforce', '/control-room', '/management-reports', '/assets', '/time-away', '/documents', '/onboarding', '/profile', '/incidents', '/access/incident-reviewers'], office: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/mobilisations', '/service-delivery', '/workforce', '/control-room', '/management-reports', '/assets', '/time-away', '/documents', '/onboarding', '/profile'],
+      staff: ['/app', '/sites', '/my-schedule', '/my-deployments', '/my-equipment', '/my-work-time', '/action-centre', '/my-availability', '/my-time-away', '/documents', '/onboarding', '/profile', '/incidents'], zero: ['/app', '/sites', '/my-schedule', '/my-deployments', '/my-equipment', '/my-work-time', '/action-centre', '/my-availability', '/my-time-away', '/documents', '/onboarding', '/profile', '/incidents'],
+      operations: ['/app', '/people', '/sites', '/events', '/workforce', '/control-room', '/assets', '/time-away', '/profile'],
     };
     for (const [as, links] of Object.entries(expected)) {
       const [status, body] = await me(as);
