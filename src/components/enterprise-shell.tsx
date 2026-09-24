@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
-import { BriefcaseBusiness, Building2, ClipboardList, FileText, House, MapPin, MoreHorizontal, UserRound, UsersRound, CalendarDays, Bell } from "lucide-react";
+import { BriefcaseBusiness, Building2, ClipboardList, FileText, House, MapPin, MoreHorizontal, UserRound, UsersRound, CalendarDays, Bell, Siren } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { NavigationItem } from "@/lib/auth/capabilities";
@@ -16,23 +16,24 @@ const supabase = createBrowserSupabase();
 type Props = Readonly<{
   person: { id: string; name: string };
   roles: RoleCode[];
+  incidentReviewer: boolean;
   navigation: NavigationItem[];
   children: React.ReactNode;
 }>;
 
-export function EnterpriseShell({ person, roles, navigation, children }: Props) {
+export function EnterpriseShell({ person, roles, incidentReviewer, navigation, children }: Props) {
   const pathname = usePathname();
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [signOutError, setSignOutError] = useState("");
   const isStaff = roles.length === 1 && roles[0] === "SECURITY_STAFF";
-  const primaryDestinations = isStaff ? ["/app", "/my-schedule", "/onboarding", "/action-centre"]
-    : ["/app", "/onboarding", "/work", "/people"];
+  const primaryDestinations = isStaff ? ["/app", "/incidents", "/my-schedule", "/action-centre"]
+    : ["/app", "/incidents", "/onboarding", "/work"];
   const mobilePrimary = navigation.filter((item) => primaryDestinations.includes(item.href));
   const mobileSecondary = navigation.filter((item) => !primaryDestinations.includes(item.href));
   const current = (href: string) => pathname === href || (href !== "/app" && pathname.startsWith(`${href}/`));
   const iconFor = (href: string) => {
-    const Icon = href === "/app" ? House : href === "/onboarding" ? ClipboardList : href === "/documents"
+    const Icon = href === "/app" ? House : href === "/incidents" ? Siren : href === "/onboarding" ? ClipboardList : href === "/documents"
       ? FileText : href === "/action-centre" ? Bell : ["/my-schedule", "/my-deployments", "/my-availability", "/events", "/workforce"].includes(href) ? CalendarDays : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/crm" ? Building2 : href === "/sites" ? MapPin : UserRound;
     return <Icon size={19} strokeWidth={1.9} aria-hidden="true" />;
   };
@@ -45,11 +46,11 @@ export function EnterpriseShell({ person, roles, navigation, children }: Props) 
         return;
       }
       const current = await response.json();
-      if (current.person?.id !== person.id || JSON.stringify(current.roles) !== JSON.stringify(roles)) router.refresh();
+      if (current.person?.id !== person.id || JSON.stringify(current.roles) !== JSON.stringify(roles) || current.incidentReviewer !== incidentReviewer) router.refresh();
     } catch {
       // A later protected route/API request still fails closed on the server.
     }
-  }, [pathname, person.id, roles, router]);
+  }, [pathname, person.id, roles, incidentReviewer, router]);
 
   useEffect(() => {
     void refreshAuthority();

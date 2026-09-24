@@ -18,12 +18,12 @@ export function hasCapability(principal: Principal, capability: Capability): boo
   return capabilitiesFor(principal).has(capability);
 }
 
-export type NavigationItem = { href: "/app" | "/work" | "/people" | "/crm" | "/sites" | "/events" | "/workforce" | "/my-schedule" | "/my-deployments" | "/action-centre" | "/my-availability" | "/documents" | "/onboarding" | "/profile"; label: string };
+export type NavigationItem = { href: "/app" | "/work" | "/people" | "/crm" | "/sites" | "/events" | "/workforce" | "/my-schedule" | "/my-deployments" | "/action-centre" | "/my-availability" | "/documents" | "/onboarding" | "/profile" | "/incidents" | "/access/incident-reviewers"; label: string };
 
 export function navigationFor(principal: Principal): NavigationItem[] {
   const allowed = capabilitiesFor(principal);
   const staffOnly = principal.roles.length === 1 && principal.roles[0] === "SECURITY_STAFF";
-  return [
+  const links: NavigationItem[] = [
     { href: "/app" as const, label: staffOnly ? "My Work" : "Home", capability: "HOME" as const },
     { href: "/work" as const, label: "My Work", capability: "TASK_SELF_READ" as const },
     { href: "/people" as const, label: "People", capability: "PEOPLE_DIRECTORY" as const },
@@ -41,4 +41,9 @@ export function navigationFor(principal: Principal): NavigationItem[] {
   ].filter((item) => item.href === "/documents"
     ? allowed.has("DOCUMENT_SELF_READ") || allowed.has("DOCUMENT_OFFICE_REVIEW")
     : allowed.has(item.capability)).map(({ href, label }) => ({ href, label }));
+  if (principal.roles.includes("SECURITY_STAFF") || principal.incidentReviewer || principal.roles.includes("SUPER_ADMIN")) {
+    links.push({ href: "/incidents", label: principal.roles.includes("SECURITY_STAFF") ? "Report incident" : "Incidents" });
+  }
+  if (principal.roles.includes("SUPER_ADMIN")) links.push({ href: "/access/incident-reviewers", label: "Incident reviewers" });
+  return links;
 }

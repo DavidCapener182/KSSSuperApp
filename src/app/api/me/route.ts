@@ -12,6 +12,7 @@ export async function GET() {
   return privateJson({
     person: { id: principal.personId, displayName: principal.displayName },
     roles: principal.roles,
+    incidentReviewer: principal.incidentReviewer,
     navigation: navigationFor(principal),
   });
 }

@@ -15,5 +15,5 @@ export default async function EnterpriseLayout({ children }: Readonly<{ children
     redirect(`/?next=${encodeURIComponent(target)}`);
   }
   const { principal } = access;
-  return <EnterpriseShell person={{ id: principal.personId, name: principal.displayName }} roles={principal.roles} navigation={navigationFor(principal)}>{children}</EnterpriseShell>;
+  return <EnterpriseShell person={{ id: principal.personId, name: principal.displayName }} roles={principal.roles} incidentReviewer={principal.incidentReviewer} navigation={navigationFor(principal)}>{children}</EnterpriseShell>;
 }

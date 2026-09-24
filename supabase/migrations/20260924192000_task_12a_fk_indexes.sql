@@ -1,0 +1,12 @@
+-- TASK-12A: cover Incident foreign keys for referential checks and reviewer history reads.
+create index incident_events_actor_person_idx on public.incident_events(actor_person_id);
+create index incident_events_incident_report_version_idx on public.incident_events(incident_id,report_version);
+create index incident_idempotency_event_idx on public.incident_idempotency(event_id);
+create index incident_report_versions_event_allocation_idx on public.incident_report_versions(event_allocation_id);
+create index incident_report_versions_incident_recorder_idx on public.incident_report_versions(incident_id,recorded_by_person_id);
+create index incident_report_versions_recorder_idx on public.incident_report_versions(recorded_by_person_id);
+create index incident_report_versions_site_allocation_idx on public.incident_report_versions(site_shift_allocation_id);
+create index incident_reviewer_grant_events_actor_idx on public.incident_reviewer_grant_events(actor_person_id);
+create index incident_reviewer_grant_events_reviewer_idx on public.incident_reviewer_grant_events(reviewer_person_id);
+create index incident_reviewer_grants_grantor_idx on public.incident_reviewer_grants(granted_by_person_id);
+create index incident_reviewer_grants_revoker_idx on public.incident_reviewer_grants(revoked_by_person_id);

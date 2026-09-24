@@ -2,7 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 export const ROLE_CODES = ["SUPER_ADMIN", "OFFICE_ADMIN", "OPERATIONS", "SECURITY_STAFF"] as const;
 export type RoleCode = (typeof ROLE_CODES)[number];
-export type Principal = { userId: string; personId: string; displayName: string; roles: RoleCode[] };
+export type Principal = { userId: string; personId: string; displayName: string; roles: RoleCode[]; incidentReviewer: boolean };
 export type EnterpriseAccess =
   | { state: "unauthenticated" | "unmapped" | "no_active_role" | "unavailable" }
   | { state: "active"; principal: Principal };
@@ -42,7 +42,9 @@ export async function getEnterpriseAccess(client: SupabaseClient): Promise<Enter
     .from("people").select("id,display_name").eq("id", identity.person_id)
     .maybeSingle<{ id: string; display_name: string }>();
   if (personError || !person) return { state: "unavailable" };
-  return { state: "active", principal: { userId: auth.user.id, personId: person.id, displayName: person.display_name, roles } };
+  const { data: incidentAccess, error: incidentAccessError } = await client.rpc("incident_current_access");
+  const incidentReviewer = !incidentAccessError && incidentAccess === true && roles.includes("OPERATIONS");
+  return { state: "active", principal: { userId: auth.user.id, personId: person.id, displayName: person.display_name, roles, incidentReviewer } };
 }
 
 export async function getPrincipal(client: SupabaseClient): Promise<Principal | null> {
