@@ -1,6 +1,6 @@
 # TASK-22B — Operational Contacts Directory report
 
-**State:** Implemented and checked in synthetic Dev on 24 September 2026. Awaiting David's acceptance. No staging, production, live contacts, integration work or TASK-22C work was performed.
+**State: ACCEPTED — SYNTHETIC DEV.** David formally accepted the recorded implementation and evidence on 24 September 2026. No staging, production, live contacts, integration work or TASK-22C work was performed.
 
 ## Scope delivered
 
@@ -40,6 +40,10 @@ Browser evidence: [Staff 390px](../../output/playwright/task-22b-staff-390.png),
 
 Supabase security advisors were inspected. `rls_enabled_no_policy` on the six contact tables reflects deliberate deny-all direct access. The public `SECURITY DEFINER` RPC warning reflects the guarded, actor/context-checked access design; negative audience checks passed. Mutable helper search paths were fixed in the final migration. Advisor warnings outside TASK-22B were not changed.
 
-## Acceptance boundary
+## Formal acceptance and remaining boundary
 
-This is synthetic Dev evidence, not human acceptance or live privacy approval. Before any live use, KSS still needs the contact publication basis, owner, retention/erasure and review-frequency decisions identified in the proposal. David's acceptance of TASK-22B is the next gate. No live source, CRM synchronisation, messaging, inheritance or later-phase integration was added.
+David accepted the 7/7 focused/source regression result; auth/RLS and original CRM/People access denials; snapshot, version, source-health, priority race, Staff duty-window, cancellation, Service-end, DST, expiry, grant, count-isolation and authenticated browser revocation proofs; and the build, lint, desktop and 390px observations recorded above. The labelled synthetic Person remains in Dev as immutable synthetic evidence for attributable history.
+
+Acceptance preserves exact Site, Site Service or Event context without inheritance; distinct CRM Contact, KSS Person and manual sources; explicit preview and immutable publication/correction; fail-closed source health; finite Contact Manager grants; Operations read-only scope; exact accepted Staff duty and two-hour margins; private/no-store, per-read authority and Staff-page revalidation; restricted historical values; and device-only `tel:`/`mailto:` hand-offs. It does not assert a call or email was sent, delivered, answered or actioned.
+
+This is human acceptance of **synthetic Dev only**, not live privacy approval. Before real contacts are loaded, KSS still must decide the lawful/contractual publication basis, live contact owner, review frequency, retention/erasure and historical-access policy. CRM synchronisation, Client-wide directory, context inheritance, SMS, automated email/calling, push, receipts, break-glass, AI contact access, Control Room, Site Book, Service Delivery or SOP integration, staging, production and real KSS contact data remain excluded. Close this lane after the acceptance commit; TASK-22C and another implementation lane require separate authorisation.

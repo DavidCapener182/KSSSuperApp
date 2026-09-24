@@ -1,6 +1,6 @@
 # TASK-22B — Operational Contacts directory implementation proposal
 
-**Status:** Approved by David for bounded synthetic-Dev implementation on 24 September 2026. Implementation evidence and remaining acceptance gate are recorded in `TASK-22B-REPORT.md`. Only synthetic Dev (`dnfhkmmnlbiabqypclqg`) is in scope.
+**Status: ACCEPTED — SYNTHETIC DEV.** David formally accepted TASK-22B on 24 September 2026. Implementation evidence is recorded in `TASK-22B-REPORT.md`. Acceptance applies only to synthetic Dev (`dnfhkmmnlbiabqypclqg`).
 
 ## Outcome and source contracts
 
@@ -42,4 +42,4 @@ If separately approved, use labelled synthetic CRM, Person and manual contact fi
 
 Before live use KSS must approve the privacy/contract basis for exposing each external or manual contact, responsible owner, correction and erasure requests, retention, historical access and review frequency. Implementation should use a conservative synthetic review-required state until these rules are settled. A real CRM import, live contact publication, protected Staging (`kwpgjbxepxuhwxxydaca`), production, paid service and external messaging are outside 22B.
 
-**Decision recorded:** David approved bounded TASK-22B synthetic-Dev implementation on 24 September 2026 with the exact decisions in his approval. Stop after implementation, report and separate TASK-22B commit for David's acceptance. No TASK-22C, staging, production or live contacts are authorised.
+**Decision recorded:** David approved bounded implementation and then formally accepted the delivered TASK-22B contract in synthetic Dev on 24 September 2026. The labelled synthetic Person remains as immutable synthetic evidence because removing it would break attributable history. Close this implementation lane after its separate acceptance commit. No TASK-22C, replacement implementation lane, staging, production or real KSS contact data is authorised; David will provide a separate two-thread queue after the current batch closes.
