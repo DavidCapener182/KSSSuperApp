@@ -1,3 +1,4 @@
+import { signInWithTestSession } from './helpers/auth-session.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createClient } from '@supabase/supabase-js';
@@ -9,7 +10,7 @@ const creds={office:[process.env.KSS_TEST_OFFICE_EMAIL,process.env.KSS_TEST_OFFI
  staff:[process.env.KSS_TEST_STAFF_A_EMAIL,process.env.KSS_TEST_STAFF_A_PASSWORD]};
 const officePerson='10000000-0000-4000-8000-000000000002';
 async function signed(role){const c=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
- const {error}=await c.auth.signInWithPassword({email:creds[role][0],password:creds[role][1]});assert.ifError(error);return c;}
+ const {error}=await signInWithTestSession(c,{email:creds[role][0],password:creds[role][1]});assert.ifError(error);return c;}
 async function rpc(c,name,args){const {data,error}=await c.rpc(name,args);assert.ifError(error);return data;}
 
 test('06B exact staffing demand, history, time and Operations authority', {timeout:180000}, async()=>{

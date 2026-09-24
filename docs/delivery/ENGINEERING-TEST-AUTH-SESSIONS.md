@@ -1,6 +1,6 @@
 # Engineering follow-up — synthetic test Auth sessions
 
-**Status:** Proposed separately; not part of TASK-07A business implementation.
+**Status:** E-01 implementation and first serial regression recorded in `ENGINEERING-TEST-AUTH-SESSIONS-REPORT.md`; combined full-suite completion awaits the concurrent 07B shell expectation update. Not part of TASK-07A or TASK-07B business implementation.
 
 Repeated Supabase Auth `Request rate limit reached` responses interrupt the broad Dev regression run. TASK-07A's one-pass 29-test run returned 14 passes and 15 failures: 13 failures stopped at Auth sign-in, one hit the previously reported controlled-document fixture denial, and one 06C assertion still assumed the former SIA candidate label. The 06C assertion and its paginated-history fixture assumption were corrected; 06C then passed independently. These are not a passing full-suite result.
 

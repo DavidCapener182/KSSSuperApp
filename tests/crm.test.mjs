@@ -1,3 +1,4 @@
+import { signInWithTestSession } from './helpers/auth-session.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { spawn } from 'node:child_process';
@@ -17,9 +18,9 @@ const users={
 };
 const person={office:'10000000-0000-4000-8000-000000000002',officeB:'10000000-0000-4000-8000-000000000006'};
 function newClient(){return createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});}
-async function signed(as){const client=newClient();const {error}=await client.auth.signInWithPassword({email:users[as][0],password:users[as][1]});assert.ifError(error);return client;}
+async function signed(as){const client=newClient();const {error}=await signInWithTestSession(client,{email:users[as][0],password:users[as][1]});assert.ifError(error);return client;}
 const rpc=async(client,name,args)=>{const result=await client.rpc(name,args);assert.ifError(result.error);return result.data;};
-async function cookie(as){let cookies=[];const client=createServerClient(url,key,{cookies:{getAll:()=>cookies,setAll:(items)=>{cookies=items.map(({name,value})=>({name,value}));}}});const {error}=await client.auth.signInWithPassword({email:users[as][0],password:users[as][1]});assert.ifError(error);return cookies.map(({name,value})=>`${name}=${value}`).join('; ');}
+async function cookie(as){let cookies=[];const client=createServerClient(url,key,{cookies:{getAll:()=>cookies,setAll:(items)=>{cookies=items.map(({name,value})=>({name,value}));}}});const {error}=await signInWithTestSession(client,{email:users[as][0],password:users[as][1]});assert.ifError(error);return cookies.map(({name,value})=>`${name}=${value}`).join('; ');}
 async function port(){const server=createServer();server.listen(0,'127.0.0.1');await once(server,'listening');const number=server.address().port;server.close();await once(server,'close');return number;}
 
 test('05A guarded CRM lifecycle, exact Client identity and role isolation', {timeout:180000}, async()=>{

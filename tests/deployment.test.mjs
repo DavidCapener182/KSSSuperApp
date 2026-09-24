@@ -1,3 +1,4 @@
+import { signInWithTestSession } from './helpers/auth-session.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createClient } from '@supabase/supabase-js';
@@ -9,7 +10,7 @@ const identities={office:[process.env.KSS_TEST_OFFICE_EMAIL,process.env.KSS_TEST
  staffB:[process.env.KSS_TEST_STAFF_B_EMAIL,process.env.KSS_TEST_STAFF_B_PASSWORD]};
 const person={office:'10000000-0000-4000-8000-000000000002',staffA:'10000000-0000-4000-8000-000000000003',staffB:'10000000-0000-4000-8000-000000000004'};
 async function signed(name){const client=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
- const {error}=await client.auth.signInWithPassword({email:identities[name][0],password:identities[name][1]});assert.ifError(error);return client;}
+ const {error}=await signInWithTestSession(client,{email:identities[name][0],password:identities[name][1]});assert.ifError(error);return client;}
 async function rpc(client,name,args){const {data,error}=await client.rpc(name,args);assert.ifError(error);return data;}
 
 test('06C guarded allocation, Staff response and Event reconciliation', {timeout:180000}, async()=>{

@@ -1,3 +1,4 @@
+import { signInWithTestSession } from './helpers/auth-session.mjs';
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
@@ -27,7 +28,7 @@ function client() {
 }
 async function signIn(as) {
   const supabase = client();
-  const { data, error } = await supabase.auth.signInWithPassword({ email: credentials[as][0], password: credentials[as][1] });
+  const { data, error } = await signInWithTestSession(supabase,{ email: credentials[as][0], password: credentials[as][1] });
   assert.ifError(error);
   assert.ok(data.user);
   return supabase;
@@ -49,7 +50,7 @@ async function cookieFor(as) {
       setAll: (items) => { cookies = items.map(({ name, value }) => ({ name, value })); },
     },
   });
-  const { error } = await supabase.auth.signInWithPassword({ email: credentials[as][0], password: credentials[as][1] });
+  const { error } = await signInWithTestSession(supabase,{ email: credentials[as][0], password: credentials[as][1] });
   assert.ifError(error);
   return cookies.map(({ name, value }) => `${name}=${value}`).join("; ");
 }

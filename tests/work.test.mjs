@@ -1,3 +1,4 @@
+import { signInWithTestSession } from './helpers/auth-session.mjs';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
@@ -26,7 +27,7 @@ const secondFile = Buffer.from([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a,0,0,0,0]
 async function actor(name) {
   let cookies = [];
   const sessionClient = createServerClient(url,key,{cookies:{getAll:()=>cookies,setAll:(items)=>{cookies=items.map(({name,value})=>({name,value}));}}});
-  const signed = await sessionClient.auth.signInWithPassword({email:people[name][0],password:people[name][1]});
+  const signed = await signInWithTestSession(sessionClient,{email:people[name][0],password:people[name][1]});
   assert.ifError(signed.error);
   const db = createClient(url,key,{global:{headers:{Authorization:`Bearer ${signed.data.session.access_token}`}},
     auth:{persistSession:false,autoRefreshToken:false}});

@@ -1,3 +1,4 @@
+import { signInWithTestSession } from './helpers/auth-session.mjs';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
@@ -25,7 +26,7 @@ const people = {
 function client() { return createClient(projectUrl, key, { auth: { persistSession: false, autoRefreshToken: false } }); }
 async function signed(as) {
   const db = client();
-  const { error } = await db.auth.signInWithPassword({ email: people[as][0], password: people[as][1] });
+  const { error } = await signInWithTestSession(db,{ email: people[as][0], password: people[as][1] });
   assert.ifError(error); return db;
 }
 async function cookieFor(as) {
@@ -34,7 +35,7 @@ async function cookieFor(as) {
     getAll: () => cookies,
     setAll: (items) => { cookies = items.map(({ name, value }) => ({ name, value })); },
   } });
-  const { error } = await db.auth.signInWithPassword({ email: people[as][0], password: people[as][1] });
+  const { error } = await signInWithTestSession(db,{ email: people[as][0], password: people[as][1] });
   assert.ifError(error);
   return cookies.map(({ name, value }) => `${name}=${value}`).join('; ');
 }

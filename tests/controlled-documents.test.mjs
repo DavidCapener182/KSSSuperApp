@@ -1,3 +1,4 @@
+import { signInWithTestSession } from './helpers/auth-session.mjs';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
@@ -23,7 +24,7 @@ async function actor(name){
   let cookies=[];
   const session=createServerClient(url,key,{cookies:{getAll:()=>cookies,
     setAll:(items)=>{cookies=items.map(({name,value})=>({name,value}));}}});
-  const signed=await session.auth.signInWithPassword({email:users[name][0],password:users[name][1]});
+  const signed=await signInWithTestSession(session,{email:users[name][0],password:users[name][1]});
   assert.ifError(signed.error);
   const db=createClient(url,key,{global:{headers:{Authorization:`Bearer ${signed.data.session.access_token}`}},
     auth:{persistSession:false,autoRefreshToken:false}});
@@ -75,6 +76,21 @@ test('03C controlled publication, exact access and acknowledgement remain scoped
     assert.equal(draft.status,201,draftText);const v1=JSON.parse(draftText).versionId;
     const site=await actors.office.db.from('sites').select('id').eq('name','Synthetic Static Security Site')
       .eq('created_by_person_id',officeId).single();assert.ifError(site.error);
+    // The 03E case guard requires a current SiteAssignment. Earlier suites may
+    // have expired their own synthetic assignment; create this case's scope via
+    // the ordinary Office route without rewriting any earlier assignment.
+    const assignments=await actors.admin.db.from('site_assignments')
+      .select('id,effective_from,effective_until,revoked_at').eq('site_id',site.data.id).eq('person_id',staffId);
+    assert.ifError(assignments.error);
+    const now=Date.now();
+    if(!assignments.data.some((row)=>!row.revoked_at && Date.parse(row.effective_from)<=now &&
+      (!row.effective_until || Date.parse(row.effective_until)>now+60_000))){
+      const [scope,scopeText]=await responseBody('/api/access/sites','office',post({siteId:site.data.id,
+        personId:staffId,effectiveFrom:new Date(now-60_000).toISOString(),
+        effectiveUntil:new Date(now+86_400_000).toISOString(),
+        reason:'Synthetic 03C controlled-document case scope'}));
+      assert.equal(scope.status,201,scopeText);
+    }
     const [caseCreated,caseText]=await responseBody('/api/onboarding','office',
       post({targetPersonId:staffId,siteId:site.data.id,requestKey:randomUUID()}));
     assert.equal(caseCreated.status,201,caseText);const caseId=JSON.parse(caseText).id;

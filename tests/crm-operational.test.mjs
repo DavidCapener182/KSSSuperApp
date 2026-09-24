@@ -1,3 +1,4 @@
+import { signInWithTestSession } from './helpers/auth-session.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createClient } from '@supabase/supabase-js';
@@ -18,13 +19,13 @@ const identities={
 const person={office:'10000000-0000-4000-8000-000000000002',officeB:'10000000-0000-4000-8000-000000000006'};
 async function signed(as){
  const client=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
- const {error}=await client.auth.signInWithPassword({email:identities[as][0],password:identities[as][1]});
+ const {error}=await signInWithTestSession(client,{email:identities[as][0],password:identities[as][1]});
  assert.ifError(error); return client;
 }
 async function rpc(client,name,args){const {data,error}=await client.rpc(name,args);assert.ifError(error);return data;}
 async function cookie(as){
  let cookies=[];const client=createServerClient(url,key,{cookies:{getAll:()=>cookies,setAll:(items)=>{cookies=items.map(({name,value})=>({name,value}));}}});
- const {error}=await client.auth.signInWithPassword({email:identities[as][0],password:identities[as][1]});
+ const {error}=await signInWithTestSession(client,{email:identities[as][0],password:identities[as][1]});
  assert.ifError(error);return cookies.map(({name,value})=>`${name}=${value}`).join('; ');
 }
 async function port(){const server=createServer();server.listen(0,'127.0.0.1');await once(server,'listening');const number=server.address().port;server.close();await once(server,'close');return number;}

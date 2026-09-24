@@ -1,3 +1,4 @@
+import { signInWithTestSession } from './helpers/auth-session.mjs';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
@@ -23,7 +24,7 @@ async function actor(name){
   let cookies=[];
   const session=createServerClient(url,key,{cookies:{getAll:()=>cookies,
     setAll:(items)=>{cookies=items.map(({name,value})=>({name,value}));}}});
-  const signed=await session.auth.signInWithPassword({email:users[name][0],password:users[name][1]});
+  const signed=await signInWithTestSession(session,{email:users[name][0],password:users[name][1]});
   assert.ifError(signed.error);
   return {cookie:cookies.map(({name,value})=>`${name}=${value}`).join('; '),
     db:createClient(url,key,{global:{headers:{Authorization:`Bearer ${signed.data.session.access_token}`}},

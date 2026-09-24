@@ -1,3 +1,4 @@
+import { signInWithTestSession } from './helpers/auth-session.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createClient } from '@supabase/supabase-js';
@@ -11,7 +12,7 @@ const identities={office:[process.env.KSS_TEST_OFFICE_EMAIL,process.env.KSS_TEST
 const officePerson='10000000-0000-4000-8000-000000000002';
 const operationsPerson='10000000-0000-4000-8000-000000000007';
 async function signed(role){const c=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
- const {error}=await c.auth.signInWithPassword({email:identities[role][0],password:identities[role][1]});assert.ifError(error);return c;}
+ const {error}=await signInWithTestSession(c,{email:identities[role][0],password:identities[role][1]});assert.ifError(error);return c;}
 async function rpc(c,name,args){const {data,error}=await c.rpc(name,args);assert.ifError(error);return data;}
 
 test('06A Client Site link and multi-day Event preserve identity, history and Operations scope', {timeout:180000},async()=>{

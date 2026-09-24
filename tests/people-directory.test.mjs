@@ -1,3 +1,4 @@
+import { signInWithTestSession } from './helpers/auth-session.mjs';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
@@ -24,14 +25,14 @@ const ids = {
 const supabase = () => createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
 async function signIn(as) {
   const client = supabase();
-  const { error } = await client.auth.signInWithPassword({ email: users[as][0], password: users[as][1] });
+  const { error } = await signInWithTestSession(client,{ email: users[as][0], password: users[as][1] });
   assert.ifError(error);
   return client;
 }
 async function cookieFor(as) {
   let cookies = [];
   const client = createServerClient(url, key, { cookies: { getAll: () => cookies, setAll: (items) => { cookies = items.map(({ name, value }) => ({ name, value })); } } });
-  const { error } = await client.auth.signInWithPassword({ email: users[as][0], password: users[as][1] });
+  const { error } = await signInWithTestSession(client,{ email: users[as][0], password: users[as][1] });
   assert.ifError(error);
   return cookies.map(({ name, value }) => `${name}=${value}`).join('; ');
 }

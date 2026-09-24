@@ -1,3 +1,4 @@
+import { signInWithTestSession } from './helpers/auth-session.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createClient } from '@supabase/supabase-js';
@@ -10,7 +11,7 @@ const credentials={office:[process.env.KSS_TEST_OFFICE_EMAIL,process.env.KSS_TES
  staffA:[process.env.KSS_TEST_STAFF_A_EMAIL,process.env.KSS_TEST_STAFF_A_PASSWORD],
  staffB:[process.env.KSS_TEST_STAFF_B_EMAIL,process.env.KSS_TEST_STAFF_B_PASSWORD]};
 async function signed(name){const client=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
- const {error}=await client.auth.signInWithPassword({email:credentials[name][0],password:credentials[name][1]});assert.ifError(error);return client;}
+ const {error}=await signInWithTestSession(client,{email:credentials[name][0],password:credentials[name][1]});assert.ifError(error);return client;}
 async function rpc(client,name,args){const {data,error}=await client.rpc(name,args);assert.ifError(error);return data;}
 
 test('07A Staff availability, exact candidate result and accepted-deployment conflict', {timeout:180000}, async()=>{
