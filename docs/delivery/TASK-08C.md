@@ -1,6 +1,14 @@
 # TASK-08C proposal — Static Allocation Action Centre
 
-**Status:** Implementation approved by David for synthetic Dev only. Implementation evidence and current acceptance boundary are recorded in [TASK-08C-REPORT.md](TASK-08C-REPORT.md). Staging, deployment and real-data use remain outside this approval.
+**Status: ACCEPTED — SYNTHETIC DEV.** David formally accepted the bounded TASK-08C implementation on 24 September 2026. Implementation evidence is recorded in [TASK-08C-REPORT.md](TASK-08C-REPORT.md). Staging, deployment and real-data use remain outside this acceptance.
+
+## David's acceptance — 24 September 2026
+
+The accepted slice is the immutable initial Site Shift `ALLOCATED` event → one idempotent, exact-Person in-app Action Centre notification → independently reauthorised `source=SITE_SHIFT` focus in My Deployments. Event and static sources remain explicitly typed and isolated. Read and dismiss affect presentation only; Accept/Decline remains solely in guarded My Deployments. Cancelled or inactive allocations retain truthful notification history without an active response action.
+
+David accepted the three synthetic Dev migrations and readback, concurrent replay and single-history proof, the focused 08C test, existing 08B and 08A regressions, lint, Webpack build, and authenticated desktop/390px browser proof. Existing project-wide advisor findings and pre-existing Event-source notification-history FK index findings do not block this acceptance; the new static FKs have covering indexes.
+
+This acceptance authorises no other static notification kind, Task, external delivery channel or provider, scheduler, card-level response, staging, production, or real KSS data. The implementation lane stops here.
 
 ## Scope and outcome
 

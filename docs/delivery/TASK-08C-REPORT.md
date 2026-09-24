@@ -1,6 +1,14 @@
 # TASK-08C — Static Allocation Action Centre
 
-**Status:** Implemented in synthetic development; awaiting David's acceptance. No staging or production changes.
+**Status: ACCEPTED — SYNTHETIC DEV.** David formally accepted TASK-08C on 24 September 2026. No staging or production changes.
+
+## Acceptance and close-out
+
+David accepted the delivered initial static allocation notification contract and the evidence below. The notification is created atomically from the immutable initial Site Shift `ALLOCATED` event, with the recipient derived only from the exact allocation Person. Typed Event and Site Shift sources, IDs, history, RLS, guarded producer, direct-write denial and FK/XOR integrity remain separate. Retry or concurrent replay returns one logical notification; replay after cancellation adds no second `CREATED` event. `READ` and `DISMISSED` change presentation only. My Deployments alone handles Staff response and independently reauthorises the exact static allocation; cancelled/inactive sources remain truthful history without a response action.
+
+David accepted the three synthetic Dev migrations and readback, concurrent replay with one notification UUID and one each of `CREATED`, `READ` and `DISMISSED`, focused 08C and existing 08A/08B regressions, lint, Webpack build, authenticated desktop/390px Action Centre and My Deployments browser proof, no horizontal overflow, and preserved Event notification behaviour. Existing project-wide advisor findings and pre-existing Event-source notification-history FK index findings are outside TASK-08C and do not block acceptance; the new static source FKs have covering indexes.
+
+No further static notification kind, Task, response control on a notification, email, SMS, push, provider, scheduler, staging, production or real KSS data is authorised. Stop this lane after its acceptance commit; future implementation work follows David's maximum of two active implementation tasks.
 
 ## Delivered
 
@@ -37,4 +45,4 @@ The Supabase CLI was unavailable locally and its `npx` installation could not re
 
 ## Scope and remaining boundary
 
-Only synthetic Dev was used. Protected staging and real data were not accessed. The initial source contract emits only for the new immutable `ALLOCATED` event; no Task, external delivery, scheduler, or card-level response action was introduced. Screenshots and tests are local evidence; they do not establish human acceptance, staging readiness or production readiness. The implementation is ready for David's review and acceptance.
+Only synthetic Dev was used. Protected staging and real data were not accessed. The initial source contract emits only for the new immutable `ALLOCATED` event; no Task, external delivery, scheduler, or card-level response action was introduced. David's synthetic Dev acceptance does not establish staging readiness or production readiness.
