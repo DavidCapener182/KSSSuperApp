@@ -16,6 +16,8 @@ To capture a real pg_cron execution without waiting for the next daily window, t
 
 Disable/recovery proof: while the daily schedule was configured, `cron.alter_job(..., active => false)` was applied; readback returned the exact job with `active=false`. It was then re-enabled and read back as `active=true`, `schedule=17 3 * * *`. Final readback also confirmed `cron.timezone=GMT`. Four temporary Dev-only migration records accelerated, restored, disabled, and re-enabled the job; a fifth transient failure probe is described below. These operations changed no schedule beyond this verification and the final job is daily/active. No equivalent operation was performed outside Dev.
 
+Final owned-path close-out readback after implementation commit `0d6117c61e38f49356018e43517a6a8a2637e8fe`: `kss-site-shift-horizon-08d` is `active=true`, schedule `17 3 * * *`, command `select private.site_shift_maintenance_run_08d();`, and `cron.timezone=GMT` (`pg_cron` 1.6.4). The deployed runner definition was read back and contains no temporary failure-injection branch. No every-minute schedule remains. This final report/readback update is committed separately from unrelated workspace changes.
+
 ## Delivered changes
 
 - Added `20260924135623_task_08d_static_horizon_maintenance.sql`: installs `pg_cron`, creates scheduler-specific run and per-Service outcome ledgers, adds SYSTEM maintenance provenance, applies the approved PAUSED/ENDED generator correction, adds the private bounded runner and read-only status RPC, and schedules the daily job.
@@ -54,4 +56,4 @@ The 08A regression verified stable demand IDs and preservation of PLANNED dated 
 
 ## Stop point
 
-Changes and migrations are limited to synthetic Dev. No staging/production action or real data was used. Acceptance remains pending the separate commit and final owned-path review. Do not infer production ownership or enable the job outside this Dev project.
+Changes and migrations are limited to synthetic Dev. No staging/production action or real data was used. The owned-path review and separate commit are complete; acceptance is for David. Do not infer production ownership or enable the job outside this Dev project.
