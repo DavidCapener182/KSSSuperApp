@@ -28,5 +28,5 @@ export default async function AssignedReader({ params, searchParams }: { params:
       <article className="training-page"><p className="training-eyebrow">Page {requested} of {pages.length} · {selected.module.title} · Version {content.assignment.versionNumber}</p><h2>{selected.page.title}</h2><TrainingContent blocks={selected.page.blocks} />
         <LearningActions assignmentId={assignmentId} module={selected.mi + 1} page={selected.pi + 1} marked={marked} />
         <nav className="training-page-nav" aria-label="Page navigation">{index > 0 ? <Link href={`/training/my-learning/${assignmentId}?page=${index}`}>← Previous page</Link> : <span />}{index + 1 < pages.length ? <Link href={`/training/my-learning/${assignmentId}?page=${index + 2}`}>Next page →</Link> : <Link href="/training/my-learning">Back to My Learning</Link>}</nav>
-        <p className="training-boundary">Page navigation does not save progress. Page markers are factual learning progress, not a course result.</p></article></div></main>;
+        <p className="training-boundary">Page navigation does not save progress. Page markers are factual learning progress, not a course result.</p><Link href={`/training/my-learning/${assignmentId}/assessment`}>Assessment and attempts →</Link></article></div></main>;
 }

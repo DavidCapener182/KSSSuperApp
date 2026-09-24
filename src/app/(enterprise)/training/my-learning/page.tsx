@@ -17,7 +17,7 @@ export default async function MyLearning() {
     <p>Assigned {new Date(a.assignedAt).toLocaleDateString("en-GB", { timeZone: "Europe/London" })} · Due {a.dueOn}</p>
     <p>{a.viewedCount} of {a.pageCount} pages marked viewed</p>
     {a.retired && a.state === "ACTIVE" ? <p role="status">Content retired — assignment needs review.</p> : a.state === "ACTIVE" ? <Link href={`/training/my-learning/${a.id}`}>Resume version {a.versionNumber} →</Link> : null}
-    <Link href={`/training/my-learning/${a.id}/history`}>View assignment history</Link>
+    <Link href={`/training/my-learning/${a.id}/assessment`}>Assessment and attempts</Link><Link href={`/training/my-learning/${a.id}/history`}>View assignment history</Link>
   </article>;
   return <main className="training-area"><header><p className="training-eyebrow">Native learning · Synthetic Dev</p><h1>My Learning</h1><p>Page progress records which learning pages you have marked as viewed. It does not mean the course has been completed or that you have passed an assessment.</p></header>
     <nav className="training-section-links"><Link href="/training">Course catalogue</Link><Link href="/training/my-learning" aria-current="page">My Learning</Link></nav>

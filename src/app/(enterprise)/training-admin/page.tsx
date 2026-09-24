@@ -11,9 +11,9 @@ export default async function TrainingAdmin() {
   if (!(await getPrincipal(client))) return null;
   const { data: access, error: accessError } = await client.rpc("training_capabilities");
   const capabilities = !accessError && access && typeof access === "object" ? access as { author: boolean; publisher: boolean; superAdmin: boolean } : null;
-  if (!capabilities || (!capabilities.author && !capabilities.publisher)) return <main className="training-area"><h1>Training administration</h1><p>Access unavailable.</p></main>;
+  if (!capabilities || (!capabilities.author && !capabilities.publisher)) return <main className="training-area"><h1>Training administration</h1><p>Course access unavailable.</p><Link href="/training-admin/assessments">Assessment administration</Link></main>;
   const { data, error } = await client.rpc("training_admin", { p_course: null });
   const { data: grants } = capabilities.superAdmin ? await client.rpc("training_grants") : { data: [] };
-  return <main className="training-area"><header><p className="training-eyebrow">Native Training · Synthetic Dev</p><h1>Training administration</h1><p>Courses, immutable published versions, draft editing and publication history.</p></header><nav className="training-section-links"><Link href="/training-admin">Courses and versions</Link><Link href="/training-admin/assignments">Assignments</Link></nav>
+  return <main className="training-area"><header><p className="training-eyebrow">Native Training · Synthetic Dev</p><h1>Training administration</h1><p>Courses, immutable published versions, draft editing and publication history.</p></header><nav className="training-section-links"><Link href="/training-admin">Courses and versions</Link><Link href="/training-admin/assignments">Assignments</Link><Link href="/training-admin/assessments">Assessments</Link></nav>
     {error ? <p role="alert">Training records unavailable.</p> : <TrainingAdminClient initial={Array.isArray(data) ? data as TrainingVersion[] : []} capabilities={capabilities} initialGrants={Array.isArray(grants) ? grants : []} />}</main>;
 }
