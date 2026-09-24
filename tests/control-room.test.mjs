@@ -12,6 +12,17 @@ async function signed(name){const client=createClient(url,key,{auth:{persistSess
  const {error}=await signInWithTestSession(client,{email:credentials[name][0],password:credentials[name][1]});assert.ifError(error);return client;}
 async function rpc(client,name,args={}){const {data,error}=await client.rpc(name,args);assert.ifError(error,`${name} failed`);return data;}
 const request=(client,extra={})=>rpc(client,'control_room_snapshot_13a',{p_source:null,p_site:null,p_offset:0,p_limit:50,...extra});
+async function allPages(client,filters={}){
+ const first=await request(client,{...filters,p_offset:0,p_limit:50}),cards=[...first.cards];
+ for(let offset=50;offset<first.total;offset+=50){
+  const page=await request(client,{...filters,p_offset:offset,p_limit:50});
+  assert.equal(page.total,first.total,'bounded page count remains stable while paging');
+  assert.ok(page.cards.length<=50,'API keeps its accepted 50-row page bound');
+  cards.push(...page.cards);
+ }
+ assert.equal(cards.length,first.total,'all bounded pages cover the complete fixture');
+ return {...first,cards};
+}
 const nextDate=(day)=>new Date(Date.parse(`${day}T00:00:00Z`)+86400000).toISOString().slice(0,10);
 
 test('TASK-13A read-only Control Room authority, exact source counts and bounded snapshots',{timeout:180000},async()=>{
@@ -23,8 +34,8 @@ test('TASK-13A read-only Control Room authority, exact source counts and bounded
  assert.ok((await operations.rpc('control_room_snapshot_13a',{p_source:null,p_site:null,p_offset:0,p_limit:51})).error,'oversized page denied');
  assert.ok((await operations.from('attendance_cases').select('id')).error,'direct attendance records remain denied');
  assert.ok((await operations.from('incidents').select('id')).error,'direct Incident records remain denied');
- const [all,officeView,adminView]=await Promise.all([request(operations),request(office),request(admin)]);
- assert.ok(Date.parse(all.as_of));assert.equal(all.cards.length,all.total,'fixture fits bounded page');
+ const [all,officeView,adminView]=await Promise.all([allPages(operations),allPages(office),allPages(admin)]);
+ assert.ok(Date.parse(all.as_of));
  assert.equal(officeView.total,all.total);assert.equal(adminView.total,all.total);
  assert.equal(all.incidents,null,'ordinary Operations without separate reviewer grant gets no Incident module');
  assert.ok(all.horizon&&typeof all.horizon.overdue==='boolean');
@@ -36,8 +47,8 @@ test('TASK-13A read-only Control Room authority, exact source counts and bounded
  assert.equal(first.total,second.total);assert.equal(new Set([...first.cards,...second.cards].map(x=>`${x.source}:${x.source_id}:${x.service_date}`)).size,first.cards.length+second.cards.length);
  const eventCards=all.cards.filter(x=>x.source==='EVENT'),staticCards=all.cards.filter(x=>x.source==='SITE_SHIFT');
  assert.ok(eventCards.length>0&&staticCards.length>0,'synthetic Dev contains both source kinds in the current window');
- assert.equal((await request(operations,{p_source:'EVENT'})).total,eventCards.length);
- assert.equal((await request(operations,{p_source:'SITE_SHIFT'})).total,staticCards.length);
+ assert.equal((await allPages(operations,{p_source:'EVENT'})).total,eventCards.length);
+ assert.equal((await allPages(operations,{p_source:'SITE_SHIFT'})).total,staticCards.length);
  const chosen=staticCards[0],siteFiltered=await request(operations,{p_site:chosen.site_id});
  assert.ok(siteFiltered.cards.length>0&&siteFiltered.cards.every(x=>x.site_id===chosen.site_id));
  const event=eventCards[0],sourceEvent=await rpc(operations,'deployment_event_summary',{p_event:event.source_id});
