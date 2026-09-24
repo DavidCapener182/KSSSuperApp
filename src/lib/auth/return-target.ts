@@ -1,4 +1,4 @@
-const ALLOWED_PATHS = new Set(["/app", "/work", "/sites", "/events", "/workforce", "/my-schedule", "/my-deployments", "/my-availability", "/profile", "/documents", "/onboarding", "/people"]);
+const ALLOWED_PATHS = new Set(["/app", "/work", "/sites", "/events", "/workforce", "/my-schedule", "/my-deployments", "/my-availability", "/action-centre", "/profile", "/documents", "/onboarding", "/people"]);
 
 /** Accept only a known local application route and its optional query string. */
 export function safeReturnTarget(value: unknown): string | null {

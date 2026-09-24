@@ -32,7 +32,7 @@ async function port() {
   const server = createServer(); server.listen(0, '127.0.0.1'); await once(server, 'listening');
   const value = server.address().port; server.close(); await once(server, 'close'); return value;
 }
-const paths = ['/app', '/sites', '/profile', '/people', '/workforce', '/my-schedule', '/my-deployments', '/my-availability'];
+const paths = ['/app', '/sites', '/profile', '/people', '/workforce', '/my-schedule', '/my-deployments', '/my-availability', '/action-centre'];
 
 test('return targets allow only implemented local routes', () => {
   for (const path of [...paths, '/sites?view=mine', '/documents', '/documents/10000000-0000-4000-8000-000000000003', '/work', '/work/10000000-0000-4000-8000-000000000003', '/onboarding', '/onboarding/10000000-0000-4000-8000-000000000003', '/people/10000000-0000-4000-8000-000000000003', '/events/10000000-0000-4000-8000-000000000003?requirement=10000000-0000-4000-8000-000000000004']) assert.equal(safeReturnTarget(path), path);
@@ -62,7 +62,7 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.deepEqual(await me('unmapped'), [403, { error: 'No Enterprise access' }]);
     const expected = {
       admin: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/workforce', '/documents', '/onboarding', '/profile'], office: ['/app', '/work', '/people', '/crm', '/sites', '/events', '/workforce', '/documents', '/onboarding', '/profile'],
-      staff: ['/app', '/sites', '/my-schedule', '/my-deployments', '/my-availability', '/documents', '/onboarding', '/profile'], zero: ['/app', '/sites', '/my-schedule', '/my-deployments', '/my-availability', '/documents', '/onboarding', '/profile'],
+      staff: ['/app', '/sites', '/my-schedule', '/my-deployments', '/action-centre', '/my-availability', '/documents', '/onboarding', '/profile'], zero: ['/app', '/sites', '/my-schedule', '/my-deployments', '/action-centre', '/my-availability', '/documents', '/onboarding', '/profile'],
       operations: ['/app', '/people', '/sites', '/events', '/workforce', '/profile'],
     };
     for (const [as, links] of Object.entries(expected)) {
@@ -83,6 +83,9 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.equal((await get('/api/my-schedule', 'operations')).status, 403);
     assert.equal((await get('/my-deployments', 'staff')).status, 200);
     assert.equal((await get('/my-deployments', 'operations')).status, 404);
+    assert.equal((await get('/action-centre', 'staff')).status, 200);
+    assert.equal((await get('/action-centre', 'operations')).status, 404);
+    assert.equal((await get('/action-centre', 'office')).status, 404);
     assert.equal((await get('/my-availability', 'staff')).status, 200);
     assert.equal((await get('/my-availability', 'operations')).status, 404);
     assert.equal((await get('/api/availability/me', 'operations')).status, 403);
