@@ -1,6 +1,6 @@
-# TASK-23B — Management Reporting Foundation proposal
+# TASK-23B — Management Reporting Foundation
 
-**Decision:** David approved TASK-23A as the Management Reporting architecture direction, then separately approved this bounded TASK-23B implementation in synthetic Dev on 24 September 2026. TASK-23A itself was not implemented from the architecture document. See `TASK-23B-REPORT.md` for delivered behaviour and actual checks. No staging, production, real data or subsequent reporting task is authorised.
+**Status: ACCEPTED — SYNTHETIC DEV.** David approved TASK-23A as the Management Reporting architecture direction, separately approved this bounded TASK-23B implementation, and formally accepted its synthetic-Dev delivery on 24 September 2026. TASK-23A itself was not implemented from the architecture document. See `TASK-23B-REPORT.md` for delivered behaviour, actual checks and accepted limitations. No staging, production, real data or subsequent reporting task is authorised.
 
 ## Purpose and boundary
 
@@ -61,6 +61,8 @@ Begin with direct guarded source reads/composition. Measure query latency and so
 5. Payload inspection finds no Person names, private Incident, credential, contact or finance fields. Desktop and authenticated 390px journeys show no green, no overflow and accessible controls.
 6. Run source regression checks and record actual results. Record query latency and source load for bounded 7-, 28- and 90-day synthetic cases, including filtered and drill-down queries; report the observed figures and any unresolved performance limit rather than inventing a pass threshold.
 
-## Environment and stop condition
+## Formal acceptance and stop condition
 
-Implementation targets only synthetic Dev `dnfhkmmnlbiabqypclqg`. Protected Staging `kwpgjbxepxuhwxxydaca`, production and real KSS reporting data are excluded. Stop after the delivery report and separate TASK-23B commit for David's acceptance.
+David accepted the delivered Office/Super-only, read-only and uncached foundation with 12 immutable version-1 definitions. Operational demand during the selected period remains distinct from the current operational estate. Typed Event and materialised Site Shift identities, separate Required/Allocated/Accepted/Remaining measures, per-line Remaining calculation, distinct Availability facts, incomplete static source coverage and explicit historical-unavailable results remain the accepted contract. Source links reauthorise; Person-level data and rankings remain excluded.
+
+Acceptance applies only to synthetic Dev `dnfhkmmnlbiabqypclqg`. The evidence and accepted limitations are recorded in `TASK-23B-REPORT.md`. Protected Staging `kwpgjbxepxuhwxxydaca`, production and real KSS reporting data remain excluded. The TASK-23B implementation lane is closed after its separate acceptance commit; do not begin TASK-23C automatically.

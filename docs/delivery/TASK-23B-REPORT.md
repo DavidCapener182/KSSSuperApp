@@ -1,6 +1,6 @@
 # TASK-23B — Management Reporting Foundation delivery report
 
-**Status:** Implemented in synthetic Dev on 24 September 2026; awaiting David's acceptance. Target project `dnfhkmmnlbiabqypclqg` was read back immediately before each migration. Protected Staging `kwpgjbxepxuhwxxydaca`, production and real KSS data were untouched.
+**Status: ACCEPTED — SYNTHETIC DEV.** David formally accepted TASK-23B on 24 September 2026. Target project `dnfhkmmnlbiabqypclqg` was read back immediately before each migration. Protected Staging `kwpgjbxepxuhwxxydaca`, production and real KSS data were untouched.
 
 ## Delivered
 
@@ -40,12 +40,19 @@ Five sequential authenticated synthetic-Dev queries after the final migration ga
 
 Across that five-call window, `pg_stat_statements` increased by **5 calls, 596.18 ms database execution, 25,860 shared-buffer hits, 0 shared-buffer reads and 0 temporary-block writes** for reporting RPC statements. These are observations on a small synthetic population, not a performance acceptance threshold or a production capacity claim. The broad unfiltered response is dominated by authorised filter options; direct source composition did not require a materialised layer in this sample.
 
-## Limits and follow-ups requiring separate approval
+## Accepted limitations and future approval boundaries
 
-- All historical version-1 measures are explicitly unavailable. A future historical definition needs source-owner agreement on point-in-time event/revision replay, correction restatement and lifecycle inclusion before publication as a new immutable version.
-- The coverage detector was exercised with real synthetic forward rows and a stale/locked 08D run. A deliberately deleted expected occurrence was not created, because source guards prohibit deleting dated demand through reporting. The detector's missing-occurrence branch therefore has no destructive fixture proof.
-- The spring DST report date was checked as a bounded period with incomplete future source coverage; no March 2027 Site Shift has been materialised. Autumn overnight grouping was read back against a persisted 25 October 2026 demand.
-- Pagination is a new database snapshot on each request. The UI states that totals apply to the current filtered snapshot; concurrent source changes between page requests can change later totals/pages. There is no frozen multi-page report or export.
-- No Person/sensitive reporting, TASK-10B worked time, export, warehouse, reporting projection, staging or production work is included.
+- All historical version-1 measures are explicitly **Historical snapshot unavailable**. A future historical definition requires separate approval, reproducible source history and watermark, effective and recorded time, and correction/restatement rules before publication as a new immutable version.
+- The coverage detector was exercised with real synthetic forward rows and a stale/locked 08D run. A deliberately deleted expected occurrence was not created because source protections prevent reporting from deleting dated demand. Those protections were not changed to manufacture evidence.
+- The spring DST report date was checked as a bounded period with incomplete future source coverage; spring 2027 static demand was outside the materialised horizon. Autumn overnight grouping was read back against a persisted 25 October 2026 demand.
+- Pagination takes a new database snapshot on each request. Concurrent source changes between page requests can change later totals and pages; no frozen multi-page snapshot was implemented.
+- No full automated accessibility audit was run. The desktop screenshot predates the minor definition-list collapse; the final authenticated 390px evidence contains the final layout.
+- The observed synthetic query timings above are baseline observations, not production thresholds. They do not authorise a warehouse or materialised reporting layer.
 
-**Stop:** Await David's TASK-23B acceptance. No TASK-23C is authorised.
+## Formal acceptance — 24 September 2026
+
+David accepted the recorded synthetic-Dev tests, source regressions, TypeScript, lint, Webpack build, database readback, query/load measurements and authenticated desktop/390px browser evidence. The limitations above are accepted limitations, not unresolved TASK-23B blockers. The delivered Office/Super-only, read-only and uncached reporting contract, 12 immutable version-1 definitions, typed source provenance, reconciled staffing measures, distinct Availability facts, incomplete-coverage wording, historical-unavailable behaviour and destination reauthorisation are preserved.
+
+Acceptance does not authorise Incident aggregates, Person or Staff reporting, attendance, worked time, Time Away, Credentials, Training, SOP acknowledgements, sensitive Asset reporting, finance, payroll, invoices, exports, generated PDF/CSV/Excel, scheduled reports, BI integration, staging, production or real KSS reporting data.
+
+**Stop:** TASK-23B is **ACCEPTED — SYNTHETIC DEV**. Close the lane after the separate acceptance commit. Do not begin TASK-23C automatically.
