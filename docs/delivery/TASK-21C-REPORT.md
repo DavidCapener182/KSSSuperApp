@@ -1,7 +1,13 @@
 # TASK-21C delivery report — Staffing and Attendance source cards
 
 **Date:** 24 September 2026
-**Status:** Implemented in synthetic Dev; awaiting David's acceptance.
+**Status:** ACCEPTED — SYNTHETIC DEV by David on 24 September 2026. Implementation commit `442570c`.
+
+## David's formal acceptance
+
+David accepted the read-only, exact Review Period projection of 08A current planned Staffing and 09B recorded Attendance. Required, Allocated, Accepted and Remaining remain separate. Recorded attendance may remain after an allocation is cancelled; it is not worked time. The projection exposes no Person names, notes, reasons, hours or private event detail and derives no readiness, compliance, performance or risk score. Reading the cards changes no Service Delivery, Site Service, demand, allocation or Attendance record.
+
+The exact Service Delivery → Review Period → Site Service → historical Site Client Link authority chain and Office/Super reauthorisation on every read remain required. Operations and Security Staff remain denied. David accepted the evidence below, including the 08A fixture limitation, and directed this lane to stop after a separate acceptance commit.
 
 ## Approved boundary and implementation
 
@@ -18,10 +24,10 @@ The literal Dev target `dnfhkmmnlbiabqypclqg` was rechecked immediately before m
 - `tests/service-delivery-source-cards.test.mjs`: **1/1 passed**. An exact synthetic 09B Service Delivery and manually created November 2046 Review Period returned 4 required, 0 allocated, 0 accepted, 4 remaining, 3 check-ins, 1 checkout, 3 current exceptions/review-required and 0 no-shows. The test compared every count with the 08A and 09B source reads, verified source state before/after the card read, checked that person names/events/reasons were absent, and exercised Office/Super parity, Operations/Staff/wrong-period denial and direct attendance-table denial.
 - `tests/service-delivery.test.mjs`: **2/2 passed**. `tests/shell.test.mjs`: **2/2 passed**, including the new source-card route denial.
 - `tests/static-attendance.test.mjs`: **1/1 passed** on isolated rerun. Its earlier combined run hit a global pagination-count difference while the shared synthetic Dev fixture was changing.
-- `tests/site-shifts.test.mjs`: **failed at fixture setup** in combined and isolated runs because no unallocated synthetic staff fixture was available for its test date. This prevents claiming an 08A suite pass. The 21C parity test independently checked the 08A read-model counts used by these cards. No 08A implementation or fixture was changed for this slice.
+- `tests/site-shifts.test.mjs`: **failed before its business assertion** in combined and isolated runs because no suitable unallocated synthetic Staff fixture was available for its selected date. David accepted this as a synthetic fixture limitation, not a TASK-21C functional failure. The 21C parity test independently reconciled the exact 08A read-model values used by these cards. No 08A allocation guard, production behaviour or fixture was changed to manufacture a pass. A future controlled regression-maintenance pass may isolate that fixture.
 - `npm run build` passed with Webpack and TypeScript. Focused ESLint and `git diff --check` passed.
 - Authenticated synthetic Office browser showed nonzero cards on desktop and at 390px. At 390px the document measured `scrollWidth = 390`, and source-card selection/link controls met the 44px minimum. Screenshots are in `output/playwright/task-21c/`. The new component/style scan found no green, emerald, lime or teal tokens.
 
 ## Limits and stop point
 
-The browser journey verified source selection and readback, while the permission and source-parity cases were exercised through authenticated integration tests. The shared Dev fixture limitation above remains open for the full 08A regression. This is synthetic Dev evidence only. Site Book, Assets, operational documents, worked time and other source cards, staging, production and real KSS records were not authorised or changed. Stop this slice for David's acceptance.
+The browser journey verified source selection and readback, while the permission and source-parity cases were exercised through authenticated integration tests. The shared Dev fixture limitation above remains open for the full 08A regression. This is accepted synthetic Dev evidence only. Site Book, Assets, operational documents/SOPs, incidents, worked time, payable/chargeable time, contracts, SLAs, finance, KPIs, SLA/performance scoring, readiness/compliance scoring, notifications, exports, additional source cards, staging, production and real KSS records were not authorised or changed. This lane is closed. No successor starts automatically; David's limit of no more than two active implementation threads remains in force.
