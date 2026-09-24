@@ -1,0 +1,102 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+import { createClient } from '@supabase/supabase-js';
+import { signInWithTestSession } from './helpers/auth-session.mjs';
+
+const url=process.env.NEXT_PUBLIC_SUPABASE_URL,key=process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+const credentials={office:[process.env.KSS_TEST_OFFICE_EMAIL,process.env.KSS_TEST_OFFICE_PASSWORD],admin:[process.env.KSS_TEST_ADMIN_EMAIL,process.env.KSS_TEST_ADMIN_PASSWORD],operations:[process.env.KSS_TEST_OPERATIONS_EMAIL,process.env.KSS_TEST_OPERATIONS_PASSWORD],staff:[process.env.KSS_TEST_STAFF_A_EMAIL,process.env.KSS_TEST_STAFF_A_PASSWORD]};
+const uuid=()=>crypto.randomUUID();
+async function session(role){const c=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});const {error}=await signInWithTestSession(c,{email:credentials[role][0],password:credentials[role][1]});assert.ifError(error);return c;}
+async function rpc(c,name,args={}){const {data,error}=await c.rpc(name,args);assert.ifError(error);return data;}
+
+test('TASK-21B synthetic Service Delivery foundation', {timeout:180000}, async()=>{
+ assert.ok(url&&key&&Object.values(credentials).every(x=>x[0]&&x[1]));
+ const [office,admin,operations,staff]=await Promise.all(['office','admin','operations','staff'].map(session));
+ assert.ok((await office.from('service_deliveries').select('id')).error,'direct base read denied');
+ assert.ok((await office.from('service_delivery_history').insert({id:uuid()})).error,'direct history write denied');
+ assert.ok((await operations.rpc('service_delivery_list')).error,'Operations denied');
+ assert.ok((await staff.rpc('service_delivery_choices')).error,'Staff denied');
+ const choices=await rpc(office,'service_delivery_choices');
+ assert.ok(choices.services.length>=1,'requires an unused synthetic Site Service');
+ const owner=choices.owners.find(o=>o.office);assert.ok(owner);
+ const service=choices.services[0];
+ const startArgs={p_service:service.id,p_link:service.linkId,p_source:'LEGACY_EXISTING',p_mobilisation:null,p_decision:null,p_owner:owner.id,p_super_oversight:false,p_reason_code:'LEGACY_EXISTING_SERVICE',p_explanation:'Existing synthetic Site Service predates native Mobilisation.',p_key:uuid()};
+ assert.ok((await office.rpc('service_delivery_start',{...startArgs,p_explanation:'short'})).error,'legacy explanation mandatory');
+ const started=await rpc(office,'service_delivery_start',startArgs);const id=started.id;
+ assert.equal((await rpc(office,'service_delivery_start',startArgs)).id,id,'lost response retry returns same record');
+ assert.ok((await office.rpc('service_delivery_start',{...startArgs,p_key:uuid()})).error,'duplicate exact pair denied');
+ assert.ok((await office.rpc('service_delivery_start',{...startArgs,p_key:startArgs.p_key,p_explanation:'Changed input must conflict'})).error);
+ let d=await rpc(office,'service_delivery_detail',{p_id:id});assert.equal(d.startSource,'LEGACY_EXISTING');assert.equal(d.siteClientLinkId,service.linkId);
+ let revision=d.revision;
+ const change=async(kind,data={},subject=null)=>{const x=await rpc(office,'service_delivery_change',{p_id:id,p_kind:kind,p_subject:subject,p_data:data,p_expected:revision,p_key:uuid()});revision=x.revision;return x;};
+ assert.ok((await office.rpc('service_delivery_change',{p_id:id,p_kind:'STATE',p_subject:null,p_data:{state:'ACTIVE',reason:'Synthetic start'},p_expected:revision+1,p_key:uuid()})).error,'stale revision denied');
+ const replacement=choices.owners.find(o=>o.office&&o.id!==owner.id);assert.ok(replacement);
+ await change('OWNER',{ownerId:replacement.id,reason:'Synthetic Office accountability transfer'});
+ d=await rpc(office,'service_delivery_detail',{p_id:id});assert.equal(d.ownerId,replacement.id);
+ await change('STATE',{state:'ACTIVE',reason:'Synthetic service management starts'});
+ const period=await change('PERIOD_CREATED',{name:'Autumn synthetic review',startsOn:'2026-10-01',endsOn:'2026-10-31',ownerId:owner.id});
+ await change('PERIOD_DATES',{startsOn:'2026-10-01',endsOn:'2026-10-30',reason:'Correct synthetic end date',subjectRevision:1},period.subjectId);
+ assert.ok((await office.rpc('service_delivery_change',{p_id:id,p_kind:'PERIOD_CREATED',p_data:{name:'Overlapping period',startsOn:'2026-10-15',endsOn:'2026-11-15',ownerId:owner.id},p_expected:revision,p_key:uuid()})).error,'overlap denied');
+ const meeting=await change('MEETING_CREATED',{periodId:period.subjectId,scheduledLocal:'2026-10-15T10:00'});
+ d=await rpc(office,'service_delivery_detail',{p_id:id});assert.equal(d.meetings[0].state,'SCHEDULED');assert.equal(d.meetings[0].held_at,null);
+ assert.ok((await office.rpc('service_delivery_change',{p_id:id,p_kind:'MEETING_CREATED',p_data:{periodId:period.subjectId,scheduledLocal:'2026-10-25T01:30'},p_expected:revision,p_key:uuid()})).error,'ambiguous autumn wall time denied');
+ assert.ok((await office.rpc('service_delivery_change',{p_id:id,p_kind:'MEETING_CREATED',p_data:{periodId:period.subjectId,scheduledLocal:'2027-03-28T01:30'},p_expected:revision,p_key:uuid()})).error,'nonexistent spring wall time denied');
+ await change('MEETING_RESCHEDULED',{scheduledLocal:'2026-10-16T10:00',reason:'Synthetic revised time',subjectRevision:1},meeting.subjectId);
+ await change('MEETING_HELD',{heldLocal:'2026-10-16T10:05',note:'Synthetic management review occurred.',reason:'Record actual occurrence',subjectRevision:2},meeting.subjectId);
+ const action=await change('ACTION_CREATED',{title:'Review synthetic service instructions',category:'INSTRUCTIONS_REVIEW',ownerId:owner.id,periodId:period.subjectId,dueOn:'2026-10-20'});
+ const blocker=await change('BLOCKER_OPENED',{actionId:action.subjectId,blockerReason:'Awaiting synthetic instructions',ownerId:owner.id});
+ assert.ok((await office.rpc('service_delivery_change',{p_id:id,p_kind:'ACTION_STATE',p_subject:action.subjectId,p_data:{state:'DONE',reason:'Attempted completion',subjectRevision:1},p_expected:revision,p_key:uuid()})).error,'blocker prevents DONE');
+ await change('BLOCKER_RESOLVED',{reason:'Synthetic instructions received',subjectRevision:1},blocker.subjectId);
+ d=await rpc(office,'service_delivery_detail',{p_id:id});assert.equal(d.actions[0].state,'OPEN','blocker resolution does not complete action');
+ await change('ACTION_STATE',{state:'DONE',reason:'Synthetic review completed',subjectRevision:1},action.subjectId);
+ await change('ACTION_STATE',{state:'OPEN',reason:'Synthetic work must be revisited',subjectRevision:2},action.subjectId);
+ assert.ok((await office.rpc('service_delivery_change',{p_id:id,p_kind:'STATE',p_data:{state:'CLOSING',reason:'short'},p_expected:revision,p_key:uuid()})).error,'outstanding closure explanation required');
+ await change('STATE',{state:'CLOSING',reason:'Open review and action remain visible for handover'});
+ d=await rpc(office,'service_delivery_detail',{p_id:id});assert.equal(d.openPeriodCount,1);assert.equal(d.openActionCount,1);
+ await change('STATE',{state:'CLOSED',reason:'Outstanding synthetic review and action remain recorded'});
+ d=await rpc(office,'service_delivery_detail',{p_id:id});assert.equal(d.sourceState,service.state,'Service Delivery closure does not change Site Service');
+ assert.ok((await office.rpc('service_delivery_change',{p_id:id,p_kind:'PERIOD_CLOSED',p_subject:period.subjectId,p_data:{reason:'Too late'},p_expected:revision,p_key:uuid()})).error,'terminal edits denied');
+ const hist=await rpc(office,'service_delivery_history_page',{p_id:id,p_offset:0,p_limit:25});assert.equal(hist.items[0].kind,'CREATED');assert.equal(hist.total,revision);
+ const listed=await rpc(admin,'service_delivery_list',{p_offset:0,p_limit:25});assert.ok(listed.items.some(x=>x.id===id),'Super Admin oversight read');
+ assert.ok((await operations.rpc('service_delivery_detail',{p_id:id})).error);
+ assert.ok((await staff.rpc('service_delivery_history_page',{p_id:id})).error);
+});
+
+test('TASK-21B exact 18A handover, concurrent single winner and period overlap race', {timeout:180000}, async()=>{
+ const office=await session('office');
+ const choices=await rpc(office,'service_delivery_choices');
+ const service=choices.services.find(s=>s.handoverChoices.length>0) ?? choices.services[0];
+ assert.ok(service,'requires an unused synthetic Site Service');
+ const owner=choices.owners.find(o=>o.office); let handover=service.handoverChoices[0];
+ if (!handover) {
+  const mobilisation=await rpc(office,'mobilisation_authorise',{p_organisation:service.organisationId,p_opportunity:null,p_template:'STATIC_SITE',p_title:`21B synthetic handover ${Date.now()}`,p_owner:owner.id,p_target:null,p_duplicate_reason:null,p_key:uuid()});
+  let mr=mobilisation.revision;
+  const command=async(p_action,p_data)=>{const x=await rpc(office,'mobilisation_command',{p_id:mobilisation.id,p_action,p_data,p_expected:mr,p_key:uuid()});mr=x.revision;return x;};
+  await command('LINK_ADD',{sourceType:'SITE_SERVICE',sourceId:service.id});
+  await command('STATUS',{state:'IN_PROGRESS'});
+  await command('STATUS',{state:'GO_LIVE_REVIEW'});
+  await command('STATUS',{state:'HANDED_OVER',note:'Synthetic 21B exact Service handover with open work visible'});
+  const detail=await rpc(office,'mobilisation_detail',{p_id:mobilisation.id});
+  handover={mobilisationId:mobilisation.id,decisionId:detail.decisions.find(x=>x.kind==='HANDOVER').id};
+ }
+ assert.ok((await rpc(office,'service_delivery_choices')).services.some(x=>x.id===service.id),'handover alone did not start this exact Service Delivery');
+ const args={p_service:service.id,p_link:service.linkId,p_source:'MOBILISATION_HANDOVER',p_mobilisation:handover.mobilisationId,p_decision:handover.decisionId,p_owner:owner.id,p_super_oversight:false,p_reason_code:null,p_explanation:null};
+ assert.ok((await office.rpc('service_delivery_start',{...args,p_decision:uuid(),p_key:uuid()})).error,'wrong decision rejected');
+ assert.ok((await office.rpc('service_delivery_start',{...args,p_mobilisation:uuid(),p_key:uuid()})).error,'wrong Mobilisation rejected');
+ const raced=await Promise.all([office.rpc('service_delivery_start',{...args,p_key:uuid()}),office.rpc('service_delivery_start',{...args,p_key:uuid()})]);
+ assert.equal(raced.filter(x=>!x.error).length,1,'exact Service/link yields one winner');
+ const id=raced.find(x=>!x.error).data.id;
+ const d=await rpc(office,'service_delivery_detail',{p_id:id});
+ assert.equal(d.mobilisationId,handover.mobilisationId);assert.equal(d.handoverDecisionId,handover.decisionId);
+ const periodData={name:'Race period',startsOn:'2026-11-01',endsOn:'2026-11-30',ownerId:owner.id};
+ const periodArgs={p_id:id,p_kind:'PERIOD_CREATED',p_subject:null,p_data:periodData,p_expected:d.revision};
+ const periods=await Promise.all([office.rpc('service_delivery_change',{...periodArgs,p_key:uuid()}),office.rpc('service_delivery_change',{...periodArgs,p_key:uuid()})]);
+ assert.equal(periods.filter(x=>!x.error).length,1,'same revision permits one period');
+ const after=await rpc(office,'service_delivery_detail',{p_id:id});
+ const overlap=await office.rpc('service_delivery_change',{...periodArgs,p_data:{...periodData,name:'Overlapping period',startsOn:'2026-11-15'},p_expected:after.revision,p_key:uuid()});
+ assert.ok(overlap.error,'database exclusion rejects overlap at current revision');
+ assert.equal(after.periods.length,1);
+ await rpc(office,'service_delivery_change',{p_id:id,p_kind:'PERIOD_CLOSED',p_subject:after.periods[0].id,p_data:{reason:'Synthetic review period explicitly closed'},p_expected:after.revision,p_key:uuid()});
+ const closed=await rpc(office,'service_delivery_detail',{p_id:id});assert.equal(closed.periods[0].state,'CLOSED');
+ assert.ok((await office.rpc('service_delivery_change',{p_id:id,p_kind:'PERIOD_DATES',p_subject:after.periods[0].id,p_data:{startsOn:'2026-11-02',endsOn:'2026-11-30',reason:'Too late',subjectRevision:2},p_expected:closed.revision,p_key:uuid()})).error,'closed review period immutable');
+});
