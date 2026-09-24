@@ -1,8 +1,8 @@
-# TASK-12A proposal — Incident / Occurrence Reporting Foundation
+# TASK-12A — Incident / Occurrence Reporting Foundation
 
-**Status:** David approved a bounded synthetic-Dev implementation on 24 September 2026, including the Incident Reviewer grant rule below. No staging change, deployment or real-data import is authorized. The status entry naming TASK-07B predates this separate TASK-12A approval. TASK-09A close-out remains with its owner.
+**Status:** **ACCEPTED — SYNTHETIC DEV** by David on 24 September 2026. No staging change, deployment or real-data import was authorized. The status entry naming TASK-07B predates this separate TASK-12A approval. TASK-09A close-out remains with its owner.
 
-**Purpose:** Propose a small native KSS record for a factual operational incident or occurrence, with exact optional context links, an attributable report and a narrow follow-up lifecycle. The first slice is not a general case-management, HR, disciplinary, safeguarding, medical or police-investigation system.
+**Purpose:** Define the accepted small native KSS record for a factual operational incident or occurrence, with exact optional context links, an attributable report and a narrow follow-up lifecycle. The first slice is not a general case-management, HR, disciplinary, safeguarding, medical or police-investigation system.
 
 Use synthetic examples only. Do not add live data, protected staging writes, external services, notifications, client access, patrol execution or inferred conclusions. No green in the UI.
 
@@ -117,3 +117,11 @@ An implementation report must record actual schema/grant/RLS readback, focused s
 David approved: context-free reports; minimal external-party relationship plus neutral descriptor; Staff own-report/status/correction read; Operations ordinary review within authorized scope; attributable synthetic-Dev Super Admin oversight; no blanket Office access; the stated lifecycle including reasoned reopen; no severity, attachments, notifications, Tasks or analytics; no medical-detail, safeguarding-case, disciplinary, misconduct, police-investigation or HR workflow; the supplied emergency message; and retention as a pre-live gate. The requested vertical proof is Staff report → authorized Operations queue → acknowledge → operational action → close → Staff status → correction/reopen history.
 
 The Operations scope rule is settled: active Operations role plus a separately granted, active, time-bounded `INCIDENT_REVIEWER` grant; in this first synthetic slice it is organisation-wide for Incident review. Do not infer this authority from any other existing assignment or product access. Implement the above proof in synthetic Dev only; no staging. Create `TASK-12A-REPORT.md`, commit TASK-12A-owned files separately and stop for David's acceptance.
+
+## David's formal acceptance — 24 September 2026
+
+**ACCEPTED — SYNTHETIC DEV.** David accepts the TASK-12A Incident Reporting implementation and evidence recorded in [TASK-12A-REPORT.md](TASK-12A-REPORT.md), including the focused security and history checks, 45/45 serial synthetic-Dev regression, desktop authenticated walkthrough, genuine Safari 390 × 956 Staff and Operations proof, no-grant/Office/peer denials, finite reviewer grant and revocation, and immediate post-revocation denial. The two narrow browser-discovered UI fixes are accepted: lifecycle action selection/submission derives from current status, and grant revocation uses a guarded inline required-reason form. The 45/45 regression was not rerun after these client-only fixes; the subsequent production build and focused ESLint passed.
+
+The external-party descriptor omission was not repeated in the final browser walkthrough; its focused technical privacy coverage is accepted. No additional immutable Incident was created for screenshot evidence.
+
+This acceptance authorizes synthetic Development only. Retention, legal hold, deletion/erasure handling, final privacy policy and operational governance for real Incident records remain pre-live gates. Attachments, severity, analytics, exports, Tasks, notifications, medical, safeguarding, HR/disciplinary or police workflows, client access, staging and production remain outside TASK-12A. Close the TASK-12A lane after its acceptance commit; do not infer approval for another task.

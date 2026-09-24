@@ -1,6 +1,6 @@
 # TASK-12A implementation report
 
-**Status:** Technical implementation and regression evidence accepted by David. Desktop-sized authenticated browser acceptance checks are recorded below. Final acceptance remains pending genuine 390px Staff and Operations proof. No staging or production work was performed.
+**Status:** **ACCEPTED — SYNTHETIC DEV** by David on 24 September 2026. Desktop and genuine 390px authenticated browser evidence are recorded below. No staging or production work was performed.
 
 **Date:** 24 September 2026
 
@@ -40,11 +40,11 @@ The test inserted synthetic-only incident rows. Because report versions and even
 - `npm run test:shell` — passed 2/2 after the TASK-11A owner updated its temporary-role fixture to use the guarded access API and aligned navigation expectations. No Incident security or role-table policy was changed.
 - `npm run test:regression` — passed 45/45 serial tests against synthetic Dev, including the focused 12A incident tests and the 08A/08B/08C/08D, 09A, 07A/07B, 03A/03C/03D/03E, 04A, 05A/05B and 06A/06B/06C suites. The run used E-01 Auth session reuse: 10 sign-ins, 181 session requests and 10 cached personas. The first overlapping attempt was not counted; after its 08B local-server connection failure was isolated and the exact leftover synthetic allocation/Event were cancelled through guarded RPCs, the clean serial run passed.
 
-## Evidence still required
+## Evidence record and pre-live gates
 
-- Desktop authenticated browser evidence is recorded below. Final David acceptance remains pending the requested genuine 390px Staff and Operations walkthrough plus mobile overflow, touch-target and focus checks; these were not verified and are not claimed.
-- Retention, legal hold and final privacy policy remain pre-live gates. Do not enter real incident data until KSS approves them.
-- Final David acceptance remains pending until the walkthrough is recorded. This report does not claim production readiness.
+- Desktop authenticated browser evidence is recorded below. Genuine 390px Staff and Operations proof is recorded in the final section.
+- Retention, legal hold, deletion/erasure handling, final privacy policy and operational governance remain pre-live gates. Do not enter real incident data until KSS approves them.
+- This report does not claim production readiness.
 
 ## Authenticated browser close-out evidence
 
@@ -61,7 +61,17 @@ On 24 September 2026, the in-app browser used an isolated local production build
 - **Grant revocation control defect fixed:** the existing native `window.prompt` did not expose a reason-entry control in the in-app browser. Replaced it with an inline required reason form in the same guarded grant workflow. The confirmed grant was then successfully revoked and read back.
 - **Appearance:** desktop-sized captures used blue/graphite/neutral styling with no green status styling. The visible layouts were readable at the captured desktop width.
 
-The requested 390px viewport proof remains outstanding. The available in-app Computer interface did not expose a viewport-size control; keyboard zoom did not change the viewport. Mobile overflow, 44px-class touch targets, mobile keyboard focus, and the 390px Operations queue/detail remain unverified. The browser walkthrough did not include an external-party descriptor, so the Staff projection’s external-party omission is not claimed as browser-verified. These are evidence gaps, not passing results. Context-linked Staff submission, self/peer access, Operations role-only denial, active grant lifecycle, reasoned reopen, Staff read-back, immediate revocation, post-revocation denial and Office denial are verified at the desktop-sized browser viewport. A true 390px run is required before final David acceptance.
+## Final authenticated 390px browser proof
+
+On 24 September 2026, Safari Responsive Design Mode was set to **390 × 956 CSS px at 100% zoom (3× device pixel ratio)** against the local synthetic Development build configured for project `dnfhkmmnlbiabqypclqg`. Only existing synthetic Incidents were opened; no report, correction, or lifecycle transition was created during this mobile close-out. Screenshot captures were returned inline in the browser session; no standalone image files were saved.
+
+- **Security Staff A:** at 390px, the Staff Incident form/list and emergency guidance were visible before report entry. The existing own context-free Incident `b63c8bd7-2fca-46da-9577-516d494f0e04` and linked Incident `79efbe81-92e3-4a43-8557-973bb9dde7f5` opened with narrative/context wrapping inside the viewport. The own-report view showed original version and current lifecycle status. Restricted operational notes and reopen reason remained absent. The previously verified no-peer-access behavior is unchanged; this mobile pass did not create a peer report or repeat guessed-ID probing.
+- **Operations without grant:** the direct queue and known Incident detail returned the generic 404 at 390px. This was checked before the temporary grant was created.
+- **Granted Operations:** Super Admin granted the existing Synthetic Operations Person a finite `INCIDENT_REVIEWER` grant through 25 September 2026 UK time using the guarded workflow. Grant history showed the grantor, active status, expiry and reason `TASK-12A 390px acceptance; synthetic Dev only; revoke immediately after proof.` The granted Operations user opened the queue and existing linked and context-free detail at 390px. Queue cards, long Incident identifiers/context, factual narrative, status and lifecycle history wrapped without horizontal overflow. Existing history showed Acknowledged, Follow-up required, Closed and Reopened with actor and timestamps. On the OPEN linked report, the acknowledgement selector/button was present; on the Reopened context-free report, the controlled operational action selector and Record action button were present. No action was submitted during this mobile proof. No HR, medical, safeguarding, disciplinary, police, finance, CRM or unrelated People data appeared.
+- **Mobile interaction and appearance:** the 390px Safari captures showed blue/graphite/neutral styling with no green status styling. Main content remained within the viewport on the Staff form/list/detail, Operations queue and Operations detail. Staff form controls were practically touch-usable; Operations action controls were approximately 48px tall. Keyboard navigation showed visible blue focus outlines on a Staff correction text field and the Operations action selector. Labels and lifecycle words were present in text, not conveyed by colour alone. No responsive defect was found.
+- **Revocation and immediate denial:** Super Admin revoked the temporary grant through the guarded inline reason form with reason `TASK-12A 390px viewport proof complete; synthetic reviewer grant revoked.` Grant history showed “Grant revoked” and the recorded reason. After signing Operations back in, opening the previously known Incident detail URL returned the same generic 404, confirming access disappeared after revocation.
+
+The external-party descriptor projection was not re-demonstrated in the browser; its omission/privacy behavior remains supported by the focused technical coverage recorded above. No separate mobile-specific lifecycle mutation was needed because this gate was visual and responsive evidence only. David formally accepted TASK-12A as **ACCEPTED — SYNTHETIC DEV** on 24 September 2026. The 45/45 serial regression was not rerun after the narrow client-only fixes; the subsequent production build and focused ESLint passed. Retention, legal hold, deletion/erasure handling, final privacy policy and operational governance for real Incident records remain explicit pre-live gates. No staging, production or real Incident data was used.
 
 ## Focused checks after browser-discovered UI fixes
 
