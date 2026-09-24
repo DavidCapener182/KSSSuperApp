@@ -1,6 +1,12 @@
 # TASK-09B delivery report — static Site Shift attendance adapter
 
-Date: 24 September 2026. **Status:** implemented and verified in synthetic Dev; awaiting David's acceptance. No staging or production change, real KSS data, worked-time, finance or notification work was included.
+Date: 24 September 2026. **Status:** accepted by David in synthetic Dev at implementation commit `2cef90b`. No staging or production change, real KSS data, worked-time, finance or notification work was included.
+
+## Acceptance decision — 24 September 2026
+
+David accepted TASK-09B as delivered at `2cef90b`. The accepted scope is one shared factual attendance domain for Event and static Site Shift allocations, with typed source identity, exact Person binding, guarded Staff self actions, manager operational actions, immutable history, source lifecycle checks, mixed-source My Attendance, exact typed focus and preserved Event attendance behaviour. The evidence below includes preserved pre-existing Event identities, focused static and 09A regressions, the full serial **46/46** regression, Webpack build, smoke, TypeScript/ESLint checks, RLS/direct-table denial and migration readback.
+
+The authenticated desktop and 390px walkthrough remains a follow-up acceptance check; it does not reopen the approved architecture or block synthetic Dev acceptance. This acceptance does not authorise staging, production, real data, worked time, finance or notifications. TASK-10B remains Event-only. A static worked-time adapter (proposed TASK-10C) requires separate approval after 10B delivery and acceptance.
 
 ## Delivered
 
@@ -32,4 +38,4 @@ Before migration, the 89 Event cases had identity/revision digest `fd16297a72f69
 
 The 08A source lifecycle normally guards pause/end/cancellation while active allocations exist; the 09B Staff transaction nevertheless checks current demand, effective pause and Service end state. No direct synthetic lifecycle transition was forced around an accepted allocation to bypass 08A's source guard. That approved policy branch should be observed again if a future source workflow legitimately yields that historical state.
 
-No GPS, QR, NFC, biometrics, offline accepted attendance, notifications, static worked time, payroll, rates or money was added. TASK-10B remains Event-only until a separate static evidence extension is approved. This delivery awaits David's acceptance; it is not staging or production readiness.
+No GPS, QR, NFC, biometrics, offline accepted attendance, notifications, static worked time, payroll, rates or money was added. TASK-10B remains Event-only until a separate static evidence extension is approved. This delivery is accepted in synthetic Dev; it is not staging or production readiness.
