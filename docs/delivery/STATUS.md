@@ -19,3 +19,9 @@ David reviews TASK-07B, then a bounded end-to-end product walkthrough should ass
 ## TASK-15A acceptance
 
 David accepted the Asset, Stock & Custody foundation in synthetic Dev on 24 September 2026 at `45f75f1`. See [TASK-15A-REPORT.md](TASK-15A-REPORT.md). The accepted ledger remains independent of attendance, worked time, payroll and fault findings. Pagination, uniform picker, kits, scanning and narrow Mobilisation/Site Book/Control Room links are backlog; no staging, production or real KSS asset import is authorised.
+
+## TASK-10B acceptance
+
+David accepted TASK-10B Event Worked Time in synthetic Dev on 24 September 2026. The accepted boundary is Event allocation → pinned attendance evidence → Staff draft and explicit WORK/BREAK intervals → submission → manager review/return → Staff correction as a new revision → worked-time approval → immutable history. Verification: synthetic Dev database/security readback, authenticated Staff desktop/390px and manager workflows, manager 390px DOM/layout check, no overflow/no green styling, build, smoke, and full serial regression (53/53 passed). The manager 390px screenshot capture timed out; the successful layout verification makes this a documentation gap only. See [TASK-10B-REPORT.md](TASK-10B-REPORT.md).
+
+Payable-minute approval, chargeable-minute approval, static Site Shift worked time, rates, money, payroll, invoices, expenses, finance integrations, staging and production are outside this acceptance. No next slice is authorised. The proposed 10C/10D follow-on labels require reconciliation with `phase-map.json`, which already uses those identifiers for other work.

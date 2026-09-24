@@ -1,6 +1,6 @@
 # TASK-10B — Event worked-time implementation report
 
-**Status: implementation evidence recorded; awaiting David's acceptance.** Implemented only the approved synthetic-Dev Event slice. Staging, production and real KSS data were not used.
+**Status: accepted by David in synthetic Dev on 24 September 2026.** Implemented only the approved Event slice. Staging, production and real KSS data were not used.
 
 ## Delivered boundary
 
@@ -43,6 +43,6 @@ Database readback confirmed eight `event_work_time_*` tables have RLS enabled. A
 
 ## Known gaps and acceptance gate
 
-The full serial regression, production build and smoke checks are green in the isolated synthetic-Dev verification run. The manager 390px screenshot timed out even though its 390px layout checks passed. No claim of staging, deployment, human acceptance or production readiness is made. No staging or production project was accessed.
+David accepted TASK-10B in synthetic Dev on 24 September 2026. The manager 390px screenshot did not save because capture timed out; authenticated 390px DOM/layout verification passed with no horizontal overflow or green styling. This is a documentation gap and does not reopen the accepted scope. Staff desktop/390px and manager return/approval journeys were exercised, immutable revision/source-review readback completed, and the full serial regression, build and smoke checks passed.
 
-No payable/chargeable decision rows, rate/money, payroll or invoice data were implemented. Stop for David's acceptance before any next slice. Concurrent task changes remain outside the TASK-10B-owned commit.
+No payable/chargeable decision rows, rate/money, payroll or invoice data were implemented. TASK-10B is closed at the accepted Event worked-time foundation. Static Site Shift Worked Time and payable/chargeable minute decisions require separate approvals; this acceptance authorises neither. The proposed 10C/10D labels need reconciliation with `docs/delivery/phase-map.json`, which already assigns those identifiers to other roadmap tasks. Concurrent task changes remain outside the TASK-10B-owned commit.

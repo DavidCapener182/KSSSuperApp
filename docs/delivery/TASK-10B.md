@@ -1,6 +1,6 @@
 # TASK-10B — Worked Time / Timesheets
 
-**Status: Bounded synthetic-Dev implementation approved by David on 24 September 2026.** TASK-09A was formally accepted at `ea1e3f6`; its Event attendance implementation is at `4baa41b` with Staff pagination/focus correction at `604e4fd`. The accepted report records the 45/45 serial Dev regression and authenticated Event Staff/Office walkthrough. This implementation is Event-only and must coordinate its exact Event evidence FKs with the separately owned TASK-09B attendance XOR migration before either migration is applied. Synthetic Dev only; staging and real data remain excluded.
+**Status: Accepted by David in synthetic Dev on 24 September 2026.** The delivered first slice is Event-only: exact allocation, pinned attendance evidence, Staff draft and explicit WORK/BREAK submission, manager review/return, Staff correction as a new revision, worked-time approval and immutable history. See [TASK-10B-REPORT.md](TASK-10B-REPORT.md) for the migrations, security readback, 53/53 serial regression, build/smoke and authenticated browser evidence. The manager 390px screenshot timed out, but its authenticated DOM/layout check passed. No staging, production or real data was used.
 
 ## Purpose and source boundary
 
@@ -96,4 +96,4 @@ This proposal excludes rates, money, payroll, invoices, VAT, accounting, payment
 4. Work-time review, worked-time approval, payable-minute approval and chargeable-minute approval each require a separate, exact-Event capability grant. Self-approval is denied under every dual role.
 5. Static timesheets remain excluded. Any static attendance/timesheet adapter is a separate future task using the accepted 08A identity.
 
-**Implementation boundary.** Build only the approved Event worked-time journey. Do not implement payable/chargeable approvals, static timesheets, money, payroll, invoicing, staging, production or real data. Stop for David's acceptance after the scoped implementation and evidence are complete.
+**Accepted implementation boundary.** The Event worked-time journey is accepted and this lane is stopped. Payable/chargeable approvals and static timesheets remain excluded. Any future Static Site Shift Worked Time or Payable/Chargeable Minute Decisions task needs separate approval. The suggested 10C/10D labels require reconciliation with `phase-map.json` before use because those identifiers already name different roadmap tasks. No money, payroll, invoicing, staging, production or real data is authorised.
