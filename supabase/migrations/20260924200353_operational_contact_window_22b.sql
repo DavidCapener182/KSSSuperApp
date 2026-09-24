@@ -1,5 +1,5 @@
 -- TASK-22B: shared exact duty-window predicate for authority and boundary proof.
-create or replace function public.contact_duty_window_22b(report_at timestamptz,duty_end timestamptz,at_time timestamptz) returns boolean
+create function public.contact_duty_window_22b(report_at timestamptz,duty_end timestamptz,at_time timestamptz) returns boolean
  language sql immutable as $$
  select report_at is not null and duty_end is not null and at_time is not null
   and at_time>=report_at-interval '2 hours' and at_time<=duty_end+interval '2 hours'

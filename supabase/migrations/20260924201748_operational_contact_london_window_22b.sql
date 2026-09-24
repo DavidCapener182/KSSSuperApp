@@ -1,5 +1,5 @@
 -- TASK-22B: shared simple London applicability predicate and current projection.
-create or replace function public.contact_london_window_22b(s time,e time,at_time timestamptz) returns boolean
+create function public.contact_london_window_22b(s time,e time,at_time timestamptz) returns boolean
  language sql immutable as $$
  select s is null or case when s<e then (at_time at time zone 'Europe/London')::time>=s and (at_time at time zone 'Europe/London')::time<e
  else (at_time at time zone 'Europe/London')::time>=s or (at_time at time zone 'Europe/London')::time<e end

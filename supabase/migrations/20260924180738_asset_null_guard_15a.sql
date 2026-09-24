@@ -33,7 +33,7 @@ begin
     else item.exception_state:='LOST'; end if;
   else
     if item.exception_state='RETIRED' then raise exception 'Retired asset'; end if;
-    if not (private.has_active_role('OFFICE_ADMIN') and p_action='RETIRE')
+    if not (private.has_active_role('OFFICE_ADMIN') and p_action in ('INSPECT','REPAIR_START','REPAIR_COMPLETE','RETIRE'))
       and not private.asset_has_grant(actor,item.holder_kind,private.asset_holder_id(item))
       and not (item.holder_kind='PERSON' and private.asset_has_grant(actor,'STORE',item.home_store_id))
       then raise exception 'Asset capability denied'; end if;
@@ -134,8 +134,7 @@ begin
   select * into row0 from public.asset_stock where id=p_stock for update;
   if not found or row0.revision<>p_expected_revision then raise exception 'Stock revision conflict'; end if;
   if p_action='ADJUST' then
-    if not private.has_active_role('OFFICE_ADMIN') or p_person is not null or p_issue is not null
-      or length(trim(coalesce(p_reason,''))) not between 3 and 500
+    if not private.has_active_role('OFFICE_ADMIN') or length(trim(coalesce(p_reason,''))) not between 3 and 500
       then raise exception 'Adjustment denied'; end if;
     if row0.available_quantity+p_quantity<0 then raise exception 'Stock adjustment exceeds available balance'; end if;
     row0.available_quantity:=row0.available_quantity+p_quantity;
@@ -143,7 +142,7 @@ begin
     if p_quantity<1 then raise exception 'Stock quantity must be positive'; end if;
     if not private.asset_has_grant(actor,'STORE',row0.store_id) then raise exception 'Stock capability denied'; end if;
     if p_action='ISSUE' then
-      if p_person is null or p_issue is not null or not exists(select 1 from public.people where id=p_person)
+      if p_person is null or not exists(select 1 from public.people where id=p_person)
         or row0.available_quantity<p_quantity then raise exception 'Stock issue denied'; end if;
       insert into public.asset_stock_issues(stock_id,person_id,quantity_outstanding)
         values(p_stock,p_person,p_quantity) returning id into new_issue;

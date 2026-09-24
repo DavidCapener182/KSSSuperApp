@@ -7,8 +7,7 @@ returns jsonb language plpgsql security definer set search_path='' as $$
 declare actor uuid:=private.current_person_id(); row0 public.asset_stock%rowtype; issue0 public.asset_stock_issues%rowtype;
   replay public.asset_requests%rowtype; h text; ev uuid; result jsonb; new_issue uuid;
 begin
-  if actor is null or p_request_key is null or p_expected_revision is null or p_expected_revision<1
-    or p_quantity is null or p_quantity=0
+  if actor is null or p_request_key is null or p_expected_revision<1 or p_quantity=0
     or p_action not in ('ISSUE','RETURN','ADJUST') then raise exception 'Stock action denied'; end if;
   h:=md5(concat_ws('|',p_stock::text,p_action,p_quantity::text,coalesce(p_person::text,''),coalesce(p_issue::text,''),
     p_expected_revision::text,coalesce(p_reason,'')));

@@ -4,10 +4,6 @@ language plpgsql stable security definer set search_path='' as $$
 declare actor uuid:=private.current_person_id();
 begin
   if actor is null or not (private.has_active_role('OPERATIONS') or private.has_active_role('OFFICE_ADMIN'))
-    or (not private.has_active_role('OFFICE_ADMIN') and not exists(
-      select 1 from public.asset_capability_grants g where g.person_id=actor
-        and g.revoked_at is null and g.effective_from<=transaction_timestamp()
-        and g.effective_until>transaction_timestamp()))
     then raise exception 'Asset holder choices denied'; end if;
   return pg_catalog.jsonb_build_object(
     'people',coalesce((select pg_catalog.jsonb_agg(pg_catalog.jsonb_build_object('kind','PERSON','id',p.id,'name',p.display_name))

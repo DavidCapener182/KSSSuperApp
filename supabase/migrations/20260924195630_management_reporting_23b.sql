@@ -55,33 +55,12 @@ from (values
  ('STATIC_COVERAGE','Static source coverage','08D','maintenance run and configured horizon',array['SUCCEEDED']::text[],array['FAILED','PARTIAL_FAILURE','RUNNING']::text[],'status','08D run state and horizon',null,'Current configured London forward horizon','No demand inferred from absent rows','Past or unverified materialisation marked incomplete')
 ) as d(code,label,domain,grain,inc,exc,unit,numerator,denominator,date_rule,cancel_rule,coverage);
 
--- This is source coverage, not demand: a missing expected occurrence never becomes a zero position.
-create function private.reporting_missing_materialisation_23b(
- p_start date,p_end date,p_client uuid,p_site uuid,p_service uuid)
-returns integer language sql stable security definer set search_path = '' as $$
- select count(*)::integer from public.site_shift_template_versions t
- join public.site_services sv on sv.id=t.service_id
- join public.sites s on s.id=sv.site_id
- cross join lateral generate_series(greatest(p_start,sv.effective_from,t.effective_from),
-  least(p_end,coalesce(sv.effective_until,p_end),coalesce(t.effective_until,p_end)) - 1,interval '1 day') day_value
- where private.crm_authorised() and sv.state in ('ACTIVE','PAUSED')
-  and (private.has_active_role('SUPER_ADMIN') or s.created_by_person_id=private.current_person_id())
-  and (p_client is null or sv.organisation_id=p_client) and (p_site is null or sv.site_id=p_site)
-  and (p_service is null or sv.id=p_service)
-  and array_position(t.weekdays,extract(isodow from day_value)::integer) is not null
-  and not exists(select 1 from public.site_service_pauses pause
-   where pause.service_id=sv.id and day_value::date>=pause.starts_on and day_value::date<pause.ends_before)
-  and not exists(select 1 from public.site_shift_demands d
-   where d.template_line_id=t.line_id and d.service_date=day_value::date)
-$$;
-revoke all on function private.reporting_missing_materialisation_23b(date,date,uuid,uuid,uuid) from public,anon,authenticated;
-
 create function public.management_report_23b(
  p_start date,p_end date,p_mode text default 'CURRENT',p_client uuid default null,p_site uuid default null,
  p_service uuid default null,p_event uuid default null,p_source text default null,
  p_offset integer default 0,p_limit integer default 30)
 returns jsonb language plpgsql stable security definer set search_path = '' as $$
-declare report_json jsonb; as_of timestamptz := transaction_timestamp(); today_london date := (transaction_timestamp() at time zone 'Europe/London')::date;
+declare result jsonb; as_of timestamptz := transaction_timestamp(); today_london date := (transaction_timestamp() at time zone 'Europe/London')::date;
 begin
  if not private.crm_authorised() or p_start is null or p_end is null or p_start < date '2020-01-01'
   or p_end <= p_start or p_end > p_start + 90 or p_mode not in ('CURRENT','HISTORICAL')
@@ -197,14 +176,12 @@ begin
     (select e.status,count(*) n from public.operational_events e join visible_events v on v.id=e.id group by e.status) q),'{}'::jsonb)) result
  ), coverage as (
   select jsonb_build_object('status',case
-   when p_source='EVENT' or p_event is not null then 'NOT_APPLICABLE'
+   when p_source='EVENT' then 'NOT_APPLICABLE'
    when p_start<today_london or p_end>today_london+(select horizon_weeks*7 from public.site_shift_settings where singleton)
     then 'INCOMPLETE_SOURCE_COVERAGE'
    when coalesce((select state from private.site_shift_maintenance_runs_08d order by started_at desc,id desc limit 1),'NONE')<>'SUCCEEDED'
     then 'INCOMPLETE_SOURCE_COVERAGE'
    when coalesce((select completed_at from private.site_shift_maintenance_runs_08d order by started_at desc,id desc limit 1),'-infinity'::timestamptz)<as_of-interval '36 hours'
-    then 'INCOMPLETE_SOURCE_COVERAGE'
-   when private.reporting_missing_materialisation_23b(p_start,p_end,p_client,p_site,p_service)>0
     then 'INCOMPLETE_SOURCE_COVERAGE'
    else 'CURRENT_HORIZON_REPORTED' end,
    'latest_run_state',(select state from private.site_shift_maintenance_runs_08d order by started_at desc,id desc limit 1),
@@ -231,8 +208,8 @@ begin
    'services',coalesce((select jsonb_agg(jsonb_build_object('id',sv.id,'name',sv.name) order by sv.name,sv.id)
     from public.site_services sv join visible_services v on v.id=sv.id),'[]'::jsonb),
    'events',coalesce((select jsonb_agg(jsonb_build_object('id',e.id,'name',e.name) order by e.name,e.id)
-    from public.operational_events e join visible_events v on v.id=e.id),'[]'::jsonb))) into report_json;
- return report_json;
+    from public.operational_events e join visible_events v on v.id=e.id),'[]'::jsonb))) into result;
+ return result;
 end $$;
 revoke all on function public.management_report_23b(date,date,text,uuid,uuid,uuid,uuid,text,integer,integer) from public,anon,authenticated;
 grant execute on function public.management_report_23b(date,date,text,uuid,uuid,uuid,uuid,text,integer,integer) to authenticated;

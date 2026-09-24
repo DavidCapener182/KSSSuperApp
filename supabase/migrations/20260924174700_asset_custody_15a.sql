@@ -77,7 +77,7 @@ create table public.asset_events (
   id uuid primary key default gen_random_uuid(),
   asset_id uuid not null references public.asset_items(id),
   revision integer not null,
-  action text not null check (action in ('REGISTER','ISSUE','TRANSFER','RETURN','ACK_ISSUE','DISPUTE_ISSUE','ACK_RETURN','INSPECT','REPORT_DAMAGE','REPORT_LOSS','RECOVER','REPAIR_START','REPAIR_COMPLETE','RETIRE')),
+  action text not null check (action in ('REGISTER','ISSUE','TRANSFER','RETURN','ACK_ISSUE','DISPUTE_ISSUE','ACK_RETURN','INSPECT','REPORT_DAMAGE','REPORT_LOSS','REPAIR_START','REPAIR_COMPLETE','RETIRE')),
   actor_person_id uuid not null references public.people(id),
   holder_before text,
   holder_after text not null,
@@ -126,7 +126,7 @@ create table public.asset_stock_events (
   stock_id uuid not null references public.asset_stock(id),
   revision integer not null,
   action text not null check (action in ('OPENING','ISSUE','RETURN','ADJUST','ACK_ISSUE','DISPUTE_ISSUE')),
-  quantity integer not null check (quantity <> 0),
+  quantity integer not null check (quantity > 0),
   issue_id uuid references public.asset_stock_issues(id),
   person_id uuid references public.people(id),
   actor_person_id uuid not null references public.people(id),
@@ -246,9 +246,8 @@ returns jsonb language plpgsql security definer set search_path='' as $$
 declare actor uuid:=private.current_person_id(); item public.asset_items%rowtype; previous public.asset_items%rowtype;
   replay public.asset_requests%rowtype; h text; ev uuid; result jsonb; target_site uuid;
 begin
-  if actor is null or p_asset is null or p_request_key is null
-    or p_expected_revision is null or p_expected_revision<1
-    or p_action not in ('ISSUE','TRANSFER','RETURN','ACK_ISSUE','DISPUTE_ISSUE','ACK_RETURN','INSPECT','REPORT_DAMAGE','REPORT_LOSS','RECOVER','REPAIR_START','REPAIR_COMPLETE','RETIRE')
+  if actor is null or p_asset is null or p_request_key is null or p_expected_revision<1
+    or p_action not in ('ISSUE','TRANSFER','RETURN','ACK_ISSUE','DISPUTE_ISSUE','ACK_RETURN','INSPECT','REPORT_DAMAGE','REPORT_LOSS','REPAIR_START','REPAIR_COMPLETE','RETIRE')
     then raise exception 'Asset action denied'; end if;
   h:=md5(concat_ws('|',p_asset::text,p_action,p_expected_revision::text,coalesce(p_holder_kind,''),coalesce(p_holder_id::text,''),
     coalesce(p_condition,''),coalesce(p_expected_return_at::text,''),coalesce(p_reason,'')));
@@ -273,7 +272,7 @@ begin
     else item.exception_state:='LOST'; end if;
   else
     if item.exception_state='RETIRED' then raise exception 'Retired asset'; end if;
-    if not (private.has_active_role('OFFICE_ADMIN') and p_action='RETIRE')
+    if not (private.has_active_role('OFFICE_ADMIN') and p_action in ('INSPECT','REPAIR_START','REPAIR_COMPLETE','RETIRE'))
       and not private.asset_has_grant(actor,item.holder_kind,private.asset_holder_id(item))
       then raise exception 'Asset capability denied'; end if;
     if p_action in ('ISSUE','TRANSFER','RETURN') then
@@ -302,7 +301,7 @@ begin
       item.holder_site_id:=case when p_holder_kind='SITE' then p_holder_id end;
       item.holder_site_service_id:=case when p_holder_kind='SITE_SERVICE' then p_holder_id end;
       item.holder_event_id:=case when p_holder_kind='EVENT' then p_holder_id end;
-      item.location_site_id:=case when p_holder_kind='SITE' then p_holder_id when p_holder_kind='SITE_SERVICE' then target_site end;
+      item.location_site_id:=case when p_holder_kind='SITE' then p_holder_id when p_holder_kind='SITE_SERVICE' or p_holder_kind='EVENT' then target_site end;
       item.location_event_id:=case when p_holder_kind='EVENT' then p_holder_id end;
       item.expected_return_at:=case when p_holder_kind='STORE' then null else p_expected_return_at end;
       if p_holder_kind='PERSON' then item.pending_ack:='ISSUE'; item.pending_person_id:=p_holder_id;
@@ -326,10 +325,6 @@ begin
     elsif p_action='REPAIR_COMPLETE' then
       if item.maintenance_state<>'IN_REPAIR' then raise exception 'Repair completion denied'; end if;
       item.maintenance_state:='QUARANTINED';
-    elsif p_action='RECOVER' then
-      if item.exception_state<>'LOST' or length(trim(coalesce(p_reason,''))) not between 3 and 500
-        then raise exception 'Recovery denied'; end if;
-      item.exception_state:='NONE'; item.maintenance_state:='QUARANTINED';
     elsif p_action='RETIRE' then
       if item.holder_kind<>'STORE' or item.pending_ack is not null or length(trim(coalesce(p_reason,''))) not between 3 and 500
         then raise exception 'Retirement denied'; end if;
@@ -390,8 +385,7 @@ returns jsonb language plpgsql security definer set search_path='' as $$
 declare actor uuid:=private.current_person_id(); row0 public.asset_stock%rowtype; issue0 public.asset_stock_issues%rowtype;
   replay public.asset_requests%rowtype; h text; ev uuid; result jsonb; new_issue uuid;
 begin
-  if actor is null or p_request_key is null or p_expected_revision is null or p_expected_revision<1
-    or p_quantity is null or p_quantity=0
+  if actor is null or p_request_key is null or p_expected_revision<1 or p_quantity<1
     or p_action not in ('ISSUE','RETURN','ADJUST') then raise exception 'Stock action denied'; end if;
   h:=md5(concat_ws('|',p_stock::text,p_action,p_quantity::text,coalesce(p_person::text,''),coalesce(p_issue::text,''),
     p_expected_revision::text,coalesce(p_reason,'')));
@@ -404,16 +398,13 @@ begin
   select * into row0 from public.asset_stock where id=p_stock for update;
   if not found or row0.revision<>p_expected_revision then raise exception 'Stock revision conflict'; end if;
   if p_action='ADJUST' then
-    if not private.has_active_role('OFFICE_ADMIN') or p_person is not null or p_issue is not null
-      or length(trim(coalesce(p_reason,''))) not between 3 and 500
+    if not private.has_active_role('OFFICE_ADMIN') or length(trim(coalesce(p_reason,''))) not between 3 and 500
       then raise exception 'Adjustment denied'; end if;
-    if row0.available_quantity+p_quantity<0 then raise exception 'Stock adjustment exceeds available balance'; end if;
     row0.available_quantity:=row0.available_quantity+p_quantity;
   else
-    if p_quantity<1 then raise exception 'Stock quantity must be positive'; end if;
     if not private.asset_has_grant(actor,'STORE',row0.store_id) then raise exception 'Stock capability denied'; end if;
     if p_action='ISSUE' then
-      if p_person is null or p_issue is not null or not exists(select 1 from public.people where id=p_person)
+      if p_person is null or not exists(select 1 from public.people where id=p_person)
         or row0.available_quantity<p_quantity then raise exception 'Stock issue denied'; end if;
       insert into public.asset_stock_issues(stock_id,person_id,quantity_outstanding)
         values(p_stock,p_person,p_quantity) returning id into new_issue;
@@ -450,8 +441,7 @@ returns jsonb language plpgsql security definer set search_path='' as $$
 declare actor uuid:=private.current_person_id(); issue0 public.asset_stock_issues%rowtype; stock0 public.asset_stock%rowtype;
   replay public.asset_requests%rowtype; h text; result jsonb; ev uuid; stock_id0 uuid;
 begin
-  if actor is null or p_request_key is null or p_dispute is null
-    then raise exception 'Stock acknowledgement denied'; end if;
+  if actor is null or p_request_key is null then raise exception 'Stock acknowledgement denied'; end if;
   h:=md5(concat_ws('|',p_issue::text,p_dispute::text,coalesce(p_reason,'')));
   perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended(actor::text||p_request_key::text,0));
   select * into replay from public.asset_requests where actor_person_id=actor and request_key=p_request_key;
@@ -495,19 +485,7 @@ begin
     'items',coalesce((select pg_catalog.jsonb_agg(pg_catalog.jsonb_build_object(
       'id',a.id,'reference',a.reference,'class',a.class,'description',a.description,
       'condition',a.condition,'maintenanceState',a.maintenance_state,'exceptionState',a.exception_state,
-      'holderKind',a.holder_kind,'holderId',private.asset_holder_id(a),
-      'holderLabel',case a.holder_kind
-        when 'PERSON' then (select p.display_name from public.people p where p.id=a.holder_person_id)
-        when 'STORE' then (select s.name from public.asset_stores s where s.id=a.holder_store_id)
-        when 'SITE' then (select s.name from public.sites s where s.id=a.holder_site_id)
-        when 'SITE_SERVICE' then (select s.name from public.site_services s where s.id=a.holder_site_service_id)
-        when 'EVENT' then (select e.name from public.operational_events e where e.id=a.holder_event_id) end,
-      'locationLabel',case when a.location_event_id is not null then
-        (select e.name from public.operational_events e where e.id=a.location_event_id)
-        when a.location_site_id is not null then (select s.name from public.sites s where s.id=a.location_site_id)
-        when a.holder_store_id is not null then (select s.name from public.asset_stores s where s.id=a.holder_store_id)
-        else null end,
-      'expectedReturnAt',a.expected_return_at,
+      'holderKind',a.holder_kind,'holderId',private.asset_holder_id(a),'expectedReturnAt',a.expected_return_at,
       'pendingAck',a.pending_ack,'revision',a.revision,'overdue',
         a.expected_return_at is not null and a.expected_return_at<transaction_timestamp() and a.holder_kind<>'STORE'))
       from public.asset_items a where office or a.holder_person_id=actor
@@ -533,8 +511,8 @@ declare actor uuid:=private.current_person_id(); item public.asset_items%rowtype
 begin
   if actor is null then raise exception 'Asset access denied'; end if;
   select * into item from public.asset_items where id=p_asset;
-  if not found or (private.has_active_role('OFFICE_ADMIN') or private.has_active_role('SUPER_ADMIN')
-    or item.holder_person_id=actor or private.asset_has_grant(actor,item.holder_kind,private.asset_holder_id(item))) is not true
+  if not found or not (private.has_active_role('OFFICE_ADMIN') or private.has_active_role('SUPER_ADMIN')
+    or item.holder_person_id=actor or private.asset_has_grant(actor,item.holder_kind,private.asset_holder_id(item)))
     then raise exception 'Asset access denied'; end if;
   return pg_catalog.jsonb_build_object('id',item.id,'reference',item.reference,'class',item.class,
     'serial',case when item.class='KEY_CARD' and not (private.has_active_role('OFFICE_ADMIN') or private.has_active_role('SUPER_ADMIN')) then null else item.serial end,

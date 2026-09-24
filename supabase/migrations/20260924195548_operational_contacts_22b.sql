@@ -102,11 +102,6 @@ $$;
 revoke all on function private.contact_manager_22b(text,uuid) from public,anon,authenticated;
 
 -- Exact accepted source allocation and exact context. No parent/child inheritance.
-create function public.contact_duty_window_22b(report_at timestamptz,duty_end timestamptz,at_time timestamptz) returns boolean
- language sql immutable as $$
- select report_at is not null and duty_end is not null and at_time is not null
-  and at_time>=report_at-interval '2 hours' and at_time<=duty_end+interval '2 hours'
-$$;
 create function private.contact_staff_22b(k text,target uuid,allocation uuid,at_time timestamptz) returns boolean
  language sql stable security definer set search_path='' as $$
  select private.has_active_role('SECURITY_STAFF') and case k
@@ -115,19 +110,19 @@ create function private.contact_staff_22b(k text,target uuid,allocation uuid,at_
   join public.operational_events e on e.id=d.event_id
   where a.id=allocation and a.person_id=private.current_person_id() and a.status='ACCEPTED'
    and d.event_id=target and d.state='PLANNED' and e.status in ('PLANNING','CONFIRMED','LIVE')
-   and public.contact_duty_window_22b(d.report_at,d.shift_ends_at,at_time))
+   and at_time>=d.report_at-interval '2 hours' and at_time<=d.shift_ends_at+interval '2 hours')
  when 'SITE_SERVICE' then exists(select 1 from public.site_shift_allocations a
   join public.site_shift_demands d on d.id=a.demand_id
   join public.site_services x on x.id=d.service_id
   where a.id=allocation and a.person_id=private.current_person_id() and a.status='ACCEPTED'
    and d.service_id=target and d.state='PLANNED' and x.state='ACTIVE'
-   and public.contact_duty_window_22b(d.report_at,d.shift_ends_at,at_time))
+   and at_time>=d.report_at-interval '2 hours' and at_time<=d.shift_ends_at+interval '2 hours')
  when 'SITE' then exists(select 1 from public.site_shift_allocations a
   join public.site_shift_demands d on d.id=a.demand_id
   join public.site_services x on x.id=d.service_id
   where a.id=allocation and a.person_id=private.current_person_id() and a.status='ACCEPTED'
    and x.site_id=target and d.state='PLANNED' and x.state='ACTIVE'
-   and public.contact_duty_window_22b(d.report_at,d.shift_ends_at,at_time))
+   and at_time>=d.report_at-interval '2 hours' and at_time<=d.shift_ends_at+interval '2 hours')
  else false end
 $$;
 revoke all on function private.contact_staff_22b(text,uuid,uuid,timestamptz) from public,anon,authenticated;
@@ -152,11 +147,6 @@ revoke all on function private.contact_source_marker_22b(text,uuid) from public,
 
 -- A closed daily London window; crossing midnight is supported without a rota.
 create function private.contact_window_contains_22b(s time,e time,at_time timestamptz) returns boolean
- language sql immutable as $$
- select s is null or case when s<e then (at_time at time zone 'Europe/London')::time>=s and (at_time at time zone 'Europe/London')::time<e
- else (at_time at time zone 'Europe/London')::time>=s or (at_time at time zone 'Europe/London')::time<e end
-$$;
-create function public.contact_london_window_22b(s time,e time,at_time timestamptz) returns boolean
  language sql immutable as $$
  select s is null or case when s<e then (at_time at time zone 'Europe/London')::time>=s and (at_time at time zone 'Europe/London')::time<e
  else (at_time at time zone 'Europe/London')::time>=s or (at_time at time zone 'Europe/London')::time<e end
@@ -262,7 +252,6 @@ grant execute on function public.contact_grants_22b(text,uuid) to authenticated;
 
 create function public.contact_publish_22b(p jsonb) returns uuid
  language plpgsql security definer set search_path='' as $$
-#variable_conflict use_variable
 declare actor uuid:=private.current_person_id(); r public.operational_contact_routes_22b%rowtype;
  k text:=p->>'context_kind'; target uuid; purpose text:=p->>'purpose'; src text:=p->>'source_type'; source uuid;
  route uuid; expected int; effective_start timestamptz; effective_end timestamptz;
@@ -421,7 +410,7 @@ begin
    case when r.source_type<>'MANUAL_OPERATIONAL' and private.contact_source_marker_22b(r.source_type,r.source_id) is null then 'SOURCE_UNAVAILABLE'
     when r.source_type<>'MANUAL_OPERATIONAL' and private.contact_source_marker_22b(r.source_type,r.source_id)<>v.source_marker then 'REVIEW_REQUIRED'
     when v.effective_until<=at_time then 'EXPIRED'
-    when v.effective_from>at_time or not public.contact_london_window_22b(v.london_start,v.london_end,at_time) then 'NOT_APPLICABLE'
+    when v.effective_from>at_time or not private.contact_window_contains_22b(v.london_start,v.london_end,at_time) then 'NOT_APPLICABLE'
     else 'CURRENT' end as health
   from public.operational_contact_routes_22b r join public.operational_contact_versions_22b v on v.id=r.current_version_id
   where r.context_kind=k and r.context_id=target and r.state='PUBLISHED') q;
@@ -432,29 +421,27 @@ grant execute on function public.contact_current_22b(text,uuid,uuid) to authenti
 
 create function public.contact_for_allocation_22b(source text,allocation uuid) returns jsonb
  language plpgsql security definer set search_path='' as $$
-declare event_id uuid; service_id uuid; site_id uuid; event_name text; service_name text; site_name text;
+declare event_id uuid; service_id uuid; site_id uuid; result jsonb;
 begin
  if allocation is null or not private.has_active_role('SECURITY_STAFF') then raise exception 'Contact read denied'; end if;
  if source='EVENT' then
-  select d.event_id,e.name into event_id,event_name from public.event_staff_allocations a
+  select d.event_id into event_id from public.event_staff_allocations a
    join public.event_staffing_requirements d on d.id=a.requirement_id
-   join public.operational_events e on e.id=d.event_id
    where a.id=allocation and a.person_id=private.current_person_id() and a.status='ACCEPTED';
   if event_id is null or not private.contact_staff_22b('EVENT',event_id,allocation,transaction_timestamp())
   then raise exception 'Contact read denied'; end if;
   return jsonb_build_object('source','EVENT','contexts',jsonb_build_array(
-   public.contact_current_22b('EVENT',event_id,allocation)||jsonb_build_object('context_name',event_name)));
+   public.contact_current_22b('EVENT',event_id,allocation)));
  elsif source='SITE_SHIFT' then
-  select d.service_id,x.site_id,x.name,s.name into service_id,site_id,service_name,site_name from public.site_shift_allocations a
+  select d.service_id,x.site_id into service_id,site_id from public.site_shift_allocations a
    join public.site_shift_demands d on d.id=a.demand_id
    join public.site_services x on x.id=d.service_id
-   join public.sites s on s.id=x.site_id
    where a.id=allocation and a.person_id=private.current_person_id() and a.status='ACCEPTED';
   if service_id is null or not private.contact_staff_22b('SITE_SERVICE',service_id,allocation,transaction_timestamp())
   then raise exception 'Contact read denied'; end if;
   return jsonb_build_object('source','SITE_SHIFT','contexts',jsonb_build_array(
-   public.contact_current_22b('SITE',site_id,allocation)||jsonb_build_object('context_name',site_name),
-   public.contact_current_22b('SITE_SERVICE',service_id,allocation)||jsonb_build_object('context_name',service_name)));
+   public.contact_current_22b('SITE',site_id,allocation),
+   public.contact_current_22b('SITE_SERVICE',service_id,allocation)));
  end if;
  raise exception 'Contact read denied';
 end $$;
@@ -473,9 +460,7 @@ begin
   'source_health',case when r.source_type='MANUAL_OPERATIONAL' then 'CURRENT'
    when private.contact_source_marker_22b(r.source_type,r.source_id) is null then 'SOURCE_UNAVAILABLE'
    when private.contact_source_marker_22b(r.source_type,r.source_id)<>v.source_marker then 'REVIEW_REQUIRED' else 'CURRENT' end,
-  'display_name',v.display_name,'role_organisation',v.role_organisation,
-  'phone',case when r.state='PUBLISHED' and v.effective_until>transaction_timestamp() then v.phone end,
-  'email',case when r.state='PUBLISHED' and v.effective_until>transaction_timestamp() then v.email end,
+  'display_name',v.display_name,'role_organisation',v.role_organisation,'phone',v.phone,'email',v.email,
   'priority',v.priority,'effective_from',v.effective_from,'effective_until',v.effective_until,
   'london_start',v.london_start,'london_end',v.london_end,'reviewed_on',v.reviewed_on)
   order by r.purpose,v.priority,r.id),'[]'::jsonb) into result

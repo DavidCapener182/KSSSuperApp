@@ -77,9 +77,7 @@ begin
  ), page as (
   select * from filtered order by service_date,report_at,source,requirement_id offset p_offset limit p_limit
  )
- select jsonb_build_object('week_start',p_week,
-  'static_horizon_covered',p_week+7<=private.uk_today()+(select horizon_weeks*7 from public.site_shift_settings where singleton),
-  'total_lines',(select count(*) from filtered),
+ select jsonb_build_object('week_start',p_week,'total_lines',(select count(*) from filtered),
   'totals',(select jsonb_build_object('events',count(distinct event_id),
    'services',count(distinct service_id),
    'required',coalesce(sum(required_quantity),0),'allocated',coalesce(sum(allocated),0),
@@ -108,7 +106,7 @@ begin
   and ra.role_code='SECURITY_STAFF' and ra.revoked_at is null and ra.effective_from<=now()
   and (ra.effective_until is null or ra.effective_until>now())) then return jsonb_build_object('total',0,'items','[]'::jsonb); end if;
  with scoped as materialized (
-  select 'EVENT'::text as source,a.id,a.status,r.event_id,r.id as requirement_id,null::uuid as service_id,e.site_id,
+  select 'EVENT'::text as source,a.id,a.status,r.event_id,r.id as requirement_id,null::uuid as service_id,
    r.service_date,r.report_at,r.shift_starts_at,r.shift_ends_at,r.area_label,rd.display_name as role_name,
    e.name as event_name,s.name as site_name,
    private.availability_assessment_07a(a.person_id,r.report_at,r.shift_ends_at) as availability,
@@ -119,7 +117,7 @@ begin
   where a.person_id=p_person and a.status in ('ALLOCATED','ACCEPTED') and r.state='PLANNED'
    and e.status in ('PLANNING','CONFIRMED','LIVE') and r.service_date>=p_week and r.service_date<p_week+7
   union all
-  select 'SITE_SHIFT'::text,a.id,a.status,null::uuid,d.id,sv.id,sv.site_id,d.service_date,d.report_at,
+  select 'SITE_SHIFT'::text,a.id,a.status,null::uuid,d.id,sv.id,d.service_date,d.report_at,
    d.shift_starts_at,d.shift_ends_at,d.area_label,rd.display_name,sv.name,s.name,
    private.availability_assessment_07a(a.person_id,d.report_at,d.shift_ends_at),
    private.availability_allocation_indicator_07a(a.person_id,d.report_at,d.shift_ends_at)

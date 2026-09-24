@@ -1,5 +1,5 @@
 -- Add scoped expected-occurrence coverage to the reporting read.
-create or replace function private.reporting_missing_materialisation_23b(
+create function private.reporting_missing_materialisation_23b(
  p_start date,p_end date,p_client uuid,p_site uuid,p_service uuid)
 returns integer language sql stable security definer set search_path = '' as $$
  select count(*)::integer from public.site_shift_template_versions t
@@ -140,7 +140,7 @@ begin
     (select e.status,count(*) n from public.operational_events e join visible_events v on v.id=e.id group by e.status) q),'{}'::jsonb)) result
  ), coverage as (
   select jsonb_build_object('status',case
-   when p_source='EVENT' or p_event is not null then 'NOT_APPLICABLE'
+   when p_source='EVENT' then 'NOT_APPLICABLE'
    when p_start<today_london or p_end>today_london+(select horizon_weeks*7 from public.site_shift_settings where singleton)
     then 'INCOMPLETE_SOURCE_COVERAGE'
    when coalesce((select state from private.site_shift_maintenance_runs_08d order by started_at desc,id desc limit 1),'NONE')<>'SUCCEEDED'

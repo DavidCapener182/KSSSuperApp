@@ -608,7 +608,7 @@ begin
   perform set_config('kss.incident_write_12a','allowed',true);
   update public.incidents set status=new_status,revision=next_revision,updated_at=transaction_timestamp() where id=i.id;
   insert into public.incident_events(incident_id,revision,kind,previous_status,new_status,action_code,reason,actor_person_id)
-    values(i.id,next_revision,case p_action when 'ACKNOWLEDGE' then 'ACKNOWLEDGED' when 'CLOSE' then 'CLOSED' when 'REOPEN' then 'REOPENED' else p_action end,
+    values(i.id,next_revision,case when p_action='ACKNOWLEDGE' then 'ACKNOWLEDGED' else p_action end,
       i.status,new_status,p_action_code,case when p_action='REOPEN' then trim(p_reason) else null end,actor)
     returning id into event_id;
   insert into public.incident_idempotency(actor_person_id,idempotency_key,request_kind,request_hash,incident_id,event_id)
