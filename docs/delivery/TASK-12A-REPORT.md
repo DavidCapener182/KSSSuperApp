@@ -37,11 +37,11 @@ The test inserted synthetic-only incident rows. Because report versions and even
 - `tests/incidents.test.mjs` against authenticated synthetic Dev accounts — passed. It covered role-only denial, Office denial, grant/revoke authority, self-only reporting, direct-table denial, exact context links and invalid links, descriptor restrictions, exact-payload retry, correction history, concurrent actions, lifecycle close/reopen, and immediate grant revocation.
 - `tests/incidents-navigation.test.mjs` — both permission-based navigation and safe return-target tests passed.
 - `tests/incidents-routes.test.mjs` — authenticated Next route checks passed for Staff, ungranted Operations, Office and Super Admin.
-- `tests/shell.test.mjs` — the return-target test passed; the suite stopped at a concurrent TASK-11A external-shortcuts fixture that directly inserts into `role_assignments` (`permission denied for table role_assignments`, line 109). The full shell suite did not pass.
-- The full regression suite was not run because TASK-08D and TASK-09A were active in this same checkout and Dev project. Avoided overlapping shared database and build-state mutations.
+- `npm run test:shell` — passed 2/2 after the TASK-11A owner updated its temporary-role fixture to use the guarded access API and aligned navigation expectations. No Incident security or role-table policy was changed.
+- `npm run test:regression` — passed 45/45 serial tests against synthetic Dev, including the focused 12A incident tests and the 08A/08B/08C/08D, 09A, 07A/07B, 03A/03C/03D/03E, 04A, 05A/05B and 06A/06B/06C suites. The run used E-01 Auth session reuse: 10 sign-ins, 181 session requests and 10 cached personas. The first overlapping attempt was not counted; after its 08B local-server connection failure was isolated and the exact leftover synthetic allocation/Event were cancelled through guarded RPCs, the clean serial run passed.
 
 ## Evidence still required
 
-- The authenticated Staff 390px and Operations desktop/390px browser proof could not be completed: the desktop was locked and the in-app browser remained at sign-in. The unauthenticated return target was verified as `/?next=%2Fincidents` after correcting the allowlist. No authenticated browser result is claimed.
+- The authenticated Staff 390px and Operations desktop/390px browser proof remains outstanding: the Mac is locked and the in-app browser is not authenticated. The unauthenticated return target was verified as `/?next=%2Fincidents` after correcting the allowlist. No authenticated browser result is claimed.
 - Retention, legal hold and final privacy policy remain pre-live gates. Do not enter real incident data until KSS approves them.
 - David's acceptance is pending. This report does not claim production readiness or human acceptance.
