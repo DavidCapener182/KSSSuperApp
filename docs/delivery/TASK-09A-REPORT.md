@@ -1,6 +1,6 @@
 # TASK-09A delivery report — synthetic Dev
 
-Date: 24 September 2026. Scope: Event allocation attendance only. This report records synthetic development evidence, not human acceptance or production readiness.
+Date: 24 September 2026. Scope: Event allocation attendance only. This report records synthetic Dev evidence and David's acceptance; it does not claim production readiness.
 
 ## Delivered
 
@@ -54,7 +54,7 @@ The migration includes exact composite case/event/person binding, immutable even
 - Passed `npm run lint` (0 errors, 2 existing unrelated warnings), `npx tsc --noEmit`, `npm run build` (Next.js 16.3.6, Webpack), and `npm run smoke` (1/1).
 - Browser walkthrough on synthetic Dev: signed in as Staff A and opened accepted allocation `29632ade-5683-4ee6-9687-2f9a7c78959a` directly. The focused card showed Event, Site, reporting point, planned times, accepted response and factual attendance state. Check In changed to a disabled “Recording…” state during submission, then confirmed “Check-in recorded” and showed the actual London time. Check Out likewise confirmed factual attendance without calculating worked time. The visible history showed one CHECK IN and one CHECK OUT; Dev readback confirmed exactly one row of each for that allocation.
 - Signed in as Office Admin and opened the same Event attendance view. It showed the same Staff member, schedule and exact two facts, with correction controls attributable to the manager; it contained no Profile/contact, SIA, onboarding, CRM or finance fields. No manager correction was made.
-- The browser session available through Computer Use remained at a 1280px viewport and exposes no viewport-resize/emulation control. Therefore the required 390px flow and 390px Operations view are not verified. Operations UI sign-in was also not available in the existing Computer Use session. No claim of full authenticated UI acceptance is made; 09A remains open until those responsive and Operations gates are completed. The 45/45 regression does cover Operations authority and exact source-scope denials.
+- Responsive follow-up: the in-app Computer Use session did not expose viewport emulation, and the separate Playwright browser did not share its authenticated session. Therefore the 390px Staff and Operations UI views and Operations-authenticated walkthrough were not completed in this pass. David explicitly accepted TASK-09A on 24 September 2026 and said he will test it as he goes; the remaining responsive UI evidence is a follow-up, not an acceptance blocker. The 45/45 regression covers Operations authority and exact source-scope denials.
 - Dev migration readback contains `20260924161448 attendance_pagination_focus_09a`; this MCP-generated version is the actual remote history entry. The repository migration filename is ordered after the local Event-attendance base migration so a clean local migration replay creates its objects before altering the RPC.
 
 ## Boundaries and follow-up
@@ -62,4 +62,4 @@ The migration includes exact composite case/event/person binding, immutable even
 - This delivery enables Event allocation attendance only. Static attendance is not enabled; after accepted 08A, its exact allocation identity and shared cross-source guard have been inspected as inputs for a later explicit static adapter.
 - No offline, GPS, QR, NFC, biometric, device-trust or background tracking implementation.
 - No timekeeping, timesheet, worked/payable/chargeable hour, break deduction, payroll, invoicing or attendance notification implementation.
-- The Event attendance implementation is committed separately as `4baa41b TASK-09A add Event attendance`. This forward pagination/focus correction addresses the proven 25-row discoverability defect. TASK-09A remains pending David's acceptance because the 390px Staff and Operations views are not yet verified. Do not begin 10B until David accepts 09A. 08A `40277b7` is the verified static-attendance seam; static attendance remains outside this task.
+- The Event attendance implementation is committed as `4baa41b TASK-09A add Event attendance`; the pagination/focus correction is separate at `604e4fd TASK-09A make Staff attendance reachable`. David accepted TASK-09A on 24 September 2026, with 390px Staff/Operations UI verification left for his ongoing testing. The 08A `40277b7` identity is the verified static-attendance seam; static attendance remains outside this task.
