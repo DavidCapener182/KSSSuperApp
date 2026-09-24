@@ -1,0 +1,21 @@
+.workspace { display: grid; gap: 1.25rem; }
+.hint { color: #44536b; margin: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem; }
+.panel, .card { border: 1px solid #ced8e5; border-radius: 1rem; background: #fff; padding: 1rem; min-width: 0; }
+.panel h2 { margin: 0 0 1rem; color: #172c49; font-size: 1.25rem; }
+.card { background: #f7f9fc; }
+.card p { overflow-wrap: anywhere; }
+.card dl { display: grid; grid-template-columns: minmax(7rem, 1fr) 1fr; gap: .35rem .75rem; margin: .8rem 0; }
+.card dt { color: #4c5b70; }
+.card dd { margin: 0; overflow-wrap: anywhere; }
+.alert { border-left: 4px solid #a95319; padding-left: .65rem; color: #69340e; }
+.panel form { display: flex; flex-wrap: wrap; gap: .75rem; align-items: end; }
+.panel label { display: grid; flex: 1 1 11rem; gap: .3rem; font-weight: 600; color: #273c5c; }
+.panel input, .panel select { width: 100%; min-width: 0; padding: .7rem; border: 1px solid #8497af; border-radius: .6rem; background: #fff; color: #142b4b; }
+.panel button { min-height: 2.75rem; padding: .6rem .85rem; border: 1px solid #245697; border-radius: .6rem; background: #245697; color: #fff; font-weight: 650; cursor: pointer; }
+.panel button:disabled { opacity: .5; cursor: not-allowed; }
+.panel button:focus-visible, .panel input:focus-visible, .panel select:focus-visible { outline: 3px solid #4b86d1; outline-offset: 2px; }
+.history { padding-left: 1.4rem; }
+.history li { margin: .6rem 0; }
+.history span { display: block; overflow-wrap: anywhere; }
+@media (max-width: 390px) { .panel, .card { padding: .85rem; } .card dl { grid-template-columns: 1fr; gap: .12rem; } .card dd { margin-bottom: .4rem; } }

@@ -1,0 +1,28 @@
+# TASK-15A delivery report — synthetic asset custody slice
+
+Date: 24 September 2026. **Status:** implemented in dedicated synthetic Dev for David's review. No staging, production or real KSS asset data was added.
+
+## Delivered
+
+- Native individually tracked radio, restricted key/card, phone, laptop/tablet and bodycam records with stable UUID/reference and optional class-unique serial. A generic controlled KSS store is present. Current custodian, observed location, controlled condition and exception/repair state are separate fields.
+- Exact holder references for Person, Site, Site Service, Event or store. Register, issue, transfer, return, recipient acknowledge/dispute, receiving acknowledge, inspect, damage/loss report, reasoned recovery, repair start/complete and retirement write attributed business events. Damaged/unknown return is quarantined; repair completion stays quarantined until an inspection restores availability. A lost report is an operational fact without blame or pay effect.
+- Uniform stock by garment/size/store with verified opening quantity, exact Person issue, recipient acknowledgement/dispute, return and reasoned signed adjustment. Balances cannot go negative. Stock movements and privileged grants have append-only attributed histories.
+- Explicit finite Super Admin asset grants for Operations at exact store, Site, Site Service or Event scope. Office can register and adjust; Staff is self-only for issue acknowledgement/dispute and fault/loss report. The My Equipment endpoint has a dedicated self-only projection even for a dual-role Person. Direct authenticated table access is revoked and RLS enabled; all actions use guarded fixed-search-path RPCs with database-side identity, role/scope, revision and idempotency checks.
+- Office/Operations asset register and stock UI, Super Admin grant view, Staff My Equipment, manual reference/description search, exact Site/Event context filter, overdue indicator, custody and stock histories. Layout uses blue/graphite/neutral tokens and no green. Full kits, fleet, purchasing/reordering, maintenance Tasks, mobilisation writes, scanning and payroll deductions were not added.
+
+## Dev schema and readback
+
+The dedicated Dev project is dnfhkmmnlbiabqypclqg. The source-controlled 15A SQL files are ordered from 20260924223000 through 20260924224600. Supabase MCP assigned actual Dev migration-history versions 20260924174700 through 20260924181328; local filenames and Dev-assigned versions differ. The first migration added the base ledger; forward corrections added Person custody scope, former-holder history denial, Event location XOR, FK indexes, signed stock adjustment, lost-item recovery, stock history and choices, holder labels, a self-only projection, immutable grant audit, direct-RPC null guards, inspection authority and stock actor-field constraints. No 15A migration targeted protected staging.
+
+Readback confirmed all eight base asset tables plus the grant-event table have RLS enabled. The public 15A RPCs are SECURITY DEFINER with an empty search_path and explicit guards. Normal authenticated direct asset table reads/inserts were denied. The Supabase security advisor reports the intentional informational “RLS enabled, no policy” finding for RPC-only asset tables. The performance advisor reports no unindexed asset foreign-key findings after the index migration.
+
+## Verification
+
+- Focused synthetic authenticated Dev test: passed. It covered radio issue/acknowledge/damaged return/receiving acknowledgement/repair/inspection; restricted key two-sided custody and serial redaction; Site-to-Event device transfer; lost tablet recovery; 20 medium polos → issue 2 → balance 18 → acknowledge → return/adjust; exact movement history; identical-key replay and changed-payload conflict; concurrent issue single winner; null revision/acknowledgement denial; direct-table and peer denial; scoped grant revocation and audit readback.
+- Focused ESLint on the 15A route, UI, navigation, return-target and test files passed. The final shared-tree `npm run build` passed with `/assets`, `/my-equipment` and `/api/assets` in the route manifest.
+- The authenticated `tests/assets-routes.test.mjs` passed against that build: anonymous return targets, Office/Operations/Super Admin register access, Staff-only My Equipment, dedicated self projection and denied role/actions.
+- Authenticated browser readback used synthetic Office and Staff sessions. The Office register and Staff My Equipment rendered at 390px with document width equal to viewport width, no horizontal overflow, and the intended navigation links. The Office desktop register rendered at 1440px without overflow. Screenshots: [Office desktop](../../output/playwright/task-15a/office-desktop.png), [Office mobile](../../output/playwright/task-15a/office-mobile.png), [Staff mobile](../../output/playwright/task-15a/staff-mobile.png). This was a layout/content review; the detailed mutation chain was verified by the database test rather than browser clicks.
+
+## Limits and acceptance gate
+
+Repeated synthetic tests left append-only test records in Dev; these are not real stock counts. The read projection is for the bounded synthetic pilot and must gain server-side search/pagination, retention and operational stocktake policy before any large live register. Uniform issue/return currently requires manual exact Person/issue UUID entry, and Staff history covers currently held items; both need product review. Visual checks establish the local synthetic layout, not David's acceptance or live readiness. David's acceptance is the next gate. Do not stage, deploy or import real KSS stock from this report.
