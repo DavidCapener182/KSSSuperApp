@@ -132,6 +132,8 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.equal((await get('/service-delivery', 'staff')).status, 404);
     assert.equal((await get('/api/service-delivery', 'operations')).status, 403);
     assert.equal((await get('/api/service-delivery', 'staff')).status, 403);
+    assert.equal((await get('/api/service-delivery/10000000-0000-4000-8000-000000000001/source-cards?periodId=10000000-0000-4000-8000-000000000002', 'operations')).status, 403);
+    assert.equal((await get('/api/service-delivery/10000000-0000-4000-8000-000000000001/source-cards?periodId=10000000-0000-4000-8000-000000000002', 'staff')).status, 403);
     assert.equal((await get('/api/mobilisations', 'operations')).status, 403);
     assert.equal((await get('/workforce', 'staff')).status, 404);
     assert.equal((await get('/workforce', 'operations')).status, 200);

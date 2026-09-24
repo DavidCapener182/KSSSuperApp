@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { london, serviceRequest } from "./service-delivery-api";
+import { ServiceDeliverySourceCards } from "./service-delivery-source-cards";
 import styles from "./service-delivery.module.css";
 
 type Owner = { id: string; name: string; office: boolean; super: boolean };
@@ -56,7 +57,7 @@ export function ServiceDeliveryDetail({ id, superAdmin }: { id: string; superAdm
     {!d.historicalLinkCurrent && <p role="status">Historical Client/Site link is no longer current. This record remains attached to the original link.</p>}
     {!d.sourceMembershipIntact && <p role="alert" className={styles.error}>Exact historical source membership needs review. Changes are blocked.</p>}
     {error && <p role="alert" className={styles.error}>{error}</p>}
-    <nav className={styles.links} aria-label="Service Delivery sections"><a href="#review-periods">Review periods</a><a href="#meetings">Meetings</a><a href="#actions">Actions &amp; blockers</a><a href="#history">History</a></nav>
+    <nav className={styles.links} aria-label="Service Delivery sections"><a href="#review-periods">Review periods</a><a href="#source-facts">Source facts</a><a href="#meetings">Meetings</a><a href="#actions">Actions &amp; blockers</a><a href="#history">History</a></nav>
     <section className={styles.card}><h2>Source and accountability</h2><p>Site Service: <Link href={`/sites/${d.siteId}/services/${d.siteServiceId}`}>{d.serviceName}</Link> · current source state {d.sourceState}</p>
       {d.mobilisationId ? <p>Exact handover: <Link href={`/mobilisations/${d.mobilisationId}`}>Mobilisation {d.mobilisationId}</Link> · decision {d.handoverDecisionId}</p> : <p>Legacy existing Service · {d.legacyReasonCode}: {d.legacyExplanation}</p>}
       <p className={styles.muted}>Administrative state does not change the Site Service or establish readiness.</p>
@@ -72,6 +73,7 @@ export function ServiceDeliveryDetail({ id, superAdmin }: { id: string; superAdm
           <Editor title="Close review period" busy={busy} reason fields={[]} submit={x => change("PERIOD_CLOSED",p.id,x)}><p>Outstanding meetings, actions and blockers remain visible after closure.</p></Editor></>}
       </article>)}</div>
     </section>
+    <ServiceDeliverySourceCards deliveryId={d.id} periods={d.periods} />
     <section id="meetings"><h2>Meetings</h2><p>A scheduled meeting is not a held meeting. Held records occurrence only.</p>
       {!terminal && <Editor title="Schedule meeting" busy={busy} fields={[{name:"periodId",label:"Open review period",required:true,options:d.periods.filter(p => p.state==="OPEN").map(p => ({value:p.id,label:p.name}))},{name:"scheduledLocal",label:"London date and time",type:"datetime-local",required:true}]} submit={x => change("MEETING_CREATED",null,x)} />}
       <div className={styles.grid}>{d.meetings.map(m => <article key={m.id} className={styles.card}><h3>{m.state === "HELD" ? "Held" : m.state === "CANCELLED" ? "Cancelled" : "Scheduled"} · {london(m.scheduled_at)}</h3><p>Review: {d.periods.find(p => p.id===m.period_id)?.name}</p>{m.held_at && <p>Actually held: {london(m.held_at)}</p>}{m.note && <p>{m.note}</p>}

@@ -27,4 +27,12 @@
 .historyValues { margin: .5rem 0; display: grid; grid-template-columns: minmax(6rem,auto) minmax(0,1fr); gap: .25rem .6rem; font-size: .88rem; }
 .historyValues dt { color: #475569; }
 .historyValues dd { margin: 0; overflow-wrap: anywhere; }
+.sourceSelector { display: grid; gap: .35rem; max-width: 38rem; font-weight: 600; }
+.sourceSelector select { min-height: 44px; min-width: 0; width: 100%; padding: .55rem; border: 1px solid #94a3b8; border-radius: 8px; background: #fff; color: #0f172a; font: inherit; }
+.sourceCard { min-width: 0; border: 1px solid #cbd5e1; border-radius: 12px; padding: 1rem; background: #f8fafc; }
+.sourceCard h3 { margin-top: 0; }
+.sourceNumbers { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,105px),1fr)); gap: .6rem; }
+.sourceNumbers div { border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; padding: .55rem; }
+.sourceNumbers dt { color: #475569; font-size: .85rem; }
+.sourceNumbers dd { margin: 0; color: #0f172a; font-size: 1.5rem; font-weight: 700; }
 @media (max-width: 480px) { .page { padding-inline: .2rem; } .card { padding: .85rem; } .inline > * { flex: 1 1 100%; } }
