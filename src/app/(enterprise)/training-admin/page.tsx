@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getPrincipal } from "@/lib/auth/principal";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { TrainingAdminClient } from "@/components/training-admin-client";
@@ -13,6 +14,6 @@ export default async function TrainingAdmin() {
   if (!capabilities || (!capabilities.author && !capabilities.publisher)) return <main className="training-area"><h1>Training administration</h1><p>Access unavailable.</p></main>;
   const { data, error } = await client.rpc("training_admin", { p_course: null });
   const { data: grants } = capabilities.superAdmin ? await client.rpc("training_grants") : { data: [] };
-  return <main className="training-area"><header><p className="training-eyebrow">Native Training · Synthetic Dev</p><h1>Training administration</h1><p>Courses, immutable published versions, draft editing and publication history.</p></header>
+  return <main className="training-area"><header><p className="training-eyebrow">Native Training · Synthetic Dev</p><h1>Training administration</h1><p>Courses, immutable published versions, draft editing and publication history.</p></header><nav className="training-section-links"><Link href="/training-admin">Courses and versions</Link><Link href="/training-admin/assignments">Assignments</Link></nav>
     {error ? <p role="alert">Training records unavailable.</p> : <TrainingAdminClient initial={Array.isArray(data) ? data as TrainingVersion[] : []} capabilities={capabilities} initialGrants={Array.isArray(grants) ? grants : []} />}</main>;
 }

@@ -1,6 +1,6 @@
 # TASK-20C — Training Assignments & Staff Learning proposal
 
-**Status:** Proposal for David's review, 24 September 2026. TASK-20B was accepted in synthetic Dev at `9ccfd88`. This document authorises no implementation, migration, seed, provider connection, staging or production change.
+**Status:** Approved by David for bounded synthetic-Dev implementation on 24 September 2026. TASK-20B was accepted in synthetic Dev at `9ccfd88`. The implementation and evidence are in [TASK-20C-REPORT.md](TASK-20C-REPORT.md); David's acceptance of 20C remains a separate decision.
 
 ## Intended outcome
 
@@ -43,7 +43,7 @@ Every action resolves AuthIdentity → Person and rechecks active role, named ca
 - Deny unauthenticated, unrelated Staff, Operations, ungranted Office, revoked assigner, wrong-version page indices, cancelled Assignment writes, and direct table/API/guessed-ID access. Prove a Staff member can reach a superseded published package only through their own still-active exact Assignment.
 - Build and focused Training/20B/external-shortcut/onboarding regressions; authenticated Staff and administrator desktop/390px browser checks. Confirm no assessment, Attempt, score, Completion, certificate, matrix, onboarding result, credential verification or deployment policy is created.
 
-## Decisions requested before implementation
+## Original proposal decisions (resolved by David's approval below)
 
 1. Confirm `TRAINING_ASSIGNER` as a separate finite grant and whether Super Admin alone may use override assignment actions, or also an active named assigner.
 2. Confirm required Europe/London due date and whether due-date correction may move both earlier and later with a reason.
@@ -51,4 +51,8 @@ Every action resolves AuthIdentity → Person and rechecks active role, named ca
 4. Confirm the retirement rule: suspend access to a retired package pending explicit cancel/supersession, while superseded-but-not-retired versions remain accessible to their active assignees.
 5. Confirm one active Assignment per Person/Course and manual individual assignment only in 20C; any bulk, audience-triggered or requirement-driven assignment remains later work.
 
-**Stop point:** David reviews this proposal. Do not implement TASK-20C until he approves its bounded scope and decisions. 20D Assessment & Attempts, 20E Completion & Certificates, 20F Requirements & Matrix, and 20G external migration/import each remain separate future tasks.
+**Proposal stop point:** David reviewed and approved this bounded 20C scope on 24 September 2026. 20D Assessment & Attempts, 20E Completion & Certificates, 20F Requirements & Matrix, and 20G external migration/import each remain separate future tasks.
+
+## David's approved decisions — 24 September 2026
+
+David approved `TRAINING_ASSIGNER` as an explicit, separately granted capability. Super Admin has grant/revocation and read-only oversight; the role alone does not perform assignment actions. An assigner must have an active named grant. Every assignment has an explicit Europe/London calendar due date; a reasoned, revision-checked correction may move it earlier or later. Learning actions are exactly **Save my place** and **Mark page viewed**. All pages marked viewed remains factual progress and creates no Completion. One active Assignment per Person and Course is allowed. Assignment, cancellation and version supersession are manual, individual and attributable. A retired exact version blocks Staff content and progress while preserving its Assignment; a merely superseded published version remains available to its active assignee. 20D and later Training work is not authorised.
