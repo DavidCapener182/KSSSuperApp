@@ -1,6 +1,6 @@
 # TASK-13A delivery report — Operational Control Room
 
-Date: 24 September 2026. **Status:** Implemented and verified in dedicated synthetic Dev, awaiting David's acceptance. No staging, production, live KSS data, worked-time/pay, new source business write, or deployment change.
+Date: 24 September 2026. **Status:** Accepted by David in synthetic Dev on 24 September 2026 at implementation commit `975f432`. No staging, production, live KSS data, worked-time/pay, new source business write, or deployment change.
 
 ## Scope delivered
 
@@ -27,4 +27,12 @@ The first two application attempts were rejected by automatic approval review, w
 
 The browser used an Office Admin persona; Operations, Super Admin, Staff and reviewer/no-reviewer boundaries were tested through authenticated Supabase RPCs, not separate browser personas. The existing synthetic fixture had one current Site shift and a future Event; it did not exercise a current `LIVE` Event with accepted/check-in facts in the browser. The 09A/09B regressions cover those underlying factual transitions. The Control Room read is one database-statement snapshot per page; a later page is a fresh snapshot and may differ if source records change between requests. The UI displays each snapshot time and refreshes, but it does not pin a multi-page historical view. Attention rows are bounded to 50, with the total count shown. No explicit report/export is provided. The current 08D latest run may say “needs review” when a prior run succeeded, and the exact health facts remain visible without a readiness verdict.
 
-**STOP:** 13A remains synthetic-Dev only. The implementation and evidence are ready for David's acceptance review; no staging, production or live-source step follows automatically.
+## David's acceptance — 24 September 2026
+
+David accepted TASK-13A as the read-only Operational Control Room in synthetic Dev. The delivered four areas are Live Now, Upcoming, Needs Attention and Recent Operations. Staffing, factual attendance, explicit availability conflicts, separately authorised Incident follow-up and static horizon health remain distinct source facts. The Control Room creates no operational state and infers no no-show, completion, worked/payable time or readiness/risk score. Private Incident narrative and Staff details are excluded from the large display.
+
+Migration `20260924174734_control_room_13a.sql` was applied only to confirmed synthetic Dev project `dnfhkmmnlbiabqypclqg`; protected Staging `kwpgjbxepxuhwxxydaca` was not touched. David accepted the focused integration and 09B/12A/08D regressions, full Webpack build, and authenticated Office browser evidence at 1280px, 390px and 1920px.
+
+Separate Operations and Super Admin browser personas, a browser fixture with a current `LIVE` Event, and the independent 09B desktop/390px visual check remain follow-ups. They do not reopen the accepted 13A architecture. Later 14A Handover, 15A Assets and 18A Mobilisation may feed this surface through narrow guarded read projections; their business logic stays with their source modules.
+
+**Boundary:** Acceptance authorises no staging, production, real KSS data, worked-time/pay integration or deployment.

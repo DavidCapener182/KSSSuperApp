@@ -1,6 +1,6 @@
 # TASK-13A proposal — Operational Control Room
 
-**Status:** David approved bounded synthetic-Dev implementation on 24 September 2026 with the decisions below. No staging, production, live data or deployment authority. Stop after implementation, tests, browser evidence and a delivery report for acceptance.
+**Status:** Accepted by David in synthetic Dev on 24 September 2026 at implementation commit `975f432`; see `TASK-13A-REPORT.md`. No staging, production, live data or deployment authority.
 
 ## Purpose and boundary
 
