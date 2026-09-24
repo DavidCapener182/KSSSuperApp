@@ -113,6 +113,7 @@ export function ProfileClient() {
   return <main className="enterprise-main profile-main">
     <PageHeader eyebrow="Synthetic development onboarding" title="My Profile"
       description="Keep your Personal Details current and submit them for your onboarding case. Synthetic SIA details use a separate evidence workflow." />
+    <p><Link href="/credentials">Open My Credentials — current 16B claims and history</Link></p>
     <FeedbackBanner>Contact email is separate from your sign-in account. Saving this form does not change your authentication email or verify your identity.</FeedbackBanner>
     {message && <FeedbackBanner tone={/failed|could not|denied|required|requires|not interchangeable|Check|Complete/.test(message) ? "error" : "success"}>{message}</FeedbackBanner>}
     {loading ? <LoadingBlock label="Loading Profile…" /> : <>

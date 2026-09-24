@@ -7,6 +7,7 @@ import { getPrincipal, isUuid } from "@/lib/auth/principal";
 import { readDirectory, type DirectoryPerson } from "@/lib/people/directory";
 import { readStaffRecordSections } from "@/lib/people/record";
 import { requiredProfileMatches, SIA_LABELS } from "@/lib/profile/policy";
+import { credentialState, type CredentialDecisionState } from "@/lib/credentials/state";
 import { createServerSupabase } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -21,6 +22,19 @@ function Restricted({ name }: { name: string }) {
 async function StaffRecordBody({ client, principal, person }: { client: SupabaseClient; principal: Principal; person: DirectoryPerson }) {
   const self = principal.personId === person.id;
   const detail = await readStaffRecordSections(client, principal, person.id, person.onboardingCaseId);
+  const oversight = principal.roles.includes("SUPER_ADMIN")
+    ? await client.rpc("read_credential_oversight_16b", { subject: person.id }) : null;
+  const oversightData = oversight?.data as { claims: { id: string; type_code: string; latest_revision_id: string | null;
+    draft_change_seq: number; withdrawn_at: string | null }[];
+    revisions: { id: string; draft_change_seq: number; expires_on: string | null }[];
+    decisions: CredentialDecisionState[] } | null;
+  const { data: credentialClaims } = oversightData ? { data: oversightData.claims } : await client.from("credential_claims_16b")
+    .select("id,type_code,latest_revision_id,draft_change_seq,withdrawn_at").eq("person_id", person.id);
+  const credentialIds = (credentialClaims ?? []).flatMap((item) => item.latest_revision_id ? [item.latest_revision_id] : []);
+  const { data: credentialRevisions } = oversightData ? { data: oversightData.revisions } : credentialIds.length ? await client.from("credential_revisions_16b")
+    .select("id,draft_change_seq,expires_on").in("id", credentialIds) : { data: [] };
+  const { data: credentialDecisions } = oversightData ? { data: oversightData.decisions } : credentialIds.length ? await client.from("credential_decisions_16b")
+    .select("revision_id,decision").in("revision_id", credentialIds) : { data: [] };
   const currentCase = detail.cases.find((row) => row.state === "IN_PROGRESS") ?? detail.cases[0] ?? null;
   const nextRequirement = currentCase?.requirements.find((row) => !complete.has(row.state));
   const sia = currentCase?.requirements.find((row) => row.code === "SIA_LICENCE");
@@ -68,12 +82,24 @@ async function StaffRecordBody({ client, principal, person }: { client: Supabase
       {detail.cases.length > 0 && <p className="people-section-note"><Link href="/onboarding">View all authorised onboarding cases</Link></p>}
     </section>
     <section id="credentials" className="people-record-section"><h2>Credentials</h2>
+      {self && <p><Link href="/credentials">Open My Credentials — current 16B claims</Link></p>}
+      {!self && principal.roles.some((role) => role === "OFFICE_ADMIN" || role === "SUPER_ADMIN") &&
+        <p><Link href={`/credentials?personId=${person.id}`}>Open scoped 16B credential review</Link></p>}
+      <h3>Current credentials · synthetic 16B</h3>
+      {credentialClaims?.some((claim) => !claim.withdrawn_at) ? <ul className="people-record-list">{credentialClaims.filter((claim) => !claim.withdrawn_at).map((claim) => {
+        const revision = credentialRevisions?.find((item) => item.id === claim.latest_revision_id) ?? null;
+        const state = credentialState(claim, revision, (credentialDecisions ?? []) as CredentialDecisionState[]);
+        return <li key={claim.id}><div><strong>{claim.type_code === "DOOR_SUPERVISION" ? "Door Supervision" : SIA_LABELS[claim.type_code as keyof typeof SIA_LABELS]}</strong>
+          <span>{state.replaceAll("_", " ")} · Expiry: {revision?.expires_on ? dateLabel(revision.expires_on) : "Not recorded"}</span>
+        </div></li>;
+      })}</ul> : <p>No 16B current credential claim is available under this authority.</p>}
+      <h3>Historical onboarding evidence</h3>
       {sia && credential ? <><dl className="people-details-list">
         <div><dt>Synthetic SIA category</dt><dd>{SIA_LABELS[credential.category]}</dd></div>
         <div><dt>Requirement state</dt><dd>{roleLabel(sia.state)} — synthetic workflow</dd></div>
         <div><dt>Synthetic expiry</dt><dd>{dateLabel(credential.expires_on)}</dd></div>
         <div><dt>Evidence</dt><dd>{sia.evidenceState ? roleLabel(sia.evidenceState) : "No authorised evidence state"}</dd></div>
-      </dl><p className="people-section-note">No licence authenticity or entitlement is asserted. The SIA reference stays in its protected source workflow.</p>
+      </dl><p className="people-section-note">This is a historical onboarding submission and case result. It is not a current 16B credential or global verification. No licence authenticity or entitlement is asserted. The SIA reference stays in its protected source workflow.</p>
       {currentCase && <Link href={`/onboarding/${currentCase.id}`}>Open authorised SIA requirement</Link>}</>
         : detail.canReadPrivate ? <p>No authorised submitted SIA credential is available in the current case.</p>
           : <Restricted name="Credential details" />}

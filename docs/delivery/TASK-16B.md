@@ -1,0 +1,45 @@
+# TASK-16B proposal — Credential Capture & Verification Foundation
+
+**Status:** David approved bounded synthetic-Dev implementation on 24 September 2026. Implemented in synthetic Dev; pending David's acceptance. No real Staff data, live SIA register, Training integration, staging, production or deployment policy.
+
+## Outcome
+
+Let Staff submit and maintain their own credential claims with exact private evidence, and let an authorised Office reviewer make a distinct, attributable verification decision. Show current state and immutable history to each authorised audience. TASK-16B owns credential facts only. It neither decides fitness for a duty nor changes Event 06C or Static Site 08A candidate or allocation behaviour.
+
+## Bounded scope
+
+1. **Types and identity.** Use stable `people.id`, independent of Auth identity. Seed only the three existing synthetic SIA categories as distinct credential types: `SECURITY_GUARDING`, `DOOR_SUPERVISION` and `PUBLIC_SPACE_SURVEILLANCE_CCTV`. Label their development UI and records synthetic/non-live. A versioned type schema may support future non-SIA qualifications, but no First Aid, Crowd Management, IOSH or other assumed catalogue entries are seeded. Category/type publication authority and replacement history must be explicit. Do not infer an issue date, issuer check or register result from the existing synthetic reference, expiry or submission time.
+2. **Staff capture.** Add a native **My Credentials** area for active Security Staff to see their own current claims and history. Distinguish draft save from explicit submission. A submission freezes credential type/version, material values, issue/expiry dates when supplied, submitting Person and server time in an immutable revision. Material changes, including a change and later reversal, need a new revision and cannot reactivate an old verification. Support explicit withdrawal with immutable history.
+3. **Evidence.** Reuse the private Document request/upload/review boundary. Bind one submitted credential revision to the exact `DocumentVersion` ID and hash accepted as evidence. Its document review decision remains distinct from credential verification. A replacement version, rejected evidence, mismatched Person/request or stale revision cannot inherit verification. Linked files keep their original private audience; no public URL, broad Storage grant, copied bytes or filename in list/search projections. The existing `NOT_SCANNED` state is not malware clearance.
+4. **Verification.** Provide an exact, scoped Office review queue and guarded decision action. An authorised reviewer inspects the exact current revision and evidence version and records decision, reviewer Person, server time, method/provenance, controlled reason, effective and expiry dates. Distinguish staff-declared, Office-checked evidence and externally confirmed provenance; the last state must remain unavailable without an approved external check. Deny self-review, stale evidence and expired authority. Reject, replace, revoke and correct by appended, linked business events; never rewrite a prior submission or decision. Super Admin oversight is attributable and audited.
+5. **Current state and expiry.** Derive submitted, evidence rejected/accepted, review pending, verified, expired, withdrawn and revoked states from immutable facts and an explicit as-of date. A valid-looking licence number or accepted evidence alone never produces `VERIFIED`. Define date-only London display and make the expiry interpretation visible in UI; whole-duty coverage rules remain for TASK-16D. No permanent global `eligible` or `compliant` field. Expiry and revocation do not erase historical decisions or silently cancel an existing allocation.
+6. **Views.** Compose a private Credentials section in the existing Staff Record from source-authorised reads, with current and historical facts clearly separated. Staff sees self; Office sees only the exact Person/credential within an assigned review or approved scoped authority; Super Admin has audited oversight. Operations receives no credential detail, reference, Document ID, filename, reviewer note or private history through this slice. Existing safe People Directory, Workforce and candidate projections stay unchanged. Build signed-in desktop and 390px Staff and Office flows with no green product UI.
+
+## Existing source preservation
+
+The synthetic 03B–03F `person_sia_credentials`, revisions, onboarding submissions and case verifications remain historical source records. TASK-16B must specify a forward-only coexistence or migration rule before coding: which service owns a new credential claim, how an existing case-bound revision is displayed, and how duplicate current states are avoided. Preserve stable IDs, existing V1/V2 case counts, exact `DocumentVersion` links and decisions. Do not backfill a global verification from an onboarding verification, alter a published template, or silently reclassify old synthetic SIA data as live. TASK-04B's current SIA card remains source-authorised until deliberately replaced by the private section.
+
+## Authority and negative paths
+
+Server actions and ordinary authenticated RLS/RPC/Storage access must enforce active actor, role, action, exact Person, credential, revision and document scope. Queue membership alone grants no private file. Test own Staff, other Staff, assigned Office, unrelated Office, expired/reassigned Office, Operations, Super Admin and anonymous access. Include direct guessed IDs, search/export, stale version, replacement race, self-review, withdrawn/revoked evidence, expired credential and file download paths. Privileged audit rows carry IDs/action and controlled codes, not references, filenames, document bytes or free-text secrets. Shared Task or notification state must not become the credential decision.
+
+## Explicit exclusions and later sequence
+
+- No role-to-credential requirement mapping, `SECURITY_GUARDING` eligibility assumption, allocation gate or change to `private.candidate_check_06c`, `private.site_shift_candidate_08a` or their guarded allocation actions. The current synthetic Dev rule stays synthetic and unchanged.
+- No live SIA API/register, real KSS Staff evidence, external identity proof, LMS or provider connection. TASK-11A Training remains an external shortcut. TASK-20B onward may later establish native Training facts; TASK-16C may then propose exact external/Training evidence adapters. A Training completion or certificate becomes credential evidence only through an approved, attributable 16A/16C verification path.
+- TASK-16D must be separately proposed and approved before an operational credential policy can consume safe status codes for exact Event and Static Site duties. It must define versioned role/context mapping, effective periods, whole-duty validity, unknown/stale handling and action-time recomputation. Historical allocations are not rewritten.
+
+## Implementation approval and acceptance gates
+
+Before TASK-16B implementation, David approves the precise type/schema and coexistence plan, Office reviewer/cover authority, verification method wording, issue/expiry conventions, revocation/correction authority and retention/privacy treatment. The source-controlled migration and UI must use synthetic fixtures only. Focused business, concurrency and negative-access tests should prove exact evidence binding and immutable history; read back business and audit rows after normal routes. Verify desktop and 390px browser flows and raw responses for protected fields. Report actual checks and unresolved gates in a TASK-16B delivery report; local tests do not prove human acceptance or production readiness.
+
+**Stop point:** implementation delivery report and separate TASK-16B commit for David's acceptance. TASK-16C, TASK-16D, staging and production remain separate approvals.
+
+## Approved implementation decisions, 24 September 2026
+
+- TASK-16B owns new general credential claims. 03B–03F SIA rows remain historical onboarding evidence and never backfill a current 16B verification.
+- The only initial types are the three synthetic SIA categories. `STAFF_DECLARED` is immutable submission provenance; an Office checked evidence decision is required for `VERIFIED`. `EXTERNALLY_CONFIRMED` is reserved and disallowed.
+- A finite, Person/type Credential Reviewer grant is necessary for Office access. Super Admin administers grants and uses attributable exact Person oversight. Office Admin membership alone does not grant credential detail; Operations has no credential detail.
+- Evidence acceptance and credential verification are separate. Issue and expiry dates are optional evidence-derived dates displayed in Europe/London. Whole-duty coverage remains TASK-16D.
+- Rejection, revocation, withdrawal and material Staff corrections retain attributed history. Credential facts have no 06C/08A, allocation, Workforce, Availability, Attendance or Worked Time effect.
+- Synthetic Dev revisions, decisions and evidence references remain for historical proof. Real-data retention/deletion is a pre-live decision.
