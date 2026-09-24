@@ -1,6 +1,6 @@
 # Protected staging alignment — release ledger (24 September 2026)
 
-Status: PREPARED, NOT APPLIED. This ledger is for the isolated `kss-integration-preview` branch at `9ca90db`. Do not run `supabase db push` or fast-forward the Vercel staging branch until the preflight, rollback and postflight gates below pass.
+Status: PARTIAL STAGING SCHEMA UPDATE, STOPPED AT AUTOMATIC APPROVAL REVIEW. This ledger is for the isolated `kss-integration-preview` branch. Do not run `supabase db push` or fast-forward the Vercel staging branch until the review block is resolved and the remaining gates pass.
 
 ## Verified current split
 
@@ -9,7 +9,13 @@ Status: PREPARED, NOT APPLIED. This ledger is for the isolated `kss-integration-
 - The code candidate builds locally and includes accepted TASK-17B and TASK-21B/21C from their separate branches. It also contains technically delivered TASK-12A Incident Reporting, whose authenticated visual acceptance is still pending; staging would be for that walkthrough, not a claim of acceptance. The candidate is isolated from the dirty shared checkout and omits uncommitted TASK-19A.
 - Ten 03E migrations are already present on staging under different version numbers. They must be matched by *name and applied effect*, not replayed by absent Dev version. The two staging-only 03G reconciliation/seed migrations remain staging history.
 - The 122 entries below are source-controlled migrations present in Dev by name but not staging by name, in the actual Dev application order. Their local filename timestamps differ from Dev history for some entries. This is an application candidate, not proof that the SQL has been safely replayed on staging.
-- The Supabase staging dashboard showed physical scheduled database backups at 24 September 05:45:25 UTC and 23 September 09:00:45 UTC. The latest predates David's staging Auth account creation that evening. Neither backup includes Storage object bytes. No third Supabase project or paid clone is authorised; the in-place path must wait for a fresh recoverable backup or obtain a separate no-cost logical export without exposing credentials.
+- The Supabase staging dashboard showed physical scheduled database backups at 24 September 05:45:25 UTC and 23 September 09:00:45 UTC. The latest predates David's staging Auth account creation that evening. Neither backup includes Storage object bytes. David subsequently authorised the in-place update with this account-recreation risk understood; no third Supabase project or paid clone is authorised.
+
+## In-place attempt and stop point
+
+David explicitly authorised proceeding in place on 24 September 2026, accepting that his synthetic staging account could be recreated if an old backup had to be restored. The first four listed migrations applied successfully to staging: `people_directory_04a`, `people_directory_case_link_fix_04a`, `crm_foundation_05a`, and `crm_account_owner_history_05a`. Staging migration history increased from 39 to 43 entries. The fifth migration, `operational_crm_05b`, was rejected by automatic approval review because it broadly rewrites shared Task constraints and triggers while adding CRM activities/follow-up workflows, with a stated risk of disrupting other modules. No bypass, split, alternate SQL route, or retry was attempted. No further migrations or Vercel deployment occurred.
+
+Post-stop readback: staging still has five Auth users, five People, one onboarding case with six requirement rows and `IN_PROGRESS` state, and four Storage objects. David's exact Auth identity still maps to one `SUPER_ADMIN` assignment. This does not establish the 5-of-6 UI state after the partial schema update; that browser check remains open.
 
 ## Release gates
 
@@ -153,4 +159,4 @@ Status: PREPARED, NOT APPLIED. This ledger is for the isolated `kss-integration-
 | 121 | `20260924202659` | `operational_contact_management_history_22b` | `supabase/migrations/20260924235940_operational_contact_management_history_22b.sql` |
 | 122 | `20260924202801` | `operational_contact_advisor_22b` | `supabase/migrations/20260924235950_operational_contact_advisor_22b.sql` |
 
-**Release state:** no staging schema, data or deployment change has been made by this ledger. The dry-run and backup gates are still open.
+**Release state:** four staging schema migrations applied; the fifth was rejected by automatic approval review. No Vercel deployment occurred. Further schema rollout is stopped pending approval review resolution.
