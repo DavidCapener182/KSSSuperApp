@@ -1,6 +1,6 @@
 # TASK-12A implementation report
 
-**Status:** Synthetic Dev implementation complete; authenticated browser proof and David's acceptance remain outstanding. No staging or production work was performed.
+**Status:** Technical implementation and regression evidence accepted by David. Final acceptance is pending the authenticated Staff and Operations browser walkthrough. No staging or production work was performed.
 
 **Date:** 24 September 2026
 
@@ -42,6 +42,6 @@ The test inserted synthetic-only incident rows. Because report versions and even
 
 ## Evidence still required
 
-- The authenticated Staff 390px and Operations desktop/390px browser proof remains outstanding: the Mac is locked and the in-app browser is not authenticated. The unauthenticated return target was verified as `/?next=%2Fincidents` after correcting the allowlist. No authenticated browser result is claimed.
+- Final authenticated browser acceptance remains outstanding. Walk through: Staff at 390px submits a synthetic context-free incident and sees their own report/status; Staff cannot see peer reports or operational follow-up; Operations without `INCIDENT_REVIEWER` is denied; granted Operations uses the desktop and 390px queue/detail to acknowledge, record a controlled action, close and reasonedly reopen; revoke the grant and confirm access disappears; verify Office denial, mobile overflow, focus/touch controls, wording and no green. The Mac is currently locked and the browser is unauthenticated, so no authenticated browser result is claimed. The unauthenticated return target was verified as `/?next=%2Fincidents` after correcting the allowlist.
 - Retention, legal hold and final privacy policy remain pre-live gates. Do not enter real incident data until KSS approves them.
-- David's acceptance is pending. This report does not claim production readiness or human acceptance.
+- Final David acceptance remains pending until the walkthrough is recorded. This report does not claim production readiness.
