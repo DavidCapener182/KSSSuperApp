@@ -1,5 +1,5 @@
 -- Add scoped expected-occurrence coverage to the reporting read.
-create function private.reporting_missing_materialisation_23b(
+create or replace function private.reporting_missing_materialisation_23b(
  p_start date,p_end date,p_client uuid,p_site uuid,p_service uuid)
 returns integer language sql stable security definer set search_path = '' as $$
  select count(*)::integer from public.site_shift_template_versions t
