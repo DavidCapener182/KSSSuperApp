@@ -2,7 +2,19 @@
 
 **Date:** 24 September 2026
 
-**Status:** implemented in synthetic Dev; awaiting David's acceptance. No staging or production change.
+**Status:** accepted by David in synthetic Dev on 24 September 2026. Implementation commit `72d9ffa`. No staging or production change.
+
+## David's acceptance, 24 September 2026
+
+David accepted the delivered separation: Person → credential claim → immutable submitted revision → exact accepted `DocumentVersion` evidence → independent credential verification decision. Document acceptance does not verify a credential, and credential verification does not establish operational eligibility. Acceptance covers only the three distinct synthetic SIA categories listed below; no other qualification is inferred or seeded.
+
+`STAFF_DECLARED` records submission provenance, `OFFICE_CHECKED_EVIDENCE` can create a synthetic verification decision, and `EXTERNALLY_CONFIRMED` remains unavailable pending an approved external source. Each decision remains bound to the exact Person, category, submitted revision, accepted evidence version and SHA-256, reviewer, method, dates and immutable history. Replacement or material changes do not inherit verification. Rejection, revocation, withdrawal and reopening preserve attributed history; expiry is a factual state, not a duty decision.
+
+The 03B–03F onboarding SIA history remains a separate historical domain, with no migration or backfill into current 16B credentials. Review authority remains a finite Person/category grant: Office membership alone grants none, Operations receives no credential detail, Staff is self-only, and Super Admin oversight uses the audited exact-Person path. Credential references, evidence identifiers, filenames, reviewer notes and private history remain outside broad operational projections and audit payloads.
+
+David accepted the recorded synthetic-Dev checks below, including the successful route test before final oversight hardening and direct authority/readback after it. The later route-test interruption from the shared `.next/dev` lock and the production-build TypeScript failure in a concurrently changing TASK-19A file are shared-checkout evidence limitations. No successful full production build is claimed for 16B.
+
+This acceptance has no effect on Event or Site Shift candidate checks, allocation, Availability, Workforce, Attendance, Worked Time, Training, payroll or operational eligibility. The existing synthetic SIA candidate rule remains separate and gains no live-use approval. Real SIA verification or API, real Staff evidence, treating `NOT_SCANNED` as malware-cleared, real-data retention/deletion policy, Training adapters, role requirements, deployment eligibility, staging and production remain unapproved. Stop TASK-16B here. TASK-16C and TASK-16D require separate approval after native Training establishes suitable result/certificate identities; TASK-16D owns any future versioned role requirement and whole-duty allocation guard.
 
 ## Delivered
 

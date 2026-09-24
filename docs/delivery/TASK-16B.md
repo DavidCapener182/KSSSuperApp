@@ -1,6 +1,6 @@
 # TASK-16B proposal — Credential Capture & Verification Foundation
 
-**Status:** David approved bounded synthetic-Dev implementation on 24 September 2026. Implemented in synthetic Dev; pending David's acceptance. No real Staff data, live SIA register, Training integration, staging, production or deployment policy.
+**Status:** David accepted the bounded implementation in synthetic Dev on 24 September 2026. The TASK-16B implementation lane is closed. No real Staff data, live SIA register, Training integration, staging, production or deployment policy is approved.
 
 ## Outcome
 
@@ -33,7 +33,7 @@ Server actions and ordinary authenticated RLS/RPC/Storage access must enforce ac
 
 Before TASK-16B implementation, David approves the precise type/schema and coexistence plan, Office reviewer/cover authority, verification method wording, issue/expiry conventions, revocation/correction authority and retention/privacy treatment. The source-controlled migration and UI must use synthetic fixtures only. Focused business, concurrency and negative-access tests should prove exact evidence binding and immutable history; read back business and audit rows after normal routes. Verify desktop and 390px browser flows and raw responses for protected fields. Report actual checks and unresolved gates in a TASK-16B delivery report; local tests do not prove human acceptance or production readiness.
 
-**Stop point:** implementation delivery report and separate TASK-16B commit for David's acceptance. TASK-16C, TASK-16D, staging and production remain separate approvals.
+**Stop point:** David accepted the synthetic-Dev foundation on 24 September 2026. Stop this implementation lane. Do not begin TASK-16C or TASK-16D automatically; staging and production remain separate approvals. The acceptance and evidence limits are recorded in `TASK-16B-REPORT.md`.
 
 ## Approved implementation decisions, 24 September 2026
 
