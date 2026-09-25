@@ -1,0 +1,20 @@
+.page { max-width: 1100px; }
+.section { margin: 1.5rem 0; padding: 1.25rem; border: 1px solid var(--border, #d7dce4); border-radius: 1rem; background: var(--card, #fff); }
+.section h2 { margin: 0 0 1rem; font-size: 1.25rem; }
+.grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.card { min-width: 0; padding: 1rem; border: 1px solid var(--border, #d7dce4); border-radius: .75rem; overflow-wrap: anywhere; }
+.card h3 { margin: .3rem 0; font-size: 1.05rem; }
+.card p { margin: .5rem 0; }
+.eyebrow { font-size: .78rem; color: #526179; }
+.form { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: .8rem; margin-bottom: 1rem; }
+.form label, .actions label, .card label { display: grid; gap: .35rem; font-size: .9rem; }
+.form input, .form select, .form textarea, .actions input, .card input[type=file] { width: 100%; min-width: 0; padding: .55rem; border: 1px solid #aab4c3; border-radius: .4rem; background: #fff; color: #172338; }
+.form input[type=checkbox], .actions input[type=checkbox] { width: auto; margin-right: .4rem; }
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin: .7rem 0; }
+.actions label { display: inline-flex; align-items: center; }
+.page button { min-height: 2.75rem; padding: .5rem .8rem; border: 1px solid #254f91; border-radius: .45rem; color: #123f80; background: #f1f5fb; cursor: pointer; }
+.page button:disabled { opacity: .55; cursor: not-allowed; }
+.page button:focus-visible, .page a:focus-visible, .page input:focus-visible, .page select:focus-visible { outline: 3px solid #416eaf; outline-offset: 2px; }
+.error { color: #9b2635; font-weight: 600; }
+.message { color: #1b466e; font-weight: 600; }
+.version { margin-top: .7rem; padding-top: .7rem; border-top: 1px solid #d7dce4; }

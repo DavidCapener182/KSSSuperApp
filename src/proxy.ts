@@ -35,11 +35,12 @@ export async function proxy(request: NextRequest) {
     {
       cookies: {
         getAll() { return request.cookies.getAll(); },
-        setAll(items) {
+        setAll(items, headers) {
           for (const item of items) request.cookies.set(item.name, item.value);
           requestHeaders.set("cookie", request.cookies.toString());
           response = NextResponse.next({ request: { headers: requestHeaders } });
           for (const item of items) response.cookies.set(item.name, item.value, item.options);
+          for (const [name, value] of Object.entries(headers)) response.headers.set(name, value);
         },
       },
     },
@@ -47,7 +48,7 @@ export async function proxy(request: NextRequest) {
   await client.auth.getClaims();
   if (contentSecurityPolicy) response.headers.set("Content-Security-Policy", contentSecurityPolicy);
   if (request.nextUrl.pathname.startsWith("/api/") ||
-    ["/app", "/sites", "/profile", "/credentials", "/documents", "/onboarding", "/work", "/people"].some((path) =>
+    ["/app", "/sites", "/profile", "/credentials", "/documents", "/onboarding", "/work", "/people", "/training", "/training-admin"].some((path) =>
       request.nextUrl.pathname === path || request.nextUrl.pathname.startsWith(`${path}/`))) {
     response.headers.set("Cache-Control", "private, no-store, max-age=0");
   }
