@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { StaffingPlanClient } from "@/components/staffing-plan-client";
 import journey from "./commercial-journey.module.css";
 import record from "./event-record.module.css";
+import { RecordSectionTracker } from "./record-section-tracker";
 
 type Row = Record<string, unknown>;
 type Choice = { id: string; name: string };
@@ -37,7 +38,6 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
   const [action,setAction] = useState({kind:"",status:"",ownerId:"",startLocal:"",endLocal:"",reason:""});
   const [creating,setCreating] = useState(false); const [loading,setLoading] = useState(true); const [busy,setBusy] = useState(false);
   const [showMobileFilters,setShowMobileFilters] = useState(false);
-  const [currentSection,setCurrentSection] = useState("event-context");
   const [error,setError] = useState(""); const [notice,setNotice] = useState("");
   const dialogRef = useRef<HTMLElement | null>(null); const returnFocus = useRef<HTMLElement | null>(null);
   const emptyAction = {kind:"",status:"",ownerId:"",startLocal:"",endLocal:"",reason:""};
@@ -72,13 +72,6 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
     finally { setLoading(false); }
   },[id,offset,applied]);
   useEffect(()=>{const timer=setTimeout(()=>void load(),0);return()=>clearTimeout(timer);},[load]);
-  useEffect(() => {
-    if (!id) return;
-    const sections = new Set(["event-context","event-staffing","event-attendance","event-history"]);
-    const syncHash = () => { const section = window.location.hash.slice(1); if (sections.has(section)) setCurrentSection(section); };
-    syncHash(); window.addEventListener("hashchange",syncHash);
-    return () => window.removeEventListener("hashchange",syncHash);
-  },[id]);
   useEffect(()=>{void read("/api/events/choices").then((result)=>{setClients(result.clients ?? []);setOwners(result.owners ?? []);setSites(result.sites ?? []);}).catch(()=>{});},[]);
   useEffect(()=>{
     if (!draft.organisationId || !office) return;
@@ -152,7 +145,8 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
         <div className={record.headerFacts}><span><small>Client</small><strong>{String(event.client_name)}</strong></span><span><small>Site / Venue</small><strong>{String(event.site_name)}</strong></span><span><small>Event window · Europe/London</small><strong>{london(event.starts_at)} → {london(event.ends_at)}</strong></span></div>
       </header>
       {(event.site_status!=="ACTIVE" || event.client_status!=="CLIENT") && <p role="status" className="enterprise-honesty">Operational context changed: Site is {label(event.site_status)}; Client relationship is {label(event.client_status)}. Historical Event state is retained.</p>}
-      <nav className={record.sectionNav} aria-label="Event sections">{[["event-context","Context"],["event-staffing","Staffing"],["event-attendance","Attendance"],["event-history","History"]].map(([section,name])=><a key={section} href={`#${section}`} aria-current={currentSection===section?"location":undefined} onClick={()=>setCurrentSection(section)}>{name}</a>)}</nav>
+      <nav className={record.sectionNav} aria-label="Event sections">{[["event-context","Context"],["event-staffing","Staffing"],["event-attendance","Attendance"],["event-history","History"]].map(([section,name])=><a key={section} href={`#${section}`}>{name}</a>)}</nav>
+      <RecordSectionTracker label="Event sections" />
       <div className={record.content}>
       <nav className={record.related} aria-label="Related Event workflows"><h2>Related workflows</h2><div><Link href={`/events/${id}/attendance`}>Event attendance <span aria-hidden="true">→</span></Link><Link href={`/events/${id}/work-time`}>Worked-time review <span aria-hidden="true">→</span></Link><Link href={`/operational-contacts/manage?kind=EVENT&id=${id}`}>Operational contacts <span aria-hidden="true">→</span></Link></div></nav>
       <div className="crm-detail-grid"><section id="event-context" className="crm-panel"><h2>Event context</h2><dl>

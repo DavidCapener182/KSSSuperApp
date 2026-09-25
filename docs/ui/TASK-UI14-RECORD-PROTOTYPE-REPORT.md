@@ -1,6 +1,6 @@
 # TASK-UI14 Event record prototype — revised visual pass
 
-Status: David visually accepted the revised Event prototype at `d1a3b57`. Three further representative record studies are implemented for visual review below. Wider record-route rollout remains unauthorised.
+Status: David visually accepted the revised Event, Organisation, Incident and Service Delivery studies on 25 September 2026 and authorised a controlled rollout to five named routes. The wider rollout is implemented and locally verified below; no hosted deployment or cross-record blanket migration is claimed.
 
 ## David's visual correction
 
@@ -59,4 +59,31 @@ Final screenshots for visual review:
 - [Incident 1280px](evidence/ui14/three-records/incident-1280.png) · [390px](evidence/ui14/three-records/incident-390.png)
 - [Service Delivery 1280px](evidence/ui14/three-records/service-delivery-1280.png) · [390px](evidence/ui14/three-records/service-delivery-390.png) · [390px keyboard focus](evidence/ui14/three-records/service-delivery-390-focus.png)
 
-Visual acceptance of these three studies is pending David's screenshot review. Staff Record, Onboarding, Mobilisation, Site Book, Site Service, Attendance, Worked Time, and all other detail routes were untouched.
+David subsequently accepted all three studies as evidence for the shared record anatomy. The statements above describe the state of the earlier review pass. Staff Record, Event Attendance and Worked Time remain outside the controlled rollout.
+
+## Controlled rollout, 25 September 2026
+
+David authorised the anatomy for exactly five further detail routes. The rollout preserves each domain's content geometry and existing source reads, actions and route authority:
+
+- **Opportunity:** one commercial identity header with stage/type, Organisation and owner; Overview, Stage and owner, Work and history; existing follow-up/activity controls and commercial timeline.
+- **Onboarding case:** one case identity header with source case state, Site, template and created date. The selected case URL now gives the private case content full width; the queue and controlled-document publisher remain on `/onboarding`. The case's submitted information and requirements remain under their existing authority.
+- **Mobilisation:** factual title, state, Client, owner, target and template; existing actions, blockers, decisions, guarded source links, review and history stay in the case workflow.
+- **Site Book:** Service identity, Site and open-item count; Handover, Outstanding, Recent notes, History and Add a fact retain the two-column desktop workflow and single-column mobile order.
+- **Site Service:** source state/type, Client, Site and effective period; existing state controls, weekly template, dated demand and history remain dense operational content.
+
+The accepted Event and Organisation navigation, Incident navigation, and these five routes now share a small presentation-only section tracker. It updates `aria-current="location"` as the reader scrolls, keeps the selected link visible inside an overflowing mobile selector, and preserves anchor/hash navigation without changing source state. Service Delivery uses its own section-focused content view: only the chosen management section is shown, while all source cards and history remain available through the selector and deep links. Its selected link also scrolls into view within the mobile selector. A subtle edge fade cues mobile selector overflow; it adds no carousel control.
+
+### Local browser evidence
+
+The local Webpack production build, TypeScript and targeted ESLint passed. Authenticated synthetic Super Admin readback opened all five records. The Site Book record was read under Super Admin oversight; synthetic Staff A's current book list was empty and a direct ungranted book returned Not found, so no Staff book access was inferred. No write action was exercised. At 390px, every sampled document width equalled its 390px viewport and all section links measured 44px. The horizontally scrollable selector widths were Opportunity 358/390px, Onboarding 358/409px, Mobilisation 358/641px, Site Book 366/521px, and Site Service 358/482px (visible/scrollable). A keyboard Tab to a Site Service section link produced a computed 3px outline. Site Book History click set its exact hash and selected state; natural scrolling to the bottom updated selection to Add a fact. Service Delivery History and Source facts each set the exact hash, selected state and focused content; deep-linked History remained visible within the 384px mobile selector and the document stayed at 390px.
+
+Desktop and genuine 390px full-page captures:
+
+- [Opportunity desktop](evidence/ui14/rollout/opportunity-1280.png) · [mobile](evidence/ui14/rollout/opportunity-390.png)
+- [Onboarding desktop](evidence/ui14/rollout/onboarding-1280.png) · [mobile](evidence/ui14/rollout/onboarding-390.png)
+- [Mobilisation desktop](evidence/ui14/rollout/mobilisation-1280.png) · [mobile](evidence/ui14/rollout/mobilisation-390.png)
+- [Site Book desktop](evidence/ui14/rollout/site-book-1280.png) · [mobile](evidence/ui14/rollout/site-book-390.png)
+- [Site Service desktop](evidence/ui14/rollout/site-service-1280.png) · [mobile](evidence/ui14/rollout/site-service-390.png)
+- [Service Delivery History desktop](evidence/ui14/rollout/service-delivery-history-1280.png) · [mobile](evidence/ui14/rollout/service-delivery-history-390.png)
+
+The sampled names include multiword Event, Client, Service and Site labels, and the Site Book Service name visibly wraps at 390px. These are synthetic records and do not establish coverage of arbitrarily long source names. All evidence is local synthetic Development, not production, staging or human visual acceptance of the five new routes. Staff Record and Event attendance/work-time detail await separate review. No deployment, migration or backend permission change was made.

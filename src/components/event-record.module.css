@@ -27,7 +27,7 @@
   .recordHeader h1 { font-size: 1.9rem; }
   .headerFacts { display: grid; gap: .5rem; }
   .headerFacts span { display: grid; gap: .1rem; }
-  .sectionNav { margin-bottom: .8rem; }
+  .sectionNav { margin-bottom: .8rem; mask-image: linear-gradient(to right,#000 calc(100% - 16px),transparent); }
   .related { display: block; }
   .related > div { display: grid; gap: 0; }
   .related a { border-top: 1px solid var(--kss-border); }

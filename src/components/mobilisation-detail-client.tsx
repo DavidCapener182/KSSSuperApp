@@ -1,4 +1,6 @@
 "use client";
+import "./record-studies.css";
+import { RecordSectionTracker } from "./record-section-tracker";
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -65,19 +67,14 @@ export function MobilisationDetailClient({ id }: { id: string }) {
   const nextState = m?.status === "PLANNING" ? "IN_PROGRESS" : m?.status === "IN_PROGRESS" ? "GO_LIVE_REVIEW" : m?.status === "GO_LIVE_REVIEW" ? "HANDED_OVER" : "";
   return <main className={`enterprise-main ${styles.page}`}>
     <p className="eyebrow">Office · synthetic development data</p><Link href="/mobilisations">← Mobilisations</Link>
-    <h1>{m?.title ?? "Mobilisation"}</h1>
     {error && <p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={() => void load()}>Refresh</Button></p>}
     {notice && <p role="status" className="enterprise-honesty">{notice}</p>}
     {loading && <p role="status">Loading authorised mobilisation…</p>}
     {m && <>
-      <p className="enterprise-intro">{m.organisationName} · {label(m.templateCode)} template v{m.templateVersion} · {label(m.status)}</p>
-      <nav className={styles.journey} aria-label="Commercial to service journey">
-        <span><small>01 · Client</small><Link href={`/crm/organisations/${m.organisation_id}`}>{m.organisationName}</Link></span>
-        <span><small>02 · Mobilisation</small><strong aria-current="step">{label(m.status)}</strong></span>
-        <span><small>03 · Source setup</small><a href="#links-heading">Sites, services and events</a></span>
-        <span><small>04 · Handover</small><a href="#review-heading">Human decision and outstanding facts</a></span>
-      </nav>
-      <nav className={styles.localNav} aria-label="Mobilisation sections"><a href="#actions-heading">Actions</a><a href="#blockers-heading">Blockers</a><a href="#decisions-heading">Decisions</a><a href="#links-heading">Source links</a><a href="#review-heading">Review</a><a href="#history-heading">History</a></nav>
+      <header className="mobilisation-record-header"><h1>{m.title}</h1><div className="crm-record-identity"><span>Mobilisation</span><strong>{label(m.status)}</strong></div><p>{m.organisationName} · Owner: {m.ownerName}</p><p>Target go-live: {m.target_go_live ?? "Not set"} · {label(m.templateCode)} template v{m.templateVersion}</p></header>
+      <nav className="mobilisation-record-sections" aria-label="Mobilisation sections"><a href="#scope-heading">Context</a><a href="#actions-heading">Actions</a><a href="#blockers-heading">Blockers</a><a href="#decisions-heading">Decisions</a><a href="#links-heading">Source links</a><a href="#review-heading">Review</a><a href="#history-heading">History</a></nav>
+      <RecordSectionTracker label="Mobilisation sections" />
+      <div className="crm-organisation-related"><strong>Related workflows</strong><Link href={`/crm/organisations/${m.organisation_id}`}>Client Organisation</Link>{m.source_opportunity_id && <Link href={`/crm/opportunities/${m.source_opportunity_id}`}>Origin Opportunity</Link>}<a href="#links-heading">Source records</a></div>
       <div className={styles.counts} aria-label="Factual action counts"><span>{detail!.counts.total} actions</span><span>{detail!.counts.done} done</span><span>{detail!.counts.open} open</span><span>{detail!.counts.blocked} blocked</span><span>{openBlockers.length} unresolved blockers</span></div>
       <section className={styles.card} aria-labelledby="scope-heading"><h2 id="scope-heading">Scope and accountability</h2>
         <p>Client: <Link href={`/crm/organisations/${m.organisation_id}`}>{m.organisationName}</Link>. Won Opportunity: {m.source_opportunity_id ? <Link href={`/crm/opportunities/${m.source_opportunity_id}`}>Open exact origin</Link> : "None — authorised directly from Client"}.</p>
