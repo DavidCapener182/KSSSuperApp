@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { StaffingPlanClient } from "@/components/staffing-plan-client";
 import journey from "./commercial-journey.module.css";
+import record from "./event-record.module.css";
 
 type Row = Record<string, unknown>;
 type Choice = { id: string; name: string };
@@ -105,7 +106,6 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
       <p className="enterprise-intro">Client, venue, overall Event times, staffing demand and current allocations. Attendance and worked hours are not recorded here.</p></div>
       {!id && office && <Button onClick={openCreate}>Create Event</Button>}</div>
     <nav className="crm-tabs" aria-label="Operational sections"><Link href="/events" aria-current={!id?"page":undefined}>Events</Link><Link href="/sites">Sites / Venues</Link></nav>
-    {id && <nav className={journey.context} aria-label="Event source actions"><Link href={`/events/${id}/attendance`}>Event attendance</Link><Link href={`/events/${id}/work-time`}>Worked-time review</Link><Link href={`/operational-contacts/manage?kind=EVENT&id=${id}`}>Operational contacts</Link></nav>}
     {!id && office && <nav className={journey.path} aria-label="Commercial to Event journey">
       <span><small>01 · Client</small><Link href="/crm?view=organisations">Confirm Client</Link></span>
       <span><small>02 · Site / Venue</small><Link href="/sites">Choose linked Site</Link></span>
@@ -137,10 +137,16 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
       <div className="people-pagination"><Button variant="outline" disabled={offset===0} onClick={()=>setOffset(Math.max(0,offset-25))}>Previous</Button>
         <span>{items.length?offset+1:0}–{offset+items.length} of {total}</span><Button variant="outline" disabled={offset+25>=total} onClick={()=>setOffset(offset+25)}>Next</Button></div>
     </>}
-    {!loading && id && event && <>
-      <nav className={journey.sections} aria-label="Event sections"><a href="#event-context">Context</a><a href="#event-history">History</a><a href="#event-staffing">Staffing</a><a href="#event-attendance">Attendance link</a></nav>
-      <div className="crm-record-summary"><span className="crm-state">{label(event.status)}</span><span>{label(event.event_type)}</span><span>{london(event.starts_at)} → {london(event.ends_at)}</span></div>
+    {!loading && id && event && <div className={record.record}>
+      <div className={record.recordHeader} aria-label="Event summary">
+        <div className={record.identity}><span className={record.kind}>Event record</span><span className="crm-state">{label(event.status)}</span><span>{label(event.event_type)}</span></div>
+        <div className={record.headerFacts}><span><small>Client</small><strong>{String(event.client_name)}</strong></span><span><small>Site / Venue</small><strong>{String(event.site_name)}</strong></span><span><small>Event window · Europe/London</small><strong>{london(event.starts_at)} → {london(event.ends_at)}</strong></span></div>
+      </div>
       {(event.site_status!=="ACTIVE" || event.client_status!=="CLIENT") && <p role="status" className="enterprise-honesty">Operational context changed: Site is {label(event.site_status)}; Client relationship is {label(event.client_status)}. Historical Event state is retained.</p>}
+      <div className={record.layout}>
+      <nav className={`${journey.sections} ${record.sectionNav}`} aria-label="Event sections"><a href="#event-context">Context</a><a href="#event-staffing">Staffing</a><a href="#event-attendance">Attendance</a><a href="#event-history">History</a></nav>
+      <div className={record.content}>
+      <nav className={`${journey.context} ${record.sourceActions}`} aria-label="Event source actions"><Link href={`/events/${id}/attendance`}>Event attendance</Link><Link href={`/events/${id}/work-time`}>Worked-time review</Link><Link href={`/operational-contacts/manage?kind=EVENT&id=${id}`}>Operational contacts</Link></nav>
       <div className="crm-detail-grid"><section id="event-context" className="crm-panel"><h2>Event context</h2><dl>
         <div><dt>Client</dt><dd>{office?<Link href={`/crm/organisations/${event.organisation_id}`}>{String(event.client_name)}</Link>:String(event.client_name)}</dd></div>
         <div><dt>Site / Venue</dt><dd><Link href={`/sites?view=operational&selected=${event.site_id}`}>{String(event.site_name)}</Link> · {String(event.site_reference)}</dd></div>
@@ -156,12 +162,13 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
           <Button variant="outline" onClick={()=>openChange({...action,kind:"DATES",startLocal:localInput(event.starts_at),endLocal:localInput(event.ends_at),reason:""})}>Change Event dates</Button></>}
         {!nextStatus && <p>Terminal Event history is read-only.</p>}
       </section></div>
+      <div id="event-staffing"><StaffingPlanClient eventId={id} eventStatus={String(event.status)} eventStarts={String(event.starts_at)} eventEnds={String(event.ends_at)} focusRequirement={focusRequirement}/></div>
+      <section id="event-attendance" className="crm-panel"><h2>Attendance</h2><p>Record and review factual attendance against this Event’s allocations. Attendance does not calculate worked time.</p><Button asChild><Link href={`/events/${id}/attendance`}>Open Event attendance</Link></Button></section>
       <section id="event-history" className="crm-panel"><h2>History</h2>{((event.history as Row[])??[]).map((row)=><div className="crm-timeline-entry" key={String(row.id)}>
         <strong>{label(row.kind)} {row.new_status?`· ${label(row.new_status)}`:""}</strong><span>{london(row.occurred_at)} · {String(row.actor_name ?? "Office / Operations")}</span>
         {Boolean(row.reason) && <p>Reason: {String(row.reason)}</p>}</div>)}</section>
-      <div id="event-staffing"><StaffingPlanClient eventId={id} eventStatus={String(event.status)} eventStarts={String(event.starts_at)} eventEnds={String(event.ends_at)} focusRequirement={focusRequirement}/></div>
-      <section id="event-attendance" className="crm-panel"><h2>Attendance</h2><p>Record and review factual attendance against this Event’s allocations. Attendance does not calculate worked time.</p><Button asChild><Link href={`/events/${id}/attendance`}>Open Event attendance</Link></Button></section>
-    </>}
+      </div></div>
+    </div>}
     {creating && <div className="crm-dialog-backdrop"><section ref={dialogRef} className="crm-dialog" role="dialog" aria-modal="true" aria-label="Create Event">
       <h2>Create operational Event</h2><p>One multi-day Event can span several dates. Staffing times come later.</p>{error && <p role="alert" className="enterprise-error">{error}</p>}
       <form className="crm-operational-form" onSubmit={(e)=>void create(e)}>
