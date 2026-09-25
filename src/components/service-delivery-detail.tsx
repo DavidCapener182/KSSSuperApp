@@ -1,4 +1,5 @@
 "use client";
+import "./record-studies.css";
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -49,9 +50,7 @@ export function ServiceDeliveryDetail({ id, superAdmin }: { id: string; superAdm
   const terminal = d.state === "CLOSED" || d.state === "CANCELLED";
   return <main className={`enterprise-main ${styles.page}`}>
     <p className="eyebrow">Office · synthetic Dev</p><p><Link href="/service-delivery">← Service Delivery list</Link></p>
-    <p className={styles.detailPath}>{d.clientName} <span aria-hidden="true">/</span> {d.siteName}</p>
-    <h1>{d.serviceName}</h1>
-    <div className={styles.flags}><span className={styles.flag}>{d.state.replaceAll("_", " ")}</span><span className={styles.flag}>Owner: {d.ownerName}</span><span className={styles.flag}>Started from: {d.startSource === "MOBILISATION_HANDOVER" ? "Mobilisation handover" : "Legacy existing Service"}</span></div>
+    <header className="service-record-header"><h1>{d.serviceName}</h1><div className="service-record-identity"><span>Service Delivery</span><strong>{d.state.replaceAll("_", " ")}</strong></div><p>{d.clientName} <span aria-hidden="true">→</span> {d.siteName}</p><p>Owner: {d.ownerName} · Started from: {d.startSource === "MOBILISATION_HANDOVER" ? "Mobilisation handover" : "Legacy existing Service"}</p></header>
     <div className={styles.detailOverview} aria-label="Current management record summary">
       <div><strong>{d.openPeriodCount}</strong><span>Open review periods</span></div>
       <div><strong>{d.openActionCount}</strong><span>Open actions</span></div>
@@ -62,8 +61,9 @@ export function ServiceDeliveryDetail({ id, superAdmin }: { id: string; superAdm
     {!d.historicalLinkCurrent && <p role="status">Historical Client/Site link is no longer current. This record remains attached to the original link.</p>}
     {!d.sourceMembershipIntact && <p role="alert" className={styles.error}>Exact historical source membership needs review. Changes are blocked.</p>}
     {error && <p role="alert" className={styles.error}>{error}</p>}
-    <nav className={styles.links} aria-label="Service Delivery sections"><a href="#review-periods">Review periods</a><a href="#source-facts">Source facts</a><a href="#meetings">Meetings</a><a href="#actions">Actions &amp; blockers</a><a href="#history">History</a></nav>
-    <section className={styles.card}><h2>Source and accountability</h2><p>Site Service: <Link href={`/sites/${d.siteId}/services/${d.siteServiceId}`}>{d.serviceName}</Link> · current source state {d.sourceState}</p>
+    <nav className="service-record-sections" aria-label="Service Delivery sections"><a href="#management-context">Management context</a><a href="#review-periods">Review periods</a><a href="#source-facts">Source facts</a><a href="#meetings">Meetings</a><a href="#actions">Actions &amp; blockers</a><a href="#history">History</a></nav>
+    <div className="service-record-related"><strong>Related workflows</strong><Link href={`/sites/${d.siteId}/services/${d.siteServiceId}`}>Site Service</Link>{d.mobilisationId && <Link href={`/mobilisations/${d.mobilisationId}`}>Mobilisation handover</Link>}</div>
+    <section id="management-context" className={styles.card}><h2>Source and accountability</h2><p>Site Service: <Link href={`/sites/${d.siteId}/services/${d.siteServiceId}`}>{d.serviceName}</Link> · current source state {d.sourceState}</p>
       {d.mobilisationId ? <p>Exact handover: <Link href={`/mobilisations/${d.mobilisationId}`}>Mobilisation {d.mobilisationId}</Link> · decision {d.handoverDecisionId}</p> : <p>Legacy existing Service · {d.legacyReasonCode}: {d.legacyExplanation}</p>}
       <p className={styles.muted}>Administrative state does not change the Site Service or establish readiness.</p>
     </section>

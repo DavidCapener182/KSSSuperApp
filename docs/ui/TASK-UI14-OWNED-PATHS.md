@@ -6,5 +6,8 @@
 - `docs/ui/evidence/ui14/*.png` — authenticated local production-preview screenshots at desktop and genuine 390px.
 - `docs/ui/evidence/ui14/revised/*.png` — revised desktop/390px screenshots after David's visual correction.
 - `docs/ui/evidence/ui14/ui13-aligned/*.png` — Event-only UI13 hierarchy alignment check.
+- `src/components/crm-client.tsx`, `src/components/incident-detail.tsx`, `src/components/service-delivery-detail.tsx` — presentation only on the three expressly authorised record studies.
+- `src/components/record-studies.css` — selectors scoped to those three records' headers, section navigation, and related workflow links.
+- `docs/ui/evidence/ui14/three-records/*.png` — authenticated local production-preview desktop/390px screenshots for the three studies.
 
-No shell, global CSS, shared primitive, API, database, or deployment path is owned by this lane.
+No shell, application-wide stylesheet, shared primitive, API, database, or deployment path is owned by this lane.

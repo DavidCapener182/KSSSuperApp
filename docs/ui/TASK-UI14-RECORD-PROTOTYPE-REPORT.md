@@ -1,6 +1,6 @@
 # TASK-UI14 Event record prototype — revised visual pass
 
-Status: Event-only refinement complete for David's screenshot review. Record-page anatomy is approved; this exact revised layout is not yet visually accepted. Cross-record rollout remains unauthorised.
+Status: David visually accepted the revised Event prototype at `d1a3b57`. Three further representative record studies are implemented for visual review below. Wider record-route rollout remains unauthorised.
 
 ## David's visual correction
 
@@ -35,4 +35,28 @@ The clean Webpack production build, TypeScript, targeted ESLint and diff check p
 
 ## Later record work
 
-UI01 identifies Organisation, Opportunity, Staff, Onboarding, Incident, Mobilisation, Service Delivery, Site Book and Site Service detail routes. They may share record identity, factual context, appropriate actions and section navigation, but each needs its own domain/role review before choosing geometry. UI14 changed none of them.
+David then authorised exactly three record-family studies. Organisation, Incident and Service Delivery use integrated factual identity/context headers and horizontal section navigation. Their domain content and existing action controls remain in place. No Event section/action vocabulary was copied into them. The new presentation CSS is scoped to these three detail components; no UI13 shared primitive was imported or duplicated. These are review prototypes, not a record-route standard.
+
+### Organisation entity record
+
+`/crm/organisations/[id]` retains relationship status, accountable Office owner, commercial fields, contacts, opportunities, relationship history, work, and source links. The redundant generic CRM title/tabs and repeated four-step journey were removed on this detail route only. The header now gives the Organisation name and factual relationship context once; related workflow links follow the section selector. The synthetic example has a multiword name and linked Site/Event. The navigation order follows the existing content order. CRM list and Opportunity views remain unchanged.
+
+### Incident operational case
+
+`/incidents/[id]` keeps the submitted narrative central. The category, factual status, occurrence/context, report version and reporter are integrated above short case-specific sections. Earlier report versions and correction affordance appear only when present and permitted; operational follow-up remains reviewer-only. No severity, risk score, or new case state was added. The screenshot uses a reopened synthetic incident with a four-event reviewer history. The submitted report repeats no occurrence metadata that is already in its header.
+
+### Service Delivery management workspace
+
+`/service-delivery/[id]` retains the Client → Site → Service source chain, administrative state/owner, four existing management measures, review periods, exact source facts, meetings, actions/blockers, and history. Its longer section selector stays horizontal while the domain content stays a full-width management workspace. Existing source disclaimers and Site Service/Mobilisation links remain. The synthetic sample has one open review, one open action, one blocker and eight history events.
+
+### Browser and build evidence
+
+A clean Webpack production build, TypeScript, and targeted ESLint passed after the final presentation refinements. Authenticated synthetic Office/Super Admin local production-preview readback was used; no hosted deployment or production acceptance is claimed. At genuine 390px, all three documents measured 390px scroll width. Organisation's selector measured 358px visible / 614px scrollable, Incident's 358px / 358px, and Service Delivery's 384px / 771px. Their section links measured 44px high. At desktop 1280px, all three documents measured 1280px scroll width. All three section selectors showed a 3px keyboard focus outline. Organisation History preserved `#organisation-history`; Incident Operational follow-up preserved `#incident-follow-up`; Service Delivery History preserved `#history`, with its heading below the sticky selector. Each selector stayed at viewport top after its section jump. Focus and URL evidence is presentation-only; these three study selectors do not claim natural-scroll active-section tracking. The examples test realistic multiword identity/context, not extreme arbitrary-length names.
+
+Final screenshots for visual review:
+
+- [Organisation 1280px](evidence/ui14/three-records/organisation-1280.png) · [390px](evidence/ui14/three-records/organisation-390.png)
+- [Incident 1280px](evidence/ui14/three-records/incident-1280.png) · [390px](evidence/ui14/three-records/incident-390.png)
+- [Service Delivery 1280px](evidence/ui14/three-records/service-delivery-1280.png) · [390px](evidence/ui14/three-records/service-delivery-390.png) · [390px keyboard focus](evidence/ui14/three-records/service-delivery-390-focus.png)
+
+Visual acceptance of these three studies is pending David's screenshot review. Staff Record, Onboarding, Mobilisation, Site Book, Site Service, Attendance, Worked Time, and all other detail routes were untouched.
