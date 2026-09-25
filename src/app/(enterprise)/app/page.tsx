@@ -42,6 +42,10 @@ function EntryGroup({ title, paths, allowed }: { title: string; paths: string[];
   </section>;
 }
 
+function QuickLinks({ paths, allowed }: { paths: string[]; allowed: Set<string> }) {
+  return <nav className={styles.quickGrid} aria-label="Quick access">{paths.filter((path) => allowed.has(path)).map((path) => <Link className={styles.quickLink} href={path} key={path}>{entries[path].title}<span aria-hidden="true">↗</span></Link>)}</nav>;
+}
+
 export default async function AppHome() {
   const client = await createServerSupabase();
   const principal = await getPrincipal(client);
@@ -56,15 +60,16 @@ export default async function AppHome() {
   const trainingAdmin = Boolean(trainingAccess && typeof trainingAccess === "object" && (trainingAccess.author || trainingAccess.publisher));
   const trainingAssignments = Boolean(assignmentAccess && typeof assignmentAccess === "object" && (assignmentAccess.assigner || assignmentAccess.superAdmin));
   const trainingCatalogue = trainingAdmin || staff || operations;
-  return <main className="enterprise-main">
-    <p className="eyebrow">Synthetic development workspace</p>
-    <h1>{staff && !office && !operations ? "My day" : "Home"}</h1>
-    <p className="enterprise-intro">Welcome, {principal.displayName}. Choose a source area to see its current records and actions.</p>
-    <p className={styles.note}>These links do not combine status across modules. Each destination checks your access and shows its own current state.</p>
+  const date = new Intl.DateTimeFormat("en-GB", { dateStyle: "full", timeZone: "Europe/London" }).format(new Date());
+  return <main className={`enterprise-main ${styles.home}`}>
+    <header className={styles.hero}><div><p className={styles.kicker}>KSS workspace / Synthetic Development</p><h1>Welcome, {principal.displayName}</h1><p>{staff && !office && !operations ? "Your duty and personal records are a step away." : "Open an operational area or continue your assigned work."}</p></div><p className={styles.date}>{date}</p></header>
+    <section className={styles.section} aria-label="Quick access"><h2>Quick access</h2><QuickLinks paths={staff && !office && !operations ? ["/my-schedule", "/my-deployments", "/action-centre"] : ["/workforce", "/events", "/control-room"]} allowed={allowed} /></section>
+    {office && allowed.has("/work") && <section className={styles.taskPanel} aria-label="Assigned Tasks"><div><p className={styles.kicker}>Existing Task service</p><h2>Assigned Tasks</h2><p>Document reviews and CRM follow-ups assigned through the existing Task service. Open the panel for current records and actions.</p></div><Link href="/work">Open assigned Tasks <span aria-hidden="true">→</span></Link></section>}
     {staff && <EntryGroup title="My duty" paths={["/my-schedule", "/my-deployments", "/my-attendance", "/my-work-time", "/my-availability"]} allowed={allowed} />}
     {staff && <EntryGroup title="My requests and evidence" paths={["/action-centre", "/my-time-away", "/onboarding", "/documents", "/credentials", "/my-equipment"]} allowed={allowed} />}
-    {(office || operations) && <EntryGroup title="Operational work" paths={["/control-room", "/workforce", "/events", "/time-away"]} allowed={allowed} />}
-    {office && <EntryGroup title="Coordination and review" paths={["/work", "/mobilisations", "/service-delivery", "/onboarding", "/documents"]} allowed={allowed} />}
+    {(office || operations) && <EntryGroup title="Operations" paths={["/control-room", "/workforce", "/events", "/time-away"]} allowed={allowed} />}
+    {office && <EntryGroup title="Delivery" paths={["/mobilisations", "/service-delivery", "/documents"]} allowed={allowed} />}
+    {office && <EntryGroup title="People & administration" paths={["/onboarding"]} allowed={allowed} />}
     {(trainingCatalogue || trainingAdmin || trainingAssignments) && <section className={styles.section} aria-label="Learning"><h2>Learning</h2><div className={styles.grid}>
       {trainingCatalogue && <Link className={styles.card} href="/training"><strong>Course catalogue</strong><span>Browse published synthetic learning content. Reading does not record completion.</span><span className={styles.action}>Open catalogue →</span></Link>}
       {staff && <Link className={styles.card} href="/training/my-learning"><strong>My learning</strong><span>Open your exact-version assignments and factual page progress.</span><span className={styles.action}>Open my learning →</span></Link>}
