@@ -19,7 +19,7 @@ async function json(url: string, init?: RequestInit) {
   return body;
 }
 
-export default function SitesPage() {
+export default function SitesPage({ organisationId, mobilisationId }: { organisationId?: string; mobilisationId?: string }) {
   const [roles, setRoles] = useState<string[]>([]);
   const [authState, setAuthState] = useState<"loading" | "ready" | "denied">("loading");
   const [sites, setSites] = useState<SiteListItem[]>([]);
@@ -36,7 +36,7 @@ export default function SitesPage() {
   const [reason, setReason] = useState("");
   const [operationalSite,setOperationalSite] = useState<Record<string,unknown>|null>(null);
   const [clientChoices,setClientChoices] = useState<{id:string;name:string}[]>([]);
-  const [clientId,setClientId] = useState("");
+  const [clientId,setClientId] = useState(organisationId ?? "");
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -142,6 +142,7 @@ export default function SitesPage() {
   return <main className={`sites-shell ${journey.controls}`}>
     <header className="sites-header"><div><Link href="/app">← Home</Link><p className="eyebrow">Synthetic development journey</p><h1>Sites</h1><p>Only Sites in your authorised scope appear here. {office&&<Link href="/sites?view=operational">Browse operational Sites</Link>}</p></div></header>
     {office && <nav className={journey.context} aria-label="Commercial and Site context"><Link href="/crm?view=organisations">Clients</Link><span>→</span><strong>Site / Venue</strong><span>→</span><Link href="/events">Events</Link><span>Site Services are separate ongoing work.</span></nav>}
+    {mobilisationId && office && <p className="enterprise-honesty">Choose or create a Site using the Site source. Once its exact record is confirmed, return to Mobilisation and link it explicitly.</p>}
     {notice && <p className="sites-notice" role="status">{notice}</p>}
     <section className="sites-grid">
       <div className="sites-card">
@@ -157,6 +158,7 @@ export default function SitesPage() {
 
       <div className="sites-card">
         {selected ? <>
+          {mobilisationId && office && <p role="status"><Link href={`/mobilisations/${mobilisationId}?sourceType=SITE&sourceId=${selected.id}#links-heading`}>Return to Mobilisation with exact Site ID</Link></p>}
           <div className="sites-title"><div><p className="eyebrow">{selected.site_reference} · {selected.status}</p><h2>{selected.name}</h2></div><button className="subtle" onClick={() => { setSelected(null); setDraft(emptySite); }}>Close</button></div>
           <p>{selected.address_line1}, {selected.town_city}, {selected.postcode}</p>
           <p><strong>Reporting point:</strong> {selected.reporting_point}</p>

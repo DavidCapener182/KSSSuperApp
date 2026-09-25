@@ -103,7 +103,15 @@ export async function GET(request: Request) {
   if (owner) query = query.eq("owner_person_id", owner);
   const result = await query.range(offset, offset + 24);
   if (result.error) return privateJson({ error: "CRM unavailable" }, 503);
-  return privateJson({ items: result.data, total: result.count, offset });
+  const ids = (result.data ?? []).map(row => row.id);
+  const tasks = ids.length ? await client.from("tasks").select("source_id,title,due_at,assignee_person_id,created_at")
+    .eq("task_type", "CRM_FOLLOW_UP").eq("source_kind", "CRM_OPPORTUNITY").eq("state", "OPEN")
+    .in("source_id", ids).order("due_at", { ascending: true, nullsFirst: false })
+    .order("created_at", { ascending: true }) : null;
+  if (tasks?.error) return privateJson({ error: "CRM unavailable" }, 503);
+  const next = new Map<string, { source_id: string; title: string; due_at: string | null; assignee_person_id: string; created_at: string }>();
+  for (const task of tasks?.data ?? []) if (!next.has(task.source_id)) next.set(task.source_id, task);
+  return privateJson({ items: (result.data ?? []).map(row => ({ ...row, nextFollowUp: next.get(row.id) ?? null })), total: result.count, offset });
 }
 
 export async function POST(request: Request) {

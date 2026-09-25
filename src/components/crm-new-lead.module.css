@@ -1,0 +1,19 @@
+.page { max-width: 920px; }
+.page h1 { margin: .6rem 0; }
+.form { display: grid; gap: 1rem; margin-top: 1.4rem; }
+.panel { display: grid; gap: .85rem; padding: 1.1rem; background: var(--kss-surface); border: 1px solid var(--kss-border); border-radius: 12px; }
+.panel h2 { margin: 0; font-size: 1.1rem; }
+.panel label { display: grid; gap: .35rem; font-weight: 700; font-size: .86rem; }
+.panel select,.panel textarea { width: 100%; min-height: 44px; padding: .65rem; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface); color: var(--kss-ink); font: inherit; }
+.panel textarea { min-height: 88px; resize: vertical; }
+.choice,.two,.actions { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; }
+.two > * { flex: 1 1 220px; }
+.selected { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
+.selected strong { font-size: 1.08rem; }
+.selected span { color: var(--kss-ink-soft); text-transform: capitalize; }
+.results { display: grid; gap: .35rem; max-height: 260px; overflow: auto; }
+.results button { display: flex; justify-content: space-between; gap: 1rem; align-items: center; min-height: 48px; padding: .7rem; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface); color: var(--kss-ink); text-align: left; cursor: pointer; }
+.results button:hover { background: var(--kss-surface-muted); }
+.results button:focus-visible,.page a:focus-visible { outline: 3px solid var(--kss-blue); outline-offset: 2px; }
+.actions a { display: inline-flex; align-items: center; min-height: 44px; }
+@media (max-width: 600px) { .choice > *,.actions > * { width: 100%; } }
