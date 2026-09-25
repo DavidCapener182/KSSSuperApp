@@ -1,6 +1,6 @@
 # TASK-UI08 — Management Reporting UI and authenticated close-out
 
-**Status: locally verified in synthetic Development; awaiting David's acceptance.** David approved the UI08 implementation direction for final browser verification. Baseline was `eb65cfcf8b740338523db41a170d98c2fd3f307d`; first implementation commit `dfd8c8a`. All work stayed in `/private/tmp/kss-task-ui08-reporting`, not the saved project checkout. No deployment, real KSS data, new measure or reporting backend change was made.
+**Status: TASK-UI08 — ACCEPTED AND CLOSED — SYNTHETIC DEVELOPMENT — 25 September 2026.** David accepted the bounded implementation and authenticated browser close-out recorded here. Baseline was `eb65cfcf8b740338523db41a170d98c2fd3f307d`; first implementation commit `dfd8c8a`. All work stayed in `/private/tmp/kss-task-ui08-reporting`, not the saved project checkout. No deployment, real KSS data, new measure or reporting backend change was made.
 
 ## UI delivered
 
@@ -29,6 +29,16 @@ Screenshots: [Office desktop](../../output/playwright/task-ui08/office-desktop.p
 
 After the 44px CSS correction: Next typegen, TypeScript `--noEmit`, focused ESLint, production Webpack build and `git diff --check` passed. The build included `/management-reports` and `/api/management-reports` as dynamic routes. The previous missing-environment `/staging-access` failure did not recur with the authorised Development public configuration.
 
-No fresh database aggregate/source reconciliation or multi-page frozen snapshot was run in UI08 because the accepted 23B read contract and query code were unchanged. The large synthetic facet population is not evidence of production performance. This browser pass did not produce a fixture with nonzero Allocated, Accepted or Availability conflicts, so it verified their separate presentation and zero state, not their nonzero visual appearance. No automated screen-reader audit was run. No human acceptance, staging, production or real-data result is claimed.
+No fresh database aggregate/source reconciliation or multi-page frozen snapshot was run in UI08 because the accepted 23B read contract and query code were unchanged. The large synthetic facet population is not evidence of production performance. This browser pass did not produce a fixture with nonzero Allocated, Accepted or Availability conflicts, so it verified their separate presentation and zero state, not their nonzero visual appearance. No automated screen-reader audit was run. David's acceptance is limited to synthetic Development; no staging, production or real-data result is claimed.
 
-UI08 preserves `Required ≠ Allocated ≠ Accepted ≠ Remaining`, allocation distinct from attendance, explicit availability conflict distinct from absence, and current state distinct from historical fact. It adds no executive/readiness/compliance score, ranking, traffic-light verdict, chart, export, saved view, new source or materialised view. TASK-19A and TASK-20E boundaries remained untouched. If David accepts this evidence, close UI08; do not start another Reporting feature.
+UI08 preserves `Required ≠ Allocated ≠ Accepted ≠ Remaining`, allocation distinct from attendance, explicit availability conflict distinct from absence, and current state distinct from historical fact. It adds no executive/readiness/compliance score, ranking, traffic-light verdict, chart, export, saved view, new source or materialised view. TASK-19A and TASK-20E boundaries remained untouched.
+
+## David's formal acceptance and stop — 25 September 2026
+
+David accepted the separate factual measures, current snapshot versus Historical distinction, London reporting periods, authorised filters and clear action, measure inspection context, exact typed source provenance, complete-authorised-population totals with paginated lines, and independent destination authorisation. Loading, no rows, invalid period, incomplete source coverage, historical unavailable and factual zero remain distinct. The previous snapshot must stay hidden during a new request. Historical totals must not be reconstructed from current records.
+
+David accepted the Office, Super Admin, Operations-denial and Staff-denial browser evidence, genuine 390px and keyboard checks, the corrected 44px disclosure, screenshots and passing typegen, TypeScript, focused lint, production Webpack build and diff check. The limitations above are accepted evidence limits, not additional UI08 work. TASK-23B remains the authoritative source/read contract for reporting calculations.
+
+The separately accepted UI13 Management Reports pilot may supply newer shared visual treatment during controlled integration only while preserving every UI08 semantic and interaction. That integration does not reopen or redefine UI08. No new reporting measure, Attendance, Incident, Worked Time, Training, Credentials, Time Away, finance, chart, export, schedule, saved view, warehouse or AI interpretation is authorised by this close-out.
+
+**Stop: TASK-UI08 is closed. Do not begin another Reporting feature in this lane.**
