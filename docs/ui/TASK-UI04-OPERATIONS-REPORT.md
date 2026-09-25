@@ -47,3 +47,11 @@ This follow-up is separate from the accepted first Control Room/Action Centre pa
 - UI03's accepted prototype uses a 390px day agenda and explicit pending → readback → confirmed transition; this follow-up retained those distinctions without editing UI03 paths.
 
 The broader Incident/Site Book/attendance task journey still needs an authenticated source-specific browser pass, including a current Event, one static Site duty, a report with reviewer history and an open handover. Any missing cross-source read contract or new business logic remains a separate product proposal.
+
+## Additional bounded UI04 check and change — pending review
+
+The Incident queue now announces loading, then renders authorised records or a true empty state. A failed initial list request no longer displays a contradictory empty-state message. This change is limited to the existing Incident client; the source query and reviewer authority are unchanged.
+
+The rebuilt production preview used the existing synthetic Super Admin development session. At 390px, the Incident queue first exposed the `Loading incident reports…` status and then 25 source-linked report cards; document `scrollWidth` and viewport width were both 390px. At the default 1280px the queue also rendered 25 cards with document width 1280px. One source Incident detail was opened at 390px: exact report version, occurred time, context, narrative and reviewer action were present, with 390px document width. A keyboard Tab focused the brand link with a computed solid 3px outline. These observations cover only those inspected screens and focus target, not the entire Incident action flow or all role personas.
+
+The first browser attempt in this worktree used `next dev` and its protected API requests failed with Next's request-context error. A rebuilt `next start` preview subsequently loaded the authorised synthetic Incident queue/detail; this later evidence supersedes that specific queue/detail visibility gap but does not verify Site Book service detail, attendance action readback, their 390px layouts or full keyboard operation. Scoped ESLint, `git diff --check`, Webpack build and post-build TypeScript passed for this additional change.
