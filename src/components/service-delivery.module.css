@@ -35,4 +35,18 @@
 .sourceNumbers div { border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; padding: .55rem; }
 .sourceNumbers dt { color: #475569; font-size: .85rem; }
 .sourceNumbers dd { margin: 0; color: #0f172a; font-size: 1.5rem; font-weight: 700; }
+.listHeader { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin: 1.7rem 0 .6rem; }
+.listHeader h2 { margin: .15rem 0; font-size: clamp(1.35rem,2vw,1.7rem); line-height: 1.2; }
+.listHeader .muted { margin: .25rem 0 0; }
+.sectionLabel { margin: 0; color: #334155; font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.startCard { border-color: #93a9c9; background: #f8fafc; }
+.path { color: #475569; font-size: .83rem; line-height: 1.4; }
+.path span { padding-inline: .18rem; color: #64748b; }
+.row strong { color: #0f172a; font-size: 1.12rem; line-height: 1.35; }
+.state { width: fit-content; border: 1px solid #94a3b8; border-radius: 999px; padding: .18rem .55rem; color: #1e293b; background: #f1f5f9; font-size: .75rem; font-weight: 700; }
+.attention { color: #7f1d1d; font-weight: 700; }
+.rowFacts { display: flex; flex-wrap: wrap; gap: .4rem .9rem; padding-top: .65rem; margin-top: .45rem; border-top: 1px solid #cbd5e1; color: #334155; font-size: .85rem; }
+.rowFacts b { color: #0f172a; }
+.row:focus-visible,.button:focus-visible,.form :is(input,select,textarea):focus-visible { outline: 3px solid #1d4ed8; outline-offset: 3px; }
+@media (max-width: 600px) { .listHeader { align-items: stretch; flex-direction: column; } .listHeader .button { width: 100%; } }
 @media (max-width: 480px) { .page { padding-inline: .2rem; } .card { padding: .85rem; } .inline > * { flex: 1 1 100%; } }
