@@ -98,7 +98,7 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
   return <div className={styles.workspace}>
     <p className={styles.hint}>Synthetic development only. Custody, condition and repair are recorded separately. Damage or loss is an operational fact, not an attribution of blame.</p>
     <p role="status" aria-live="polite">{busy ? "Saving…" : message}</p>
-    {mode === "register" && office && <div className={styles.grid}>
+    {mode === "register" && office && <details className={styles.setup}><summary>Register items and opening stock</summary><p>Use these controls after confirming the exact item or stock record does not already exist.</p><div className={styles.grid}>
       <section className={styles.panel}><h2>Register an item</h2>
         <form onSubmit={(event) => { event.preventDefault(); const f = new FormData(event.currentTarget);
           submit({ action: "REGISTER", reference: String(f.get("reference")).trim().toUpperCase(),
@@ -127,9 +127,9 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
           <button disabled={busy || !store}>Open stock</button>
         </form>
       </section>
-    </div>}
+    </div></details>}
     {mode === "register" && superAdmin && admin && <section className={styles.panel}>
-      <h2>Scoped Operations grants</h2>
+      <details className={styles.adminDetails}><summary>Scoped Operations grants</summary><p>Grant and revocation change access for one exact scope. Review current grants before making a change.</p>
       <form onSubmit={(event) => { event.preventDefault(); const f = new FormData(event.currentTarget);
         const scope = admin.scopes.find((value) => value.kind + ":" + value.id === f.get("scope"));
         if (scope) submit({ action: "GRANT", personId: f.get("person"), scopeKind: scope.kind, scopeId: scope.id,
@@ -146,8 +146,9 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
       <details><summary>Recent grant history</summary><ol className={styles.history}>{admin.grantEvents.map((event) =>
         <li key={event.id}>{event.kind} · {stamp(event.occurredAt)} · grant {event.grantId.slice(0, 8)}
           <span>Reason: {event.reason}</span></li>)}</ol></details>
+      </details>
     </section>}
-    <section className={styles.panel}><h2>{mode === "self" ? "My equipment" : "Asset register"}</h2>
+    <section className={styles.panel}><h2>{mode === "self" ? "My equipment" : "Asset register"}</h2><p className={styles.hint}>{mode === "self" ? "Current items issued to you. Open an item to acknowledge, dispute or report an observation." : "Search authorised items and inspect custody, condition and repair separately. Open an item for exact history and guarded actions."}</p>
       <label>Find asset by reference or description<input type="search" value={search}
         onChange={(event) => setSearch(event.target.value)} /></label>
       {mode === "register" && <label>Site, Service or Event view<select value={contextFilter} onChange={(event) => setContextFilter(event.target.value)}>
@@ -155,9 +156,10 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
         {contexts.map((value) => <option key={value.holderKind + value.holderId} value={value.holderKind + ":" + value.holderId}>
           {value.holderKind.replaceAll("_", " ")} · {value.holderLabel ?? value.holderId}</option>)}
       </select></label>}
+      <p className={styles.count} role="status">{visibleItems.length} {visibleItems.length === 1 ? "item" : "items"} in this view</p>
       {visibleItems.length === 0 && <p>No assets in this view.</p>}
       <div className={styles.grid}>{visibleItems.map((value) => <article className={styles.card} key={value.id}>
-        <strong>{value.reference} · {value.class.replaceAll("_", " ")}</strong><p>{value.description}</p>
+        <span className={styles.reference}>{value.reference} · {value.class.replaceAll("_", " ")}</span><h3>{value.description}</h3>
         <dl><dt>Available to issue</dt><dd>{value.holderKind === "STORE" && value.pendingAck === null &&
           value.maintenanceState === "NONE" && value.exceptionState === "NONE" &&
           ["GOOD", "SERVICEABLE"].includes(value.condition) ? "Yes" : "No"}</dd>

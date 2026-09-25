@@ -18,4 +18,15 @@
 .history { padding-left: 1.4rem; }
 .history li { margin: .6rem 0; }
 .history span { display: block; overflow-wrap: anywhere; }
+.setup { border: 1px solid #cbd5e1; border-radius: 1rem; padding: 1rem; background: #f8fafc; }
+.setup summary,.adminDetails summary { min-height: 44px; display: flex; align-items: center; color: #153d72; font-size: 1.05rem; font-weight: 700; cursor: pointer; }
+.setup summary::before,.adminDetails summary::before { content: "▸"; display: inline-block; margin-right: .55rem; }
+.setup[open] > summary::before,.adminDetails[open] > summary::before { transform: rotate(90deg); }
+.setup summary::marker,.adminDetails summary::marker { color: #153d72; }
+.setup p,.adminDetails p { color: #475569; }
+.setup .grid { margin-top: .75rem; }
+.reference { color: #475569; font-size: .83rem; font-weight: 700; letter-spacing: .02em; overflow-wrap: anywhere; }
+.card h3 { margin: .3rem 0 .6rem; color: #0f172a; font-size: 1.1rem; line-height: 1.35; }
+.count { margin: .75rem 0; color: #334155; font-weight: 650; }
+.workspace :is(button,summary,input,select):focus-visible { outline: 3px solid #1d4ed8; outline-offset: 3px; }
 @media (max-width: 390px) { .panel, .card { padding: .85rem; } .card dl { grid-template-columns: 1fr; gap: .12rem; } .card dd { margin-bottom: .4rem; } }

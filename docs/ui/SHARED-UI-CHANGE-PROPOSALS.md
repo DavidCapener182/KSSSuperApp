@@ -20,3 +20,9 @@ Record proposed global typography, navigation, layout, CSS or primitive changes 
 For UI02 integration, consider a shared four-step journey/context component and a consistent in-page section navigation primitive. This lane keeps its current implementation local to Mobilisation. Any shared component should preserve domain-specific source identities, explicit status language and keyboard focus without deriving a readiness verdict.
 
 The follow-up CRM, Site, Service and Event screens use a domain-local `commercial-journey.module.css` for route context and in-page navigation. UI02 can consolidate this with the Mobilisation pattern after checking role-specific link visibility, 390px wrapping and keyboard focus in the authenticated app. A shared component must not infer stage completion from a link or action count.
+
+# UI07 shared UI change proposals
+
+No shared source change was made. UI02 integration could provide a reusable record header with exact Client/Site/Service context, factual state, source label and one primary action; a reusable source-history presentation could align Service Delivery and Assets. Review these against each module's audience rules before adoption. Operational Documents and 21D sections remain dependent on their accepted read contracts and must not be rendered from inferred data.
+
+The follow-up suggests a shared factual overview pattern for record detail pages: exact context, source-owned state, current open counts and a next scheduled event. UI02 should review this as a visual primitive only; it must not calculate readiness or broaden data access. No shared source file was edited.
