@@ -1,13 +1,13 @@
 import type { Principal, RoleCode } from "./principal";
 
-export const CAPABILITIES = ["HOME", "PROFILE_SELF", "PEOPLE_DIRECTORY", "CRM_USE", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "MANAGEMENT_REPORTS_USE", "MOBILISATIONS_USE", "SERVICE_DELIVERY_USE", "ASSETS_USE", "MY_EQUIPMENT_SELF_READ", "DEPLOYMENTS_SELF_READ", "ACTION_CENTRE_SELF_READ", "AVAILABILITY_SELF_READ", "SCHEDULE_SELF_READ", "TIME_AWAY_SELF", "TIME_AWAY_ENTRY", "ACCESS_API_ADMIN", "DOCUMENT_REQUEST_CREATE", "DOCUMENT_SELF_READ", "DOCUMENT_SELF_SUBMIT", "DOCUMENT_OFFICE_REVIEW", "DOCUMENT_EVIDENCE_REVIEW", "TASK_SELF_READ", "ONBOARDING_SELF_READ", "ONBOARDING_OFFICE_READ"] as const;
+export const CAPABILITIES = ["HOME", "PROFILE_SELF", "PEOPLE_DIRECTORY", "CRM_USE", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "MANAGEMENT_REPORTS_USE", "MOBILISATIONS_USE", "SERVICE_DELIVERY_USE", "ASSETS_USE", "MY_EQUIPMENT_SELF_READ", "DEPLOYMENTS_SELF_READ", "ACTION_CENTRE_SELF_READ", "AVAILABILITY_SELF_READ", "SCHEDULE_SELF_READ", "TIME_AWAY_SELF", "TIME_AWAY_ENTRY", "ACCESS_API_ADMIN", "DOCUMENT_REQUEST_CREATE", "DOCUMENT_SELF_READ", "DOCUMENT_SELF_SUBMIT", "DOCUMENT_OFFICE_REVIEW", "DOCUMENT_EVIDENCE_REVIEW", "OPERATIONAL_DOCUMENTS", "TASK_SELF_READ", "ONBOARDING_SELF_READ", "ONBOARDING_OFFICE_READ"] as const;
 export type Capability = (typeof CAPABILITIES)[number];
 
 const ROLE_CAPABILITIES: Record<RoleCode, readonly Capability[]> = {
-  SUPER_ADMIN: ["HOME", "PROFILE_SELF", "PEOPLE_DIRECTORY", "CRM_USE", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "MANAGEMENT_REPORTS_USE", "MOBILISATIONS_USE", "SERVICE_DELIVERY_USE", "ASSETS_USE", "TIME_AWAY_ENTRY", "ACCESS_API_ADMIN", "DOCUMENT_REQUEST_CREATE", "DOCUMENT_OFFICE_REVIEW", "DOCUMENT_EVIDENCE_REVIEW", "TASK_SELF_READ", "ONBOARDING_OFFICE_READ"],
-  OFFICE_ADMIN: ["HOME", "PROFILE_SELF", "PEOPLE_DIRECTORY", "CRM_USE", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "MANAGEMENT_REPORTS_USE", "MOBILISATIONS_USE", "SERVICE_DELIVERY_USE", "ASSETS_USE", "TIME_AWAY_ENTRY", "DOCUMENT_REQUEST_CREATE", "DOCUMENT_OFFICE_REVIEW", "DOCUMENT_EVIDENCE_REVIEW", "TASK_SELF_READ", "ONBOARDING_OFFICE_READ"],
-  OPERATIONS: ["HOME", "PROFILE_SELF", "PEOPLE_DIRECTORY", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "ASSETS_USE", "TIME_AWAY_ENTRY"],
-  SECURITY_STAFF: ["HOME", "PROFILE_SELF", "SITES_VIEW", "DOCUMENT_SELF_READ", "DOCUMENT_SELF_SUBMIT", "ONBOARDING_SELF_READ", "DEPLOYMENTS_SELF_READ", "MY_EQUIPMENT_SELF_READ", "ACTION_CENTRE_SELF_READ", "AVAILABILITY_SELF_READ", "SCHEDULE_SELF_READ", "TIME_AWAY_SELF"],
+  SUPER_ADMIN: ["HOME", "PROFILE_SELF", "PEOPLE_DIRECTORY", "CRM_USE", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "MANAGEMENT_REPORTS_USE", "MOBILISATIONS_USE", "SERVICE_DELIVERY_USE", "ASSETS_USE", "TIME_AWAY_ENTRY", "ACCESS_API_ADMIN", "DOCUMENT_REQUEST_CREATE", "DOCUMENT_OFFICE_REVIEW", "DOCUMENT_EVIDENCE_REVIEW", "OPERATIONAL_DOCUMENTS", "TASK_SELF_READ", "ONBOARDING_OFFICE_READ"],
+  OFFICE_ADMIN: ["HOME", "PROFILE_SELF", "PEOPLE_DIRECTORY", "CRM_USE", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "MANAGEMENT_REPORTS_USE", "MOBILISATIONS_USE", "SERVICE_DELIVERY_USE", "ASSETS_USE", "TIME_AWAY_ENTRY", "DOCUMENT_REQUEST_CREATE", "DOCUMENT_OFFICE_REVIEW", "DOCUMENT_EVIDENCE_REVIEW", "OPERATIONAL_DOCUMENTS", "TASK_SELF_READ", "ONBOARDING_OFFICE_READ"],
+  OPERATIONS: ["HOME", "PROFILE_SELF", "PEOPLE_DIRECTORY", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "ASSETS_USE", "OPERATIONAL_DOCUMENTS", "TIME_AWAY_ENTRY"],
+  SECURITY_STAFF: ["HOME", "PROFILE_SELF", "SITES_VIEW", "DOCUMENT_SELF_READ", "DOCUMENT_SELF_SUBMIT", "OPERATIONAL_DOCUMENTS", "ONBOARDING_SELF_READ", "DEPLOYMENTS_SELF_READ", "MY_EQUIPMENT_SELF_READ", "ACTION_CENTRE_SELF_READ", "AVAILABILITY_SELF_READ", "SCHEDULE_SELF_READ", "TIME_AWAY_SELF"],
 };
 
 export function capabilitiesFor(principal: Principal): Set<Capability> {
@@ -18,7 +18,7 @@ export function hasCapability(principal: Principal, capability: Capability): boo
   return capabilitiesFor(principal).has(capability);
 }
 
-export type NavigationItem = { href: "/app" | "/work" | "/people" | "/crm" | "/sites" | "/events" | "/mobilisations" | "/service-delivery" | "/workforce" | "/control-room" | "/management-reports" | "/assets" | "/my-equipment" | "/my-schedule" | "/my-deployments" | "/my-work-time" | "/action-centre" | "/my-availability" | "/my-time-away" | "/time-away" | "/documents" | "/onboarding" | "/profile" | "/incidents" | "/access/incident-reviewers"; label: string };
+export type NavigationItem = { href: "/app" | "/work" | "/people" | "/crm" | "/sites" | "/events" | "/mobilisations" | "/service-delivery" | "/workforce" | "/control-room" | "/management-reports" | "/assets" | "/my-equipment" | "/my-schedule" | "/my-deployments" | "/my-work-time" | "/action-centre" | "/my-availability" | "/my-time-away" | "/time-away" | "/documents" | "/operational-documents" | "/onboarding" | "/profile" | "/incidents" | "/access/incident-reviewers"; label: string };
 
 export function navigationFor(principal: Principal): NavigationItem[] {
   const allowed = capabilitiesFor(principal);
@@ -45,6 +45,7 @@ export function navigationFor(principal: Principal): NavigationItem[] {
     { href: "/my-time-away" as const, label: "My Time Away", capability: "TIME_AWAY_SELF" as const },
     { href: "/time-away" as const, label: "Time Away", capability: "TIME_AWAY_ENTRY" as const },
     { href: "/documents" as const, label: "Documents", capability: "DOCUMENT_SELF_READ" as const },
+    { href: "/operational-documents" as const, label: staffOnly ? "My Documents" : "Operational documents", capability: "OPERATIONAL_DOCUMENTS" as const },
     { href: "/onboarding" as const, label: staffOnly ? "My Onboarding" : "Onboarding", capability: staffOnly ? "ONBOARDING_SELF_READ" as const : "ONBOARDING_OFFICE_READ" as const },
     { href: "/profile" as const, label: "Profile", capability: "PROFILE_SELF" as const },
   ].filter((item) => item.href === "/documents"

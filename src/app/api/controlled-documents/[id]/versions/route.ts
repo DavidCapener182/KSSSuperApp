@@ -4,6 +4,7 @@ import { boundedMultipart } from "@/lib/documents/body";
 import { checkedBytes, sha256 } from "@/lib/documents/file";
 import { documentServerProof } from "@/lib/documents/server-proof";
 import { CONTROLLED_BUCKET, CONTROLLED_MAX_BYTES, hasControlledPublisherGrant } from "@/lib/controlled/policy";
+import { operationalCapabilities } from "@/lib/controlled/operational";
 import { createServerSupabase } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -11,12 +12,13 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   const client = await createServerSupabase();
   const principal = await getPrincipal(client);
   if (!principal) return unauthorised();
-  if (!(await hasControlledPublisherGrant(client, principal))) return forbidden();
   const id = (await params).id;
   if (!isUuid(id)) return privateJson({ error: "Invalid document" }, 400);
   const { data: doc } = await client.from("controlled_documents")
-    .select("id,created_by_person_id").eq("id", id).maybeSingle<{ id: string; created_by_person_id: string }>();
+    .select("id,created_by_person_id,family").eq("id", id).maybeSingle<{ id: string; created_by_person_id: string; family: string }>();
   if (!doc || doc.created_by_person_id !== principal.personId) return forbidden();
+  if (doc.family === "ONBOARDING_TERMS_SYNTHETIC" ? !(await hasControlledPublisherGrant(client, principal))
+    : doc.family === "OPERATIONAL_SYNTHETIC" ? !(await operationalCapabilities(client)).publish : true) return forbidden();
   let form: FormData | null;
   try { form = await boundedMultipart(request, CONTROLLED_MAX_BYTES + 262144); }
   catch (error) { if (error instanceof RangeError) return privateJson({ error: "PDF too large" }, 413); throw error; }
