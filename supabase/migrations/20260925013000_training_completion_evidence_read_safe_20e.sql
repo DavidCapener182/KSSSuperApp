@@ -1,15 +1,19 @@
--- TASK-20E follow-up: safe exact Completion evidence for learner and named manager review.
+-- TASK-20E follow-up: audience-specific exact Completion evidence.
 -- Does not modify the applied 20260925000018 completion decision migration.
+-- The previously proposed 20260925010000 read projection was not applied.
 create function public.training_completion_history(p_assignment uuid) returns jsonb
 language plpgsql stable security definer set search_path='' as $$
 declare actor uuid:=private.current_person_id(); a public.training_assignments%rowtype;
  v public.training_course_versions%rowtype; c public.training_completion_cases%rowtype;
  r public.training_completion_rule_versions%rowtype; done public.training_completions%rowtype;
- pages integer; marks integer; result jsonb;
+ pages integer; marks integer; result jsonb; manager_view boolean:=false;
 begin
  select * into a from public.training_assignments where id=p_assignment;
- if actor is null or a.id is null or (a.person_id<>actor and not private.training_completion_manager())
- then raise exception 'Completion history unavailable'; end if;
+ if actor is null or a.id is null then raise exception 'Completion history unavailable'; end if;
+ if a.person_id<>actor then
+  if not private.training_completion_manager() then raise exception 'Completion history unavailable'; end if;
+  manager_view:=true;
+ end if;
  select * into v from public.training_course_versions where id=a.course_version_id;
  select * into c from public.training_completion_cases where assignment_id=a.id;
  if c.id is not null then
@@ -34,13 +38,16 @@ begin
   'attempts',coalesce((select jsonb_agg(jsonb_build_object('id',t.id,'assessmentVersionId',t.assessment_version_id,
     'state',t.state,'result',t.result,'submittedAt',t.submitted_at) order by t.started_at,t.id)
     from public.training_attempts t where t.assignment_id=a.id and t.person_id=a.person_id and t.course_version_id=v.id),'[]'::jsonb),
-  'completion',case when done.id is null then null else jsonb_build_object('id',done.id,'caseId',done.case_id,
+  'completion',case when done.id is null then null else jsonb_build_object('id',done.id,
     'ruleVersionId',done.rule_version_id,'ruleHash',done.rule_hash,'passedAttemptIds',done.passed_attempt_ids,
-    'pageMarkCount',done.page_mark_count,'pageCount',done.page_count,'evaluatedBy',done.evaluated_by,
-    'completedAt',done.completed_at,'voidedBy',done.voided_by,'voidedAt',done.voided_at,
-    'voidReason',done.void_reason) end,
-  'events',coalesce((select jsonb_agg(jsonb_build_object('id',e.id,'action',e.action,'actorPersonId',e.actor_person_id,
-    'reason',e.reason,'details',e.details,'occurredAt',e.occurred_at) order by e.occurred_at,e.id)
+    'pageMarkCount',done.page_mark_count,'pageCount',done.page_count,
+    'completedAt',done.completed_at,'voidedAt',done.voided_at) ||
+    case when manager_view then jsonb_build_object('evaluatedBy',done.evaluated_by,
+      'voidedBy',done.voided_by,'voidReason',done.void_reason) else '{}'::jsonb end end,
+  'events',coalesce((select jsonb_agg(jsonb_build_object('id',e.id,'action',e.action,
+    'completionId',e.completion_id,'occurredAt',e.occurred_at) ||
+    case when manager_view then jsonb_build_object('actorPersonId',e.actor_person_id,
+      'reason',e.reason) else '{}'::jsonb end order by e.occurred_at,e.id)
     from public.training_completion_events e where e.case_id=c.id),'[]'::jsonb));
  return result;
 end $$;
