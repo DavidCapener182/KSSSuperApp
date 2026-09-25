@@ -15,6 +15,9 @@ export default async function MyLearning() {
     id: string; assignmentId: string; courseVersionId: string; ruleVersionId: string;
     completedAt: string; voidedAt: string | null;
   }[] : [];
+  const certificateReads = await Promise.all(completions.map(completion =>
+    client.rpc("training_certificate_history", { p_assignment: completion.assignmentId })));
+  const certificateHistory = new Map(completions.map((completion, index) => [completion.id, certificateReads[index]]));
   const assignments = !error && Array.isArray(data) ? data as TrainingAssignment[] : [];
   const active = assignments.filter(a => a.state === "ACTIVE");
   const history = assignments.filter(a => a.state !== "ACTIVE");
@@ -31,10 +34,24 @@ export default async function MyLearning() {
       <h2>Assignment history</h2>{history.length ? <div className="training-cards">{history.map(card)}</div> : <p>No earlier assignments.</p>}
       <h2>Completion history</h2>{completions.length ? <div className="training-cards">{completions.map(completion => {
         const assignment = assignments.find(item => item.id === completion.assignmentId);
+        const certificateRead = certificateHistory.get(completion.id);
+        const issues = !certificateRead?.error && Array.isArray(certificateRead?.data) ? certificateRead.data as {
+          id: string; reference: string; issueDate: string; expiryOn: string | null;
+          state: string; current: boolean; reissueOf: string | null;
+        }[] : [];
         return <article className="training-card" key={completion.id}><small>{completion.voidedAt ? "Voided completion" : "Recorded completion"}</small>
           <h3>{assignment?.title ?? "Assigned course"} · Version {assignment?.versionNumber ?? "recorded"}</h3>
           <p>Completed {new Date(completion.completedAt).toLocaleDateString("en-GB", { timeZone: "Europe/London" })}</p>
           <p>A completion is a Training record. A certificate requires a separate issue decision.</p>
+          {certificateRead?.error ? <p role="status">Certificate history is unavailable.</p> : issues.length ? <div className="training-certificate-history">
+            <h4>Certificate history</h4><ul>{issues.map(issue => <li key={issue.id}>
+              <strong>{issue.reference}</strong>
+              <span>{issue.current ? "Current" : issue.state === "REVOKED" ? "Revoked" : issue.state === "COMPLETION_VOIDED" ? "Invalidated by Completion void" : issue.state}
+                {issues.some(next => next.reissueOf === issue.id) ? " · Reissued" : ""}</span>
+              <span>Issued {issue.issueDate}{issue.expiryOn ? ` · Recorded expiry ${issue.expiryOn}` : ""}</span>
+              {issue.current && <a href={`/api/training-certificates/${issue.id}/file`} target="_blank" rel="noreferrer">Open private certificate PDF</a>}
+            </li>)}</ul>
+          </div> : <p>No certificate issued for this Completion.</p>}
         </article>;
       })}</div> : <p>No course completions recorded.</p>}</>}
   </main>;

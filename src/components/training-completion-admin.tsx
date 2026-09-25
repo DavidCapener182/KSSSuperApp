@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { TrainingCertificateAdmin } from "@/components/training-certificate-admin";
 
 type Assignment = { id: string; personName: string; courseTitle: string; courseVersion: number;
   state: string; ruleVersionId: string | null; completionId: string | null; completedAt: string | null; voidedAt: string | null };
@@ -9,8 +10,8 @@ type RuleChoice = { courseVersionId: string; courseTitle: string; courseVersion:
 type AdminData = { assignments: Assignment[]; rules: { id: string; courseVersionId: string; version: number }[] };
 type Evidence = { assignment: { id: string; courseVersionId: string; contentHash: string; pageCount: number; viewedCount: number }; rule: null | { id: string; version: number; hash: string; requiredAssessmentVersionIds: string[]; validityMonths: number | null; pinned: boolean }; attempts: { id: string; assessmentVersionId: string; state: string; result: string | null }[]; completion: null | { id: string; ruleHash: string; passedAttemptIds: string[]; pageMarkCount: number; pageCount: number; voidedAt: string | null; voidedBy: string | null; voidReason: string | null }; events: { id: string; action: string; actorPersonId: string; reason: string | null; occurredAt: string }[] };
 
-export function TrainingCompletionAdmin({ rights, initial, choices, grants }: {
-  rights: { manager: boolean; publisher: boolean; superAdmin: boolean }; initial: unknown; choices: RuleChoice[]; grants: unknown;
+export function TrainingCompletionAdmin({ rights, initial, choices, grants, templates }: {
+  rights: { manager: boolean; publisher: boolean; superAdmin: boolean }; initial: unknown; choices: RuleChoice[]; grants: unknown; templates: unknown;
 }) {
   const router = useRouter();
   const data = initial && typeof initial === "object" ? initial as AdminData : { assignments: [], rules: [] };
@@ -80,6 +81,9 @@ export function TrainingCompletionAdmin({ rights, initial, choices, grants }: {
         {item.state === "ACTIVE" && !item.completionId && <button type="button" disabled={busy || reviewedAssignment !== item.id} onClick={() => act({ action: "EVALUATE", assignmentId: item.id, requestId: crypto.randomUUID() })}>Request completion check</button>}
       </article>)}</div>
     </section>}
+    {(rights.manager || rights.publisher) && <TrainingCertificateAdmin publisher={rights.publisher} manager={rights.manager}
+      assignmentId={reviewedAssignment} completionId={evidence?.completion?.id ?? null}
+      completionVoided={Boolean(evidence?.completion?.voidedAt)} initialTemplates={templates} />}
     {rights.superAdmin && <section className="training-card"><h2>Completion manager grants</h2>
       <p>Super Admin can administer a named Office grant. Super Admin role alone cannot evaluate or issue.</p>
       <label htmlFor="completion-manager-candidate">Active Office Admin</label>
