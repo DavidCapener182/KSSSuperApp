@@ -22,15 +22,21 @@ export function TrainingAdminClient({ initial, capabilities, initialGrants }: { 
   const [grantReason, setGrantReason] = useState("");
   const [grantCapability, setGrantCapability] = useState("TRAINING_AUTHOR");
   const [history, setHistory] = useState<Record<string, unknown>[] | null>(null);
+  const [courseQuery, setCourseQuery] = useState("");
   const version = versions.find(v => v.versionId === selected);
   const draft = version?.state === "DRAFT";
+  const courseIds = Array.from(new Set(versions.map(v => v.courseId)));
+  const visibleCourseIds = courseIds.filter(courseId => (versions.find(v => v.courseId === courseId)?.courseTitle ?? "")
+    .toLocaleLowerCase().includes(courseQuery.trim().toLocaleLowerCase()));
   const refresh = async () => {
     const result = await fetch("/api/training?view=admin", { cache: "no-store" });
-    const latest: TrainingVersion[] = result.ok ? (await result.json()).data ?? [] : [];
-    if (result.ok) setVersions(latest);
+    if (!result.ok) throw new Error("Training changes need a fresh read before confirmation.");
+    const latest: TrainingVersion[] = (await result.json()).data ?? [];
+    setVersions(latest);
     if (capabilities.superAdmin) {
       const grantsResult = await fetch("/api/training?view=grants", { cache: "no-store" });
-      if (grantsResult.ok) setGrants((await grantsResult.json()).data ?? []);
+      if (!grantsResult.ok) throw new Error("Training grants need a fresh read before confirmation.");
+      setGrants((await grantsResult.json()).data ?? []);
     }
     return latest;
   };
@@ -43,8 +49,8 @@ export function TrainingAdminClient({ initial, capabilities, initialGrants }: { 
       const latest = await refresh();
       if (body.action === "CREATE_DRAFT" && typeof result.data === "string") { const created = latest.find(v => v.versionId === result.data); if (created) choose(created); }
       if (body.action === "CREATE_COURSE" && typeof result.data === "string") { const created = latest.find(v => v.courseId === result.data); if (created) choose(created); }
-      setMessage("Saved. Refresh complete.");
-    } catch { setMessage("Training action unavailable"); }
+      setMessage("Server action accepted; current Training records refreshed.");
+    } catch (error) { setMessage(error instanceof Error ? error.message : "Training action unavailable"); }
     finally { setBusy(false); }
   };
   const choose = (v: TrainingVersion) => { setSelected(v.versionId); setTitle(v.title); setSummary(v.summary); setModules(clone(v.modules)); setPreview(false); setHistory(null); };
@@ -55,7 +61,10 @@ export function TrainingAdminClient({ initial, capabilities, initialGrants }: { 
   const showHistory = async (courseId: string) => { const response = await fetch(`/api/training?view=history&courseId=${courseId}`, { cache: "no-store" }); setHistory(response.ok ? (await response.json()).data ?? [] : []); };
   return <div className="training-admin">
     <section className="training-admin-list"><h2>Courses and versions</h2>{capabilities.author && <button type="button" onClick={() => { setSelected(null); setTitle(""); setSummary(""); setModules(emptyContent()); setPreview(false); }}>New course</button>}
-      {Array.from(new Set(versions.map(v => v.courseId))).map(courseId => <div className="training-admin-course" key={courseId}><h3>{versions.find(v => v.courseId === courseId)?.courseTitle}</h3>{versions.filter(v => v.courseId === courseId).map(v => <button type="button" className={selected === v.versionId ? "selected" : ""} onClick={() => choose(v)} key={v.versionId}>v{v.versionNumber} · {v.state}{v.currentVersionId === v.versionId ? " · Current" : ""}{v.retiredAt ? " · Retired" : ""}</button>)}<button type="button" onClick={() => showHistory(courseId)}>History</button>{capabilities.author && !versions.some(v => v.courseId === courseId && v.state === "DRAFT") && <button disabled={busy} type="button" onClick={() => act({ action: "CREATE_DRAFT", courseId })}>Create next draft</button>}</div>)}
+      <label>Filter loaded courses<input type="search" value={courseQuery} onChange={event => setCourseQuery(event.target.value)} placeholder="Course title" /></label>
+      <p role="status">Showing {visibleCourseIds.length} of {courseIds.length} courses</p>
+      {visibleCourseIds.length === 0 && <p>No matching courses in this loaded view.</p>}
+      {visibleCourseIds.map(courseId => <details className="training-admin-course" key={courseId}><summary>{versions.find(v => v.courseId === courseId)?.courseTitle}</summary><div>{versions.filter(v => v.courseId === courseId).map(v => <button type="button" className={selected === v.versionId ? "selected" : ""} onClick={() => choose(v)} key={v.versionId}>v{v.versionNumber} · {v.state}{v.currentVersionId === v.versionId ? " · Current" : ""}{v.retiredAt ? " · Retired" : ""}</button>)}<button type="button" onClick={() => showHistory(courseId)}>History</button>{capabilities.author && !versions.some(v => v.courseId === courseId && v.state === "DRAFT") && <button disabled={busy} type="button" onClick={() => act({ action: "CREATE_DRAFT", courseId })}>Create next draft</button>}</div></details>)}
       {history && <div className="training-history"><h3>Attributable history</h3>{history.length ? history.map((event, i) => <p key={i}>{String(event.action)} · {String(event.occurredAt)} · Actor {String(event.actorPersonId)}</p>) : <p>No history available.</p>}</div>}
     </section>
     <section className="training-admin-edit"><h2>{version ? `Version ${version.versionNumber}: ${version.state}` : "New course draft"}</h2>{version?.contentHash && <p>Published content hash: <code>{version.contentHash}</code></p>}

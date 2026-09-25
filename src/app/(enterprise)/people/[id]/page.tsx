@@ -9,6 +9,7 @@ import { readStaffRecordSections } from "@/lib/people/record";
 import { requiredProfileMatches, SIA_LABELS } from "@/lib/profile/policy";
 import { credentialState, type CredentialDecisionState } from "@/lib/credentials/state";
 import { createServerSupabase } from "@/lib/supabase/server";
+import styles from "../people.module.css";
 
 export const dynamic = "force-dynamic";
 const complete = new Set(["VERIFIED", "COMPLETE", "ACKNOWLEDGED"]);
@@ -132,7 +133,7 @@ export default async function PersonRecord({ params }: { params: Promise<{ id: s
   const person = result?.items[0];
   if (!person) notFound();
   const backHref = principal.roles.some((role) => role === "OFFICE_ADMIN" || role === "OPERATIONS" || role === "SUPER_ADMIN") ? "/people" : "/profile";
-  return <main className="enterprise-main people-record">
+  return <main className={`enterprise-main people-record ${styles.workspace}`}>
     <Link className="people-back" href={backHref}>← {backHref === "/people" ? "People" : "Profile"}</Link>
     <header className="people-record-header"><div><p className="eyebrow">Staff record · synthetic development data</p><h1>{person.displayName}</h1><p>{person.roles.length ? person.roles.map(roleLabel).join(" · ") : "No active role"}</p></div></header>
     <nav className="people-record-nav" aria-label="Staff record sections">{sections.map((section) => <a href={`#${section.toLowerCase().replaceAll(" ", "-")}`} key={section}>{section}</a>)}</nav>
