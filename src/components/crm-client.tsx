@@ -1,4 +1,6 @@
 "use client";
+import "./record-studies.css";
+import { RecordSectionTracker } from "./record-section-tracker";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -116,11 +118,11 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
   const openContactEdit = (contact:Row) => { setFields({contactId:String(contact.id),firstName:String(contact.first_name),lastName:String(contact.last_name),jobTitle:String(contact.job_title ?? ""),email:String(contact.business_email ?? ""),phone:String(contact.business_phone ?? ""),primary:contact.is_primary?"yes":"no",active:contact.active?"yes":"no"}); setForm("editContact"); };
   return <main className={`enterprise-main crm-page ${journey.controls}`}>
     <p className="eyebrow">Commercial workspace · synthetic development data</p>
-    <div className="crm-heading"><div><h1>{view === "organisation" ? String(org?.name ?? "Organisation") : view === "opportunity" ? String(opportunity?.title ?? "Opportunity") : "CRM"}</h1>
-      <p className="enterprise-intro">{view === "overview" ? "Organisations, business contacts and opportunities in one place." : "Commercial records remain separate from private Staff information."}</p></div></div>
-    <nav className="crm-tabs" aria-label="CRM sections">
-      {[["overview","Overview"],["pipeline","Pipeline"],["organisations","Organisations"],["contacts","Contacts"],["opportunities","Opportunities"]].map(([key,label])=><Link key={key} href={key==="overview"?"/crm":`/crm?view=${key}`} aria-current={view===key||(view==="organisation"&&key==="organisations")||(view==="opportunity"&&key==="opportunities")?"page":undefined}>{label}</Link>)}
-    </nav>
+    {view !== "organisation" && view !== "opportunity" && <div className="crm-heading"><div><h1>CRM</h1>
+      <p className="enterprise-intro">{view === "overview" ? "Organisations, business contacts and opportunities in one place." : "Commercial records remain separate from private Staff information."}</p></div></div>}
+    {view !== "organisation" && view !== "opportunity" && <nav className="crm-tabs" aria-label="CRM sections">
+      {[["overview","Overview"],["pipeline","Pipeline"],["organisations","Organisations"],["contacts","Contacts"],["opportunities","Opportunities"]].map(([key,label])=><Link key={key} href={key==="overview"?"/crm":`/crm?view=${key}`} aria-current={view===key?"page":undefined}>{label}</Link>)}
+    </nav>}
     {view==="overview" && <nav className={journey.path} aria-label="Commercial to service journey">
       <span><small>01 · Prospect or Client</small><Link href="/crm?view=organisations">Organisation</Link></span>
       <span><small>02 · Sales opportunity</small><Link href="/crm?view=pipeline">Pipeline and next action</Link></span>
@@ -156,16 +158,13 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
         <span>Showing {rows("items").length?offset+1:0}–{offset+rows("items").length} of {String(data.total ?? 0)}</span>
         {offset+25<Number(data.total)&&<Button variant="outline" onClick={()=>setOffset(offset+25)}>Next</Button>}</div>
     </>}
-    {!loading && org && view==="organisation" && <>
-      <nav className={journey.path} aria-label="Client to service journey">
-        <span><small>01 · Organisation</small><strong aria-current="step">{String(org.name)}</strong></span>
-        <span><small>02 · Opportunity</small><a href="#organisation-opportunities">Review sales work</a></span>
-        <span><small>03 · Mobilisation</small>{org.relationship_status==="CLIENT"?<Link href={`/mobilisations?organisation=${org.id}`}>Explicit authorisation</Link>:<strong>Client relationship required</strong>}</span>
-        <span><small>04 · Source records</small><a href="#organisation-sources">Sites and Events</a></span>
-      </nav>
-      <div className="crm-record-summary"><span className="crm-state">{title(org.relationship_status)}</span><span>Account owner: {owners.find((o)=>o.id===org.owner_person_id)?.displayName ?? "Assigned Office"}</span><span>Created {date(org.created_at)}</span></div>
-      {org.relationship_status==="CLIENT"&&<p><Link href={`/mobilisations?organisation=${org.id}`}>Authorise mobilisation for this Client</Link></p>}
-      <nav className={journey.sections} aria-label="Organisation sections"><a href="#organisation-overview">Overview</a><a href="#organisation-contacts">Contacts</a><a href="#organisation-opportunities">Opportunities</a><a href="#organisation-history">History</a><a href="#organisation-sources">Sites and Events</a></nav>
+    {!loading && org && view==="organisation" && <div className="crm-organisation-record">
+      <Link className="crm-record-back" href="/crm?view=organisations">← Organisations</Link>
+      <header className="crm-organisation-header"><h1>{String(org.name)}</h1><div className="crm-record-identity"><span>Organisation</span><strong>{title(org.relationship_status)}</strong></div><p>Account owner: {owners.find((o)=>o.id===org.owner_person_id)?.displayName ?? "Assigned Office"} · Created {date(org.created_at)}</p></header>
+      <nav className="crm-organisation-sections" aria-label="Organisation sections"><a href="#organisation-overview">Overview</a><a href="#organisation-contacts">Contacts</a><a href="#organisation-opportunities">Opportunities</a><a href="#organisation-history">History</a><a href="#organisation-work">Work</a><a href="#organisation-sources">Sites and Events</a></nav>
+      <RecordSectionTracker label="Organisation sections" />
+      <div className="crm-organisation-related"><strong>Related workflows</strong><a href="#organisation-opportunities">Sales opportunities</a>{org.relationship_status==="CLIENT"&&<Link href={`/mobilisations?organisation=${org.id}`}>Authorise mobilisation</Link>}<a href="#organisation-sources">Source records</a></div>
+      <div className="crm-organisation-content">
       <div className="crm-detail-grid"><section id="organisation-overview" className="crm-panel"><div className="crm-panel-heading"><h2>Overview</h2><Button variant="outline" onClick={openOrganisationEdit}>Edit</Button></div>
         <dl><div><dt>Trading name</dt><dd>{String(org.trading_name ?? "—")}</dd></div><div><dt>Website</dt><dd>{String(org.website ?? "—")}</dd></div><div><dt>General email</dt><dd>{String(org.general_email ?? "—")}</dd></div><div><dt>Main phone</dt><dd>{String(org.main_phone ?? "—")}</dd></div></dl>
       </section><section id="organisation-contacts" className="crm-panel"><div className="crm-panel-heading"><h2>Contacts</h2><Button variant="outline" onClick={()=>setForm("contact")}>Add Contact</Button></div>
@@ -174,20 +173,17 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
         {rows("opportunities").length?rows("opportunities").map((item)=><Link className="crm-subrow" key={String(item.id)} href={`/crm/opportunities/${item.id}`}><strong>{String(item.title)}</strong><span>{title(item.stage)}</span><span>{value(item.estimated_value_gbp_pence)}</span></Link>):<p>No Opportunities yet.</p>}
       </section><section id="organisation-history" className="crm-panel"><h2>Relationship history</h2>{rows("history").length?rows("history").map((item)=><p key={String(item.id)}>{title(item.old_status)} → {title(item.new_status)} · {date(item.occurred_at)} · by {personName(item.actor_person_id)}</p>):<p>No relationship transition yet.</p>}
         {rows("ownerHistory").map((item)=><p key={String(item.id)}>Account owner: {personName(item.old_owner_person_id)} → {personName(item.new_owner_person_id)} · {date(item.occurred_at)} · by {personName(item.actor_person_id)}</p>)}</section></div>
-      <CrmRecordWork kind="organisation" id={String(org.id)} organisationId={String(org.id)} owners={owners}
-        currentPersonId={currentPersonId} commercialHistory={[...rows("history"),...rows("ownerHistory")]} />
+      <div id="organisation-work"><CrmRecordWork kind="organisation" id={String(org.id)} organisationId={String(org.id)} owners={owners}
+        currentPersonId={currentPersonId} commercialHistory={[...rows("history"),...rows("ownerHistory")]} /></div>
       <div id="organisation-sources"><CrmOperationalLinks organisationId={String(org.id)} /></div>
       <p className="enterprise-honesty">Commercial Documents and staffing remain separate future work.</p>
-    </>}
-    {!loading && opportunity && view==="opportunity" && <>
-      <nav className={journey.path} aria-label="Opportunity to service journey">
-        <span><small>01 · Organisation</small><Link href={`/crm/organisations/${opportunity.organisation_id}`}>Client context</Link></span>
-        <span><small>02 · Opportunity</small><strong aria-current="step">{title(opportunity.stage)}</strong></span>
-        <span><small>03 · Mobilisation</small>{opportunity.stage==="WON"?<Link href={`/mobilisations?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Authorise separately</Link>:<strong>Requires Won outcome</strong>}</span>
-        <span><small>04 · Source setup</small><Link href="/sites">Site, Service or Event</Link></span>
-      </nav>
-      <div className="crm-record-summary"><span className="crm-state">{title(opportunity.stage)}</span><Link href={`/crm/organisations/${opportunity.organisation_id}`}>{String((data?.organisation as Row)?.name ?? "Organisation")}</Link><span>{title(opportunity.opportunity_type)}</span></div>
-      <nav className={journey.sections} aria-label="Opportunity sections"><a href="#opportunity-overview">Opportunity</a><a href="#opportunity-stage">Stage and owner</a><a href="#opportunity-work">Work and history</a></nav>
+      </div></div>}
+    {!loading && opportunity && view==="opportunity" && <div className="crm-opportunity-record">
+      <Link className="crm-record-back" href="/crm?view=opportunities">← Opportunities</Link>
+      <header className="crm-organisation-header"><h1>{String(opportunity.title)}</h1><div className="crm-record-identity"><span>Opportunity</span><strong>{title(opportunity.stage)}</strong><span>{title(opportunity.opportunity_type)}</span></div><p>{String((data?.organisation as Row)?.name ?? "Organisation")} · Owner: {owners.find((o)=>o.id===opportunity.owner_person_id)?.displayName ?? "Assigned Office"}</p></header>
+      <nav className="crm-opportunity-sections" aria-label="Opportunity sections"><a href="#opportunity-overview">Overview</a><a href="#opportunity-stage">Stage and owner</a><a href="#opportunity-work">Work and history</a></nav>
+      <RecordSectionTracker label="Opportunity sections" />
+      <div className="crm-organisation-related"><strong>Related workflows</strong><Link href={`/crm/organisations/${opportunity.organisation_id}`}>Organisation</Link>{opportunity.stage==="WON"&&<><Link href={`/mobilisations?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Authorise mobilisation</Link><Link href={`/events?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Create operational Event</Link></>}</div>
       <div className="crm-detail-grid"><section id="opportunity-overview" className="crm-panel"><h2>Opportunity</h2><dl>
         <div><dt>Estimated opportunity value</dt><dd>{value(opportunity.estimated_value_gbp_pence)}</dd></div>
         <div><dt>Expected decision</dt><dd>{String(opportunity.expected_decision_date ?? "Not set")}</dd></div>
@@ -207,9 +203,8 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
       </div>
       <div id="opportunity-work"><CrmRecordWork kind="opportunity" id={String(opportunity.id)} organisationId={String(opportunity.organisation_id)}
         owners={owners} currentPersonId={currentPersonId} accountableOwnerId={String(opportunity.owner_person_id)} commercialHistory={rows("history")} /></div>
-      {opportunity.stage==="WON"&&<p><Link href={`/mobilisations?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Authorise mobilisation from this Won Opportunity</Link> · <Link href={`/events?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Create operational Event</Link></p>}
       <p className="enterprise-honesty">Estimated value is not contracted or invoiced revenue.</p>
-    </>}
+    </div>}
     {form && <div className="crm-dialog-backdrop" role="presentation"><section className="crm-dialog" role="dialog" aria-modal="true" aria-labelledby="crm-dialog-title">
       <div className="crm-panel-heading"><h2 id="crm-dialog-title">{form==="organisation"?"New Organisation":form==="editOrganisation"?"Edit Organisation":form==="contact"?"Add Contact":form==="editContact"?"Edit Contact":"New Opportunity"}</h2><Button variant="ghost" onClick={()=>{setForm("");setFields({});}}>Close</Button></div>
       {error && <p role="alert" className="enterprise-error">{error}</p>}

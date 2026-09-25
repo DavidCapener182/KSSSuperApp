@@ -1,4 +1,6 @@
 "use client";
+import "./record-studies.css";
+import { RecordSectionTracker } from "./record-section-tracker";
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
@@ -76,10 +78,11 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
   await act("extra",{serviceDate:date,roleId,quantity,reportAt:report,shiftStartsAt:start,shiftEndsAt:end,
    area,reporting,reason});}
  const service=detail?.service;
- return <main className={`enterprise-main ${journey.controls}`}><header className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Ongoing Site shift · synthetic development data</p>
-   <h1>{service?.name??"Site Service"}</h1><p>{service?.client_name} · {service?.site_name}</p></div></header>
-   <nav className={journey.context} aria-label="Site Service context"><Link href={`/sites?view=operational&selected=${siteId}`}>Site</Link><Link href={`/sites/${siteId}/services`}>All Site Services</Link><Link href="/workforce">Workforce</Link><Link href={`/sites/${siteId}/services/${serviceId}/attendance`}>Attendance</Link><Link href={`/operational-contacts/manage?kind=SITE_SERVICE&id=${serviceId}`}>Operational contacts</Link></nav>
-   <nav className={journey.sections} aria-label="Service sections"><a href="#service-state">Service state</a><a href="#service-template">Weekly template</a><a href="#service-demand">Dated demand</a></nav>
+ return <main className={`enterprise-main site-service-record ${journey.controls}`}><p className="enterprise-eyebrow">Ongoing Site shift · synthetic development data</p>
+   <header className="site-service-record-header"><h1>{service?.name??"Site Service"}</h1>{service&&<><div className="crm-record-identity"><span>Site Service</span><strong>{service.state.replaceAll("_"," ")}</strong><span>{service.type.replaceAll("_"," ")}</span></div><p>{service.client_name} · {service.site_name}</p><p>Effective {service.effective_from}{service.effective_until?` to ${service.effective_until}`:" onward"}</p></>}</header>
+   <nav className="site-service-record-sections" aria-label="Service sections"><a href="#service-state">Service state</a><a href="#service-template">Weekly template</a><a href="#service-demand">Dated demand</a><a href="#service-history">History</a></nav>
+   <RecordSectionTracker label="Service sections" />
+   <nav className="site-service-record-related" aria-label="Related workflows"><strong>Related workflows</strong><Link href={`/sites?view=operational&selected=${siteId}`}>Site</Link><Link href={`/sites/${siteId}/services`}>All Site Services</Link><Link href="/workforce">Workforce</Link><Link href={`/sites/${siteId}/services/${serviceId}/attendance`}>Attendance</Link><Link href={`/operational-contacts/manage?kind=SITE_SERVICE&id=${serviceId}`}>Operational contacts</Link></nav>
    {error&&<p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={()=>void load()}>Retry</Button></p>}
    {notice&&<p role="status" className="enterprise-honesty">{notice}</p>}
    {loading?<p role="status" className="crm-skeleton">Loading Service…</p>:service&&<>
@@ -136,7 +139,7 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
             <Button variant="outline" disabled={busy||candidate.check.result==="BLOCKED"} onClick={()=>void allocate(candidate.id)}>Allocate</Button></li>)}</ul>:null}
          </div>}</article>)}</div>}
     </section>
-    <section className="crm-panel"><h2>Service and shift history</h2><p>Published versions, dated amendments and allocation responses remain attributable.</p>
+    <section id="service-history" className="crm-panel"><h2>Service and shift history</h2><p>Published versions, dated amendments and allocation responses remain attributable.</p>
       <Button variant="outline" onClick={()=>void loadHistory()}>Show recent history</Button>
       {history.length>0&&<ul>{history.map((entry)=><li key={`${entry.source}-${entry.record_id}-${entry.revision}`}>
         {time(entry.occurred_at)} · {entry.source.replaceAll("_"," ")} · {entry.kind.replaceAll("_"," ")} · v{entry.revision} · {entry.actor_name}

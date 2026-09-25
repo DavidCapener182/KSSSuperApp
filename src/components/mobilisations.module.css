@@ -16,6 +16,12 @@
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 .action { border-top: 1px solid var(--kss-border); padding: .9rem 0; display: grid; gap: .4rem; }
 .action:first-child { border-top: 0; }
+.stateChange { margin-top: .2rem; }
+.stateChange summary { display: inline-flex; align-items: center; min-height: 44px; padding: .35rem .65rem; border: 1px solid var(--kss-border); border-radius: 8px; color: var(--kss-blue-strong); background: var(--kss-surface-muted); font-size: .85rem; font-weight: 700; cursor: pointer; }
+.stateChange summary::after { content: "⌄"; margin-inline-start: .5rem; }
+.stateChange[open] summary::after { transform: rotate(180deg); }
+.stateChange summary:focus-visible { outline: 3px solid var(--kss-blue); outline-offset: 2px; }
+.stateChange .buttons { margin-top: .5rem; }
 .meta { color: var(--kss-ink-soft); font-size: .83rem; }
 .counts { display: flex; flex-wrap: wrap; gap: .6rem; }
 .counts span { border-radius: 8px; background: var(--kss-surface-muted); padding: .55rem .75rem; font-weight: 700; }
