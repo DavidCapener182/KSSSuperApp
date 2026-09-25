@@ -87,3 +87,16 @@ Desktop and genuine 390px full-page captures:
 - [Service Delivery History desktop](evidence/ui14/rollout/service-delivery-history-1280.png) · [mobile](evidence/ui14/rollout/service-delivery-history-390.png)
 
 The sampled names include multiword Event, Client, Service and Site labels, and the Site Book Service name visibly wraps at 390px. These are synthetic records and do not establish coverage of arbitrarily long source names. All evidence is local synthetic Development, not production, staging or human visual acceptance of the five new routes. Staff Record and Event attendance/work-time detail await separate review. No deployment, migration or backend permission change was made.
+
+## Mobilisation focused-workspace refinement
+
+David visually accepted Opportunity and Onboarding from the rollout screenshots. He accepted Mobilisation's identity, factual summary and section anatomy, then requested one bounded change before visual acceptance: its seven sections should show their own working content, as the already accepted Service Delivery workspace does. Site Book and Site Service still await David's screenshot review.
+
+Mobilisation now defaults to Context and exposes each existing content section separately through Context, Actions, Blockers, Decisions, Source links, Review and History. Each section keeps its original content, source reads, guarded commands and immutable history. Selected state and URL hash work on clicks and direct links; the selected link stays visible in the mobile horizontal selector. The global factual action counts remain visible above the selected content. The Actions view uses a native 44px “Change state” disclosure for each workstream. Opening it reveals the same existing guarded state buttons, including the cancellation reason gate; no transition or API changed.
+
+The local Webpack production build, TypeScript, targeted ESLint and authenticated synthetic Super Admin desktop/390px browser checks passed. In the sampled Planning mobilisation, only Actions was visible after selecting Actions, and only Go-live review and operational handover was visible after selecting Review. Hashes were `#actions-heading` and `#review-heading`. At 390px the document width was 390px, the selector was 358px visible with 641px scrollable content, all seven section links were 44px, the state disclosure was 44px, and the revealed transition buttons were each 44px. The four requested focused captures are:
+
+- [Actions desktop](evidence/ui14/mobilisation-focused/actions-1280.png) · [Actions 390px](evidence/ui14/mobilisation-focused/actions-390.png)
+- [Review desktop](evidence/ui14/mobilisation-focused/review-1280.png) · [Review 390px](evidence/ui14/mobilisation-focused/review-390.png)
+
+The earlier full-page Mobilisation captures remain historical evidence of why this refinement was requested. The focused Mobilisation layout awaits David's visual decision; Site Book and Site Service await their pair review. No further route migration is authorised.

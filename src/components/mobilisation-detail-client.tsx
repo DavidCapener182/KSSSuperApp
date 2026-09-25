@@ -1,9 +1,8 @@
 "use client";
 import "./record-studies.css";
-import { RecordSectionTracker } from "./record-section-tracker";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import styles from "./mobilisations.module.css";
 
@@ -18,6 +17,8 @@ const label = (value: string) => value.replaceAll("_", " ").toLowerCase().replac
 const dateTime = (value: string) => new Date(value).toLocaleString("en-GB", { timeZone: "Europe/London", dateStyle: "medium", timeStyle: "short" });
 const categories = ["COMMERCIAL", "CONTACTS", "SITE_EVENT", "STAFFING", "RECRUITMENT", "TRAINING", "DOCUMENTS", "ASSETS", "SYSTEMS", "REPORTING", "GO_LIVE", "HANDOVER"];
 const sources = ["CONTACT", "SITE", "SITE_SERVICE", "EVENT", "TASK", "DOCUMENT_VERSION"];
+const recordSections = ["scope-heading", "actions-heading", "blockers-heading", "decisions-heading", "links-heading", "review-heading", "history-heading"] as const;
+type RecordSection = typeof recordSections[number];
 async function read(url: string, init?: RequestInit) { const response = await fetch(url, { ...init, cache: "no-store" }); const body = await response.json().catch(() => ({})); if (!response.ok) throw new Error(body.error ?? "Request denied"); return body; }
 function sourceHref(link: SourceLink) { switch (link.sourceType) { case "SITE": return `/sites/${link.sourceId}`; case "SITE_SERVICE": return link.siteId ? `/sites/${link.siteId}/services/${link.sourceId}` : "/sites"; case "EVENT": return `/events/${link.sourceId}`; case "CONTACT": return "/crm"; case "TASK": return "/work"; case "DOCUMENT_VERSION": return "/documents"; default: return "#"; } }
 export function MobilisationDetailClient({ id }: { id: string }) {
@@ -29,6 +30,27 @@ export function MobilisationDetailClient({ id }: { id: string }) {
   const [blocker, setBlocker] = useState({ actionId: "", reason: "", ownerId: "" });
   const [decision, setDecision] = useState({ outcome: "DEFERRED", note: "" });
   const [link, setLink] = useState({ sourceType: "SITE", sourceId: "" });
+  const [activeSection, setActiveSection] = useState<RecordSection>("scope-heading");
+  const sectionNav = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    const sync = () => { const hash = window.location.hash.slice(1); setActiveSection(recordSections.includes(hash as RecordSection) ? hash as RecordSection : "scope-heading"); };
+    sync(); window.addEventListener("hashchange", sync); window.addEventListener("popstate", sync);
+    return () => { window.removeEventListener("hashchange", sync); window.removeEventListener("popstate", sync); };
+  }, []);
+  useEffect(() => {
+    const align = () => {
+      const nav = sectionNav.current;
+      const selected = nav?.querySelector<HTMLElement>('[aria-current="location"]');
+      if (nav && selected) nav.scrollTo({ left: selected.offsetLeft - nav.offsetLeft - (nav.clientWidth - selected.clientWidth) / 2, behavior: "instant" });
+    };
+    align(); window.addEventListener("resize", align);
+    return () => window.removeEventListener("resize", align);
+  }, [activeSection, detail]);
+  function selectSection(event: React.MouseEvent<HTMLAnchorElement>, section: RecordSection) {
+    event.preventDefault(); setActiveSection(section);
+    if (window.location.hash !== `#${section}`) window.history.pushState(null, "", `#${section}`);
+    if (sectionNav.current) window.scrollTo({ top: window.scrollY + sectionNav.current.getBoundingClientRect().top, behavior: "instant" });
+  }
   const load = useCallback(async (): Promise<Detail | null> => { setLoading(true); setError(""); try {
     const next: Detail = await read(`/api/mobilisations/${id}`); setDetail(next);
     setOwner(next.mobilisation.owner_person_id); setTarget(next.mobilisation.target_go_live ?? "");
@@ -72,11 +94,11 @@ export function MobilisationDetailClient({ id }: { id: string }) {
     {loading && <p role="status">Loading authorised mobilisation…</p>}
     {m && <>
       <header className="mobilisation-record-header"><h1>{m.title}</h1><div className="crm-record-identity"><span>Mobilisation</span><strong>{label(m.status)}</strong></div><p>{m.organisationName} · Owner: {m.ownerName}</p><p>Target go-live: {m.target_go_live ?? "Not set"} · {label(m.templateCode)} template v{m.templateVersion}</p></header>
-      <nav className="mobilisation-record-sections" aria-label="Mobilisation sections"><a href="#scope-heading">Context</a><a href="#actions-heading">Actions</a><a href="#blockers-heading">Blockers</a><a href="#decisions-heading">Decisions</a><a href="#links-heading">Source links</a><a href="#review-heading">Review</a><a href="#history-heading">History</a></nav>
-      <RecordSectionTracker label="Mobilisation sections" />
-      <div className="crm-organisation-related"><strong>Related workflows</strong><Link href={`/crm/organisations/${m.organisation_id}`}>Client Organisation</Link>{m.source_opportunity_id && <Link href={`/crm/opportunities/${m.source_opportunity_id}`}>Origin Opportunity</Link>}<a href="#links-heading">Source records</a></div>
+      <nav ref={sectionNav} className="mobilisation-record-sections" aria-label="Mobilisation sections"><a href="#scope-heading" aria-current={activeSection==="scope-heading"?"location":undefined} onClick={event=>selectSection(event,"scope-heading")}>Context</a><a href="#actions-heading" aria-current={activeSection==="actions-heading"?"location":undefined} onClick={event=>selectSection(event,"actions-heading")}>Actions</a><a href="#blockers-heading" aria-current={activeSection==="blockers-heading"?"location":undefined} onClick={event=>selectSection(event,"blockers-heading")}>Blockers</a><a href="#decisions-heading" aria-current={activeSection==="decisions-heading"?"location":undefined} onClick={event=>selectSection(event,"decisions-heading")}>Decisions</a><a href="#links-heading" aria-current={activeSection==="links-heading"?"location":undefined} onClick={event=>selectSection(event,"links-heading")}>Source links</a><a href="#review-heading" aria-current={activeSection==="review-heading"?"location":undefined} onClick={event=>selectSection(event,"review-heading")}>Review</a><a href="#history-heading" aria-current={activeSection==="history-heading"?"location":undefined} onClick={event=>selectSection(event,"history-heading")}>History</a></nav>
+      <div className="crm-organisation-related"><strong>Related workflows</strong><Link href={`/crm/organisations/${m.organisation_id}`}>Client Organisation</Link>{m.source_opportunity_id && <Link href={`/crm/opportunities/${m.source_opportunity_id}`}>Origin Opportunity</Link>}<a href="#links-heading" onClick={event=>selectSection(event,"links-heading")}>Source records</a></div>
       <div className={styles.counts} aria-label="Factual action counts"><span>{detail!.counts.total} actions</span><span>{detail!.counts.done} done</span><span>{detail!.counts.open} open</span><span>{detail!.counts.blocked} blocked</span><span>{openBlockers.length} unresolved blockers</span></div>
-      <section className={styles.card} aria-labelledby="scope-heading"><h2 id="scope-heading">Scope and accountability</h2>
+      <div className="mobilisation-focused-content">
+      <section className={styles.card} aria-labelledby="scope-heading" hidden={activeSection!=="scope-heading"}><h2 id="scope-heading">Scope and accountability</h2>
         <p>Client: <Link href={`/crm/organisations/${m.organisation_id}`}>{m.organisationName}</Link>. Won Opportunity: {m.source_opportunity_id ? <Link href={`/crm/opportunities/${m.source_opportunity_id}`}>Open exact origin</Link> : "None — authorised directly from Client"}.</p>
         <p>Owner: {m.ownerName}. Target go-live: {m.target_go_live ?? "Not set"}. State: {label(m.status)}.</p>
         {!terminal && <><div className={styles.grid}><label>New owner<select value={owner} onChange={e => setOwner(e.target.value)}>{owners.map(choice => <option key={choice.id} value={choice.id}>{choice.name}</option>)}</select></label>
@@ -84,11 +106,11 @@ export function MobilisationDetailClient({ id }: { id: string }) {
         <label className={styles.stack}>Reason for change<textarea maxLength={1000} value={note} onChange={e => setNote(e.target.value)} /></label>
         <div className={styles.buttons}><Button variant="outline" disabled={busy || owner === m.owner_person_id} onClick={() => void command("OWNER", { ownerId: owner, note })}>Reassign owner</Button><Button variant="outline" disabled={busy || target === (m.target_go_live ?? "")} onClick={() => void command("TARGET_DATE", { targetDate: target || null, note })}>Change target</Button></div></>}
       </section>
-      <section className={styles.card} aria-labelledby="actions-heading"><h2 id="actions-heading">Workstream actions</h2>
+      <section className={styles.card} aria-labelledby="actions-heading" hidden={activeSection!=="actions-heading"}><h2 id="actions-heading">Workstream actions</h2>
         {detail!.actions.map(row => <div className={styles.action} key={row.id}>
           <strong>{row.title}</strong><span className={styles.meta}>{label(row.category)} · {label(row.state)} · {row.ownerName} · due {row.due_on ?? "not set"}</span>
           <span className={styles.meta}>Dependencies: {detail!.dependencies.filter(dep => dep.action_id === row.id).map(dep => detail!.actions.find(a => a.id === dep.depends_on_id)?.title ?? "Restricted").join(", ") || "None"}</span>
-          {!terminal && <div className={styles.buttons}>{["OPEN", "IN_PROGRESS", "BLOCKED", "DONE", "CANCELLED"].filter(state => state !== row.state).map(state => <Button type="button" variant="outline" size="sm" disabled={busy || (state === "CANCELLED" && note.trim().length < 3)} key={state} onClick={() => void command("ACTION_STATE", { actionId: row.id, state, note })}>{label(state)}</Button>)}</div>}
+          {!terminal && <details className={styles.stateChange}><summary>Change state</summary><div className={styles.buttons}>{["OPEN", "IN_PROGRESS", "BLOCKED", "DONE", "CANCELLED"].filter(state => state !== row.state).map(state => <Button type="button" variant="outline" size="sm" disabled={busy || (state === "CANCELLED" && note.trim().length < 3)} key={state} onClick={() => void command("ACTION_STATE", { actionId: row.id, state, note })}>{label(state)}</Button>)}</div></details>}
         </div>)}
         {!terminal && <label className={styles.stack}>Reason for action cancellation or correction<textarea maxLength={500} value={note} onChange={e => setNote(e.target.value)} /></label>}
         {!terminal && <><h3>Add a scoped action</h3><div className={styles.form}><label>Title<input maxLength={180} value={newAction.title} onChange={e => setNewAction({ ...newAction, title: e.target.value })} /></label>
@@ -100,7 +122,7 @@ export function MobilisationDetailClient({ id }: { id: string }) {
           <label>Depends on<select value={dependency.dependsOnId} onChange={e => setDependency({ ...dependency, dependsOnId: e.target.value })}><option value="">Choose prerequisite</option>{detail!.actions.map(a => <option key={a.id} value={a.id}>{a.title}</option>)}</select></label>
           <div className={styles.formActions}><Button variant="outline" disabled={busy || !dependency.actionId || !dependency.dependsOnId} onClick={() => void command("DEPENDENCY_ADD", dependency)}>Add dependency</Button></div></div></>}
       </section>
-      <div className={styles.grid}><section className={styles.card} aria-labelledby="blockers-heading"><h2 id="blockers-heading">Blockers</h2>
+      <section className={styles.card} aria-labelledby="blockers-heading" hidden={activeSection!=="blockers-heading"}><h2 id="blockers-heading">Blockers</h2>
         {detail!.blockers.length === 0 && <p>No blockers recorded.</p>}
         {detail!.blockers.map(row => <div className={styles.action} key={row.id}><strong>{row.resolved_at ? "Resolved" : "Blocked"} — {row.reason}</strong>
           <span className={styles.meta}>Owner {owners.find(choice => choice.id === row.owner_person_id)?.name ?? "Named Person"} · opened {dateTime(row.opened_at)}</span>
@@ -110,14 +132,14 @@ export function MobilisationDetailClient({ id }: { id: string }) {
           <label>Owner<select value={blocker.ownerId} onChange={e => setBlocker({ ...blocker, ownerId: e.target.value })}>{owners.map(choice => <option key={choice.id} value={choice.id}>{choice.name}</option>)}</select></label>
           <Button disabled={busy || blocker.reason.trim().length < 3} onClick={() => void command("BLOCKER_OPEN", blocker)}>Record blocker</Button></div>}
       </section>
-      <section className={styles.card} aria-labelledby="decisions-heading"><h2 id="decisions-heading">Decisions</h2>
+      <section className={styles.card} aria-labelledby="decisions-heading" hidden={activeSection!=="decisions-heading"}><h2 id="decisions-heading">Decisions</h2>
         {detail!.decisions.length === 0 && <p>No decisions recorded.</p>}
         {detail!.decisions.map(row => <p className={styles.action} key={row.id}><strong>{label(row.kind)} · {label(row.outcome)}</strong><span>{row.note}</span><span className={styles.meta}>{dateTime(row.occurred_at)}</span></p>)}
         {!terminal && <div className={styles.stack}><label>Outcome<select value={decision.outcome} onChange={e => setDecision({ ...decision, outcome: e.target.value })}><option value="DEFERRED">Deferred</option><option value="APPROVED">Approved</option><option value="REJECTED">Rejected</option></select></label>
           <label>Decision note<textarea maxLength={1000} value={decision.note} onChange={e => setDecision({ ...decision, note: e.target.value })} /></label>
           <Button disabled={busy || decision.note.trim().length < 3} onClick={() => void command("DECISION", decision)}>Record decision</Button></div>}
-      </section></div>
-      <section className={styles.card} aria-labelledby="links-heading"><h2 id="links-heading">Authoritative source links</h2>
+      </section>
+      <section className={styles.card} aria-labelledby="links-heading" hidden={activeSection!=="links-heading"}><h2 id="links-heading">Authoritative source links</h2>
         <p>Links point to source records. Their permissions and decisions remain in those modules. Asset links follow a later task.</p>
         {detail!.links.length === 0 && <p>No source links recorded.</p>}
         {detail!.links.map(row => <p key={row.id}>{row.sourceId ? <Link href={sourceHref(row)}>{label(row.sourceType)} <span className={styles.code}>{row.sourceId}</span></Link> : <span>{label(row.sourceType)} · restricted</span>} · {label(row.sourceState)} {m.status !== "HANDED_OVER" && m.status !== "CANCELLED" && <Button variant="ghost" size="sm" disabled={busy || note.trim().length < 3} onClick={() => void unlink(row.id)}>Remove link with reason below</Button>}</p>)}
@@ -127,7 +149,7 @@ export function MobilisationDetailClient({ id }: { id: string }) {
         <label className={styles.stack}>Reason for a link correction<textarea maxLength={500} value={note} onChange={e => setNote(e.target.value)} /></label></>}
         <div className={styles.buttons}><Link href={`/sites?organisation=${m.organisation_id}`}>Open Sites to create or choose a Site</Link><Link href={`/events?organisation=${m.organisation_id}`}>Open Events to create or choose an Event</Link></div>
       </section>
-      <section className={styles.card} aria-labelledby="review-heading"><h2 id="review-heading">Go-live review and operational handover</h2>
+      <section className={styles.card} aria-labelledby="review-heading" hidden={activeSection!=="review-heading"}><h2 id="review-heading">Go-live review and operational handover</h2>
         <p className={styles.warning}>These are factual exceptions, not a safety, compliance, staffing or contract verdict. Source records must be checked in their own modules.</p>
         <div className={styles.counts}><span>{detail!.counts.done}/{detail!.counts.total} actions done</span><span>{unresolved.length} actions unresolved</span><span>{openBlockers.length} blockers open</span><span>{detail!.links.length} linked sources</span></div>
         <h3>Outstanding actions</h3>{unresolved.length ? <ul>{unresolved.map(row => <li key={row.id}>{row.title} — {label(row.state)}</li>)}</ul> : <p>None.</p>}
@@ -138,7 +160,8 @@ export function MobilisationDetailClient({ id }: { id: string }) {
         <div className={styles.buttons}>{nextState && <Button disabled={busy || (nextState === "HANDED_OVER" && note.trim().length < 3)} onClick={() => void command("STATUS", { state: nextState, note }, nextState === "HANDED_OVER" ? "Record handover with the displayed outstanding facts?" : undefined)}>{nextState === "HANDED_OVER" ? "Hand over to Operations" : `Move to ${label(nextState)}`}</Button>}
           <Button variant="outline" disabled={busy || note.trim().length < 3} onClick={() => void command("STATUS", { state: "CANCELLED", note }, "Cancel this mobilisation? History will remain.")}>Cancel mobilisation</Button></div></>}
       </section>
-      <section className={styles.card} aria-labelledby="history-heading"><h2 id="history-heading">Immutable history</h2><ol>{detail!.history.map(row => <li key={row.id}>Revision {row.revision}: {label(row.kind)} · {dateTime(row.occurred_at)}{row.reason ? ` · ${row.reason}` : ""}</li>)}</ol></section>
+      <section className={styles.card} aria-labelledby="history-heading" hidden={activeSection!=="history-heading"}><h2 id="history-heading">Immutable history</h2><ol>{detail!.history.map(row => <li key={row.id}>Revision {row.revision}: {label(row.kind)} · {dateTime(row.occurred_at)}{row.reason ? ` · ${row.reason}` : ""}</li>)}</ol></section>
+      </div>
     </>}
   </main>;
 }

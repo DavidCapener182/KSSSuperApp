@@ -13,6 +13,8 @@
 - `src/components/record-section-tracker.tsx` — presentation-only anchor selection and natural-scroll tracking for scrollable records.
 - `src/components/events-client.tsx`, `src/components/incident-detail.tsx`, `src/components/service-delivery-detail.tsx` — section tracking/focused Service Delivery presentation; existing reads and actions unchanged.
 - `docs/ui/evidence/ui14/rollout/*.png` — authenticated local desktop/390px rollout screenshots.
+- `docs/ui/evidence/ui14/mobilisation-focused/*.png` — authenticated focused Actions and Review screenshots at desktop/390px.
+- `src/components/mobilisations.module.css` — Mobilisation-only state disclosure styling.
 - `docs/delivery/TASK-UI14-CONTROLLED-ROLLOUT.md` — bounded rollout verification ledger.
 
 No shell, application-wide stylesheet, shared primitive, API, database, or deployment path is owned by this lane.

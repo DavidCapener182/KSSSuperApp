@@ -29,6 +29,8 @@
 
 .site-service-record-header { margin: .5rem 0 1rem; }
 .mobilisation-record-header { margin: .7rem 0 1rem; }
+.mobilisation-focused-content > [hidden] { display: none !important; }
+.mobilisation-focused-content > section { scroll-margin-top: 4.5rem; }
 .site-service-record-related { margin-bottom: 1rem; }
 .site-service-record-related a:focus-visible { outline: 3px solid var(--kss-blue,#245b96); outline-offset: 2px; }
 .site-service-record section[id] { min-width: 0; }
