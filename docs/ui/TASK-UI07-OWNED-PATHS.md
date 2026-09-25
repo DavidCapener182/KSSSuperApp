@@ -14,5 +14,12 @@ Exact files owned for this follow-up UI pass:
 - `docs/ui/TASK-UI07-OWNED-PATHS.md`
 - `docs/ui/TASK-UI07-SERVICE-MANAGEMENT-REPORT.md`
 - `docs/ui/SHARED-UI-CHANGE-PROPOSALS.md`
+- `output/playwright/task-ui07/assets-office-390.png`
+- `output/playwright/task-ui07/assets-super-desktop.png`
+- `output/playwright/task-ui07/my-equipment-390.png`
+- `output/playwright/task-ui07/service-detail-390.png`
+- `output/playwright/task-ui07/service-detail-desktop.png`
+- `output/playwright/task-ui07/service-list-390.png`
+- `output/playwright/task-ui07/service-list-desktop.png`
 
 Operational Documents, 21D commitments and change control, shared components, other UI lanes, migrations, and delivery status/decisions are excluded from source edits. The shared checkout is read-only.
