@@ -14,3 +14,9 @@ Record proposed global typography, navigation, layout, CSS or primitive changes 
 - UI02 should consolidate 44px action and form sizing, focus rings, source-boundary notes, and post-readback feedback into common primitives. UI05 uses local styles while those shared contracts are unresolved.
 - UI05's authenticated 390px People, Staff Record and follow-up walkthroughs support a readable system sans-serif direction for UI02 across KSS Enterprise: comfortable operational body text, hierarchy through weight/size/spacing, restrained uppercase, strong focus outlines, sensible mobile spacing and practical 44px controls. This is a shared-system input, not an authorisation for UI05 to rewrite global CSS.
 - Training administration needs an agreed large-list pattern for courses and exact versions. UI05 adds local title filtering and collapsed versions against the existing loaded result; a future paginated read contract would be a separate product task if synthetic volume grows.
+
+# TASK-UI06 shared UI change proposals
+
+For UI02 integration, consider a shared four-step journey/context component and a consistent in-page section navigation primitive. This lane keeps its current implementation local to Mobilisation. Any shared component should preserve domain-specific source identities, explicit status language and keyboard focus without deriving a readiness verdict.
+
+The follow-up CRM, Site, Service and Event screens use a domain-local `commercial-journey.module.css` for route context and in-page navigation. UI02 can consolidate this with the Mobilisation pattern after checking role-specific link visibility, 390px wrapping and keyboard focus in the authenticated app. A shared component must not infer stage completion from a link or action count.
