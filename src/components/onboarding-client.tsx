@@ -3,7 +3,7 @@ import "./record-studies.css";
 import "./onboarding-journey.css";
 import { RecordSectionTracker } from "./record-section-tracker";
 
-import { useCallback, useEffect, useState, type FormEvent } from "react";
+import { Fragment, useCallback, useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ActionButton, ConfirmDialog, EmptyState, FeedbackBanner, LoadingBlock, PageHeader } from "@/components/ui/workflow";
@@ -17,7 +17,7 @@ type Requirement = { id: string; code: string; title: string; position: number; 
     publishedAt: string | null; effectiveOn: string | null; scanState: string;
     accessedAt: string | null; acknowledgedAt: string | null; acknowledgedBy: string | null } | null };
 type Case = { id: string; starterName: string; personId: string; siteName: string; intendedRole: string;
-  templateVersion: number; state: string; createdAt: string; canManage: boolean; canIssueIdentity: boolean; verifiedCount: number; totalCount: number;
+  templateVersion: number; state: string; createdAt: string; startedAt: string | null; ownerName: string | null; canManage: boolean; canIssueIdentity: boolean; verifiedCount: number; totalCount: number;
   requirements: Requirement[];
   profile: Record<string, string | null> | null; submittedProfile: Record<string, string | null> | null; profileSubmittedAt: string | null;
   siaCredential: { category: string; synthetic_reference: string; expires_on: string } | null;
@@ -38,6 +38,8 @@ const label: Record<string,string> = {
   ACKNOWLEDGED: "Acknowledged",
 };
 function requirementLabel(requirement: Requirement) {
+  if (requirement.code === "CORE_KSS_INDUCTION" && requirement.state === "NOT_CONNECTED") return "Case link pending";
+  if (requirement.code === "CONTRACT_TERMS" && requirement.state === "NOT_AVAILABLE") return "Exact version not assigned";
   if (requirement.code !== "IDENTITY_EVIDENCE") return label[requirement.state] ?? requirement.state;
   if (requirement.state === "VERIFIED") return "Verified — synthetic workflow";
   if (requirement.state === "UNDER_REVIEW" && requirement.evidenceState === "ACCEPTED_AS_EVIDENCE")
@@ -60,6 +62,11 @@ function actorLabel(actor: string) {
     SYSTEM: "System configuration", EXTERNAL_PROVIDER: "External provider",
   };
   return labels[actor] ?? actor.replaceAll("_", " ").toLowerCase();
+}
+function nextActionText(requirement: Requirement) {
+  if (requirement.code === "CORE_KSS_INDUCTION" && requirement.state === "NOT_CONNECTED") return "This onboarding requirement has no case-specific native Training read or linkage.";
+  if (requirement.code === "CONTRACT_TERMS" && requirement.state === "NOT_AVAILABLE") return "No exact controlled terms version is assigned to this case.";
+  return requirement.nextAction;
 }
 
 export function OnboardingClient({ office, selectedCaseId }: { office: boolean; selectedCaseId?: string }) {
@@ -234,8 +241,14 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
       description={office ? "Manage each starter checklist. Evidence review and requirement verification remain separate decisions."
         : "See what is complete and what needs your attention next."} />}
     {selectedCaseId && <Link className="crm-record-back" href="/onboarding">← {office ? "Onboarding cases" : "My cases"}</Link>}
-    {selectedCaseId && detail && <><header className="onboarding-record-header"><h1>{office ? detail.starterName : detail.intendedRole.replaceAll("_"," ")}</h1><div className="crm-record-identity"><span>Onboarding</span><strong>{label[detail.state] ?? detail.state}</strong></div><p>{office ? `${detail.intendedRole.replaceAll("_"," ")} · ` : ""}{detail.siteName}</p><p>Template Version {detail.templateVersion} · Created {new Date(detail.createdAt).toLocaleString("en-GB")}</p></header>
-      <nav className="onboarding-record-sections" aria-label="Onboarding case sections"><a href="#onboarding-overview">Overview</a>{office && detail.templateVersion >= 2 && <a href="#onboarding-submitted">Submitted information</a>}<a href="#onboarding-requirements">Requirements</a></nav></>}
+    {selectedCaseId && detail && <><header className="onboarding-record-header onboarding-case-hero"><div>
+        <p className="eyebrow">Person / onboarding · synthetic development</p>
+        <h1>{detail.starterName}</h1>
+        <p>{detail.intendedRole.replaceAll("_"," ")} · {detail.siteName}</p>
+        <p>Owner {detail.ownerName ?? "No named owner in this read"} · {detail.startedAt ? "Started" : "Created"} {new Date(detail.startedAt ?? detail.createdAt).toLocaleDateString("en-GB")}</p></div>
+        <div className="onboarding-case-hero-state"><span>Case state</span><strong>{label[detail.state] ?? detail.state}</strong>
+          <span>{detail.verifiedCount} of {detail.totalCount} requirements complete</span></div></header>
+      <nav className="onboarding-record-sections" aria-label="Onboarding case sections"><a href="#onboarding-overview">Overview</a><a href="#onboarding-requirements">Journey</a><a href="#onboarding-evidence">Evidence</a><a href="#onboarding-training">Training</a><a href="#onboarding-documents">Documents</a>{office && detail.templateVersion >= 2 && <a href="#onboarding-submitted">Personal details</a>}</nav></>}
       {selectedCaseId && detail && <RecordSectionTracker label="Onboarding case sections" />}
     {office && <FeedbackBanner>Development workflow only. No legal Right to Work check, compliance decision or deployment approval is recorded here.</FeedbackBanner>}
     {message && <FeedbackBanner tone={message.includes("could not") || message.includes("not recorded") ? "error" : "success"}>{message}</FeedbackBanner>}
@@ -296,13 +309,26 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
               <h3>{detail.intendedRole.replaceAll("_", " ")}</h3><p>{detail.siteName} · Template Version {detail.templateVersion} · Created {new Date(detail.createdAt).toLocaleString("en-GB")}</p></div>
             <span className="onboarding-state">{label[detail.state] ?? detail.state}</span>
           </div>}
-          {selectedCaseId && <h2>Overview</h2>}
+          {selectedCaseId && <h2 className="onboarding-case-section-title">{detail.starterName}&apos;s onboarding journey</h2>}
           <div id="onboarding-overview" className="onboarding-progress"><strong>{detail.verifiedCount} of {detail.totalCount} requirements complete</strong>
             <Progress value={100 * detail.verifiedCount / detail.totalCount} aria-label={`${detail.verifiedCount} of ${detail.totalCount} requirements complete`} />
             <p>Mandatory unavailable or unconnected requirements remain outstanding. This is not a compliance or deployment score.</p></div>
+          {selectedCaseId && <section className="onboarding-case-focus" aria-labelledby="onboarding-focus-heading">
+            <div className="onboarding-case-focus-heading"><div><p className="eyebrow">Current action · source snapshot</p><h2 id="onboarding-focus-heading">What happens next</h2></div>
+              <p>Owner {detail.ownerName ?? "not named"} · Template v{detail.templateVersion}. Each requirement keeps its own decision.</p></div>
+            <div className="onboarding-case-focus-counts">
+              <div><strong>{detail.requirements.filter((r) => r.actor === "OFFICE").length}</strong><span>Office next</span></div>
+              <div><strong>{detail.requirements.filter((r) => r.actor === "STAFF").length}</strong><span>Staff next</span></div>
+              <div><strong>{detail.requirements.filter((r) => r.actor === "SYSTEM" || r.actor === "EXTERNAL_PROVIDER").length}</strong><span>Not yet actionable here</span></div>
+            </div>
+            <ul>{detail.requirements.filter((r) => r.actor !== "NONE").slice(0, 3).map((r) =>
+              <li key={r.id}><div><strong>{r.title}</strong><span>{actorLabel(r.actor)} · {requirementLabel(r)}</span><span>{nextActionText(r)}</span></div>
+                <a href={`#onboarding-requirement-${r.id}`}>Continue step <span aria-hidden="true">↓</span></a></li>)}</ul>
+            {detail.requirements.every((r) => r.actor === "NONE") && <p>No next actor is identified in this current case snapshot.</p>}
+          </section>}
           {!office && <p className="onboarding-development-note">Synthetic workflow only. No legal checking or deployment decision is recorded here.</p>}
-          {office && detail.templateVersion >= 2 && <div id="onboarding-submitted" className="onboarding-private-summary">
-            {selectedCaseId ? <h2>Submitted starter information</h2> : <h3>Submitted starter information</h3>}
+          {office && detail.templateVersion >= 2 && <details id="onboarding-submitted" className="onboarding-private-summary onboarding-private-disclosure">
+            <summary>Submitted starter information <span>Restricted to this authorised case</span></summary>
             <p>Current Personal Details are visible only for this authorised case. Office cannot edit them here.</p>
             {detail.profile ? <dl>
               <div><dt>Legal name</dt><dd>{detail.profile.legal_first_name ?? "—"} {detail.profile.surname ?? ""}</dd></div>
@@ -325,21 +351,27 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
               (detail.siaCredential.synthetic_reference !== detail.submittedSia.synthetic_reference ||
                 detail.siaCredential.expires_on !== detail.submittedSia.expires_on) &&
               <FeedbackBanner tone="error">Current synthetic SIA details differ from the submitted credential revision. A new submission, evidence and decision are needed.</FeedbackBanner>}
-          </div>}
+          </details>}
           {office && detail.canManage && detail.state === "DRAFT" && <ActionButton onClick={() => void action("start")} disabled={busy}>Start onboarding</ActionButton>}
-          {selectedCaseId && <h2>Requirement journey</h2>}
+          {selectedCaseId && <h2 className="onboarding-case-section-title">Six steps, one case</h2>}
           <p className="onboarding-journey-intro">Current case snapshot in template order. Evidence submission, evidence acceptance and requirement verification are separate states; this is not an event history.</p>
-          <ol id="onboarding-requirements" className="onboarding-requirements onboarding-journey">{detail.requirements.map((r) => <li key={r.id}>
+          <ol id="onboarding-requirements" className="onboarding-requirements onboarding-journey">{detail.requirements.map((r) => <Fragment key={r.id}>
+            {(r.code === "PERSONAL_DETAILS" || r.code === "RIGHT_TO_WORK" || r.code === "CONTRACT_TERMS") && <li className="onboarding-journey-group"><span>{r.code === "PERSONAL_DETAILS" ? "01 / Getting started" : r.code === "RIGHT_TO_WORK" ? "02 / Evidence checks" : "03 / Terms and learning"}</span></li>}
+            <li id={`onboarding-requirement-${r.id}`}>
             <div className="onboarding-journey-step" aria-hidden="true">{r.position}</div>
             <div className="onboarding-journey-content">
               <div className="onboarding-requirement-head"><h4>{r.title}</h4><span className={`onboarding-badge onboarding-badge--${r.state.toLowerCase()}`}>{requirementLabel(r)}</span></div>
               <dl className="onboarding-journey-facts">
-                <div><dt>Current requirement</dt><dd>{label[r.state] ?? r.state.replaceAll("_", " ").toLowerCase()}{r.verifiedAt && ` · Decision recorded ${new Date(r.verifiedAt).toLocaleString("en-GB")}`}</dd></div>
+                <div><dt>Current requirement</dt><dd>{requirementLabel(r)}{r.verifiedAt && ` · Decision recorded ${new Date(r.verifiedAt).toLocaleString("en-GB")}`}</dd></div>
                 {r.evidenceState && <div><dt>Document evidence</dt><dd>{evidenceLabel(r.evidenceState)}</dd></div>}
                 {r.controlled && <div><dt>Exact terms</dt><dd>{r.controlled.title} · Version {r.controlled.versionNumber}{r.controlled.acknowledgedAt ? " · Acknowledged" : " · Awaiting acknowledgement"}</dd></div>}
                 <div><dt>Next actor</dt><dd>{actorLabel(r.actor)}</dd></div>
               </dl>
-              <p className="onboarding-journey-next"><strong>{r.actor === "NONE" ? "Current outcome" : "Next action"}</strong> {r.nextAction}</p>
+              <p className="onboarding-journey-next"><strong>{r.actor === "NONE" ? "Current outcome" : "Next action"}</strong> {nextActionText(r)}</p>
+              {r.code === "CORE_KSS_INDUCTION" && <p id="onboarding-training" className="onboarding-source-note">Native KSS Training is available separately. This case read has no authorised person-specific assignment or completion status; no Training result is inferred. {!office && <Link href="/training/my-learning">Open my Training</Link>}</p>}
+              {r.code === "CONTRACT_TERMS" && <p id="onboarding-documents" className="onboarding-source-note">Controlled onboarding terms need an exact assigned version. Operational Documents are a separate source; opening a PDF is not acknowledgement or verification.</p>}
+              {r.code === "RIGHT_TO_WORK" && <span id="onboarding-evidence" className="onboarding-anchor" />}
+              {r.evidenceState && <p className="onboarding-evidence-chain">Evidence state: {evidenceLabel(r.evidenceState)} · Accepted as evidence: {r.acceptedVersionId ? "Yes, exact version" : "No"} · Requirement verified: {r.state === "VERIFIED" ? "Yes" : "No"}</p>}
             {r.feedback && <FeedbackBanner tone="error">Evidence review feedback: {r.feedback}</FeedbackBanner>}
             {r.documentRequestId && <Link className="ui-action ui-action--secondary" href={`/documents/${r.documentRequestId}${r.acceptedVersionId ? `?version=${r.acceptedVersionId}` : ""}`}>
               {office ? "Open protected evidence" : "Open my evidence request"}</Link>}
@@ -392,10 +424,11 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
               r.siaSubmissionId && r.acceptedVersionId && r.state === "UNDER_REVIEW" && r.evidenceState === "ACCEPTED_AS_EVIDENCE" &&
               <ActionButton onClick={() => void siaAction("sia-verify", r)} disabled={busy}>Verify exact synthetic SIA submission</ActionButton>}
             </div>
-          </li>)}</ol>
+          </li></Fragment>)}</ol>
           {office && detail.canManage && detail.state !== "CANCELLED" &&
             <ActionButton variant="caution" onClick={() => void action("cancel")} disabled={busy}>Cancel case</ActionButton>}
           <p className="ui-help">Case state does not establish legal compliance or operational deployability.</p>
+          {selectedCaseId && <p className="onboarding-history-gap">Activity history is not exposed by this authorised case read. Current timestamps above are source facts, not a reconstructed event timeline.</p>}
         </>}
       </section>
     </div>
