@@ -1,6 +1,6 @@
 # TASK-UI11 application shell and navigation
 
-Status: David visually accepted the UI11 direction for broad enterprise-shell rollout in synthetic Development on 25 September 2026 after reviewing the five saved screenshots. The shared shell refinements and representative route checks are complete in this isolated worktree. No staging or production deployment is authorised. This worktree starts at combined local UI03–UI10 snapshot `be3fb185249ecb10259d3bc944a1258131834341`; it is not canonical main.
+Status: **ACCEPTED AND CLOSED for the synthetic-Development shell rollout** on 25 September 2026. David reviewed the five saved screenshots, the refined shell and representative route checks. No staging or production deployment is authorised. This worktree starts at combined local UI03–UI10 snapshot `be3fb185249ecb10259d3bc944a1258131834341`; it is not canonical main.
 
 The desktop header menu is presented as a persistent left sidebar. The sidebar retains the existing role-derived `navigationFor` links and the existing extra Site Book links, grouped under their current headings. It can collapse to icon buttons with accessible labels and a saved local browser preference. The mobile menu opens as a left drawer. The breadcrumb shows the authorised section plus nested route context; UUID segments are labelled `Record` rather than exposing an opaque identifier as a visual title. Existing route and record gates remain authoritative.
 
