@@ -25,12 +25,14 @@ const read=async(path:string)=>{const response=await fetch(path,{cache:"no-store
 const key=(d:Duty)=>`${d.source}:${d.requirement_id}`;
 
 function DutyButton({duty,onOpen,compact=false}:{duty:Duty;onOpen:(d:Duty)=>void;compact?:boolean}) {
+  const warnings=duty.unavailable_conflicts+duty.coverage_conflicts+duty.approved_time_away_conflicts+duty.clashes;
   return <button type="button" className={`${s.duty} ${compact?s.compact:""}`} onClick={()=>onOpen(duty)} aria-label={`${sourceLabel(duty)}, ${duty.client_name}, ${duty.site_name}, ${duty.event_name}, ${duty.role_name}, ${duty.area_label}, ${duty.remaining} open, ${duty.awaiting_response} awaiting response; view duty`}>
     {!compact&&<><span className={s.source}>{sourceLabel(duty)}</span><strong>{duty.role_name}{duty.area_label?` · ${duty.area_label}`:""}</strong><span>{duty.event_name} · {duty.site_name}</span></>}
-    <span className={s.counts}>{compact?<>{hour(duty.shift_starts_at)}{londonDate(duty.shift_ends_at)>londonDate(duty.shift_starts_at)?" → next day":""}<br/>{duty.required_quantity} req · {duty.remaining} open<br/>{duty.awaiting_response} await · {duty.accepted} acc</>:<>{duty.required_quantity} required · {duty.remaining} open · {duty.awaiting_response} awaiting · {duty.accepted} accepted</>}</span>
-    {!compact&&<span>Report {time(duty.report_at)} · Shift {time(duty.shift_starts_at)} → {time(duty.shift_ends_at)}</span>}
-    {duty.allocations.length>0&&<span className={s.names}>{duty.allocations.slice(0,2).map(a=>`${a.person_name} (${a.status==="ACCEPTED"?"accepted":"awaiting"})`).join(" · ")}{duty.allocations.length>2?` · +${duty.allocations.length-2}`:""}</span>}
-    {(duty.unavailable_conflicts+duty.coverage_conflicts+duty.approved_time_away_conflicts+duty.clashes)>0&&<span className={s.attention}>Review availability, time away or clash</span>}
+    <span className={s.shiftTime}>{hour(duty.shift_starts_at)}–{hour(duty.shift_ends_at)}{londonDate(duty.shift_ends_at)>londonDate(duty.shift_starts_at)?" · next day":""}</span>
+    {!compact&&<span>Report {time(duty.report_at)}</span>}
+    <span className={s.coverageLine}><strong>{duty.required_quantity} required</strong><span className={duty.remaining>0?s.openCount:s.filledCount}>{duty.remaining} open</span></span>
+    {duty.allocations.length>0?<span className={s.assignmentList}>{duty.allocations.slice(0,compact?2:4).map(a=><span className={s.assignment} key={a.id}><span className={s.assignmentName}>{a.person_name}</span><span className={a.status==="ACCEPTED"?s.accepted:s.awaiting}>{a.status==="ACCEPTED"?"Accepted":"Awaiting response"}</span></span>)}{duty.allocations.length>(compact?2:4)&&<span className={s.moreAssignments}>+{duty.allocations.length-(compact?2:4)} more assignments</span>}</span>:<span className={s.noAssignments}>No one assigned</span>}
+    {warnings>0&&<span className={s.attention}>⚠ {warnings} warning{warnings===1?"":"s"} · review duty</span>}
   </button>;
 }
 function GroupedDuties({duties,onOpen}:{duties:Duty[];onOpen:(d:Duty)=>void}) {
@@ -67,7 +69,7 @@ export function WorkforcePlanner({week,selectedDay,onSelectDay,initial={}}:{week
     {error&&<p role="alert" className={s.error}>{error} <Button variant="outline" onClick={()=>void load()}>Retry</Button></p>}
     {returnMissing&&<p role="status" className={s.note}>The selected duty is no longer in this authorised week and filter. Review the current source or adjust the filters.</p>}
     {loading?<p role="status" className={s.note}>Loading authorised coverage…</p>:schedule&&<>
-      <div className={s.summary} aria-label="Filtered week coverage totals">{[["Required",totals?.required],["Allocated",totals?.allocated],["Awaiting response",(totals?.allocated??0)-(totals?.accepted??0)],["Accepted",totals?.accepted],["Open",totals?.remaining]].map(([label,value])=><div key={String(label)}><strong>{value}</strong><span>{label}</span></div>)}</div>
+      <div className={s.summary} aria-label="Filtered week coverage totals">{[["Required",totals?.required],["Allocated",totals?.allocated],["Awaiting response",(totals?.allocated??0)-(totals?.accepted??0)],["Accepted",totals?.accepted]].map(([label,value])=><div key={String(label)}><strong>{value}</strong><span>{label}</span></div>)}<button type="button" className={`${s.openSummary} ${filters.open?s.activeSummary:""}`} onClick={()=>change("open",!filters.open)} aria-pressed={filters.open} title="Show duties with open positions"><strong>{totals?.remaining}</strong><span>{filters.open?"Showing open positions":"Open positions · filter"}</span></button></div>
       {!schedule.static_horizon_covered&&<p className={s.error}>This week extends beyond the generated Site Shift horizon. Missing Site Shift demand may be incomplete; reconcile the source service.</p>}
       <div className={s.viewBar}><div className={s.viewSwitch} aria-label="Planning view"><Button variant={view==="matrix"?"default":"outline"} onClick={()=>setView("matrix")}>Week matrix</Button><Button variant={view==="day"?"default":"outline"} onClick={()=>setView("day")}>Day planner</Button></div><span>{schedule.total_lines} duty lines</span></div>
       <div className={s.weekStrip} aria-label="Select planning day">{days.map(day=><button key={day} type="button" className={day===selectedDay?s.selectedDay:""} aria-pressed={day===selectedDay} onClick={()=>onSelectDay(day)}><span>{dateLabel(day)}</span></button>)}</div>
