@@ -99,12 +99,13 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
     finally{setBusy(false);}
   }
   const nextStatus = event?.status === "PLANNING" ? "CONFIRMED" : event?.status === "CONFIRMED" ? "LIVE" : event?.status === "LIVE" ? "COMPLETED" : "";
-  return <main className="enterprise-main events-page">
+  return <main className={`enterprise-main events-page ${journey.controls}`}>
     <p className="eyebrow">Operations · synthetic development data</p>
     <div className="crm-heading"><div><h1>{id ? String(event?.name ?? "Event") : "Events"}</h1>
       <p className="enterprise-intro">Client, venue, overall Event times, staffing demand and current allocations. Attendance and worked hours are not recorded here.</p></div>
       {!id && office && <Button onClick={openCreate}>Create Event</Button>}</div>
     <nav className="crm-tabs" aria-label="Operational sections"><Link href="/events" aria-current={!id?"page":undefined}>Events</Link><Link href="/sites">Sites / Venues</Link></nav>
+    {id && <nav className={journey.context} aria-label="Event source actions"><Link href={`/events/${id}/attendance`}>Event attendance</Link><Link href={`/events/${id}/work-time`}>Worked-time review</Link><Link href={`/operational-contacts/manage?kind=EVENT&id=${id}`}>Operational contacts</Link></nav>}
     {!id && office && <nav className={journey.path} aria-label="Commercial to Event journey">
       <span><small>01 · Client</small><Link href="/crm?view=organisations">Confirm Client</Link></span>
       <span><small>02 · Site / Venue</small><Link href="/sites">Choose linked Site</Link></span>

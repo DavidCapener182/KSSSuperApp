@@ -23,7 +23,7 @@ export function SiteServicesClient({siteId,personId,canAdmin}:{siteId:string;per
     if(!response.ok)throw Error(result.error??"Service could not be created");const confirmed=await load();
     if(!confirmed?.some((item)=>item.id===result.id))throw Error("The Service response could not be confirmed in this Site list. Refresh before trying again.");setName("");
   }catch(caught){setError(caught instanceof Error?caught.message:"Service could not be created");}finally{setBusy(false);}}
-  return <main className="enterprise-main"><header className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Ongoing Site work</p>
+  return <main className={`enterprise-main ${journey.controls}`}><header className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Ongoing Site work</p>
     <h1>Site Services</h1><p>Each Service belongs to this exact Client-linked Site. Dated shifts and Events remain separate.</p></div></header>
     <nav className={journey.context} aria-label="Site Service context"><Link href={`/sites?view=operational&selected=${siteId}`}>Site context</Link><span>→</span><strong>Ongoing Site Services</strong><span>· Each Service has its own identity and dated shift demand.</span></nav>
     {error&&<p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={()=>void load()}>Retry</Button></p>}

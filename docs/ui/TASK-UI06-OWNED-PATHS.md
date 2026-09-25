@@ -11,8 +11,10 @@ Exact owned paths:
 - `src/components/crm-operational.tsx`
 - `src/components/crm-operational-links.tsx`
 - `src/components/events-client.tsx`
+- `src/app/(enterprise)/events/[id]/page.tsx`
 - `src/components/site-services-client.tsx`
 - `src/components/site-service-detail-client.tsx`
+- `src/app/(enterprise)/sites/[siteId]/services/[serviceId]/page.tsx`
 - `src/app/(enterprise)/sites/sites-client.tsx`
 - `src/components/commercial-journey.module.css`
 - `docs/ui/TASK-UI06-OWNED-PATHS.md`

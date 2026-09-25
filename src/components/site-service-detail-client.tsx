@@ -76,9 +76,9 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
   await act("extra",{serviceDate:date,roleId,quantity,reportAt:report,shiftStartsAt:start,shiftEndsAt:end,
    area,reporting,reason});}
  const service=detail?.service;
- return <main className="enterprise-main"><header className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Ongoing Site shift · synthetic development data</p>
+ return <main className={`enterprise-main ${journey.controls}`}><header className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Ongoing Site shift · synthetic development data</p>
    <h1>{service?.name??"Site Service"}</h1><p>{service?.client_name} · {service?.site_name}</p></div></header>
-   <nav className={journey.context} aria-label="Site Service context"><Link href={`/sites?view=operational&selected=${siteId}`}>Site</Link><Link href={`/sites/${siteId}/services`}>All Site Services</Link><Link href="/workforce">Workforce</Link><Link href={`/sites/${siteId}/services/${serviceId}/attendance`}>Attendance</Link></nav>
+   <nav className={journey.context} aria-label="Site Service context"><Link href={`/sites?view=operational&selected=${siteId}`}>Site</Link><Link href={`/sites/${siteId}/services`}>All Site Services</Link><Link href="/workforce">Workforce</Link><Link href={`/sites/${siteId}/services/${serviceId}/attendance`}>Attendance</Link><Link href={`/operational-contacts/manage?kind=SITE_SERVICE&id=${serviceId}`}>Operational contacts</Link></nav>
    <nav className={journey.sections} aria-label="Service sections"><a href="#service-state">Service state</a><a href="#service-template">Weekly template</a><a href="#service-demand">Dated demand</a></nav>
    {error&&<p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={()=>void load()}>Retry</Button></p>}
    {notice&&<p role="status" className="enterprise-honesty">{notice}</p>}

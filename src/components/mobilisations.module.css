@@ -34,3 +34,7 @@
 .form input, .form select, .form textarea, .stack input, .stack select, .stack textarea { min-height: 44px; }
 @media (max-width: 760px) { .journey { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 430px) { .journey { grid-template-columns: 1fr; } .journey span { padding: .75rem .9rem; } .localNav a { flex: 1 1 auto; justify-content: center; } }
+@media (max-width: 650px) {
+  .page button, .page input:not([type="checkbox"]):not([type="radio"]), .page select, .page textarea { min-height: 44px; }
+  .journey a { display: inline-flex; align-items: center; min-height: 44px; }
+}

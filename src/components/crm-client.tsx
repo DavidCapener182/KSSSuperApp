@@ -114,7 +114,7 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
   const backwards = !!opportunity && stageNames.indexOf(stage)>=0 && stageNames.indexOf(stage)<stageNames.indexOf(String(opportunity.stage));
   const openOrganisationEdit = () => { if (!org) return; setFields({name:String(org.name),tradingName:String(org.trading_name ?? ""),website:String(org.website ?? ""),email:String(org.general_email ?? ""),phone:String(org.main_phone ?? ""),ownerId:String(org.owner_person_id ?? "")}); setForm("editOrganisation"); };
   const openContactEdit = (contact:Row) => { setFields({contactId:String(contact.id),firstName:String(contact.first_name),lastName:String(contact.last_name),jobTitle:String(contact.job_title ?? ""),email:String(contact.business_email ?? ""),phone:String(contact.business_phone ?? ""),primary:contact.is_primary?"yes":"no",active:contact.active?"yes":"no"}); setForm("editContact"); };
-  return <main className="enterprise-main crm-page">
+  return <main className={`enterprise-main crm-page ${journey.controls}`}>
     <p className="eyebrow">Commercial workspace · synthetic development data</p>
     <div className="crm-heading"><div><h1>{view === "organisation" ? String(org?.name ?? "Organisation") : view === "opportunity" ? String(opportunity?.title ?? "Opportunity") : "CRM"}</h1>
       <p className="enterprise-intro">{view === "overview" ? "Organisations, business contacts and opportunities in one place." : "Commercial records remain separate from private Staff information."}</p></div></div>

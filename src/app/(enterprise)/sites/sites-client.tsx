@@ -139,7 +139,7 @@ export default function SitesPage() {
   if (authState === "denied") return <main className="sites-shell"><h1>Site access unavailable</h1><p>Your current Enterprise access could not be confirmed.</p><Link href="/app">Return Home</Link></main>;
   const office = roles.includes("OFFICE_ADMIN") || roles.includes("SUPER_ADMIN");
 
-  return <main className="sites-shell">
+  return <main className={`sites-shell ${journey.controls}`}>
     <header className="sites-header"><div><Link href="/app">← Home</Link><p className="eyebrow">Synthetic development journey</p><h1>Sites</h1><p>Only Sites in your authorised scope appear here. {office&&<Link href="/sites?view=operational">Browse operational Sites</Link>}</p></div></header>
     {office && <nav className={journey.context} aria-label="Commercial and Site context"><Link href="/crm?view=organisations">Clients</Link><span>→</span><strong>Site / Venue</strong><span>→</span><Link href="/events">Events</Link><span>Site Services are separate ongoing work.</span></nav>}
     {notice && <p className="sites-notice" role="status">{notice}</p>}

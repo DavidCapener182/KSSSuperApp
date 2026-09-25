@@ -11,3 +11,8 @@
 .context a:hover, .sections a:hover { border-color: var(--kss-blue); }
 @media (max-width: 750px) { .path { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 430px) { .path { grid-template-columns: 1fr; } .path > span { padding: .7rem .85rem; } .sections a { flex: 1 1 auto; justify-content: center; } }
+@media (max-width: 650px) {
+  .controls :global(button), .controls :global(select), .controls :global(input:not([type="checkbox"]):not([type="radio"])), .controls :global(textarea) { min-height: 44px; }
+  .controls :global(.crm-actions a), .controls :global(.crm-subrow), .controls :global(.crm-row) { min-height: 44px; }
+  .path a { display: inline-flex; align-items: center; min-height: 44px; }
+}
