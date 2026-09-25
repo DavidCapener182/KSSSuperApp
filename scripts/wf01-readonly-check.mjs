@@ -29,6 +29,7 @@ const check = async (path, session) => (await fetch(base + path, {
 const routes = [
   ['/workforce?week=2026-09-21&day=2026-09-25', 200, 404],
   ['/api/workforce?week=2026-09-21', 200, 403],
+  ['/api/workforce/staff?week=2026-09-21&search=', 200, 403],
   ['/my-schedule?week=2026-09-21', 404, 200],
   ['/api/my-schedule?week=2026-09-21', 403, 200],
 ];

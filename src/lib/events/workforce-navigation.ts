@@ -3,6 +3,7 @@ import { londonWeekStart } from "@/lib/events/workforce-week";
 export type WorkforceReturnState = {
   week: string; day: string; client: string; site: string; event: string;
   role: string; open: boolean; duty: string; source: "EVENT" | "SITE_SHIFT" | "";
+  view: "schedule" | "coverage" | "day";
 };
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -12,6 +13,7 @@ export function parseWorkforceReturnState(query: Record<string, string | undefin
   const week = query.week && date.test(query.week) && londonWeekStart(query.week) === query.week ? query.week : undefined;
   const day = query.day && date.test(query.day) && londonWeekStart(query.day) === week ? query.day : undefined;
   const source = query.source === "EVENT" || query.source === "SITE_SHIFT" ? query.source : undefined;
+  const view = query.view === "schedule" || query.view === "coverage" || query.view === "day" ? query.view : undefined;
   return {
     ...(week ? { week } : {}), ...(day ? { day } : {}),
     ...(query.client && query.client.length <= 80 && !/[\x00-\x1f\x7f]/.test(query.client) ? { client: query.client } : {}),
@@ -20,7 +22,7 @@ export function parseWorkforceReturnState(query: Record<string, string | undefin
     ...(query.role && uuid.test(query.role) ? { role: query.role } : {}),
     ...(query.open === "1" ? { open: true } : {}),
     ...(query.duty && uuid.test(query.duty) ? { duty: query.duty } : {}),
-    ...(source ? { source } : {}),
+    ...(source ? { source } : {}), ...(view ? { view } : {}),
   };
 }
 
@@ -28,6 +30,7 @@ export function buildWorkforceReturn(state: WorkforceReturnState): string {
   const query = new URLSearchParams({ week: state.week, day: state.day });
   for (const field of ["client", "site", "event", "role"] as const) if (state[field]) query.set(field, state[field]);
   if (state.open) query.set("open", "1");
+  if (state.view !== "schedule") query.set("view", state.view);
   if (state.duty && state.source) { query.set("duty", state.duty); query.set("source", state.source); }
   return `/workforce?${query}`;
 }
@@ -41,6 +44,6 @@ export function safeWorkforceReturn(value: string | undefined): string | undefin
     const state = parseWorkforceReturnState(query);
     return state.week ? buildWorkforceReturn({ week: state.week, day: state.day ?? state.week,
       client: state.client ?? "", site: state.site ?? "", event: state.event ?? "", role: state.role ?? "",
-      open: state.open ?? false, duty: state.duty ?? "", source: state.source ?? "" }) : undefined;
+      open: state.open ?? false, duty: state.duty ?? "", source: state.source ?? "", view: state.view ?? "schedule" }) : undefined;
   } catch { return undefined; }
 }
