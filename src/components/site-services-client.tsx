@@ -14,13 +14,14 @@ export function SiteServicesClient({siteId,personId,canAdmin}:{siteId:string;per
   const [items,setItems]=useState<Service[]>([]);const [loading,setLoading]=useState(true);const [error,setError]=useState("");
   const [name,setName]=useState("");const [type,setType]=useState("STATIC_GUARDING");
   const [from,setFrom]=useState(londonToday());const [busy,setBusy]=useState(false);
-  const load=useCallback(async()=>{setLoading(true);setError("");try{const response=await fetch(`/api/site-services?site=${siteId}`,{cache:"no-store"});
-    const result=await response.json();if(!response.ok)throw Error(result.error??"Services unavailable");setItems(result.services??[]);
-  }catch(caught){setError(caught instanceof Error?caught.message:"Services unavailable");}finally{setLoading(false);}},[siteId]);
+  const load=useCallback(async():Promise<Service[]|null>=>{setLoading(true);setError("");try{const response=await fetch(`/api/site-services?site=${siteId}`,{cache:"no-store"});
+    const result=await response.json();if(!response.ok)throw Error(result.error??"Services unavailable");const next:Service[]=result.services??[];setItems(next);return next;
+  }catch(caught){setError(caught instanceof Error?caught.message:"Services unavailable");return null;}finally{setLoading(false);}},[siteId]);
   useEffect(()=>{const timer=setTimeout(()=>void load(),0);return()=>clearTimeout(timer);},[load]);
   async function create(){setBusy(true);setError("");try{const response=await fetch("/api/site-services",{method:"POST",headers:{"content-type":"application/json"},
     body:JSON.stringify({siteId,name,type,effectiveFrom:from,ownerId:personId})});const result=await response.json();
-    if(!response.ok)throw Error(result.error??"Service could not be created");setName("");await load();
+    if(!response.ok)throw Error(result.error??"Service could not be created");const confirmed=await load();
+    if(!confirmed?.some((item)=>item.id===result.id))throw Error("The Service response could not be confirmed in this Site list. Refresh before trying again.");setName("");
   }catch(caught){setError(caught instanceof Error?caught.message:"Service could not be created");}finally{setBusy(false);}}
   return <main className="enterprise-main"><header className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Ongoing Site work</p>
     <h1>Site Services</h1><p>Each Service belongs to this exact Client-linked Site. Dated shifts and Events remain separate.</p></div></header>

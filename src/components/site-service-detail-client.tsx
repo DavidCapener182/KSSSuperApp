@@ -40,7 +40,7 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
  const [warningReason,setWarningReason]=useState("");const [exceptionQuantity,setExceptionQuantity]=useState(1);
  const [history,setHistory]=useState<{source:string;kind:string;record_id:string;revision:number;occurred_at:string;actor_name:string;reason:string|null}[]>([]);
  const api=`/api/site-services/${serviceId}`;
- const load=useCallback(async()=>{setLoading(true);setError("");try{const [response,roleResponse]=await Promise.all([
+ const load=useCallback(async():Promise<Detail|null>=>{setLoading(true);setError("");try{const [response,roleResponse]=await Promise.all([
    read(`${api}?site=${siteId}&from=${week}&until=${addCivilDays(week,7)}`),
    read("/api/events/staffing-roles")]);setDetail(response.detail);setRoles(roleResponse.roles??[]);
    if(initialDemandId&&response.detail?.demands?.some((demand:Demand)=>demand.id===initialDemandId)){
@@ -48,11 +48,14 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
      body:JSON.stringify({action:"allocations",demandId:initialDemandId})});
     setSelected(initialDemandId);setAllocations(allocationResponse.result?.allocations??[]);
    }
-  }catch(caught){setError(caught instanceof Error?caught.message:"Service unavailable");}finally{setLoading(false);}},[api,siteId,week,initialDemandId]);
+   return response.detail as Detail;
+  }catch(caught){setError(caught instanceof Error?caught.message:"Service unavailable");return null;}finally{setLoading(false);}},[api,siteId,week,initialDemandId]);
  useEffect(()=>{const timer=setTimeout(()=>void load(),0);return()=>clearTimeout(timer);},[load]);
  async function act(action:string,fields:Record<string,unknown>){setBusy(true);setError("");setNotice("");try{
   const result=await read(api,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,...fields})});
-  setNotice("Change saved with its dated history.");await load();return result.result;
+  const confirmed=await load();
+  if(!confirmed||confirmed.service.id!==serviceId)throw Error("The server responded, but the authorised Service view could not be refreshed. Check the source before another change.");
+  setNotice("Server response received; current Service view refreshed. Check the dated history for the exact change.");return result.result;
  }catch(caught){setError(caught instanceof Error?caught.message:"Change could not be saved");return null;}finally{setBusy(false);}}
  async function loadAllocation(demandId:string){setSelected(demandId);setCandidates([]);try{const result=await read(api,{method:"POST",headers:{"content-type":"application/json"},
   body:JSON.stringify({action:"allocations",demandId})});setAllocations(result.result?.allocations??[]);}catch{setError("Allocations unavailable");}}

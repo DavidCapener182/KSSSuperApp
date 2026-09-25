@@ -166,29 +166,33 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const load = useCallback(async () => {
+  const load = useCallback(async (): Promise<{ activities: Row[]; tasks: Row[]; taskEvents: Row[]; contacts: Row[] } | null> => {
     setLoading(true);
     try { const response = await fetch(`/api/crm/work?view=${kind}&id=${id}`, { cache: "no-store" });
       if (!response.ok) throw new Error("CRM work unavailable");
-      setData(await response.json()); setError("");
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "CRM work unavailable"); }
+      const next = await response.json(); setData(next); setError(""); return next;
+    } catch (caught) { setError(caught instanceof Error ? caught.message : "CRM work unavailable"); return null; }
     finally { setLoading(false); }
   }, [kind, id]);
   useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); }, [load]);
   async function createActivity(event: React.FormEvent) {
     event.preventDefault(); setBusy(true); setError("");
-    try { await send("/api/crm/work", { action: "activity", organisationId,
+    try { const result = await send("/api/crm/work", { action: "activity", organisationId,
       opportunityId: kind === "opportunity" ? id : null, contactId: activity.contactId || null,
       type: activity.type, subject: activity.subject, summary: activity.summary, correctsId: activity.correctsId || null });
-      setActivity({ type: "PHONE_CALL", subject: "", summary: "", contactId: "", correctsId: "" }); await load();
+      const confirmed = await load();
+      if (!confirmed?.activities.some((item) => item.id === result.id)) throw new Error("The activity response could not be confirmed in the authorised record. Refresh before trying again.");
+      setActivity({ type: "PHONE_CALL", subject: "", summary: "", contactId: "", correctsId: "" });
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Activity denied"); }
     finally { setBusy(false); }
   }
   async function createTask(event: React.FormEvent) {
     event.preventDefault(); setBusy(true); setError("");
-    try { await send("/api/crm/work", { action: "createTask", sourceKind: kind === "opportunity" ? "CRM_OPPORTUNITY" : "CRM_ORGANISATION",
+    try { const result = await send("/api/crm/work", { action: "createTask", sourceKind: kind === "opportunity" ? "CRM_OPPORTUNITY" : "CRM_ORGANISATION",
       sourceId: id, title: task.title, assigneeId: task.assigneeId, dueLocal: task.dueLocal || null });
-      setTask({ title: "", assigneeId: currentPersonId, dueLocal: "" }); await load();
+      const confirmed = await load();
+      if (!confirmed?.tasks.some((item) => item.id === result.id)) throw new Error("The follow-up response could not be confirmed in the authorised record. Refresh before trying again.");
+      setTask({ title: "", assigneeId: currentPersonId, dueLocal: "" });
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Task denied"); }
     finally { setBusy(false); }
   }
