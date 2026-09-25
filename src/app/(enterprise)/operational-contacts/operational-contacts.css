@@ -36,5 +36,10 @@
 .contact-form-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,18rem),1fr)); gap: .8rem; }
 .contact-editor,.contact-preview,.contact-history { border: 1px solid #cbd5e1; border-radius: 12px; padding: 1rem; background: #f8fafc; min-width: 0; }
 .contact-preview { margin-top: 1rem; border-color: #2563eb; background: #eff6ff; }
-.contact-history pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; }
+.contact-history h4 { margin: 1.3rem 0 .5rem; }
+.contact-history-list { display: grid; gap: .6rem; padding-left: 1.25rem; }
+.contact-history-list li { padding: .65rem; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; }
+.contact-history-list strong,.contact-history-list span { display: block; }
+.contact-history-list span { margin-top: .2rem; color: #475569; font-size: .9rem; }
+.contact-history code { overflow-wrap: anywhere; }
 .contact-management li { padding: .5rem 0; overflow-wrap: anywhere; }

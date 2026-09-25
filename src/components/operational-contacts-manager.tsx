@@ -10,6 +10,9 @@ type Grant = { id:string;person_id:string;person_name:string;valid_from:string;v
 type Preview = { context_kind:string;context_id:string;purpose:string;display_name:string;role_organisation:string;
  phone:string|null;email:string|null;priority:string;effective_from:string;effective_until:string;
  london_start:string|null;london_end:string|null;reviewed_on:string;preview_marker:string };
+type ContactHistory = { routeId:string; data:{
+ events:{id:string;action:string;occurred_at:string;actor_person_id:string;reason:string|null;old_version_id:string|null;new_version_id:string|null}[];
+ versions:{id:string;version:number;display_name:string;role_organisation:string;phone:string|null;email:string|null;priority:number;effective_from:string;effective_until:string;reviewed_on:string}[] } };
 type Draft = { route_id?:string;expected_revision?:number;action?:string;context_kind:string;context_id:string;purpose:string;
  source_type:string;source_id:string;manual_origin:string;accountable_manager_id:string;display_name:string;role_organisation:string;
  phone:string;email:string;use_phone:boolean;use_email:boolean;priority:string;effective_from:string;effective_until:string;
@@ -24,7 +27,7 @@ const initial=(kind:string,id:string):Draft=>({context_kind:kind,context_id:id,p
 export function OperationalContactsManager({kind,contextId,isSuper}:{kind:string;contextId:string;isSuper:boolean}) {
  const [managed,setManaged]=useState<Managed[]|null>(null);const [current,setCurrent]=useState<Managed[]|null>(null);
  const [grants,setGrants]=useState<Grant[]>([]);const [draft,setDraft]=useState<Draft>(()=>initial(kind,contextId));
- const [preview,setPreview]=useState<Preview|null>(null);const [history,setHistory]=useState<unknown|null>(null);
+ const [preview,setPreview]=useState<Preview|null>(null);const [history,setHistory]=useState<ContactHistory|null>(null);
  const [historyReason,setHistoryReason]=useState("");const [grantPerson,setGrantPerson]=useState("");
  const [grantFrom,setGrantFrom]=useState("");const [grantUntil,setGrantUntil]=useState("");const [grantReason,setGrantReason]=useState("");
  const [busy,setBusy]=useState(false);const [error,setError]=useState("");const [notice,setNotice]=useState("");
@@ -61,18 +64,31 @@ export function OperationalContactsManager({kind,contextId,isSuper}:{kind:string
   setNotice("Published route confirmed in the current managed view.");setDraft(initial(kind,contextId));setPreview(null);}
   catch(e){setPreview(null);setError(e instanceof Error?e.message:"Publication denied");}finally{setBusy(false);}}
  async function act(action:"revoke"|"expire",row:Managed) {const reason=window.prompt(`Controlled reason for ${action}`);
-  if(!reason)return;setBusy(true);setError("");try{await post({action,routeId:row.id,expectedRevision:row.revision,reason});
-   setNotice(action==="revoke"?"Route revoked.":"Expiry recorded in immutable history.");await reload();}
+  if(!reason)return;setBusy(true);setError("");setNotice("");try{await post({action,routeId:row.id,expectedRevision:row.revision,reason});
+   const rows=await reload();
+   if(action==="revoke"){
+    if(!rows?.some((current)=>current.id===row.id && current.state==="REVOKED" && current.revision>row.revision))throw new Error("Revocation was sent, but the exact route state could not be confirmed. Refresh before trying again.");
+    setNotice("Route revocation confirmed in the current managed view.");
+   } else setNotice("Expiry action was sent. Read the restricted history to confirm its event.");}
    catch(e){setError(e instanceof Error?e.message:"Action denied");}finally{setBusy(false);}}
  async function readHistory(row:Managed) {if(historyReason.trim().length<3){setError("Enter a controlled history-read reason.");return;}
   setBusy(true);setError("");try{const q=new URLSearchParams({view:"history",id:row.id,reason:historyReason});
    const response=await fetch(`${api}?${q}`,{cache:"no-store"});if(!response.ok)throw new Error("History read denied.");
    setHistory({routeId:row.id,data:await response.json()});}
    catch(e){setError(e instanceof Error?e.message:"History unavailable");}finally{setBusy(false);}}
- async function issueGrant() {setBusy(true);setError("");try{await post({action:"grant",kind,contextId,personId:grantPerson,validFrom:grantFrom,validUntil:grantUntil,reason:grantReason});
-  setNotice("Finite exact-context grant issued.");await reload();}catch(e){setError(e instanceof Error?e.message:"Grant denied");}finally{setBusy(false);}}
+ async function issueGrant() {setBusy(true);setError("");setNotice("");try{const result=await post({action:"grant",kind,contextId,personId:grantPerson,validFrom:grantFrom,validUntil:grantUntil,reason:grantReason}) as {grantId:string};
+  const response=await fetch(`${api}?view=grants&kind=${kind}&id=${encodeURIComponent(contextId)}`,{cache:"no-store"});
+  if(!response.ok)throw new Error("Grant was sent, but current access could not be confirmed. Refresh before trying again.");
+  const rows=await response.json() as Grant[];setGrants(rows);
+  if(!rows.some((row)=>row.id===result.grantId && !row.revoked_at))throw new Error("Grant was sent, but its exact ID was not found in current access. Refresh before trying again.");
+  setNotice("Finite exact-context grant confirmed in current access.");}catch(e){setError(e instanceof Error?e.message:"Grant denied");}finally{setBusy(false);}}
  async function revokeGrant(id:string) {const reason=window.prompt("Controlled reason for grant revocation");if(!reason)return;
-  setBusy(true);setError("");try{await post({action:"revoke_grant",grantId:id,reason});setNotice("Grant revoked immediately.");await reload();}
+  setBusy(true);setError("");setNotice("");try{await post({action:"revoke_grant",grantId:id,reason});
+   const response=await fetch(`${api}?view=grants&kind=${kind}&id=${encodeURIComponent(contextId)}`,{cache:"no-store"});
+   if(!response.ok)throw new Error("Revocation was sent, but current access could not be confirmed. Refresh before trying again.");
+   const rows=await response.json() as Grant[];setGrants(rows);
+   if(!rows.some((row)=>row.id===id && row.revoked_at))throw new Error("Revocation was sent, but the exact grant still appears active. Refresh before trying again.");
+   setNotice("Grant revocation confirmed in current access.");}
   catch(e){setError(e instanceof Error?e.message:"Grant revocation denied");}finally{setBusy(false);}}
  return <div className="contact-management">
   <div className="contact-context-heading"><p className="enterprise-eyebrow">Published contact management</p><h2>{kind==="SITE_SERVICE"?"Site Service":kind.toLowerCase()} contacts</h2><p>Exact context: {contextId}</p><p>Publishing creates a reviewed version for this context. Current contact access is checked separately for each viewer.</p></div>
@@ -95,7 +111,10 @@ export function OperationalContactsManager({kind,contextId,isSuper}:{kind:string
     <button type="button" onClick={()=>void act("expire",r)} disabled={busy||r.state==="REVOKED"}>Record expiry if due</button></div>
    <button type="button" onClick={()=>void readHistory(r)} disabled={busy}>Read restricted history</button>
   </article>)}</div><label>Reason for privileged history read<input value={historyReason} maxLength={300} onChange={(e)=>setHistoryReason(e.target.value)} /></label>
-  {Boolean(history)&&<div className="contact-history"><h3>Restricted immutable history</h3><pre>{JSON.stringify(history,null,2)}</pre></div>}</section>
+  {history&&<div className="contact-history" role="region" aria-label="Restricted contact history"><h3>Restricted immutable history</h3><p>Exact route: <code>{history.routeId}</code>. This access is recorded with your reason.</p>
+   <h4>Attributed events</h4><ol className="contact-history-list">{history.data.events.map((event)=><li key={event.id}><strong>{label(event.action)}</strong><span>{date(event.occurred_at)} · actor <code>{event.actor_person_id}</code></span>{event.reason&&<p>Reason: {event.reason}</p>}{event.new_version_id&&<p>New version: <code>{event.new_version_id}</code></p>}</li>)}</ol>
+   <h4>Published versions</h4><ol className="contact-history-list">{history.data.versions.map((version)=><li key={version.id}><strong>Version {version.version} · {version.display_name}</strong><span>{version.role_organisation} · priority {version.priority}</span><p>Effective: {date(version.effective_from)} to {date(version.effective_until)} · reviewed {version.reviewed_on}</p><p>Published telephone: {version.phone??"Not published"} · email: {version.email??"Not published"}</p><p>Version ID: <code>{version.id}</code></p></li>)}</ol>
+  </div>}</section>
   <section id="contact-editor" className="contact-editor"><h2>{draft.route_id?"Correct or republish route":"Publish new route"}</h2>
    <p>Staff will see only the previewed fields below. A source change after preview blocks publication.</p>
    <div className="contact-form-grid"><label>Purpose<select value={draft.purpose} disabled={!!draft.route_id} onChange={(e)=>change("purpose",e.target.value)}>{purposes.map((p)=><option key={p} value={p}>{label(p)}</option>)}</select></label>
