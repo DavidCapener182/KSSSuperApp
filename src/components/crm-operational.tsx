@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,6 +40,8 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const dialogRef = useRef<HTMLElement | null>(null);
+  const returnFocus = useRef<HTMLElement | null>(null);
   const load = useCallback(async () => {
     setLoading(true);
     try {
@@ -55,9 +57,25 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
     finally { setLoading(false); }
   }, [closed, owner, type, orgSearch]);
   useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); }, [load]);
+  useEffect(() => {
+    if (!pending) return;
+    const dialog = dialogRef.current;
+    dialog?.querySelector<HTMLElement>("input, select, button")?.focus();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !busy) { setPending(null); returnFocus.current?.focus(); }
+      if (event.key !== "Tab" || !dialog) return;
+      const controls = [...dialog.querySelectorAll<HTMLElement>("button:not(:disabled), input:not(:disabled), select:not(:disabled)")];
+      if (!controls.length) return;
+      if (event.shiftKey && document.activeElement === controls[0]) { event.preventDefault(); controls[controls.length - 1].focus(); }
+      else if (!event.shiftKey && document.activeElement === controls[controls.length - 1]) { event.preventDefault(); controls[0].focus(); }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [pending, busy]);
   const rank = (stage: string) => openStages.indexOf(stage);
   const move = (id: string, from: string, to: string) => {
     if (!to || to === from || closed) return;
+    returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setPending({ id, from, to }); setReason(""); setConfirm(false);
   };
   async function commit() {
@@ -65,7 +83,12 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
     setBusy(true); setError("");
     try {
       await send("/api/crm", { action: "transition", id: pending.id, stage: pending.to, reason: reason || null });
-      setPending(null); await load();
+      const response = await fetch(`/api/crm?view=opportunity&id=${encodeURIComponent(pending.id)}`, { cache: "no-store" });
+      if (!response.ok) throw new Error("The updated Opportunity could not be confirmed. Refresh before trying again.");
+      const detail = await response.json();
+      if (detail.opportunity?.id !== pending.id || detail.opportunity?.stage !== pending.to)
+        throw new Error("The server responded, but the Opportunity stage could not be confirmed. Refresh before another change.");
+      setPending(null); returnFocus.current?.focus(); await load();
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Stage change denied"); }
     finally { setBusy(false); }
   }
@@ -117,13 +140,14 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
           {column.count > column.items.length && <p className="crm-board-empty">Showing first {column.items.length} of {column.count}. Use Opportunities search for more.</p>}
         </section>)}
       </div>}
-    {pending && <div className="crm-dialog-backdrop"><section className="crm-dialog" role="dialog" aria-modal="true" aria-label="Confirm stage change">
+    {pending && <div className="crm-dialog-backdrop"><section ref={dialogRef} className="crm-dialog" role="dialog" aria-modal="true" aria-label="Confirm stage change">
       <h2>Move to {label(pending.to)}?</h2><p>{label(pending.from)} → {label(pending.to)}</p>
+      {error && <p role="alert" className="enterprise-error">{error}</p>}
       {(pending.to === "LOST" || rank(pending.to) < rank(pending.from)) && <label className="crm-field">Reason
         <Input autoFocus value={reason} maxLength={500} onChange={(event) => setReason(event.target.value)} /></label>}
       {pending.to === "WON" && <label className="crm-confirm"><input type="checkbox" checked={confirm}
         onChange={(event) => setConfirm(event.target.checked)} /> I confirm this commercial decision. It does not establish a signed contract.</label>}
-      <div className="crm-dialog-actions"><Button variant="outline" onClick={() => setPending(null)}>Cancel</Button>
+      <div className="crm-dialog-actions"><Button variant="outline" onClick={() => { setPending(null); returnFocus.current?.focus(); }}>Cancel</Button>
         <Button disabled={busy || (pending.to === "WON" && !confirm) ||
           ((pending.to === "LOST" || rank(pending.to) < rank(pending.from)) && reason.trim().length < 3)} onClick={() => void commit()}>
           {busy ? "Saving…" : "Record stage change"}</Button></div>

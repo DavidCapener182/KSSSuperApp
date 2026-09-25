@@ -8,6 +8,7 @@ Exact owned paths:
 - `src/components/mobilisation-detail-client.tsx`
 - `src/components/mobilisations.module.css`
 - `src/components/crm-client.tsx`
+- `src/components/crm-operational.tsx`
 - `src/components/crm-operational-links.tsx`
 - `src/components/events-client.tsx`
 - `src/components/site-services-client.tsx`

@@ -29,9 +29,9 @@ No staging, production, real data, readiness score, 19A/20E change or UI03 file 
 
 David’s 25 September 2026 decision accepts only the changes and checks documented above in synthetic development. It does not turn unperformed desktop, genuine 390px, keyboard/focus or interactive workflow checks into passing evidence. Deferred source/read-contract, CRM/Client/Site/Service/Event and shared UI work remains deferred. No further feature work was started as part of this close-out.
 
-## Follow-up UI06 pass — pending David’s review
+## Follow-up UI06 pass — accepted in synthetic development
 
-This section records a separate follow-up after the accepted Mobilisation-only pass. It is **implemented in the isolated branch but not accepted**. Latest main and the accepted UI03 Workforce planning report were rechecked before changes. The work stays in the exact owned paths listed in `TASK-UI06-OWNED-PATHS.md`.
+This section records a separate follow-up after the accepted Mobilisation-only pass. David accepted this latest bounded pass in synthetic development; the acceptance covers only the work and checks below, not the remaining UI brief or deployment. Latest main and the accepted UI03 Workforce planning report were rechecked before changes. The work stays in the exact owned paths listed in `TASK-UI06-OWNED-PATHS.md`.
 
 ### Presentation and workflow composition
 
@@ -49,3 +49,13 @@ This section records a separate follow-up after the accepted Mobilisation-only p
 - Authenticated desktop, genuine 390px browser, keyboard/focus and action readback journeys could not be exercised in this isolated worktree without synthetic credentials. The CSS and source review do not establish visual, responsive or accessibility acceptance. These remain review gates.
 
 The accepted APIs provide exact CRM, Site, Service, Event and Mobilisation records for the links shown. No cross-domain readiness read contract, curated exact-source picker, combined commercial timeline or automatic Won-to-Mobilisation business rule was added. Any future cross-domain facts need a separate permission-aware read contract and approval. This pass does not authorise staging, production, real data, Supabase changes or deployment.
+
+### Follow-up acceptance clarification
+
+David approved the bounded commercial/source-record follow-up after its report. The authenticated desktop, genuine 390px, keyboard/focus and action readback journeys listed above were not run and remain unverified. This acceptance does not cover new work below this section.
+
+## Next bounded UI06 pass — CRM pipeline review pending
+
+After David accepted the previous commercial/source-record follow-up, this separate pass refined the existing CRM pipeline stage-change interaction. The modal now moves focus inside when opened, traps Tab within its enabled controls, closes on Escape when idle, and returns focus to the initiating control after cancel or a confirmed change. After the guarded transition responds, the client reads the exact Opportunity again and checks its ID and stage before closing the modal. A readback failure keeps the dialog open with an error and does not display a false confirmation. This introduces no new stage transition, drag operation, business rule, API or database change.
+
+Focused ESLint, the Next.js production Webpack build with placeholder public Supabase settings, `git diff --check` and the owned-file no-green scan are the available local checks. Authenticated desktop, genuine 390px, keyboard tab order and normal stage-change readback have not been exercised in a browser in this worktree. The source change is pending David’s review, and the prior scoped acceptance does not cover it. No staging, production or live data action occurred.
