@@ -1,6 +1,16 @@
 # TASK-UI13 — controlled two-route integration pilot
 
-Status: **implemented in synthetic Development; awaiting David's visual review**. UI13 primitives are used on `/management-reports` and `/assets` only. Broad rollout remains unauthorised. UI14 retains record-page anatomy. The accepted UI11 shell was merged at `f13d3d9` before this pilot; this change does not edit shell or navigation code.
+Status: **ACCEPTED by David in synthetic Development on 25 September 2026**. David reviewed the shell-framed study and the authenticated Management Reports and Assets pilot at `f4a6d28`. UI13's shared visual direction and primitives are accepted; controlled rollout in reviewable route groups is authorised. This acceptance does not approve a mechanical whole-repository replacement, staging, production, live data or a new business interpretation. UI14 retains record-page anatomy and UI11 remains the accepted shell. The shell was merged at `f13d3d9` before this pilot; the pilot did not edit shell or navigation code.
+
+## David's acceptance and rollout boundary
+
+David approved the compact Management Reports metric strip and drill-down, the dense Assets register, the factual condition label, the secondary history/action control, and the collapsed administrative grants. The two routes retain distinct layouts within one KSS visual language. The genuine 390px checks and saved mobile screenshots below satisfy this pilot's mobile engineering gate. The actual visual review is now complete; no further gate is needed before a separately scoped rollout group.
+
+Controlled groups may cover suitable lists/workspaces, Staff self-service, then Operations/admin routes. Each group must be reviewed for source contracts, permissions, exact terminology, write/readback behaviour, desktop and genuine 390px usability, focus, practical targets and page overflow. Keep the accepted Workforce planner, UI11 shell and UI14 record anatomy intact. Escalate domain conflicts instead of forcing a primitive. No additional route was changed in this acceptance update.
+
+The accepted source-card contract is identity, context and factual state, with freshness, metrics and action optional. Blue is reserved for selected/primary/source context; amber for attention; red for rejection, error and destructive meaning. No generic green success styling or derived readiness/compliance/performance score is authorised. Reporting Required, Allocated, Accepted and Remaining remain distinct; incomplete coverage and historical unavailable do not mean zero. Asset custody, location, condition, repair, exception, expected return and availability to issue remain separate.
+
+David noted that “Measure definitions and versions” looks visually orphaned. Its reporting meaning stays unchanged; review its visual hierarchy in a later Management Reports integration touch. It does not block this acceptance.
 
 ## Scope and source boundaries
 
@@ -26,4 +36,4 @@ The synthetic browser session changed to a Staff persona during one filter attem
 - `npm run build` passed with production Webpack and TypeScript; `/management-reports` and `/assets` built as dynamic routes.
 - Focused ESLint, standalone `tsc --noEmit` and `git diff --check` passed.
 - No API, role-policy, database, migration, staging, production, live-data or other-route change is part of this pilot.
-- Browser checks are representative visual and safe read interactions, not full regression or human acceptance. David's review of the four screenshots is the next UI13 gate. No third route is authorised by these results.
+- Browser checks are representative visual and safe read interactions, not a full regression. David subsequently accepted the visual direction and this two-route pilot. Further migration must remain grouped and reviewable.
