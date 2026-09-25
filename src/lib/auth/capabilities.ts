@@ -1,13 +1,13 @@
 import type { Principal, RoleCode } from "./principal";
 
-export const CAPABILITIES = ["HOME", "PROFILE_SELF", "PEOPLE_DIRECTORY", "CRM_USE", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "MANAGEMENT_REPORTS_USE", "MOBILISATIONS_USE", "SERVICE_DELIVERY_USE", "ASSETS_USE", "MY_EQUIPMENT_SELF_READ", "DEPLOYMENTS_SELF_READ", "ACTION_CENTRE_SELF_READ", "AVAILABILITY_SELF_READ", "SCHEDULE_SELF_READ", "TIME_AWAY_SELF", "TIME_AWAY_ENTRY", "ACCESS_API_ADMIN", "DOCUMENT_REQUEST_CREATE", "DOCUMENT_SELF_READ", "DOCUMENT_SELF_SUBMIT", "DOCUMENT_OFFICE_REVIEW", "DOCUMENT_EVIDENCE_REVIEW", "OPERATIONAL_DOCUMENTS", "TASK_SELF_READ", "ONBOARDING_SELF_READ", "ONBOARDING_OFFICE_READ"] as const;
+export const CAPABILITIES = ["HOME", "PROFILE_SELF", "HR_HUB_SELF_READ", "PEOPLE_DIRECTORY", "CRM_USE", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "MANAGEMENT_REPORTS_USE", "MOBILISATIONS_USE", "SERVICE_DELIVERY_USE", "ASSETS_USE", "MY_EQUIPMENT_SELF_READ", "DEPLOYMENTS_SELF_READ", "ACTION_CENTRE_SELF_READ", "AVAILABILITY_SELF_READ", "SCHEDULE_SELF_READ", "TIME_AWAY_SELF", "TIME_AWAY_ENTRY", "ACCESS_API_ADMIN", "DOCUMENT_REQUEST_CREATE", "DOCUMENT_SELF_READ", "DOCUMENT_SELF_SUBMIT", "DOCUMENT_OFFICE_REVIEW", "DOCUMENT_EVIDENCE_REVIEW", "OPERATIONAL_DOCUMENTS", "TASK_SELF_READ", "ONBOARDING_SELF_READ", "ONBOARDING_OFFICE_READ"] as const;
 export type Capability = (typeof CAPABILITIES)[number];
 
 const ROLE_CAPABILITIES: Record<RoleCode, readonly Capability[]> = {
-  SUPER_ADMIN: ["HOME", "PROFILE_SELF", "PEOPLE_DIRECTORY", "CRM_USE", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "MANAGEMENT_REPORTS_USE", "MOBILISATIONS_USE", "SERVICE_DELIVERY_USE", "ASSETS_USE", "TIME_AWAY_ENTRY", "ACCESS_API_ADMIN", "DOCUMENT_REQUEST_CREATE", "DOCUMENT_OFFICE_REVIEW", "DOCUMENT_EVIDENCE_REVIEW", "OPERATIONAL_DOCUMENTS", "TASK_SELF_READ", "ONBOARDING_OFFICE_READ"],
-  OFFICE_ADMIN: ["HOME", "PROFILE_SELF", "PEOPLE_DIRECTORY", "CRM_USE", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "MANAGEMENT_REPORTS_USE", "MOBILISATIONS_USE", "SERVICE_DELIVERY_USE", "ASSETS_USE", "TIME_AWAY_ENTRY", "DOCUMENT_REQUEST_CREATE", "DOCUMENT_OFFICE_REVIEW", "DOCUMENT_EVIDENCE_REVIEW", "OPERATIONAL_DOCUMENTS", "TASK_SELF_READ", "ONBOARDING_OFFICE_READ"],
-  OPERATIONS: ["HOME", "PROFILE_SELF", "PEOPLE_DIRECTORY", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "ASSETS_USE", "OPERATIONAL_DOCUMENTS", "TIME_AWAY_ENTRY"],
-  SECURITY_STAFF: ["HOME", "PROFILE_SELF", "SITES_VIEW", "DOCUMENT_SELF_READ", "DOCUMENT_SELF_SUBMIT", "OPERATIONAL_DOCUMENTS", "ONBOARDING_SELF_READ", "DEPLOYMENTS_SELF_READ", "MY_EQUIPMENT_SELF_READ", "ACTION_CENTRE_SELF_READ", "AVAILABILITY_SELF_READ", "SCHEDULE_SELF_READ", "TIME_AWAY_SELF"],
+  SUPER_ADMIN: ["HOME", "PROFILE_SELF", "HR_HUB_SELF_READ", "PEOPLE_DIRECTORY", "CRM_USE", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "MANAGEMENT_REPORTS_USE", "MOBILISATIONS_USE", "SERVICE_DELIVERY_USE", "ASSETS_USE", "TIME_AWAY_ENTRY", "ACCESS_API_ADMIN", "DOCUMENT_REQUEST_CREATE", "DOCUMENT_OFFICE_REVIEW", "DOCUMENT_EVIDENCE_REVIEW", "OPERATIONAL_DOCUMENTS", "TASK_SELF_READ", "ONBOARDING_OFFICE_READ"],
+  OFFICE_ADMIN: ["HOME", "PROFILE_SELF", "HR_HUB_SELF_READ", "PEOPLE_DIRECTORY", "CRM_USE", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "MANAGEMENT_REPORTS_USE", "MOBILISATIONS_USE", "SERVICE_DELIVERY_USE", "ASSETS_USE", "TIME_AWAY_ENTRY", "DOCUMENT_REQUEST_CREATE", "DOCUMENT_OFFICE_REVIEW", "DOCUMENT_EVIDENCE_REVIEW", "OPERATIONAL_DOCUMENTS", "TASK_SELF_READ", "ONBOARDING_OFFICE_READ"],
+  OPERATIONS: ["HOME", "PROFILE_SELF", "HR_HUB_SELF_READ", "PEOPLE_DIRECTORY", "SITES_VIEW", "EVENTS_USE", "WORKFORCE_USE", "CONTROL_ROOM_USE", "ASSETS_USE", "OPERATIONAL_DOCUMENTS", "TIME_AWAY_ENTRY"],
+  SECURITY_STAFF: ["HOME", "PROFILE_SELF", "HR_HUB_SELF_READ", "SITES_VIEW", "DOCUMENT_SELF_READ", "DOCUMENT_SELF_SUBMIT", "OPERATIONAL_DOCUMENTS", "ONBOARDING_SELF_READ", "DEPLOYMENTS_SELF_READ", "MY_EQUIPMENT_SELF_READ", "ACTION_CENTRE_SELF_READ", "AVAILABILITY_SELF_READ", "SCHEDULE_SELF_READ", "TIME_AWAY_SELF"],
 };
 
 export function capabilitiesFor(principal: Principal): Set<Capability> {
@@ -18,7 +18,7 @@ export function hasCapability(principal: Principal, capability: Capability): boo
   return capabilitiesFor(principal).has(capability);
 }
 
-export type NavigationItem = { href: "/app" | "/work" | "/people" | "/crm" | "/sites" | "/events" | "/mobilisations" | "/service-delivery" | "/workforce" | "/control-room" | "/management-reports" | "/assets" | "/my-equipment" | "/my-schedule" | "/my-deployments" | "/my-work-time" | "/action-centre" | "/my-availability" | "/my-time-away" | "/time-away" | "/documents" | "/operational-documents" | "/onboarding" | "/profile" | "/incidents" | "/access/incident-reviewers"; label: string };
+export type NavigationItem = { href: "/app" | "/work" | "/people" | "/hr" | "/crm" | "/sites" | "/events" | "/mobilisations" | "/service-delivery" | "/workforce" | "/control-room" | "/management-reports" | "/assets" | "/my-equipment" | "/my-schedule" | "/my-deployments" | "/my-work-time" | "/action-centre" | "/my-availability" | "/my-time-away" | "/time-away" | "/documents" | "/operational-documents" | "/onboarding" | "/profile" | "/incidents" | "/access/incident-reviewers"; label: string };
 
 export function navigationFor(principal: Principal): NavigationItem[] {
   const allowed = capabilitiesFor(principal);
@@ -27,6 +27,7 @@ export function navigationFor(principal: Principal): NavigationItem[] {
     { href: "/app" as const, label: staffOnly ? "My Work" : "Home", capability: "HOME" as const },
     { href: "/work" as const, label: "My Work", capability: "TASK_SELF_READ" as const },
     { href: "/people" as const, label: "People", capability: "PEOPLE_DIRECTORY" as const },
+    { href: "/hr" as const, label: "HR", capability: "HR_HUB_SELF_READ" as const },
     { href: "/crm" as const, label: "CRM", capability: "CRM_USE" as const },
     { href: "/sites" as const, label: "Sites", capability: "SITES_VIEW" as const },
     { href: "/events" as const, label: "Events", capability: "EVENTS_USE" as const },

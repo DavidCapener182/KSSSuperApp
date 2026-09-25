@@ -30,6 +30,7 @@ const entries: Record<string, Entry> = {
   "/my-equipment": { href: "/my-equipment", title: "My equipment", detail: "Check your own custody record and handovers." },
   "/events": { href: "/events", title: "Events", detail: "Open event plans, staffing and attendance source records." },
   "/people": { href: "/people", title: "People", detail: "Open the authorised people directory." },
+  "/hr": { href: "/hr", title: "HR", detail: "Open your HR home and links to the existing services you may use." },
 };
 
 function EntryGroup({ title, paths, allowed }: { title: string; paths: string[]; allowed: Set<string> }) {
@@ -66,8 +67,8 @@ export default async function AppHome() {
     <header className={styles.hero}><div><p className={styles.kicker}>KSS workspace / Synthetic Development</p><h1>Welcome, {principal.displayName}</h1><p>{staff && !office && !operations ? "Your duty and personal records are a step away." : "Open an operational area or continue your assigned work."}</p></div><p className={styles.date}>{date}</p></header>
     <section className={styles.section} aria-label="Quick access"><h2>Quick access</h2><QuickLinks paths={staff && !office && !operations ? ["/my-schedule", "/my-deployments", "/action-centre"] : ["/workforce", "/events", "/control-room"]} allowed={allowed} /></section>
     {office && allowed.has("/work") && <section className={styles.taskPanel} aria-label="Assigned Tasks"><div><p className={styles.kicker}>Existing Task service</p><h2>Assigned Tasks</h2><p>Document reviews and CRM follow-ups assigned through the existing Task service. Open the panel for current records and actions.</p></div><Link href="/work">Open assigned Tasks <span aria-hidden="true">→</span></Link></section>}
-    {staff && <div className={styles.groupGrid}><EntryGroup title="Duty records" paths={["/my-attendance", "/my-work-time", "/my-availability"]} allowed={allowed} /><EntryGroup title="Requests & evidence" paths={["/my-time-away", "/onboarding", "/documents", "/credentials", "/my-equipment"]} allowed={allowed} /></div>}
-    {(office || operations) && <div className={styles.groupGrid}><EntryGroup title="Delivery" paths={["/mobilisations", "/service-delivery", "/documents"]} allowed={allowed} /><EntryGroup title="People & administration" paths={["/people", "/onboarding", "/time-away"]} allowed={allowed} /></div>}
+    {staff && <div className={styles.groupGrid}><EntryGroup title="Duty records" paths={["/my-attendance", "/my-work-time", "/my-availability"]} allowed={allowed} /><EntryGroup title="Requests & evidence" paths={["/hr", "/my-time-away", "/onboarding", "/documents", "/credentials", "/my-equipment"]} allowed={allowed} /></div>}
+    {(office || operations) && <div className={styles.groupGrid}><EntryGroup title="Delivery" paths={["/mobilisations", "/service-delivery", "/documents"]} allowed={allowed} /><EntryGroup title="People & administration" paths={["/people", "/hr", "/onboarding", "/time-away"]} allowed={allowed} /></div>}
     {(trainingCatalogue || trainingAdmin || trainingAssignments) && <section className={styles.learning} aria-label="Learning"><h2>Learning</h2><div className={styles.learningList}>
       {trainingCatalogue && <Link href="/training">Course catalogue <span aria-hidden="true">↗</span></Link>}
       {staff && <Link href="/training/my-learning">My learning <span aria-hidden="true">↗</span></Link>}

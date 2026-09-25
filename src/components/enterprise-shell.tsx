@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
-import { BriefcaseBusiness, Building2, BookOpenText, ClipboardList, FileText, House, MapPin, Menu, PanelLeftClose, PanelLeftOpen, UserRound, UsersRound, CalendarDays, Bell, Siren } from "lucide-react";
+import { BriefcaseBusiness, Building2, BookOpenText, ClipboardList, FileText, HeartHandshake, House, MapPin, Menu, PanelLeftClose, PanelLeftOpen, UserRound, UsersRound, CalendarDays, Bell, Siren } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip } from "radix-ui";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -47,7 +47,7 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
     if (["/app", "/work", "/action-centre"].includes(href)) return "Overview";
     if (["/crm", "/sites", "/events", "/mobilisations", "/service-delivery", "/operational-contacts"].includes(href)) return "Clients & delivery";
     if (["/workforce", "/control-room", "/site-book", "/site-book/access", "/incidents", "/assets", "/management-reports"].includes(href)) return "Operations";
-    if (["/people", "/onboarding", "/documents", "/time-away", "/access/incident-reviewers"].includes(href)) return "People & administration";
+    if (["/people", "/hr", "/onboarding", "/documents", "/time-away", "/access/incident-reviewers"].includes(href)) return "People & administration";
     if (href.startsWith("/my-") || href === "/profile") return "My account";
     return "Other";
   };
@@ -65,7 +65,7 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
   const current = (href: string) => pathname === href || (href === "/site-book" && pathname === "/site-book/access" ? false : href !== "/app" && pathname.startsWith(`${href}/`));
   const iconFor = (href: string) => {
     const Icon = href === "/app" ? House : href.startsWith("/site-book") ? BookOpenText : href === "/incidents" ? Siren : href === "/onboarding" ? ClipboardList : ["/documents", "/operational-documents"].includes(href)
-      ? FileText : href === "/action-centre" ? Bell : ["/my-schedule", "/my-deployments", "/my-availability", "/events", "/workforce"].includes(href) ? CalendarDays : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/crm" ? Building2 : href === "/sites" ? MapPin : UserRound;
+      ? FileText : href === "/action-centre" ? Bell : ["/my-schedule", "/my-deployments", "/my-availability", "/events", "/workforce"].includes(href) ? CalendarDays : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/hr" ? HeartHandshake : href === "/crm" ? Building2 : href === "/sites" ? MapPin : UserRound;
     return <Icon size={19} strokeWidth={1.9} aria-hidden="true" />;
   };
 
