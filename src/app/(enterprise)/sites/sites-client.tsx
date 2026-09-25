@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
+import journey from "@/components/commercial-journey.module.css";
 
 type SiteListItem = { id: string; siteReference: string; name: string; townCity: string; status: string; canManage: boolean };
 type SiteDetail = { id: string; site_reference: string; name: string; address_line1: string; town_city: string; postcode: string; reporting_point: string; site_type: string | null; status: string };
@@ -140,6 +141,7 @@ export default function SitesPage() {
 
   return <main className="sites-shell">
     <header className="sites-header"><div><Link href="/app">← Home</Link><p className="eyebrow">Synthetic development journey</p><h1>Sites</h1><p>Only Sites in your authorised scope appear here. {office&&<Link href="/sites?view=operational">Browse operational Sites</Link>}</p></div></header>
+    {office && <nav className={journey.context} aria-label="Commercial and Site context"><Link href="/crm?view=organisations">Clients</Link><span>→</span><strong>Site / Venue</strong><span>→</span><Link href="/events">Events</Link><span>Site Services are separate ongoing work.</span></nav>}
     {notice && <p className="sites-notice" role="status">{notice}</p>}
     <section className="sites-grid">
       <div className="sites-card">

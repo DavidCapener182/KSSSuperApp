@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { addCivilDays, londonToday, londonWeekStart } from "@/lib/events/workforce-week";
 import { londonDueToIso } from "@/lib/crm/due-time";
 import { LeaveReconciliation } from "@/components/leave-reconciliation";
+import journey from "./commercial-journey.module.css";
 
 type Service = { id:string;name:string;type:string;state:string;effective_from:string;effective_until:string|null;
   revision:number;client_name:string;site_name:string };
@@ -74,11 +75,12 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
  const service=detail?.service;
  return <main className="enterprise-main"><header className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Ongoing Site shift · synthetic development data</p>
    <h1>{service?.name??"Site Service"}</h1><p>{service?.client_name} · {service?.site_name}</p></div></header>
-   <p><Link href={`/sites/${siteId}/services`}>All Site Services</Link> · <Link href="/workforce">Workforce</Link> · <Link href={`/sites/${siteId}/services/${serviceId}/attendance`}>Attendance</Link></p>
+   <nav className={journey.context} aria-label="Site Service context"><Link href={`/sites?view=operational&selected=${siteId}`}>Site</Link><Link href={`/sites/${siteId}/services`}>All Site Services</Link><Link href="/workforce">Workforce</Link><Link href={`/sites/${siteId}/services/${serviceId}/attendance`}>Attendance</Link></nav>
+   <nav className={journey.sections} aria-label="Service sections"><a href="#service-state">Service state</a><a href="#service-template">Weekly template</a><a href="#service-demand">Dated demand</a></nav>
    {error&&<p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={()=>void load()}>Retry</Button></p>}
    {notice&&<p role="status" className="enterprise-honesty">{notice}</p>}
    {loading?<p role="status" className="crm-skeleton">Loading Service…</p>:service&&<>
-    <section className="crm-panel"><p><strong>{service.state}</strong> · {service.type.replaceAll("_"," ")} · Effective {service.effective_from}{service.effective_until?` to ${service.effective_until}`:" onward"}</p>
+    <section id="service-state" className="crm-panel"><p><strong>{service.state}</strong> · {service.type.replaceAll("_"," ")} · Effective {service.effective_from}{service.effective_until?` to ${service.effective_until}`:" onward"}</p>
      <p>Service status and staffing counts describe planning only. They do not confirm attendance or worked hours.</p>
      {detail?.pauses.length? <p>Pause periods: {detail.pauses.map((pause)=>`${pause.starts_on} to ${pause.ends_before} (exclusive)`).join(" · ")}</p>:null}
      {canAdmin&&<div className="sites-form"><label>Effective date<Input type="date" value={effectiveOn} onChange={(event)=>setEffectiveOn(event.target.value)} /></label>
@@ -88,7 +90,7 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
        {service.state==="ACTIVE"&&<Button variant="outline" disabled={busy} onClick={()=>void act("transition",{state:"PAUSED",effectiveOn,resumeOn,expectedRevision:service.revision,reason})}>Set pause period</Button>}
        {service.state==="PAUSED"&&<Button variant="outline" disabled={busy} onClick={()=>void act("transition",{state:"ACTIVE",effectiveOn,expectedRevision:service.revision,reason})}>Resume</Button>}
        {service.state!=="ENDED"&&<Button variant="outline" disabled={busy} onClick={()=>void act("transition",{state:"ENDED",effectiveOn,expectedRevision:service.revision,reason})}>End Service</Button>}</div></div>}</section>
-    <section className="crm-panel"><h2>Weekly demand template</h2><p>Published versions preserve intent; dated shifts keep their own identity and history.</p>
+    <section id="service-template" className="crm-panel"><h2>Weekly demand template</h2><p>Published versions preserve intent; dated shifts keep their own identity and history.</p>
       {detail?.templates.length?<ul>{detail.templates.map((item)=><li key={item.id}>{item.role_name} · {item.required_quantity} · {item.report_time.slice(0,5)} / {item.shift_start_time.slice(0,5)}–{item.shift_end_time.slice(0,5)} · {item.effective_from} to {item.effective_until??"open"} · v{item.version}</li>)}</ul>:<p>No template published.</p>}
       {canAdmin&&<form className="sites-form" onSubmit={(event)=>{event.preventDefault();void act("template",{lineId:lineId||null,effectiveFrom:effectiveOn,weekdays:days,roleId,
         quantity,reportTime,startTime,endTime,area,reporting,reason});}}>
@@ -108,7 +110,7 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
        <Button type="button" variant="outline" disabled={busy} onClick={()=>void act("generate",{from:week,until:addCivilDays(week,7)})}>Reconcile this week</Button>
        <Button type="button" variant="outline" disabled={busy||!roleId} onClick={()=>void extra()}>Add one dated extra shift</Button>
       </form>}</section>
-    <section><div className="enterprise-page-heading"><div><h2>Dated shift demand</h2><p>Exact, stable shifts for this week. Operations may manage dated exceptions and staffing.</p></div></div>
+    <section id="service-demand"><div className="enterprise-page-heading"><div><h2>Dated shift demand</h2><p>Exact, stable shifts for this week. Operations may manage dated exceptions and staffing.</p></div></div>
       <div className="workforce-toolbar"><Button variant="outline" onClick={()=>setWeek(addCivilDays(week,-7))}>Previous week</Button>
        <Button variant="outline" onClick={()=>setWeek(londonWeekStart(londonToday())!)}>This week</Button>
        <Button variant="outline" onClick={()=>setWeek(addCivilDays(week,7))}>Next week</Button><strong>Week of {week}</strong></div>

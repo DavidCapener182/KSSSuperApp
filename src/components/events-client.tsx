@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { StaffingPlanClient } from "@/components/staffing-plan-client";
+import journey from "./commercial-journey.module.css";
 
 type Row = Record<string, unknown>;
 type Choice = { id: string; name: string };
@@ -56,15 +57,22 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
   async function create(eventForm: React.FormEvent) {
     eventForm.preventDefault();setBusy(true);setError("");
     try {const result=await read("/api/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(draft)});
+      const confirmed=await read(`/api/events/${result.id}`);
+      if(confirmed.event?.id!==result.id)throw new Error("Event creation could not be confirmed from the record. Refresh before retrying.");
       setCreating(false);router.push(`/events/${result.id}`);}
     catch(caught){setError(caught instanceof Error?caught.message:"Event could not be created");}
     finally{setBusy(false);}
   }
   async function change() {
     if (!id || !action.kind) return;setBusy(true);setError("");
-    try {await read(`/api/events/${id}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:action.kind,
+    try {const previous=event;await read(`/api/events/${id}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:action.kind,
       status:action.status,ownerId:action.ownerId,startLocal:action.startLocal,endLocal:action.endLocal,reason:action.reason})});
-      setAction({kind:"",status:"",ownerId:"",startLocal:"",endLocal:"",reason:""});setNotice("Event change recorded.");await load();}
+      const confirmed=await read(`/api/events/${id}`);setEvent(confirmed.event);
+      const changed=confirmed.event?.id===id && (action.kind==="STATUS" ? confirmed.event.status===action.status :
+        action.kind==="OWNER" ? confirmed.event.owner_person_id===action.ownerId :
+        previous && (confirmed.event.starts_at!==previous.starts_at || confirmed.event.ends_at!==previous.ends_at));
+      if(!changed)throw new Error("The server responded, but the updated Event could not be confirmed. Refresh before another change.");
+      setAction({kind:"",status:"",ownerId:"",startLocal:"",endLocal:"",reason:""});setNotice("Event change confirmed from the Event record.");}
     catch(caught){setError(caught instanceof Error?caught.message:"Event change denied");}
     finally{setBusy(false);}
   }
@@ -75,6 +83,12 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
       <p className="enterprise-intro">Client, venue, overall Event times, staffing demand and current allocations. Attendance and worked hours are not recorded here.</p></div>
       {!id && office && <Button onClick={()=>setCreating(true)}>Create Event</Button>}</div>
     <nav className="crm-tabs" aria-label="Operational sections"><Link href="/events" aria-current={!id?"page":undefined}>Events</Link><Link href="/sites">Sites / Venues</Link></nav>
+    {!id && office && <nav className={journey.path} aria-label="Commercial to Event journey">
+      <span><small>01 · Client</small><Link href="/crm?view=organisations">Confirm Client</Link></span>
+      <span><small>02 · Site / Venue</small><Link href="/sites">Choose linked Site</Link></span>
+      <span><small>03 · Event</small><strong aria-current="step">Plan exact Event</strong></span>
+      <span><small>04 · Staffing</small><Link href="/workforce">Review separate demand</Link></span>
+    </nav>}
     {error && <p className="enterprise-error" role="alert">{error} <Button variant="ghost" onClick={()=>void load()}>Retry</Button></p>}
     {notice && <p role="status" className="enterprise-honesty">{notice}</p>}
     {loading && <p role="status" className="crm-skeleton">Loading authorised Events…</p>}
@@ -101,9 +115,10 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
         <span>{items.length?offset+1:0}–{offset+items.length} of {total}</span><Button variant="outline" disabled={offset+25>=total} onClick={()=>setOffset(offset+25)}>Next</Button></div>
     </>}
     {!loading && id && event && <>
+      <nav className={journey.sections} aria-label="Event sections"><a href="#event-context">Context</a><a href="#event-history">History</a><a href="#event-staffing">Staffing</a><a href="#event-attendance">Attendance link</a></nav>
       <div className="crm-record-summary"><span className="crm-state">{label(event.status)}</span><span>{label(event.event_type)}</span><span>{london(event.starts_at)} → {london(event.ends_at)}</span></div>
       {(event.site_status!=="ACTIVE" || event.client_status!=="CLIENT") && <p role="status" className="enterprise-honesty">Operational context changed: Site is {label(event.site_status)}; Client relationship is {label(event.client_status)}. Historical Event state is retained.</p>}
-      <div className="crm-detail-grid"><section className="crm-panel"><h2>Event context</h2><dl>
+      <div className="crm-detail-grid"><section id="event-context" className="crm-panel"><h2>Event context</h2><dl>
         <div><dt>Client</dt><dd>{office?<Link href={`/crm/organisations/${event.organisation_id}`}>{String(event.client_name)}</Link>:String(event.client_name)}</dd></div>
         <div><dt>Site / Venue</dt><dd><Link href={`/sites?view=operational&selected=${event.site_id}`}>{String(event.site_name)}</Link> · {String(event.site_reference)}</dd></div>
         <div><dt>Address</dt><dd>{String(event.site_address_line1)}, {String(event.site_town_city)} {String(event.site_postcode)}</dd></div>
@@ -118,11 +133,11 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
           <Button variant="outline" onClick={()=>setAction({...action,kind:"DATES",startLocal:localInput(event.starts_at),endLocal:localInput(event.ends_at),reason:""})}>Change Event dates</Button></>}
         {!nextStatus && <p>Terminal Event history is read-only.</p>}
       </section></div>
-      <section className="crm-panel"><h2>History</h2>{((event.history as Row[])??[]).map((row)=><div className="crm-timeline-entry" key={String(row.id)}>
+      <section id="event-history" className="crm-panel"><h2>History</h2>{((event.history as Row[])??[]).map((row)=><div className="crm-timeline-entry" key={String(row.id)}>
         <strong>{label(row.kind)} {row.new_status?`· ${label(row.new_status)}`:""}</strong><span>{london(row.occurred_at)} · {String(row.actor_name ?? "Office / Operations")}</span>
         {Boolean(row.reason) && <p>Reason: {String(row.reason)}</p>}</div>)}</section>
-      <StaffingPlanClient eventId={id} eventStatus={String(event.status)} eventStarts={String(event.starts_at)} eventEnds={String(event.ends_at)} focusRequirement={focusRequirement}/>
-      <section className="crm-panel"><h2>Attendance</h2><p>Record and review factual attendance against this Event’s allocations. Attendance does not calculate worked time.</p><Button asChild><Link href={`/events/${id}/attendance`}>Open Event attendance</Link></Button></section>
+      <div id="event-staffing"><StaffingPlanClient eventId={id} eventStatus={String(event.status)} eventStarts={String(event.starts_at)} eventEnds={String(event.ends_at)} focusRequirement={focusRequirement}/></div>
+      <section id="event-attendance" className="crm-panel"><h2>Attendance</h2><p>Record and review factual attendance against this Event’s allocations. Attendance does not calculate worked time.</p><Button asChild><Link href={`/events/${id}/attendance`}>Open Event attendance</Link></Button></section>
     </>}
     {creating && <div className="crm-dialog-backdrop"><section className="crm-dialog" role="dialog" aria-modal="true" aria-label="Create Event">
       <h2>Create operational Event</h2><p>One multi-day Event can span several dates. Staffing times come later.</p>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { londonToday } from "@/lib/events/workforce-week";
+import journey from "./commercial-journey.module.css";
 
 type Service = { id:string;name:string;type:string;state:string;effective_from:string;effective_until:string|null;
   client_name:string;site_name:string;owner_name:string };
@@ -23,7 +24,7 @@ export function SiteServicesClient({siteId,personId,canAdmin}:{siteId:string;per
   }catch(caught){setError(caught instanceof Error?caught.message:"Service could not be created");}finally{setBusy(false);}}
   return <main className="enterprise-main"><header className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Ongoing Site work</p>
     <h1>Site Services</h1><p>Each Service belongs to this exact Client-linked Site. Dated shifts and Events remain separate.</p></div></header>
-    <p><Link href={`/sites?view=operational&selected=${siteId}`}>Back to Site</Link></p>
+    <nav className={journey.context} aria-label="Site Service context"><Link href={`/sites?view=operational&selected=${siteId}`}>Site context</Link><span>→</span><strong>Ongoing Site Services</strong><span>· Each Service has its own identity and dated shift demand.</span></nav>
     {error&&<p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={()=>void load()}>Retry</Button></p>}
     {canAdmin&&<form className="crm-panel sites-form" onSubmit={(event)=>{event.preventDefault();void create();}}>
       <h2>New Site Service</h2><label>Name<Input value={name} maxLength={180} required onChange={(event)=>setName(event.target.value)} /></label>
@@ -33,6 +34,6 @@ export function SiteServicesClient({siteId,personId,canAdmin}:{siteId:string;per
     {loading?<p role="status" className="crm-skeleton">Loading Site Services…</p>:items.length===0?<p className="crm-empty">No ongoing Service is recorded for this Site.</p>:
       <div className="crm-list">{items.map((item)=><Link key={item.id} className="crm-row" href={`/sites/${siteId}/services/${item.id}`}>
         <strong>{item.name}</strong><span>{item.client_name} · {item.site_name}</span>
-        <span>{item.type.replaceAll("_"," ")} · {item.state} · Owner {item.owner_name}</span></Link>)}</div>}
+        <span>{item.type.replaceAll("_"," ")} · Service {item.state} · Owner {item.owner_name}</span></Link>)}</div>}
   </main>;
 }

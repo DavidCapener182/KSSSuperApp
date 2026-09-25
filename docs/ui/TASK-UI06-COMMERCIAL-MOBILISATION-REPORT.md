@@ -28,3 +28,24 @@ No staging, production, real data, readiness score, 19A/20E change or UI03 file 
 ## Acceptance record
 
 David’s 25 September 2026 decision accepts only the changes and checks documented above in synthetic development. It does not turn unperformed desktop, genuine 390px, keyboard/focus or interactive workflow checks into passing evidence. Deferred source/read-contract, CRM/Client/Site/Service/Event and shared UI work remains deferred. No further feature work was started as part of this close-out.
+
+## Follow-up UI06 pass — pending David’s review
+
+This section records a separate follow-up after the accepted Mobilisation-only pass. It is **implemented in the isolated branch but not accepted**. Latest main and the accepted UI03 Workforce planning report were rechecked before changes. The work stays in the exact owned paths listed in `TASK-UI06-OWNED-PATHS.md`.
+
+### Presentation and workflow composition
+
+- CRM overview, Organisation and Opportunity now show a short source-aware journey. Organisation detail links its exact sales work, explicit Mobilisation entry where the relationship is Client, and existing linked Site/Event projections. Opportunity detail labels its actual stage; only Won shows the separate Mobilisation authorisation link. The original guarded stage and ownership actions remain unchanged.
+- Organisation and Opportunity detail gained in-page section navigation. Linked Sites are labelled as locations, with Services and Events explicitly remaining separate records.
+- The Event list shows the existing Client → Site → Event → staffing path to Office users. Event detail gained section navigation for context, history, staffing and the separate attendance route. Event create/change feedback now requires an authoritative Event detail readback; status/owner/date changes are checked against returned source facts before a success notice.
+- Sites gained a role-limited Client/Site/Event context trail. Site Service list and detail gained exact Site context links; the Service detail separates state, weekly template and dated demand sections. No demand, allocation, attendance or worked-time rule changed.
+- Styling lives in `commercial-journey.module.css`, using existing blue/graphite/neutral tokens, text status, visible focus and 44px navigation targets. Its 390px rule is one column. No shared shell, global CSS or UI03 component changed.
+
+### Checks and gaps for follow-up
+
+- Focused ESLint on edited TSX components: passed.
+- Next.js 16.3.6 production Webpack build with placeholder public Supabase settings: passed, including TypeScript. Placeholder settings support compilation only; this was not an authenticated integration check.
+- `git diff --check` and edited-file no-green scan: passed.
+- Authenticated desktop, genuine 390px browser, keyboard/focus and action readback journeys could not be exercised in this isolated worktree without synthetic credentials. The CSS and source review do not establish visual, responsive or accessibility acceptance. These remain review gates.
+
+The accepted APIs provide exact CRM, Site, Service, Event and Mobilisation records for the links shown. No cross-domain readiness read contract, curated exact-source picker, combined commercial timeline or automatic Won-to-Mobilisation business rule was added. Any future cross-domain facts need a separate permission-aware read contract and approval. This pass does not authorise staging, production, real data, Supabase changes or deployment.
