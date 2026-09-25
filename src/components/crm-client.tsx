@@ -33,8 +33,8 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
   const [reason, setReason] = useState("");
   const [stage, setStage] = useState("");
   const [confirm, setConfirm] = useState(false);
-  const load = useCallback(async () => {
-    if (view === "pipeline") { setLoading(false); return; }
+  const load = useCallback(async (): Promise<Record<string, unknown> | null> => {
+    if (view === "pipeline") { setLoading(false); return null; }
     setLoading(true); setError("");
     const qs = new URLSearchParams({view, offset:String(offset)});
     if (id) qs.set("id", id);
@@ -43,8 +43,8 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
     try {
       const response = await fetch(`/api/crm?${qs}`,{cache:"no-store"});
       if (!response.ok) throw Error("CRM is temporarily unavailable.");
-      setData(await response.json());
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "CRM is temporarily unavailable."); }
+      const next = await response.json(); setData(next); return next;
+    } catch (caught) { setError(caught instanceof Error ? caught.message : "CRM is temporarily unavailable."); return null; }
     finally { setLoading(false); }
   },[view,id,offset,search,filter]);
   useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); },[load]);
@@ -82,11 +82,28 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
       const response = await fetch("/api/crm",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action,...extra})});
       const result = await response.json();
       if (!response.ok) throw Error(result.detail ?? result.error ?? "Action denied");
-      setForm(""); setFields({}); setReason(""); setStage(""); setConfirm(false);
-      if (action === "createOrganisation") router.push(`/crm/organisations/${result.id}`);
-      else if (action === "createOpportunity") router.push(`/crm/opportunities/${result.id}`);
-      else await load();
-      router.refresh();
+      if (action === "createOrganisation" || action === "createOpportunity") {
+        const recordKind = action === "createOrganisation" ? "organisation" : "opportunity";
+        const readback = await fetch(`/api/crm?view=${recordKind}&id=${encodeURIComponent(String(result.id))}`, { cache: "no-store" });
+        if (!readback.ok) throw Error("The new commercial record could not be confirmed. Refresh before trying again.");
+        const confirmed = await readback.json();
+        if (confirmed[recordKind]?.id !== result.id) throw Error("The new commercial record could not be confirmed. Refresh before trying again.");
+        setForm(""); setFields({});
+        router.push(action === "createOrganisation" ? `/crm/organisations/${result.id}` : `/crm/opportunities/${result.id}`);
+      } else {
+        const confirmed = await load();
+        if (!confirmed) throw Error("The server responded, but the commercial record could not be refreshed. Check it before another change.");
+        const current = (action === "updateOrganisation" || action === "createContact" || action === "updateContact" ? confirmed.organisation : confirmed.opportunity) as Row | undefined;
+        if (action === "transition" && current?.stage !== extra.stage ||
+          action === "changeOwner" && current?.owner_person_id !== extra.ownerId ||
+          action === "changeValue" && current?.estimated_value_gbp_pence !== extra.valuePence ||
+          action === "updateOrganisation" && current?.name !== extra.name ||
+          (action === "createContact" || action === "updateContact") &&
+            !(confirmed.contacts as Row[] | undefined)?.some((item) => item.id === (action === "createContact" ? result.id : extra.id)))
+          throw Error("The commercial change could not be confirmed from its source record. Refresh before another change.");
+        setForm(""); setFields({}); setReason(""); setStage(""); setConfirm(false);
+        router.refresh();
+      }
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Action denied"); }
     finally { setBusy(false); }
   }
@@ -195,6 +212,7 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
     </>}
     {form && <div className="crm-dialog-backdrop" role="presentation"><section className="crm-dialog" role="dialog" aria-modal="true" aria-labelledby="crm-dialog-title">
       <div className="crm-panel-heading"><h2 id="crm-dialog-title">{form==="organisation"?"New Organisation":form==="editOrganisation"?"Edit Organisation":form==="contact"?"Add Contact":form==="editContact"?"Edit Contact":"New Opportunity"}</h2><Button variant="ghost" onClick={()=>{setForm("");setFields({});}}>Close</Button></div>
+      {error && <p role="alert" className="enterprise-error">{error}</p>}
       <form onSubmit={(e)=>{e.preventDefault(); if(form==="organisation"||form==="editOrganisation") void act(form==="organisation"?"createOrganisation":"updateOrganisation",{id,name:fields.name,tradingName:fields.tradingName,website:fields.website,email:fields.email,phone:fields.phone,ownerId:fields.ownerId||currentPersonId});
         if(form==="contact"||form==="editContact") void act(form==="contact"?"createContact":"updateContact",{id:fields.contactId,organisationId:id,firstName:fields.firstName,lastName:fields.lastName,jobTitle:fields.jobTitle,email:fields.email,phone:fields.phone,primary:fields.primary==="yes",active:fields.active!=="no",duplicateConfirmed:fields.duplicateConfirmed==="yes"});
         if(form==="opportunity") void act("createOpportunity",{organisationId:id,title:fields.title,type:fields.type,ownerId:fields.ownerId||currentPersonId,contactId:fields.contactId||null,valuePence:fields.value?Math.round(Number(fields.value)*100):null,decisionDate:fields.decisionDate||null,summary:fields.summary||null});}}>
