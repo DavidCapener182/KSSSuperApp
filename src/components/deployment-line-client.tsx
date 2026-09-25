@@ -25,7 +25,7 @@ async function api(path: string, init?: RequestInit) { const response = await fe
 
 export function DeploymentLineClient({ eventId, requirementId, revision, roleName, area, disabled, open, onClose, onChanged }: {
   eventId: string; requirementId: string; revision: number; roleName: string; area: string; disabled: boolean;
-  open: boolean; onClose: () => void; onChanged: () => Promise<void>;
+  open: boolean; onClose: () => void; onChanged: () => Promise<boolean>;
 }) {
   const base = `/api/events/${eventId}/staffing-requirements/${requirementId}`;
   const [detail, setDetail] = useState<Detail|null>(null); const [candidates, setCandidates] = useState<Page|null>(null);
@@ -35,18 +35,18 @@ export function DeploymentLineClient({ eventId, requirementId, revision, roleNam
   const [loading, setLoading] = useState(false); const [busy, setBusy] = useState(false); const [error, setError] = useState("");
   const load = useCallback(async (query = "", page = 0) => { setLoading(true); setError(""); try { const [detailData, candidateData] = await Promise.all([
     api(`${base}/allocations`), api(`${base}/candidates?search=${encodeURIComponent(query)}&offset=${page}`)]);
-    setDetail(detailData.deployment); setCandidates(candidateData.candidates); setOffset(page);
-  } catch (caught) { setError(caught instanceof Error ? caught.message : "Deployment unavailable"); } finally { setLoading(false); } }, [base]);
+    setDetail(detailData.deployment); setCandidates(candidateData.candidates); setOffset(page); return true;
+  } catch (caught) { setError(caught instanceof Error ? caught.message : "Deployment unavailable"); return false; } finally { setLoading(false); } }, [base]);
   useEffect(() => { if (!open) return; const timer = setTimeout(() => void load(search, 0), 0); return () => clearTimeout(timer); }, [open, load, search]);
   async function allocate() { if (!selected) return; setBusy(true); setError(""); try {
     await api(`${base}/allocations`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({
       personId: selected.id, expectedRevision: revision, acknowledgeWarnings: ack, reason: reason.trim() || null }) });
-    setSelected(null); setAck(false); setReason(""); await load(search, offset); await onChanged();
+    setSelected(null); setAck(false); setReason(""); if(!await load(search, offset) || !await onChanged())throw new Error("Allocation was sent, but the current source state could not be confirmed. Refresh before acting again.");
   } catch (caught) { setError(caught instanceof Error ? caught.message : "Allocation denied"); } finally { setBusy(false); } }
   async function cancelAllocation() { if (!cancel) return; setBusy(true); setError(""); try {
     await api(`${base}/allocations/${cancel.id}`, { method: "PATCH", headers: { "content-type": "application/json" },
       body: JSON.stringify({ action: "CANCEL", expectedRevision: cancel.revision, reason: cancelReason.trim() }) });
-    setCancel(null); setCancelReason(""); await load(search, offset); await onChanged();
+    setCancel(null); setCancelReason(""); if(!await load(search, offset) || !await onChanged())throw new Error("Cancellation was sent, but the current source state could not be confirmed. Refresh before acting again.");
   } catch (caught) { setError(caught instanceof Error ? caught.message : "Cancellation denied"); } finally { setBusy(false); } }
   return <Sheet open={open} onOpenChange={(value) => { if (!value && !busy) onClose(); }}><SheetContent className="staffing-sheet deployment-sheet">
     <SheetTitle>{roleName} · {area}</SheetTitle><p className="enterprise-honesty">Exact requirement · {detail ? `${detail.required} required · ${detail.allocated} allocated · ${detail.remaining} remaining · ${detail.accepted} accepted` : "Loading counts…"}</p>

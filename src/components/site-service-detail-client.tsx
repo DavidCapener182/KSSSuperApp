@@ -29,8 +29,8 @@ const dateInput=(day:string,clock:string)=>`${day}T${clock}`;
 async function read(url:string,init?:RequestInit){const response=await fetch(url,{...init,cache:"no-store"});const data=await response.json().catch(()=>({}));
  if(!response.ok)throw Error(data.error??"Service unavailable");return data;}
 
-export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemandId}:{siteId:string;serviceId:string;canAdmin:boolean;initialDemandId?:string}){
- const [week,setWeek]=useState(()=>londonWeekStart(londonToday())!);const [detail,setDetail]=useState<Detail|null>(null);
+export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemandId,initialWeek,workforceReturn}:{siteId:string;serviceId:string;canAdmin:boolean;initialDemandId?:string;initialWeek?:string;workforceReturn?:string}){
+ const [week,setWeek]=useState(()=>initialWeek??londonWeekStart(londonToday())!);const [detail,setDetail]=useState<Detail|null>(null);
  const [roles,setRoles]=useState<Role[]>([]);const [loading,setLoading]=useState(true);const [busy,setBusy]=useState(false);
  const [error,setError]=useState("");const [notice,setNotice]=useState("");
  const [reason,setReason]=useState("");const [effectiveOn,setEffectiveOn]=useState(londonToday());const [resumeOn,setResumeOn]=useState(addCivilDays(londonToday(),7));
@@ -82,7 +82,7 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
    <header className="site-service-record-header"><h1>{service?.name??"Site Service"}</h1>{service&&<><div className="crm-record-identity"><span>Site Service</span><strong>{service.state.replaceAll("_"," ")}</strong><span>{service.type.replaceAll("_"," ")}</span></div><p>{service.client_name} · {service.site_name}</p><p>Effective {service.effective_from}{service.effective_until?` to ${service.effective_until}`:" onward"}</p></>}</header>
    <nav className="site-service-record-sections" aria-label="Service sections"><a href="#service-state">Service state</a><a href="#service-template">Weekly template</a><a href="#service-demand">Dated demand</a><a href="#service-history">History</a></nav>
    <RecordSectionTracker label="Service sections" />
-   <nav className="site-service-record-related" aria-label="Related workflows"><strong>Related workflows</strong><Link href={`/sites?view=operational&selected=${siteId}`}>Site</Link><Link href={`/sites/${siteId}/services`}>All Site Services</Link><Link href="/workforce">Workforce</Link><Link href={`/sites/${siteId}/services/${serviceId}/attendance`}>Attendance</Link><Link href={`/operational-contacts/manage?kind=SITE_SERVICE&id=${serviceId}`}>Operational contacts</Link></nav>
+   <nav className="site-service-record-related" aria-label="Related workflows"><strong>Related workflows</strong><Link href={`/sites?view=operational&selected=${siteId}`}>Site</Link><Link href={`/sites/${siteId}/services`}>All Site Services</Link><Link href={workforceReturn??"/workforce"}>{workforceReturn?"Return to Workforce · same week and filters":"Workforce"}</Link><Link href={`/sites/${siteId}/services/${serviceId}/attendance`}>Attendance</Link><Link href={`/operational-contacts/manage?kind=SITE_SERVICE&id=${serviceId}`}>Operational contacts</Link></nav>
    {error&&<p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={()=>void load()}>Retry</Button></p>}
    {notice&&<p role="status" className="enterprise-honesty">{notice}</p>}
    {loading?<p role="status" className="crm-skeleton">Loading Service…</p>:service&&<>

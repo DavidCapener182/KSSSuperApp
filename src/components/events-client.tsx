@@ -27,7 +27,7 @@ async function read(path: string, init?: RequestInit) {
   if (!response.ok) throw new Error(data.error ?? "Operational request denied"); return data;
 }
 
-export function EventsClient({ roles, id, organisation, opportunity, focusRequirement }: { roles: string[]; id?: string; organisation?: string; opportunity?: string; focusRequirement?: string }) {
+export function EventsClient({ roles, id, organisation, opportunity, focusRequirement, workforceReturn }: { roles: string[]; id?: string; organisation?: string; opportunity?: string; focusRequirement?: string; workforceReturn?: string }) {
   const router = useRouter(); const office = roles.includes("OFFICE_ADMIN") || roles.includes("SUPER_ADMIN");
   const [items,setItems] = useState<Row[]>([]); const [total,setTotal] = useState(0); const [event,setEvent] = useState<Row|null>(null);
   const [clients,setClients] = useState<Choice[]>([]); const [sites,setSites] = useState<Row[]>([]); const [owners,setOwners] = useState<Choice[]>([]);
@@ -166,7 +166,7 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
         </div>}
         {!nextStatus && <p>Terminal Event history is read-only.</p>}
       </section></div>
-      <div id="event-staffing"><StaffingPlanClient eventId={id} eventStatus={String(event.status)} eventStarts={String(event.starts_at)} eventEnds={String(event.ends_at)} focusRequirement={focusRequirement}/></div>
+      <div id="event-staffing"><StaffingPlanClient eventId={id} eventStatus={String(event.status)} eventStarts={String(event.starts_at)} eventEnds={String(event.ends_at)} focusRequirement={focusRequirement}/>{workforceReturn&&<p className="enterprise-honesty"><Link href={workforceReturn}>Return to Workforce · same week and filters</Link> after the staffing change is confirmed in this source.</p>}</div>
       <section id="event-attendance" className="crm-panel"><h2>Attendance</h2><p>Record and review factual attendance against this Event’s allocations. Attendance does not calculate worked time.</p><Button asChild><Link href={`/events/${id}/attendance`}>Open Event attendance</Link></Button></section>
       <section id="event-history" className="crm-panel"><h2>History</h2>{((event.history as Row[])??[]).map((row)=><div className="crm-timeline-entry" key={String(row.id)}>
         <strong>{label(row.kind)} {row.new_status?`· ${label(row.new_status)}`:""}</strong><span>{london(row.occurred_at)} · {String(row.actor_name ?? "Office / Operations")}</span>
