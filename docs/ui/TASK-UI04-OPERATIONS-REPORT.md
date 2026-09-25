@@ -1,6 +1,6 @@
 # TASK-UI04 — Operations Workspace report
 
-Status: UI-only partial implementation in isolated branch; not accepted.
+Status: **accepted by David for the bounded Control Room and Action Centre UI pass in synthetic development on 25 September 2026**. This is a partial UI04 implementation, not acceptance of the full Operations redesign.
 
 Starting canonical main HEAD: `25dfb02dd5e1da087b0cc8034b2260d8c129122c`. Exact edited paths are in `TASK-UI04-OWNED-PATHS.md`.
 
@@ -26,4 +26,4 @@ The current 13A Control Room projection does not contain Site Book handover age,
 - Webpack production build passed with the existing development environment configuration; it compiled and generated the operations routes. The first build attempt without `.env.local` compiled but stopped at `/staging-access` prerender because the Supabase URL/key were absent. No credentials were printed.
 - `tsc --noEmit` passed after Next generated its route types; `git diff --check` passed.
 - A local preview server started on `127.0.0.1:3104` with approved sandbox escalation. Playwright CLI did not return a snapshot within 35 seconds and was stopped. Desktop, genuine 390px layout, keyboard/focus operation and authenticated source readback are **not verified** in this run. CSS breakpoints and focus selectors are implementation, not visual evidence.
-- No acceptance, staging or production claim follows from these checks.
+- David accepted this bounded domain-local UI pass with the checks actually recorded above. Authenticated desktop, genuine 390px, keyboard/focus and authoritative browser readback remain unverified and are not retrospectively counted as passes. The acceptance does not cover the broad UI04 brief, shared UI02 integration, other Operations modules, staging, production or deployment.
