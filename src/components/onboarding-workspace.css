@@ -153,6 +153,10 @@
 .office-onboarding-manage[open] button:first-of-type { position:absolute; top:100%; right:0; border:1px solid var(--kss-border-strong); border-radius:9px 9px 0 0; box-shadow:0 8px 20px #17233b20; }
 .office-onboarding-manage[open] button:last-of-type:not(:first-of-type) { position:absolute; top:calc(100% + 44px); right:0; border:1px solid var(--kss-border-strong); border-radius:0 0 9px 9px; box-shadow:0 8px 20px #17233b20; }
 .office-onboarding-redesign :is(.office-onboarding-product-nav button,.office-onboarding-board button,.office-onboarding-board a,.office-onboarding-manage summary):focus-visible { outline:3px solid var(--kss-blue); outline-offset:2px; }
+.office-onboarding-redesign .office-onboarding-team-admin { padding:clamp(1rem,2vw,1.5rem); border:1px solid var(--kss-border); border-radius:13px; background:var(--kss-surface); }
+.office-onboarding-redesign .office-onboarding-team-admin .eyebrow { margin:0 0 .25rem; color:var(--kss-blue-strong); }
+.office-onboarding-redesign .office-onboarding-team-admin h2 { margin:.1rem 0 .5rem; font-size:1.4rem; }
 @media (max-width:1150px) { .office-onboarding-board-lanes { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:700px) { .office-onboarding-board-lanes { grid-template-columns:minmax(0,1fr); } .office-onboarding-board-heading { flex-direction:column; align-items:stretch; } }
+@media (max-width:700px) { .office-onboarding-product-nav { flex-wrap:wrap; overflow-x:visible; } .office-onboarding-product-nav button { flex:1 1 auto; } }
 @media (max-width:700px) { .office-onboarding-redesign .office-onboarding-actions > a,.office-onboarding-manage { width:100%; } .office-onboarding-manage[open] button:first-of-type,.office-onboarding-manage[open] button:last-of-type:not(:first-of-type) { position:static; width:100%; border-radius:8px; margin-top:.35rem; box-shadow:none; } }

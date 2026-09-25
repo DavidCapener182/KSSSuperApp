@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { EmptyState, FeedbackBanner, LoadingBlock } from "@/components/ui/workflow";
+import { ControlledTermsPublisher } from "@/components/controlled-terms-publisher";
 import styles from "./identity-admin.module.css";
 import "./onboarding-workspace.css";
 
@@ -35,7 +36,8 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
   const [query, setQuery] = useState("");
   const [offset, setOffset] = useState(0);
   const [data, setData] = useState<QueueData | null>(null);
-  const [workspaceTab, setWorkspaceTab] = useState<"PIPELINE" | "PEOPLE" | "NEEDS_ACTION">("PIPELINE");
+  const [workspaceTab, setWorkspaceTab] = useState<"PIPELINE" | "PEOPLE" | "NEEDS_ACTION" | "ADMIN">("PIPELINE");
+  const [canPublish, setCanPublish] = useState(false);
   const [previews, setPreviews] = useState<Partial<Record<QueueView, QueueData>>>({});
   const [previewError, setPreviewError] = useState(false);
   const [previewLoading, setPreviewLoading] = useState(false);
@@ -60,6 +62,7 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
   const [currentPersonId, setCurrentPersonId] = useState("");
   const queueReadTail = useRef<Promise<unknown>>(Promise.resolve());
   const previewInFlight = useRef(false);
+  const publisherAccessChecked = useRef(false);
   const readQueue = useCallback((url: URL): Promise<QueueData> => {
     // The guarded queue RPC is expensive in synthetic Development. Keep this page's reads
     // sequential so the board does not cause concurrent statement timeouts.
@@ -117,8 +120,15 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
   const effectiveTeam = selectedTeam || teams[0]?.id || "";
   useEffect(() => { void Promise.resolve().then(() => loadQueue()); }, [loadQueue]);
   useEffect(() => { void Promise.resolve().then(() => loadPreviews()); }, [loadPreviews]);
-  useEffect(() => { if (superAdmin && workspaceTab === "PEOPLE") void Promise.resolve().then(() => loadTeams(effectiveTeam)); },
+  useEffect(() => { if (superAdmin && workspaceTab === "ADMIN") void Promise.resolve().then(() => loadTeams(effectiveTeam)); },
     [loadTeams, effectiveTeam, superAdmin, workspaceTab]);
+  useEffect(() => {
+    if (loading || previewLoading || publisherAccessChecked.current) return;
+    publisherAccessChecked.current = true;
+    void fetch("/api/controlled-documents", { cache: "no-store" })
+      .then(async (response) => response.ok ? (await response.json()).canPublish === true : false)
+      .then(setCanPublish).catch(() => setCanPublish(false));
+  }, [loading, previewLoading]);
 
   function chooseView(next: QueueView) { setView(next); setOffset(0); setNotice(""); }
   function openAction(row: QueueRow, next: "reassign" | "cover") {
@@ -245,10 +255,12 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
       {([ ["PIPELINE", "Pipeline"], ["PEOPLE", "People"], ["NEEDS_ACTION", "Needs action"] ] as const).map(([code, title]) =>
         <button type="button" key={code} aria-current={workspaceTab === code ? "page" : undefined}
           onClick={() => { setWorkspaceTab(code); if (code === "NEEDS_ACTION") chooseView("NEEDS_OFFICE"); }}>{title}</button>)}
+      {(superAdmin || canPublish) && <button type="button" aria-current={workspaceTab === "ADMIN" ? "page" : undefined}
+        onClick={() => setWorkspaceTab("ADMIN")}>Administration</button>}
     </nav>
     {error && <FeedbackBanner tone="error">{error}</FeedbackBanner>}
     {notice && <FeedbackBanner tone="success">{notice}</FeedbackBanner>}
-    <section className="office-onboarding-command" aria-labelledby="office-onboarding-attention">
+    {workspaceTab !== "ADMIN" && <section className="office-onboarding-command" aria-labelledby="office-onboarding-attention">
       <div className="office-onboarding-command-head"><div><p className="eyebrow">Current source counts</p><h2 id="office-onboarding-attention">Where work stands</h2></div>
         <p>Counts come from your authorised queue scope. They are not readiness or compliance scores.</p></div>
       <div className="office-onboarding-stats" aria-label="Authorised onboarding counts">
@@ -257,7 +269,7 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
         <div><strong>{data?.counts.blocked ?? "—"}</strong><span>Blocked</span></div>
         <div><strong>{data?.counts.activeStarters ?? "—"}</strong><span>Active starters</span></div>
       </div>
-    </section>
+    </section>}
     {workspaceTab === "PIPELINE" && <section className="office-onboarding-board" aria-labelledby="onboarding-board-title">
       <div className="office-onboarding-board-heading"><div><p className="eyebrow">Factual work queues</p><h2 id="onboarding-board-title">Follow the next handoff</h2>
         <p>Cases may appear in more than one queue. These are source views, not lifecycle stages or readiness decisions.</p></div>
@@ -276,7 +288,7 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
         </section>)}</div>
       <p className="office-onboarding-board-note">Each lane previews up to three authorised cases. Open its full queue for all matching cases.</p>
     </section>}
-    {workspaceTab !== "PIPELINE" && <section className="office-onboarding-queue" aria-labelledby="office-onboarding-queue-heading">
+    {(workspaceTab === "PEOPLE" || workspaceTab === "NEEDS_ACTION") && <section className="office-onboarding-queue" aria-labelledby="office-onboarding-queue-heading">
       <div className="office-onboarding-queue-head"><div><p className="eyebrow">Case queue</p><h2 id="office-onboarding-queue-heading">{views.find((item) => item.code === view)?.label}</h2>
         <p>Choose a view, inspect the current blocker, and follow only actions you are authorised to take.</p></div>
         <button type="button" onClick={() => void loadQueue()} disabled={loading}>Refresh queue</button></div>
@@ -314,12 +326,12 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
     </> : !error && <EmptyState title={view === "CANCELLED" ? "No cancelled cases" : "No cases in this queue"}
       description="Only cases in your authorised onboarding scope appear here." />}
     </section>}
-    <section className={styles.boundary} aria-label="Onboarding access explained">
+    {workspaceTab === "ADMIN" && <section className={styles.boundary} aria-label="Onboarding access explained">
       <strong>Case access follows the named Person and case</strong>
       <p>Team membership permits queue triage. The current owner, finite named cover, or Super Admin can open private case detail. Document evidence has its own exact request and version checks.</p>
-    </section>
-    {superAdmin && workspaceTab === "PEOPLE" && <section className="office-onboarding-team-admin" aria-labelledby="team-admin-heading">
-      <h2 id="team-admin-heading">Onboarding team administration</h2>
+    </section>}
+    {superAdmin && workspaceTab === "ADMIN" && <section className="office-onboarding-team-admin" aria-labelledby="team-admin-heading">
+      <p className="eyebrow">Administration</p><h2 id="team-admin-heading">Teams &amp; access</h2>
       <p>Team membership enables queue triage. It does not grant private case or evidence access.</p>
       <form onSubmit={createTeam}>
         <label htmlFor="new-onboarding-team">Create onboarding team</label>
@@ -347,8 +359,8 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
         <button type="submit" disabled={busy || !effectiveTeam}>Grant membership</button>
       </form>
     </section>}
-    {superAdmin && <section className="office-onboarding-team-admin" aria-labelledby="publisher-admin-heading">
-      <h2 id="publisher-admin-heading">Synthetic terms publication</h2>
+    {superAdmin && workspaceTab === "ADMIN" && <section className="office-onboarding-team-admin" aria-labelledby="publisher-admin-heading">
+      <p className="eyebrow">Administration</p><h2 id="publisher-admin-heading">Terms &amp; publication</h2>
       <p>Grant one active Office person time-limited publication authority for synthetic onboarding terms only. Case access is checked separately.</p>
       <form onSubmit={grantPublisher}>
         <label htmlFor="publisher-person">Office publisher</label>
@@ -365,6 +377,7 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
         Revoke grant created here
       </button>}
     </section>}
+    {workspaceTab === "ADMIN" && canPublish && <ControlledTermsPublisher />}
     {action && selectedRow && <div className="office-onboarding-dialog-backdrop" role="presentation">
       <section role="dialog" aria-modal="true" aria-labelledby="onboarding-action-heading" className="office-onboarding-dialog">
         <h2 id="onboarding-action-heading">{action === "reassign" ? "Reassign case" : "Arrange named case cover"}</h2>

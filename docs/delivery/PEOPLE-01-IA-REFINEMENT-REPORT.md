@@ -1,0 +1,22 @@
+# PEOPLE-01 — final information architecture refinement
+
+25 September 2026. Local synthetic Development review, not human acceptance or production readiness. This refines the existing PEOPLE-01 direction on the isolated `people-01-onboarding-journey` branch. No backend contract, role, live source, deployment or paid service changed.
+
+## Delivered
+
+- The operational workspace now ends with its Pipeline, People and Needs action queues. Authorised Administration holds Teams & access and Terms & publication. Team and publisher actions use their existing guards and API calls; an Office user only sees Administration if the guarded controlled-document read grants publication.
+- A case now has six scoped views. Overview contains the factual progress, immediate action, dependency and compact journey. Journey holds all six ordered requirements, with completed source detail collapsed. Evidence contains only Right to Work, SIA and identity evidence. Training states the native KSS case-link gap and links to the authorised Training surface. Documents contains exact-version employment terms assignment, open and acknowledgement. Personal details contains the scoped starter profile.
+- Infrequent reassign, finite cover and cancellation actions sit under Case actions. Cancellation keeps the existing guarded action and confirmation. The current action contract has no cancellation-reason field, so the UI does not claim to record one.
+- Source distinctions remain intact: submitted, accepted as evidence and requirement verified; assigned, opened and acknowledged. Detailed source facts are available on expansion instead of dominating routine scanning.
+
+## Local review readback
+
+Authenticated Office reads on the local preview returned HTTP 200 for all four queue views. The board showed 7 Needs Office, 198 Waiting for Staff, 0 Blocked and 184 My cases in the authorised synthetic Development scope. The case showed zero full requirement cards on Overview, six on Journey, three on Evidence, zero on Training, one on Documents and zero on Personal details. The authenticated Super Admin Administration tab excluded the operational board. An authenticated Staff case pass showed the same scoped view counts and no horizontal overflow at 390px; Staff had no case-management menu. No form was submitted in this review.
+
+Desktop and genuine 390px screenshots: [Pipeline](../product-review/people-01-evidence/refinement/board-1440.png), [Needs Office](../product-review/people-01-evidence/refinement/needs-office-1440.png), [Waiting for Staff](../product-review/people-01-evidence/refinement/waiting-staff-1440.png), [Administration desktop](../product-review/people-01-evidence/refinement/admin-1440.png) and [390px](../product-review/people-01-evidence/refinement/admin-390.png), [Overview desktop](../product-review/people-01-evidence/refinement/overview-1440.png) and [390px](../product-review/people-01-evidence/refinement/overview-390.png), [Journey desktop](../product-review/people-01-evidence/refinement/journey-1440.png) and [390px](../product-review/people-01-evidence/refinement/journey-390.png), [Evidence desktop](../product-review/people-01-evidence/refinement/evidence-1440.png) and [390px](../product-review/people-01-evidence/refinement/evidence-390.png), [Training desktop](../product-review/people-01-evidence/refinement/training-1440.png) and [390px](../product-review/people-01-evidence/refinement/training-390.png), [Documents desktop](../product-review/people-01-evidence/refinement/documents-1440.png) and [390px](../product-review/people-01-evidence/refinement/documents-390.png), [Personal details desktop](../product-review/people-01-evidence/refinement/personal-1440.png) and [390px](../product-review/people-01-evidence/refinement/personal-390.png), [Case actions](../product-review/people-01-evidence/refinement/actions-1440.png).
+
+Focused ESLint, Next 16.3.6 build with TypeScript and static page generation, and `git diff --check` passed. The case views and workspace fit the 390px viewport; the case navigation's focused button showed a 3px visible outline. Preview: `http://127.0.0.1:3312/onboarding`.
+
+## Source gaps
+
+There is no authorised person/case-specific Training projection or genuine activity feed in this slice. The existing cancellation endpoint does not accept a reason. The synthetic Development queue remains slow enough to merit source performance work before a wider rollout. These gaps are displayed or documented without inventing status or completion.
