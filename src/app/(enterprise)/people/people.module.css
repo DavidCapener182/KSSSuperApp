@@ -1,0 +1,150 @@
+.workspace {
+  max-width: 1200px;
+  color: var(--kss-ink);
+}
+
+.workspace :global(.enterprise-intro) {
+  max-width: 68ch;
+}
+
+.workspace :global(.people-filters) {
+  border-color: var(--kss-border-strong);
+}
+
+.clearFilters {
+  display: inline-flex;
+  margin: -16px 0 24px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  color: var(--kss-blue);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.workspace :global(.people-table) {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.workspace :global(.people-table th),
+.workspace :global(.people-table td) {
+  padding-block: 18px;
+}
+
+.workspace :global(.people-table tbody tr:hover) {
+  background: var(--kss-surface-muted);
+}
+
+.workspace :global(.people-table a),
+.workspace :global(.people-mobile-card a),
+.workspace :global(.people-pagination a) {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 6px;
+}
+
+.workspace :global(.people-record-nav a) {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  font-size: 13px;
+}
+
+.workspace :global(.people-record-section h2) {
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.workspace :global(.people-record-section h3) {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.workspace :global(.people-record-section p),
+.workspace :global(.people-record-list span),
+.workspace :global(.people-record-list small) {
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.workspace :global(.people-record-section dt) {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 12px;
+}
+
+.workspace :global(.people-record-section a) {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+}
+
+.workspace :global(a:focus-visible),
+.workspace :global(button:focus-visible),
+.workspace :global(input:focus-visible),
+.workspace :global(select:focus-visible) {
+  outline: 3px solid var(--kss-blue);
+  outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  .workspace :global(.people-mobile-card) {
+    gap: 14px;
+  }
+
+  .workspace :global(.people-mobile-card strong) {
+    font-size: 17px;
+    line-height: 1.35;
+  }
+
+  .workspace :global(.people-mobile-card p) {
+    display: grid;
+    gap: 2px;
+    font-size: 14px;
+  }
+
+  .workspace :global(.people-mobile-card p b) {
+    color: var(--kss-ink);
+    font-size: 12px;
+  }
+
+  .workspace :global(.people-mobile-card a) {
+    border-top: 1px solid var(--kss-border);
+    padding-top: 10px;
+  }
+
+  .workspace :global(.people-record-nav) {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .workspace :global(.people-record-nav a) {
+    flex: none;
+  }
+
+  .workspace :global(.people-pagination) {
+    flex-wrap: wrap;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .workspace :global(.people-filters) {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .workspace :global(.people-filters label),
+  .workspace :global(.people-filters button) {
+    grid-column: 1;
+  }
+
+  .workspace :global(.people-record-section) {
+    padding: 18px;
+  }
+}
