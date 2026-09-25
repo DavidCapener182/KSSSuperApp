@@ -94,6 +94,37 @@ test('20E explicit certificate issue, private PDF, revocation, reissue and Compl
    return {claims:body.claims,revisions:body.revisions,decisions:body.decisions};
   };
   const credentialsBeforeCertificate=await credentialFacts();
+  const serviceDate=new Date(Date.UTC(2040+Math.floor(Math.random()*20),6,1+Math.floor(Math.random()*27))).toISOString().slice(0,10);
+  const organisation=await call(office,'crm_create_organisation',{p_name:`20E Synthetic Eligibility ${Date.now()}`});
+  const opportunity=await call(office,'crm_create_opportunity',{p_organisation:organisation,
+   p_title:'Synthetic eligibility boundary',p_type:'DIRECT_ENQUIRY',p_owner:person.office});
+  await call(office,'crm_transition_opportunity',{p_id:opportunity,p_stage:'WON'});
+  const site=ok(await office.from('sites').insert({site_reference:`DEV-20E-${Date.now()}`,name:'Synthetic Eligibility Site',
+   address_line1:'1 Example Street',town_city:'Exampletown',postcode:'EX1 1AA',reporting_point:'Main gate',
+   created_by_person_id:person.office,site_type:'STADIUM'}).select('id').single(),'synthetic eligibility site');
+  ok(await office.from('sites').update({status:'ACTIVE'}).eq('id',site.id),'activate synthetic eligibility site');
+  await call(office,'operational_link_site',{p_site:site.id,p_organisation:organisation});
+  const event=await call(office,'operational_create_event',{p_site:site.id,p_organisation:organisation,
+   p_name:'Synthetic Certificate Eligibility Boundary',p_type:'FOOTBALL_MATCH',
+   p_starts:`${serviceDate}T15:00:00+01:00`,p_ends:`${serviceDate}T17:00:00+01:00`,p_owner:person.office});
+  const roles=await call(office,'staffing_role_choices');
+  const siaRole=roles.find(role=>role.code==='SIA');assert.ok(siaRole);
+  const requirement=await call(office,'staffing_create_confirmed',{p_event:event,p_role:siaRole.id,p_quantity:1,
+   p_report:`${serviceDate}T12:30:00+01:00`,p_start:`${serviceDate}T13:00:00+01:00`,
+   p_end:`${serviceDate}T18:00:00+01:00`,p_area:'Main gate',p_instructions:'Synthetic eligibility read only',
+   p_reason:null,p_confirm_duplicate:false,p_confirm_exception:false});
+  const eligibility=async()=>{
+   for(let offset=0;offset<=10000;offset+=50){
+    const page=await call(office,'deployment_candidates',{p_event:event,p_requirement:requirement,
+     p_search:'',p_offset:offset,p_limit:50});
+    const candidate=page.items.find(item=>item.id===person.staff);
+    if(candidate)return candidate.check;
+    if(offset+50>=page.total)break;
+   }
+   assert.fail('same Staff must appear in the accepted deployment candidate read');
+  };
+  const eligibilityBeforeCertificate=await eligibility();
+  assert.equal(eligibilityBeforeCertificate.policy_version,1,'existing SIA eligibility policy is used');
   const requestA=randomUUID(),requestB=randomUUID();
   const input=(requestId,reissueOf=null)=>({action:'ISSUE',completionId:completion,templateVersionId:template,
    requestId,reissueOf,reason:'Synthetic explicit manager certificate decision'});
@@ -107,6 +138,8 @@ test('20E explicit certificate issue, private PDF, revocation, reissue and Compl
   assert.equal(history[0].id,issueId);assert.equal(history[0].completionId,completion);
   assert.deepEqual(await credentialFacts(),credentialsBeforeCertificate,
    'certificate issue cannot create or change the same Staff credential verification');
+  assert.deepEqual(await eligibility(),eligibilityBeforeCertificate,
+   'certificate issue cannot change the same Staff deployment eligibility');
   assert.ok(history[0].expiryOn,'factual expiry comes from pinned 12-month rule');
   assert.equal((await post(officeCookies,input(winningRequest))).body.data.issueId,issueId,'exact replay returns same issue');
   assert.notEqual((await post(officeCookies,{...input(winningRequest),reason:'Changed certificate request replay'})).response.status,200,
@@ -149,6 +182,8 @@ test('20E explicit certificate issue, private PDF, revocation, reissue and Compl
 
   const revoked=await post(officeCookies,{action:'REVOKE',issueId,reason:'Synthetic certificate revocation proof',requestId:randomUUID()});
   assert.equal(revoked.response.status,200);
+  assert.deepEqual(await eligibility(),eligibilityBeforeCertificate,
+   'certificate revocation cannot change the same Staff deployment eligibility');
   assert.equal((await file(staffCookies,issueId)).status,404,'revoked application download denied');
   const fresh=await actor('staff');
   assert.equal((await file(await cookie(fresh),issueId)).status,404,'fresh Staff session cannot bypass revocation');
@@ -162,6 +197,8 @@ test('20E explicit certificate issue, private PDF, revocation, reissue and Compl
   assert.equal(afterReissue.filter(x=>x.current).length,1);
   assert.equal(afterReissue.find(x=>x.id===nextId).reissueOf,issueId);
   assert.equal(afterReissue.find(x=>x.id===issueId).state,'REVOKED');
+  assert.deepEqual(await eligibility(),eligibilityBeforeCertificate,
+   'certificate reissue cannot change the same Staff deployment eligibility');
   const nextInfo=await call(office,'training_certificate_file_info',{p_issue:nextId,
    p_proof:proof('certificate_file_info',nextId)});
   assert.notEqual(nextInfo.objectKey,info.objectKey,'reissue uses a new private object');
@@ -179,6 +216,8 @@ test('20E explicit certificate issue, private PDF, revocation, reissue and Compl
   assert.equal((await file(staffCookies,nextId)).status,404,'Completion void immediately invalidates PDF download');
   assert.deepEqual(await credentialFacts(),credentialsBeforeCertificate,
    'certificate revocation and Completion void cannot change credential verification');
+  assert.deepEqual(await eligibility(),eligibilityBeforeCertificate,
+   'Completion void cannot change the same Staff deployment eligibility');
   assert.ok((await call(staff,'training_completion_mine')).some(x=>x.id===completion&&x.voidedAt),
    'Completion and passed evidence retained');
  } finally {
