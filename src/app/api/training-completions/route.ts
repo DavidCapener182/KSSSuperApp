@@ -7,12 +7,15 @@ const reason = (value: unknown): value is string => typeof value === "string" &&
 export async function GET(request: Request) {
   const client = await createServerSupabase();
   if (!(await getPrincipal(client))) return unauthorised();
-  const view = new URL(request.url).searchParams.get("view") ?? "mine";
+  const params = new URL(request.url).searchParams;
+  const view = params.get("view") ?? "mine";
+  const id = params.get("id");
   const operation = view === "mine" ? client.rpc("training_completion_mine")
     : view === "access" ? client.rpc("training_completion_access")
     : view === "admin" ? client.rpc("training_completion_admin")
     : view === "choices" ? client.rpc("training_completion_publish_choices")
-    : view === "grants" ? client.rpc("training_completion_grants_read") : null;
+    : view === "grants" ? client.rpc("training_completion_grants_read")
+    : view === "history" && id && isUuid(id) ? client.rpc("training_completion_history", { p_assignment: id }) : null;
   if (!operation) return privateJson({ error: "Invalid completion view" }, 400);
   const { data, error } = await operation;
   return error ? privateJson({ error: "Completion history unavailable" }, 403) : privateJson({ data });
