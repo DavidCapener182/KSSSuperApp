@@ -1,6 +1,8 @@
 # TASK-UI07 — Service Management report
 
-Status: bounded UI pass completed in isolated synthetic branch; not accepted or deployed. Starting canonical main HEAD: `25dfb02dd5e1da087b0cc8034b2260d8c129122c`.
+Status: **accepted by David for synthetic Development on 25 September 2026**, limited to the domain-local Service Delivery list UI pass and checks recorded below. The implementation is committed on isolated branch `task-ui07-service-management` at `4e6939f`; it is not merged or deployed. Starting canonical main HEAD: `25dfb02dd5e1da087b0cc8034b2260d8c129122c`.
+
+This acceptance does not extend to the broad UI07 brief, shared UI02 integration, deferred 21D/19A source work, Assets or Contacts redesign, staging, production or deployment.
 
 ## Scope and research
 
