@@ -29,15 +29,16 @@ const entries: Record<string, Entry> = {
   "/my-work-time": { href: "/my-work-time", title: "My worked time", detail: "Review and submit worked intervals separately from attendance." },
   "/my-equipment": { href: "/my-equipment", title: "My equipment", detail: "Check your own custody record and handovers." },
   "/events": { href: "/events", title: "Events", detail: "Open event plans, staffing and attendance source records." },
+  "/people": { href: "/people", title: "People", detail: "Open the authorised people directory." },
 };
 
 function EntryGroup({ title, paths, allowed }: { title: string; paths: string[]; allowed: Set<string> }) {
   const visible = paths.filter((path) => allowed.has(path)).map((path) => entries[path]);
   if (!visible.length) return null;
-  return <section className={styles.section} aria-label={title}>
-    <h2>{title}</h2><div className={styles.grid}>{visible.map((entry) =>
-      <Link className={styles.card} href={entry.href} key={entry.href}>
-        <strong>{entry.title}</strong><span>{entry.detail}</span><span className={styles.action}>Open {entry.title} →</span>
+  return <section className={styles.group} aria-label={title}>
+    <h2>{title}</h2><div className={styles.groupList}>{visible.map((entry) =>
+      <Link className={styles.row} href={entry.href} key={entry.href}>
+        <span><strong>{entry.title}</strong><small>{entry.detail}</small></span><span className={styles.rowArrow} aria-hidden="true">↗</span>
       </Link>)}</div>
   </section>;
 }
@@ -65,18 +66,14 @@ export default async function AppHome() {
     <header className={styles.hero}><div><p className={styles.kicker}>KSS workspace / Synthetic Development</p><h1>Welcome, {principal.displayName}</h1><p>{staff && !office && !operations ? "Your duty and personal records are a step away." : "Open an operational area or continue your assigned work."}</p></div><p className={styles.date}>{date}</p></header>
     <section className={styles.section} aria-label="Quick access"><h2>Quick access</h2><QuickLinks paths={staff && !office && !operations ? ["/my-schedule", "/my-deployments", "/action-centre"] : ["/workforce", "/events", "/control-room"]} allowed={allowed} /></section>
     {office && allowed.has("/work") && <section className={styles.taskPanel} aria-label="Assigned Tasks"><div><p className={styles.kicker}>Existing Task service</p><h2>Assigned Tasks</h2><p>Document reviews and CRM follow-ups assigned through the existing Task service. Open the panel for current records and actions.</p></div><Link href="/work">Open assigned Tasks <span aria-hidden="true">→</span></Link></section>}
-    {staff && <EntryGroup title="My duty" paths={["/my-schedule", "/my-deployments", "/my-attendance", "/my-work-time", "/my-availability"]} allowed={allowed} />}
-    {staff && <EntryGroup title="My requests and evidence" paths={["/action-centre", "/my-time-away", "/onboarding", "/documents", "/credentials", "/my-equipment"]} allowed={allowed} />}
-    {(office || operations) && <EntryGroup title="Operations" paths={["/control-room", "/workforce", "/events", "/time-away"]} allowed={allowed} />}
-    {office && <EntryGroup title="Delivery" paths={["/mobilisations", "/service-delivery", "/documents"]} allowed={allowed} />}
-    {office && <EntryGroup title="People & administration" paths={["/onboarding"]} allowed={allowed} />}
-    {(trainingCatalogue || trainingAdmin || trainingAssignments) && <section className={styles.section} aria-label="Learning"><h2>Learning</h2><div className={styles.grid}>
-      {trainingCatalogue && <Link className={styles.card} href="/training"><strong>Course catalogue</strong><span>Browse published synthetic learning content. Reading does not record completion.</span><span className={styles.action}>Open catalogue →</span></Link>}
-      {staff && <Link className={styles.card} href="/training/my-learning"><strong>My learning</strong><span>Open your exact-version assignments and factual page progress.</span><span className={styles.action}>Open my learning →</span></Link>}
-      {trainingAdmin && <Link className={styles.card} href="/training-admin"><strong>Training administration</strong><span>Manage course versions under existing author or publisher access.</span><span className={styles.action}>Open administration →</span></Link>}
-      {trainingAssignments && <Link className={styles.card} href="/training-admin/assignments"><strong>Training assignments</strong><span>Review manual assignments, dates and exact-version history.</span><span className={styles.action}>Open assignments →</span></Link>}
+    {staff && <div className={styles.groupGrid}><EntryGroup title="Duty records" paths={["/my-attendance", "/my-work-time", "/my-availability"]} allowed={allowed} /><EntryGroup title="Requests & evidence" paths={["/my-time-away", "/onboarding", "/documents", "/credentials", "/my-equipment"]} allowed={allowed} /></div>}
+    {(office || operations) && <div className={styles.groupGrid}><EntryGroup title="Delivery" paths={["/mobilisations", "/service-delivery", "/documents"]} allowed={allowed} /><EntryGroup title="People & administration" paths={["/people", "/onboarding", "/time-away"]} allowed={allowed} /></div>}
+    {(trainingCatalogue || trainingAdmin || trainingAssignments) && <section className={styles.learning} aria-label="Learning"><h2>Learning</h2><div className={styles.learningList}>
+      {trainingCatalogue && <Link href="/training">Course catalogue <span aria-hidden="true">↗</span></Link>}
+      {staff && <Link href="/training/my-learning">My learning <span aria-hidden="true">↗</span></Link>}
+      {trainingAdmin && <Link href="/training-admin">Training administration <span aria-hidden="true">↗</span></Link>}
+      {trainingAssignments && <Link href="/training-admin/assignments">Training assignments <span aria-hidden="true">↗</span></Link>}
     </div></section>}
-    <section className={styles.section} aria-label="More authorised areas"><h2>More authorised areas</h2><div className={styles.grid}>{navigationFor(principal).filter((link) => link.href !== "/app" && !entries[link.href]).map((link) => <Link className={styles.card} href={link.href} key={link.href}><strong>{link.label}</strong><span>Open your authorised {link.label.toLowerCase()} workspace.</span><span className={styles.action}>Open {link.label} →</span></Link>)}</div></section>
     <ExternalAppShortcuts roles={principal.roles} />
     <p className="enterprise-honesty">This development workspace does not contain live operational data.</p>
   </main>;
