@@ -22,6 +22,7 @@
 .row a { color: #174c9d; font-weight: 650; text-decoration: underline; }
 .row code { font-size: .78rem; }
 .note,.context { color: #46566d; }
+.context summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; }
 .empty { border: 1px dashed #9db1cf; border-radius: .7rem; padding: 1rem; color: #46566d; }
 .context { line-height: 1.6; }
 .warning { border-left: 4px solid #315b9d; background: #eef3fb; padding: .7rem 1rem; color: #20395e; }
