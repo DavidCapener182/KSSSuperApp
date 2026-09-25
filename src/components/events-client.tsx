@@ -164,10 +164,12 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
         <div><dt>Operational owner</dt><dd>{String(event.owner_name)}</dd></div>
         {office && Boolean(event.source_opportunity_id) && <div><dt>Won Opportunity source</dt><dd><Link href={`/crm/opportunities/${event.source_opportunity_id}`}>View commercial source</Link></dd></div>}
       </dl></section><section className="crm-panel"><h2>Operational actions</h2>
-        {nextStatus && <Button onClick={()=>openChange({...action,kind:"STATUS",status:nextStatus})}>Move to {label(nextStatus)}</Button>}
-        {nextStatus && <Button variant="outline" onClick={()=>openChange({...action,kind:"STATUS",status:"CANCELLED"})}>Cancel Event</Button>}
-        {nextStatus && <><Button variant="outline" onClick={()=>openChange({...action,kind:"OWNER",ownerId:"",reason:""})}>Change owner</Button>
-          <Button variant="outline" onClick={()=>openChange({...action,kind:"DATES",startLocal:localInput(event.starts_at),endLocal:localInput(event.ends_at),reason:""})}>Change Event dates</Button></>}
+        {nextStatus && <div className={record.actions}>
+          <Button onClick={()=>openChange({...action,kind:"STATUS",status:nextStatus})}>Move to {label(nextStatus)}</Button>
+          <Button variant="outline" onClick={()=>openChange({...action,kind:"OWNER",ownerId:"",reason:""})}>Change owner</Button>
+          <Button variant="outline" onClick={()=>openChange({...action,kind:"DATES",startLocal:localInput(event.starts_at),endLocal:localInput(event.ends_at),reason:""})}>Change Event dates</Button>
+          <Button variant="outline" className={record.destructive} onClick={()=>openChange({...action,kind:"STATUS",status:"CANCELLED"})}>Cancel Event</Button>
+        </div>}
         {!nextStatus && <p>Terminal Event history is read-only.</p>}
       </section></div>
       <div id="event-staffing"><StaffingPlanClient eventId={id} eventStatus={String(event.status)} eventStarts={String(event.starts_at)} eventEnds={String(event.ends_at)} focusRequirement={focusRequirement}/></div>

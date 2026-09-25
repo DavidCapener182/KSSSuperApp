@@ -27,6 +27,12 @@ Browser measurements: the 390px document and body widths both equalled 390px. Th
 
 The sample has one staffing requirement and one History entry. A genuinely dense Event and David's final visual acceptance remain outstanding. UI12 and UI13 were not integrated in this lane's capture. No live data, staging, production or deployment is claimed.
 
+## UI13 visual hierarchy coordination
+
+David later approved UI13's desktop visual hierarchy for controlled shared-component implementation. This Event-only pass adds a narrow blue edge to the primary record identity and orders existing operational controls as primary lifecycle action, secondary owner/date changes, then an outlined destructive cancellation action. The Event's recorded `Planning` state remains source-labelled and blue/neutral; no amber attention treatment or new readiness state was inferred. Staffing counts and the dense desktop table remain owned by the Staffing Plan. UI13's shared primitives were still under implementation during this pass, so UI14 did not copy, import or alter them. Future use of committed UI13 primitives needs a separate compatibility and visual review.
+
+The clean Webpack production build, TypeScript, targeted ESLint and diff check passed. The authenticated synthetic Office browser readback confirmed the unchanged four actions and their revised order. At 390px, document width equalled the 390px viewport. [Updated desktop top](evidence/ui14/ui13-aligned/event-1280-top.png) and [updated mobile top](evidence/ui14/ui13-aligned/event-390-top.png) are saved for David's visual review. The previous synthetic Staff test persona was restored after capture. This does not change UI14's visual acceptance gate or authorise cross-record rollout.
+
 ## Later record work
 
 UI01 identifies Organisation, Opportunity, Staff, Onboarding, Incident, Mobilisation, Service Delivery, Site Book and Site Service detail routes. They may share record identity, factual context, appropriate actions and section navigation, but each needs its own domain/role review before choosing geometry. UI14 changed none of them.
