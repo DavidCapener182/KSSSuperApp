@@ -33,3 +33,7 @@ The focused `tests/site-shifts.test.mjs` integration test passed against Dev. It
 ## Source ownership
 
 This commit contains only TASK-08A paths. Parallel TASK-08B Action Centre and TASK-09A Event attendance work in the shared checkout remains separate. Stop after this report for David's review before another feature.
+
+## Dated migration-version clarification — 25 September 2026
+
+The `20260924150000`–`20260924153400` range above identifies the original local filenames used when this report was written. It is not the actual synthetic Development migration-ledger version range. The contemporaneous [protected staging alignment ledger](STAGING-SYNC-RELEASE.md) records the local-to-Development mappings, including original `20260924150000_site_shift_foundation_08a.sql` → Development `20260924115024`, `20260924153000_site_shift_schedule_08a.sql` → `20260924115956`, and `20260924153400_workforce_horizon_indicator_08a.sql` → `20260924121209`. The frozen Integrated Baseline v1 source uses ten canonical 08A filenames with those actual Development versions, from `20260924115024_site_shift_foundation_08a.sql` through `20260924121209_workforce_horizon_indicator_08a.sql`. INT-04 matched all ten by exact version and descriptive name against a fresh read-only Development ledger. This clarification does not alter the applied SQL, migration history, or the original verification result.
