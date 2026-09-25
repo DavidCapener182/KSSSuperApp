@@ -35,6 +35,12 @@
 .sourceNumbers div { border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; padding: .55rem; }
 .sourceNumbers dt { color: #475569; font-size: .85rem; }
 .sourceNumbers dd { margin: 0; color: #0f172a; font-size: 1.5rem; font-weight: 700; }
+.detailPath { margin: 0 0 .25rem; color: #475569; font-size: .92rem; font-weight: 600; overflow-wrap: anywhere; }
+.detailPath span { padding-inline: .25rem; color: #64748b; }
+.detailOverview { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .65rem; margin: 1.3rem 0; }
+.detailOverview div { display: grid; gap: .25rem; min-width: 0; padding: .8rem; border: 1px solid #cbd5e1; border-radius: .75rem; background: #f8fafc; }
+.detailOverview strong { color: #0f172a; font-size: clamp(1.05rem,2vw,1.45rem); line-height: 1.25; overflow-wrap: anywhere; }
+.detailOverview span { color: #475569; font-size: .83rem; }
 .listHeader { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin: 1.7rem 0 .6rem; }
 .listHeader h2 { margin: .15rem 0; font-size: clamp(1.35rem,2vw,1.7rem); line-height: 1.2; }
 .listHeader .muted { margin: .25rem 0 0; }
@@ -49,4 +55,5 @@
 .rowFacts b { color: #0f172a; }
 .row:focus-visible,.button:focus-visible,.form :is(input,select,textarea):focus-visible { outline: 3px solid #1d4ed8; outline-offset: 3px; }
 @media (max-width: 600px) { .listHeader { align-items: stretch; flex-direction: column; } .listHeader .button { width: 100%; } }
+@media (max-width: 700px) { .detailOverview { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 @media (max-width: 480px) { .page { padding-inline: .2rem; } .card { padding: .85rem; } .inline > * { flex: 1 1 100%; } }

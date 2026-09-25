@@ -34,10 +34,10 @@ export function OperationalContactsClient({allocationId,source}:{allocationId?:s
   {loading&&<p role="status">Checking current access…</p>}
   {error&&<p className="enterprise-error" role="alert">{error}</p>}
   {data?.contexts.map((context)=><section key={context.context_id} aria-label={`${context.context_kind.replace("_"," ")} contacts`}>
-   <div className="contact-context-heading"><p className="enterprise-eyebrow">Exact source context</p><h2>{context.context_kind==="SITE_SERVICE"?"Site Service":context.context_kind==="SITE"?"Site":"Event"} contacts · {context.context_name}</h2><p>Context ID: {context.context_id}</p></div>
+   <div className="contact-context-heading"><p className="enterprise-eyebrow">Published for this allocation</p><h2>{context.context_name} <span>· {context.context_kind==="SITE_SERVICE"?"Site Service":context.context_kind==="SITE"?"Site":"Event"}</span></h2><p>Exact context: {context.context_id}</p></div>
    <div className="contact-cards">
     {context.routes.map((route)=><article className="contact-card" key={route.id}>
-     <div className="contact-card-top"><span>{purpose(route.purpose)}</span><strong>{route.priority===1?"Primary":`Backup ${route.priority-1}`}</strong></div>
+     <div className="contact-card-top"><span>{purpose(route.purpose)}</span><strong>{route.priority===1?"Primary contact":`Backup ${route.priority-1}`}</strong></div>
      {route.state==="CURRENT"?<><h3>{route.display_name}</h3><p>{route.role_organisation}</p>
       <div className="contact-actions">{route.phone&&<a href={`tel:${route.phone}`} aria-label={`Call ${route.display_name} on the published telephone number`}>Call {route.phone}</a>}
        {route.email&&<a href={`mailto:${route.email}`} aria-label={`Email ${route.display_name} at the published email address`}>Email {route.email}</a>}</div>

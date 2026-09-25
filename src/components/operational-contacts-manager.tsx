@@ -33,10 +33,12 @@ export function OperationalContactsManager({kind,contextId,isSuper}:{kind:string
   setError("");
   const qs=`kind=${kind}&id=${encodeURIComponent(contextId)}`;
   const m=await fetch(`${api}?view=manage&${qs}`,{cache:"no-store"});
-  if(m.ok){setManaged((await m.json()).routes??[]);setCurrent(null);}
+  let managedRows:Managed[]|null=null;
+  if(m.ok){managedRows=(await m.json()).routes??[];setManaged(managedRows);setCurrent(null);}
   else {const c=await fetch(`${api}?view=current&${qs}`,{cache:"no-store"});
    if(c.ok){setCurrent((await c.json()).routes??[]);setManaged(null);}else{setError("This exact context is unavailable or you do not have access.");setManaged(null);setCurrent(null);}}
   if(isSuper){const g=await fetch(`${api}?view=grants&${qs}`,{cache:"no-store"});if(g.ok)setGrants(await g.json());}
+  return managedRows;
  },[kind,contextId,isSuper]);
  useEffect(()=>{const timer=setTimeout(()=>void reload(),0);return()=>clearTimeout(timer);},[reload]);
  function change<K extends keyof Draft>(key:K,value:Draft[K]) {setDraft((d)=>({...d,[key]:value,preview_marker:undefined}));setPreview(null);}
@@ -52,8 +54,11 @@ export function OperationalContactsManager({kind,contextId,isSuper}:{kind:string
  async function makePreview() {setBusy(true);setError("");setNotice("");try {const result=await post({action:"preview",contact:draft}) as Preview;
   setPreview(result);setDraft((d)=>({...d,preview_marker:result.preview_marker}));}
   catch(e){setPreview(null);setError(e instanceof Error?e.message:"Preview unavailable");}finally{setBusy(false);}}
- async function publish() {if(!preview)return;setBusy(true);setError("");try{await post({action:"publish",contact:draft});
-  setNotice("Published an immutable reviewed version for this exact context.");setDraft(initial(kind,contextId));setPreview(null);await reload();}
+ async function publish() {if(!preview)return;setBusy(true);setError("");setNotice("");const priorVersion=managed?.find((row)=>row.id===draft.route_id)?.current_version_id;
+  try{const result=await post({action:"publish",contact:draft}) as {routeId:string};
+  const rows=await reload();const published=rows?.find((row)=>row.id===result.routeId);
+  if(!published || (priorVersion && published.current_version_id===priorVersion))throw new Error("Publication was sent, but its new exact version could not be confirmed in the current managed view. Refresh before trying again.");
+  setNotice("Published route confirmed in the current managed view.");setDraft(initial(kind,contextId));setPreview(null);}
   catch(e){setPreview(null);setError(e instanceof Error?e.message:"Publication denied");}finally{setBusy(false);}}
  async function act(action:"revoke"|"expire",row:Managed) {const reason=window.prompt(`Controlled reason for ${action}`);
   if(!reason)return;setBusy(true);setError("");try{await post({action,routeId:row.id,expectedRevision:row.revision,reason});
@@ -70,14 +75,14 @@ export function OperationalContactsManager({kind,contextId,isSuper}:{kind:string
   setBusy(true);setError("");try{await post({action:"revoke_grant",grantId:id,reason});setNotice("Grant revoked immediately.");await reload();}
   catch(e){setError(e instanceof Error?e.message:"Grant revocation denied");}finally{setBusy(false);}}
  return <div className="contact-management">
-  <div className="contact-context-heading"><p className="enterprise-eyebrow">{kind.replace("_"," ")}</p><h2>Exact {kind==="SITE_SERVICE"?"Site Service":kind.toLowerCase()} context</h2><p>{contextId}</p></div>
+  <div className="contact-context-heading"><p className="enterprise-eyebrow">Published contact management</p><h2>{kind==="SITE_SERVICE"?"Site Service":kind.toLowerCase()} contacts</h2><p>Exact context: {contextId}</p><p>Publishing creates a reviewed version for this context. Current contact access is checked separately for each viewer.</p></div>
   {error&&<p role="alert" className="enterprise-error">{error}</p>}{notice&&<p role="status">{notice}</p>}
   <button type="button" onClick={()=>void reload()} disabled={busy}>Refresh context</button>
   {current&&<section><h2>Current operational projection</h2><p>Operations can read current published routes within its accepted scope. Historical values and publication controls are restricted.</p>
    <div className="contact-cards">{current.map((r)=><article className="contact-card" key={r.id}><h3>{label(r.purpose)} · {r.priority===1?"Primary":"Backup"}</h3>
     <p>{r.state==="CURRENT"?r.display_name:r.state}</p>{r.state==="CURRENT"&&<p>{r.phone} {r.email}</p>}</article>)}</div></section>}
-  {managed&&<><section><h2>Published routes</h2><div className="contact-cards">{managed.map((r)=><article className="contact-card" key={r.id}>
-   <p className="enterprise-eyebrow">{label(r.purpose)} · {r.priority===1?"Primary":`Backup ${r.priority-1}`}</p><h3>{r.display_name}</h3>
+  {managed&&<><section><h2>Published routes <small>{managed.length}</small></h2><p>Review purpose, priority, source health and effective time before correcting or republishing.</p><div className="contact-cards">{managed.map((r)=><article className="contact-card" key={r.id}>
+   <p className="enterprise-eyebrow">{label(r.purpose)} · {r.priority===1?"Primary contact":`Backup ${r.priority-1}`}</p><h3>{r.display_name}</h3>
    <p>{r.role_organisation}</p><p>Source: {r.source_type}{r.source_id?` · ${r.source_id}`:""} · {r.source_health} · {r.state}</p>
    {r.phone||r.email?<p>Published telephone: {r.phone??"Not published"} · email: {r.email??"Not published"}</p>
     :<p>Phone and email are restricted to the audited history read.</p>}

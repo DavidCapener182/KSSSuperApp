@@ -49,10 +49,15 @@ export function ServiceDeliveryDetail({ id, superAdmin }: { id: string; superAdm
   const terminal = d.state === "CLOSED" || d.state === "CANCELLED";
   return <main className={`enterprise-main ${styles.page}`}>
     <p className="eyebrow">Office · synthetic Dev</p><p><Link href="/service-delivery">← Service Delivery list</Link></p>
-    <h1>{d.clientName} → {d.siteName} → {d.serviceName}</h1>
-    <div className={styles.flags}><span className={styles.flag}>{d.state}</span><span className={styles.flag}>Owner: {d.ownerName}</span><span className={styles.flag}>Source: {d.startSource === "MOBILISATION_HANDOVER" ? "Mobilisation" : "Legacy"}</span></div>
-    <p>Next scheduled meeting: {london(d.nextMeetingAt)}</p>
-    <p>Open: {d.openPeriodCount} review periods · {d.openActionCount} actions · {d.openBlockerCount} blockers</p>
+    <p className={styles.detailPath}>{d.clientName} <span aria-hidden="true">/</span> {d.siteName}</p>
+    <h1>{d.serviceName}</h1>
+    <div className={styles.flags}><span className={styles.flag}>{d.state.replaceAll("_", " ")}</span><span className={styles.flag}>Owner: {d.ownerName}</span><span className={styles.flag}>Started from: {d.startSource === "MOBILISATION_HANDOVER" ? "Mobilisation handover" : "Legacy existing Service"}</span></div>
+    <div className={styles.detailOverview} aria-label="Current management record summary">
+      <div><strong>{d.openPeriodCount}</strong><span>Open review periods</span></div>
+      <div><strong>{d.openActionCount}</strong><span>Open actions</span></div>
+      <div><strong>{d.openBlockerCount}</strong><span>Open blockers</span></div>
+      <div><strong>{london(d.nextMeetingAt)}</strong><span>Next scheduled meeting</span></div>
+    </div>
     {!d.ownerEligible && <p role="status" className={styles.error}>Owner reassignment required. Historical owner remains recorded.</p>}
     {!d.historicalLinkCurrent && <p role="status">Historical Client/Site link is no longer current. This record remains attached to the original link.</p>}
     {!d.sourceMembershipIntact && <p role="alert" className={styles.error}>Exact historical source membership needs review. Changes are blocked.</p>}

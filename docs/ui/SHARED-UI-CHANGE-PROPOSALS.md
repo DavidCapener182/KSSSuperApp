@@ -1,3 +1,5 @@
 # UI07 shared UI change proposals
 
 No shared source change was made. UI02 integration could provide a reusable record header with exact Client/Site/Service context, factual state, source label and one primary action; a reusable source-history presentation could align Service Delivery and Assets. Review these against each module's audience rules before adoption. Operational Documents and 21D sections remain dependent on their accepted read contracts and must not be rendered from inferred data.
+
+The follow-up suggests a shared factual overview pattern for record detail pages: exact context, source-owned state, current open counts and a next scheduled event. UI02 should review this as a visual primitive only; it must not calculate readiness or broaden data access. No shared source file was edited.
