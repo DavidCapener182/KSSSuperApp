@@ -14,7 +14,10 @@ export async function signInWithTestSession(client, { email, password }, project
       access_token: cached.access_token,
       refresh_token: cached.refresh_token,
     });
-    if (!reused.error) return reused;
+    if (!reused.error) {
+      if (reused.data.session) sessions.set(cacheKey, reused.data.session);
+      return reused;
+    }
     sessions.delete(cacheKey);
   }
   const result = await client.auth.signInWithPassword({ email, password });

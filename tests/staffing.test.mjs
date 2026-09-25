@@ -17,7 +17,7 @@ test('06B exact staffing demand, history, time and Operations authority', {timeo
  assert.ok(url&&key&&Object.values(creds).every((v)=>v[0]&&v[1]));
  const [office,operations,staff]=await Promise.all(Object.keys(creds).map(signed));
  const roles=await rpc(office,'staffing_role_choices',{});const role=Object.fromEntries(roles.map((r)=>[r.code,r.id]));
- assert.equal(roles.length,8);assert.ok(role.SIA&&role.STEWARD);assert.ok((await staff.rpc('staffing_role_choices',{})).error);
+ assert.equal(roles.length,9);assert.ok(role.SIA&&role.STEWARD);assert.ok((await staff.rpc('staffing_role_choices',{})).error);
  assert.ok((await office.from('event_staffing_requirements').select('id')).error);
  assert.ok((await operations.from('event_staffing_requirement_revisions').select('id')).error);
  assert.ok((await staff.rpc('staffing_plan',{p_event:'b2fef3a7-68ae-4241-a1ce-2a9cb36c8490'})).error);

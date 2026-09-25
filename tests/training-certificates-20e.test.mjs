@@ -87,6 +87,13 @@ test('20E explicit certificate issue, private PDF, revocation, reissue and Compl
    p_statement:'This certificate records an explicit issue against the named learner and recorded course completion.'});
   assert.ok(template);
   const officeCookies=await cookie(office),staffCookies=await cookie(staff),peerCookies=await cookie(peer);
+  const credentialFacts=async()=>{
+   const response=await fetch(`${base}/api/credentials`,{headers:{Cookie:staffCookies}});
+   assert.equal(response.status,200,'same Staff credential read remains separately authorised');
+   const body=await response.json();
+   return {claims:body.claims,revisions:body.revisions,decisions:body.decisions};
+  };
+  const credentialsBeforeCertificate=await credentialFacts();
   const requestA=randomUUID(),requestB=randomUUID();
   const input=(requestId,reissueOf=null)=>({action:'ISSUE',completionId:completion,templateVersionId:template,
    requestId,reissueOf,reason:'Synthetic explicit manager certificate decision'});
@@ -98,6 +105,8 @@ test('20E explicit certificate issue, private PDF, revocation, reissue and Compl
   const history=await call(staff,'training_certificate_history',{p_assignment:assignment});
   assert.equal(history.filter(x=>x.current).length,1);
   assert.equal(history[0].id,issueId);assert.equal(history[0].completionId,completion);
+  assert.deepEqual(await credentialFacts(),credentialsBeforeCertificate,
+   'certificate issue cannot create or change the same Staff credential verification');
   assert.ok(history[0].expiryOn,'factual expiry comes from pinned 12-month rule');
   assert.equal((await post(officeCookies,input(winningRequest))).body.data.issueId,issueId,'exact replay returns same issue');
   assert.notEqual((await post(officeCookies,{...input(winningRequest),reason:'Changed certificate request replay'})).response.status,200,
@@ -168,6 +177,8 @@ test('20E explicit certificate issue, private PDF, revocation, reissue and Compl
   assert.equal(afterVoid.find(x=>x.id===nextId).state,'COMPLETION_VOIDED');
   assert.ok(afterVoid.find(x=>x.id===nextId).events.some(x=>x.action==='COMPLETION_VOIDED'));
   assert.equal((await file(staffCookies,nextId)).status,404,'Completion void immediately invalidates PDF download');
+  assert.deepEqual(await credentialFacts(),credentialsBeforeCertificate,
+   'certificate revocation and Completion void cannot change credential verification');
   assert.ok((await call(staff,'training_completion_mine')).some(x=>x.id===completion&&x.voidedAt),
    'Completion and passed evidence retained');
  } finally {

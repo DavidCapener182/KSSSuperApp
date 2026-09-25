@@ -69,13 +69,16 @@ test('16B synthetic exact evidence, reviewer authority and immutable current sta
     const grant = await json('/api/credentials', 'admin', post({ action: 'grant', personId: staffId,
       reviewerId: officeId, category: 'DOOR_SUPERVISION', untilAt: new Date(Date.now() + 7 * 86400000).toISOString() }));
     assert.equal(grant.status, 201, JSON.stringify(grant.body)); grantId = grant.body.id;
+    const existing = await json(`/api/credentials?personId=${staffId}`, 'office');
+    const priorRevision = existing.body.claims.find((row) => row.type_code === 'DOOR_SUPERVISION')?.latest_revision_id ?? null;
     const reference = `SYN-SIA-16B-${Date.now()}`;
     const created = await json('/api/credentials', 'staff', post({ action: 'save', category: 'DOOR_SUPERVISION',
       reference, issuedOn: null, expiresOn: '2029-02-26' }));
     assert.equal(created.status, 201, JSON.stringify(created.body));
     const claimId = created.body.id;
     const before = await json(`/api/credentials?personId=${staffId}`, 'office');
-    assert.equal(before.body.claims.find((row) => row.id === claimId).latest_revision_id, null);
+    assert.equal(before.body.claims.find((row) => row.id === claimId).latest_revision_id, priorRevision,
+      'saving a draft cannot create or inherit a new submitted revision');
     const adminDirect = await actors.admin.db.from('credential_claims_16b').select('id').eq('id', claimId);
     assert.ifError(adminDirect.error); assert.deepEqual(adminDirect.data, []);
     const adminOversight = await json(`/api/credentials?personId=${staffId}`, 'admin');

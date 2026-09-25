@@ -8,9 +8,10 @@ const key=process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 const creds={office:[process.env.KSS_TEST_OFFICE_EMAIL,process.env.KSS_TEST_OFFICE_PASSWORD],
  operations:[process.env.KSS_TEST_OPERATIONS_EMAIL,process.env.KSS_TEST_OPERATIONS_PASSWORD],
  staffA:[process.env.KSS_TEST_STAFF_A_EMAIL,process.env.KSS_TEST_STAFF_A_PASSWORD],
- staffB:[process.env.KSS_TEST_STAFF_B_EMAIL,process.env.KSS_TEST_STAFF_B_PASSWORD]};
+ staffB:[process.env.KSS_TEST_STAFF_B_EMAIL,process.env.KSS_TEST_STAFF_B_PASSWORD],
+ staffZero:[process.env.KSS_TEST_STAFF_ZERO_EMAIL,process.env.KSS_TEST_STAFF_ZERO_PASSWORD]};
 const ids={office:'10000000-0000-4000-8000-000000000002',staffA:'10000000-0000-4000-8000-000000000003',
- staffB:'10000000-0000-4000-8000-000000000004'};
+ staffB:'10000000-0000-4000-8000-000000000004',staffZero:'10000000-0000-4000-8000-000000000008'};
 async function signed(name){const client=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
  const {error}=await signInWithTestSession(client,{email:creds[name][0],password:creds[name][1]});assert.ifError(error);return client;}
 async function rpc(client,name,args){const {data,error}=await client.rpc(name,args);assert.ifError(error);return data;}
@@ -20,7 +21,8 @@ const at=(day,time)=>`${day}T${time}:00Z`;
 
 test('08A stable Site shift demand, strict capacity and shared Event clash', {timeout:180000}, async()=>{
  assert.ok(url&&key&&Object.values(creds).every(([email,password])=>email&&password));
- const [office,operations,staffA,staffB]=await Promise.all(['office','operations','staffA','staffB'].map(signed));
+ const [office,operations,staffA,staffB,staffZero]=await Promise.all(['office','operations','staffA','staffB','staffZero'].map(signed));
+ const staffById=new Map([[ids.staffA,staffA],[ids.staffB,staffB],[ids.staffZero,staffZero]]);
  let day=monday(plus(new Date().toISOString().slice(0,10),35));let next=plus(day,1);const stamp=Date.now();
  const generationEnd=plus(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()),56);
  const org=await rpc(office,'crm_create_organisation',{p_name:`08A Synthetic Logistics ${stamp}`});
@@ -51,25 +53,25 @@ test('08A stable Site shift demand, strict capacity and shared Event clash', {ti
   if(candidateDemand.service_date>plus(generationEnd,-7))continue;
   const result=await rpc(operations,'site_shift_candidates',{p_service:service,p_demand:candidateDemand.id,
    p_search:'',p_offset:0,p_limit:20});
-  const free=result.items.filter((item)=>[ids.staffA,ids.staffB].includes(item.id)&&item.check.result!=='BLOCKED');
-  if(free.length!==2)continue;
+  const free=result.items.filter((item)=>staffById.has(item.id)&&item.check.result!=='BLOCKED');
+  if(free.length<2)continue;
   const firstId=free[0].id,secondId=free[1].id;
-  const firstClient=firstId===ids.staffA?staffA:staffB,secondClient=secondId===ids.staffA?staffA:staffB;
+  const firstClient=staffById.get(firstId),secondClient=staffById.get(secondId);
   const clearWindow=async(client,date)=>{
    const preview=await rpc(client,'availability_preview',{p_starts:at(date,'08:00'),p_ends:at(date,'09:00')});
    return preview.replaced.length===0&&preview.deployments.length===0;
   };
   if(await clearWindow(firstClient,candidateDemand.service_date)&&
    await clearWindow(secondClient,plus(candidateDemand.service_date,3))){
-   selected={demand:candidateDemand,personId:firstId};break;
+   selected={demand:candidateDemand,personId:firstId,otherPersonId:secondId};break;
   }
  }
  assert.ok(selected,'at least one synthetic staff fixture is available for this test date');
  const demand=selected.demand;day=demand.service_date;next=plus(day,1);assert.equal(demand.required_quantity,1);
  const siteStaffId=selected.personId;
- const otherStaffId=siteStaffId===ids.staffA?ids.staffB:ids.staffA;
- const siteStaff=siteStaffId===ids.staffA?staffA:staffB;
- const otherStaff=otherStaffId===ids.staffA?staffA:staffB;
+ const otherStaffId=selected.otherPersonId;
+ const siteStaff=staffById.get(siteStaffId);
+ const otherStaff=staffById.get(otherStaffId);
  detail=await rpc(operations,'site_service_detail',{p_site:site.data.id,p_service:service,p_from:day,p_until:plus(day,7)});
  assert.equal((await rpc(office,'site_shift_generate',{p_service:service,p_from:day,p_until:plus(day,7)})),0);
  const allocation=await rpc(operations,'site_shift_allocate',{p_service:service,p_demand:demand.id,p_person:siteStaffId,
