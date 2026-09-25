@@ -24,6 +24,6 @@ The older `office-home-1440.png` and `office-home-390-initial.png` show the firs
 
 ## Acceptance — 25 September 2026
 
-David directly accepted the four final Office and Staff Home screenshots and the bounded UI12 hierarchy after reviewing the images. **TASK-UI12 is accepted for the synthetic Development Home direction.** The accepted branch snapshot before this close-out is `ba71b6f`; UI12 Home code is in `61d7ce0` and `d3b1908`, with UI11's accepted shell implementation cherry-picked for combined evidence. The screenshots above are the visual acceptance evidence.
+David directly accepted the four final Office and Staff Home screenshots and the bounded UI12 hierarchy after reviewing the images. **TASK-UI12 is ACCEPTED AND CLOSED — SYNTHETIC DEVELOPMENT — 25 September 2026.** The accepted branch snapshot before this close-out is `ba71b6f`; UI12 Home code is in `61d7ce0` and `d3b1908`, with UI11's accepted shell implementation cherry-picked for combined evidence. The screenshots above are the visual acceptance evidence.
 
 This acceptance covers the Home presentation and its existing authorised links. The source modules and `/work` retain their separate authority and state. It does not approve UI13 adoption, a new dashboard read contract, staging, production, live data, or deployment. No shared integration or deployment was performed in this UI12 lane.
