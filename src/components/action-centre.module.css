@@ -3,7 +3,7 @@
 .intro { max-width: 640px; color: var(--kss-ink-soft); line-height: 1.55; margin: 0; }
 .unreadBadge { display: inline-flex; flex: none; align-items: center; gap: 7px; border: 1px solid var(--kss-border); border-radius: 999px; background: var(--kss-blue-soft); color: var(--kss-ink); padding: 8px 12px; font-size: 12px; font-weight: 750; }
 .sections { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 20px 0; }
-.section, .sectionActive { min-width: 0; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 11px 8px; border: 1px solid var(--kss-border); border-radius: 9px; background: var(--kss-surface); color: var(--kss-ink-soft); font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.section, .sectionActive { min-width: 0; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 11px 8px; border: 1px solid var(--kss-border); border-radius: 9px; background: var(--kss-surface); color: var(--kss-ink-soft); font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
 .sectionActive { border-color: var(--kss-blue); background: var(--kss-blue-soft); color: var(--kss-ink); }
 .sectionCount { flex: none; border-radius: 999px; padding: 1px 6px; background: var(--kss-surface-muted); color: var(--kss-ink); font-size: 11px; font-variant-numeric: tabular-nums; }
 .list { display: grid; gap: 12px; }
@@ -21,7 +21,8 @@
 .footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid var(--kss-border); padding-top: 13px; }
 .footer time { color: var(--kss-ink-subtle); font-size: 11px; }
 .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px; }
-.openLink { display: inline-flex; align-items: center; gap: 5px; color: var(--kss-ink); font-size: 12px; font-weight: 750; text-decoration: underline; text-decoration-color: var(--kss-blue); text-underline-offset: 3px; }
+.openLink { display: inline-flex; align-items: center; min-height: 44px; gap: 5px; color: var(--kss-ink); font-size: 13px; font-weight: 750; text-decoration: underline; text-decoration-color: var(--kss-blue); text-underline-offset: 3px; }
+.actions :global(button) { min-height: 44px; }
 .empty { border: 1px dashed var(--kss-border-strong); border-radius: 10px; padding: 26px 18px; color: var(--kss-ink-soft); text-align: center; }
 .pagination { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 18px; }
 .pagination span { color: var(--kss-ink-soft); font-size: 12px; font-variant-numeric: tabular-nums; }
