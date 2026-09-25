@@ -784,13 +784,22 @@ body { min-width: 320px; }
 .workforce-action { flex:none; padding:9px 11px; border:1px solid var(--kss-border-strong); border-radius:9px; font-size:12px; font-weight:650; text-decoration:none; }
 .workforce-action:hover { border-color:var(--kss-blue); }
 .workforce-day-picker { display:none; }
-.workforce-staff { margin:22px 0; max-width:900px; }
+.workforce-staff { margin:22px 0; min-width:0; }
 .workforce-staff form { display:flex; align-items:end; gap:10px; margin:14px 0; }
 .workforce-staff form label { display:grid; gap:5px; flex:1; }
 .workforce-staff-choices { display:flex; flex-wrap:wrap; gap:9px; }
 .workforce-person-list { display:grid; gap:10px; margin:14px 0; }
 .workforce-person-list article { padding:15px; }
 .workforce-person-list h3 { margin:5px 0; }
+.workforce-person-week { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px; margin:16px 0; }
+.workforce-person-day { min-width:0; padding:10px; border:1px solid #d7e0e9; border-radius:10px; background:#f7fafc; }
+.workforce-person-day h4 { font-size:.85rem; margin-bottom:10px; }
+.workforce-person-day article { min-width:0; padding:10px; margin:8px 0; overflow-wrap:anywhere; }
+.workforce-person-day h5 { font-size:.84rem; font-weight:750; margin:5px 0; }
+.workforce-person-day p { font-size:.76rem; line-height:1.4; margin:5px 0; overflow-wrap:anywhere; }
+.workforce-person-day a { font-size:.76rem; }
+@media(max-width:1100px){.workforce-person-week{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.workforce-person-week{display:grid;grid-template-columns:1fr}.workforce-person-day{padding:12px}.workforce-person-day h4{font-size:1rem}.workforce-person-day article{padding:12px}.workforce-person-day p,.workforce-person-day a{font-size:.86rem}}
 .my-schedule-work { margin:10px 0; padding:16px; }
 .my-schedule-work h3 { margin:5px 0; }
 .my-schedule-declaration { display:flex; justify-content:space-between; gap:10px; margin:8px 0; padding:11px 14px; border-left:3px solid var(--kss-blue); border-radius:8px; background:var(--kss-surface-muted); font-size:13px; }

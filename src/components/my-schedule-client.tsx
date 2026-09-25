@@ -19,9 +19,9 @@ const availabilityLabel=(item:Work)=>item.availability_conflict==="UNAVAILABLE_C
   item.availability==="DECLARED_AVAILABLE"?"Declared available":item.availability==="DECLARED_UNAVAILABLE"?"Declared unavailable":
   item.availability==="NOT_FULLY_COVERED"?"Not fully covered":"Not declared";
 
-export function MyScheduleClient() {
+export function MyScheduleClient({initialWeek}:{initialWeek?:string}) {
   const requestSequence=useRef(0);
-  const [week,setWeek]=useState(()=>londonWeekStart(londonToday())!);
+  const [week,setWeek]=useState(()=>initialWeek??londonWeekStart(londonToday())!);
   const [date,setDate]=useState(()=>londonToday()); const [offset,setOffset]=useState(0);
   const [schedule,setSchedule]=useState<Schedule|null>(null);const [loading,setLoading]=useState(true);const [error,setError]=useState("");
   const load=useCallback(async()=>{const sequence=++requestSequence.current;setLoading(true);setError("");try{const q=new URLSearchParams({week,offset:String(offset)});
@@ -37,7 +37,7 @@ export function MyScheduleClient() {
     <div className="workforce-toolbar"><Button variant="outline" onClick={()=>change(addCivilDays(week,-7))}>Previous week</Button>
       <Button variant="outline" onClick={()=>change(londonToday())}>This week</Button><Button variant="outline" onClick={()=>change(addCivilDays(week,7))}>Next week</Button>
       <label>Go to date <Input type="date" value={date} onChange={(event)=>change(event.target.value)} /></label></div>
-    <p className="enterprise-honesty">Respond to allocations in <Link href="/my-deployments">My Deployments</Link>. Change declarations in <Link href="/my-availability">My Availability</Link>.</p>
+    <p className="enterprise-honesty">Review offers from each duty below. Change declarations in <Link href="/my-availability">My Availability</Link>.</p>
     {error&&<p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={()=>void load()}>Retry</Button></p>}
     {loading?<p role="status" className="crm-skeleton">Loading your schedule…</p>:schedule&&<>
       <div className="my-schedule-days">{days.map((day)=>{const work=schedule.work.filter((item)=>item.service_date===day);
@@ -51,7 +51,7 @@ export function MyScheduleClient() {
               {item.reporting_point&&<p>Reporting point: {item.reporting_point}</p>}
               <p>Report {clock(item.report_at)} · Shift {clock(item.shift_starts_at)} → {clock(item.shift_ends_at)}</p>
               <p className={item.availability_conflict?"workforce-alert":""}>{availabilityLabel(item)}</p>
-              <Link href="/my-deployments">View deployment</Link></article>)}
+              <Link href={`/my-deployments?allocationId=${encodeURIComponent(item.id)}&source=${item.source}&returnWeek=${week}`}>{item.status==="ALLOCATED"?"Review offer":"View deployment"}</Link></article>)}
             {declarations.map((item)=><article className="my-schedule-declaration" key={item.id}><strong>{item.state==="AVAILABLE"?"Available":"Unavailable"} declaration</strong>
               <span>{clock(item.starts_at)} → {clock(item.ends_at)}</span></article>)}
           </>}</section>;})}</div>

@@ -12,7 +12,7 @@ type Deployment = { source:"EVENT"|"SITE_SHIFT"; id: string; status: "ALLOCATED"
 const time = (value: string) => new Date(value).toLocaleString("en-GB", { timeZone: "Europe/London", weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 const labels = { ALLOCATED: "Awaiting your response", ACCEPTED: "Accepted", DECLINED: "Declined", CANCELLED: "Cancelled" };
 
-export function MyDeploymentsClient({focus,focusSource}:{focus?:string;focusSource?:"EVENT"|"SITE_SHIFT"}) {
+export function MyDeploymentsClient({focus,focusSource,returnWeek}:{focus?:string;focusSource?:"EVENT"|"SITE_SHIFT";returnWeek?:string}) {
   const [items, setItems] = useState<Deployment[]>([]);
   const [total, setTotal] = useState(0);
   const [offset, setOffset] = useState(0);
@@ -29,8 +29,9 @@ export function MyDeploymentsClient({focus,focusSource}:{focus?:string;focusSour
       const response = await fetch(`/api/deployments/me?offset=${page}${focus?`&allocationId=${encodeURIComponent(focus)}${focusSource?`&source=${focusSource}`:""}`:""}`, { cache: "no-store" });
       if (!response.ok) throw new Error("Your deployments are unavailable. Please retry.");
       const data = await response.json();
-      setItems(data.deployments?.items ?? []); setTotal(data.deployments?.total ?? 0); setOffset(page); setError("");
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Your deployments are unavailable."); }
+      const current = (data.deployments?.items ?? []) as Deployment[];
+      setItems(current); setTotal(data.deployments?.total ?? 0); setOffset(page); setError(""); return current;
+    } catch (caught) { setError(caught instanceof Error ? caught.message : "Your deployments are unavailable."); return null; }
     finally { setLoading(false); }
   }, [focus, focusSource]);
   useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); }, [load]);
@@ -40,8 +41,11 @@ export function MyDeploymentsClient({focus,focusSource}:{focus?:string;focusSour
       const result = await fetch(item.source==="SITE_SHIFT"?`/api/deployments/site-shifts/me/${item.id}`:`/api/deployments/me/${item.id}`, { method: "PATCH", headers: { "content-type": "application/json" },
         body: JSON.stringify({ response, expectedRevision: item.revision, ...(response === "DECLINED" ? { reasonCode, note } : {}) }) });
       if (!result.ok) throw new Error((await result.json()).error ?? "Response not saved");
-      setDeclining(null); setNote(""); setNotice(response === "ACCEPTED" ? "You accepted this allocation. This does not record attendance or work." : "You declined this allocation. The position is available for reassignment.");
-      await load(offset);
+      setDeclining(null); setNote("");
+      const current = await load(offset);
+      if (!current?.some((row) => row.id === item.id && row.source === item.source && row.status === response))
+        throw new Error("The response was sent, but the current allocation state could not be confirmed. Refresh before acting again.");
+      setNotice(response === "ACCEPTED" ? "You accepted this allocation. This does not record attendance or work." : "You declined this allocation. The position is available for reassignment.");
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Response not saved"); }
     finally { setBusy(false); }
   }
@@ -55,7 +59,7 @@ export function MyDeploymentsClient({focus,focusSource}:{focus?:string;focusSour
     {item.status === "ACCEPTED" && <div className="deployment-actions"><Button asChild variant="outline"><Link href={`/operational-contacts?source=${item.source}&allocationId=${encodeURIComponent(item.id)}`}>Operational contacts</Link></Button><Button asChild variant="outline"><Link href={`/my-attendance?${item.source === "SITE_SHIFT" ? "source=SITE_SHIFT&" : ""}allocationId=${encodeURIComponent(item.id)}`}>Open attendance</Link></Button>{item.source === "EVENT" && <Button asChild variant="outline"><Link href={`/my-work-time?allocationId=${encodeURIComponent(item.id)}`}>Open worked time</Link></Button>}</div>}
   </article>;
   return <main className="enterprise-main deployment-self"><div className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Your operational work</p><h1>My Deployments</h1><p>See only your own allocations. Accepting does not record attendance or hours worked.</p></div></div>
-    <p className="enterprise-honesty">Responses and availability are separate from attendance. <Link href="/my-schedule">My Schedule</Link> · <Link href="/my-attendance">My Attendance</Link></p>
+    <p className="enterprise-honesty">Responses and availability are separate from attendance. <Link href={returnWeek?`/my-schedule?week=${returnWeek}`:"/my-schedule"}>{returnWeek?"Return to My Schedule":"My Schedule"}</Link> · <Link href="/my-attendance">My Attendance</Link></p>
     {notice && <p className="enterprise-honesty" role="status">{notice}</p>}
     {error && <p className="enterprise-error" role="alert">{error} <Button variant="outline" onClick={() => void load(offset)}>Retry</Button></p>}
     {loading ? <p className="crm-skeleton" role="status">Loading your deployments…</p> : items.length === 0 ? <div className="crm-empty">No deployments to show.</div> : <>

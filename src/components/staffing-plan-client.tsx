@@ -38,8 +38,8 @@ export function StaffingPlanClient({eventId,eventStatus,eventStarts,eventEnds,fo
   const [historyLine,setHistoryLine]=useState<Line|null>(null);const [history,setHistory]=useState<History[]>([]);
   const load=useCallback(async()=>{setLoading(true);try{const [plan,choice,counts]=await Promise.all([
     request(`/api/events/${eventId}/staffing-requirements`),request("/api/events/staffing-roles"),request(`/api/events/${eventId}/deployment-summary`)]);
-    setLines(plan.plan.items??[]);setRequired(plan.plan.required_total??0);setRoles(choice.roles??[]);setSummary(counts.summary);setError("");}
-    catch(caught){setError(caught instanceof Error?caught.message:"Staffing plan unavailable");}finally{setLoading(false);}},[eventId]);
+    setLines(plan.plan.items??[]);setRequired(plan.plan.required_total??0);setRoles(choice.roles??[]);setSummary(counts.summary);setError("");return true;}
+    catch(caught){setError(caught instanceof Error?caught.message:"Staffing plan unavailable");return false;}finally{setLoading(false);}},[eventId]);
   useEffect(()=>{const timer=setTimeout(()=>void load(),0);return()=>clearTimeout(timer);},[load]);
   useEffect(()=>{if(!focusRequirement||focusedRef.current||loading)return;
     const exact=lines.find((line)=>line.id===focusRequirement&&line.state==="PLANNED");
@@ -64,14 +64,14 @@ export function StaffingPlanClient({eventId,eventStatus,eventStarts,eventEnds,fo
       confirmException:draft.confirmException,confirmDuplicate:draft.confirmDuplicate,...(editing?{action:"AMEND",expectedRevision:editing.revision}:{})};
     const path=`/api/events/${eventId}/staffing-requirements${editing?`/${editing.id}`:""}`;
     await request(path,{method:editing?"PATCH":"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)});
-    setCreating(false);setEditing(null);setNotice(editing?"Staffing requirement amended.":"Staffing requirement added.");await load();
+    setCreating(false);setEditing(null);if(!await load())throw new Error("The source accepted the change, but its current staffing plan could not be confirmed. Refresh before acting again.");setNotice(editing?"Staffing requirement amended and read back.":"Staffing requirement added and read back.");
   }catch(caught){const message=caught instanceof Error?caught.message:"Staffing change denied";setError(message);
     if(message.includes("matching staffing line"))setDraft((current)=>({...current,confirmDuplicate:false}));}
     finally{setBusy(false);}}
   async function cancel(){if(!cancelLine)return;setBusy(true);setError("");try{
     await request(`/api/events/${eventId}/staffing-requirements/${cancelLine.id}`,{method:"PATCH",headers:{"content-type":"application/json"},
       body:JSON.stringify({action:"CANCEL",expectedRevision:cancelLine.revision,reason:cancelReason})});
-    setCancelLine(null);setCancelReason("");setNotice("Staffing requirement cancelled; history retained.");await load();
+    setCancelLine(null);setCancelReason("");if(!await load())throw new Error("The source accepted the cancellation, but its current staffing plan could not be confirmed. Refresh before acting again.");setNotice("Staffing requirement cancellation read back; history retained.");
   }catch(caught){setError(caught instanceof Error?caught.message:"Cancellation denied");}finally{setBusy(false);}}
   async function showHistory(line:Line){setHistoryLine(line);setHistory([]);try{const result=await request(`/api/events/${eventId}/staffing-requirements/${line.id}`);
     setHistory(result.history??[]);}catch(caught){setError(caught instanceof Error?caught.message:"History unavailable");}}
