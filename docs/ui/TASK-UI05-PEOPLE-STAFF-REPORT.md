@@ -1,6 +1,8 @@
 # TASK-UI05 — People & Staff Experience report
 
-Status: bounded People directory and Staff Record presentation pass; not accepted.
+Status: **Accepted by David on 25 September 2026 for the bounded People directory and Staff Record UI pass in synthetic Development.** This acceptance covers implementation commit `9ed3084a1138c6f5d6f93ce075083017c73ed28b` and the checks documented below. It does not accept the broader UI05 brief, shared UI02 integration, staging, production or deployment.
+
+The authenticated desktop, genuine 390px and keyboard/focus walkthrough remained an evidence gap at acceptance. No unverified browser result is treated as a pass. The deferred person-specific Training read contract and other module work remain deferred.
 
 Starting canonical main HEAD: `25dfb02dd5e1da087b0cc8034b2260d8c129122c`.
 
