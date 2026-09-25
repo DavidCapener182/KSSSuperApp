@@ -1,5 +1,7 @@
 # TASK-UI13 visual components — first prototype
 
+The later approved two-route pilot and genuine browser evidence are recorded in [TASK-UI13-PILOT-REPORT.md](../delivery/TASK-UI13-PILOT-REPORT.md). The prototype-only state below describes the earlier gate.
+
 Status: **visual direction approved by David from the shell-framed desktop study; controlled shared-primitives implementation started; product-route rollout stopped**. Base `be3fb185249ecb10259d3bc944a1258131834341` is the combined local UI03–UI10 preview, not canonical main or a hosted deployment. Work is confined to branch `task-ui13-visual-components` in its isolated worktree. Desktop visual approval does not establish 390px acceptance or authorise a 58-page replacement.
 
 ## Prototype

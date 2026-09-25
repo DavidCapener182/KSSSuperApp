@@ -31,13 +31,13 @@ export function FactualStatus({ label, tone = "neutral" }: { label: string; tone
   return <span className={`${styles.status} ${statusToneClass[tone]}`}><span className={styles.statusDot} aria-hidden="true" />{label}</span>;
 }
 
-export type FactualMetric = Readonly<{ label: string; value: string | number }>;
+export type FactualMetric = Readonly<{ label: string; value: string | number; action?: ReactNode; selected?: boolean }>;
 
-export function FactualMetrics({ metrics }: { metrics: readonly FactualMetric[] }) {
+export function FactualMetrics({ metrics, className = "" }: { metrics: readonly FactualMetric[]; className?: string }) {
   if (!metrics.length) return null;
-  return <dl className={styles.metrics}>
-    {metrics.map(({ label, value }) => <div className={styles.metric} key={label}>
-      <dt>{label}</dt><dd>{value}</dd>
+  return <dl className={`${styles.metrics} ${className}`}>
+    {metrics.map(({ label, value, action, selected }) => <div className={`${styles.metric} ${selected ? styles.selectedMetric : ""}`} key={label}>
+      <dt>{label}</dt><dd>{value}</dd>{action && <div className={styles.metricAction}>{action}</div>}
     </div>)}
   </dl>;
 }

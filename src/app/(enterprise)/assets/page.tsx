@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { AssetsWorkspace } from "@/components/assets-workspace";
+import { ContextHeader } from "@/components/ui13/operational";
 import { getPrincipal } from "@/lib/auth/principal";
 import { createServerSupabase } from "@/lib/supabase/server";
 
@@ -11,7 +12,7 @@ export default async function AssetsPage() {
   const operations = principal.roles.includes("OPERATIONS");
   const superAdmin = principal.roles.includes("SUPER_ADMIN");
   if (!office && !operations && !superAdmin) notFound();
-  return <main className="enterprise-main"><header><p>KSS Enterprise · Synthetic development</p><h1>Assets and stock</h1>
-    <p>Native register, exact custody, condition and immutable history.</p></header>
+  return <main className="enterprise-main"><ContextHeader context="KSS Enterprise · Synthetic development" title="Assets and stock"
+    description="Native register, exact custody, condition and immutable history." />
     <AssetsWorkspace mode="register" office={office} operations={operations} superAdmin={superAdmin} /></main>;
 }
