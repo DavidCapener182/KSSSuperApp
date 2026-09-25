@@ -1,6 +1,6 @@
 # TASK-UI06 — Commercial to Mobilisation UI report
 
-Status: David accepted this bounded, domain-local Mobilisation journey UI pass for synthetic development on 25 September 2026. This is not acceptance of the full UI06 brief, shared UI02 integration, staging, production or deployment. Starting canonical main HEAD: `25dfb02dd5e1da087b0cc8034b2260d8c129122c`.
+Status: **TASK-UI06 — ACCEPTED AND CLOSED — SYNTHETIC DEVELOPMENT** by David on 25 September 2026. The earlier bounded acceptances and their evidence limitations remain recorded below. This closure does not cover shared UI02 integration, staging, production or deployment. Starting canonical main HEAD: `25dfb02dd5e1da087b0cc8034b2260d8c129122c`.
 
 ## Scope and contracts
 
@@ -82,9 +82,9 @@ David accepted this bounded UI pass on 25 September 2026. Focused ESLint, produc
 
 A `tests/shell.test.mjs` run using the existing synthetic environment paths reached its read-only return-target case, then stopped before the authenticated case at local listener `EPERM` (`127.0.0.1`). Inspection of that test also showed it later grants and revokes roles in synthetic Dev, outside this UI-only lane, so it was not retried with elevated permissions. No authenticated UI or write readback was established by this attempt.
 
-## Final Commercial → Mobilisation browser close-out — pending David’s decision
+## Final Commercial → Mobilisation browser close-out — accepted and closed
 
-**Implementation freeze.** This close-out used the built production `next start` app at `127.0.0.1:3116`, the existing authorised synthetic Office persona and existing synthetic records. It did not run the role-mutating `tests/shell.test.mjs`, add a backend source, create business data, or deploy. The three bounded passes above were already accepted by David; this section records later browser evidence and two narrow presentation defects found during the walkthrough. **TASK-UI06 as a whole is not yet marked accepted and closed.**
+**Implementation freeze.** This close-out used the built production `next start` app at `127.0.0.1:3116`, the existing authorised synthetic Office persona and existing synthetic records. It did not run the role-mutating `tests/shell.test.mjs`, add a backend source, create business data, or deploy. The three bounded passes above were already accepted by David; this section records later browser evidence and two narrow presentation defects found during the walkthrough. David accepted and closed TASK-UI06 as a whole on 25 September 2026 with the limitations below.
 
 ### Browser journey and source boundaries
 
@@ -105,4 +105,10 @@ A `tests/shell.test.mjs` run using the existing synthetic environment paths reac
 - One synthetic Office browser session expired during an attempted readback simulation; the server returned a cookie-mutation error before that test ran. A fresh authorised session restored read-only page access, and the simulation was rerun successfully. This auth-expiry error was not fixed in this UI-only lane and was not counted as passing UI evidence.
 - Screenshots and Playwright snapshots from the local browser session are in `.playwright-cli/`; a representative 390px Organisation screenshot was visually inspected. The controls and overflow checks were DOM measurements at exact widths. No formal screen-reader run, all-persona permission sweep, normal business write/readback, staging or production check was performed.
 
-**Close-out decision requested:** David can review this evidence and the actual UI to decide whether to mark **TASK-UI06 — ACCEPTED AND CLOSED — SYNTHETIC DEVELOPMENT** with the normal write/readback and screen-reader limits retained. No further UI wave has started.
+### Formal acceptance and continuing boundaries
+
+David formally marked **TASK-UI06 — ACCEPTED AND CLOSED — SYNTHETIC DEVELOPMENT** on 25 September 2026. He accepted the authenticated synthetic Office journey across CRM → Organisation → Opportunity → Client/Site/Event → Mobilisation, the 1280px and genuine 390px browser findings, the bounded mobile-control and landmark corrections, and the targeted keyboard evidence above. The joined-up presentation remains a journey across separate authoritative records: `CRM WON ≠ Mobilisation authorised`; `Site ≠ Site Service ≠ Event`; `Event staffing ≠ Attendance`; and `Mobilisation handover ≠ safety/compliance/staffing/contract readiness`.
+
+The accepted feedback pattern is **server response → exact source readback → confirmation**. If readback is absent or inconclusive, the UI retains user context and input, displays an error or unconfirmed state, and gives no false success. The simulated rejected/inconclusive requests above establish UI failure presentation only. David expressly accepted the absence of genuine CRM, Event, Site Service and Mobilisation server-write/readback browser success, a formal screen-reader audit, an all-persona permission sweep and staging/production verification as limitations of this bounded UI programme. No synthetic business record was created or mutated solely to fill those gaps. The earlier bounded-pass acceptance records retain their contemporary limitations.
+
+Preserve the domain-local ≥44px mobile controls/navigation, single `main` landmarks on Event and Site Service detail, readable system sans-serif typography, visible focus and blue/graphite/neutral presentation without green status treatment. Global design-system consolidation belongs to UI02. This closure authorises no automatic Won → Mobilisation transition, combined readiness score, cross-domain source-of-truth record, new backend read contract or write API, Supabase migration, staging, production, deployment or real KSS data. No further Commercial feature or UI wave was started.
