@@ -1,5 +1,6 @@
 "use client";
 import "./record-studies.css";
+import "./onboarding-journey.css";
 import { RecordSectionTracker } from "./record-section-tracker";
 
 import { useCallback, useEffect, useState, type FormEvent } from "react";
@@ -43,6 +44,22 @@ function requirementLabel(requirement: Requirement) {
     return "Office verification needed";
   if (requirement.state === "UNDER_REVIEW") return "Submitted — awaiting review";
   return label[requirement.state] ?? requirement.state;
+}
+function evidenceLabel(state: string) {
+  const labels: Record<string, string> = {
+    REQUESTED: "Evidence requested — awaiting submission",
+    AWAITING_REVIEW: "Submitted — awaiting evidence review",
+    ACCEPTED_AS_EVIDENCE: "Accepted as evidence (separate from requirement verification)",
+    REJECTED_ACTION_REQUIRED: "Rejected — replacement needed",
+  };
+  return labels[state] ?? state.replaceAll("_", " ").toLowerCase();
+}
+function actorLabel(actor: string) {
+  const labels: Record<string, string> = {
+    STAFF: "Staff", OFFICE: "Office", NONE: "No action due",
+    SYSTEM: "System configuration", EXTERNAL_PROVIDER: "External provider",
+  };
+  return labels[actor] ?? actor.replaceAll("_", " ").toLowerCase();
 }
 
 export function OnboardingClient({ office, selectedCaseId }: { office: boolean; selectedCaseId?: string }) {
@@ -310,11 +327,19 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
               <FeedbackBanner tone="error">Current synthetic SIA details differ from the submitted credential revision. A new submission, evidence and decision are needed.</FeedbackBanner>}
           </div>}
           {office && detail.canManage && detail.state === "DRAFT" && <ActionButton onClick={() => void action("start")} disabled={busy}>Start onboarding</ActionButton>}
-          {selectedCaseId && <h2>Requirements</h2>}
-          <ol id="onboarding-requirements" className="onboarding-requirements">{detail.requirements.map((r) => <li key={r.id}>
-            <div className="onboarding-requirement-head"><h4>{r.position}. {r.title}</h4><span className={`onboarding-badge onboarding-badge--${r.state.toLowerCase()}`}>{requirementLabel(r)}</span></div>
-            <p>{r.nextAction}</p><small>Next actor: {r.actor.replaceAll("_", " ").toLowerCase()}</small>
-            {r.evidenceState && <p className="onboarding-evidence">Evidence: {r.evidenceState.replaceAll("_", " ").toLowerCase()}. Requirement: {label[r.state] ?? r.state}.</p>}
+          {selectedCaseId && <h2>Requirement journey</h2>}
+          <p className="onboarding-journey-intro">Current case snapshot in template order. Evidence submission, evidence acceptance and requirement verification are separate states; this is not an event history.</p>
+          <ol id="onboarding-requirements" className="onboarding-requirements onboarding-journey">{detail.requirements.map((r) => <li key={r.id}>
+            <div className="onboarding-journey-step" aria-hidden="true">{r.position}</div>
+            <div className="onboarding-journey-content">
+              <div className="onboarding-requirement-head"><h4>{r.title}</h4><span className={`onboarding-badge onboarding-badge--${r.state.toLowerCase()}`}>{requirementLabel(r)}</span></div>
+              <dl className="onboarding-journey-facts">
+                <div><dt>Current requirement</dt><dd>{label[r.state] ?? r.state.replaceAll("_", " ").toLowerCase()}{r.verifiedAt && ` · Decision recorded ${new Date(r.verifiedAt).toLocaleString("en-GB")}`}</dd></div>
+                {r.evidenceState && <div><dt>Document evidence</dt><dd>{evidenceLabel(r.evidenceState)}</dd></div>}
+                {r.controlled && <div><dt>Exact terms</dt><dd>{r.controlled.title} · Version {r.controlled.versionNumber}{r.controlled.acknowledgedAt ? " · Acknowledged" : " · Awaiting acknowledgement"}</dd></div>}
+                <div><dt>Next actor</dt><dd>{actorLabel(r.actor)}</dd></div>
+              </dl>
+              <p className="onboarding-journey-next"><strong>{r.actor === "NONE" ? "Current outcome" : "Next action"}</strong> {r.nextAction}</p>
             {r.feedback && <FeedbackBanner tone="error">Evidence review feedback: {r.feedback}</FeedbackBanner>}
             {r.documentRequestId && <Link className="ui-action ui-action--secondary" href={`/documents/${r.documentRequestId}${r.acceptedVersionId ? `?version=${r.acceptedVersionId}` : ""}`}>
               {office ? "Open protected evidence" : "Open my evidence request"}</Link>}
@@ -366,6 +391,7 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
             {office && detail.canManage && detail.state === "IN_PROGRESS" && r.code === "SIA_LICENCE" &&
               r.siaSubmissionId && r.acceptedVersionId && r.state === "UNDER_REVIEW" && r.evidenceState === "ACCEPTED_AS_EVIDENCE" &&
               <ActionButton onClick={() => void siaAction("sia-verify", r)} disabled={busy}>Verify exact synthetic SIA submission</ActionButton>}
+            </div>
           </li>)}</ol>
           {office && detail.canManage && detail.state !== "CANCELLED" &&
             <ActionButton variant="caution" onClick={() => void action("cancel")} disabled={busy}>Cancel case</ActionButton>}

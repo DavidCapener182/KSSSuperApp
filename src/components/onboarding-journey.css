@@ -1,0 +1,64 @@
+/* PEOPLE-01: presentation of the existing guarded case snapshot only. */
+.onboarding-journey-intro {
+  max-width: 72ch;
+  margin: .45rem 0 1rem;
+  color: var(--kss-ink-soft);
+  line-height: 1.5;
+}
+.onboarding-requirements.onboarding-journey {
+  counter-reset: none;
+  gap: 0;
+  margin-top: .5rem;
+}
+.onboarding-journey > li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: .8rem;
+  margin-bottom: .85rem;
+}
+.onboarding-journey-step {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--kss-border);
+  border-radius: 50%;
+  background: var(--kss-blue-soft);
+  color: var(--kss-blue-strong);
+  font-weight: 800;
+}
+.onboarding-journey-content { min-width: 0; }
+.onboarding-journey .onboarding-requirement-head { align-items: center; }
+.onboarding-journey .onboarding-requirement-head h4 { font-size: 1rem; line-height: 1.35; }
+.onboarding-journey-facts {
+  display: grid;
+  gap: .35rem;
+  margin: .85rem 0;
+}
+.onboarding-journey-facts > div {
+  display: grid;
+  grid-template-columns: minmax(8rem, 10rem) minmax(0, 1fr);
+  gap: .35rem .75rem;
+}
+.onboarding-journey-facts dt { color: var(--kss-ink-soft); font-size: .8rem; font-weight: 700; }
+.onboarding-journey-facts dd { min-width: 0; margin: 0; overflow-wrap: anywhere; font-size: .88rem; }
+.onboarding-journey .onboarding-journey-next {
+  margin: .8rem 0;
+  border-inline-start: 3px solid var(--kss-blue);
+  padding: .35rem .75rem;
+  color: var(--kss-ink);
+  font-size: .9rem;
+  line-height: 1.5;
+}
+.onboarding-journey-next strong { display: block; }
+.onboarding-journey :is(a, button, select, input):focus-visible {
+  outline: 3px solid var(--kss-blue);
+  outline-offset: 2px;
+}
+.onboarding-journey .ui-action { min-height: 44px; }
+@media (max-width: 600px) {
+  .onboarding-journey > li { grid-template-columns: 2rem minmax(0, 1fr); gap: .6rem; padding: .85rem; }
+  .onboarding-journey-step { width: 2rem; height: 2rem; }
+  .onboarding-journey-facts > div { grid-template-columns: minmax(0, 1fr); gap: .12rem; }
+}
