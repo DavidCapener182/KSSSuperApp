@@ -54,6 +54,13 @@
   font-size: 13px;
 }
 
+.workspace :global(.people-back),
+.workspace :global(.people-empty a) {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+}
+
 .workspace :global(.people-record-section h2) {
   font-size: 20px;
   line-height: 1.3;
