@@ -15,7 +15,7 @@ export function CrmOperationalLinks({ organisationId }: { organisationId: string
       .catch(()=>{if(active)setError(true);}).finally(()=>{if(active)setLoading(false);});
     return()=>{active=false;};
   },[organisationId]);
-  return <div className="crm-detail-grid"><section className="crm-panel"><h2>Sites / Venues</h2>
+  return <div className="crm-detail-grid"><section className="crm-panel"><h2>Linked Sites / Venues</h2><p>Locations linked to this Client. Site Services and Events have their own records.</p>
     {loading?<p>Loading linked Sites…</p>:error?<p>Site context unavailable.</p>:sites.length===0?<p>No Site linked to this Client yet.</p>:
       sites.map((site)=><Link className="crm-subrow" key={String(site.id)} href={`/sites?view=operational&selected=${site.id}`}><strong>{String(site.name)}</strong><span>{String(site.site_reference)} · {String(site.status)}</span></Link>)}
   </section><section className="crm-panel"><h2>Events</h2>

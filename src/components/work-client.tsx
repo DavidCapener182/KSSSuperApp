@@ -50,19 +50,19 @@ export function WorkClient() {
   const cancelled = tasks.filter((task) => task.state === "CANCELLED");
   return <main className="enterprise-main work-main">
     <PageHeader eyebrow="Synthetic development work" title="My Work"
-      description="Your assigned document reviews and CRM follow-ups appear here. Each action remains on its source record." />
+      description="Assigned document reviews and CRM follow-ups from the existing Task service. Other operational actions remain in their source areas." />
     {error && <FeedbackBanner tone="error">Work is unavailable. Refresh to try again.</FeedbackBanner>}
     {loading ? <LoadingBlock label="Loading your work…" /> : !error && <div className="work-sections">
       <section aria-labelledby="open-work-heading"><h2 id="open-work-heading">Open work</h2>
         {open.length ? <ul className="work-list">{open.map((task) => <TaskCard key={task.id} task={task} />)}</ul> :
-          <EmptyState title="No open tasks" description="There is no assigned work right now." />}
+          <EmptyState title="No open tasks" description="No open document reviews or CRM follow-ups were returned for this account. Other source areas may still need attention." />}
       </section>
       {covering.length > 0 && <section aria-labelledby="covering-work-heading"><h2 id="covering-work-heading">Covering</h2>
         <ul className="work-list">{covering.map((task) => <TaskCard key={task.id} task={task} />)}</ul>
       </section>}
       <section aria-labelledby="done-work-heading"><h2 id="done-work-heading">Completed history</h2>
         {done.length ? <ul className="work-list">{done.map((task) => <TaskCard key={task.id} task={task} />)}</ul> :
-          <EmptyState title="No completed tasks" description="Resolved document review work will appear here." />}
+          <EmptyState title="No completed tasks" description="Completed document reviews and CRM follow-ups will appear here when available." />}
       </section>
       {cancelled.length > 0 && <section aria-labelledby="cancelled-work-heading"><h2 id="cancelled-work-heading">Cancelled history</h2>
         <ul className="work-list">{cancelled.map((task) => <TaskCard key={task.id} task={task} />)}</ul>

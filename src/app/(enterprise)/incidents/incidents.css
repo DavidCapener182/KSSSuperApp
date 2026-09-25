@@ -2,3 +2,13 @@
 @media(max-width:600px){.incident-form-grid{grid-template-columns:1fr}.incident-card{border-radius:13px}.incident-page-header{margin-bottom:17px}.incident-action-form .incident-primary{width:100%}}
 
 .incident-grant-row{display:grid;gap:7px;padding:13px 14px}.incident-grant-row span,.incident-grant-row small{color:#566274;line-height:1.45}.incident-grant-row button{justify-self:start}
+/* UI04: source-specific report scanning and keyboard reachability. */
+.incident-list-top{display:flex;align-items:start;justify-content:space-between;gap:12px}
+.incident-list-top strong{font-size:1rem;line-height:1.35;color:#1b2b40}
+.incident-list-top .incident-status{flex:none;border:1px solid #b8c6d9;border-radius:999px;background:#eff4fa;color:#233c5b;padding:4px 9px;font-size:.78rem;font-weight:700}
+.incident-list-action{font-weight:700;color:#244f80;text-decoration:underline;text-underline-offset:3px}
+.incident-list a,.incident-back,.incident-list-action{min-height:44px}
+.incident-back{display:inline-flex;align-items:center;justify-self:start}
+.incident-page :is(a,button,input,select,textarea):focus-visible{outline:3px solid #245b96;outline-offset:3px}
+.incident-list li{overflow-wrap:anywhere}
+@media(max-width:600px){.incident-list-top{flex-direction:column;gap:7px}.incident-list-top .incident-status{align-self:start}.incident-list a{padding:15px}}

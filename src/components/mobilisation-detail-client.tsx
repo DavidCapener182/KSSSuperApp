@@ -27,12 +27,13 @@ export function MobilisationDetailClient({ id }: { id: string }) {
   const [blocker, setBlocker] = useState({ actionId: "", reason: "", ownerId: "" });
   const [decision, setDecision] = useState({ outcome: "DEFERRED", note: "" });
   const [link, setLink] = useState({ sourceType: "SITE", sourceId: "" });
-  const load = useCallback(async () => { setLoading(true); setError(""); try {
+  const load = useCallback(async (): Promise<Detail | null> => { setLoading(true); setError(""); try {
     const next: Detail = await read(`/api/mobilisations/${id}`); setDetail(next);
     setOwner(next.mobilisation.owner_person_id); setTarget(next.mobilisation.target_go_live ?? "");
     setNewAction(value => ({ ...value, ownerId: value.ownerId || next.mobilisation.owner_person_id }));
     setBlocker(value => ({ ...value, ownerId: value.ownerId || next.mobilisation.owner_person_id }));
-  } catch (caught) { setError(caught instanceof Error ? caught.message : "Mobilisation unavailable"); } finally { setLoading(false); } }, [id]);
+    return next;
+  } catch (caught) { setError(caught instanceof Error ? caught.message : "Mobilisation unavailable"); return null; } finally { setLoading(false); } }, [id]);
   useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); }, [load]);
   useEffect(() => { void read("/api/mobilisations/choices").then(data => setOwners(data.owners ?? [])).catch(() => {}); }, []);
   const openBlockers = useMemo(() => detail?.blockers.filter(row => !row.resolved_at) ?? [], [detail]);
@@ -42,7 +43,9 @@ export function MobilisationDetailClient({ id }: { id: string }) {
     if (confirmation && !window.confirm(confirmation)) return;
     setBusy(true); setError(""); setNotice("");
     try { await read(`/api/mobilisations/${id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action, data, expectedRevision: detail.mobilisation.revision, requestKey: crypto.randomUUID() }) });
-      setNotice(`${label(action)} recorded.`); setNote(""); await load();
+      const confirmed = await load();
+      if (confirmed && confirmed.mobilisation.revision > detail.mobilisation.revision) { setNotice(`${label(action)} recorded and confirmed from the mobilisation record.`); setNote(""); }
+      else if (confirmed) setError("The server responded, but the updated record could not be confirmed. Refresh before another change.");
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Change denied"); }
     finally { setBusy(false); }
   }
@@ -51,7 +54,9 @@ export function MobilisationDetailClient({ id }: { id: string }) {
     setBusy(true); setError(""); setNotice("");
     try { await read(`/api/mobilisations/${id}/links/${linkId}`, { method: "DELETE", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ expectedRevision: detail.mobilisation.revision, reason: note, requestKey: crypto.randomUUID() }) });
-      setNotice("Source link removed from current view; history preserved."); setNote(""); await load();
+      const confirmed = await load();
+      if (confirmed && confirmed.mobilisation.revision > detail.mobilisation.revision && !confirmed.links.some(row => row.id === linkId)) { setNotice("Source link removal confirmed from the mobilisation record; history preserved."); setNote(""); }
+      else if (confirmed) setError("The server responded, but the link removal could not be confirmed. Refresh before another change.");
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Link correction denied"); }
     finally { setBusy(false); }
   }
@@ -66,6 +71,13 @@ export function MobilisationDetailClient({ id }: { id: string }) {
     {loading && <p role="status">Loading authorised mobilisation…</p>}
     {m && <>
       <p className="enterprise-intro">{m.organisationName} · {label(m.templateCode)} template v{m.templateVersion} · {label(m.status)}</p>
+      <nav className={styles.journey} aria-label="Commercial to service journey">
+        <span><small>01 · Client</small><Link href={`/crm/organisations/${m.organisation_id}`}>{m.organisationName}</Link></span>
+        <span><small>02 · Mobilisation</small><strong aria-current="step">{label(m.status)}</strong></span>
+        <span><small>03 · Source setup</small><a href="#links-heading">Sites, services and events</a></span>
+        <span><small>04 · Handover</small><a href="#review-heading">Human decision and outstanding facts</a></span>
+      </nav>
+      <nav className={styles.localNav} aria-label="Mobilisation sections"><a href="#actions-heading">Actions</a><a href="#blockers-heading">Blockers</a><a href="#decisions-heading">Decisions</a><a href="#links-heading">Source links</a><a href="#review-heading">Review</a><a href="#history-heading">History</a></nav>
       <div className={styles.counts} aria-label="Factual action counts"><span>{detail!.counts.total} actions</span><span>{detail!.counts.done} done</span><span>{detail!.counts.open} open</span><span>{detail!.counts.blocked} blocked</span><span>{openBlockers.length} unresolved blockers</span></div>
       <section className={styles.card} aria-labelledby="scope-heading"><h2 id="scope-heading">Scope and accountability</h2>
         <p>Client: <Link href={`/crm/organisations/${m.organisation_id}`}>{m.organisationName}</Link>. Won Opportunity: {m.source_opportunity_id ? <Link href={`/crm/opportunities/${m.source_opportunity_id}`}>Open exact origin</Link> : "None — authorised directly from Client"}.</p>

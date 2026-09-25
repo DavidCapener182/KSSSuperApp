@@ -9,3 +9,21 @@
 .training-completion-check{margin-top:28px;border-top:1px solid #cbd5e1;padding-top:20px}.training-completion-check button,.training-completion-admin button{min-height:44px;border:1px solid #8998ab;border-radius:8px;padding:8px 14px;background:#eef4fa;color:#173b65;cursor:pointer}.training-completion-check button:disabled,.training-completion-admin button:disabled{opacity:.55;cursor:default}.training-completion-admin .training-card{min-height:0}.training-completion-admin label{display:block;font-weight:650;margin:14px 0 5px}.training-completion-admin select,.training-completion-admin input,.training-completion-admin textarea{display:block;width:100%;max-width:720px;min-height:44px;padding:10px;border:1px solid #98a2b3;border-radius:8px;margin-bottom:14px;font:inherit}.training-completion-admin textarea{min-height:90px}.training-completion-admin p,.training-completion-admin li,.training-completion-check li{overflow-wrap:anywhere}.training-completion-admin a{display:inline-flex;align-items:center;min-height:44px;margin-right:12px;color:#245b9c}
 .training-certificate-history li{overflow-wrap:anywhere;margin:12px 0}.training-certificate-history li>strong,.training-certificate-history li>span,.training-certificate-history li>a{display:block;margin:4px 0}.training-certificate-history li>a{min-height:44px;align-content:center}
 .training-completion-evidence{margin:16px 0 24px;border-color:#245b9c;background:#f5f9fd}.training-completion-evidence p,.training-completion-evidence li{overflow-wrap:anywhere}.training-completion-evidence ul{padding-left:22px}
+.training-area{font-family:-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;min-width:0}
+.training-area header>p:last-child{max-width:70ch;color:#344054;font-size:1rem}
+.training-area h1{font-weight:750}
+.training-area h2{font-weight:700}
+.training-area .training-eyebrow{letter-spacing:.06em}
+.training-area .training-card{min-width:0;overflow-wrap:anywhere}
+.training-area .training-card h2{margin:.5rem 0;font-size:1.25rem}
+.training-area .training-card p{font-size:.95rem;color:#344054}
+.training-area .training-card>a{padding:8px 0;text-underline-offset:3px}
+.training-source-note{max-width:76ch;margin:0 0 26px;padding:14px 18px;border-left:3px solid #245b9c;border-radius:0 10px 10px 0;background:#eef4fa;color:#1d2939;line-height:1.6}
+.training-area .training-admin-list,.training-area .training-admin-edit,.training-area .training-grants{overflow-wrap:anywhere}
+.training-area :focus-visible{outline:3px solid #245b9c;outline-offset:3px}
+@media(max-width:700px){.training-area{padding:18px 16px calc(105px + env(safe-area-inset-bottom))}.training-area .training-card{padding:18px}.training-section-links a{flex:1;justify-content:center}.training-area .training-page-nav a{min-height:44px}}
+.training-admin-course summary{min-height:44px;display:list-item;padding:12px 4px;color:#1d2939;font-weight:700;line-height:1.4;cursor:pointer;overflow-wrap:anywhere}
+.training-admin-course summary::marker{color:#245b9c}
+.training-admin-course>div{padding:4px 0 12px 16px}
+.training-admin-course summary:focus-visible{outline:3px solid #245b9c;outline-offset:3px}
+.training-admin-list input[type=search]{min-height:44px}

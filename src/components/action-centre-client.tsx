@@ -40,15 +40,17 @@ export function ActionCentreClient() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
 
-  const load = useCallback(async (nextSection: Section, nextOffset = 0) => {
+  const load = useCallback(async (nextSection: Section, nextOffset = 0): Promise<Payload | null> => {
     setLoading(true);
     try {
       const response = await fetch(`/api/action-centre?section=${nextSection}&offset=${nextOffset}`, { cache: "no-store" });
       if (!response.ok) throw new Error("Action Centre is unavailable. Please retry.");
       const data = await response.json() as Payload;
       setPayload(data); setSection(nextSection); setOffset(nextOffset); setError("");
+      return data;
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Action Centre is unavailable.");
+      return null;
     } finally { setLoading(false); }
   }, []);
 
@@ -61,8 +63,17 @@ export function ActionCentreClient() {
         method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ action }),
       });
       if (!response.ok) throw new Error("Notification state was not saved. Please retry.");
-      setNotice(action === "READ" ? "Marked as read." : "Moved to dismissed history.");
-      await load(section, offset);
+      const refreshed = await load(section, offset);
+      if (!refreshed) throw new Error("The update was accepted, but the current notification state could not be confirmed. Refresh before acting again.");
+      const confirmationSection = action === "DISMISS" ? "DISMISSED" : "RECENT";
+      const lookup = await fetch(`/api/action-centre?section=${confirmationSection}&offset=0`, { cache: "no-store" });
+      if (!lookup.ok) throw new Error("The update was accepted, but the current notification state could not be confirmed. Refresh before acting again.");
+      const current = await lookup.json() as Payload;
+      const saved = current.items.find((entry) => entry.id === item.id);
+      if (!saved || (action === "READ" && !saved.readAt) || (action === "DISMISS" && !saved.dismissedAt)) {
+        throw new Error("The current notification state could not be confirmed. Refresh before acting again.");
+      }
+      setNotice(action === "READ" ? "Marked as read and confirmed." : "Moved to dismissed history and confirmed.");
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Notification state was not saved."); }
     finally { setBusyId(""); }
   }
