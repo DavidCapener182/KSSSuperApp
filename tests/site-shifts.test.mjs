@@ -134,7 +134,12 @@ test('08A stable Site shift demand, strict capacity and shared Event clash', {ti
  assert.ok(own.work.some((item)=>item.source==='SITE_SHIFT'&&item.id===allocation));
  assert.ok(!own.work.some((item)=>item.id===eventAllocation));
  const deployments=await rpc(siteStaff,'my_deployments_08a',{});
- assert.ok(deployments.items.some((item)=>item.source==='SITE_SHIFT'&&item.id===allocation));
+ const allDeployments=[...deployments.items];
+ for(let offset=25;offset<deployments.total;offset+=25){
+  const page=await rpc(siteStaff,'my_deployments_08a',{p_offset:offset});
+  allDeployments.push(...page.items);
+ }
+ assert.ok(allDeployments.some((item)=>item.source==='SITE_SHIFT'&&item.id===allocation));
  assert.equal((await rpc(siteStaff,'my_deployments_08a',{p_focus:eventAllocation})).total,0);
  const person=await rpc(operations,'workforce_person_week_08a',{p_person:siteStaffId,p_week:weekStart});
  assert.ok(person.items.some((item)=>item.source==='SITE_SHIFT'&&item.id===allocation));

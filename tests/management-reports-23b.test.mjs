@@ -95,7 +95,12 @@ test('23B Event requirement/acceptance and cancellation reconcile without erasin
 test('23B static overnight service date survives autumn DST and spring range stays incomplete beyond horizon',{timeout:180000},async()=>{
  const admin=await signed('admin');
  const autumn=await report(admin,'2026-10-25','2026-10-26',{p_source:'SITE_SHIFT'});
- const exact=autumn.lines.find(line=>line.source_id==='567f9d27-f661-4357-89fd-ec213299970c');
+ const autumnLines=[...autumn.lines];
+ for(let offset=30;offset<autumn.total_lines;offset+=30){
+  const page=await report(admin,'2026-10-25','2026-10-26',{p_source:'SITE_SHIFT',p_offset:offset});
+  autumnLines.push(...page.lines);
+ }
+ const exact=autumnLines.find(line=>line.source_id==='567f9d27-f661-4357-89fd-ec213299970c');
  assert.ok(exact,'accepted synthetic 08A overnight demand remains materialised');
  assert.equal(exact.service_date,'2026-10-25');
  const {data:detail,error}=await admin.rpc('site_service_detail',{p_site:exact.site_id,p_service:exact.parent_id,p_from:'2026-10-25',p_until:'2026-10-26'});
