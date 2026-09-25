@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import styles from "./my-availability.module.css";
 
 type Declaration = { id: string; state: "AVAILABLE"|"UNAVAILABLE"; starts_at: string; ends_at: string;
   lifecycle: "CURRENT"|"SUPERSEDED"|"CANCELLED"; note: string|null };
@@ -52,7 +53,8 @@ export function MyAvailabilityClient() {
       setItems(current.availability.items); setRevision(current.availability.revision);
       setTotal(current.availability.total); setOffset(page);
       setHistory(prior.history.items); setHistoryTotal(prior.history.total); setError("");
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "My Availability unavailable"); }
+      return true;
+    } catch (caught) { setError(caught instanceof Error ? caught.message : "My Availability unavailable"); return false; }
     finally { setLoading(false); }
   }, []);
   useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); }, [load]);
@@ -70,13 +72,17 @@ export function MyAvailabilityClient() {
   async function save() { if (!preview) return; setBusy(true); setError(""); try {
     await json("/api/availability/me", { method: "POST", headers: { "content-type": "application/json" },
       body: JSON.stringify({ ...body, state, note, expectedRevision: preview.revision, confirmReplace, acknowledgeConflict: ackConflict }) });
-    setOpen(false); setPreview(null); setNotice("Availability saved. This does not change any deployment."); await load();
+    setOpen(false); setPreview(null);
+    if (await load()) setNotice("Availability saved and current declarations refreshed. This does not change any deployment.");
+    else setError("The server accepted the change, but current availability could not be refreshed. Reload before making another change.");
   } catch (caught) { setError(caught instanceof Error ? caught.message : "Availability not saved"); setPreview(null); }
     finally { setBusy(false); } }
   async function cancel() { if (!cancelling) return; setBusy(true); setError(""); try {
     await json(`/api/availability/me/${cancelling.id}`, { method: "PATCH", headers: { "content-type": "application/json" },
       body: JSON.stringify({ action: "CANCEL", expectedRevision: revision, acknowledgeConflict: cancelAck }) });
-    setCancelling(null); setCancelPreview(null); setNotice("Future declaration cancelled. History is retained."); await load(offset);
+    setCancelling(null); setCancelPreview(null);
+    if (await load(offset)) setNotice("Future declaration cancelled and history refreshed. Any deployment remains in place.");
+    else setError("The server accepted cancellation, but current availability could not be refreshed. Reload before making another change.");
   } catch (caught) { setError(caught instanceof Error ? caught.message : "Cancellation failed"); }
     finally { setBusy(false); } }
   async function reviewCancel(item: Declaration) {
@@ -90,11 +96,11 @@ export function MyAvailabilityClient() {
   }
   const current = items.filter((item) => item.lifecycle === "CURRENT" && new Date(item.ends_at) > new Date());
   const past = items.filter((item) => !current.includes(item));
-  return <main className="enterprise-main availability-self">
+  return <main className={`enterprise-main availability-self ${styles.workspace}`}>
     <div className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Your future work</p><h1>My Availability</h1>
       <p>Tell KSS when you can or cannot work. Availability does not allocate or accept a deployment.</p></div>
       <Button onClick={startEntry}>Add availability</Button></div>
-    <p className="enterprise-honesty">No declaration means Not declared. Your allocations remain separate in <Link href="/my-deployments">My Deployments</Link>.</p>
+    <p className="enterprise-honesty">No declaration means Not declared. Your allocations remain separate in <Link href="/my-deployments">My Deployments</Link>. <Link href="/my-time-away">Time Away requests</Link> are a separate decision workflow.</p>
     {notice && <p role="status" className="enterprise-honesty">{notice}</p>}
     {error && <p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={() => void load(offset)}>Reload</Button></p>}
     {loading ? <p role="status" className="crm-skeleton">Loading availability…</p> : <>
@@ -115,7 +121,7 @@ export function MyAvailabilityClient() {
       {past.length > 0 && <p className="enterprise-honesty">{past.length} earlier declarations on this page are retained in history.</p>}
       {total > 25 && <div className="deployment-pagination"><Button variant="outline" disabled={offset === 0} onClick={() => void load(Math.max(0, offset - 25))}>Previous</Button><span>{offset + 1}–{Math.min(offset + 25, total)} of {total}</span><Button variant="outline" disabled={offset + 25 >= total} onClick={() => void load(offset + 25)}>Next</Button></div>}
     </>}
-    <Sheet open={open} onOpenChange={(value) => { if (!value && !busy) setOpen(false); }}><SheetContent className="staffing-sheet availability-sheet"><SheetTitle>Declare availability</SheetTitle>
+    <Sheet open={open} onOpenChange={(value) => { if (!value && !busy) setOpen(false); }}><SheetContent className={`staffing-sheet availability-sheet ${styles.sheet}`}><SheetTitle>Declare availability</SheetTitle>
       <div className="availability-form"><label>Declaration<select value={state} onChange={(event) => { setState(event.target.value as typeof state); setPreview(null); }}><option value="AVAILABLE">Available</option><option value="UNAVAILABLE">Unavailable</option></select></label>
         <label>Range<select value={mode} onChange={(event) => { setMode(event.target.value as typeof mode); setPreview(null); }}><option value="ALL_DAY">Whole day or days</option><option value="CUSTOM">Custom London times</option><option value="REST_TODAY">Rest of today</option></select></label>
         {mode === "ALL_DAY" && <><label>First day<input type="date" value={startDate} onChange={(event) => { setStartDate(event.target.value); setPreview(null); }} /></label>
@@ -136,7 +142,7 @@ export function MyAvailabilityClient() {
           (preview.deployments.length > 0 && (state === "UNAVAILABLE" || preview.replaced.length > 0) && !ackConflict)} onClick={() => void save()}>Save declaration</Button></div></div>}
       {error && <p role="alert" className="enterprise-error">{error}</p>}
     </SheetContent></Sheet>
-    <Sheet open={Boolean(cancelling)} onOpenChange={(value) => { if (!value && !busy) setCancelling(null); }}><SheetContent className="staffing-sheet"><SheetTitle>Cancel future declaration?</SheetTitle>
+    <Sheet open={Boolean(cancelling)} onOpenChange={(value) => { if (!value && !busy) setCancelling(null); }}><SheetContent className={`staffing-sheet ${styles.sheet}`}><SheetTitle>Cancel future declaration?</SheetTitle>
       <p>The declaration will leave current availability. Its history remains attributable. Any deployment stays unchanged.</p>
       {cancelling?.state === "AVAILABLE" && cancelPreview && cancelPreview.deployments.length > 0 && <><p className="enterprise-error">These existing deployments may no longer have declared coverage:</p>
         <ul>{cancelPreview.deployments.map((item) => <li key={item.id}>{item.event_name} · {format(item.report_at)} · {item.status}</li>)}</ul>

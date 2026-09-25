@@ -10,7 +10,11 @@ export async function createServerSupabase() {
       cookies: {
         getAll() { return cookieStore.getAll(); },
         setAll(items) {
-          for (const item of items) cookieStore.set(item.name, item.value, item.options);
+          try {
+            for (const item of items) cookieStore.set(item.name, item.value, item.options);
+          } catch {
+            // Server Components cannot write cookies; the proxy refreshes them.
+          }
         },
       },
     },

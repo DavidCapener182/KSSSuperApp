@@ -33,7 +33,7 @@ export function LeaveReconciliation({ source, allocationId }: { source: "EVENT" 
   return <div className="deployment-reconciliation" aria-label="Approved time away reconciliation">
     {issues.map((issue) => <div key={issue.id}>
       <strong>{issue.status === "REVIEW_REQUIRED" ? "Approved time away conflict · review required" : "Approved time away conflict · reviewed"}</strong>
-      <p>The allocation remains unchanged. Review its current state before closing this issue.</p>
+      <p>Review the allocation&apos;s current state before closing this issue. Its history remains available.</p>
       {issue.status === "REVIEW_REQUIRED" && <div>
         <label>Reconciliation reason<textarea value={reason} minLength={10} maxLength={300}
           onChange={(event) => setReason(event.target.value)} /></label>

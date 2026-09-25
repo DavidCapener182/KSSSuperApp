@@ -1,6 +1,12 @@
 # TASK-17C — Leave Scheduling Constraint Policy
 
-**Status:** Approved by David for bounded implementation in synthetic Dev on 24 September 2026. TASK-17A is an approved architecture direction. **TASK-17B is ACCEPTED — SYNTHETIC DEV at commit `b8cac06`.** Protected Staging, production and real Staff leave data remain prohibited. TASK-17C requires its own implementation and verification report before David's acceptance.
+**Status: ACCEPTED — SYNTHETIC DEV by David on 25 September 2026.** Implementation and verification are recorded in `TASK-17C-REPORT.md`. TASK-17B was accepted at `b8cac06`. Protected Staging, production and real Staff leave data remain prohibited.
+
+## David's formal acceptance
+
+David accepts the delivered scheduling policy, source separation, privacy boundary and explicit reconciliation model described below. Effective `APPROVED` and `CANCELLATION_REQUESTED` leave blocks new overlapping Event/Site Shift allocations and Staff acceptance; final approved cancellation ends future blocking. Approval over an existing allocation remains permitted, leaves the duty unchanged and creates an exact durable reconciliation issue. Operational managers use existing guarded duty workflows and explicitly close issues; Time Away managers retain leave authority only. There is no scheduling override or silent resolution.
+
+David accepts the applied synthetic Dev migrations, focused 4/4, controlled concurrency and both race orders, relevant 06C/07A/07B/08A/09A/09B/10B/17B regressions, exact no-mutation checks, production Webpack build, sequential TypeScript, focused ESLint, diff check and authenticated desktop/genuine 390px Staff and Operations evidence. The complete repository-wide regression suite was not run; this is an accepted evidence limitation. The lane is closed after its acceptance commit. Acceptance does not authorise TASK-17D, payroll, paid-leave calculations, sickness/medical workflow, automatic cover or reassignment, an override, Staging, production or real Staff leave data.
 
 ## David's implementation decision
 
@@ -43,4 +49,4 @@ Show the conflict on candidate cards, exact allocation detail and Workforce conf
 
 Implementation is authorised only in synthetic Dev `dnfhkmmnlbiabqypclqg`. Reconcile the accepted 17B schema and current Event/static writer signatures and record actual migration, concurrency, regression and desktop/390px evidence in `TASK-17C-REPORT.md`. Protected Staging `kwpgjbxepxuhwxxydaca`, production and real Staff leave data remain prohibited. If source contracts materially contradict this policy, stop and report the conflict.
 
-**STOP after implementation and verification for David's TASK-17C acceptance. Do not begin TASK-17D automatically.**
+**TASK-17C is accepted and its synthetic Dev lane is closed. Do not begin TASK-17D automatically.**

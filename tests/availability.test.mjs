@@ -13,13 +13,29 @@ const credentials={office:[process.env.KSS_TEST_OFFICE_EMAIL,process.env.KSS_TES
 async function signed(name){const client=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
  const {error}=await signInWithTestSession(client,{email:credentials[name][0],password:credentials[name][1]});assert.ifError(error);return client;}
 async function rpc(client,name,args){const {data,error}=await client.rpc(name,args);assert.ifError(error);return data;}
+async function allRows(client,name){
+ const first=await rpc(client,name,{p_offset:0,p_limit:50});
+ const items=[...first.items];
+ for(let offset=50;offset<first.total;offset+=50){
+  const page=await rpc(client,name,{p_offset:offset,p_limit:50});
+  items.push(...page.items);
+ }
+ return {...first,items};
+}
 
 test('07A Staff availability, exact candidate result and accepted-deployment conflict', {timeout:180000}, async()=>{
  assert.ok(url&&key&&Object.values(credentials).every(([email,password])=>email&&password));
  const [office,operations,staffA,staffB]=await Promise.all(Object.keys(credentials).map(signed));
- const date=new Date(Date.now()+(90+Math.floor(Math.random()*170))*86400000).toISOString().slice(0,10);
- const instant=(hour,minute='00')=>`${date}T${hour}:${minute}:00Z`;
  const before=await rpc(staffA,'my_availability',{});
+ const timeAwayBefore=await rpc(staffA,'time_away_list',{});
+ let date;
+ for(let days=90;days<=330;days+=3){
+  const candidate=new Date(Date.now()+days*86400000).toISOString().slice(0,10);
+  const preview=await rpc(staffA,'availability_preview',{p_starts:`${candidate}T12:00:00Z`,p_ends:`${candidate}T20:00:00Z`});
+  if(preview.replaced.length===0&&preview.deployments.length===0){date=candidate;break;}
+ }
+ assert.ok(date,'a clear synthetic availability interval is required');
+ const instant=(hour,minute='00')=>`${date}T${hour}:${minute}:00Z`;
  assert.ok((await office.rpc('my_availability',{})).error);
  assert.ok((await operations.rpc('availability_save',{p_state:'UNAVAILABLE',p_starts:instant('12'),p_ends:instant('20'),p_expected_revision:0})).error);
  assert.ok((await staffB.from('staff_availability_declarations').select('id')).error);
@@ -68,7 +84,7 @@ test('07A Staff availability, exact candidate result and accepted-deployment con
   p_note:null,p_expected_revision:first,p_confirm_replace:true,p_acknowledge_deployment_conflict:false})).error);
  const second=await rpc(staffA,'availability_save',{p_state:'UNAVAILABLE',p_starts:instant('16'),p_ends:instant('17'),
   p_note:null,p_expected_revision:first,p_confirm_replace:true,p_acknowledge_deployment_conflict:true});assert.equal(second,first+1);
- const after=await rpc(staffA,'my_availability',{});
+ const after=await allRows(staffA,'my_availability');
  const pieces=after.items.filter((item)=>item.lifecycle==='CURRENT'&&
   new Date(item.starts_at)>=new Date(instant('12'))&&new Date(item.ends_at)<=new Date(instant('20')));
  const iso=(value)=>new Date(value).toISOString();
@@ -77,12 +93,12 @@ test('07A Staff availability, exact candidate result and accepted-deployment con
   ['AVAILABLE',iso(instant('17')),iso(instant('20'))]]);
  assert.equal((await candidate(main)).check.availability,'DECLARED_UNAVAILABLE');
  assert.equal((await candidate(main)).check.result,'BLOCKED');
- const own=await rpc(staffA,'my_deployments',{});
+ const own=await allRows(staffA,'my_deployments');
  const kept=own.items.find((item)=>item.id===allocation);assert.equal(kept.status,'ACCEPTED');
  assert.equal(kept.availability_conflict,'UNAVAILABLE_CONFLICT');
  const manager=await rpc(operations,'deployment_requirement',{p_event:event,p_requirement:main});
  assert.equal(manager.allocations.find((item)=>item.id===allocation).availability_conflict,'UNAVAILABLE_CONFLICT');
- const history=await rpc(staffA,'my_availability_history',{});
+ const history=await allRows(staffA,'my_availability_history');
  assert.ok(history.items.some((item)=>item.kind==='REPLACED'));
  assert.ok(history.items.filter((item)=>item.kind==='FRAGMENT_CREATED').length>=2);
  const left=pieces.find((item)=>item.state==='AVAILABLE'&&new Date(item.starts_at).getTime()===new Date(instant('12')).getTime());
@@ -103,7 +119,7 @@ test('07A Staff availability, exact candidate result and accepted-deployment con
    p_expected_revision:1,p_acknowledge_warnings:true,p_reason:'Synthetic concurrent availability review'})]);
  assert.ifError(allocationRace[0].error,'availability save must serialise with an allocation');
  if (!allocationRace[1].error) {
-  const current=await rpc(staffA,'my_deployments',{});
+  const current=await allRows(staffA,'my_deployments');
   assert.equal(current.items.find((item)=>item.id===allocationRace[1].data).availability_conflict,'UNAVAILABLE_CONFLICT');
   await rpc(office,'deployment_cancel',{p_event:event,p_requirement:raceRequirement,p_allocation:allocationRace[1].data,
    p_expected_revision:1,p_reason:'Concurrency fixture complete'});
@@ -119,6 +135,9 @@ test('07A Staff availability, exact candidate result and accepted-deployment con
  assert.equal(await rpc(staffA,'availability_cancel_ack',{p_declaration:left.id,p_expected_revision:joined,
   p_acknowledge_deployment_conflict:false}),joined+1);
  assert.equal((await candidate(main)).check.availability,'NOT_FULLY_COVERED','removed coverage leaves a gap');
+ const timeAwayAfter=await rpc(staffA,'time_away_list',{});
+ assert.deepEqual(timeAwayAfter,timeAwayBefore,
+  'same Staff availability and allocation changes cannot create or change Time Away requests');
  assert.ok((await staffA.rpc('availability_cancel_ack',{p_declaration:preview.replaced[0].id,p_expected_revision:joined+1,
   p_acknowledge_deployment_conflict:false})).error,
   'a superseded declaration cannot be cancelled');

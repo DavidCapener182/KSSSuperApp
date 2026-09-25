@@ -4,28 +4,76 @@ import { navigationFor } from "@/lib/auth/capabilities";
 import { getPrincipal } from "@/lib/auth/principal";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { ExternalAppShortcuts } from "@/components/external-app-shortcuts";
+import styles from "./home.module.css";
 
 export const dynamic = "force-dynamic";
+
+type Entry = { href: string; title: string; detail: string };
+
+const entries: Record<string, Entry> = {
+  "/my-attendance": { href: "/my-attendance", title: "My attendance", detail: "Check arrival and departure evidence for your own duties." },
+  "/credentials": { href: "/credentials", title: "My credentials", detail: "Review your own credential submissions and their separate verification state." },
+  "/my-schedule": { href: "/my-schedule", title: "My schedule", detail: "See your own duties and their source links." },
+  "/my-deployments": { href: "/my-deployments", title: "My deployments", detail: "Review allocations and respond to requests on the deployment record." },
+  "/my-availability": { href: "/my-availability", title: "My availability", detail: "Review or change your own availability declarations." },
+  "/action-centre": { href: "/action-centre", title: "Action Centre", detail: "Open your own source-linked notices and actions." },
+  "/my-time-away": { href: "/my-time-away", title: "My time away", detail: "Check your requests and submit a new one." },
+  "/onboarding": { href: "/onboarding", title: "Onboarding", detail: "Open your authorised case or Office queue; requirements retain their own evidence state." },
+  "/documents": { href: "/documents", title: "Documents", detail: "Open requests and exact evidence versions you may access." },
+  "/workforce": { href: "/workforce", title: "Workforce", detail: "Review staffing demand, allocation and availability as separate facts." },
+  "/control-room": { href: "/control-room", title: "Control Room", detail: "Triage operational exceptions and open their source records." },
+  "/mobilisations": { href: "/mobilisations", title: "Mobilisations", detail: "Review authorised actions, blockers, decisions and handovers." },
+  "/service-delivery": { href: "/service-delivery", title: "Service Delivery", detail: "Continue service reviews and source-linked actions." },
+  "/work": { href: "/work", title: "Assigned work", detail: "Document reviews and CRM follow-ups assigned through the existing Task service." },
+  "/time-away": { href: "/time-away", title: "Time away review", detail: "Review requests within your existing authority." },
+  "/my-work-time": { href: "/my-work-time", title: "My worked time", detail: "Review and submit worked intervals separately from attendance." },
+  "/my-equipment": { href: "/my-equipment", title: "My equipment", detail: "Check your own custody record and handovers." },
+  "/events": { href: "/events", title: "Events", detail: "Open event plans, staffing and attendance source records." },
+  "/people": { href: "/people", title: "People", detail: "Open the authorised people directory." },
+};
+
+function EntryGroup({ title, paths, allowed }: { title: string; paths: string[]; allowed: Set<string> }) {
+  const visible = paths.filter((path) => allowed.has(path)).map((path) => entries[path]);
+  if (!visible.length) return null;
+  return <section className={styles.group} aria-label={title}>
+    <h2>{title}</h2><div className={styles.groupList}>{visible.map((entry) =>
+      <Link className={styles.row} href={entry.href} key={entry.href}>
+        <span><strong>{entry.title}</strong><small>{entry.detail}</small></span><span className={styles.rowArrow} aria-hidden="true">↗</span>
+      </Link>)}</div>
+  </section>;
+}
+
+function QuickLinks({ paths, allowed }: { paths: string[]; allowed: Set<string> }) {
+  return <nav className={styles.quickGrid} aria-label="Quick access">{paths.filter((path) => allowed.has(path)).map((path) => <Link className={styles.quickLink} href={path} key={path}>{entries[path].title}<span aria-hidden="true">↗</span></Link>)}</nav>;
+}
 
 export default async function AppHome() {
   const client = await createServerSupabase();
   const principal = await getPrincipal(client);
   if (!principal) redirect("/?next=%2Fapp");
-  const links = navigationFor(principal).filter((item) => item.href !== "/app");
-  const staffOnly = principal.roles.length === 1 && principal.roles[0] === "SECURITY_STAFF";
+  const allowed = new Set<string>(navigationFor(principal).map((item) => item.href));
+  const staff = principal.roles.includes("SECURITY_STAFF");
+  if (staff && allowed.has("/my-deployments")) { allowed.add("/my-attendance"); allowed.add("/credentials"); }
+  const office = principal.roles.some((role) => role === "OFFICE_ADMIN" || role === "SUPER_ADMIN");
+  const operations = principal.roles.includes("OPERATIONS");
   const { data: trainingAccess } = await client.rpc("training_capabilities");
   const { data: assignmentAccess } = await client.rpc("training_assigner_access");
   const trainingAdmin = Boolean(trainingAccess && typeof trainingAccess === "object" && (trainingAccess.author || trainingAccess.publisher));
   const trainingAssignments = Boolean(assignmentAccess && typeof assignmentAccess === "object" && (assignmentAccess.assigner || assignmentAccess.superAdmin));
-  const trainingCatalogue = trainingAdmin || principal.roles.includes("SECURITY_STAFF") || principal.roles.includes("OPERATIONS");
-  return <main className="enterprise-main">
-    <p className="eyebrow">Development workspace</p>
-    <h1>{staffOnly ? "My Work" : "Home"}</h1>
-    <p className="enterprise-intro">Welcome, {principal.displayName}. These are the functions currently available to your account.</p>
-    <div className="enterprise-card-grid">
-      {links.map((link) => <Link className="enterprise-card" href={link.href} key={link.href}><strong>{link.label}</strong><span>{link.href === "/people" ? "Find staff and open a permission-scoped staff record." : link.href === "/work" ? "Open your assigned document reviews and CRM follow-ups." : link.href === "/crm" ? "Manage the commercial pipeline, activities and follow-ups." : link.href === "/sites" ? "Open the Sites you are authorised to use." : link.href === "/events" ? "Manage Events and staffing demand without assigning People yet." : link.href === "/documents" ? "View your authorised synthetic document requests." : link.href === "/onboarding" ? "See your authorised synthetic starter checklist and next actions." : "View your current Enterprise identity and roles."}</span></Link>)}
-    </div>
-    {(trainingCatalogue || trainingAdmin || trainingAssignments) && <section aria-label="Native learning" className="enterprise-native-learning"><p className="eyebrow">Native learning · Synthetic Dev</p><h2>Learning content</h2><p>Browse synthetic course pages. Reading records no completion or compliance result.</p><div className="enterprise-card-grid">{trainingCatalogue && <Link className="enterprise-card" href="/training"><strong>Course catalogue</strong><span>Current published learning content for active Security Staff.</span></Link>}{principal.roles.includes("SECURITY_STAFF") && <Link className="enterprise-card" href="/training/my-learning"><strong>My Learning</strong><span>Your exact-version assignments and factual page progress.</span></Link>}{trainingAdmin && <Link className="enterprise-card" href="/training-admin"><strong>Training administration</strong><span>Draft, preview, publish, retire and inspect exact course versions.</span></Link>}{trainingAssignments && <Link className="enterprise-card" href="/training-admin/assignments"><strong>Training assignments</strong><span>Manual assignments, due dates and exact-version history.</span></Link>}</div></section>}
+  const trainingCatalogue = trainingAdmin || staff || operations;
+  const date = new Intl.DateTimeFormat("en-GB", { dateStyle: "full", timeZone: "Europe/London" }).format(new Date());
+  return <main className={`enterprise-main ${styles.home}`}>
+    <header className={styles.hero}><div><p className={styles.kicker}>KSS workspace / Synthetic Development</p><h1>Welcome, {principal.displayName}</h1><p>{staff && !office && !operations ? "Your duty and personal records are a step away." : "Open an operational area or continue your assigned work."}</p></div><p className={styles.date}>{date}</p></header>
+    <section className={styles.section} aria-label="Quick access"><h2>Quick access</h2><QuickLinks paths={staff && !office && !operations ? ["/my-schedule", "/my-deployments", "/action-centre"] : ["/workforce", "/events", "/control-room"]} allowed={allowed} /></section>
+    {office && allowed.has("/work") && <section className={styles.taskPanel} aria-label="Assigned Tasks"><div><p className={styles.kicker}>Existing Task service</p><h2>Assigned Tasks</h2><p>Document reviews and CRM follow-ups assigned through the existing Task service. Open the panel for current records and actions.</p></div><Link href="/work">Open assigned Tasks <span aria-hidden="true">→</span></Link></section>}
+    {staff && <div className={styles.groupGrid}><EntryGroup title="Duty records" paths={["/my-attendance", "/my-work-time", "/my-availability"]} allowed={allowed} /><EntryGroup title="Requests & evidence" paths={["/my-time-away", "/onboarding", "/documents", "/credentials", "/my-equipment"]} allowed={allowed} /></div>}
+    {(office || operations) && <div className={styles.groupGrid}><EntryGroup title="Delivery" paths={["/mobilisations", "/service-delivery", "/documents"]} allowed={allowed} /><EntryGroup title="People & administration" paths={["/people", "/onboarding", "/time-away"]} allowed={allowed} /></div>}
+    {(trainingCatalogue || trainingAdmin || trainingAssignments) && <section className={styles.learning} aria-label="Learning"><h2>Learning</h2><div className={styles.learningList}>
+      {trainingCatalogue && <Link href="/training">Course catalogue <span aria-hidden="true">↗</span></Link>}
+      {staff && <Link href="/training/my-learning">My learning <span aria-hidden="true">↗</span></Link>}
+      {trainingAdmin && <Link href="/training-admin">Training administration <span aria-hidden="true">↗</span></Link>}
+      {trainingAssignments && <Link href="/training-admin/assignments">Training assignments <span aria-hidden="true">↗</span></Link>}
+    </div></section>}
     <ExternalAppShortcuts roles={principal.roles} />
     <p className="enterprise-honesty">This development workspace does not contain live operational data.</p>
   </main>;

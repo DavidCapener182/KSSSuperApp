@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ActionButton, ConfirmDialog, EmptyState, FeedbackBanner, PageHeader, StatusBadge, type WorkflowStatus } from "@/components/ui/workflow";
+import styles from "./identity-admin.module.css";
 
 type Review = { id: string; version_id: string; reviewer_person_id: string; decision: "ACCEPTED_AS_EVIDENCE" | "REJECTED";
   reason_code: string | null; reviewer_comment: string | null; decided_at: string };
@@ -121,9 +122,13 @@ export function DocumentsClient({ requestId, highlightVersionId, mayCreate, mayU
   const viewingHistorical = Boolean(highlightedVersion && selected?.version?.id !== highlightedVersion.id);
   const mayDecide = mayReview && selected?.version && !selected.version.review && selected.targetPersonId !== personId && !viewingHistorical;
   const maySubmit = mayUpload && selected && (selected.workflowStatus === "REQUESTED" || selected.canUploadReplacement);
-  return <main className="enterprise-main documents-main">
+  return <main className={`enterprise-main documents-main ${styles.surface}`}>
     <PageHeader eyebrow="Synthetic personnel evidence" title="Documents"
       description="Request, submit and review private synthetic evidence. Evidence accepted here is not a compliance or deployment decision." />
+    <section className={styles.boundary} aria-label="Personnel evidence access">
+      <strong>Private evidence · exact request and version</strong>
+      <p>A Site is request context only. It does not give Site viewers access to a Person&apos;s evidence. A submitted file remains unscanned; a review decision applies to that exact submitted version.</p>
+    </section>
     {message && <FeedbackBanner tone={messageTone}>{message}</FeedbackBanner>}
     <div className="documents-grid">
       <section className="documents-card" aria-labelledby="requests-heading">
@@ -161,6 +166,11 @@ export function DocumentsClient({ requestId, highlightVersionId, mayCreate, mayU
           description={requestId ? "This request is not available to your account." : "Select a request to view its evidence and history."} /> : <>
           <div className="documents-record-header"><div><p className="eyebrow">{selected.subjectName ?? "Your evidence"}</p><h3>{selected.title}</h3>
             <p>Requested {date(selected.createdAt)}</p></div><StatusBadge state={selected.workflowStatus} /></div>
+          <div className={styles.facts} aria-label="Request identity and audience">
+            <span><strong>Person:</strong> {selected.subjectName ?? "Your own record"}</span>
+            <span><strong>Request:</strong> <code>{selected.id}</code></span>
+            {mayReview && <span><strong>Requester Person ID:</strong> <code>{selected.requesterPersonId}</code></span>}
+          </div>
           {highlightedVersion && <FeedbackBanner>
             Viewing exact Version {highlightedVersion.number}{viewingHistorical ? " in history. Review actions are unavailable for this historical version." : "."}
             {viewingHistorical && <> <Link href={`/documents/${selected.id}`}>Return to current version</Link></>}

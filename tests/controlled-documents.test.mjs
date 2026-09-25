@@ -149,8 +149,14 @@ test('03C controlled publication, exact access and acknowledgement remain scoped
       'AWAITING_ACKNOWLEDGEMENT');
     assert.equal((await request(`/api/onboarding/${caseId}/contract/acknowledge`,'office',
       post({confirmed:true}))).status,403);
+    const completionBefore=await actors.staff.db.rpc('training_completion_mine');
+    assert.ifError(completionBefore.error);
     const [ack,ackText]=await responseBody(`/api/onboarding/${caseId}/contract/acknowledge`,'staff',
       post({confirmed:true}));assert.equal(ack.status,201,ackText);const acknowledgementId=JSON.parse(ackText).acknowledgementId;
+    const completionAfter=await actors.staff.db.rpc('training_completion_mine');
+    assert.ifError(completionAfter.error);
+    assert.deepEqual(completionAfter.data,completionBefore.data,
+      'document acknowledgement cannot create or change the same Staff Training completion');
     assert.equal((await caseAt(caseId,'staff'))[1].requirements.find((r)=>r.code==='CONTRACT_TERMS').state,
       'ACKNOWLEDGED');
     assert.ok((await actors.staff.db.from('controlled_acknowledgements').delete().eq('id',acknowledgementId)).error);

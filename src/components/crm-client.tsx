@@ -1,4 +1,6 @@
 "use client";
+import "./record-studies.css";
+import { RecordSectionTracker } from "./record-section-tracker";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -7,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CrmPipeline, CrmRecordWork } from "@/components/crm-operational";
 import { CrmOperationalLinks } from "@/components/crm-operational-links";
+import journey from "./commercial-journey.module.css";
 
 type Row = Record<string, unknown>;
 type Props = { view: "overview" | "pipeline" | "organisations" | "contacts" | "opportunities" | "organisation" | "opportunity"; id?: string; currentPersonId: string };
@@ -32,8 +35,8 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
   const [reason, setReason] = useState("");
   const [stage, setStage] = useState("");
   const [confirm, setConfirm] = useState(false);
-  const load = useCallback(async () => {
-    if (view === "pipeline") { setLoading(false); return; }
+  const load = useCallback(async (): Promise<Record<string, unknown> | null> => {
+    if (view === "pipeline") { setLoading(false); return null; }
     setLoading(true); setError("");
     const qs = new URLSearchParams({view, offset:String(offset)});
     if (id) qs.set("id", id);
@@ -42,8 +45,8 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
     try {
       const response = await fetch(`/api/crm?${qs}`,{cache:"no-store"});
       if (!response.ok) throw Error("CRM is temporarily unavailable.");
-      setData(await response.json());
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "CRM is temporarily unavailable."); }
+      const next = await response.json(); setData(next); return next;
+    } catch (caught) { setError(caught instanceof Error ? caught.message : "CRM is temporarily unavailable."); return null; }
     finally { setLoading(false); }
   },[view,id,offset,search,filter]);
   useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); },[load]);
@@ -81,11 +84,28 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
       const response = await fetch("/api/crm",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action,...extra})});
       const result = await response.json();
       if (!response.ok) throw Error(result.detail ?? result.error ?? "Action denied");
-      setForm(""); setFields({}); setReason(""); setStage(""); setConfirm(false);
-      if (action === "createOrganisation") router.push(`/crm/organisations/${result.id}`);
-      else if (action === "createOpportunity") router.push(`/crm/opportunities/${result.id}`);
-      else await load();
-      router.refresh();
+      if (action === "createOrganisation" || action === "createOpportunity") {
+        const recordKind = action === "createOrganisation" ? "organisation" : "opportunity";
+        const readback = await fetch(`/api/crm?view=${recordKind}&id=${encodeURIComponent(String(result.id))}`, { cache: "no-store" });
+        if (!readback.ok) throw Error("The new commercial record could not be confirmed. Refresh before trying again.");
+        const confirmed = await readback.json();
+        if (confirmed[recordKind]?.id !== result.id) throw Error("The new commercial record could not be confirmed. Refresh before trying again.");
+        setForm(""); setFields({});
+        router.push(action === "createOrganisation" ? `/crm/organisations/${result.id}` : `/crm/opportunities/${result.id}`);
+      } else {
+        const confirmed = await load();
+        if (!confirmed) throw Error("The server responded, but the commercial record could not be refreshed. Check it before another change.");
+        const current = (action === "updateOrganisation" || action === "createContact" || action === "updateContact" ? confirmed.organisation : confirmed.opportunity) as Row | undefined;
+        if (action === "transition" && current?.stage !== extra.stage ||
+          action === "changeOwner" && current?.owner_person_id !== extra.ownerId ||
+          action === "changeValue" && current?.estimated_value_gbp_pence !== extra.valuePence ||
+          action === "updateOrganisation" && current?.name !== extra.name ||
+          (action === "createContact" || action === "updateContact") &&
+            !(confirmed.contacts as Row[] | undefined)?.some((item) => item.id === (action === "createContact" ? result.id : extra.id)))
+          throw Error("The commercial change could not be confirmed from its source record. Refresh before another change.");
+        setForm(""); setFields({}); setReason(""); setStage(""); setConfirm(false);
+        router.refresh();
+      }
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Action denied"); }
     finally { setBusy(false); }
   }
@@ -96,13 +116,19 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
   const backwards = !!opportunity && stageNames.indexOf(stage)>=0 && stageNames.indexOf(stage)<stageNames.indexOf(String(opportunity.stage));
   const openOrganisationEdit = () => { if (!org) return; setFields({name:String(org.name),tradingName:String(org.trading_name ?? ""),website:String(org.website ?? ""),email:String(org.general_email ?? ""),phone:String(org.main_phone ?? ""),ownerId:String(org.owner_person_id ?? "")}); setForm("editOrganisation"); };
   const openContactEdit = (contact:Row) => { setFields({contactId:String(contact.id),firstName:String(contact.first_name),lastName:String(contact.last_name),jobTitle:String(contact.job_title ?? ""),email:String(contact.business_email ?? ""),phone:String(contact.business_phone ?? ""),primary:contact.is_primary?"yes":"no",active:contact.active?"yes":"no"}); setForm("editContact"); };
-  return <main className="enterprise-main crm-page">
+  return <main className={`enterprise-main crm-page ${journey.controls}`}>
     <p className="eyebrow">Commercial workspace · synthetic development data</p>
-    <div className="crm-heading"><div><h1>{view === "organisation" ? String(org?.name ?? "Organisation") : view === "opportunity" ? String(opportunity?.title ?? "Opportunity") : "CRM"}</h1>
-      <p className="enterprise-intro">{view === "overview" ? "Organisations, business contacts and opportunities in one place." : "Commercial records remain separate from private Staff information."}</p></div></div>
-    <nav className="crm-tabs" aria-label="CRM sections">
-      {[["overview","Overview"],["pipeline","Pipeline"],["organisations","Organisations"],["contacts","Contacts"],["opportunities","Opportunities"]].map(([key,label])=><Link key={key} href={key==="overview"?"/crm":`/crm?view=${key}`} aria-current={view===key||(view==="organisation"&&key==="organisations")||(view==="opportunity"&&key==="opportunities")?"page":undefined}>{label}</Link>)}
-    </nav>
+    {view !== "organisation" && view !== "opportunity" && <div className="crm-heading"><div><h1>CRM</h1>
+      <p className="enterprise-intro">{view === "overview" ? "Organisations, business contacts and opportunities in one place." : "Commercial records remain separate from private Staff information."}</p></div></div>}
+    {view !== "organisation" && view !== "opportunity" && <nav className="crm-tabs" aria-label="CRM sections">
+      {[["overview","Overview"],["pipeline","Pipeline"],["organisations","Organisations"],["contacts","Contacts"],["opportunities","Opportunities"]].map(([key,label])=><Link key={key} href={key==="overview"?"/crm":`/crm?view=${key}`} aria-current={view===key?"page":undefined}>{label}</Link>)}
+    </nav>}
+    {view==="overview" && <nav className={journey.path} aria-label="Commercial to service journey">
+      <span><small>01 · Prospect or Client</small><Link href="/crm?view=organisations">Organisation</Link></span>
+      <span><small>02 · Sales opportunity</small><Link href="/crm?view=pipeline">Pipeline and next action</Link></span>
+      <span><small>03 · Explicit authorisation</small><Link href="/mobilisations">Mobilisation</Link></span>
+      <span><small>04 · Source setup</small><Link href="/sites">Site, Service or Event</Link></span>
+    </nav>}
     {view==="pipeline" && <CrmPipeline owners={owners} />}
     {error && <p role="alert" className="enterprise-error">{error} <button type="button" onClick={()=>void load()}>Retry</button></p>}
     {loading ? <div className="crm-skeleton" role="status">Loading CRM…</div> : null}
@@ -132,31 +158,39 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
         <span>Showing {rows("items").length?offset+1:0}–{offset+rows("items").length} of {String(data.total ?? 0)}</span>
         {offset+25<Number(data.total)&&<Button variant="outline" onClick={()=>setOffset(offset+25)}>Next</Button>}</div>
     </>}
-    {!loading && org && view==="organisation" && <>
-      <div className="crm-record-summary"><span className="crm-state">{title(org.relationship_status)}</span><span>Account owner: {owners.find((o)=>o.id===org.owner_person_id)?.displayName ?? "Assigned Office"}</span><span>Created {date(org.created_at)}</span></div>
-      {org.relationship_status==="CLIENT"&&<p><Link href={`/mobilisations?organisation=${org.id}`}>Authorise mobilisation for this Client</Link></p>}
-      <div className="crm-detail-grid"><section className="crm-panel"><div className="crm-panel-heading"><h2>Overview</h2><Button variant="outline" onClick={openOrganisationEdit}>Edit</Button></div>
+    {!loading && org && view==="organisation" && <div className="crm-organisation-record">
+      <Link className="crm-record-back" href="/crm?view=organisations">← Organisations</Link>
+      <header className="crm-organisation-header"><h1>{String(org.name)}</h1><div className="crm-record-identity"><span>Organisation</span><strong>{title(org.relationship_status)}</strong></div><p>Account owner: {owners.find((o)=>o.id===org.owner_person_id)?.displayName ?? "Assigned Office"} · Created {date(org.created_at)}</p></header>
+      <nav className="crm-organisation-sections" aria-label="Organisation sections"><a href="#organisation-overview">Overview</a><a href="#organisation-contacts">Contacts</a><a href="#organisation-opportunities">Opportunities</a><a href="#organisation-history">History</a><a href="#organisation-work">Work</a><a href="#organisation-sources">Sites and Events</a></nav>
+      <RecordSectionTracker label="Organisation sections" />
+      <div className="crm-organisation-related"><strong>Related workflows</strong><a href="#organisation-opportunities">Sales opportunities</a>{org.relationship_status==="CLIENT"&&<Link href={`/mobilisations?organisation=${org.id}`}>Authorise mobilisation</Link>}<a href="#organisation-sources">Source records</a></div>
+      <div className="crm-organisation-content">
+      <div className="crm-detail-grid"><section id="organisation-overview" className="crm-panel"><div className="crm-panel-heading"><h2>Overview</h2><Button variant="outline" onClick={openOrganisationEdit}>Edit</Button></div>
         <dl><div><dt>Trading name</dt><dd>{String(org.trading_name ?? "—")}</dd></div><div><dt>Website</dt><dd>{String(org.website ?? "—")}</dd></div><div><dt>General email</dt><dd>{String(org.general_email ?? "—")}</dd></div><div><dt>Main phone</dt><dd>{String(org.main_phone ?? "—")}</dd></div></dl>
-      </section><section className="crm-panel"><div className="crm-panel-heading"><h2>Contacts</h2><Button variant="outline" onClick={()=>setForm("contact")}>Add Contact</Button></div>
+      </section><section id="organisation-contacts" className="crm-panel"><div className="crm-panel-heading"><h2>Contacts</h2><Button variant="outline" onClick={()=>setForm("contact")}>Add Contact</Button></div>
         {rows("contacts").length?rows("contacts").map((contact)=><div className="crm-subrow" key={String(contact.id)}><strong>{String(contact.first_name)} {String(contact.last_name)}</strong><span>{String(contact.job_title ?? "")}</span><span>{contact.is_primary?"Primary contact":contact.active?"Active":"Inactive"}</span><small>{String(contact.business_email ?? "")}</small><Button variant="ghost" onClick={()=>openContactEdit(contact)}>Edit</Button></div>):<p>No Contacts yet.</p>}
-      </section><section className="crm-panel"><div className="crm-panel-heading"><h2>Opportunities</h2><Button variant="outline" onClick={()=>setForm("opportunity")}>New Opportunity</Button></div>
+      </section><section id="organisation-opportunities" className="crm-panel"><div className="crm-panel-heading"><h2>Opportunities</h2><Button variant="outline" onClick={()=>setForm("opportunity")}>New Opportunity</Button></div>
         {rows("opportunities").length?rows("opportunities").map((item)=><Link className="crm-subrow" key={String(item.id)} href={`/crm/opportunities/${item.id}`}><strong>{String(item.title)}</strong><span>{title(item.stage)}</span><span>{value(item.estimated_value_gbp_pence)}</span></Link>):<p>No Opportunities yet.</p>}
-      </section><section className="crm-panel"><h2>Relationship history</h2>{rows("history").length?rows("history").map((item)=><p key={String(item.id)}>{title(item.old_status)} → {title(item.new_status)} · {date(item.occurred_at)} · by {personName(item.actor_person_id)}</p>):<p>No relationship transition yet.</p>}
+      </section><section id="organisation-history" className="crm-panel"><h2>Relationship history</h2>{rows("history").length?rows("history").map((item)=><p key={String(item.id)}>{title(item.old_status)} → {title(item.new_status)} · {date(item.occurred_at)} · by {personName(item.actor_person_id)}</p>):<p>No relationship transition yet.</p>}
         {rows("ownerHistory").map((item)=><p key={String(item.id)}>Account owner: {personName(item.old_owner_person_id)} → {personName(item.new_owner_person_id)} · {date(item.occurred_at)} · by {personName(item.actor_person_id)}</p>)}</section></div>
-      <CrmRecordWork kind="organisation" id={String(org.id)} organisationId={String(org.id)} owners={owners}
-        currentPersonId={currentPersonId} commercialHistory={[...rows("history"),...rows("ownerHistory")]} />
-      <CrmOperationalLinks organisationId={String(org.id)} />
+      <div id="organisation-work"><CrmRecordWork kind="organisation" id={String(org.id)} organisationId={String(org.id)} owners={owners}
+        currentPersonId={currentPersonId} commercialHistory={[...rows("history"),...rows("ownerHistory")]} /></div>
+      <div id="organisation-sources"><CrmOperationalLinks organisationId={String(org.id)} /></div>
       <p className="enterprise-honesty">Commercial Documents and staffing remain separate future work.</p>
-    </>}
-    {!loading && opportunity && view==="opportunity" && <>
-      <div className="crm-record-summary"><span className="crm-state">{title(opportunity.stage)}</span><Link href={`/crm/organisations/${opportunity.organisation_id}`}>{String((data?.organisation as Row)?.name ?? "Organisation")}</Link><span>{title(opportunity.opportunity_type)}</span></div>
-      <div className="crm-detail-grid"><section className="crm-panel"><h2>Opportunity</h2><dl>
+      </div></div>}
+    {!loading && opportunity && view==="opportunity" && <div className="crm-opportunity-record">
+      <Link className="crm-record-back" href="/crm?view=opportunities">← Opportunities</Link>
+      <header className="crm-organisation-header"><h1>{String(opportunity.title)}</h1><div className="crm-record-identity"><span>Opportunity</span><strong>{title(opportunity.stage)}</strong><span>{title(opportunity.opportunity_type)}</span></div><p>{String((data?.organisation as Row)?.name ?? "Organisation")} · Owner: {owners.find((o)=>o.id===opportunity.owner_person_id)?.displayName ?? "Assigned Office"}</p></header>
+      <nav className="crm-opportunity-sections" aria-label="Opportunity sections"><a href="#opportunity-overview">Overview</a><a href="#opportunity-stage">Stage and owner</a><a href="#opportunity-work">Work and history</a></nav>
+      <RecordSectionTracker label="Opportunity sections" />
+      <div className="crm-organisation-related"><strong>Related workflows</strong><Link href={`/crm/organisations/${opportunity.organisation_id}`}>Organisation</Link>{opportunity.stage==="WON"&&<><Link href={`/mobilisations?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Authorise mobilisation</Link><Link href={`/events?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Create operational Event</Link></>}</div>
+      <div className="crm-detail-grid"><section id="opportunity-overview" className="crm-panel"><h2>Opportunity</h2><dl>
         <div><dt>Estimated opportunity value</dt><dd>{value(opportunity.estimated_value_gbp_pence)}</dd></div>
         <div><dt>Expected decision</dt><dd>{String(opportunity.expected_decision_date ?? "Not set")}</dd></div>
         <div><dt>Owner</dt><dd>{owners.find((o)=>o.id===opportunity.owner_person_id)?.displayName ?? "Assigned Office"}</dd></div>
         <div><dt>Primary Contact</dt><dd>{data?.contact?`${String((data.contact as Row).first_name)} ${String((data.contact as Row).last_name)}`:"Not selected"}</dd></div>
         <div><dt>Summary</dt><dd>{String(opportunity.summary ?? "No summary")}</dd></div>
-      </dl></section><section className="crm-panel"><h2>Stage and ownership</h2>{!["WON","LOST"].includes(String(opportunity.stage)) ? <>
+      </dl></section><section id="opportunity-stage" className="crm-panel"><h2>Stage and ownership</h2>{!["WON","LOST"].includes(String(opportunity.stage)) ? <>
         <label className="crm-field">Move to stage<select value={stage} onChange={(e)=>setStage(e.target.value)}><option value="">Select stage</option>{stageNames.filter((s)=>s!==opportunity.stage).map((s)=><option key={s} value={s}>{title(s)}</option>)}</select></label>
         {(stage==="LOST"||backwards)&&<label className="crm-field">{stage==="LOST"?"Lost reason":"Reason for moving backwards"}<Input required value={reason} maxLength={500} onChange={(e)=>setReason(e.target.value)}/></label>}
         {stage==="WON"&&<label className="crm-confirm"><input type="checkbox" checked={confirm} onChange={(e)=>setConfirm(e.target.checked)}/> I confirm this opportunity is Won. This does not establish a contract or active service.</label>}
@@ -167,13 +201,13 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
         <Button variant="outline" disabled={busy} onClick={()=>void act("changeValue",{id:opportunity.id,valuePence:fields.value===""?null:Math.round(Number(fields.value)*100)})}>Update estimate</Button>
       </>:<><p><strong>{title(opportunity.stage)} recorded</strong></p><p>This outcome is terminal in 05A. The record and its history remain available; corrections require a future approved process.</p></>}</section>
       </div>
-      <CrmRecordWork kind="opportunity" id={String(opportunity.id)} organisationId={String(opportunity.organisation_id)}
-        owners={owners} currentPersonId={currentPersonId} accountableOwnerId={String(opportunity.owner_person_id)} commercialHistory={rows("history")} />
-      {opportunity.stage==="WON"&&<p><Link href={`/mobilisations?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Authorise mobilisation from this Won Opportunity</Link> · <Link href={`/events?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Create operational Event</Link></p>}
+      <div id="opportunity-work"><CrmRecordWork kind="opportunity" id={String(opportunity.id)} organisationId={String(opportunity.organisation_id)}
+        owners={owners} currentPersonId={currentPersonId} accountableOwnerId={String(opportunity.owner_person_id)} commercialHistory={rows("history")} /></div>
       <p className="enterprise-honesty">Estimated value is not contracted or invoiced revenue.</p>
-    </>}
+    </div>}
     {form && <div className="crm-dialog-backdrop" role="presentation"><section className="crm-dialog" role="dialog" aria-modal="true" aria-labelledby="crm-dialog-title">
       <div className="crm-panel-heading"><h2 id="crm-dialog-title">{form==="organisation"?"New Organisation":form==="editOrganisation"?"Edit Organisation":form==="contact"?"Add Contact":form==="editContact"?"Edit Contact":"New Opportunity"}</h2><Button variant="ghost" onClick={()=>{setForm("");setFields({});}}>Close</Button></div>
+      {error && <p role="alert" className="enterprise-error">{error}</p>}
       <form onSubmit={(e)=>{e.preventDefault(); if(form==="organisation"||form==="editOrganisation") void act(form==="organisation"?"createOrganisation":"updateOrganisation",{id,name:fields.name,tradingName:fields.tradingName,website:fields.website,email:fields.email,phone:fields.phone,ownerId:fields.ownerId||currentPersonId});
         if(form==="contact"||form==="editContact") void act(form==="contact"?"createContact":"updateContact",{id:fields.contactId,organisationId:id,firstName:fields.firstName,lastName:fields.lastName,jobTitle:fields.jobTitle,email:fields.email,phone:fields.phone,primary:fields.primary==="yes",active:fields.active!=="no",duplicateConfirmed:fields.duplicateConfirmed==="yes"});
         if(form==="opportunity") void act("createOpportunity",{organisationId:id,title:fields.title,type:fields.type,ownerId:fields.ownerId||currentPersonId,contactId:fields.contactId||null,valuePence:fields.value?Math.round(Number(fields.value)*100):null,decisionDate:fields.decisionDate||null,summary:fields.summary||null});}}>

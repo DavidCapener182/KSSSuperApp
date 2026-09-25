@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { FactualStatus, FilterBar, ResponsiveRecordList, SourceCard, StatePanel, type ResponsiveRecord } from "@/components/ui13/operational";
 import styles from "./assets-workspace.module.css";
 
 type Item = { id: string; reference: string; class: string; description: string; condition: string;
@@ -25,6 +26,9 @@ const classes = ["RADIO", "KEY_CARD", "PHONE", "LAPTOP_TABLET", "BODYCAM"];
 const empty: Data = { stores: [], items: [], stock: [], myStock: [] };
 const stamp = (value: string | null) => value ? new Intl.DateTimeFormat("en-GB",
   { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/London" }).format(new Date(value)) : "Not set";
+const availableToIssue = (value: Item) => value.holderKind === "STORE" && value.pendingAck === null &&
+  value.maintenanceState === "NONE" && value.exceptionState === "NONE" &&
+  ["GOOD", "SERVICEABLE"].includes(value.condition) ? "Yes" : "No";
 
 async function api(body?: Record<string, unknown>, query = "") {
   const response = await fetch("/api/assets" + query, body ? {
@@ -55,6 +59,8 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
   const [contextFilter, setContextFilter] = useState("");
   const [search, setSearch] = useState("");
   const [busy, setBusy] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
   const refresh = useCallback(async () => {
     setData(await api(undefined, mode === "self" ? "?self=1" : "") as Data);
     if (superAdmin && mode === "register") setAdmin(await api(undefined, "?admin=1") as Admin);
@@ -63,7 +69,16 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
         setHolders([...choices.people, ...choices.places]); } catch { setHolders([]); }
     }
   }, [mode, operations, superAdmin]);
-  useEffect(() => { void Promise.resolve().then(refresh).catch(() => setMessage("Asset view unavailable.")); }, [refresh]);
+  const reload = useCallback(async () => {
+    setLoading(true); setLoadError("");
+    try { await refresh(); }
+    catch { setLoadError("Asset view unavailable. Current records could not be confirmed."); }
+    finally { setLoading(false); }
+  }, [refresh]);
+  useEffect(() => {
+    if (mode === "register") void Promise.resolve().then(reload);
+    else void Promise.resolve().then(refresh).catch(() => setMessage("Asset view unavailable."));
+  }, [mode, refresh, reload]);
   async function submit(body: Record<string, unknown>) {
     setBusy(true); setMessage("");
     try {
@@ -95,10 +110,39 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
   const visibleItems = data.items.filter((value) => (!contextFilter ||
     value.holderKind + ":" + value.holderId === contextFilter) &&
     (!search || (value.reference + " " + value.description).toLowerCase().includes(search.toLowerCase())));
+  const registerRows: ResponsiveRecord[] = visibleItems.map((value) => ({
+    id: value.id,
+    cells: [
+      <span key="item"><strong>{value.reference}</strong><br />{value.description}<br />{value.class.replaceAll("_", " ")}</span>,
+      <span key="custody">{value.holderKind.replaceAll("_", " ")} · {value.holderLabel ?? value.holderId}<br />Last location: {value.locationLabel ?? "Not recorded"}</span>,
+      <span key="condition"><FactualStatus label={`Condition ${value.condition}`} /><br />Repair: {value.maintenanceState}<br />Exception: {value.exceptionState}</span>,
+      <span key="return">{stamp(value.expectedReturnAt)}{value.overdue && <><br />Expected return has passed.</>}{value.pendingAck && <><br />Handover acknowledgement pending: {value.pendingAck}</>}</span>,
+      availableToIssue(value),
+      <button key="action" type="button" className={styles.rowAction} onClick={() => open(value)}>View history and actions</button>,
+    ],
+    mobile: {
+      title: `${value.reference} · ${value.description}`,
+      status: <FactualStatus label={`Condition ${value.condition}`} />,
+      details: [
+        `Class: ${value.class.replaceAll("_", " ")}`,
+        `Custody: ${value.holderKind.replaceAll("_", " ")} · ${value.holderLabel ?? value.holderId}`,
+        `Last location: ${value.locationLabel ?? "Not recorded"}`,
+        `Repair: ${value.maintenanceState} · Exception: ${value.exceptionState}`,
+        `Return expected: ${stamp(value.expectedReturnAt)} · Available to issue: ${availableToIssue(value)}`,
+        ...(value.overdue ? ["Expected return has passed."] : []),
+        ...(value.pendingAck ? [`Handover acknowledgement pending: ${value.pendingAck}`] : []),
+      ],
+      action: <button type="button" className={styles.rowAction} onClick={() => open(value)}>View history and actions</button>,
+    },
+  }));
   return <div className={styles.workspace}>
     <p className={styles.hint}>Synthetic development only. Custody, condition and repair are recorded separately. Damage or loss is an operational fact, not an attribution of blame.</p>
     <p role="status" aria-live="polite">{busy ? "Saving…" : message}</p>
-    {mode === "register" && office && <div className={styles.grid}>
+    {mode === "register" && loading && <StatePanel kind="loading" title="Loading authorised assets" description="Waiting for the current asset register read." />}
+    {mode === "register" && loadError && <StatePanel kind="error" title="Asset view unavailable" description={loadError}
+      action={<button type="button" className={styles.retry} onClick={() => void reload()}>Retry</button>} />}
+    {(mode === "self" || (!loading && !loadError)) && <>
+    {mode === "register" && office && <details className={styles.setup}><summary>Register items and opening stock</summary><p>Use these controls after confirming the exact item or stock record does not already exist.</p><div className={styles.grid}>
       <section className={styles.panel}><h2>Register an item</h2>
         <form onSubmit={(event) => { event.preventDefault(); const f = new FormData(event.currentTarget);
           submit({ action: "REGISTER", reference: String(f.get("reference")).trim().toUpperCase(),
@@ -127,9 +171,9 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
           <button disabled={busy || !store}>Open stock</button>
         </form>
       </section>
-    </div>}
+    </div></details>}
     {mode === "register" && superAdmin && admin && <section className={styles.panel}>
-      <h2>Scoped Operations grants</h2>
+      <details className={styles.adminDetails}><summary>Scoped Operations grants</summary><p>Grant and revocation change access for one exact scope. Review current grants before making a change.</p>
       <form onSubmit={(event) => { event.preventDefault(); const f = new FormData(event.currentTarget);
         const scope = admin.scopes.find((value) => value.kind + ":" + value.id === f.get("scope"));
         if (scope) submit({ action: "GRANT", personId: f.get("person"), scopeKind: scope.kind, scopeId: scope.id,
@@ -146,18 +190,30 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
       <details><summary>Recent grant history</summary><ol className={styles.history}>{admin.grantEvents.map((event) =>
         <li key={event.id}>{event.kind} · {stamp(event.occurredAt)} · grant {event.grantId.slice(0, 8)}
           <span>Reason: {event.reason}</span></li>)}</ol></details>
+      </details>
     </section>}
-    <section className={styles.panel}><h2>{mode === "self" ? "My equipment" : "Asset register"}</h2>
+    {mode === "register" && <section className={styles.registerSection} aria-labelledby="asset-register-heading">
+      <h2 id="asset-register-heading">Asset register</h2>
+      <p className={styles.hint}>Search authorised items and inspect custody, location, condition, repair and exception separately. Open an item for exact history and guarded actions.</p>
+      <FilterBar resultCount={`${visibleItems.length} ${visibleItems.length === 1 ? "item" : "items"} in this view`}>
+        <label>Find asset by reference or description<input type="search" value={search}
+          onChange={(event) => setSearch(event.target.value)} /></label>
+        <label>Site, Service or Event view<select value={contextFilter} onChange={(event) => setContextFilter(event.target.value)}>
+          <option value="">All authorised items</option>
+          {contexts.map((value) => <option key={value.holderKind + value.holderId} value={value.holderKind + ":" + value.holderId}>
+            {value.holderKind.replaceAll("_", " ")} · {value.holderLabel ?? value.holderId}</option>)}
+        </select></label>
+      </FilterBar>
+      <ResponsiveRecordList label="Authorised asset register" columns={["Item", "Custody / location", "Condition / repair / exception", "Expected return", "Available to issue", "Record"]}
+        rows={registerRows} empty={<StatePanel kind="empty" title="No assets in this view" description="Try a different search or context filter." />} />
+    </section>}
+    {mode === "self" && <section className={styles.panel}><h2>My equipment</h2><p className={styles.hint}>Current items issued to you. Open an item to acknowledge, dispute or report an observation.</p>
       <label>Find asset by reference or description<input type="search" value={search}
         onChange={(event) => setSearch(event.target.value)} /></label>
-      {mode === "register" && <label>Site, Service or Event view<select value={contextFilter} onChange={(event) => setContextFilter(event.target.value)}>
-        <option value="">All authorised items</option>
-        {contexts.map((value) => <option key={value.holderKind + value.holderId} value={value.holderKind + ":" + value.holderId}>
-          {value.holderKind.replaceAll("_", " ")} · {value.holderLabel ?? value.holderId}</option>)}
-      </select></label>}
+      <p className={styles.count} role="status">{visibleItems.length} {visibleItems.length === 1 ? "item" : "items"} in this view</p>
       {visibleItems.length === 0 && <p>No assets in this view.</p>}
       <div className={styles.grid}>{visibleItems.map((value) => <article className={styles.card} key={value.id}>
-        <strong>{value.reference} · {value.class.replaceAll("_", " ")}</strong><p>{value.description}</p>
+        <span className={styles.reference}>{value.reference} · {value.class.replaceAll("_", " ")}</span><h3>{value.description}</h3>
         <dl><dt>Available to issue</dt><dd>{value.holderKind === "STORE" && value.pendingAck === null &&
           value.maintenanceState === "NONE" && value.exceptionState === "NONE" &&
           ["GOOD", "SERVICEABLE"].includes(value.condition) ? "Yes" : "No"}</dd>
@@ -169,8 +225,14 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
         {value.pendingAck && <p className={styles.alert}>Handover acknowledgement pending: {value.pendingAck}</p>}
         <button type="button" onClick={() => open(value)}>View history and actions</button>
       </article>)}</div>
-    </section>
-    {current && <section className={styles.panel}><h2>{current.reference} · history</h2>
+    </section>}
+    {current && <section className={mode === "register" ? `${styles.panel} ${styles.selectedSection}` : styles.panel}>
+      {mode === "register" ? <SourceCard identity={`${current.reference} · ${current.description}`}
+        context={`${current.class.replaceAll("_", " ")} · selected asset`} state={`Condition ${current.condition}`}
+        freshness={`Revision ${current.revision}`} primary>
+        <p>Custody: {current.holderKind.replaceAll("_", " ")} · {current.holderLabel ?? current.holderId}. Last location: {current.locationLabel ?? "Not recorded"}.</p>
+        <p>Repair: {current.maintenanceState}. Exception: {current.exceptionState}. Expected return: {stamp(current.expectedReturnAt)}.</p>
+      </SourceCard> : <h2>{current.reference} · history</h2>}
       {history?.serial && <p>Serial: {history.serial}</p>}
       {actionList.length > 0 && <form onSubmit={(event) => { event.preventDefault();
         submit({ action, assetId: current.id, expectedRevision: current.revision,
@@ -239,5 +301,6 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
         </>}
       </article>)}
     </section>}
+    </>}
   </div>;
 }

@@ -29,9 +29,18 @@ test('TASK-14A synthetic Site Book, next shift, individual acknowledgement and d
   await rpc(office,'site_service_transition',{p_service:service,p_state:'ACTIVE',p_effective_on:today,p_expected_revision:1,p_reason:'Synthetic 24/7 book proof'});
   const roles=await rpc(office,'staffing_role_choices');const role=roles.find(x=>x.code==='STEWARD');assert.ok(role);
   for(const [report,start,end] of [['06:00','06:00','18:00'],['18:00','18:00','06:00']])await rpc(office,'site_shift_template_publish',{p_service:service,p_line:null,p_effective_from:today,p_weekdays:[1,2,3,4,5,6,7],p_role:role.id,p_quantity:2,p_report:report,p_starts:start,p_ends:end,p_area:'Warehouse',p_reporting:'Gatehouse',p_reason:'Synthetic day and night cover'});
+  const report=local(new Date()).slice(11);
+  const end=local(new Date(Date.now()+2*3600000)).slice(11);
+  await rpc(office,'site_shift_template_publish',{p_service:service,p_line:null,p_effective_from:today,
+   p_weekdays:[1,2,3,4,5,6,7],p_role:role.id,p_quantity:2,p_report:report,p_starts:report,p_ends:end,
+   p_area:'Current cover',p_reporting:'Gatehouse',p_reason:'Synthetic in-window allocation proof'});
   const detail=await rpc(ops,'site_service_detail',{p_site:site,p_service:service,p_from:today,p_until:plus(today,2)});
   assert.ok(detail.demands.some(x=>x.service_date===today&&new Date(x.report_at).getUTCHours()===5),'day demand 06:00–18:00 materialised');
-  const night=detail.demands.find(x=>x.service_date===today&&new Date(x.report_at).getUTCHours()===17);assert.ok(night,'night demand 18:00–06:00 materialised');demand=night.id;
+  const night=detail.demands.find(x=>x.service_date===today&&new Date(x.report_at).getUTCHours()===17);assert.ok(night,'night demand 18:00–06:00 materialised');
+  const nowMs=Date.now();
+  const inWriteWindow=detail.demands.find(x=>x.state==='PLANNED'&&
+   nowMs>=Date.parse(x.report_at)-3600000&&nowMs<=Date.parse(x.shift_ends_at)+3600000);
+  assert.ok(inWriteWindow,'an allocated duty in the accepted Site Book write window is required');demand=inWriteWindow.id;
   assert.ok((await ops.rpc('site_book_next_shift_14a',{p_service:service,p_offset:0})).error,'Operations role alone has no manager grant');
   assert.ok((await office.rpc('site_book_next_shift_14a',{p_service:service,p_offset:0})).error,'Office has no blanket book read');
   assert.ok((await staffB.rpc('site_book_next_shift_14a',{p_service:service,p_offset:0})).error,'unallocated Staff has no book access');

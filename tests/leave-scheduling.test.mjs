@@ -53,8 +53,20 @@ test('17C approved leave blocks new Event/static duty and acceptance while prese
  const existing=await rpc(office,'deployment_allocate',{p_event:event,p_requirement:first,p_person:staffId,
   p_expected_revision:1,p_acknowledge_warnings:true,p_reason:'Synthetic 17C warning review'});
  const before=await rpc(office,'deployment_requirement',{p_event:event,p_requirement:first});
+ const [availabilityBefore,attendanceBefore,workTimeBefore]=await Promise.all([
+  rpc(staff,'my_availability',{p_offset:0,p_limit:50}),
+  rpc(office,'attendance_event_overview',{p_event:event,p_offset:0,p_limit:50}),
+  rpc(staff,'event_work_time_self_read',{p_allocation:existing})]);
  const request=await leave(staff,manager,[{kind:'WHOLE_DAY',date:day}]);
  const after=await rpc(office,'deployment_requirement',{p_event:event,p_requirement:first});
+ const [availabilityAfter,attendanceAfter,workTimeAfter]=await Promise.all([
+  rpc(staff,'my_availability',{p_offset:0,p_limit:50}),
+  rpc(office,'attendance_event_overview',{p_event:event,p_offset:0,p_limit:50}),
+  rpc(staff,'event_work_time_self_read',{p_allocation:existing})]);
+ assert.equal(availabilityAfter.revision,availabilityBefore.revision,'approval does not change Availability');
+ assert.deepEqual(attendanceAfter,attendanceBefore,'approval does not change Attendance');
+ assert.deepEqual(workTimeAfter,workTimeBefore,'approval does not change Worked Time');
+ assert.equal(after.revision,before.revision,'approval does not change demand revision');
  assert.deepEqual(after.allocations.find(item=>item.id===existing),before.allocations.find(item=>item.id===existing),
   'leave approval does not mutate an existing allocation');
  const issues=await rpc(manager,'time_away_reconciliation_list',{p_source:'EVENT',p_allocation:existing});

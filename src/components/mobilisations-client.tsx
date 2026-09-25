@@ -35,13 +35,22 @@ export function MobilisationsClient({ organisation, opportunity, actorId }: { or
   }, [draft.organisationId]);
   async function create(event: React.FormEvent) {
     event.preventDefault(); setBusy(true); setError("");
-    try { const data = await read("/api/mobilisations", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...draft, requestKey: crypto.randomUUID() }) }); router.push(`/mobilisations/${data.id}`); }
+    try { const data = await read("/api/mobilisations", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...draft, requestKey: crypto.randomUUID() }) });
+      const confirmed = await read(`/api/mobilisations/${data.id}`);
+      if (confirmed.mobilisation?.id !== data.id) throw new Error("Authorisation response could not be confirmed. Refresh before trying again.");
+      router.push(`/mobilisations/${data.id}`); }
     catch (caught) { setError(caught instanceof Error ? caught.message : "Authorisation denied"); }
     finally { setBusy(false); }
   }
   return <main className={`enterprise-main ${styles.page}`}>
     <p className="eyebrow">Office · synthetic development data</p><h1>Mobilisations</h1>
-    <p className="enterprise-intro">Authorised work between a Client handover and an explicit operational decision. CRM Won does not start work automatically.</p>
+    <p className="enterprise-intro">Coordinate an explicitly authorised Client scope through source setup and a recorded human handover. A Won Opportunity is an origin, not an authorisation.</p>
+    <nav className={styles.journey} aria-label="Commercial to service journey">
+      <span><small>01 · Opportunity</small><Link href="/crm?view=pipeline">Review CRM</Link></span>
+      <span><small>02 · Client</small><Link href="/crm?view=organisations">Confirm Client</Link></span>
+      <span><small>03 · Mobilisation</small><a href="#authorise-heading" aria-current="step">Authorise scope</a></span>
+      <span><small>04 · Source setup</small><Link href="/sites">Sites and services</Link></span>
+    </nav>
     {error && <p role="alert" className="enterprise-error">{error}</p>}
     <section className={styles.card} aria-labelledby="authorise-heading"><h2 id="authorise-heading">Authorise mobilisation</h2>
       <form onSubmit={create} className={styles.form}>
@@ -56,9 +65,9 @@ export function MobilisationsClient({ organisation, opportunity, actorId }: { or
       </form></section>
     <section aria-labelledby="mobilisation-list-heading"><h2 id="mobilisation-list-heading">Current mobilisations <small>{total}</small></h2>
       {loading && <p role="status">Loading authorised records…</p>}
-      {!loading && items.length === 0 && <p>No mobilisations yet.</p>}
+      {!loading && items.length === 0 && <p>No authorised mobilisations in this view. Confirm the Client and use the authorisation form above when a scope is approved.</p>}
       <div className={styles.list}>{items.map(item => <Link className={styles.row} href={`/mobilisations/${item.id}`} key={item.id}>
-        <strong>{item.title}</strong><span>{item.organisation_name} · {item.template_code.replaceAll("_", " ")}</span><span>{item.status.replaceAll("_", " ")} · {item.owner_name}</span><span>Target {item.target_go_live ?? "not set"}</span>
+        <strong>{item.title}</strong><span>{item.organisation_name} · {item.template_code.replaceAll("_", " ")}</span><span><strong className={styles.state}>{item.status.replaceAll("_", " ")}</strong> · owner {item.owner_name}</span><span>Target {item.target_go_live ?? "not set"}</span>
       </Link>)}</div>
       <div className={styles.pager}><Button variant="outline" disabled={offset === 0 || loading} onClick={() => setOffset(Math.max(0, offset - 25))}>Previous</Button><Button variant="outline" disabled={offset + 25 >= total || loading} onClick={() => setOffset(offset + 25)}>Next</Button></div>
     </section>

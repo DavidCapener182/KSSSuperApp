@@ -1,4 +1,6 @@
 "use client";
+import "./record-studies.css";
+import { RecordSectionTracker } from "./record-section-tracker";
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
@@ -7,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { addCivilDays, londonToday, londonWeekStart } from "@/lib/events/workforce-week";
 import { londonDueToIso } from "@/lib/crm/due-time";
 import { LeaveReconciliation } from "@/components/leave-reconciliation";
+import journey from "./commercial-journey.module.css";
 
 type Service = { id:string;name:string;type:string;state:string;effective_from:string;effective_until:string|null;
   revision:number;client_name:string;site_name:string };
@@ -39,7 +42,7 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
  const [warningReason,setWarningReason]=useState("");const [exceptionQuantity,setExceptionQuantity]=useState(1);
  const [history,setHistory]=useState<{source:string;kind:string;record_id:string;revision:number;occurred_at:string;actor_name:string;reason:string|null}[]>([]);
  const api=`/api/site-services/${serviceId}`;
- const load=useCallback(async()=>{setLoading(true);setError("");try{const [response,roleResponse]=await Promise.all([
+ const load=useCallback(async():Promise<Detail|null>=>{setLoading(true);setError("");try{const [response,roleResponse]=await Promise.all([
    read(`${api}?site=${siteId}&from=${week}&until=${addCivilDays(week,7)}`),
    read("/api/events/staffing-roles")]);setDetail(response.detail);setRoles(roleResponse.roles??[]);
    if(initialDemandId&&response.detail?.demands?.some((demand:Demand)=>demand.id===initialDemandId)){
@@ -47,11 +50,14 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
      body:JSON.stringify({action:"allocations",demandId:initialDemandId})});
     setSelected(initialDemandId);setAllocations(allocationResponse.result?.allocations??[]);
    }
-  }catch(caught){setError(caught instanceof Error?caught.message:"Service unavailable");}finally{setLoading(false);}},[api,siteId,week,initialDemandId]);
+   return response.detail as Detail;
+  }catch(caught){setError(caught instanceof Error?caught.message:"Service unavailable");return null;}finally{setLoading(false);}},[api,siteId,week,initialDemandId]);
  useEffect(()=>{const timer=setTimeout(()=>void load(),0);return()=>clearTimeout(timer);},[load]);
  async function act(action:string,fields:Record<string,unknown>){setBusy(true);setError("");setNotice("");try{
   const result=await read(api,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,...fields})});
-  setNotice("Change saved with its dated history.");await load();return result.result;
+  const confirmed=await load();
+  if(!confirmed||confirmed.service.id!==serviceId)throw Error("The server responded, but the authorised Service view could not be refreshed. Check the source before another change.");
+  setNotice("Server response received; current Service view refreshed. Check the dated history for the exact change.");return result.result;
  }catch(caught){setError(caught instanceof Error?caught.message:"Change could not be saved");return null;}finally{setBusy(false);}}
  async function loadAllocation(demandId:string){setSelected(demandId);setCandidates([]);try{const result=await read(api,{method:"POST",headers:{"content-type":"application/json"},
   body:JSON.stringify({action:"allocations",demandId})});setAllocations(result.result?.allocations??[]);}catch{setError("Allocations unavailable");}}
@@ -72,13 +78,15 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
   await act("extra",{serviceDate:date,roleId,quantity,reportAt:report,shiftStartsAt:start,shiftEndsAt:end,
    area,reporting,reason});}
  const service=detail?.service;
- return <main className="enterprise-main"><header className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Ongoing Site shift · synthetic development data</p>
-   <h1>{service?.name??"Site Service"}</h1><p>{service?.client_name} · {service?.site_name}</p></div></header>
-   <p><Link href={`/sites/${siteId}/services`}>All Site Services</Link> · <Link href="/workforce">Workforce</Link> · <Link href={`/sites/${siteId}/services/${serviceId}/attendance`}>Attendance</Link></p>
+ return <main className={`enterprise-main site-service-record ${journey.controls}`}><p className="enterprise-eyebrow">Ongoing Site shift · synthetic development data</p>
+   <header className="site-service-record-header"><h1>{service?.name??"Site Service"}</h1>{service&&<><div className="crm-record-identity"><span>Site Service</span><strong>{service.state.replaceAll("_"," ")}</strong><span>{service.type.replaceAll("_"," ")}</span></div><p>{service.client_name} · {service.site_name}</p><p>Effective {service.effective_from}{service.effective_until?` to ${service.effective_until}`:" onward"}</p></>}</header>
+   <nav className="site-service-record-sections" aria-label="Service sections"><a href="#service-state">Service state</a><a href="#service-template">Weekly template</a><a href="#service-demand">Dated demand</a><a href="#service-history">History</a></nav>
+   <RecordSectionTracker label="Service sections" />
+   <nav className="site-service-record-related" aria-label="Related workflows"><strong>Related workflows</strong><Link href={`/sites?view=operational&selected=${siteId}`}>Site</Link><Link href={`/sites/${siteId}/services`}>All Site Services</Link><Link href="/workforce">Workforce</Link><Link href={`/sites/${siteId}/services/${serviceId}/attendance`}>Attendance</Link><Link href={`/operational-contacts/manage?kind=SITE_SERVICE&id=${serviceId}`}>Operational contacts</Link></nav>
    {error&&<p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={()=>void load()}>Retry</Button></p>}
    {notice&&<p role="status" className="enterprise-honesty">{notice}</p>}
    {loading?<p role="status" className="crm-skeleton">Loading Service…</p>:service&&<>
-    <section className="crm-panel"><p><strong>{service.state}</strong> · {service.type.replaceAll("_"," ")} · Effective {service.effective_from}{service.effective_until?` to ${service.effective_until}`:" onward"}</p>
+    <section id="service-state" className="crm-panel"><p><strong>{service.state}</strong> · {service.type.replaceAll("_"," ")} · Effective {service.effective_from}{service.effective_until?` to ${service.effective_until}`:" onward"}</p>
      <p>Service status and staffing counts describe planning only. They do not confirm attendance or worked hours.</p>
      {detail?.pauses.length? <p>Pause periods: {detail.pauses.map((pause)=>`${pause.starts_on} to ${pause.ends_before} (exclusive)`).join(" · ")}</p>:null}
      {canAdmin&&<div className="sites-form"><label>Effective date<Input type="date" value={effectiveOn} onChange={(event)=>setEffectiveOn(event.target.value)} /></label>
@@ -88,7 +96,7 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
        {service.state==="ACTIVE"&&<Button variant="outline" disabled={busy} onClick={()=>void act("transition",{state:"PAUSED",effectiveOn,resumeOn,expectedRevision:service.revision,reason})}>Set pause period</Button>}
        {service.state==="PAUSED"&&<Button variant="outline" disabled={busy} onClick={()=>void act("transition",{state:"ACTIVE",effectiveOn,expectedRevision:service.revision,reason})}>Resume</Button>}
        {service.state!=="ENDED"&&<Button variant="outline" disabled={busy} onClick={()=>void act("transition",{state:"ENDED",effectiveOn,expectedRevision:service.revision,reason})}>End Service</Button>}</div></div>}</section>
-    <section className="crm-panel"><h2>Weekly demand template</h2><p>Published versions preserve intent; dated shifts keep their own identity and history.</p>
+    <section id="service-template" className="crm-panel"><h2>Weekly demand template</h2><p>Published versions preserve intent; dated shifts keep their own identity and history.</p>
       {detail?.templates.length?<ul>{detail.templates.map((item)=><li key={item.id}>{item.role_name} · {item.required_quantity} · {item.report_time.slice(0,5)} / {item.shift_start_time.slice(0,5)}–{item.shift_end_time.slice(0,5)} · {item.effective_from} to {item.effective_until??"open"} · v{item.version}</li>)}</ul>:<p>No template published.</p>}
       {canAdmin&&<form className="sites-form" onSubmit={(event)=>{event.preventDefault();void act("template",{lineId:lineId||null,effectiveFrom:effectiveOn,weekdays:days,roleId,
         quantity,reportTime,startTime,endTime,area,reporting,reason});}}>
@@ -108,7 +116,7 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
        <Button type="button" variant="outline" disabled={busy} onClick={()=>void act("generate",{from:week,until:addCivilDays(week,7)})}>Reconcile this week</Button>
        <Button type="button" variant="outline" disabled={busy||!roleId} onClick={()=>void extra()}>Add one dated extra shift</Button>
       </form>}</section>
-    <section><div className="enterprise-page-heading"><div><h2>Dated shift demand</h2><p>Exact, stable shifts for this week. Operations may manage dated exceptions and staffing.</p></div></div>
+    <section id="service-demand"><div className="enterprise-page-heading"><div><h2>Dated shift demand</h2><p>Exact, stable shifts for this week. Operations may manage dated exceptions and staffing.</p></div></div>
       <div className="workforce-toolbar"><Button variant="outline" onClick={()=>setWeek(addCivilDays(week,-7))}>Previous week</Button>
        <Button variant="outline" onClick={()=>setWeek(londonWeekStart(londonToday())!)}>This week</Button>
        <Button variant="outline" onClick={()=>setWeek(addCivilDays(week,7))}>Next week</Button><strong>Week of {week}</strong></div>
@@ -131,7 +139,7 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
             <Button variant="outline" disabled={busy||candidate.check.result==="BLOCKED"} onClick={()=>void allocate(candidate.id)}>Allocate</Button></li>)}</ul>:null}
          </div>}</article>)}</div>}
     </section>
-    <section className="crm-panel"><h2>Service and shift history</h2><p>Published versions, dated amendments and allocation responses remain attributable.</p>
+    <section id="service-history" className="crm-panel"><h2>Service and shift history</h2><p>Published versions, dated amendments and allocation responses remain attributable.</p>
       <Button variant="outline" onClick={()=>void loadHistory()}>Show recent history</Button>
       {history.length>0&&<ul>{history.map((entry)=><li key={`${entry.source}-${entry.record_id}-${entry.revision}`}>
         {time(entry.occurred_at)} · {entry.source.replaceAll("_"," ")} · {entry.kind.replaceAll("_"," ")} · v{entry.revision} · {entry.actor_name}

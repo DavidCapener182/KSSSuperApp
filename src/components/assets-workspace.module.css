@@ -18,4 +18,26 @@
 .history { padding-left: 1.4rem; }
 .history li { margin: .6rem 0; }
 .history span { display: block; overflow-wrap: anywhere; }
+.setup { border: 1px solid #cbd5e1; border-radius: 1rem; padding: 1rem; background: #f8fafc; }
+.setup summary,.adminDetails summary { min-height: 44px; display: flex; align-items: center; color: #153d72; font-size: 1.05rem; font-weight: 700; cursor: pointer; }
+.setup summary::before,.adminDetails summary::before { content: "▸"; display: inline-block; margin-right: .55rem; }
+.setup[open] > summary::before,.adminDetails[open] > summary::before { transform: rotate(90deg); }
+.setup summary::marker,.adminDetails summary::marker { color: #153d72; }
+.setup p,.adminDetails p { color: #475569; }
+.setup .grid { margin-top: .75rem; }
+.reference { color: #475569; font-size: .83rem; font-weight: 700; letter-spacing: .02em; overflow-wrap: anywhere; }
+.card h3 { margin: .3rem 0 .6rem; color: #0f172a; font-size: 1.1rem; line-height: 1.35; }
+.count { margin: .75rem 0; color: #334155; font-weight: 650; }
+.registerSection { min-width: 0; }
+.registerSection h2 { margin: 0 0 .45rem; color: #172c49; font-size: 1.25rem; }
+.registerSection > .hint { margin-bottom: .85rem; }
+.registerSection label { display: grid; gap: .3rem; min-width: min(100%, 210px); flex: 1 1 210px; color: #273c5c; font-size: 13px; font-weight: 650; }
+.registerSection :is(input,select) { min-width: 0; width: 100%; min-height: 44px; padding: .65rem; border: 1px solid #8497af; border-radius: .6rem; background: #fff; color: #142b4b; }
+.rowAction,.retry { display: inline-flex; align-items: center; min-height: 44px; border: 1px solid #9db1cf; border-radius: .6rem; background: #fff; color: #174c9d; font-weight: 650; padding: .5rem .7rem; cursor: pointer; }
+.selectedSection { background: transparent; border: 0; padding: 0; }
+.selectedSection h2 { font-size: 16px; margin: 5px 0 0; }
+.selectedSection form { margin-top: 1rem; padding: 1rem; border: 1px solid #ced8e5; border-radius: 12px; background: #fff; }
+.selectedSection .history { margin-top: 1rem; padding: 1rem 1rem 1rem 2.4rem; border: 1px solid #ced8e5; border-radius: 12px; background: #fff; }
+.selectedSection button[type="button"] { background: #fff; color: #174c9d; }
+.workspace :is(button,summary,input,select):focus-visible { outline: 3px solid #1d4ed8; outline-offset: 3px; }
 @media (max-width: 390px) { .panel, .card { padding: .85rem; } .card dl { grid-template-columns: 1fr; gap: .12rem; } .card dd { margin-bottom: .4rem; } }

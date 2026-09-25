@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { EmptyState, FeedbackBanner, LoadingBlock, PageHeader } from "@/components/ui/workflow";
+import styles from "./identity-admin.module.css";
 
 type QueueView = "MY_CASES" | "TEAM_QUEUE" | "NEEDS_OFFICE" | "WAITING_STAFF" | "BLOCKED" | "CANCELLED";
 type QueueRow = { id: string; starterName: string; intendedRole: string; templateVersion: number;
@@ -190,9 +191,13 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
 
   const possibleRecipients = eligible.filter((person) => person.personId !== selectedRow?.ownerPersonId &&
     (selectedRow?.canOpen || superAdmin || person.personId !== currentPersonId));
-  return <main className="enterprise-main office-onboarding-main">
+  return <main className={`enterprise-main office-onboarding-main ${styles.surface}`}>
     <PageHeader eyebrow="Synthetic development · Office" title="Onboarding workspace"
       description="Track starters, triage team work and arrange accountable cover. Queue rows show operational status only; private case detail requires separate authority." />
+    <section className={styles.boundary} aria-label="Onboarding access explained">
+      <strong>Case access follows the named Person and case</strong>
+      <p>Team membership permits queue triage. The current owner, finite named cover, or Super Admin can open private case detail. Document evidence has its own exact request and version checks.</p>
+    </section>
     <div className="office-onboarding-start"><Link href="/onboarding/new">Start synthetic onboarding case</Link></div>
     {error && <FeedbackBanner tone="error">{error}</FeedbackBanner>}
     {notice && <FeedbackBanner tone="success">{notice}</FeedbackBanner>}
@@ -235,6 +240,8 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
         <div><strong>{row.starterName}</strong><span>{row.verifiedCount} of {row.totalCount}</span></div>
         <p>{row.intendedRole.replaceAll("_", " ")} · Template v{row.templateVersion} · {row.state.replaceAll("_", " ")}</p>
         <p><b>Next:</b> {row.nextAction} · {row.nextActor}</p><p><b>Owner:</b> {row.ownerName}</p>
+        <p><b>Site context:</b> {row.siteName} · <b>Team:</b> {row.teamName}</p>
+        <p><b>Access:</b> {row.canOpen ? row.isCover ? "Named case cover" : "Current case authority" : "Team triage only"}</p>
         <p><b>Last activity:</b> {date(row.lastActivity)}</p>
         <div className="office-onboarding-actions">
           {row.canOpen ? <Link href={`/onboarding/${row.id}`}>Open case</Link> : <span>Team triage only</span>}
@@ -263,7 +270,8 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
         {teams.map((team) => <option key={team.id} value={team.id}>{team.name}</option>)}
       </select>
       <ul>{members.map((member) => <li key={member.membershipId}>
-        <span>{member.displayName}{member.canCoordinate ? " · Coordinator" : ""}</span>
+        <span><strong>{member.displayName}</strong><br />Office Person · {member.canCoordinate ? "Same-team coordinator" : "Queue triage"}<br />
+          {member.effectiveUntil ? `Ends ${date(member.effectiveUntil)}` : "No end supplied by this membership read"}</span>
         <button type="button" disabled={busy} onClick={() => updateMember(member, false)}>{member.canCoordinate ? "Remove coordinator" : "Make coordinator"}</button>
         <button type="button" disabled={busy} onClick={() => updateMember(member, true)}>Revoke membership</button>
       </li>)}</ul>
@@ -313,7 +321,8 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
             <button type="button" onClick={() => { setAction(null); setSelectedRow(null); }}>Close</button></div>
         </form>
         {action === "cover" && coverGrants.length > 0 && <div><h3>Current cover</h3><ul>
-          {coverGrants.map((grant) => <li key={grant.id}>{grant.coveringName} · until {date(grant.endsAt)}
+          {coverGrants.map((grant) => <li key={grant.id}><strong>{grant.coveringName}</strong> · named case cover<br />
+            {date(grant.startsAt)} to {date(grant.endsAt)} · Reason: {grant.reason}
             <button type="button" disabled={busy} onClick={() => revokeCover(grant.id)}>Revoke</button></li>)}
         </ul></div>}
       </section>

@@ -1,0 +1,11 @@
+# TASK-UI11 delivery close-out
+
+**Status: ACCEPTED AND CLOSED for the synthetic-Development shell rollout, 25 September 2026.** David confirmed final acceptance after the shared-shell checks. This does not authorise staging, production or live data.
+
+David visually accepted the Application Shell & Navigation 2.0 direction for broad enterprise-shell rollout in synthetic Development on 25 September 2026 after reviewing the five final screenshots. This is a shared-shell change in the isolated `task-ui11-shell-nav` worktree, based on `be3fb185249ecb10259d3bc944a1258131834341`; it is not a staging or production deployment.
+
+The shared server-authenticated enterprise layout wraps 57 enterprise page routes. UI11 changed only its client shell and shell-specific global CSS. Desktop has a persistent, independently scrolling 258px sidebar, a 76px collapsed rail with accessible hover and keyboard-focus tooltips, a 70px account header, and subordinate breadcrumb. Mobile has a compact 64px header and authorised left drawer. No role/capability rule, record/file permission, domain page, business source, schema or integration changed.
+
+Local verification after final refinements: Next route type generation, TypeScript, focused ESLint, production Webpack build and `git diff --check` passed. Browser checks used the built app with existing synthetic Office, Operations, Staff and Super Admin accounts. Representative allowed pages returned 200; Operations `/crm` and Staff `/people` returned 404. At 1280px and 1440px, Workforce showed all seven day columns and complete week/Refresh controls inside the viewport. The 390px drawer had the same 17 Office destinations, 44px trigger, 48px links, Escape close and focus restoration. No checked page had horizontal page overflow. Hover and keyboard focus both displayed collapsed-icon tooltips; independent sidebar scroll and current-item visibility were verified. See [the full UI11 report](../ui/TASK-UI11-SHELL-PROTOTYPE-REPORT.md), [five screenshots](../ui/evidence/ui11/) and [machine readback](../ui/evidence/ui11/rollout-checks.json).
+
+The check is representative, not a route-by-route visual audit or human acceptance of UI12–UI14. David accepted and closed UI11; those lanes retain their own scope and review gates. No live data, staging, production, or deployment result is claimed.

@@ -18,8 +18,21 @@ const monday=(date)=>plus(date,-((new Date(`${date}T00:00:00Z`).getUTCDay()+6)%7
 
 test('07B authorised week, gaps, explicit conflicts and own schedule', {timeout:180000}, async()=>{
  assert.ok(url&&key&&Object.values(creds).every(([email,password])=>email&&password));
- const [office,operations,staffA]=await Promise.all(['office','operations','staffA'].map(signed));
- const week=monday(plus(new Date().toISOString().slice(0,10),170+Math.floor(Math.random()*100)));
+ const [office,operations,staffA,staffB]=await Promise.all(['office','operations','staffA','staffB'].map(signed));
+ let week;
+ for(let offset=170;offset<690;offset+=7){
+  const candidate=monday(plus(new Date().toISOString().slice(0,10),offset));
+  const dutyDay=plus(candidate,5);
+  const clear=await Promise.all([staffA,staffB].map(async(client)=>{
+   const preview=await rpc(client,'availability_preview',{
+    p_starts:`${dutyDay}T12:30:00Z`,p_ends:`${dutyDay}T18:00:00Z`});
+   const leave=await rpc(client,'time_away_list',{p_from:dutyDay,p_to:dutyDay,p_limit:50});
+   return preview.replaced.length===0&&preview.deployments.length===0&&
+    !leave.items.some(item=>['APPROVED','CANCELLATION_REQUESTED'].includes(item.state));
+  }));
+  if(clear.every(Boolean)){week=candidate;break;}
+ }
+ assert.ok(week,'a clear synthetic workforce week is required');
  const stamp=Date.now();
  const org=await rpc(office,'crm_create_organisation',{p_name:`07B Synthetic Client ${stamp}`});
  const won=await rpc(office,'crm_create_opportunity',{p_organisation:org,p_title:'Synthetic workforce fixture',
