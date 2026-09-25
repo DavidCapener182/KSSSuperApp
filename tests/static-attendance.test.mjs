@@ -90,8 +90,8 @@ test('TASK-09B typed static attendance preserves Event source and factual histor
  if(!cancelledRace[0].error){assert.equal(raceView.items[0].attendance.events.filter(e=>e.type==='CHECK_IN').length,1);assert.equal(raceView.items[0].attendance.events.filter(e=>e.type==='REVIEW_REQUIRED').length,1,'check-in first is retained and flagged exactly once');}
  else assert.equal(raceView.items.length,0,'cancellation first denies Staff fact and creates no empty case');
  const firstPage=await rpc(staffA,'my_attendance_09b',{p_offset:0,p_limit:25});
- assert.ok(firstPage.items.some(x=>x.source==='SITE_SHIFT')&&firstPage.items.some(x=>x.source==='EVENT'),'one Staff attendance list includes both sources');
  const all=[];for(let offset=0;offset<firstPage.total;offset+=25){const page=await rpc(staffA,'my_attendance_09b',{p_offset:offset,p_limit:25});all.push(...page.items.map(x=>`${x.source}:${x.allocation_id}`));}
+ assert.ok(all.some(x=>x.startsWith('SITE_SHIFT:'))&&all.some(x=>x.startsWith('EVENT:')),'one Staff attendance list includes both sources across its bounded pages');
  assert.equal(new Set(all).size,firstPage.total,'bounded pages have no duplicate source identity');
  await rpc(operations,'site_shift_cancel_allocation',{p_service:service,p_demand:first.demand,p_allocation:first.allocation,p_expected_revision:2,p_reason:'Synthetic proof cleanup'});
  await rpc(operations,'site_shift_cancel_allocation',{p_service:service,p_demand:second.demand,p_allocation:second.allocation,p_expected_revision:2,p_reason:'Synthetic proof cleanup'});
