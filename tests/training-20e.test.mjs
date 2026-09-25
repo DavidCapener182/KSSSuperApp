@@ -141,7 +141,7 @@ test('TASK-20E source lifecycle and exact AssessmentVersion policy',{timeout:240
   const first=await makeCourse('versions');const v1=await makeAssessment(first.version);
   const a=await assign(personA,first.course,first.version),b=await assign(personB,first.course,first.version);
   const aAttempt=await markAndPass(staffA,a,v1),bAttempt=await markAndPass(staffB,b,v1);
-  const end=new Date(Date.now()+2500).toISOString();
+  const end=new Date(Date.now()+30000).toISOString();
   const rule1=await rpc(office,'training_completion_publish_rule',ruleArgs(first.version,v1,end));
   const v2=await makeAssessment(first.version);
   const aDone=await rpc(staffA,'training_completion_evaluate',{p_assignment:a,p_request:request()});

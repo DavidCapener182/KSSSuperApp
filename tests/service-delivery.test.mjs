@@ -19,7 +19,8 @@ test('TASK-21B synthetic Service Delivery foundation', {timeout:180000}, async()
  const choices=await rpc(office,'service_delivery_choices');
  assert.ok(choices.services.length>=1,'requires an unused synthetic Site Service');
  const owner=choices.owners.find(o=>o.office);assert.ok(owner);
- const service=choices.services[0];
+ const service=choices.services.find(s=>s.state!=='DRAFT');
+ assert.ok(service,'requires an unused operational synthetic Site Service for a legacy start');
  const startArgs={p_service:service.id,p_link:service.linkId,p_source:'LEGACY_EXISTING',p_mobilisation:null,p_decision:null,p_owner:owner.id,p_super_oversight:false,p_reason_code:'LEGACY_EXISTING_SERVICE',p_explanation:'Existing synthetic Site Service predates native Mobilisation.',p_key:uuid()};
  assert.ok((await office.rpc('service_delivery_start',{...startArgs,p_explanation:'short'})).error,'legacy explanation mandatory');
  const started=await rpc(office,'service_delivery_start',startArgs);const id=started.id;
