@@ -54,8 +54,14 @@ The accepted APIs provide exact CRM, Site, Service, Event and Mobilisation recor
 
 David approved the bounded commercial/source-record follow-up after its report. The authenticated desktop, genuine 390px, keyboard/focus and action readback journeys listed above were not run and remain unverified. This acceptance does not cover new work below this section.
 
-## Next bounded UI06 pass — CRM pipeline review pending
+## Next bounded UI06 pass — CRM pipeline accepted in synthetic development
 
 After David accepted the previous commercial/source-record follow-up, this separate pass refined the existing CRM pipeline stage-change interaction. The modal now moves focus inside when opened, traps Tab within its enabled controls, closes on Escape when idle, and returns focus to the initiating control after cancel or a confirmed change. After the guarded transition responds, the client reads the exact Opportunity again and checks its ID and stage before closing the modal. A readback failure keeps the dialog open with an error and does not display a false confirmation. This introduces no new stage transition, drag operation, business rule, API or database change.
 
-Focused ESLint, the Next.js production Webpack build with placeholder public Supabase settings, `git diff --check` and the owned-file no-green scan are the available local checks. Authenticated desktop, genuine 390px, keyboard tab order and normal stage-change readback have not been exercised in a browser in this worktree. The source change is pending David’s review, and the prior scoped acceptance does not cover it. No staging, production or live data action occurred.
+Focused ESLint, the Next.js production Webpack build with placeholder public Supabase settings, `git diff --check` and the owned-file no-green scan are the available local checks. Authenticated desktop, genuine 390px, keyboard tab order and normal stage-change readback have not been exercised in a browser in this worktree. David accepted this bounded pipeline interaction pass in synthetic development. The unperformed browser and live action checks remain unverified; this acceptance does not cover later UI work. No staging, production or live data action occurred.
+
+## Next bounded UI06 pass — Event dialog review pending
+
+After David accepted the bounded CRM pipeline pass, the existing Event create/change dialogs received the same basic keyboard treatment: focus enters the dialog on open, Tab remains within enabled controls, Escape closes when idle, and close/cancel or a confirmed change returns focus to the initiating control. Error messages appear inside the open dialog. The previously added exact Event readback still governs success after create or change. This does not change Event lifecycle authority, staffing, attendance, source IDs, API or database behaviour.
+
+Focused ESLint on `events-client.tsx`, Next.js 16.3.6 production Webpack build with placeholder public Supabase settings, `git diff --check` and edited-file no-green scan passed. Authenticated desktop, genuine 390px, keyboard tab order, screen-reader response and normal Event action readback were not tested in a browser. This new pass is pending David’s review. Earlier accepted UI06 work and its evidence remain separate; no deployment or live data use occurred.
