@@ -80,6 +80,61 @@ export function AttentionSurface({ title, state, children, action }: {
   </aside>;
 }
 
+export function ActionHierarchy({ primary, secondary, link, destructive }: {
+  primary?: ReactNode;
+  secondary?: ReactNode;
+  link?: ReactNode;
+  destructive?: ReactNode;
+}) {
+  return <div className={styles.actions}>
+    {primary && <div className={styles.actionPrimary}>{primary}</div>}
+    {secondary && <div className={styles.actionSecondary}>{secondary}</div>}
+    {link && <div className={styles.actionLink}>{link}</div>}
+    {destructive && <div className={styles.actionDestructive}>{destructive}</div>}
+  </div>;
+}
+
+export function FilterBar({ children, resultCount, clearAction }: {
+  children: ReactNode;
+  resultCount?: ReactNode;
+  clearAction?: ReactNode;
+}) {
+  return <div className={styles.filterBar}>
+    <div className={styles.filterControls}>{children}{clearAction}</div>
+    {resultCount && <div className={styles.resultCount} role="status">{resultCount}</div>}
+  </div>;
+}
+
+export function FormSection({ title, description, children, error, actions }: {
+  title: string;
+  description?: ReactNode;
+  children: ReactNode;
+  error?: ReactNode;
+  actions?: ReactNode;
+}) {
+  return <section className={styles.formSection}>
+    <div className={styles.formHeading}><h2>{title}</h2>{description && <p>{description}</p>}</div>
+    <div className={styles.formFields}>{children}</div>
+    {error && <div className={styles.formError} role="alert">{error}</div>}
+    {actions && <div className={styles.formActions}>{actions}</div>}
+  </section>;
+}
+
+export function StatePanel({ kind, title, description, action }: {
+  kind: "loading" | "empty" | "error";
+  title: string;
+  description: ReactNode;
+  action?: ReactNode;
+}) {
+  return <div className={`${styles.statePanel} ${kind === "error" ? styles.stateError : ""}`}
+    role={kind === "error" ? "alert" : "status"} aria-busy={kind === "loading" || undefined}>
+    <h2>{title}</h2>
+    {kind === "loading" && <div className={styles.stateSkeleton} aria-hidden="true"><span /><span /></div>}
+    <div className={styles.stateDescription}>{description}</div>
+    {kind !== "loading" && action && <div className={styles.stateAction}>{action}</div>}
+  </div>;
+}
+
 export type ResponsiveRecord = Readonly<{
   id: string;
   cells: readonly ReactNode[];
