@@ -1,4 +1,6 @@
 "use client";
+import "./record-studies.css";
+import { RecordSectionTracker } from "./record-section-tracker";
 
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
@@ -210,14 +212,18 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
   }
 
   const shownCases = office || showOlderCases ? cases : cases.slice(0, 5);
-  return <main className="enterprise-main onboarding-main">
-    <PageHeader eyebrow="Synthetic development onboarding" title={office ? "Onboarding" : "My Onboarding"}
+  return <main className={`enterprise-main onboarding-main${selectedCaseId ? " onboarding-record" : ""}`}>
+    {!selectedCaseId && <PageHeader eyebrow="Synthetic development onboarding" title={office ? "Onboarding" : "My Onboarding"}
       description={office ? "Manage each starter checklist. Evidence review and requirement verification remain separate decisions."
-        : "See what is complete and what needs your attention next."} />
+        : "See what is complete and what needs your attention next."} />}
+    {selectedCaseId && <Link className="crm-record-back" href="/onboarding">← {office ? "Onboarding cases" : "My cases"}</Link>}
+    {selectedCaseId && detail && <><header className="onboarding-record-header"><h1>{office ? detail.starterName : detail.intendedRole.replaceAll("_"," ")}</h1><div className="crm-record-identity"><span>Onboarding</span><strong>{label[detail.state] ?? detail.state}</strong></div><p>{office ? `${detail.intendedRole.replaceAll("_"," ")} · ` : ""}{detail.siteName}</p><p>Template Version {detail.templateVersion} · Created {new Date(detail.createdAt).toLocaleString("en-GB")}</p></header>
+      <nav className="onboarding-record-sections" aria-label="Onboarding case sections"><a href="#onboarding-overview">Overview</a>{office && detail.templateVersion >= 2 && <a href="#onboarding-submitted">Submitted information</a>}<a href="#onboarding-requirements">Requirements</a></nav></>}
+      {selectedCaseId && detail && <RecordSectionTracker label="Onboarding case sections" />}
     {office && <FeedbackBanner>Development workflow only. No legal Right to Work check, compliance decision or deployment approval is recorded here.</FeedbackBanner>}
     {message && <FeedbackBanner tone={message.includes("could not") || message.includes("not recorded") ? "error" : "success"}>{message}</FeedbackBanner>}
     {error && <FeedbackBanner tone="error">Onboarding is unavailable. Refresh to try again.</FeedbackBanner>}
-    {office && canPublish && <section className="controlled-publisher" aria-labelledby="controlled-publisher-title">
+    {office && canPublish && !selectedCaseId && <section className="controlled-publisher" aria-labelledby="controlled-publisher-title">
       <div className="controlled-publisher-heading"><div><p className="eyebrow">Scoped synthetic publisher</p>
         <h2 id="controlled-publisher-title">Controlled terms</h2>
         <p>Publish exact development-only PDF versions. Publication does not grant access to a starter case.</p></div>
@@ -241,7 +247,7 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
       </article>)}</div>
     </section>}
     <div className="onboarding-grid">
-      <section className="onboarding-panel" aria-labelledby="onboarding-list-title">
+      {!selectedCaseId && <section className="onboarding-panel" aria-labelledby="onboarding-list-title">
         <h2 id="onboarding-list-title">{office ? "Authorised starters" : "My cases"}</h2>
         {loading ? <LoadingBlock label="Loading onboarding cases…" /> : cases.length ?
           <><ul className="onboarding-list">{shownCases.map((c) => <li key={c.id}><Link href={`/onboarding/${c.id}`} aria-current={selectedCaseId === c.id ? "page" : undefined}>
@@ -263,22 +269,23 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
           {sites.length === 0 && <p className="ui-help">Create and activate “Synthetic Static Security Site” in <Link href="/sites">Sites</Link>, then assign a synthetic Security Staff member.</p>}
           <ActionButton type="submit" disabled={busy || !siteId || !targetId}>{busy ? "Creating…" : "Create draft case"}</ActionButton>
         </form>}
-      </section>
-      <section className="onboarding-panel" aria-labelledby="onboarding-detail-title">
-        <h2 id="onboarding-detail-title">Case detail</h2>
+      </section>}
+      <section className="onboarding-panel" aria-label={selectedCaseId ? "Onboarding case content" : undefined} aria-labelledby={selectedCaseId ? undefined : "onboarding-detail-title"}>
+        {!selectedCaseId && <h2 id="onboarding-detail-title">Case detail</h2>}
         {loading && selectedCaseId ? <LoadingBlock label="Loading this onboarding case…" /> : !detail ? <EmptyState title={selectedCaseId ? "Case unavailable" : "Choose a case"}
           description={selectedCaseId ? "This case is not available to your account." : "Open a case to see its checklist and next actions."} /> : <>
-          <div className="onboarding-summary">
+          {!selectedCaseId && <div className="onboarding-summary">
             <div><p className="eyebrow">{office ? detail.starterName : "Your starter checklist"}</p>
               <h3>{detail.intendedRole.replaceAll("_", " ")}</h3><p>{detail.siteName} · Template Version {detail.templateVersion} · Created {new Date(detail.createdAt).toLocaleString("en-GB")}</p></div>
             <span className="onboarding-state">{label[detail.state] ?? detail.state}</span>
-          </div>
-          <div className="onboarding-progress"><strong>{detail.verifiedCount} of {detail.totalCount} requirements complete</strong>
+          </div>}
+          {selectedCaseId && <h2>Overview</h2>}
+          <div id="onboarding-overview" className="onboarding-progress"><strong>{detail.verifiedCount} of {detail.totalCount} requirements complete</strong>
             <Progress value={100 * detail.verifiedCount / detail.totalCount} aria-label={`${detail.verifiedCount} of ${detail.totalCount} requirements complete`} />
             <p>Mandatory unavailable or unconnected requirements remain outstanding. This is not a compliance or deployment score.</p></div>
           {!office && <p className="onboarding-development-note">Synthetic workflow only. No legal checking or deployment decision is recorded here.</p>}
-          {office && detail.templateVersion >= 2 && <div className="onboarding-private-summary">
-            <h3>Submitted starter information</h3>
+          {office && detail.templateVersion >= 2 && <div id="onboarding-submitted" className="onboarding-private-summary">
+            {selectedCaseId ? <h2>Submitted starter information</h2> : <h3>Submitted starter information</h3>}
             <p>Current Personal Details are visible only for this authorised case. Office cannot edit them here.</p>
             {detail.profile ? <dl>
               <div><dt>Legal name</dt><dd>{detail.profile.legal_first_name ?? "—"} {detail.profile.surname ?? ""}</dd></div>
@@ -303,7 +310,8 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
               <FeedbackBanner tone="error">Current synthetic SIA details differ from the submitted credential revision. A new submission, evidence and decision are needed.</FeedbackBanner>}
           </div>}
           {office && detail.canManage && detail.state === "DRAFT" && <ActionButton onClick={() => void action("start")} disabled={busy}>Start onboarding</ActionButton>}
-          <ol className="onboarding-requirements">{detail.requirements.map((r) => <li key={r.id}>
+          {selectedCaseId && <h2>Requirements</h2>}
+          <ol id="onboarding-requirements" className="onboarding-requirements">{detail.requirements.map((r) => <li key={r.id}>
             <div className="onboarding-requirement-head"><h4>{r.position}. {r.title}</h4><span className={`onboarding-badge onboarding-badge--${r.state.toLowerCase()}`}>{requirementLabel(r)}</span></div>
             <p>{r.nextAction}</p><small>Next actor: {r.actor.replaceAll("_", " ").toLowerCase()}</small>
             {r.evidenceState && <p className="onboarding-evidence">Evidence: {r.evidenceState.replaceAll("_", " ").toLowerCase()}. Requirement: {label[r.state] ?? r.state}.</p>}
