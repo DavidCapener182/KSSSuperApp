@@ -77,3 +77,7 @@ Focused ESLint on the three edited components, Next.js 16.3.6 production Webpack
 The existing CRM Organisation/Opportunity form and stage/owner/value actions now wait for the authorised source read after a guarded server response. New Organisation and Opportunity creation check the returned exact ID before navigation. Existing record changes check the refreshed record; stage, owner, value, Organisation name and Contact presence receive source-specific checks. The form stays open with an in-dialog error when readback is missing or inconclusive. This changes feedback and navigation only; the accepted server guards and terminal Won/Lost rules remain authoritative.
 
 Focused ESLint, production Webpack build/TypeScript with placeholder public Supabase settings, `git diff --check` and no-green scan passed. Authenticated desktop, genuine 390px, keyboard/browser and normal write/readback journeys remain unverified. This pass joins the Event-dialog and source-feedback changes pending David’s review. No backend, shared CSS/primitive, migration, staging, production or live-data change occurred.
+
+### Attempted authenticated check
+
+A `tests/shell.test.mjs` run using the existing synthetic environment paths reached its read-only return-target case, then stopped before the authenticated case at local listener `EPERM` (`127.0.0.1`). Inspection of that test also showed it later grants and revokes roles in synthetic Dev, outside this UI-only lane, so it was not retried with elevated permissions. No authenticated UI or write readback was established by this attempt.
