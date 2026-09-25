@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { london, serviceRequest } from "./service-delivery-api";
 import { ServiceDeliverySourceCards } from "./service-delivery-source-cards";
+import { ServiceDeliveryManagement } from "./service-delivery-management";
 import styles from "./service-delivery.module.css";
 
 type Owner = { id: string; name: string; office: boolean; super: boolean };
@@ -57,7 +58,7 @@ export function ServiceDeliveryDetail({ id, superAdmin }: { id: string; superAdm
     {!d.historicalLinkCurrent && <p role="status">Historical Client/Site link is no longer current. This record remains attached to the original link.</p>}
     {!d.sourceMembershipIntact && <p role="alert" className={styles.error}>Exact historical source membership needs review. Changes are blocked.</p>}
     {error && <p role="alert" className={styles.error}>{error}</p>}
-    <nav className={styles.links} aria-label="Service Delivery sections"><a href="#review-periods">Review periods</a><a href="#source-facts">Source facts</a><a href="#meetings">Meetings</a><a href="#actions">Actions &amp; blockers</a><a href="#history">History</a></nav>
+    <nav className={styles.links} aria-label="Service Delivery sections"><a href="#review-periods">Review periods</a><a href="#source-facts">Source facts</a><a href="#meetings">Meetings</a><a href="#actions">Actions &amp; blockers</a><a href="#commitments">Commitments</a><a href="#changes">Changes</a><a href="#history">History</a></nav>
     <section className={styles.card}><h2>Source and accountability</h2><p>Site Service: <Link href={`/sites/${d.siteId}/services/${d.siteServiceId}`}>{d.serviceName}</Link> · current source state {d.sourceState}</p>
       {d.mobilisationId ? <p>Exact handover: <Link href={`/mobilisations/${d.mobilisationId}`}>Mobilisation {d.mobilisationId}</Link> · decision {d.handoverDecisionId}</p> : <p>Legacy existing Service · {d.legacyReasonCode}: {d.legacyExplanation}</p>}
       <p className={styles.muted}>Administrative state does not change the Site Service or establish readiness.</p>
@@ -93,6 +94,7 @@ export function ServiceDeliveryDetail({ id, superAdmin }: { id: string; superAdm
           {a.state!=="DONE" && <Editor title="Open blocker" busy={busy} fields={[{name:"blockerReason",label:"Blocker",required:true,min:3,max:500},{name:"ownerId",label:"Owner",required:true,options:ownerOptions}]} submit={x => change("BLOCKER_OPENED",null,{...x,actionId:a.id})} />}</>}
       </article>)}</div>
     </section>
+    <ServiceDeliveryManagement deliveryId={d.id} deliveryRevision={d.revision} terminal={terminal} />
     <section id="history"><h2>History <small>{historyTotal}</small></h2><p>From the first event, 25 at a time.</p>
       {history.map(h => <article className={styles.card} key={h.id}><strong>{h.kind.replaceAll("_"," ")}</strong><p className={styles.meta}>{london(h.occurred_at)} · revision {h.service_revision} · actor {h.actor_person_id}</p>{h.reason && <p>Reason: {h.reason}</p>}
         <HistoryValues label="Before" value={h.before_value} /><HistoryValues label="After" value={h.after_value} /></article>)}
