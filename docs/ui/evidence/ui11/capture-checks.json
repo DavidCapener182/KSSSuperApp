@@ -1,0 +1,188 @@
+{
+  "home1280": {
+    "viewport": 1280,
+    "document": 1280,
+    "sidebar": {
+      "x": 0,
+      "y": 0,
+      "width": 258,
+      "height": 844
+    },
+    "header": {
+      "x": 258,
+      "y": 0,
+      "width": 1022,
+      "height": 70
+    },
+    "context": {
+      "x": 258,
+      "y": 70,
+      "width": 1022,
+      "height": 51
+    },
+    "content": {
+      "x": 258,
+      "y": 121,
+      "width": 1022,
+      "height": 1950
+    },
+    "navLinks": 17,
+    "drawerLinks": 0,
+    "minDrawerLinkHeight": null,
+    "drawerTriggerHeight": 0,
+    "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+    "selected": [
+      "Home"
+    ]
+  },
+  "reports1280": {
+    "viewport": 1280,
+    "document": 1280,
+    "sidebar": {
+      "x": 0,
+      "y": 0,
+      "width": 76,
+      "height": 844
+    },
+    "header": {
+      "x": 76,
+      "y": 0,
+      "width": 1204,
+      "height": 70
+    },
+    "context": {
+      "x": 76,
+      "y": 70,
+      "width": 1204,
+      "height": 51
+    },
+    "content": {
+      "x": 76,
+      "y": 121,
+      "width": 1204,
+      "height": 7885
+    },
+    "navLinks": 17,
+    "drawerLinks": 0,
+    "minDrawerLinkHeight": null,
+    "drawerTriggerHeight": 0,
+    "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+    "selected": [
+      "Management Reports"
+    ],
+    "collapsedLabels": true
+  },
+  "home390": {
+    "viewport": 390,
+    "document": 390,
+    "sidebar": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 64
+    },
+    "context": {
+      "x": 0,
+      "y": 64,
+      "width": 390,
+      "height": 48
+    },
+    "content": {
+      "x": 0,
+      "y": 112,
+      "width": 390,
+      "height": 3666
+    },
+    "navLinks": 0,
+    "drawerLinks": 0,
+    "minDrawerLinkHeight": null,
+    "drawerTriggerHeight": 44,
+    "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+    "selected": []
+  },
+  "drawer390": {
+    "viewport": 390,
+    "document": 390,
+    "sidebar": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 64
+    },
+    "context": {
+      "x": 0,
+      "y": 64,
+      "width": 390,
+      "height": 48
+    },
+    "content": {
+      "x": 0,
+      "y": 112,
+      "width": 390,
+      "height": 3666
+    },
+    "navLinks": 0,
+    "drawerLinks": 17,
+    "minDrawerLinkHeight": 48,
+    "drawerTriggerHeight": 44,
+    "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+    "selected": [
+      "Home"
+    ],
+    "escapeClosed": true,
+    "focusReturned": true
+  },
+  "workforce1440": {
+    "viewport": 1440,
+    "document": 1440,
+    "sidebar": {
+      "x": 0,
+      "y": 0,
+      "width": 258,
+      "height": 900
+    },
+    "header": {
+      "x": 258,
+      "y": 0,
+      "width": 1182,
+      "height": 70
+    },
+    "context": {
+      "x": 258,
+      "y": 70,
+      "width": 1182,
+      "height": 51
+    },
+    "content": {
+      "x": 258,
+      "y": 121,
+      "width": 1182,
+      "height": 4147
+    },
+    "navLinks": 17,
+    "drawerLinks": 0,
+    "minDrawerLinkHeight": null,
+    "drawerTriggerHeight": 0,
+    "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+    "selected": [
+      "Workforce"
+    ],
+    "main": {
+      "x": 259,
+      "width": 1180,
+      "scrollWidth": 1180
+    }
+  }
+}
