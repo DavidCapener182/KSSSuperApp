@@ -20,3 +20,9 @@ Focused ESLint, Next 16.3.6 build with TypeScript and static page generation, an
 ## Source gaps
 
 There is no authorised person/case-specific Training projection or genuine activity feed in this slice. The existing cancellation endpoint does not accept a reason. The synthetic Development queue remains slow enough to merit source performance work before a wider rollout. These gaps are displayed or documented without inventing status or completion.
+
+## Protected hosted preview deployment — 25 September 2026
+
+After David requested deployment, the committed refinement `dcd994d` was deployed directly from its clean isolated worktree to the existing `kss-enterprise-staging` Vercel project. That project is a protected, staging-named hosted preview; its Production-classified target is the configured staging alias, not a KSS live production application. The later [single-database cutover report](KSS-SINGLE-DATABASE-CUTOVER-REPORT.md) records that this hosted preview uses the synthetic Development Supabase project and the former separate staging project was deleted.
+
+Vercel readback before deployment showed the five required environment variable names in the project's Production scope. The hosted prebuild staging gate passed, followed by the Next 16.3.6 build, TypeScript, and static page generation. Vercel returned deployment `dpl_8oB9cx4F8DdnLsF39vTPe4AG8sth` as `READY`; project readback identified it as the latest deployment. The deployment URL is `https://kss-enterprise-staging-2aq0cebji-capener182-gmailcoms-projects.vercel.app`. No authenticated hosted case journey was exercised in this deployment turn; the prior local authenticated browser evidence above remains local evidence.
