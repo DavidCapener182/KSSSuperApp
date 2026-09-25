@@ -10,5 +10,5 @@ export default async function WorkforcePage({ searchParams }: { searchParams: Pr
   const principal = await getPrincipal(await createServerSupabase());
   if (!principal) redirect("/?next=%2Fworkforce");
   if (!hasCapability(principal, "WORKFORCE_USE")) notFound();
-  return <WorkforceClient initial={parseWorkforceReturnState(await searchParams)} />;
+  return <WorkforceClient initial={parseWorkforceReturnState(await searchParams)} allowLocalSample={process.env.KSS_ENABLE_LOCAL_SYNTHETIC_PREVIEW === "1" && !process.env.VERCEL_ENV} />;
 }
