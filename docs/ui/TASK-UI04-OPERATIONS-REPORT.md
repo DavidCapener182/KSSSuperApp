@@ -28,9 +28,9 @@ The current 13A Control Room projection does not contain Site Book handover age,
 - A local preview server started on `127.0.0.1:3104` with approved sandbox escalation. Playwright CLI did not return a snapshot within 35 seconds and was stopped. Desktop, genuine 390px layout, keyboard/focus operation and authenticated source readback are **not verified** in this run. CSS breakpoints and focus selectors are implementation, not visual evidence.
 - David accepted this bounded domain-local UI pass with the checks actually recorded above. Authenticated desktop, genuine 390px, keyboard/focus and authoritative browser readback remain unverified and are not retrospectively counted as passes. The acceptance does not cover the broad UI04 brief, shared UI02 integration, other Operations modules, staging, production or deployment.
 
-## Follow-up UI04 pass — pending David's review
+## Follow-up UI04 pass — accepted in synthetic development
 
-This follow-up is separate from the accepted first Control Room/Action Centre pass. It does not change that acceptance or establish acceptance of the full Operations redesign.
+David directly accepted this bounded Incident, Site Book and attendance follow-up in synthetic development on 25 September 2026. This acceptance is separate from the first Control Room/Action Centre pass. It covers the domain-local UI changes and checks recorded below; it does not establish acceptance of the full Operations redesign or convert missing browser evidence into a pass.
 
 ### Source-specific changes
 
@@ -47,6 +47,8 @@ This follow-up is separate from the accepted first Control Room/Action Centre pa
 - UI03's accepted prototype uses a 390px day agenda and explicit pending → readback → confirmed transition; this follow-up retained those distinctions without editing UI03 paths.
 
 The broader Incident/Site Book/attendance task journey still needs an authenticated source-specific browser pass, including a current Event, one static Site duty, a report with reviewer history and an open handover. Any missing cross-source read contract or new business logic remains a separate product proposal.
+
+The accepted follow-up remains limited to synthetic development. Site Book service detail, Event/static attendance action readback, their 390px layouts and full keyboard operation were not browser verified in this pass. No staging, production, deployment or real data work is accepted.
 
 ## Additional bounded UI04 check and change — pending review
 
