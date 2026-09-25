@@ -82,7 +82,9 @@ test('TASK-20D exact-version attempts, deterministic result and negative access'
   assert.ok((await staffA.rpc('training_assessment_start',{p_assignment:assignment,p_version:version,p_request:req()})).error,'30-minute retake enforced');
   assert.equal((await rpc(staffA,'training_assessment_staff',{p_assignment:assignment})).history.filter(a=>a.state==='SUBMITTED').length,1);
   assert.ok((await office.from('training_submitted_answers').update({answers:{}}).eq('attempt_id',attempt)).error,'direct immutable write denied');
-  const noCompletion=await office.from('training_completions').select('*');assert.ok(noCompletion.error,'no Completion table created');
+  const noCompletion=await rpc(staffA,'training_completion_mine');
+  assert.equal(noCompletion.filter(item=>item.assignmentId===assignment).length,0,'PASSED Attempt alone creates no Completion');
+  assert.ok((await office.from('training_completions').select('*')).error,'Completion base table remains private');
   const v2=await rpc(office,'training_assessment_create',{p_course_version:courseVersion,p_questions:questions});
   await rpc(office,'training_assessment_publish',{p_version:v2,p_revision:1});
   let v2open=await rpc(staffA,'training_assessment_start',{p_assignment:assignment,p_version:v2,p_request:req()});

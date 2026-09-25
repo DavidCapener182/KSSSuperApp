@@ -8,7 +8,13 @@ export const dynamic = "force-dynamic";
 export default async function MyLearning() {
   const client = await createServerSupabase();
   if (!(await getPrincipal(client))) return null;
-  const { data, error } = await client.rpc("training_my_learning");
+  const [{ data, error }, { data: completionData }] = await Promise.all([
+    client.rpc("training_my_learning"), client.rpc("training_completion_mine"),
+  ]);
+  const completions = Array.isArray(completionData) ? completionData as {
+    id: string; assignmentId: string; courseVersionId: string; ruleVersionId: string;
+    completedAt: string; voidedAt: string | null;
+  }[] : [];
   const assignments = !error && Array.isArray(data) ? data as TrainingAssignment[] : [];
   const active = assignments.filter(a => a.state === "ACTIVE");
   const history = assignments.filter(a => a.state !== "ACTIVE");
@@ -22,6 +28,14 @@ export default async function MyLearning() {
   return <main className="training-area"><header><p className="training-eyebrow">Native learning · Synthetic Dev</p><h1>My Learning</h1><p>Page progress records which learning pages you have marked as viewed. It does not mean the course has been completed or that you have passed an assessment.</p></header>
     <nav className="training-section-links"><Link href="/training">Course catalogue</Link><Link href="/training/my-learning" aria-current="page">My Learning</Link></nav>
     {error ? <p role="alert">My Learning is unavailable for this role.</p> : <><h2>Active assignments</h2>{active.length ? <div className="training-cards">{active.map(card)}</div> : <p>No active assignments.</p>}
-      <h2>Assignment history</h2>{history.length ? <div className="training-cards">{history.map(card)}</div> : <p>No earlier assignments.</p>}</>}
+      <h2>Assignment history</h2>{history.length ? <div className="training-cards">{history.map(card)}</div> : <p>No earlier assignments.</p>}
+      <h2>Completion history</h2>{completions.length ? <div className="training-cards">{completions.map(completion => {
+        const assignment = assignments.find(item => item.id === completion.assignmentId);
+        return <article className="training-card" key={completion.id}><small>{completion.voidedAt ? "Voided completion" : "Recorded completion"}</small>
+          <h3>{assignment?.title ?? "Assigned course"} · Version {assignment?.versionNumber ?? "recorded"}</h3>
+          <p>Completed {new Date(completion.completedAt).toLocaleDateString("en-GB", { timeZone: "Europe/London" })}</p>
+          <p>A completion is a Training record. A certificate requires a separate issue decision.</p>
+        </article>;
+      })}</div> : <p>No course completions recorded.</p>}</>}
   </main>;
 }

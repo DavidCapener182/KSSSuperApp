@@ -72,8 +72,9 @@ test('TASK-20C exact-version assignments and factual learning progress',{timeout
   await rpc(staffB,'training_mark_page',{p_assignment:b2,p_module:1,p_page:1});
   await rpc(staffB,'training_mark_page',{p_assignment:b2,p_module:1,p_page:2});
   assert.equal((await rpc(staffB,'training_my_learning')).find(a=>a.id===b2).viewedCount,2,'100% pages viewed');
-  const noCompletion=await office.from('training_completions').select('*');
-  assert.ok(noCompletion.error,'20C created no completion table');
+  const noCompletion=await rpc(staffB,'training_completion_mine');
+  assert.equal(noCompletion.filter(item=>item.assignmentId===b2).length,0,'all page marks alone create no Completion');
+  assert.ok((await office.from('training_completions').select('*')).error,'Completion base table remains private');
   const supersedeArgs={p_assignment:a1,p_revision:3,p_version:v2,p_due:'2026-12-30',p_reason:'Synthetic explicit replacement of v1 assignment',p_request:request()};
   const concurrent=await Promise.all([office.rpc('training_supersede_assignment',supersedeArgs),office.rpc('training_supersede_assignment',{...supersedeArgs,p_request:request()})]);
   assert.equal(concurrent.filter(r=>!r.error).length,1,'one concurrent supersession wins');
