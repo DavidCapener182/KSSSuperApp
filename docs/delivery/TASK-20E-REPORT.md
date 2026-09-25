@@ -1,6 +1,6 @@
 # TASK-20E — Training Completion & Certificates: implementation record
 
-**Status: PARTIAL / UNACCEPTED; ready for David's whole-task acceptance review.** Completion Foundation and the bounded Certificate/PDF chain are implemented and verified in synthetic Development. TASK-19A was accepted and closed in synthetic Development on 25 September 2026; its server-authorised private-file boundary is present at the `493df65` cherry-pick. No staging, production, real learner data or deployment.
+**Status: ACCEPTED AND CLOSED — SYNTHETIC DEVELOPMENT — 25 September 2026.** David formally accepted TASK-20E as one completed slice, covering both the Completion Foundation and Certificate/PDF lifecycle. The accepted implementation was clean on isolated `task-20e` at `b913fd9` before this acceptance record. TASK-19A's accepted server-authorised private-file boundary is present at the `493df65` cherry-pick. No staging, production, real learner data or deployment.
 
 ## Approval and target
 
@@ -71,6 +71,10 @@ The Supabase CLI generated the certificate filename. David directly approved exa
 - A synthetic Unicode-name sample PDF rendered and its PNG was visually inspected. A narrow Supabase SSR cookie-write guard for Server Components and Proxy response header forwarding were added after a real Staff refresh hit a cookie mutation error; the authenticated page then loaded. Final TypeScript, focused ESLint, `git diff --check` and Next 16.3.6 Webpack production build passed.
 - Full repository regression was not run.
 
-## Acceptance boundary
+## David's formal acceptance and close-out
 
-The bounded Completion Foundation → template → explicit manager issue → immutable certificate/reference → private PDF/hash → freshly authorised server download → revoke/reissue → Completion-void invalidation chain is ready for one whole-task acceptance decision. This report does not infer human acceptance, staging/production readiness, or authorisation for 20F, Credentials integration, automatic issue or public download.
+David accepted the whole TASK-20E in synthetic Development on 25 September 2026, with the bounded chain **Person → exact TrainingAssignment → CourseVersion → CompletionRuleVersion → qualifying immutable Assessment evidence → explicit Completion → explicit CertificateIssue**. A passed assessment alone creates no Completion, and Completion creates no certificate automatically. The accepted certificate lifecycle uses explicit manager issue, an immutable reference and PDF/hash, fresh application authorisation for each private download, attributable revocation, a new issue for reissue, and Completion-void invalidation while retaining historical evidence. The approved certificate migration SHA-256 is `e6290b5262b4a84d1740e74ed8d35bbc7849281afc26e26514bbc88788cbee02` on literal synthetic Development project `dnfhkmmnlbiabqypclqg`, recorded remotely as `20260925105342`. The earlier Completion migration hashes and ledger mappings above remain unchanged.
+
+David explicitly accepted the evidence limitation that the **full repository test suite was not run**. The focused certificate proof, affected 19A and Training regressions, TASK-11A **4/4**, 19 unchanged scoped non-Training digests, TypeScript, focused lint, production Webpack build and authenticated Staff/Office desktop and 390px evidence are the accepted verification basis.
+
+Completion and certificate facts do not establish credential verification, onboarding fulfilment, deployment or staffing eligibility, role authority, pay or compliance. This acceptance excludes TASK-20F, public certificate/QR verification, external LMS migration, automatic or bulk Training assignment, production learner data, staging, production and deployment. No successor task starts automatically.
