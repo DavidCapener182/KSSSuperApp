@@ -6,5 +6,6 @@ Branch: `task-ui12-home-dashboard`; starting snapshot `be3fb185249ecb10259d3bc94
 - `src/app/(enterprise)/app/home.module.css` — Home-only layout and responsive styling.
 - `docs/ui/TASK-UI12-OWNED-PATHS.md`
 - `docs/ui/TASK-UI12-HOME-DASHBOARD-REPORT.md`
+- `docs/ui/evidence/ui12/*.png` — draft and final authenticated synthetic Home captures.
 
-No shell, navigation, global CSS, API, database, Task service or shared component is owned.
+The branch cherry-picks UI11 shell implementation commits for combined prototype review. UI12 authors no shell, navigation, global CSS, API, database, Task service or shared component changes.
