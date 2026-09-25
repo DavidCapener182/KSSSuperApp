@@ -27,3 +27,23 @@ The current 13A Control Room projection does not contain Site Book handover age,
 - `tsc --noEmit` passed after Next generated its route types; `git diff --check` passed.
 - A local preview server started on `127.0.0.1:3104` with approved sandbox escalation. Playwright CLI did not return a snapshot within 35 seconds and was stopped. Desktop, genuine 390px layout, keyboard/focus operation and authenticated source readback are **not verified** in this run. CSS breakpoints and focus selectors are implementation, not visual evidence.
 - David accepted this bounded domain-local UI pass with the checks actually recorded above. Authenticated desktop, genuine 390px, keyboard/focus and authoritative browser readback remain unverified and are not retrospectively counted as passes. The acceptance does not cover the broad UI04 brief, shared UI02 integration, other Operations modules, staging, production or deployment.
+
+## Follow-up UI04 pass — pending David's review
+
+This follow-up is separate from the accepted first Control Room/Action Centre pass. It does not change that acceptance or establish acceptance of the full Operations redesign.
+
+### Source-specific changes
+
+- Incident reviewer cards now separate category, current status, linked context, occurred time and reporter, with a direct route to exact report/version and reviewer history. Empty copy no longer says all unavailable reports are awaiting review. Incident detail actions handle failed refresh without returning a confirmed outcome; correction keeps the form open until the source detail reload succeeds.
+- Site Book cards, handover and item controls have clearer line height, 44px controls and visible focus. An accepted write waits for a fresh book read before its success notice; if that read fails, the UI says acceptance occurred but the current book could not be refreshed. Its history, acknowledgement revision binding and authorisation remain with Site Book.
+- Event and static Site attendance manager actions wait for the source read and a later attendance revision on the exact allocation before showing confirmation. The Staff attendance view now links an unresponded allocation to its exact My Deployments focus. Attendance remains distinct from schedule, allocation response, Site Book and worked/payable time. Factual history and corrections remain visible. Mobile attendance facts are presented in one column with full-width actions.
+- No new Control Room fact source, Incident scoring, source business rule, backend route, migration, Supabase change, shared UI component or deployment was added.
+
+### Verification and gaps for this follow-up
+
+- Webpack production build passed with the existing synthetic Dev environment file. Next generated all relevant routes and passed its TypeScript stage.
+- A separate `tsc --noEmit`, scoped ESLint and `git diff --check` passed after the build. The first standalone TypeScript invocation overlapped with the build's regenerated `.next/types` and reported missing generated files; the sequential rerun passed.
+- The local preview opened in the in-app browser at 1280px and a 390px viewport was set. Protected API requests then failed with Next's `cookies was called outside a request scope` error; the browser fell back to the access page. That page measured 390px document/viewport width, but it is **not** an Operations layout check. Authenticated Incident detail, Site Book service detail, Event/Site attendance, their action readback, 390px overflow and keyboard/focus behavior remain unverified in the browser. No screenshot or user timing evidence was obtained.
+- UI03's accepted prototype uses a 390px day agenda and explicit pending → readback → confirmed transition; this follow-up retained those distinctions without editing UI03 paths.
+
+The broader Incident/Site Book/attendance task journey still needs an authenticated source-specific browser pass, including a current Event, one static Site duty, a report with reviewer history and an open handover. Any missing cross-source read contract or new business logic remains a separate product proposal.
