@@ -729,7 +729,7 @@ body { min-width: 320px; }
 .deployment-self-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin-block: 1rem; }
 .deployment-self-facts dt { font-size: .8rem; color: var(--muted-foreground); }
 .deployment-self-facts dd { margin: .2rem 0 0; overflow-wrap: anywhere; }
-@media (max-width: 640px) { .deployment-self-facts { grid-template-columns: 1fr; } .deployment-allocated-row, .deployment-candidate { flex-wrap: wrap; } .deployment-sheet { width: 100vw; } }
+@media (max-width: 640px) { .deployment-self-facts { grid-template-columns: 1fr; } .deployment-allocated-row, .deployment-candidate { flex-wrap: wrap; } .deployment-sheet { width: 100vw; } .deployment-self button, .deployment-sheet button, .site-service-detail button { min-height: 44px; } }
 
 .availability-self { max-width: 72rem; }
 .availability-self section > h2 { margin: 1.6rem 0 .8rem; font-size: 1.1rem; }
