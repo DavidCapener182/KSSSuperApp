@@ -32,9 +32,9 @@ Focused ESLint on both changed TSX files passed. Webpack production build and Ty
 
 See `SHARED-UI-CHANGE-PROPOSALS.md`.
 
-## Follow-up UI05 presentation pass — awaiting David's review
+## Follow-up UI05 presentation pass — accepted in synthetic Development
 
-The earlier acceptance above remains limited to implementation commit `9ed3084`. This later Availability, Time Away, Credentials and Training work is separate and **not yet accepted**. It used the same isolated branch; the shared checkout, UI03, 19A, 20E, Supabase and deployment were not changed.
+David accepted this bounded Availability, Time Away, Credentials and Training follow-up at implementation commit `7d458ceea239bca8af5d63030779d6a7ef348407` on 25 September 2026. Acceptance covers only the changes and actual checks below in synthetic Development. The earlier People acceptance remains limited to implementation commit `9ed3084`. This does not accept the remaining UI05 work, shared UI02 integration, staging, production or deployment. The shared checkout, UI03, 19A, 20E, Supabase and deployment were not changed.
 
 ### Changes
 
