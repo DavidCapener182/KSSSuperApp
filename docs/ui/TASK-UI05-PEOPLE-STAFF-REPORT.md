@@ -1,8 +1,8 @@
 # TASK-UI05 — People & Staff Experience report
 
-Status: **Accepted by David on 25 September 2026 for the bounded People directory and Staff Record UI pass in synthetic Development.** This acceptance covers implementation commit `9ed3084a1138c6f5d6f93ce075083017c73ed28b` and the checks documented below. It does not accept the broader UI05 brief, shared UI02 integration, staging, production or deployment.
+Status: **TASK-UI05 — ACCEPTED AND CLOSED — SYNTHETIC DEVELOPMENT — 25 September 2026.** David accepted the bounded People & Staff Experience UI programme, including the original People/Staff Record implementation at `9ed3084a1138c6f5d6f93ce075083017c73ed28b`, the accepted Availability/Time Away/Credentials/Training follow-up at `7d458ceea239bca8af5d63030779d6a7ef348407`, and the final authenticated People/Staff Record browser close-out and 44px corrections at `c636f5d14f6a16f089869e72527c2bfd5b408b2d`. This acceptance does not cover UI02 shared integration, staging, production or deployment.
 
-The authenticated desktop, genuine 390px and keyboard/focus walkthrough remained an evidence gap at acceptance. No unverified browser result is treated as a pass. The deferred person-specific Training read contract and other module work remain deferred.
+At the first bounded People/Staff Record acceptance, the authenticated desktop, genuine 390px and keyboard/focus walkthrough remained an evidence gap. The later close-out evidence is recorded below; no unverified browser result is treated as a pass. The deferred person-specific Training read contract remains deferred.
 
 Starting canonical main HEAD: `25dfb02dd5e1da087b0cc8034b2260d8c129122c`.
 
@@ -34,7 +34,7 @@ See `SHARED-UI-CHANGE-PROPOSALS.md`.
 
 ## Follow-up UI05 presentation pass — accepted in synthetic Development
 
-David accepted this bounded Availability, Time Away, Credentials and Training follow-up at implementation commit `7d458ceea239bca8af5d63030779d6a7ef348407` on 25 September 2026. Acceptance covers only the changes and actual checks below in synthetic Development. The earlier People acceptance remains limited to implementation commit `9ed3084`. This does not accept the remaining UI05 work, shared UI02 integration, staging, production or deployment. The shared checkout, UI03, 19A, 20E, Supabase and deployment were not changed.
+David accepted this bounded Availability, Time Away, Credentials and Training follow-up at implementation commit `7d458ceea239bca8af5d63030779d6a7ef348407` on 25 September 2026. At that point, acceptance covered only the changes and actual checks below in synthetic Development; the earlier People acceptance remained limited to implementation commit `9ed3084`, and the remaining UI05 close-out was still pending. The shared checkout, UI03, 19A, 20E, Supabase and deployment were not changed.
 
 ### Changes
 
@@ -69,4 +69,10 @@ Screenshots: [Office directory desktop](../../output/playwright/ui05-people-clos
 
 The accepted domain boundaries remain: Availability is separate from Time Away; Training progress/completion, credential verification and deployment eligibility remain separate. The person-specific Training summary/read contract was not added. No TASK-20E certificate or PDF data was used. The accepted follow-up still did not visually exercise Office Credential Reviewer decisions, another Person's Time Away request history, the manager Time Away calendar, completed Training, a source write or screen-reader behaviour. This close-out did not manufacture those states.
 
-After the local CSS correction, the scoped ESLint check, TypeScript phase and Webpack production build passed; 59 static pages generated. No deployment or live data action was performed. Final UI05 acceptance and closure remain David's decision.
+After the local CSS correction, the scoped ESLint check, TypeScript phase and Webpack production build passed; 59 static pages generated. No deployment or live data action was performed.
+
+## Final acceptance and lane closure
+
+David formally accepted and closed TASK-UI05 in synthetic Development on 25 September 2026 after reviewing the completed browser evidence and corrected touch targets. The two earlier bounded acceptances remain recorded with their original evidence limits. Closure does not claim visual verification of Credential Reviewer decisions, another Person's Time Away history, the manager Time Away calendar, completed Training, screen-reader behaviour or source-write workflows that were not exercised. These limits remain documented above.
+
+Availability remains distinct from Time Away. Training progress/completion remains distinct from credential verification and deployment eligibility. No person-specific Training summary or read contract was added, and unfinished TASK-20E certificate/PDF data was not consumed. The readable system sans-serif typography, operational text sizing, practical 44px mobile controls, strong focus outlines, mobile spacing and restrained uppercase observed here are inputs to the later UI02 shared design-system integration. UI02 remains a separate future lane; no further UI05 feature work is authorised by this close-out.
