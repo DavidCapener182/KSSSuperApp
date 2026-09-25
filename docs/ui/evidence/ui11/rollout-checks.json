@@ -1,0 +1,156 @@
+{
+  "checks": [
+    {
+      "persona": "Office",
+      "path": "/app",
+      "status": 200,
+      "viewport": 1280,
+      "document": 1280,
+      "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif"
+    },
+    {
+      "persona": "Office",
+      "path": "/management-reports",
+      "status": 200,
+      "viewport": 1280,
+      "document": 1280,
+      "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif"
+    },
+    {
+      "persona": "Office",
+      "path": "/workforce",
+      "status": 200,
+      "viewport": 1280,
+      "document": 1280,
+      "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif"
+    },
+    {
+      "persona": "OPERATIONS",
+      "path": "/app",
+      "status": 200,
+      "viewport": 1280,
+      "document": 1280,
+      "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif"
+    },
+    {
+      "persona": "OPERATIONS",
+      "path": "/workforce",
+      "status": 200,
+      "viewport": 1280,
+      "document": 1280,
+      "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif"
+    },
+    {
+      "persona": "OPERATIONS",
+      "path": "/crm",
+      "status": 404
+    },
+    {
+      "persona": "STAFF_A",
+      "path": "/app",
+      "status": 200,
+      "viewport": 1280,
+      "document": 1280,
+      "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif"
+    },
+    {
+      "persona": "STAFF_A",
+      "path": "/my-schedule",
+      "status": 200,
+      "viewport": 1280,
+      "document": 1280,
+      "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif"
+    },
+    {
+      "persona": "STAFF_A",
+      "path": "/people",
+      "status": 404
+    },
+    {
+      "persona": "ADMIN",
+      "path": "/app",
+      "status": 200,
+      "viewport": 1280,
+      "document": 1280,
+      "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif"
+    },
+    {
+      "persona": "ADMIN",
+      "path": "/access/incident-reviewers",
+      "status": 200,
+      "viewport": 1280,
+      "document": 1280,
+      "font": "-apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif"
+    }
+  ],
+  "workforce": {
+    "1280": {
+      "viewport": 1280,
+      "document": 1280,
+      "matrixColumns": 8,
+      "first": {
+        "left": 283,
+        "right": 473,
+        "width": 190
+      },
+      "last": {
+        "left": 1143,
+        "right": 1255,
+        "width": 112
+      },
+      "refresh": {
+        "left": 1178,
+        "right": 1256,
+        "width": 78
+      },
+      "week": {
+        "left": 1016,
+        "right": 1256,
+        "width": 240
+      }
+    },
+    "1440": {
+      "viewport": 1440,
+      "document": 1440,
+      "matrixColumns": 8,
+      "first": {
+        "left": 284,
+        "right": 489,
+        "width": 205
+      },
+      "last": {
+        "left": 1282,
+        "right": 1414,
+        "width": 132
+      },
+      "refresh": {
+        "left": 1337,
+        "right": 1415,
+        "width": 78
+      },
+      "week": {
+        "left": 1175,
+        "right": 1415,
+        "width": 240
+      }
+    }
+  },
+  "tooltips": {
+    "named": true,
+    "focus": true,
+    "hover": true,
+    "scroll": {
+      "independent": true,
+      "scrollHeight": 880,
+      "clientHeight": 587
+    },
+    "currentVisible": true
+  },
+  "mobile": {
+    "trigger": 44,
+    "links": 17,
+    "minLink": 48,
+    "escapeClosed": true,
+    "focusReturned": true
+  }
+}

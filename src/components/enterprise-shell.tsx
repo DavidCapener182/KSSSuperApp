@@ -1,11 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
 import { BriefcaseBusiness, Building2, BookOpenText, ClipboardList, FileText, House, MapPin, Menu, PanelLeftClose, PanelLeftOpen, UserRound, UsersRound, CalendarDays, Bell, Siren } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Tooltip } from "radix-ui";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { NavigationItem } from "@/lib/auth/capabilities";
 import type { RoleCode } from "@/lib/auth/principal";
@@ -28,6 +29,7 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
   const [signOutError, setSignOutError] = useState("");
   const [collapsed, setCollapsed] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const sidebarNavRef = useRef<HTMLElement>(null);
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => setCollapsed(window.localStorage.getItem("kss-sidebar-collapsed") === "true"));
     return () => window.cancelAnimationFrame(frame);
@@ -54,6 +56,12 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
     .filter((group) => group.items.length > 0);
   const activeDestination = [...destinations].sort((a, b) => b.href.length - a.href.length)
     .find((item) => pathname === item.href || (item.href !== "/app" && pathname.startsWith(`${item.href}/`)));
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      sidebarNavRef.current?.querySelector<HTMLElement>('a[aria-current="page"]')?.scrollIntoView({ block: "nearest" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname, collapsed]);
   const current = (href: string) => pathname === href || (href === "/site-book" && pathname === "/site-book/access" ? false : href !== "/app" && pathname.startsWith(`${href}/`));
   const iconFor = (href: string) => {
     const Icon = href === "/app" ? House : href.startsWith("/site-book") ? BookOpenText : href === "/incidents" ? Siren : href === "/onboarding" ? ClipboardList : href === "/documents"
@@ -101,7 +109,17 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
     <a className="enterprise-skip-link" href="#enterprise-content">Skip to content</a>
     <aside className="enterprise-sidebar">
       <div className="enterprise-sidebar-brand"><Link className="enterprise-brand" href="/app"><span className="identity-mark" aria-hidden="true">K</span><span className="enterprise-brand-name">KSS <span>Enterprise</span></span></Link><button className="enterprise-collapse" type="button" onClick={toggleCollapsed} aria-label={collapsed ? "Expand navigation" : "Collapse navigation"} aria-expanded={!collapsed} title={collapsed ? "Expand navigation" : "Collapse navigation"}>{collapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}</button></div>
-      <nav className="enterprise-nav" aria-label="Primary navigation">{groups.map((group) => <div className="enterprise-nav-group" role="group" aria-label={group.label} key={group.label}><span className="enterprise-nav-group-label" aria-hidden="true">{group.label}</span><div className="enterprise-nav-group-links">{group.items.map((item) => <Link key={item.href} href={item.href} aria-current={current(item.href) ? "page" : undefined} title={collapsed ? item.label : undefined} aria-label={collapsed ? item.label : undefined}>{iconFor(item.href)}<span className="enterprise-nav-label">{item.label}</span></Link>)}</div></div>)}</nav>
+      <Tooltip.Provider delayDuration={150}>
+        <nav ref={sidebarNavRef} className="enterprise-nav" aria-label="Primary navigation">
+          {groups.map((group) => <div className="enterprise-nav-group" role="group" aria-label={group.label} key={group.label}>
+            <span className="enterprise-nav-group-label" aria-hidden="true">{group.label}</span>
+            <div className="enterprise-nav-group-links">{group.items.map((item) => <Tooltip.Root key={item.href} open={collapsed ? undefined : false}>
+              <Tooltip.Trigger asChild><Link href={item.href} aria-current={current(item.href) ? "page" : undefined} aria-label={collapsed ? item.label : undefined}>{iconFor(item.href)}<span className="enterprise-nav-label">{item.label}</span></Link></Tooltip.Trigger>
+              <Tooltip.Portal><Tooltip.Content side="right" sideOffset={8} className="enterprise-nav-tooltip">{item.label}<Tooltip.Arrow className="enterprise-nav-tooltip-arrow" /></Tooltip.Content></Tooltip.Portal>
+            </Tooltip.Root>)}</div>
+          </div>)}
+        </nav>
+      </Tooltip.Provider>
       <div className="enterprise-sidebar-footer"><span>{environmentLabel}</span><span>Synthetic development data</span></div>
     </aside>
     <div className="enterprise-workspace">
