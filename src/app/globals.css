@@ -722,6 +722,7 @@ body { min-width: 320px; }
 .my-schedule-work h3 { margin:5px 0; }
 .my-schedule-declaration { display:flex; justify-content:space-between; gap:10px; margin:8px 0; padding:11px 14px; border-left:3px solid var(--kss-blue); border-radius:8px; background:var(--kss-surface-muted); font-size:13px; }
 @media (max-width:700px) {
+  .workforce-page .workforce-tabs button,.workforce-page .workforce-toolbar button,.workforce-page .workforce-toolbar input,.workforce-page .workforce-staff button,.workforce-page .workforce-staff input { min-height:44px; }
   .workforce-toolbar strong { width:100%; margin-left:0; }
   .workforce-toolbar button { flex:1; }
   .workforce-toolbar label { width:100%; }
