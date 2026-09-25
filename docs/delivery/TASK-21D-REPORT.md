@@ -1,7 +1,13 @@
 # TASK-21D delivery report — Service Delivery Commitments & Change Control
 
 **Date:** 25 September 2026
-**Status:** Implemented and checked in **synthetic Development**, pending David's review and acceptance. No 21E/21F, staging, production, real Client data or deployment was performed.
+**Status:** **ACCEPTED — SYNTHETIC DEV** by David on 25 September 2026. No 21E/21F, staging, production, real Client data or deployment was performed.
+
+## David's acceptance and close-out
+
+David accepted the bounded 21D contract and the verification below on 25 September 2026. The accepted contract keeps Commitments as unverified management records, restricts Changes to Site Service, separates management approval from independently guarded 08A source application, and retains finite named Office grants and the proposer/approver separation. This acceptance does not grant contractual confirmation, additional source targets, Operations or Client management access, automatic source mutation, finance authority, notifications, or a later phase. TASK-21D closes with the acceptance commit; TASK-21E and TASK-21F remain unopened.
+
+The two local migration filenames, remote ledger versions, literal target project and hashes in the table below are the applied sequence. Canonical integration must reconcile both migrations in that sequence; the forward correction must not rewrite the first migration. David accepted the 08A first-page assertion failure as **shared synthetic-fixture/test-maintenance debt**, not a passing 08A regression or a blocker to this bounded 21D acceptance. A later test-maintenance task should locate its own allocation by exact focus or bounded pagination. The advisor notices remain informational; no speculative indexes were added for close-out.
 
 ## Approved boundary delivered
 
@@ -35,8 +41,8 @@ The Supabase security advisor reported the expected informational “RLS enabled
 - `npm run build` passed on Next.js 16.3.6 Webpack after the final UI/forward migration changes. Focused ESLint and `git diff --check` passed.
 - Authenticated synthetic Office browser on the **built local app** loaded an exact 21D Service Delivery detail, displayed Commitments and Changes, an applied change with later source drift, and created/read back a new `PROPOSED_UNVERIFIED` Commitment through the UI. At desktop 1440px, document width was 1440px. At genuine 390px viewport, document width was 390px, all 36 visible 21D buttons/summary controls measured at least 44px, and there was no horizontal overflow. The global control focus rules and added summary focus outline are in the final build. Screenshots: [desktop](../../output/playwright/task-21d/office-desktop.png), [390px](../../output/playwright/task-21d/office-390.png).
 
-## Limits and acceptance gate
+## Limits after acceptance
 
 The source application seam proves exact 08A event/revision reconciliation, not semantic equivalence between a free-text management proposal and every field changed by the source workflow. The approved first slice deliberately requires a human Recorder and keeps the 08A workflow independent. Its Site Service target only supports source actions that advance `site_services.revision` and write an exact `site_service_events` row; other target families require a separate reviewed contract. No operational-document target verification was attempted because 19A is unaccepted.
 
-The 08A default-page fixture failure above remains open for a separate regression-maintenance decision. The browser used a synthetic Office account, not an Operations, Staff or Client persona; those denials were verified in authenticated RPC tests and server role checks. Local tests, database readback and browser checks do **not** establish human acceptance or production readiness. David's acceptance is the next gate.
+The 08A default-page fixture failure above remains open for a separate regression-maintenance decision. The browser used a synthetic Office account, not an Operations, Staff or Client persona; those denials were verified in authenticated RPC tests and server role checks. Local tests, database readback and browser checks do **not** establish production readiness. David separately supplied the human acceptance recorded above for synthetic Development only.
