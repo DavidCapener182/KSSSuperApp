@@ -6,3 +6,21 @@
 .training-card>a{margin-right:14px}.training-event-list{list-style:decimal;padding-left:28px}.training-event-list li{border-bottom:1px solid #d0d5dd;padding:14px 4px}.training-event-list time{font-weight:700;color:#245b9c}.training-event-list p{margin:5px 0;overflow-wrap:anywhere}
 .training-assessment{max-width:780px}.training-assessment .training-card{margin:20px 0;min-height:0}.training-assessment fieldset{border:1px solid #cbd5e1;border-radius:12px;margin:20px 0;padding:20px;min-width:0}.training-assessment legend{font-weight:700;line-height:1.5;padding:0 6px}.training-assessment-option{display:flex;align-items:center;gap:12px;min-height:44px;padding:8px;border-radius:8px}.training-assessment-option input{width:20px;height:20px;flex:none;accent-color:#245b9c}.training-assessment button{min-height:44px;border:1px solid #8998ab;border-radius:8px;padding:8px 14px;background:#eef4fa;color:#173b65;cursor:pointer;margin:4px}.training-assessment button:disabled{opacity:.55;cursor:default}.training-assessment [role=group]{border:2px solid #245b9c;border-radius:12px;padding:18px}.training-assessment li{overflow-wrap:anywhere}
 .training-assessment-admin .training-option-admin{border-top:1px solid #d0d5dd;padding:8px 0}.training-assessment-admin .training-option-admin label{margin:4px 0}.training-assessment-admin .training-option-admin input[type=checkbox],.training-assessment-admin .training-option-admin input[type=radio]{display:inline-block;width:20px;height:20px;vertical-align:middle;margin-right:10px;accent-color:#245b9c}.training-assessment-admin .training-admin-list button{width:100%;overflow-wrap:anywhere}
+.training-area{font-family:-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;min-width:0}
+.training-area header>p:last-child{max-width:70ch;color:#344054;font-size:1rem}
+.training-area h1{font-weight:750}
+.training-area h2{font-weight:700}
+.training-area .training-eyebrow{letter-spacing:.06em}
+.training-area .training-card{min-width:0;overflow-wrap:anywhere}
+.training-area .training-card h2{margin:.5rem 0;font-size:1.25rem}
+.training-area .training-card p{font-size:.95rem;color:#344054}
+.training-area .training-card>a{padding:8px 0;text-underline-offset:3px}
+.training-source-note{max-width:76ch;margin:0 0 26px;padding:14px 18px;border-left:3px solid #245b9c;border-radius:0 10px 10px 0;background:#eef4fa;color:#1d2939;line-height:1.6}
+.training-area .training-admin-list,.training-area .training-admin-edit,.training-area .training-grants{overflow-wrap:anywhere}
+.training-area :focus-visible{outline:3px solid #245b9c;outline-offset:3px}
+@media(max-width:700px){.training-area{padding:18px 16px calc(105px + env(safe-area-inset-bottom))}.training-area .training-card{padding:18px}.training-section-links a{flex:1;justify-content:center}.training-area .training-page-nav a{min-height:44px}}
+.training-admin-course summary{min-height:44px;display:list-item;padding:12px 4px;color:#1d2939;font-weight:700;line-height:1.4;cursor:pointer;overflow-wrap:anywhere}
+.training-admin-course summary::marker{color:#245b9c}
+.training-admin-course>div{padding:4px 0 12px 16px}
+.training-admin-course summary:focus-visible{outline:3px solid #245b9c;outline-offset:3px}
+.training-admin-list input[type=search]{min-height:44px}

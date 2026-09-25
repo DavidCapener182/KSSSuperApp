@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { SIA_CATEGORIES, SIA_LABELS, type SiaCategory } from "@/lib/profile/policy";
 import { credentialState } from "@/lib/credentials/state";
+import styles from "./credentials.module.css";
 
 type Claim = { id: string; type_code: SiaCategory; draft_reference: string | null; draft_issued_on: string | null;
   draft_expires_on: string | null; draft_change_seq: number; latest_revision_id: string | null; withdrawn_at: string | null };
@@ -79,7 +80,8 @@ export function CredentialsClient({ personId, self, office, superAdmin }: { pers
           }));
         }).catch(() => {});
       }
-    } catch (error) { setMessage(error instanceof Error ? error.message : "Credentials unavailable."); }
+      return true;
+    } catch (error) { setMessage(error instanceof Error ? error.message : "Credentials unavailable."); return false; }
     finally { setLoading(false); }
   }, [personId, office, superAdmin, staff]);
   useEffect(() => { void Promise.resolve().then(() => load()); }, [load]);
@@ -89,7 +91,8 @@ export function CredentialsClient({ personId, self, office, superAdmin }: { pers
     try {
       const response = await fetch("/api/credentials", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(input) });
       if (!response.ok) throw new Error((await response.json()).error ?? "Action denied");
-      await load(); setMessage(success);
+      if (await load()) setMessage(`${success} Current credential data refreshed.`);
+      else setMessage("The server accepted the action, but current credential data could not be refreshed. Reload before another action.");
     } catch (error) { setMessage(error instanceof Error ? error.message : "Action denied"); }
     finally { setBusy(false); }
   }
@@ -100,10 +103,11 @@ export function CredentialsClient({ personId, self, office, superAdmin }: { pers
       REVOKED: "Revoked", REJECTED: "Rejected", EXPIRED: "Expired",
       VERIFIED: "Verified — Office checked evidence", REVIEW_PENDING: "Submitted — review pending" } as const)[state];
   };
-  return <main className="enterprise-main">
+  return <main className={`enterprise-main ${styles.workspace}`}>
     <p className="eyebrow">Synthetic development · TASK-16B</p>
     <h1>{staff ? "My Credentials" : "Credential review"}</h1>
     <p className="enterprise-intro">These synthetic claims and reviews do not establish a live SIA check or deployment eligibility.</p>
+    <p className={styles.boundary}>Credential verification is separate from Training progress, course assessment results and any deployment decision.</p>
     {message && <p role="status" className="enterprise-honesty">{message}</p>}
     {loading ? <p>Loading credentials…</p> : <>
       {(office || superAdmin) && <section className="profile-card"><h2>Assigned review responsibility</h2>

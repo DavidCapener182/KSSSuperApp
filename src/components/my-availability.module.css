@@ -1,0 +1,56 @@
+.workspace {
+  min-width: 0;
+}
+
+.workspace :global(.availability-actions button),
+.workspace :global(.enterprise-page-heading button),
+.workspace :global(.deployment-pagination button) {
+  min-height: 44px;
+}
+
+.workspace :global(.enterprise-honesty a) {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  margin-inline-end: 2px;
+}
+
+.workspace :global(.availability-card) {
+  min-width: 0;
+}
+
+.workspace :global(.availability-card p) {
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.workspace :global(.deployment-history summary) {
+  min-height: 44px;
+  padding-block: 12px;
+  cursor: pointer;
+}
+
+.workspace :global(a:focus-visible),
+.workspace :global(button:focus-visible),
+.workspace :global(summary:focus-visible) {
+  outline: 3px solid var(--kss-blue);
+  outline-offset: 3px;
+}
+
+.sheet button {
+  min-width: 44px;
+}
+
+.sheet button,
+.sheet input,
+.sheet select {
+  min-height: 44px;
+}
+
+.sheet button:focus-visible,
+.sheet input:focus-visible,
+.sheet select:focus-visible,
+.sheet textarea:focus-visible {
+  outline: 3px solid var(--kss-blue);
+  outline-offset: 3px;
+}

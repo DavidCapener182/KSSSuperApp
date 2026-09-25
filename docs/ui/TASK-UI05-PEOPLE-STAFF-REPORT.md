@@ -31,3 +31,26 @@ Focused ESLint on both changed TSX files passed. Webpack production build and Ty
 ## Dependencies and shared-component proposals
 
 See `SHARED-UI-CHANGE-PROPOSALS.md`.
+
+## Follow-up UI05 presentation pass — awaiting David's review
+
+The earlier acceptance above remains limited to implementation commit `9ed3084`. This later Availability, Time Away, Credentials and Training work is separate and **not yet accepted**. It used the same isolated branch; the shared checkout, UI03, 19A, 20E, Supabase and deployment were not changed.
+
+### Changes
+
+- My Availability now links to the separate Time Away request workflow. Its existing declaration, edit, cancel and sheet controls have local 44px targets and visible focus. Save/cancel messages follow an authoritative current-list/history refresh; if the server accepts a write but readback fails, the UI says confirmation is unavailable rather than displaying a completed current state.
+- Staff Time Away links back to My Availability and states that a request does not change a declaration. Time Away inputs, buttons and calendar entries now have 44px targets and more readable text. Decision and administration success messages follow source readback. Availability, allocation, attendance and pay records remain separate.
+- Credentials has a local source-boundary note and more readable card typography, focus and mobile action sizing. Its success message follows current credential readback. Credential verification is still separate from accepted document evidence, Training and deployment eligibility.
+- My Learning labels assignment state and distinguishes page progress, assessment attempts, credential verification and deployment decisions. Training CSS improves text hierarchy and mobile spacing. Training administration now filters its already loaded course list by title and collapses each course's versions, reducing the long synthetic list without changing authority or data. Its action message requires a successful current-course/grant refresh. No person-specific Training summary, Training matrix, 20E certificate/PDF or new result contract was added.
+
+### Actual browser evidence
+
+An isolated local production build used the existing synthetic Development settings and signed into Chrome as synthetic Staff A and Office A. Desktop was 1440px and mobile was an actual 390px browser viewport. Read-only navigation covered Staff `/my-availability`, `/my-time-away`, `/credentials`, `/training`, `/training/my-learning`; Office `/time-away`, `/credentials`, `/training`, `/training-admin`. In each visited desktop/mobile route the measured document `scrollWidth` equalled the viewport width. The main font was a system sans-serif stack. The first keyboard Tab exposed a visible shell-link outline; focused Availability Add and Training course summary controls also had visible solid outlines. Enter opened the Availability sheet and expanded a course. The 390px Availability Add control measured 44px high; all measured sheet buttons/inputs/selects were at least 44px in both dimensions. Filtering the 70 loaded synthetic courses to `KSS Enterprise` returned 1 course; its 390px summary was keyboard operable and 69px high. No source write was made in the browser walkthrough.
+
+Screenshots: [Staff Availability 390px](../../output/playwright/ui05-followup/staff-my-availability-390.png), [Availability sheet 390px](../../output/playwright/ui05-followup/staff-availability-sheet-390.png), [Staff Time Away 390px](../../output/playwright/ui05-followup/staff-my-time-away-390.png), [Staff Credentials 390px](../../output/playwright/ui05-followup/staff-credentials-390.png), [Staff My Learning 390px](../../output/playwright/ui05-followup/staff-training-my-learning-390.png), [Office Time Away 390px](../../output/playwright/ui05-followup/office-time-away-390.png), [Office Training administration desktop](../../output/playwright/ui05-followup/office-training-admin-1440.png), [Office filtered Training 390px](../../output/playwright/ui05-followup/office-training-filter-390.png).
+
+Office A had no active Credential Reviewer grant or authorised Time Away team decision queue in this readback, so reviewer decisions, request history for another Person and the manager calendar were not visually exercised. The browser walkthrough did not submit or reject a source action, test a screen reader, or confirm a completed course. Those are evidence limits, not UI acceptance claims. Existing 20E-named synthetic test courses appeared in the general admin list; no certificate or PDF data was read or used by this change.
+
+### Checks
+
+Focused ESLint on the five changed TSX files and `git diff --check` passed. The final Next.js 16.3.6 Webpack production build passed compilation, TypeScript and 59 static pages using the existing synthetic Development public configuration. The first follow-up build caught a nullable course-title type error in the new filter; it was fixed before the passing final build. No source-mutation, RLS, regression or deployment checks were run because this follow-up changes presentation and client feedback only.

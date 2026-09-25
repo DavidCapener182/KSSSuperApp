@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import styles from "./time-away.module.css";
 
 type Team = { id: string; name: string; actions?: string[] };
@@ -146,7 +147,8 @@ export function TimeAwayClient({ view }: { view: "staff" | "manager" }) {
       if (view === "manager" && authority?.managerTeams.find((entry) => entry.id === found.teamId)?.actions?.includes("VIEW_COVERAGE")) {
         setConflict(await api(`/api/time-away?mode=conflicts&id=${id}`) as Conflict);
       }
-    } catch (cause) { setError((cause as Error).message); }
+      return true;
+    } catch (cause) { setError((cause as Error).message); return false; }
   }
   async function act(action: string, target = detail) {
     if (!target) return;
@@ -159,8 +161,8 @@ export function TimeAwayClient({ view }: { view: "staff" | "manager" }) {
         : null;
       await api("/api/time-away", { action, requestId: target.id, expectedRevision: target.revision,
         key: crypto.randomUUID(), reason: reasonForAction });
-      setNotice(`Request ${label[action] ?? action.toLowerCase().replaceAll("_", " ")}.`);
-      await Promise.all([openDetail(target.id), refreshList()]);
+      const [readback] = await Promise.all([openDetail(target.id), refreshList()]);
+      if (readback) setNotice(`Request ${label[action] ?? action.toLowerCase().replaceAll("_", " ")}; current state refreshed.`);
     } catch (cause) { setError((cause as Error).message); }
   }
   async function saveDraft() {
@@ -173,8 +175,8 @@ export function TimeAwayClient({ view }: { view: "staff" | "manager" }) {
       const found = await api(`/api/time-away?mode=detail&id=${result.result}`) as Detail;
       setDraftId(found.id);setDraftRevision(found.revision);setDetail(found);
       setSavedPreview(preview);
-      setNotice("Draft saved. Review every covered date and time before submission.");
       await refreshList();
+      setNotice("Draft saved and read back. Review every covered date and time before submission.");
     } catch (cause) { setError((cause as Error).message); }
   }
   async function submit() {
@@ -185,19 +187,20 @@ export function TimeAwayClient({ view }: { view: "staff" | "manager" }) {
       if (!selectedTeam && (authority?.myTeams.length ?? 0) > 1) throw new Error("Choose one Time Away team.");
       await api("/api/time-away", { action: "SUBMIT", requestId: draftId, teamId: selectedTeam || null,
         expectedRevision: draftRevision, key: crypto.randomUUID() });
-      setNotice("Request submitted to its selected Time Away team.");
-      setDraftId("");setDraftRevision(0);
-      setSavedPreview([]);
-      await Promise.all([openDetail(draftId),refreshList()]);
+      const [readback] = await Promise.all([openDetail(draftId), refreshList()]);
+      if (readback) {
+        setDraftId("");setDraftRevision(0);setSavedPreview([]);
+        setNotice("Request submitted to its selected Time Away team; current state refreshed.");
+      }
     } catch (cause) { setError((cause as Error).message); }
   }
   async function adminAction(action: string, extra: Record<string, unknown>) {
     try {
       setError("");setNotice("");
       await api("/api/time-away", { action, reason: adminReason, ...extra });
-      setNotice("Time Away authority updated with attributable history.");
       setAdmin(await api("/api/time-away?mode=admin") as Admin);
       await refreshAuthority();
+      setNotice("Time Away authority updated and read back with attributable history.");
     } catch (cause) { setError((cause as Error).message); }
   }
 
@@ -206,6 +209,7 @@ export function TimeAwayClient({ view }: { view: "staff" | "manager" }) {
     <header className={styles.header}><div><p className={styles.eyebrow}>Workforce · synthetic Dev</p>
       <h1>{view === "staff" ? "My Time Away" : "Time Away requests"}</h1>
       <p>Requests and decisions are separate from Availability, allocations, attendance and pay.</p></div></header>
+    {view === "staff" && <p className={styles.boundaryLink}>Need to declare when you can work? <Link href="/my-availability">Open My Availability</Link>. A Time Away request does not change a declaration.</p>}
     {error && <p className={styles.error} role="alert">{error}</p>}
     {notice && <p className={styles.notice} role="status">{notice}</p>}
 
