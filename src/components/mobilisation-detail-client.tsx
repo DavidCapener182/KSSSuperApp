@@ -20,8 +20,8 @@ const sources = ["CONTACT", "SITE", "SITE_SERVICE", "EVENT", "TASK", "DOCUMENT_V
 const recordSections = ["scope-heading", "actions-heading", "blockers-heading", "decisions-heading", "links-heading", "review-heading", "history-heading"] as const;
 type RecordSection = typeof recordSections[number];
 async function read(url: string, init?: RequestInit) { const response = await fetch(url, { ...init, cache: "no-store" }); const body = await response.json().catch(() => ({})); if (!response.ok) throw new Error(body.error ?? "Request denied"); return body; }
-function sourceHref(link: SourceLink) { switch (link.sourceType) { case "SITE": return `/sites/${link.sourceId}`; case "SITE_SERVICE": return link.siteId ? `/sites/${link.siteId}/services/${link.sourceId}` : "/sites"; case "EVENT": return `/events/${link.sourceId}`; case "CONTACT": return "/crm"; case "TASK": return "/work"; case "DOCUMENT_VERSION": return "/documents"; default: return "#"; } }
-export function MobilisationDetailClient({ id }: { id: string }) {
+function sourceHref(link: SourceLink) { switch (link.sourceType) { case "SITE": return `/sites?view=operational&selected=${link.sourceId}`; case "SITE_SERVICE": return link.siteId ? `/sites/${link.siteId}/services/${link.sourceId}` : "/sites"; case "EVENT": return `/events/${link.sourceId}`; case "CONTACT": return "/crm"; case "TASK": return "/work"; case "DOCUMENT_VERSION": return "/documents"; default: return "#"; } }
+export function MobilisationDetailClient({ id, returnedSource }: { id: string; returnedSource?: { sourceType: string; sourceId: string } }) {
   const [detail, setDetail] = useState<Detail | null>(null); const [owners, setOwners] = useState<Choice[]>([]);
   const [loading, setLoading] = useState(true); const [busy, setBusy] = useState(false); const [error, setError] = useState(""); const [notice, setNotice] = useState("");
   const [note, setNote] = useState(""); const [owner, setOwner] = useState(""); const [target, setTarget] = useState("");
@@ -29,7 +29,7 @@ export function MobilisationDetailClient({ id }: { id: string }) {
   const [dependency, setDependency] = useState({ actionId: "", dependsOnId: "" });
   const [blocker, setBlocker] = useState({ actionId: "", reason: "", ownerId: "" });
   const [decision, setDecision] = useState({ outcome: "DEFERRED", note: "" });
-  const [link, setLink] = useState({ sourceType: "SITE", sourceId: "" });
+  const [link, setLink] = useState({ sourceType: returnedSource?.sourceType ?? "SITE", sourceId: returnedSource?.sourceId ?? "" });
   const [activeSection, setActiveSection] = useState<RecordSection>("scope-heading");
   const sectionNav = useRef<HTMLElement | null>(null);
   useEffect(() => {
@@ -95,7 +95,7 @@ export function MobilisationDetailClient({ id }: { id: string }) {
     {m && <>
       <header className="mobilisation-record-header"><h1>{m.title}</h1><div className="crm-record-identity"><span>Mobilisation</span><strong>{label(m.status)}</strong></div><p>{m.organisationName} · Owner: {m.ownerName}</p><p>Target go-live: {m.target_go_live ?? "Not set"} · {label(m.templateCode)} template v{m.templateVersion}</p></header>
       <nav ref={sectionNav} className="mobilisation-record-sections" aria-label="Mobilisation sections"><a href="#scope-heading" aria-current={activeSection==="scope-heading"?"location":undefined} onClick={event=>selectSection(event,"scope-heading")}>Context</a><a href="#actions-heading" aria-current={activeSection==="actions-heading"?"location":undefined} onClick={event=>selectSection(event,"actions-heading")}>Actions</a><a href="#blockers-heading" aria-current={activeSection==="blockers-heading"?"location":undefined} onClick={event=>selectSection(event,"blockers-heading")}>Blockers</a><a href="#decisions-heading" aria-current={activeSection==="decisions-heading"?"location":undefined} onClick={event=>selectSection(event,"decisions-heading")}>Decisions</a><a href="#links-heading" aria-current={activeSection==="links-heading"?"location":undefined} onClick={event=>selectSection(event,"links-heading")}>Source links</a><a href="#review-heading" aria-current={activeSection==="review-heading"?"location":undefined} onClick={event=>selectSection(event,"review-heading")}>Review</a><a href="#history-heading" aria-current={activeSection==="history-heading"?"location":undefined} onClick={event=>selectSection(event,"history-heading")}>History</a></nav>
-      <div className="crm-organisation-related"><strong>Related workflows</strong><Link href={`/crm/organisations/${m.organisation_id}`}>Client Organisation</Link>{m.source_opportunity_id && <Link href={`/crm/opportunities/${m.source_opportunity_id}`}>Origin Opportunity</Link>}<a href="#links-heading" onClick={event=>selectSection(event,"links-heading")}>Source records</a></div>
+      <div className="crm-organisation-related"><strong>Related workflows</strong><Link href={`/crm/organisations/${m.organisation_id}`}>Client Organisation</Link>{m.source_opportunity_id && <Link href={`/crm/opportunities/${m.source_opportunity_id}`}>Origin Opportunity</Link>}<Link href={`/commercial-handoff?organisation=${m.organisation_id}&mobilisation=${m.id}`}>Commercial handoff</Link><a href="#links-heading" onClick={event=>selectSection(event,"links-heading")}>Source records</a></div>
       <div className={styles.counts} aria-label="Factual action counts"><span>{detail!.counts.total} actions</span><span>{detail!.counts.done} done</span><span>{detail!.counts.open} open</span><span>{detail!.counts.blocked} blocked</span><span>{openBlockers.length} unresolved blockers</span></div>
       <div className="mobilisation-focused-content">
       <section className={styles.card} aria-labelledby="scope-heading" hidden={activeSection!=="scope-heading"}><h2 id="scope-heading">Scope and accountability</h2>
@@ -141,13 +141,15 @@ export function MobilisationDetailClient({ id }: { id: string }) {
       </section>
       <section className={styles.card} aria-labelledby="links-heading" hidden={activeSection!=="links-heading"}><h2 id="links-heading">Authoritative source links</h2>
         <p>Links point to source records. Their permissions and decisions remain in those modules. Asset links follow a later task.</p>
+        {returnedSource && <p role="status" className={styles.warning}>Returned from the {label(returnedSource.sourceType)} source with an exact ID. Review the source and select “Link authorised source” below; returning here did not link it automatically.</p>}
         {detail!.links.length === 0 && <p>No source links recorded.</p>}
         {detail!.links.map(row => <p key={row.id}>{row.sourceId ? <Link href={sourceHref(row)}>{label(row.sourceType)} <span className={styles.code}>{row.sourceId}</span></Link> : <span>{label(row.sourceType)} · restricted</span>} · {label(row.sourceState)} {m.status !== "HANDED_OVER" && m.status !== "CANCELLED" && <Button variant="ghost" size="sm" disabled={busy || note.trim().length < 3} onClick={() => void unlink(row.id)}>Remove link with reason below</Button>}</p>)}
         {!terminal && <><div className={styles.form}><label>Source type<select value={link.sourceType} onChange={e => setLink({ ...link, sourceType: e.target.value })}>{sources.map(type => <option key={type} value={type}>{label(type)}</option>)}</select></label>
           <label>Exact source ID<input value={link.sourceId} onChange={e => setLink({ ...link, sourceId: e.target.value })} /></label>
           <div className={styles.formActions}><Button variant="outline" disabled={busy || !link.sourceId} onClick={() => void command("LINK_ADD", link)}>Link authorised source</Button></div></div>
         <label className={styles.stack}>Reason for a link correction<textarea maxLength={500} value={note} onChange={e => setNote(e.target.value)} /></label></>}
-        <div className={styles.buttons}><Link href={`/sites?organisation=${m.organisation_id}`}>Open Sites to create or choose a Site</Link><Link href={`/events?organisation=${m.organisation_id}`}>Open Events to create or choose an Event</Link></div>
+        <div className={styles.buttons}><Link href={`/sites?organisation=${m.organisation_id}&mobilisation=${m.id}`}>Create or choose Site</Link><Link href={`/events?organisation=${m.organisation_id}&mobilisation=${m.id}`}>Create or choose Event</Link>
+          {detail!.links.filter(row => row.sourceType === "SITE" && row.sourceId).map(row => <Link key={row.id} href={`/sites/${row.sourceId}/services?mobilisation=${m.id}`}>Create or choose Site Service at linked Site</Link>)}</div>
       </section>
       <section className={styles.card} aria-labelledby="review-heading" hidden={activeSection!=="review-heading"}><h2 id="review-heading">Go-live review and operational handover</h2>
         <p className={styles.warning}>These are factual exceptions, not a safety, compliance, staffing or contract verdict. Source records must be checked in their own modules.</p>
@@ -156,6 +158,7 @@ export function MobilisationDetailClient({ id }: { id: string }) {
         <h3>Open blockers</h3>{openBlockers.length ? <ul>{openBlockers.map(row => <li key={row.id}>{row.reason}</li>)}</ul> : <p>None.</p>}
         <h3>Linked source states</h3>{detail!.links.length ? <ul>{detail!.links.map(row => <li key={row.id}>{label(row.sourceType)} — {label(row.sourceState)}</li>)}</ul> : <p>No linked source state available.</p>}
         <p>Training integration: external / not connected. Contract, purchase order, rates and compliance approval are outside this workspace.</p>
+        {m.status === "HANDED_OVER" && <p><Link href={`/commercial-handoff?organisation=${m.organisation_id}&mobilisation=${m.id}`}>View exact continuing delivery context</Link> · <Link href={`/service-delivery?mobilisation=${m.id}`}>Start Service Delivery from an eligible linked Service</Link></p>}
         {!terminal && <><label className={styles.stack}>Decision note, mandatory for handover or cancellation<textarea maxLength={1000} value={note} onChange={e => setNote(e.target.value)} /></label>
         <div className={styles.buttons}>{nextState && <Button disabled={busy || (nextState === "HANDED_OVER" && note.trim().length < 3)} onClick={() => void command("STATUS", { state: nextState, note }, nextState === "HANDED_OVER" ? "Record handover with the displayed outstanding facts?" : undefined)}>{nextState === "HANDED_OVER" ? "Hand over to Operations" : `Move to ${label(nextState)}`}</Button>}
           <Button variant="outline" disabled={busy || note.trim().length < 3} onClick={() => void command("STATUS", { state: "CANCELLED", note }, "Cancel this mobilisation? History will remain.")}>Cancel mobilisation</Button></div></>}

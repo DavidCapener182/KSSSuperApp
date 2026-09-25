@@ -583,6 +583,7 @@ body { min-width: 320px; }
   .enterprise-shell-sidebar .enterprise-header { justify-content: space-between; min-height: 64px; padding: 8px 16px; }
   .enterprise-shell-sidebar .enterprise-header-top { display: flex; gap: 8px; }
   .enterprise-mobile-brand, .enterprise-drawer-trigger { display: inline-flex; }
+  .enterprise-mobile-brand { min-height: 44px; }
   .enterprise-shell-sidebar .enterprise-environment { display: none; }
   .enterprise-shell-sidebar .enterprise-user-row { display: none; }
   .enterprise-shell-sidebar .enterprise-context { padding: 4px 16px 0; }

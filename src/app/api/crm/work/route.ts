@@ -26,6 +26,37 @@ export async function GET(request: Request) {
   if ((id && !isUuid(id)) || (owner && owner !== "mine" && !isUuid(owner)) ||
     (organisation && !isUuid(organisation)) || (type && !opportunityTypes.has(type)) ||
     orgSearch.length > 80 || !/^[\p{L}\p{N} .&'-]*$/u.test(orgSearch)) return privateJson({ error: "Invalid CRM query" }, 400);
+  if (view === "attention") {
+    const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+    const weekEnd = new Date(`${today}T12:00:00Z`);
+    weekEnd.setUTCDate(weekEnd.getUTCDate() + 7);
+    const [followUps, decisions, openSample] = await Promise.all([
+      client.from("tasks").select("id,source_id,title,due_at,assignee_person_id")
+        .eq("task_type", "CRM_FOLLOW_UP").eq("source_kind", "CRM_OPPORTUNITY").eq("state", "OPEN")
+        .lt("due_at", weekEnd.toISOString()).order("due_at", { ascending: true }).limit(25),
+      client.from("crm_opportunities").select("id,title,stage,owner_person_id,expected_decision_date,crm_organisations(name)")
+        .not("stage", "in", '("WON","LOST")').gte("expected_decision_date", today)
+        .lte("expected_decision_date", weekEnd.toISOString().slice(0, 10))
+        .order("expected_decision_date").limit(15),
+      client.from("crm_opportunities").select("id,title,stage,owner_person_id,expected_decision_date,crm_organisations(name)")
+        .not("stage", "in", '("WON","LOST")').order("updated_at", { ascending: false }).limit(50),
+    ]);
+    if (followUps.error || decisions.error || openSample.error) return privateJson({ error: "Commercial attention unavailable" }, 503);
+    const sourceIds = [...new Set((followUps.data ?? []).map(task => task.source_id).filter(isUuid))];
+    const opportunities = sourceIds.length ? await client.from("crm_opportunities")
+      .select("id,title,stage,organisation_id,crm_organisations(name)").in("id", sourceIds) : null;
+    if (opportunities?.error) return privateJson({ error: "Commercial attention unavailable" }, 503);
+    const byId = new Map((opportunities?.data ?? []).map(item => [item.id, item]));
+    const sampleIds = (openSample.data ?? []).map(item => item.id);
+    const sampleTasks = sampleIds.length ? await client.from("tasks").select("source_id,due_at")
+      .eq("task_type", "CRM_FOLLOW_UP").eq("source_kind", "CRM_OPPORTUNITY").eq("state", "OPEN")
+      .in("source_id", sampleIds).gte("due_at", new Date().toISOString()) : null;
+    if (sampleTasks?.error) return privateJson({ error: "Commercial attention unavailable" }, 503);
+    const planned = new Set((sampleTasks?.data ?? []).map(task => task.source_id));
+    return privateJson({ followUps: (followUps.data ?? []).map(task => ({ ...task, opportunity: byId.get(task.source_id) ?? null })),
+      decisions: decisions.data ?? [], noFutureSample: (openSample.data ?? []).filter(item => !planned.has(item.id)).slice(0, 12),
+      asOf: new Date().toISOString(), bounded: true });
+  }
   if (view === "pipeline") {
     const closed = params.get("closed") === "true";
     const selectedStages = closed ? ["WON", "LOST"] : stages;

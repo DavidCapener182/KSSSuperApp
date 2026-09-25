@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { crmDueStatus } from "@/lib/crm/due-status";
+import sales from "./crm-sales.module.css";
 
 type Row = Record<string, unknown>;
 type Owner = { id: string; displayName: string };
@@ -34,6 +35,7 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
   const [orgInput, setOrgInput] = useState("");
   const [orgSearch, setOrgSearch] = useState("");
   const [mobileStage, setMobileStage] = useState("NEW_LEAD");
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [pending, setPending] = useState<{ id: string; from: string; to: string } | null>(null);
   const [reason, setReason] = useState("");
   const [confirm, setConfirm] = useState(false);
@@ -96,7 +98,13 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
     <div className="crm-operational-tools">
       <div className="crm-view-switch"><Button variant={!closed ? "default" : "outline"} onClick={() => { setClosed(false); setMobileStage("NEW_LEAD"); }}>Active pipeline</Button>
         <Button variant={closed ? "default" : "outline"} onClick={() => { setClosed(true); setMobileStage("WON"); }}>Closed history</Button></div>
-      <label className="crm-field">Owner<select value={owner} onChange={(event) => setOwner(event.target.value)}>
+      <label className="crm-field crm-mobile-stage">Stage<select value={mobileStage} onChange={(event) => setMobileStage(event.target.value)}>
+        {(closed ? ["WON", "LOST"] : openStages).map((stage) => <option key={stage} value={stage}>{label(stage)}</option>)}
+      </select></label>
+      <Button className={sales.filterToggle} variant="outline" aria-expanded={filtersOpen} aria-controls="crm-pipeline-filters"
+        onClick={() => setFiltersOpen((value) => !value)}>{filtersOpen ? "Hide filters" : "Filter pipeline"}</Button>
+      <div id="crm-pipeline-filters" className={`${sales.filters} ${filtersOpen ? sales.filtersOpen : ""}`}>
+      <label className="crm-field">Opportunity owner<select value={owner} onChange={(event) => setOwner(event.target.value)}>
         <option value="">All Office</option><option value="mine">My Opportunities</option>
         {owners.map((item) => <option key={item.id} value={item.id}>{item.displayName}</option>)}
       </select></label>
@@ -108,9 +116,7 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
         <label className="crm-field">Organisation<Input value={orgInput} maxLength={80} placeholder="Search Organisation"
           onChange={(event) => setOrgInput(event.target.value)} /></label><Button variant="outline">Filter</Button>
       </form>
-      <label className="crm-field crm-mobile-stage">Stage<select value={mobileStage} onChange={(event) => setMobileStage(event.target.value)}>
-        {(closed ? ["WON", "LOST"] : openStages).map((stage) => <option key={stage} value={stage}>{label(stage)}</option>)}
-      </select></label>
+      </div>
     </div>
     {error && <p role="alert" className="enterprise-error">{error} <Button variant="ghost" onClick={() => void load()}>Retry</Button></p>}
     {loading ? <p role="status" className="crm-skeleton">Loading pipeline…</p> :
@@ -120,22 +126,23 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
           onDragOver={(event) => { if (!closed) event.preventDefault(); }}
           onDrop={(event) => { event.preventDefault(); const raw = event.dataTransfer.getData("application/json");
             try { const item = JSON.parse(raw) as { id: string; from: string }; move(item.id, item.from, column.stage); } catch {} }}>
-          <div className="crm-board-heading"><h2>{label(column.stage)}</h2><span>{column.count}</span></div>
+          <div className="crm-board-heading"><h2>{label(column.stage)}</h2><span>{column.count} opportunities</span></div>
           {column.items.length === 0 && <p className="crm-board-empty">No opportunities in this stage.</p>}
-          {column.items.map((item) => <article className="crm-board-card" key={String(item.id)} draggable={!closed}
+          {column.items.map((item) => <article className={`crm-board-card ${sales.deal}`} key={String(item.id)} draggable={!closed}
             onDragStart={(event) => event.dataTransfer.setData("application/json", JSON.stringify({ id: item.id, from: item.stage }))}>
-            <Link href={`/crm/opportunities/${item.id}`}><strong>{String(item.title)}</strong></Link>
-            <span>{String((item.crm_organisations as Row)?.name ?? "Organisation")}</span>
-            <span>Estimate: {money(item.estimated_value_gbp_pence)}</span>
-            <span>Owner: {owners.find((person) => person.id === item.owner_person_id)?.displayName ?? "Office"}</span>
-            {Boolean(item.primaryContactName) && <span>Contact: {String(item.primaryContactName)}</span>}
-            {Boolean(item.expected_decision_date) && <span>Decision: {String(item.expected_decision_date)}</span>}
-            {Boolean(item.nextFollowUp) && <span>Next: {String((item.nextFollowUp as Row).title)} · {crmDueStatus((item.nextFollowUp as Row).due_at as string | null)} · {time((item.nextFollowUp as Row).due_at)}</span>}
-            {!closed && <label className="crm-board-stage-action">Move stage<select aria-label={`Move ${item.title} to stage`} value=""
+            <Link className={sales.dealTitle} href={`/crm/opportunities/${item.id}`}><strong>{String(item.title)}</strong><span>{String((item.crm_organisations as Row)?.name ?? "Organisation")}</span></Link>
+            <span className={sales.stage}>{label(String(item.stage))}</span>
+            <strong className={sales.value}>{item.estimated_value_gbp_pence == null ? "Estimate not recorded" : `${money(item.estimated_value_gbp_pence)} estimated`}</strong>
+            <div className={sales.details}><span>Owner: {owners.find((person) => person.id === item.owner_person_id)?.displayName ?? "Office"}</span>
+              <span>Decision: {item.expected_decision_date ? String(item.expected_decision_date) : "Not set"}</span>
+              {Boolean(item.primaryContactName) && <span>Contact: {String(item.primaryContactName)}</span>}</div>
+            <div className={sales.next}><small>Next action</small>{item.nextFollowUp ? <><strong>{String((item.nextFollowUp as Row).title)}</strong><span>{crmDueStatus((item.nextFollowUp as Row).due_at as string | null)} · {time((item.nextFollowUp as Row).due_at)}</span></> : <span>No open Opportunity follow-up</span>}</div>
+            {item.stage === "WON" && <Link className={sales.handoff} href={`/commercial-handoff?organisation=${item.organisation_id}&opportunity=${item.id}`}>Review Won handoff →</Link>}
+            {!closed && <details className={sales.stageControl}><summary>Change stage</summary><label className="crm-board-stage-action">New stage<select aria-label={`Move ${item.title} to stage`} value=""
               onChange={(event) => move(String(item.id), String(item.stage), event.target.value)}>
               <option value="">Select stage</option>{[...openStages, "WON", "LOST"].filter((stage) => stage !== item.stage)
                 .map((stage) => <option key={stage} value={stage}>{label(stage)}</option>)}
-            </select></label>}
+            </select></label></details>}
           </article>)}
           {column.count > column.items.length && <p className="crm-board-empty">Showing first {column.items.length} of {column.count}. Use Opportunities search for more.</p>}
         </section>)}
@@ -161,6 +168,7 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
 }) {
   const [data, setData] = useState<{ activities: Row[]; tasks: Row[]; taskEvents: Row[]; contacts: Row[] } | null>(null);
   const [activity, setActivity] = useState({ type: "PHONE_CALL", subject: "", summary: "", contactId: "", correctsId: "" });
+  const [activityOpen, setActivityOpen] = useState(false);
   const [task, setTask] = useState({ title: "", assigneeId: currentPersonId, dueLocal: "" });
   const [taskChange, setTaskChange] = useState<{ id: string; kind: string; assigneeId: string; dueLocal: string; reason: string } | null>(null);
   const [busy, setBusy] = useState(false);
@@ -183,6 +191,7 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
       const confirmed = await load();
       if (!confirmed?.activities.some((item) => item.id === result.id)) throw new Error("The activity response could not be confirmed in the authorised record. Refresh before trying again.");
       setActivity({ type: "PHONE_CALL", subject: "", summary: "", contactId: "", correctsId: "" });
+      setActivityOpen(false);
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Activity denied"); }
     finally { setBusy(false); }
   }
@@ -221,7 +230,7 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
     {loading && <p role="status">Loading CRM activity and follow-ups…</p>}
     {!loading && data && <>
       <section className="crm-panel"><h2>Next action</h2>
-        {open[0] ? <><strong>{String(open[0].title)}</strong><p>{crmDueStatus(open[0].due_at as string | null)} · {open[0].due_at ? time(open[0].due_at) : "No due date"} · {owners.find((o) => o.id === open[0].assignee_person_id)?.displayName ?? "Assigned Office"}</p>
+        {open[0] ? <><strong>{String(open[0].title)}</strong><p>{crmDueStatus(open[0].due_at as string | null)} · {open[0].due_at ? time(open[0].due_at) : "No due date"} · Task assignee: {owners.find((o) => o.id === open[0].assignee_person_id)?.displayName ?? "Assigned Office"}</p>
           {open.length > 1 && <p>{open.length - 1} additional follow-up{open.length === 2 ? "" : "s"}</p>}</> : <p>No follow-up planned</p>}
       </section>
       <section className="crm-panel"><h2>Follow-ups</h2>
@@ -229,7 +238,7 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
         <form className="crm-operational-form" onSubmit={(event) => void createTask(event)}>
           <label className="crm-field">Action title<Input required maxLength={160} value={task.title}
             onChange={(event) => setTask({ ...task, title: event.target.value })} /></label>
-          <label className="crm-field">Assign to<select value={task.assigneeId}
+          <label className="crm-field">Task assignee<select value={task.assigneeId}
             onChange={(event) => setTask({ ...task, assigneeId: event.target.value })}>
             {owners.map((person) => <option key={person.id} value={person.id}>{person.displayName}</option>)}
           </select></label>
@@ -239,7 +248,7 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
         </form>
         {tasks.length === 0 && <p>No CRM follow-ups recorded.</p>}
         {tasks.map((item) => <div className="crm-task-row" key={String(item.id)}><div><strong>{String(item.title)}</strong>
-          <span>{label(item.state)} · {item.state === "OPEN" ? crmDueStatus(item.due_at as string | null) : "Historical"} · {item.due_at ? time(item.due_at) : "No due date"} · {owners.find((o) => o.id === item.assignee_person_id)?.displayName ?? "Assigned Office"}</span></div>
+          <span>{label(item.state)} · {item.state === "OPEN" ? crmDueStatus(item.due_at as string | null) : "Historical"} · {item.due_at ? time(item.due_at) : "No due date"} · Task assignee: {owners.find((o) => o.id === item.assignee_person_id)?.displayName ?? "Assigned Office"}</span></div>
           {item.state === "OPEN" && <div className="crm-task-actions">
             {item.assignee_person_id === currentPersonId && <Button variant="outline" disabled={busy}
               onClick={() => setTaskChange({ id: String(item.id), kind: "COMPLETE", assigneeId: "", dueLocal: "", reason: "" })}>Done</Button>}
@@ -249,7 +258,9 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
           </div>}
         </div>)}
       </section>
-      <section className="crm-panel"><h2>{activity.correctsId ? "Record correction" : "Record activity"}</h2><p>Manual Office entry; this does not send a message or prove dispatch. Corrections leave the original entry intact.</p>
+      <section className="crm-panel"><div className="crm-panel-heading"><h2>{activity.correctsId ? "Record correction" : "Activity entry"}</h2>
+        <Button type="button" variant="outline" aria-expanded={activityOpen} onClick={() => setActivityOpen(value => !value)}>{activityOpen ? "Close entry" : "Record activity"}</Button></div>
+        {activityOpen && <><p>Manual Office entry; this does not send a message or prove dispatch. Corrections leave the original entry intact.</p>
         {activity.correctsId && <p>Correcting an earlier activity. <Button variant="ghost" type="button" onClick={() => setActivity({ type: "PHONE_CALL", subject: "", summary: "", contactId: "", correctsId: "" })}>Cancel correction</Button></p>}
         <form className="crm-operational-form" onSubmit={(event) => void createActivity(event)}>
           <label className="crm-field">Type<select value={activity.type} onChange={(event) => setActivity({ ...activity, type: event.target.value })}>
@@ -263,7 +274,7 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
           <label className="crm-field">Short summary<textarea maxLength={1000} value={activity.summary}
             onChange={(event) => setActivity({ ...activity, summary: event.target.value })} /></label>
           <Button disabled={busy}>Record activity</Button>
-        </form>
+        </form></>}
       </section>
       <section className="crm-panel crm-timeline"><h2>Commercial timeline</h2>
         {timeline.length === 0 && <p>No commercial activity recorded yet.</p>}
@@ -273,7 +284,7 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
           <span>{time(item.at)} · {owners.find((o) => o.id === item.actor_person_id)?.displayName ?? "Office actor"}</span>
           {item.category === "activity" && Boolean(item.summary) && <p>{String(item.summary)}</p>}
           {item.category === "activity" && Boolean(item.corrects_activity_id) && <p>Correction of activity {String(item.corrects_activity_id).slice(0, 8)}. The original remains in history.</p>}
-          {item.category === "activity" && <Button variant="ghost" type="button" onClick={() => setActivity({ type: "NOTE", subject: `Correction: ${String(item.subject).slice(0, 140)}`, summary: "", contactId: String(item.contact_id ?? ""), correctsId: String(item.id) })}>Correct with new entry</Button>}
+          {item.category === "activity" && <Button variant="ghost" type="button" onClick={() => { setActivity({ type: "NOTE", subject: `Correction: ${String(item.subject).slice(0, 140)}`, summary: "", contactId: String(item.contact_id ?? ""), correctsId: String(item.id) }); setActivityOpen(true); }}>Correct with new entry</Button>}
           {item.category === "commercial" && Boolean(item.old_stage) && <p>{label(item.old_stage)} → {label(item.new_stage)}</p>}
           {item.category === "task" && Boolean(item.reason) && <p>Reason: {String(item.reason)}</p>}
         </div>)}

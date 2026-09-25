@@ -1,0 +1,24 @@
+.row { display: grid; grid-template-columns: 1.25fr 1fr 1fr; align-items: start; gap: 1.25rem; min-height: 76px; padding: 1rem; border-bottom: 1px solid var(--kss-border); color: var(--kss-ink); text-decoration: none; }
+.newLead { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: .65rem 1rem; border-radius: 9px; background: var(--kss-blue); color: #fff; font-weight: 800; text-decoration: none; white-space: nowrap; }
+.newLead:hover { background: var(--kss-blue-strong); color: #fff; }
+.newLead:focus-visible { outline: 3px solid var(--kss-blue); outline-offset: 3px; }
+@media (max-width: 700px) { .heading { align-items: stretch; flex-direction: column; } .newLead { width: 100%; } }
+.row:last-child { border-bottom: 0; }
+.row:hover { background: var(--kss-surface-muted); }
+.row:focus-visible { outline: 3px solid var(--kss-blue); outline-offset: -3px; }
+.row div { display: grid; gap: .3rem; min-width: 0; overflow-wrap: anywhere; }
+.row strong { font-size: .96rem; }
+.row span { font-size: .86rem; }
+.row small { color: var(--kss-ink-soft); font-size: .78rem; }
+.tag { justify-self: start; border: 1px solid var(--kss-border); border-radius: 99px; padding: .15rem .5rem; font-weight: 700; }
+@media (max-width: 700px) { .row { grid-template-columns: 1fr; gap: .65rem; } }
+.accountSummary { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .7rem; margin: 1rem 0; }
+.accountSummary div { display: grid; align-content: start; gap: .35rem; min-width: 0; padding: .8rem; border: 1px solid var(--kss-border); border-radius: 10px; background: var(--kss-surface); overflow-wrap: anywhere; }
+.accountSummary small { color: var(--kss-ink-soft); font-size: .75rem; font-weight: 750; }
+.accountSummary strong { font-size: .92rem; }
+.accountSummary a, .wonHandoff a { color: var(--kss-blue-strong); font-weight: 750; }
+.wonHandoff { margin: 1rem 0; padding: 1rem; border-left: 4px solid var(--kss-blue); background: var(--kss-surface-muted); border-radius: 8px; }
+.wonHandoff h2 { margin: 0; font-size: 1.1rem; }
+.wonHandoff p { margin: .5rem 0; }
+@media (max-width: 760px) { .accountSummary { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 430px) { .accountSummary { grid-template-columns: 1fr; } }

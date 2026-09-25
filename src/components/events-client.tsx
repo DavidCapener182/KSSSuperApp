@@ -27,7 +27,7 @@ async function read(path: string, init?: RequestInit) {
   if (!response.ok) throw new Error(data.error ?? "Operational request denied"); return data;
 }
 
-export function EventsClient({ roles, id, organisation, opportunity, focusRequirement, workforceReturn }: { roles: string[]; id?: string; organisation?: string; opportunity?: string; focusRequirement?: string; workforceReturn?: string }) {
+export function EventsClient({ roles, id, organisation, opportunity, mobilisation, focusRequirement, workforceReturn }: { roles: string[]; id?: string; organisation?: string; opportunity?: string; mobilisation?: string; focusRequirement?: string; workforceReturn?: string }) {
   const router = useRouter(); const office = roles.includes("OFFICE_ADMIN") || roles.includes("SUPER_ADMIN");
   const [items,setItems] = useState<Row[]>([]); const [total,setTotal] = useState(0); const [event,setEvent] = useState<Row|null>(null);
   const [clients,setClients] = useState<Choice[]>([]); const [sites,setSites] = useState<Row[]>([]); const [owners,setOwners] = useState<Choice[]>([]);
@@ -83,7 +83,7 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
     try {const result=await read("/api/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(draft)});
       const confirmed=await read(`/api/events/${result.id}`);
       if(confirmed.event?.id!==result.id)throw new Error("Event creation could not be confirmed from the record. Refresh before retrying.");
-      setCreating(false);router.push(`/events/${result.id}`);}
+      setCreating(false);router.push(`/events/${result.id}${mobilisation ? `?mobilisation=${mobilisation}` : ""}`);}
     catch(caught){setError(caught instanceof Error?caught.message:"Event could not be created");}
     finally{setBusy(false);}
   }
@@ -132,13 +132,14 @@ export function EventsClient({ roles, id, organisation, opportunity, focusRequir
         onClick={()=>{setOffset(0);setFilters({...filters,status:value});setApplied({...filters,status:value});}}>{text}</Button>)}</div>
       <p className="enterprise-honesty">{total} authorised Event{total===1?"":"s"}. Status is recorded by Office or Operations, not inferred from the clock.</p>
       {items.length===0?<p className="crm-empty">No Events match these filters.</p>:<div className="crm-list events-list">
-        {items.map((row)=><Link className="crm-row" key={String(row.id)} href={`/events/${row.id}`}>
+        {items.map((row)=><Link className="crm-row" key={String(row.id)} href={`/events/${row.id}${mobilisation ? `?mobilisation=${mobilisation}` : ""}`}>
           <strong>{String(row.name)}</strong><span>{String(row.client_name)} · {String(row.site_name)} · {label(row.event_type)}</span>
           <span>{london(row.starts_at)} → {london(row.ends_at)} · {label(row.status)}</span></Link>)}</div>}
       <div className="people-pagination"><Button variant="outline" disabled={offset===0} onClick={()=>setOffset(Math.max(0,offset-25))}>Previous</Button>
         <span>{items.length?offset+1:0}–{offset+items.length} of {total}</span><Button variant="outline" disabled={offset+25>=total} onClick={()=>setOffset(offset+25)}>Next</Button></div>
     </>}
     {!loading && id && event && <div className={record.record}>
+      {mobilisation && office && <p role="status" className="enterprise-honesty">This Event is an independent source record. <Link href={`/mobilisations/${mobilisation}?sourceType=EVENT&sourceId=${id}#links-heading`}>Return to Mobilisation with exact Event ID</Link>; review and link it explicitly there.</p>}
       <header className={record.recordHeader} aria-label="Event record">
         <h1>{String(event.name)}</h1>
         <div className={record.identity}><span className={record.kind}>Event</span><span className="crm-state">{label(event.status)}</span><span>{label(event.event_type)}</span></div>

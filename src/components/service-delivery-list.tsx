@@ -9,14 +9,14 @@ import styles from "./service-delivery.module.css";
 type Service = { id: string; name: string; siteName: string; clientName: string; linkId: string; state: string; handoverChoices: { mobilisationId: string; decisionId: string; title: string }[] };
 type Owner = { id: string; name: string; office: boolean; super: boolean };
 type Row = { id: string; client_name: string; site_name: string; service_name: string; state: string; owner_eligible: boolean; open_period_count: number; open_action_count: number; open_blocker_count: number; next_meeting_at: string | null };
-export function ServiceDeliveryList({ superAdmin }: { superAdmin: boolean }) {
+export function ServiceDeliveryList({ superAdmin, mobilisationId }: { superAdmin: boolean; mobilisationId?: string }) {
   const router = useRouter(); const requestKey = useRef(crypto.randomUUID());
   const [rows,setRows] = useState<Row[]>([]); const [total,setTotal] = useState(0); const [offset,setOffset] = useState(0);
   const [services,setServices] = useState<Service[]>([]); const [owners,setOwners] = useState<Owner[]>([]);
   const [serviceId,setServiceId] = useState(""); const [source,setSource] = useState("MOBILISATION_HANDOVER");
   const [handover,setHandover] = useState(""); const [ownerId,setOwnerId] = useState(""); const [superOversight,setSuperOversight] = useState(false);
   const [explanation,setExplanation] = useState(""); const [error,setError] = useState(""); const [busy,setBusy] = useState(false);
-  const [showStart,setShowStart] = useState(false);
+  const [showStart,setShowStart] = useState(Boolean(mobilisationId));
   const load = useCallback(async () => {
     try { const data = await serviceRequest(`/api/service-delivery?offset=${offset}`); setRows(data.items ?? []); setTotal(data.total ?? 0); }
     catch (e) { setError(e instanceof Error ? e.message : "List unavailable"); }
@@ -24,6 +24,7 @@ export function ServiceDeliveryList({ superAdmin }: { superAdmin: boolean }) {
   useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); },[load]);
   useEffect(() => { void serviceRequest("/api/service-delivery?choices=1").then(data => { setServices(data.services ?? []); setOwners(data.owners ?? []); }).catch(() => setError("Start choices unavailable")); },[]);
   const selected = services.find(x => x.id === serviceId);
+  const matchingServices = mobilisationId ? services.filter(service => service.handoverChoices.some(choice => choice.mobilisationId === mobilisationId)) : services;
   async function start(e: React.FormEvent) {
     e.preventDefault(); if (!selected) return;
     setBusy(true); setError("");
@@ -35,6 +36,9 @@ export function ServiceDeliveryList({ superAdmin }: { superAdmin: boolean }) {
         superOversight, reasonCode: source === "LEGACY_EXISTING" ? "LEGACY_EXISTING_SERVICE" : null,
         explanation: source === "LEGACY_EXISTING" ? explanation : null, requestKey: requestKey.current,
       }) });
+      const confirmed = await serviceRequest(`/api/service-delivery/${data.id}`);
+      if (confirmed.id !== data.id || confirmed.siteServiceId !== serviceId)
+        throw new Error("The Service Delivery record could not be confirmed from its source. Refresh before trying again.");
       requestKey.current = crypto.randomUUID(); router.push(`/service-delivery/${data.id}`);
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Start denied"); }
     finally { setBusy(false); }
@@ -42,12 +46,13 @@ export function ServiceDeliveryList({ superAdmin }: { superAdmin: boolean }) {
   return <main className={`enterprise-main ${styles.page}`}>
     <p className="eyebrow">Office · synthetic Dev</p><h1>Service Delivery</h1>
     <p className={styles.intro}>Manage reviews, meetings and actions for an exact Client → Site → Site Service. Each record keeps its own history.</p>
+    {mobilisationId && <p className={styles.muted}>Starting from a Mobilisation handover. Select its exact eligible Site Service and decision below; no record is started automatically.</p>}
     {error && <p role="alert" className={styles.error}>{error}</p>}
     <section className={styles.listHeader}><div><p className={styles.sectionLabel}>Service records</p><h2>Continuing delivery <small>{total}</small></h2><p className={styles.muted}>Open a service to review its periods, actions and source facts.</p></div><button className={styles.button} type="button" aria-expanded={showStart} aria-controls="start-service-delivery" onClick={() => setShowStart(value => !value)}>{showStart ? "Close start form" : "Start Service Delivery"}</button></section>
     {showStart && <section id="start-service-delivery" className={`${styles.card} ${styles.startCard}`}><h2>Start Service Delivery</h2><p className={styles.muted}>Select the exact service and an authorised start path. This creates a separate management record.</p><form className={styles.form} onSubmit={start}>
-      <label>Site Service<select required value={serviceId} onChange={e => { setServiceId(e.target.value); setHandover(""); }}><option value="">Choose exact Service</option>{services.map(s => <option key={s.id} value={s.id}>{s.clientName} → {s.siteName} → {s.name} ({s.state})</option>)}</select></label>
+      <label>Site Service<select required value={serviceId} onChange={e => { setServiceId(e.target.value); setHandover(""); }}><option value="">Choose exact Service</option>{matchingServices.map(s => <option key={s.id} value={s.id}>{s.clientName} → {s.siteName} → {s.name} ({s.state})</option>)}</select></label>
       <label>Start path<select value={source} onChange={e => setSource(e.target.value)}><option value="MOBILISATION_HANDOVER">Exact Mobilisation handover</option><option value="LEGACY_EXISTING">Legacy existing Service</option></select></label>
-      {source === "MOBILISATION_HANDOVER" ? <label>Handover decision<select required value={handover} onChange={e => setHandover(e.target.value)}><option value="">Choose exact handed over Mobilisation</option>{selected?.handoverChoices.map(h => <option key={h.decisionId} value={`${h.mobilisationId}:${h.decisionId}`}>{h.title} · {h.decisionId.slice(0,8)}</option>)}</select></label>
+      {source === "MOBILISATION_HANDOVER" ? <label>Handover decision<select required value={handover} onChange={e => setHandover(e.target.value)}><option value="">Choose exact handed over Mobilisation</option>{selected?.handoverChoices.filter(h => !mobilisationId || h.mobilisationId === mobilisationId).map(h => <option key={h.decisionId} value={`${h.mobilisationId}:${h.decisionId}`}>{h.title} · {h.decisionId.slice(0,8)}</option>)}</select></label>
       : <label>Why this existing Service did not use native Mobilisation<textarea required minLength={10} maxLength={500} value={explanation} onChange={e => setExplanation(e.target.value)} /></label>}
       <label>Accountable owner<select required value={ownerId} onChange={e => setOwnerId(e.target.value)}><option value="">Choose active Office Admin</option>{owners.filter(o => o.office || (superAdmin && o.super)).map(o => <option key={o.id} value={o.id}>{o.name}{!o.office ? " · Super oversight" : ""}</option>)}</select></label>
       {superAdmin && owners.find(o => o.id === ownerId && !o.office) && <label><input type="checkbox" checked={superOversight} onChange={e => setSuperOversight(e.target.checked)} /> Explicit Super Admin oversight</label>}

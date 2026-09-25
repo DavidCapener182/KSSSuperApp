@@ -6,11 +6,13 @@ import { EventsClient } from "@/components/events-client";
 import { safeWorkforceReturn } from "@/lib/events/workforce-navigation";
 
 export const dynamic = "force-dynamic";
-export default async function EventPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ requirement?: string; returnTo?: string }> }) {
+export default async function EventPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ requirement?: string; returnTo?: string; mobilisation?: string }> }) {
   const { id } = await params; if (!isUuid(id)) notFound();
   const principal = await getPrincipal(await createServerSupabase());
   if (!principal) redirect("/?next=%2Fevents");
   if (!hasCapability(principal, "EVENTS_USE")) notFound();
   const search = await searchParams;
-  return <EventsClient roles={principal.roles} id={id} focusRequirement={search.requirement && isUuid(search.requirement) ? search.requirement : undefined} workforceReturn={safeWorkforceReturn(search.returnTo)} />;
+  return <EventsClient roles={principal.roles} id={id} focusRequirement={search.requirement && isUuid(search.requirement) ? search.requirement : undefined}
+    mobilisation={search.mobilisation && isUuid(search.mobilisation) ? search.mobilisation : undefined}
+    workforceReturn={safeWorkforceReturn(search.returnTo)} />;
 }
