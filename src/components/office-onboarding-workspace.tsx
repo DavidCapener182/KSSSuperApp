@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { EmptyState, FeedbackBanner, LoadingBlock } from "@/components/ui/workflow";
 import styles from "./identity-admin.module.css";
@@ -38,6 +38,7 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
   const [workspaceTab, setWorkspaceTab] = useState<"PIPELINE" | "PEOPLE" | "NEEDS_ACTION">("PIPELINE");
   const [previews, setPreviews] = useState<Partial<Record<QueueView, QueueData>>>({});
   const [previewError, setPreviewError] = useState(false);
+  const [previewLoading, setPreviewLoading] = useState(false);
   const [teams, setTeams] = useState<Team[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [eligible, setEligible] = useState<Person[]>([]);
@@ -57,6 +58,22 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [currentPersonId, setCurrentPersonId] = useState("");
+  const queueReadTail = useRef<Promise<unknown>>(Promise.resolve());
+  const previewInFlight = useRef(false);
+  const readQueue = useCallback((url: URL): Promise<QueueData> => {
+    // The guarded queue RPC is expensive in synthetic Development. Keep this page's reads
+    // sequential so the board does not cause concurrent statement timeouts.
+    const pending = queueReadTail.current.then(async () => {
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        const response = await fetch(url, { cache: "no-store" });
+        if (response.ok) return response.json() as Promise<QueueData>;
+        if (response.status !== 503 || attempt === 1) throw new Error("queue unavailable");
+      }
+      throw new Error("queue unavailable");
+    });
+    queueReadTail.current = pending.catch(() => {});
+    return pending;
+  }, []);
 
   const loadQueue = useCallback(async () => {
     setLoading(true);
@@ -64,12 +81,13 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
       const url = new URL("/api/onboarding/queue", window.location.origin);
       url.searchParams.set("view", view); url.searchParams.set("search", query);
       url.searchParams.set("offset", String(offset)); url.searchParams.set("limit", "25");
-      const response = await fetch(url, { cache: "no-store" });
-      if (!response.ok) throw new Error();
-      setData(await response.json()); setError("");
+      const result = await readQueue(url);
+      setData(result); setError("");
+      if (view === "MY_CASES" && !query && offset === 0)
+        setPreviews((current) => ({ ...current, MY_CASES: { ...result, rows: result.rows.slice(0, 3) } }));
     } catch { setData(null); setError("The onboarding queue is unavailable. Refresh to try again."); }
     finally { setLoading(false); }
-  }, [view, query, offset]);
+  }, [view, query, offset, readQueue]);
   const loadTeams = useCallback(async (teamId = "") => {
     try {
       const response = await fetch(`/api/onboarding/teams${teamId ? `?teamId=${teamId}` : ""}`, { cache: "no-store" });
@@ -78,28 +96,36 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
       setTeams(result.teams ?? []); setMembers(result.members ?? []); setEligible(result.eligible ?? []);
     } catch { /* Queue remains usable if team administration is unavailable. */ }
   }, []);
-  const loadPreviews = useCallback(async () => {
-    try {
-      const entries = await Promise.all((["NEEDS_OFFICE", "WAITING_STAFF", "BLOCKED", "MY_CASES"] as QueueView[]).map(async (code) => {
+  const loadPreviews = useCallback(async (includeMine = false) => {
+    if (previewInFlight.current) return;
+    previewInFlight.current = true;
+    setPreviewLoading(true);
+    setPreviewError(false);
+    const codes: QueueView[] = includeMine ? ["NEEDS_OFFICE", "WAITING_STAFF", "BLOCKED", "MY_CASES"] :
+      ["NEEDS_OFFICE", "WAITING_STAFF", "BLOCKED"];
+    for (const code of codes) {
+      try {
         const url = new URL("/api/onboarding/queue", window.location.origin);
         url.searchParams.set("view", code); url.searchParams.set("limit", "3"); url.searchParams.set("offset", "0");
-        const response = await fetch(url, { cache: "no-store" });
-        if (!response.ok) throw new Error("preview unavailable");
-        return [code, await response.json()] as const;
-      }));
-      setPreviews(Object.fromEntries(entries)); setPreviewError(false);
-    } catch { setPreviews({}); setPreviewError(true); }
-  }, []);
+        const result = await readQueue(url);
+        setPreviews((current) => ({ ...current, [code]: result }));
+      } catch { setPreviewError(true); }
+    }
+    previewInFlight.current = false;
+    setPreviewLoading(false);
+  }, [readQueue]);
   const effectiveTeam = selectedTeam || teams[0]?.id || "";
   useEffect(() => { void Promise.resolve().then(() => loadQueue()); }, [loadQueue]);
   useEffect(() => { void Promise.resolve().then(() => loadPreviews()); }, [loadPreviews]);
-  useEffect(() => { void Promise.resolve().then(() => loadTeams(effectiveTeam)); }, [loadTeams, effectiveTeam]);
-  useEffect(() => { void fetch("/api/me", { cache: "no-store" }).then((response) => response.json())
-    .then((result) => setCurrentPersonId(result.person?.id ?? "")).catch(() => {}); }, []);
+  useEffect(() => { if (superAdmin && workspaceTab === "PEOPLE") void Promise.resolve().then(() => loadTeams(effectiveTeam)); },
+    [loadTeams, effectiveTeam, superAdmin, workspaceTab]);
 
   function chooseView(next: QueueView) { setView(next); setOffset(0); setNotice(""); }
   function openAction(row: QueueRow, next: "reassign" | "cover") {
     setSelectedTeam(row.teamId); setSelectedRow(row); setAction(next); setTarget(""); setReason(""); setCoverEndsAt(""); setError("");
+    void loadTeams(row.teamId);
+    void fetch("/api/me", { cache: "no-store" }).then((response) => response.json())
+      .then((result) => setCurrentPersonId(result.person?.id ?? "")).catch(() => {});
     if (next === "cover") void fetch(`/api/onboarding/${row.id}/cover`, { cache: "no-store" })
       .then((response) => response.ok ? response.json() : { grants: [] })
       .then((result) => setCoverGrants(result.grants ?? []));
@@ -235,7 +261,8 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
     {workspaceTab === "PIPELINE" && <section className="office-onboarding-board" aria-labelledby="onboarding-board-title">
       <div className="office-onboarding-board-heading"><div><p className="eyebrow">Factual work queues</p><h2 id="onboarding-board-title">Follow the next handoff</h2>
         <p>Cases may appear in more than one queue. These are source views, not lifecycle stages or readiness decisions.</p></div>
-        <button type="button" onClick={() => void loadPreviews()}>Refresh previews</button></div>
+        <button type="button" onClick={() => void loadPreviews(true)} disabled={previewLoading}>
+          {previewLoading ? "Loading previews…" : "Refresh previews"}</button></div>
       {previewError && <FeedbackBanner tone="error">Queue previews are unavailable. Refresh to try again.</FeedbackBanner>}
       <div className="office-onboarding-board-lanes">{([ ["NEEDS_OFFICE", "Office action", "Review and request evidence"], ["WAITING_STAFF", "Waiting for Staff", "Information and responses"], ["BLOCKED", "Blocked", "Source dependencies"], ["MY_CASES", "My cases", "Owner and named cover"] ] as const).map(([code, title, description]) =>
         <section key={code} className="office-onboarding-lane" aria-label={title}><div className="office-onboarding-lane-heading"><span>{title}</span><strong>{previews[code]?.total ?? "—"}</strong></div><p>{description}</p>
@@ -291,7 +318,7 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
       <strong>Case access follows the named Person and case</strong>
       <p>Team membership permits queue triage. The current owner, finite named cover, or Super Admin can open private case detail. Document evidence has its own exact request and version checks.</p>
     </section>
-    {superAdmin && <section className="office-onboarding-team-admin" aria-labelledby="team-admin-heading">
+    {superAdmin && workspaceTab === "PEOPLE" && <section className="office-onboarding-team-admin" aria-labelledby="team-admin-heading">
       <h2 id="team-admin-heading">Onboarding team administration</h2>
       <p>Team membership enables queue triage. It does not grant private case or evidence access.</p>
       <form onSubmit={createTeam}>
