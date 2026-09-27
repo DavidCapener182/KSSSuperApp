@@ -2,6 +2,7 @@ export const STATUSES = ["Needs triage", "Investigating", "Visit needed", "Waiti
 export type Issue = {
   id: string; workspace_id: string; store_name: string; store_number: string | null;
   source_region: "north" | "south" | "unassigned"; source_owner: string;
+  owner_person_id: string | null; ownerPersonName?: string | null;
   issue_type: string; priority: "Urgent" | "High" | "Review" | "Monitor";
   status: typeof STATUSES[number]; evidence_date: string | null; evidence_summary: string;
   next_action: string; source_note: string | null; potential_internal_theft_review: boolean;
