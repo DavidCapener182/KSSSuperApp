@@ -3,6 +3,7 @@ import type { Principal } from "@/lib/auth/principal";
 import { hasCapability } from "@/lib/auth/capabilities";
 import { isUuid } from "@/lib/auth/principal";
 import { readDocumentRequest } from "@/lib/documents/policy";
+import { listTfsIssueWork } from "@/lib/tasks/tfs-work";
 
 type TaskRow = {
   id: string; task_type: "DOCUMENT_REVIEW" | "CRM_FOLLOW_UP"; title: string; state: "OPEN" | "DONE" | "CANCELLED";
@@ -75,17 +76,17 @@ export async function readTask(client: SupabaseClient, principal: Principal, id:
 
 export async function listTasks(client: SupabaseClient, principal: Principal) {
   if (!canUseWork(principal)) return [];
-  const results = await Promise.all(["OPEN", "DONE", "CANCELLED"].flatMap((state) => [
+  const [results, tfsWork] = await Promise.all([Promise.all(["OPEN", "DONE", "CANCELLED"].flatMap((state) => [
     client.from("tasks").select("*").eq("task_type", "DOCUMENT_REVIEW").eq("state", state)
       .order("created_at", { ascending: false }).limit(100).returns<TaskRow[]>(),
     client.from("tasks").select("*").eq("task_type", "CRM_FOLLOW_UP")
       .eq("assignee_person_id", principal.personId).eq("state", state)
       .order("created_at", { ascending: false }).limit(100).returns<TaskRow[]>(),
-  ]));
-  if (results.some((result) => result.error)) return null;
+  ])), listTfsIssueWork(client, principal)]);
+  if (results.some((result) => result.error) || !tfsWork) return null;
   const resolved = await Promise.all(results.flatMap((result) => result.data ?? [])
     .map((row) => resolveTask(client, principal, row)));
-  return resolved.filter((row): row is NonNullable<typeof row> => row !== null)
+  return [...resolved.filter((row): row is NonNullable<typeof row> => row !== null), ...tfsWork]
     .sort((a, b) => (a.state === b.state ? b.createdAt.localeCompare(a.createdAt) :
       a.state === "OPEN" ? -1 : b.state === "OPEN" ? 1 : a.state === "DONE" ? -1 : 1));
 }

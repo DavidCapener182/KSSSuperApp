@@ -8,24 +8,27 @@ import { crmDueStatus } from "@/lib/crm/due-status";
 type WorkTask = {
   id: string; title: string; state: "OPEN" | "DONE" | "CANCELLED"; covering: boolean;
   createdAt: string; completedAt: string | null;
-  sourceKind: "DOCUMENT_VERSION" | "CRM_OPPORTUNITY" | "CRM_ORGANISATION"; sourceId: string;
+  sourceKind: "DOCUMENT_VERSION" | "CRM_OPPORTUNITY" | "CRM_ORGANISATION" | "TFS_LP_ISSUE"; sourceId: string;
   sourceTitle?: string; dueAt: string | null; versionNumber?: number;
   requestTitle?: string; subjectName?: string | null;
+  sourceStatus?: string; nextAction?: string; sourceHref?: string;
 };
 const date = (value: string) => new Date(value).toLocaleDateString("en-GB", {
   day: "numeric", month: "short", year: "numeric",
 });
 
 function TaskCard({ task }: { task: WorkTask }) {
-  const crm = task.sourceKind !== "DOCUMENT_VERSION";
+  const tfs = task.sourceKind === "TFS_LP_ISSUE";
+  const crm = task.sourceKind === "CRM_OPPORTUNITY" || task.sourceKind === "CRM_ORGANISATION";
   return <li className="work-card">
     <div className="work-card-heading"><strong>{task.title}</strong>
       <span className={`ui-status ui-status--${task.state.toLowerCase()}`}>{task.state === "OPEN" ? task.covering ? "Covering" : "Open" : task.state === "DONE" ? "Done" : "Cancelled"}</span></div>
-    <p>{crm ? `CRM · ${task.sourceTitle ?? "Commercial follow-up"}` : `${task.subjectName ?? "Authorised personnel evidence"} · ${task.requestTitle}`}</p>
-    <p>{crm ? task.dueAt ? `${task.state === "OPEN" ? crmDueStatus(task.dueAt) : "Historical"} · ${new Date(task.dueAt).toLocaleString("en-GB", { timeZone: "Europe/London" })}` : "No due date" : `Document Version ${task.versionNumber}`} · Created {date(task.createdAt)}
+    <p>{tfs ? `TFS Loss Prevention · ${task.sourceTitle} · ${task.sourceStatus}` : crm ? `CRM · ${task.sourceTitle ?? "Commercial follow-up"}` : `${task.subjectName ?? "Authorised personnel evidence"} · ${task.requestTitle}`}</p>
+    {tfs && <p><strong>Next:</strong> {task.nextAction}</p>}
+    <p>{tfs ? "Assigned issue" : crm ? task.dueAt ? `${task.state === "OPEN" ? crmDueStatus(task.dueAt) : "Historical"} · ${new Date(task.dueAt).toLocaleString("en-GB", { timeZone: "Europe/London" })}` : "No due date" : `Document Version ${task.versionNumber}`} · Created {date(task.createdAt)}
       {task.completedAt ? ` · Completed ${date(task.completedAt)}` : ""}</p>
-    <Link className="ui-action ui-action--secondary" href={`/work/${task.id}`}>
-      {crm ? "Open CRM source" : task.state === "OPEN" ? `Open Version ${task.versionNumber} review` : `View Version ${task.versionNumber} history`}
+    <Link className="ui-action ui-action--secondary" href={tfs ? task.sourceHref ?? "/tfs" : `/work/${task.id}`}>
+      {tfs ? "Open TFS issue" : crm ? "Open CRM source" : task.state === "OPEN" ? `Open Version ${task.versionNumber} review` : `View Version ${task.versionNumber} history`}
     </Link>
   </li>;
 }
@@ -49,13 +52,13 @@ export function WorkClient() {
   const done = tasks.filter((task) => task.state === "DONE");
   const cancelled = tasks.filter((task) => task.state === "CANCELLED");
   return <main className="enterprise-main work-main">
-    <PageHeader eyebrow="Synthetic development work" title="My Work"
-      description="Assigned document reviews and CRM follow-ups from the existing Task service. Other operational actions remain in their source areas." />
+    <PageHeader eyebrow="Assigned work" title="My Work"
+      description="Assigned TFS issues, document reviews and CRM follow-ups. Open each item in its source workspace." />
     {error && <FeedbackBanner tone="error">Work is unavailable. Refresh to try again.</FeedbackBanner>}
     {loading ? <LoadingBlock label="Loading your work…" /> : !error && <div className="work-sections">
       <section aria-labelledby="open-work-heading"><h2 id="open-work-heading">Open work</h2>
         {open.length ? <ul className="work-list">{open.map((task) => <TaskCard key={task.id} task={task} />)}</ul> :
-          <EmptyState title="No open tasks" description="No open document reviews or CRM follow-ups were returned for this account. Other source areas may still need attention." />}
+          <EmptyState title="No open tasks" description="No assigned TFS issues, document reviews or CRM follow-ups were returned for this account." />}
       </section>
       {covering.length > 0 && <section aria-labelledby="covering-work-heading"><h2 id="covering-work-heading">Covering</h2>
         <ul className="work-list">{covering.map((task) => <TaskCard key={task.id} task={task} />)}</ul>

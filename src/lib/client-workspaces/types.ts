@@ -6,7 +6,7 @@ export type Issue = {
   issue_type: string; priority: "Urgent" | "High" | "Review" | "Monitor";
   status: typeof STATUSES[number]; evidence_date: string | null; evidence_summary: string;
   next_action: string; source_note: string | null; potential_internal_theft_review: boolean;
-  revision: number; updated_at: string;
+  revision: number; created_at: string; updated_at: string;
   history?: { revision: number; action: string; actorPersonId: string; reason: string | null; occurredAt: string; before: unknown; after: unknown }[];
 };
 export type Workspace = { id: string; organisationId: string; name: string; status: string; permission: "VIEW" | "OPERATE" | "MANAGE" };
