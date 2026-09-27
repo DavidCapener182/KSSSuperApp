@@ -46,6 +46,8 @@ export function ServiceDeliveryList({ superAdmin, mobilisationId }: { superAdmin
     setBusy(true); setError("");
     const chosen = selected.handoverChoices.find(x => `${x.mobilisationId}:${x.decisionId}` === handover);
     try {
+      if (mobilisationId && (source !== "MOBILISATION_HANDOVER" || chosen?.mobilisationId !== mobilisationId))
+        throw new Error("Choose an exact handover decision from this Mobilisation before starting Service Delivery.");
       const data = await serviceRequest("/api/service-delivery", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
         serviceId, linkId: selected.linkId, source, mobilisationId: source === "MOBILISATION_HANDOVER" ? chosen?.mobilisationId : null,
         decisionId: source === "MOBILISATION_HANDOVER" ? chosen?.decisionId : null, ownerId,
@@ -53,7 +55,8 @@ export function ServiceDeliveryList({ superAdmin, mobilisationId }: { superAdmin
         explanation: source === "LEGACY_EXISTING" ? explanation : null, requestKey: requestKey.current,
       }) });
       const confirmed = await serviceRequest(`/api/service-delivery/${data.id}`);
-      if (confirmed.id !== data.id || confirmed.siteServiceId !== serviceId)
+      if (confirmed.id !== data.id || confirmed.siteServiceId !== serviceId || confirmed.startSource !== source ||
+        (source === "MOBILISATION_HANDOVER" && (confirmed.mobilisationId !== chosen?.mobilisationId || confirmed.handoverDecisionId !== chosen?.decisionId)))
         throw new Error("The Service Delivery record could not be confirmed from its source. Refresh before trying again.");
       requestKey.current = crypto.randomUUID(); router.push(`/service-delivery/${data.id}`);
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Start denied"); }
@@ -67,7 +70,7 @@ export function ServiceDeliveryList({ superAdmin, mobilisationId }: { superAdmin
     <section className={styles.listHeader}><div><p className={styles.sectionLabel}>Service records</p><h2>Continuing delivery <small>{loading || portfolioError ? "—" : total}</small></h2><p className={styles.muted}>Open a service to review its periods, actions and source facts.</p></div><button className={styles.button} type="button" aria-expanded={showStart} aria-controls="start-service-delivery" onClick={() => setShowStart(value => !value)}>{showStart ? "Close start form" : "Start Service Delivery"}</button></section>
     {showStart && <section id="start-service-delivery" className={`${styles.card} ${styles.startCard}`}><h2>Start Service Delivery</h2><p className={styles.muted}>Select the exact service and an authorised start path. This creates a separate management record.</p><form className={styles.form} onSubmit={start}>
       <label>Site Service<select required value={serviceId} onChange={e => { setServiceId(e.target.value); setHandover(""); }}><option value="">Choose exact Service</option>{matchingServices.map(s => <option key={s.id} value={s.id}>{s.clientName} → {s.siteName} → {s.name} ({s.state})</option>)}</select></label>
-      <label>Start path<select value={source} onChange={e => setSource(e.target.value)}><option value="MOBILISATION_HANDOVER">Exact Mobilisation handover</option><option value="LEGACY_EXISTING">Legacy existing Service</option></select></label>
+      <label>Start path<select value={source} onChange={e => setSource(e.target.value)}><option value="MOBILISATION_HANDOVER">Exact Mobilisation handover</option>{!mobilisationId && <option value="LEGACY_EXISTING">Legacy existing Service</option>}</select></label>
       {source === "MOBILISATION_HANDOVER" ? <label>Handover decision<select required value={handover} onChange={e => setHandover(e.target.value)}><option value="">Choose exact handed over Mobilisation</option>{selected?.handoverChoices.filter(h => !mobilisationId || h.mobilisationId === mobilisationId).map(h => <option key={h.decisionId} value={`${h.mobilisationId}:${h.decisionId}`}>{h.title} · {h.decisionId.slice(0,8)}</option>)}</select></label>
       : <label>Why this existing Service did not use native Mobilisation<textarea required minLength={10} maxLength={500} value={explanation} onChange={e => setExplanation(e.target.value)} /></label>}
       <label>Accountable owner<select required value={ownerId} onChange={e => setOwnerId(e.target.value)}><option value="">Choose active Office Admin</option>{owners.filter(o => o.office || (superAdmin && o.super)).map(o => <option key={o.id} value={o.id}>{o.name}{!o.office ? " · Super oversight" : ""}</option>)}</select></label>

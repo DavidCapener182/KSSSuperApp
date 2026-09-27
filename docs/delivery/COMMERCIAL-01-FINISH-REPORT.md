@@ -1,0 +1,7 @@
+# COMMERCIAL-01 guided handoff finish
+
+Date: 27 September 2026. Branch: `codex/commercial01-finish`, starting from integrated `origin/main` `1bafa64`. PRODUCT-05 `95aff9b` was already merged; this slice does not repeat its CRM, Mobilisation or source projection implementation.
+
+The Service Delivery start form now keeps a user arriving from a specific Mobilisation on the exact handover path. It does not offer the unrelated legacy start option in that context. Before sending a start request it checks that the selected decision belongs to the Mobilisation in the route. After the guarded server write, it reads the new record and confirms the Service ID, start path, Mobilisation ID and handover decision ID before navigating. The existing server transaction remains authoritative and continues to enforce exact source membership, role and duplicate constraints. The generic Service Delivery entry still offers both accepted 21B start paths.
+
+Verification: focused ESLint, TypeScript `--noEmit`, and `git diff --check` passed. This worktree has no local Development credentials, so no authenticated browser submission or synthetic Development database mutation was performed in this finish pass. The previous PRODUCT-05 report records desktop and 390px screenshots and guarded source tests, but explicitly says a New lead submit and source creation/link return were not walked end to end in that browser session. Those remain visual and authenticated acceptance evidence gaps; no finished-feature acceptance, staging, production, real data or deployment is claimed here.
