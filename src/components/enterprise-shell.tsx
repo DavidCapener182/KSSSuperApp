@@ -24,6 +24,8 @@ type Props = Readonly<{
 
 export function EnterpriseShell({ person, roles, incidentReviewer, navigation, children }: Props) {
   const pathname = usePathname();
+  const tfsPage = pathname === "/tfs" || pathname.startsWith("/client-workspaces/") && pathname.includes("/loss-prevention");
+  const dataLabel = tfsPage ? "TFS source-backed records · review in progress" : "Synthetic development data";
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [signOutError, setSignOutError] = useState("");
@@ -45,9 +47,9 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
   const destinations = [...navigation, ...bookNavigation, ...bookAccessNavigation];
   const groupFor = (href: string) => {
     if (["/app", "/work", "/action-centre"].includes(href)) return "Overview";
-    if (["/crm", "/client-workspaces", "/client-workspaces/manage", "/sites", "/events", "/mobilisations", "/service-delivery", "/operational-contacts"].includes(href)) return "Clients & delivery";
+    if (["/crm", "/tfs", "/client-workspaces", "/client-workspaces/manage", "/sites", "/events", "/mobilisations", "/service-delivery", "/operational-contacts"].includes(href)) return "Clients & delivery";
     if (["/workforce", "/control-room", "/site-book", "/site-book/access", "/incidents", "/assets", "/management-reports"].includes(href)) return "Operations";
-    if (["/people", "/hr", "/onboarding", "/documents", "/time-away", "/access"].includes(href)) return "People & administration";
+    if (["/people", "/hr", "/onboarding", "/documents", "/time-away", "/credentials", "/training", "/training-admin", "/access"].includes(href)) return "People & administration";
     if (href.startsWith("/my-") || href === "/profile") return "My account";
     return "Other";
   };
@@ -62,10 +64,10 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
     });
     return () => window.cancelAnimationFrame(frame);
   }, [pathname, collapsed]);
-  const current = (href: string) => pathname === href || (href === "/site-book" && pathname === "/site-book/access" ? false : href !== "/app" && pathname.startsWith(`${href}/`));
+  const current = (href: string) => pathname === href || ((href === "/site-book" && pathname === "/site-book/access") || (href === "/client-workspaces" && pathname === "/client-workspaces/manage") ? false : href !== "/app" && pathname.startsWith(`${href}/`));
   const iconFor = (href: string) => {
     const Icon = href === "/app" ? House : href.startsWith("/site-book") ? BookOpenText : href === "/incidents" ? Siren : href === "/onboarding" ? ClipboardList : ["/documents", "/operational-documents"].includes(href)
-      ? FileText : href === "/action-centre" ? Bell : ["/my-duty", "/my-schedule", "/my-deployments", "/my-availability", "/events", "/workforce"].includes(href) ? CalendarDays : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/hr" ? HeartHandshake : ["/crm", "/client-workspaces", "/client-workspaces/manage"].includes(href) ? Building2 : href === "/sites" ? MapPin : UserRound;
+      ? FileText : href === "/action-centre" ? Bell : ["/my-duty", "/my-schedule", "/my-deployments", "/my-availability", "/events", "/workforce"].includes(href) ? CalendarDays : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/hr" ? HeartHandshake : ["/crm", "/tfs", "/client-workspaces", "/client-workspaces/manage"].includes(href) ? Building2 : href === "/sites" ? MapPin : UserRound;
     return <Icon size={19} strokeWidth={1.9} aria-hidden="true" />;
   };
 
@@ -120,12 +122,12 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
           </div>)}
         </nav>
       </Tooltip.Provider>
-      <div className="enterprise-sidebar-footer"><span>{environmentLabel}</span><span>Synthetic development data</span></div>
+      <div className="enterprise-sidebar-footer"><span>{environmentLabel}</span><span>{dataLabel}</span></div>
     </aside>
     <div className="enterprise-workspace">
     <header className="enterprise-header">
       <div className="enterprise-header-top">
-        <Sheet open={drawerOpen} onOpenChange={setDrawerOpen}><SheetTrigger asChild><button className="enterprise-drawer-trigger" type="button" aria-label="Open navigation"><Menu size={22} aria-hidden="true" /></button></SheetTrigger><SheetContent side="left" className="enterprise-mobile-sheet"><SheetHeader><SheetTitle>KSS Enterprise</SheetTitle><SheetDescription>{environmentLabel} · Synthetic development data</SheetDescription></SheetHeader><nav className="enterprise-mobile-sheet-links" aria-label="Mobile navigation">{groups.map((group) => <section key={group.label}><h3>{group.label}</h3>{group.items.map((item) => <Link key={item.href} href={item.href} onClick={() => setDrawerOpen(false)} aria-current={current(item.href) ? "page" : undefined}>{iconFor(item.href)}{item.label}</Link>)}</section>)}</nav><Button variant="outline" onClick={() => void signOut()} disabled={busy}>{busy ? "Signing out…" : "Sign out"}</Button></SheetContent></Sheet>
+        <Sheet open={drawerOpen} onOpenChange={setDrawerOpen}><SheetTrigger asChild><button className="enterprise-drawer-trigger" type="button" aria-label="Open navigation"><Menu size={22} aria-hidden="true" /></button></SheetTrigger><SheetContent side="left" className="enterprise-mobile-sheet"><SheetHeader><SheetTitle>KSS Enterprise</SheetTitle><SheetDescription>{environmentLabel} · {dataLabel}</SheetDescription></SheetHeader><nav className="enterprise-mobile-sheet-links" aria-label="Mobile navigation">{groups.map((group) => <section key={group.label}><h3>{group.label}</h3>{group.items.map((item) => <Link key={item.href} href={item.href} onClick={() => setDrawerOpen(false)} aria-current={current(item.href) ? "page" : undefined}>{iconFor(item.href)}{item.label}</Link>)}</section>)}</nav><Button variant="outline" onClick={() => void signOut()} disabled={busy}>{busy ? "Signing out…" : "Sign out"}</Button></SheetContent></Sheet>
         <Link className="enterprise-brand enterprise-mobile-brand" href="/app"><span className="identity-mark" aria-hidden="true">K</span><span>KSS <span>Enterprise</span></span></Link>
         <span className="enterprise-environment">{environmentLabel}</span>
       </div>
@@ -137,7 +139,7 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
     </header>
     <div className="enterprise-context" aria-label="Page context"><Link href="/app">Home</Link>{activeDestination && activeDestination.href !== "/app" && <><span aria-hidden="true">/</span><Link href={activeDestination.href}>{activeDestination.label}</Link></>}{childContext.map((segment, index) => <span className="enterprise-context-segment" key={`${segment}-${index}`}><span aria-hidden="true">/</span><span>{contextLabel(segment)}</span></span>)}</div>
     <div id="enterprise-content" className="enterprise-content" tabIndex={-1}>{children}</div>
-    <footer className="enterprise-footer">KSS Enterprise Platform · Synthetic development data only</footer>
+    <footer className="enterprise-footer">KSS Enterprise Platform · {dataLabel}</footer>
     </div>
   </div>;
 }

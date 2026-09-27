@@ -18,7 +18,7 @@ export function hasCapability(principal: Principal, capability: Capability): boo
   return capabilitiesFor(principal).has(capability);
 }
 
-export type NavigationItem = { href: "/app" | "/work" | "/people" | "/hr" | "/crm" | "/client-workspaces" | "/client-workspaces/manage" | "/sites" | "/events" | "/mobilisations" | "/service-delivery" | "/workforce" | "/control-room" | "/management-reports" | "/assets" | "/my-equipment" | "/my-duty" | "/my-schedule" | "/my-deployments" | "/my-work-time" | "/action-centre" | "/my-availability" | "/my-time-away" | "/time-away" | "/documents" | "/operational-documents" | "/onboarding" | "/profile" | "/incidents" | "/access" | "/access/incident-reviewers"; label: string };
+export type NavigationItem = { href: "/app" | "/work" | "/people" | "/hr" | "/crm" | "/tfs" | "/client-workspaces" | "/client-workspaces/manage" | "/sites" | "/events" | "/mobilisations" | "/service-delivery" | "/workforce" | "/control-room" | "/management-reports" | "/assets" | "/my-equipment" | "/my-duty" | "/my-schedule" | "/my-deployments" | "/my-work-time" | "/action-centre" | "/my-availability" | "/my-time-away" | "/time-away" | "/documents" | "/operational-documents" | "/onboarding" | "/profile" | "/incidents" | "/credentials" | "/training" | "/training-admin" | "/access" | "/access/incident-reviewers"; label: string };
 
 export function navigationFor(principal: Principal): NavigationItem[] {
   const allowed = capabilitiesFor(principal);
@@ -56,6 +56,13 @@ export function navigationFor(principal: Principal): NavigationItem[] {
   if (principal.roles.includes("SECURITY_STAFF") || principal.incidentReviewer || principal.roles.includes("SUPER_ADMIN")) {
     links.push({ href: "/incidents", label: principal.roles.includes("SECURITY_STAFF") ? "Report incident" : "Incidents" });
   }
-  if (principal.roles.includes("SUPER_ADMIN")) links.push({ href: "/access", label: "Access administration" });
+  if (principal.roles.includes("SUPER_ADMIN")) links.push(
+    { href: "/tfs", label: "TFS" },
+    { href: "/client-workspaces", label: "Client workspaces" },
+    { href: "/credentials", label: "Credentials" },
+    { href: "/training", label: "Training" },
+    { href: "/training-admin", label: "Training administration" },
+    { href: "/access", label: "Access administration" },
+  );
   return links;
 }

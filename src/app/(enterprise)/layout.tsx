@@ -18,8 +18,12 @@ export default async function EnterpriseLayout({ children }: Readonly<{ children
   const { principal } = access;
   const navigation = navigationFor(principal);
   const { data: workspaces, error: workspaceError } = await client.rpc("cw_directory");
-  if (!workspaceError && Array.isArray(workspaces) && workspaces.length > 0) {
+  if (!workspaceError && Array.isArray(workspaces) && workspaces.length > 0 && !navigation.some((item) => item.href === "/client-workspaces")) {
     navigation.push({ href: "/client-workspaces", label: "Client workspaces" });
+  }
+  if (!principal.roles.includes("SUPER_ADMIN")) {
+    const { data: tfsWorkspace } = await client.rpc("cw_tfs_entry");
+    if (typeof tfsWorkspace === "string") navigation.push({ href: "/tfs", label: "TFS" });
   }
   if (principal.roles.includes("SUPER_ADMIN")) {
     navigation.push({ href: "/client-workspaces/manage", label: "Workspace access" });
