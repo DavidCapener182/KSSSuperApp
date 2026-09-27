@@ -18,7 +18,7 @@ export function hasCapability(principal: Principal, capability: Capability): boo
   return capabilitiesFor(principal).has(capability);
 }
 
-export type NavigationItem = { href: "/app" | "/work" | "/people" | "/hr" | "/crm" | "/sites" | "/events" | "/mobilisations" | "/service-delivery" | "/workforce" | "/control-room" | "/management-reports" | "/assets" | "/my-equipment" | "/my-schedule" | "/my-deployments" | "/my-work-time" | "/action-centre" | "/my-availability" | "/my-time-away" | "/time-away" | "/documents" | "/operational-documents" | "/onboarding" | "/profile" | "/incidents" | "/access/incident-reviewers"; label: string };
+export type NavigationItem = { href: "/app" | "/work" | "/people" | "/hr" | "/crm" | "/sites" | "/events" | "/mobilisations" | "/service-delivery" | "/workforce" | "/control-room" | "/management-reports" | "/assets" | "/my-equipment" | "/my-schedule" | "/my-deployments" | "/my-work-time" | "/action-centre" | "/my-availability" | "/my-time-away" | "/time-away" | "/documents" | "/operational-documents" | "/onboarding" | "/profile" | "/incidents" | "/access" | "/access/incident-reviewers"; label: string };
 
 export function navigationFor(principal: Principal): NavigationItem[] {
   const allowed = capabilitiesFor(principal);
@@ -55,6 +55,6 @@ export function navigationFor(principal: Principal): NavigationItem[] {
   if (principal.roles.includes("SECURITY_STAFF") || principal.incidentReviewer || principal.roles.includes("SUPER_ADMIN")) {
     links.push({ href: "/incidents", label: principal.roles.includes("SECURITY_STAFF") ? "Report incident" : "Incidents" });
   }
-  if (principal.roles.includes("SUPER_ADMIN")) links.push({ href: "/access/incident-reviewers", label: "Incident reviewers" });
+  if (principal.roles.includes("SUPER_ADMIN")) links.push({ href: "/access", label: "Access administration" });
   return links;
 }

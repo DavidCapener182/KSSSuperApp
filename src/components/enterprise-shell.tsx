@@ -47,7 +47,7 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
     if (["/app", "/work", "/action-centre"].includes(href)) return "Overview";
     if (["/crm", "/sites", "/events", "/mobilisations", "/service-delivery", "/operational-contacts"].includes(href)) return "Clients & delivery";
     if (["/workforce", "/control-room", "/site-book", "/site-book/access", "/incidents", "/assets", "/management-reports"].includes(href)) return "Operations";
-    if (["/people", "/hr", "/onboarding", "/documents", "/time-away", "/access/incident-reviewers"].includes(href)) return "People & administration";
+    if (["/people", "/hr", "/onboarding", "/documents", "/time-away", "/access"].includes(href)) return "People & administration";
     if (href.startsWith("/my-") || href === "/profile") return "My account";
     return "Other";
   };
