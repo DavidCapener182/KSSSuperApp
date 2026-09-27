@@ -25,7 +25,7 @@ export function OperationalSitesClient({ selected, office }: { selected?: string
   },[applied,offset,selected]);
   useEffect(()=>{const timer=setTimeout(()=>void load(),0);return()=>clearTimeout(timer);},[load]);
   useEffect(()=>{void fetch("/api/events/choices",{cache:"no-store"}).then((r)=>r.json()).then((data)=>setClients(data.clients ?? [])).catch(()=>{});},[]);
-  return <main className="enterprise-main events-page"><p className="eyebrow">Operational locations · synthetic development data</p>
+  return <main className="enterprise-main events-page"><p className="eyebrow">Operational locations</p>
     <div className="crm-heading"><div><h1>Sites / Venues</h1><p className="enterprise-intro">Client and Event context is operational. Site administration remains separately guarded.</p></div></div>
     <nav className="crm-tabs"><Link href="/sites" aria-current="page">Sites / Venues</Link><Link href="/events">Events</Link>{office&&<Link href="/sites">Manage my Sites</Link>}</nav>
     <form className="events-filters" onSubmit={(e)=>{e.preventDefault();setOffset(0);setApplied({...filters});}}>
@@ -36,9 +36,10 @@ export function OperationalSitesClient({ selected, office }: { selected?: string
       <Button>Apply filters</Button></form>
     {error&&<p role="alert" className="enterprise-error">{error}<Button variant="ghost" onClick={()=>void load()}>Retry</Button></p>}
     {loading?<p role="status" className="crm-skeleton">Loading authorised Sites…</p>:<>
-      {site&&<section className="crm-panel"><h2>{String(site.name)}</h2><p>{String(site.site_reference)} · {labels(site.site_type)} · {labels(site.status)}</p>
+      {site&&<section className="crm-panel"><h2>{String(site.name)}</h2><p>{labels(site.site_type)} · {labels(site.status)}</p>
         <p>{String(site.address_line1)}, {String(site.town_city)} {String(site.postcode)} · Reporting point: {String(site.reporting_point)}</p>
         <p>Client: {site.client_name ? office ? <Link href={`/crm/organisations/${site.organisation_id}`}>{String(site.client_name)}</Link> : String(site.client_name) : "Not linked"}</p>
+        <p><Link href={`/sites/${site.id}/workspace`}>Open Site workspace →</Link></p>
         {Boolean(site.client_name)&&<p><Link href={`/sites/${site.id}/services`}>Ongoing Site Services and shift demand</Link></p>}
         <h3>Upcoming / active Events</h3>{((site.events as Row[])??[]).length===0?<p>No active Events at this Site.</p>:<ul>{((site.events as Row[])??[]).map((event)=><li key={String(event.id)}><Link href={`/events/${event.id}`}>{String(event.name)} · {labels(event.status)}</Link></li>)}</ul>}
         {Boolean(site.can_manage)&&office&&<p>Site administration remains in <Link href="/sites">Manage my Sites</Link>.</p>}</section>}
