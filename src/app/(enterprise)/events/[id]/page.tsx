@@ -4,6 +4,8 @@ import { hasCapability } from "@/lib/auth/capabilities";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { EventsClient } from "@/components/events-client";
 import { safeWorkforceReturn } from "@/lib/events/workforce-navigation";
+import { safeReturnTarget } from "@/lib/auth/return-target";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 export default async function EventPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ requirement?: string; returnTo?: string; mobilisation?: string }> }) {
@@ -12,7 +14,8 @@ export default async function EventPage({ params, searchParams }: { params: Prom
   if (!principal) redirect("/?next=%2Fevents");
   if (!hasCapability(principal, "EVENTS_USE")) notFound();
   const search = await searchParams;
-  return <EventsClient roles={principal.roles} id={id} focusRequirement={search.requirement && isUuid(search.requirement) ? search.requirement : undefined}
+  const controlReturn=safeReturnTarget(search.returnTo);
+  return <>{controlReturn?.startsWith("/control-room?")&&<p className="enterprise-main"><Link href={controlReturn}>← Return to Control Room</Link></p>}<EventsClient roles={principal.roles} id={id} focusRequirement={search.requirement && isUuid(search.requirement) ? search.requirement : undefined}
     mobilisation={search.mobilisation && isUuid(search.mobilisation) ? search.mobilisation : undefined}
-    workforceReturn={safeWorkforceReturn(search.returnTo)} />;
+    workforceReturn={safeWorkforceReturn(search.returnTo)} /></>;
 }

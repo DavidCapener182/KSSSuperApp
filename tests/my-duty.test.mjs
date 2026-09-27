@@ -17,7 +17,7 @@ async function cookieFor(email, password) {
   return cookies.map(({ name, value }) => `${name}=${value}`).join('; ');
 }
 
-test('Today’s Duty is Staff only and reads existing own records', { timeout: 90000 }, async () => {
+test('Today’s Duty and Control Room keep separate roles and source return context', { timeout: 90000 }, async () => {
   assert.ok(url && key && process.env.KSS_TEST_STAFF_A_EMAIL && process.env.KSS_TEST_STAFF_A_PASSWORD && process.env.KSS_TEST_OPERATIONS_EMAIL && process.env.KSS_TEST_OPERATIONS_PASSWORD);
   const socket = createServer(); socket.listen(0, '127.0.0.1'); await once(socket, 'listening');
   const port = socket.address().port; socket.close(); await once(socket, 'close');
@@ -41,5 +41,17 @@ test('Today’s Duty is Staff only and reads existing own records', { timeout: 9
     assert.equal((await fetch(`${base}/api/deployments/me`, { headers: { cookie: operations } })).status, 403);
     const staffNavigation = await (await fetch(`${base}/api/me`, { headers: { cookie: staff } })).json();
     assert.ok(staffNavigation.navigation.some((item) => item.href === '/my-duty'));
+    assert.equal((await fetch(`${base}/control-room`, { headers: { cookie: staff } })).status, 404);
+    const desk = await fetch(`${base}/control-room?tab=attendance&offset=0`, { headers: { cookie: operations } });
+    assert.equal(desk.status, 200);
+    assert.match(await desk.text(), /Control Room/);
+    const source = await (await fetch(`${base}/api/control-room`, { headers: { cookie: operations } })).json();
+    const card = source.snapshot?.cards?.[0];
+    assert.ok(card, 'synthetic Dev has an authorised Control Room source');
+    const returnTo = `/control-room?tab=attendance&offset=0&focus=${card.source}:${card.source_id}:${card.service_date ?? ''}`;
+    const destination = card.source === 'EVENT' ? `/events/${card.source_id}/attendance` : `/sites/${card.site_id}/services/${card.source_id}/attendance`;
+    const sourcePage = await fetch(`${base}${destination}?returnTo=${encodeURIComponent(returnTo)}`, { headers: { cookie: operations } });
+    assert.equal(sourcePage.status, 200);
+    assert.match(await sourcePage.text(), /Return to Control Room/);
   } finally { server.kill('SIGTERM'); }
 });

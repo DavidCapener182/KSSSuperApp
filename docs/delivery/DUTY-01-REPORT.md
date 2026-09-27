@@ -25,4 +25,6 @@ State: implemented in isolated development worktree; pending David's review. No 
 - ESLint on changed application files and focused test: passed.
 - `tests/my-duty.test.mjs`: passed. Anonymous return target and private cache header, Staff route, Operations denial, underlying API denial and Staff navigation checked against synthetic development. This test made no business record writes.
 - `git diff --check`: passed.
-- Phone-width authenticated browser visual check remains outstanding. No human acceptance or deployment is claimed.
+- Authenticated synthetic Staff browser at 390px: the exact allocation route rendered the duty identity and three work stages; document `scrollWidth=390` at `innerWidth=390`. The screenshot is `/private/tmp/kss-browser-check/duty-390.png`.
+- The browser fixture exposed recorded September attendance on an allocation now scheduled in November. The screen displays the source facts and flags this timing discrepancy for review; it does not silently call the future duty completed.
+- No human acceptance or deployment is claimed.
