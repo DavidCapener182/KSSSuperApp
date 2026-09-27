@@ -28,7 +28,8 @@
 .taskList { margin: 0; padding: 0; list-style: none; }.taskList li + li { border-top: 1px solid #e8edf3; }
 .taskList a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .15rem .75rem; min-height: 44px; padding: .6rem 1rem; color: #172b42; text-decoration: none; }
 .taskList a:hover { background: #f3f7fc; }.taskList strong { overflow-wrap: anywhere; font-size: .86rem; }.taskList small { grid-column: 1; color: #566579; font-size: .76rem; }
-.taskList a > span { grid-column: 2; grid-row: 1 / 3; align-self: center; color: #286298; }
+.taskNext { grid-column: 1; color: #566579; font-size: .75rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.taskList .taskArrow { grid-column: 2; grid-row: 1 / 4; align-self: center; color: #286298; }
 .quickLink:focus-visible, .taskPanel a:focus-visible { outline: 3px solid #225887; outline-offset: 3px; }
 @media (max-width: 760px) { .hero { align-items: start; flex-direction: column; } .quickGrid { grid-template-columns: 1fr; } }
 @media (max-width: 480px) { .hero { padding: 1.3rem; } }

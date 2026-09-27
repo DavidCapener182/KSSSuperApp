@@ -14,6 +14,8 @@ export type TfsWorkTask = {
   sourceTitle: string;
   sourceStatus: string;
   priority: Issue["priority"];
+  redStockLoss: boolean;
+  potentialInternalTheftReview: boolean;
   nextAction: string;
   dueAt: null;
   sourceHref: string;
@@ -35,6 +37,8 @@ function projectIssue(issue: Issue, workspace: Workspace, personId: string): Tfs
     sourceTitle: `${workspace.name}${issue.store_number ? ` · Store ${issue.store_number}` : ""}`,
     sourceStatus: issue.status,
     priority: issue.priority,
+    redStockLoss,
+    potentialInternalTheftReview: issue.potential_internal_theft_review,
     nextAction: issue.next_action,
     dueAt: null,
     sourceHref: `/client-workspaces/${workspace.id}/loss-prevention/${issue.id}`,

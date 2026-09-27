@@ -28,7 +28,12 @@ function taskRank(task: WorkItem, now: number) {
 }
 
 function taskDetail(task: WorkItem) {
-  if (task.sourceKind === "TFS_LP_ISSUE") return task.sourceStatus;
+  if (task.sourceKind === "TFS_LP_ISSUE") {
+    const details = [task.sourceStatus === "Visit needed" ? "Site visit needed" : task.sourceStatus];
+    if (task.redStockLoss) details.push("Red stock loss");
+    if (task.potentialInternalTheftReview) details.push("Potential internal theft review (unproven)");
+    return details.join(" · ");
+  }
   if (task.sourceKind === "DOCUMENT_VERSION") return "Document review";
   return task.dueAt ? `CRM follow-up · due ${new Date(task.dueAt).toLocaleDateString("en-GB")}` : "CRM follow-up";
 }
@@ -98,7 +103,9 @@ export default async function AppHome() {
       <div className={styles.taskHeading}><h2>My tasks <span>{openTasks.length}</span></h2><Link href="/work">View all <span aria-hidden="true">→</span></Link></div>
       {work === null ? <p>Tasks are unavailable right now.</p> : openTasks.length === 0 ? <p>No open tasks.</p> :
         <ul className={styles.taskList}>{openTasks.slice(0, 5).map((task) => <li key={task.id}>
-          <Link href={task.sourceHref}><strong>{task.title}</strong><small>{taskDetail(task)}</small><span aria-hidden="true">↗</span></Link>
+          <Link href={task.sourceHref}><strong>{task.title}</strong><small>{taskDetail(task)}</small>
+            {task.sourceKind === "TFS_LP_ISSUE" && task.nextAction && <span className={styles.taskNext}>Next: {task.nextAction}</span>}
+            <span className={styles.taskArrow} aria-hidden="true">↗</span></Link>
         </li>)}</ul>}
     </section>}
     {staff && <div className={styles.groupGrid}><EntryGroup title="Duty records" paths={["/my-attendance", "/my-work-time", "/my-availability"]} allowed={allowed} /><EntryGroup title="Requests & evidence" paths={["/hr", "/my-time-away", "/onboarding", "/documents", "/credentials", "/my-equipment"]} allowed={allowed} /></div>}
