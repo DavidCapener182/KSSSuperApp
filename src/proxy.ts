@@ -48,7 +48,7 @@ export async function proxy(request: NextRequest) {
   await client.auth.getClaims();
   if (contentSecurityPolicy) response.headers.set("Content-Security-Policy", contentSecurityPolicy);
   if (request.nextUrl.pathname.startsWith("/api/") ||
-    ["/app", "/sites", "/profile", "/credentials", "/documents", "/onboarding", "/work", "/people", "/training", "/training-admin"].some((path) =>
+    ["/app", "/my-duty", "/sites", "/profile", "/credentials", "/documents", "/onboarding", "/work", "/people", "/training", "/training-admin"].some((path) =>
       request.nextUrl.pathname === path || request.nextUrl.pathname.startsWith(`${path}/`))) {
     response.headers.set("Cache-Control", "private, no-store, max-age=0");
   }

@@ -51,7 +51,7 @@ export function MyScheduleClient({initialWeek}:{initialWeek?:string}) {
               {item.reporting_point&&<p>Reporting point: {item.reporting_point}</p>}
               <p>Report {clock(item.report_at)} · Shift {clock(item.shift_starts_at)} → {clock(item.shift_ends_at)}</p>
               <p className={item.availability_conflict?"workforce-alert":""}>{availabilityLabel(item)}</p>
-              <Link href={`/my-deployments?allocationId=${encodeURIComponent(item.id)}&source=${item.source}&returnWeek=${week}`}>{item.status==="ALLOCATED"?"Review offer":"View deployment"}</Link></article>)}
+              <Link href={`/my-duty?allocationId=${encodeURIComponent(item.id)}&source=${item.source}`}>Open duty</Link> · <Link href={`/my-deployments?allocationId=${encodeURIComponent(item.id)}&source=${item.source}&returnWeek=${week}`}>{item.status==="ALLOCATED"?"Review offer":"View deployment"}</Link></article>)}
             {declarations.map((item)=><article className="my-schedule-declaration" key={item.id}><strong>{item.state==="AVAILABLE"?"Available":"Unavailable"} declaration</strong>
               <span>{clock(item.starts_at)} → {clock(item.ends_at)}</span></article>)}
           </>}</section>;})}</div>

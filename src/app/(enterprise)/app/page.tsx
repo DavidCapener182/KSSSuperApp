@@ -11,6 +11,7 @@ export const dynamic = "force-dynamic";
 type Entry = { href: string; title: string; detail: string };
 
 const entries: Record<string, Entry> = {
+  "/my-duty": { href: "/my-duty", title: "Today's duty", detail: "See your next duty facts and open the exact source actions." },
   "/my-attendance": { href: "/my-attendance", title: "My attendance", detail: "Check arrival and departure evidence for your own duties." },
   "/credentials": { href: "/credentials", title: "My credentials", detail: "Review your own credential submissions and their separate verification state." },
   "/my-schedule": { href: "/my-schedule", title: "My schedule", detail: "See your own duties and their source links." },
@@ -65,7 +66,7 @@ export default async function AppHome() {
   const date = new Intl.DateTimeFormat("en-GB", { dateStyle: "full", timeZone: "Europe/London" }).format(new Date());
   return <main className={`enterprise-main ${styles.home}`}>
     <header className={styles.hero}><div><p className={styles.kicker}>KSS workspace / Synthetic Development</p><h1>Welcome, {principal.displayName}</h1><p>{staff && !office && !operations ? "Your duty and personal records are a step away." : "Open an operational area or continue your assigned work."}</p></div><p className={styles.date}>{date}</p></header>
-    <section className={styles.section} aria-label="Quick access"><h2>Quick access</h2><QuickLinks paths={staff && !office && !operations ? ["/my-schedule", "/my-deployments", "/action-centre"] : ["/workforce", "/events", "/control-room"]} allowed={allowed} /></section>
+    <section className={styles.section} aria-label="Quick access"><h2>Quick access</h2><QuickLinks paths={staff && !office && !operations ? ["/my-duty", "/my-schedule", "/my-deployments"] : ["/workforce", "/events", "/control-room"]} allowed={allowed} /></section>
     {office && allowed.has("/work") && <section className={styles.taskPanel} aria-label="Assigned Tasks"><div><p className={styles.kicker}>Existing Task service</p><h2>Assigned Tasks</h2><p>Document reviews and CRM follow-ups assigned through the existing Task service. Open the panel for current records and actions.</p></div><Link href="/work">Open assigned Tasks <span aria-hidden="true">→</span></Link></section>}
     {staff && <div className={styles.groupGrid}><EntryGroup title="Duty records" paths={["/my-attendance", "/my-work-time", "/my-availability"]} allowed={allowed} /><EntryGroup title="Requests & evidence" paths={["/hr", "/my-time-away", "/onboarding", "/documents", "/credentials", "/my-equipment"]} allowed={allowed} /></div>}
     {(office || operations) && <div className={styles.groupGrid}><EntryGroup title="Delivery" paths={["/mobilisations", "/service-delivery", "/documents"]} allowed={allowed} /><EntryGroup title="People & administration" paths={["/people", "/hr", "/onboarding", "/time-away"]} allowed={allowed} /></div>}

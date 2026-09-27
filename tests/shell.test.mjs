@@ -32,7 +32,7 @@ async function port() {
   const server = createServer(); server.listen(0, '127.0.0.1'); await once(server, 'listening');
   const value = server.address().port; server.close(); await once(server, 'close'); return value;
 }
-const paths = ['/app', '/assets', '/my-equipment', '/sites', '/profile', '/people', '/workforce', '/mobilisations', '/service-delivery', '/my-schedule', '/my-deployments', '/my-work-time', '/my-attendance', '/my-availability', '/action-centre'];
+const paths = ['/app', '/assets', '/my-equipment', '/sites', '/profile', '/people', '/workforce', '/mobilisations', '/service-delivery', '/my-duty', '/my-schedule', '/my-deployments', '/my-work-time', '/my-attendance', '/my-availability', '/action-centre'];
 
 test('return targets allow only implemented local routes', () => {
   for (const path of [...paths, '/sites?view=mine', '/training', '/training-admin', '/training/10000000-0000-4000-8000-000000000003?page=2', '/documents', '/operational-documents', '/operational-documents?context=EVENT', '/documents/10000000-0000-4000-8000-000000000003', '/work', '/work/10000000-0000-4000-8000-000000000003', '/onboarding', '/onboarding/10000000-0000-4000-8000-000000000003', '/people/10000000-0000-4000-8000-000000000003', '/mobilisations/10000000-0000-4000-8000-000000000003', '/events/10000000-0000-4000-8000-000000000003?requirement=10000000-0000-4000-8000-000000000004', '/events/10000000-0000-4000-8000-000000000003/attendance', '/events/10000000-0000-4000-8000-000000000003/work-time']) assert.equal(safeReturnTarget(path), path);
@@ -84,7 +84,7 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.deepEqual(await me('unmapped'), [403, { error: 'No Enterprise access' }]);
     const expected = {
       admin: ['/app', '/work', '/people', '/hr', '/crm', '/sites', '/events', '/mobilisations', '/service-delivery', '/workforce', '/control-room', '/management-reports', '/assets', '/time-away', '/documents', '/operational-documents', '/onboarding', '/profile', '/incidents', '/access'], office: ['/app', '/work', '/people', '/hr', '/crm', '/sites', '/events', '/mobilisations', '/service-delivery', '/workforce', '/control-room', '/management-reports', '/assets', '/time-away', '/documents', '/operational-documents', '/onboarding', '/profile'],
-      staff: ['/app', '/hr', '/sites', '/my-schedule', '/my-deployments', '/my-equipment', '/my-work-time', '/action-centre', '/my-availability', '/my-time-away', '/documents', '/operational-documents', '/onboarding', '/profile', '/incidents'], zero: ['/app', '/hr', '/sites', '/my-schedule', '/my-deployments', '/my-equipment', '/my-work-time', '/action-centre', '/my-availability', '/my-time-away', '/documents', '/operational-documents', '/onboarding', '/profile', '/incidents'],
+      staff: ['/app', '/hr', '/sites', '/my-duty', '/my-schedule', '/my-deployments', '/my-equipment', '/my-work-time', '/action-centre', '/my-availability', '/my-time-away', '/documents', '/operational-documents', '/onboarding', '/profile', '/incidents'], zero: ['/app', '/hr', '/sites', '/my-duty', '/my-schedule', '/my-deployments', '/my-equipment', '/my-work-time', '/action-centre', '/my-availability', '/my-time-away', '/documents', '/operational-documents', '/onboarding', '/profile', '/incidents'],
       operations: ['/app', '/people', '/hr', '/sites', '/events', '/workforce', '/control-room', '/assets', '/time-away', '/operational-documents', '/profile'],
     };
     for (const [as, links] of Object.entries(expected)) {
@@ -143,6 +143,8 @@ test('01D shell route, navigation, and role boundaries', { timeout: 180000 }, as
     assert.equal((await get('/api/my-schedule', 'operations')).status, 403);
     assert.equal((await get('/my-deployments', 'staff')).status, 200);
     assert.equal((await get('/my-deployments', 'operations')).status, 404);
+    assert.equal((await get('/my-duty', 'staff')).status, 200);
+    assert.equal((await get('/my-duty', 'operations')).status, 404);
     assert.equal((await get('/action-centre', 'staff')).status, 200);
     assert.equal((await get('/action-centre', 'operations')).status, 404);
     assert.equal((await get('/action-centre', 'office')).status, 404);

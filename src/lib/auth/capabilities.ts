@@ -18,7 +18,7 @@ export function hasCapability(principal: Principal, capability: Capability): boo
   return capabilitiesFor(principal).has(capability);
 }
 
-export type NavigationItem = { href: "/app" | "/work" | "/people" | "/hr" | "/crm" | "/sites" | "/events" | "/mobilisations" | "/service-delivery" | "/workforce" | "/control-room" | "/management-reports" | "/assets" | "/my-equipment" | "/my-schedule" | "/my-deployments" | "/my-work-time" | "/action-centre" | "/my-availability" | "/my-time-away" | "/time-away" | "/documents" | "/operational-documents" | "/onboarding" | "/profile" | "/incidents" | "/access" | "/access/incident-reviewers"; label: string };
+export type NavigationItem = { href: "/app" | "/work" | "/people" | "/hr" | "/crm" | "/sites" | "/events" | "/mobilisations" | "/service-delivery" | "/workforce" | "/control-room" | "/management-reports" | "/assets" | "/my-equipment" | "/my-duty" | "/my-schedule" | "/my-deployments" | "/my-work-time" | "/action-centre" | "/my-availability" | "/my-time-away" | "/time-away" | "/documents" | "/operational-documents" | "/onboarding" | "/profile" | "/incidents" | "/access" | "/access/incident-reviewers"; label: string };
 
 export function navigationFor(principal: Principal): NavigationItem[] {
   const allowed = capabilitiesFor(principal);
@@ -37,6 +37,7 @@ export function navigationFor(principal: Principal): NavigationItem[] {
     { href: "/control-room" as const, label: "Control Room", capability: "CONTROL_ROOM_USE" as const },
     { href: "/management-reports" as const, label: "Management Reports", capability: "MANAGEMENT_REPORTS_USE" as const },
     { href: "/assets" as const, label: "Assets", capability: "ASSETS_USE" as const },
+    { href: "/my-duty" as const, label: "Today's Duty", capability: "DEPLOYMENTS_SELF_READ" as const },
     { href: "/my-schedule" as const, label: "My Schedule", capability: "SCHEDULE_SELF_READ" as const },
     { href: "/my-deployments" as const, label: "My Deployments", capability: "DEPLOYMENTS_SELF_READ" as const },
     { href: "/my-equipment" as const, label: "My Equipment", capability: "MY_EQUIPMENT_SELF_READ" as const },
