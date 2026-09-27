@@ -15,6 +15,6 @@ Updated: 27 September 2026. This is the active publishing configuration; older s
 
 The published app currently uses synthetic records and retains its explicit synthetic/staging safety label. This label describes data status; it does not name a second application or product branch. Real Staff/client data and live operational use remain outside this cutover.
 
-At the last direct Vercel check, the production deployment was READY on `52c6c8ebc118d5876f1067df3c5e0426f756adb4`, matching the then-current `origin/main`. The URL loaded the KSS sign-in screen. That is a release-path check, not a signed-in feature verification. Refresh both SHAs and complete journey checks after every later merge.
+At the last direct Vercel check, the production deployment was READY on `3ff021cdad9baa26e5ece048e41acaf983163e60`, matching the then-current `origin/main` and assigned to the published URL. The URL loaded the signed-in synthetic Super Admin home. This is a release-path check, not complete feature journey verification. Refresh both SHAs and complete journey checks after every later merge.
 
-GitHub still reported `staging` as repository default at this check. Vercel production already tracks `main`; change GitHub's default to `main` using repository-owner access, then retire the old branch only after confirming no unique required source. The historical `staging` ref must not be treated as another product release line.
+GitHub now reports `main` as the repository default. The obsolete remote `staging` branch was retired after confirming its merge commit `d351cd2` has exactly the same tree as its `main` parent `41ab510`; historical deployment and commit evidence remains. There is no second active product branch.
