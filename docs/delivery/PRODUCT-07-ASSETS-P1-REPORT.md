@@ -8,7 +8,7 @@ Isolated managed worktree `/Users/davidcapener/.codex/worktrees/kss-product-07-b
 
 - `asset_register_page` returns a bounded 1–100 item page with total count, stable reference/ID ordering and server-side search, class, holder/context, condition, repair, exception, expected-return and factual view filters. The Office/Super or exact Operations grant predicate remains inside the RPC. `asset_register_support` returns authorised store, stock and current holder-context choices without loading the full item register.
 - The `/assets` register now uses those projections, shows count/page controls, retains distinct custody, location, condition, repair, exception and expected-return fields, and gives an availability answer with the rule's factual reason. Search and filters reset pagination. The selected item has an action-specific review step before ISSUE/TRANSFER/RETURN, naming the current and destination holders, item, recorded/observed condition and expected return. It does not treat acknowledgement as part of the custody event.
-- Uniform issue selects an authorised Staff Person; return selects an outstanding line from the exact stock record. The return choice will exclude pending acknowledgements, matching the existing guarded `asset_stock_move` rule. Stocktake, variance approval, correction policy, scanning, kits, bulk issue, duty inference and lost-key escalation remain separate decisions.
+- Uniform issue selects an authorised Staff Person; return selects an outstanding line from the exact stock record. The return choice excludes pending acknowledgements, matching the existing guarded `asset_stock_move` rule. Stocktake, variance approval, correction policy, scanning, kits, bulk issue, duty inference and lost-key escalation remain separate decisions.
 - `/api/assets` now checks the returned event ID, revision and, for item actions, action/asset/destination against an actor-only receipt RPC before reporting a confirmed write. A submitted event without exact readback is shown as unconfirmed and the UI asks for current-source review before retry. Grants retain their existing separate response contract. Direct table access and Staff self-only equipment projection remain unchanged.
 
 ## Applied synthetic Development migration
@@ -17,6 +17,8 @@ Isolated managed worktree `/Users/davidcapener/.codex/worktrees/kss-product-07-b
 - Local source: `supabase/migrations/20260927170000_product_07_asset_register_workflows.sql`, SHA-256 `aa406a41ae91dc47d9a7cc6f01229e230438633917f62ee2f4eaf62b3fc84eb1`.
 - Applied once by Supabase migration tool. MCP assigned remote version `20260927164145`, name `product_07_asset_register_workflows_20260927170000`; the assigned version differs from the local filename. No second apply was used to repair that timestamp mismatch.
 - Post-apply `pg_proc` readback found all five expected RPCs (`asset_register_page`, `asset_register_support`, `asset_stock_issue_choices`, `asset_event_receipt`, `asset_stock_event_receipt`) as SECURITY DEFINER with empty `search_path`, authenticated EXECUTE and no anon EXECUTE.
+
+- Forward correction source: `supabase/migrations/20260927173000_product_07_stock_return_choices_fix.sql`, SHA-256 `91d6acd030960458798f6119d1ade438696ffc98ceca9fcaedb3126e515a3f3d`. Applied once to the same synthetic Development project after David explicitly instructed application. MCP assigned remote version `20260927170530`, name `product_07_stock_return_choices_fix_20260927173000`. The assigned version differs from the local filename; no second apply was used. Post-apply readback found a SECURITY DEFINER function with empty `search_path`, anon EXECUTE false, authenticated EXECUTE true, and the `acknowledgement <> 'PENDING'` predicate. The focused authenticated asset tests passed 2/2 after apply. The coordinator was told that this correction preceded the still-unapplied PRODUCT-08 Documents migration.
 
 ## Checks and evidence
 
@@ -27,6 +29,5 @@ Isolated managed worktree `/Users/davidcapener/.codex/worktrees/kss-product-07-b
 
 ## Remaining gates and limits
 
-- A narrow forward migration to exclude pending uniform acknowledgements from return choices is prepared but awaits the Phase 1 coordinator's unique migration slot and synthetic Development apply. Final focused tests, production build and commit should be repeated after it lands.
 - The authenticated visual browser check used Super Admin for register inspection. Operations issue/return review controls and uniform pickers were exercised through code/contract and the HTTP event proof, not a separate Operations 390px browser session. The browser used synthetic Development, not staging or production.
 - No real asset or uniform count was verified. The P0 physical stocktake/variance-review/correction workflow and store/restricted-key/loss/retention policies remain pre-live work. This candidate does not authorise live stock, production, or a new grant/role model.
