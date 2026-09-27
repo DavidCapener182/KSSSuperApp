@@ -4,11 +4,34 @@ import { navigationFor } from "@/lib/auth/capabilities";
 import { getPrincipal } from "@/lib/auth/principal";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { ExternalAppShortcuts } from "@/components/external-app-shortcuts";
+import { listTasks } from "@/lib/tasks/policy";
 import styles from "./home.module.css";
 
 export const dynamic = "force-dynamic";
 
 type Entry = { href: string; title: string; detail: string };
+type WorkItem = NonNullable<Awaited<ReturnType<typeof listTasks>>>[number];
+
+function isHomeTask(task: WorkItem) {
+  if (task.state !== "OPEN") return false;
+  // Triage and review links stay in the TFS workspace/My Work; visits and investigations are tasks.
+  return task.sourceKind !== "TFS_LP_ISSUE" || task.sourceStatus === "Visit needed" || task.sourceStatus === "Investigating";
+}
+
+function taskRank(task: WorkItem, now: number) {
+  if (task.sourceKind === "TFS_LP_ISSUE") {
+    if (task.sourceStatus === "Visit needed") return 0;
+    return task.priority === "Urgent" ? 1 : 3;
+  }
+  if (task.dueAt && new Date(task.dueAt).getTime() < now) return 2;
+  return 4;
+}
+
+function taskDetail(task: WorkItem) {
+  if (task.sourceKind === "TFS_LP_ISSUE") return task.sourceStatus;
+  if (task.sourceKind === "DOCUMENT_VERSION") return "Document review";
+  return task.dueAt ? `CRM follow-up · due ${new Date(task.dueAt).toLocaleDateString("en-GB")}` : "CRM follow-up";
+}
 
 const entries: Record<string, Entry> = {
   "/my-duty": { href: "/my-duty", title: "Today's duty", detail: "See your next duty facts and open the exact source actions." },
@@ -63,11 +86,21 @@ export default async function AppHome() {
   const trainingAdmin = Boolean(trainingAccess && typeof trainingAccess === "object" && (trainingAccess.author || trainingAccess.publisher));
   const trainingAssignments = Boolean(assignmentAccess && typeof assignmentAccess === "object" && (assignmentAccess.assigner || assignmentAccess.superAdmin));
   const trainingCatalogue = trainingAdmin || staff || operations;
-  const date = new Intl.DateTimeFormat("en-GB", { dateStyle: "full", timeZone: "Europe/London" }).format(new Date());
+  const now = new Date();
+  const date = new Intl.DateTimeFormat("en-GB", { dateStyle: "full", timeZone: "Europe/London" }).format(now);
+  const work = allowed.has("/work") ? await listTasks(client, principal) : [];
+  const openTasks = work?.filter(isHomeTask).sort((a, b) =>
+    taskRank(a, now.getTime()) - taskRank(b, now.getTime()) || b.createdAt.localeCompare(a.createdAt)) ?? [];
   return <main className={`enterprise-main ${styles.home}`}>
     <header className={styles.hero}><div><p className={styles.kicker}>KSS workspace / Synthetic Development</p><h1>Welcome, {principal.displayName}</h1><p>{staff && !office && !operations ? "Your duty and personal records are a step away." : "Open an operational area or continue your assigned work."}</p></div><p className={styles.date}>{date}</p></header>
     <section className={styles.section} aria-label="Quick access"><h2>Quick access</h2><QuickLinks paths={staff && !office && !operations ? ["/my-duty", "/my-schedule", "/my-deployments"] : ["/workforce", "/events", "/control-room"]} allowed={allowed} /></section>
-    {office && allowed.has("/work") && <section className={styles.taskPanel} aria-label="Assigned Tasks"><div><p className={styles.kicker}>Existing Task service</p><h2>Assigned Tasks</h2><p>Document reviews and CRM follow-ups assigned through the existing Task service. Open the panel for current records and actions.</p></div><Link href="/work">Open assigned Tasks <span aria-hidden="true">→</span></Link></section>}
+    {allowed.has("/work") && <section className={styles.taskPanel} aria-label="My tasks">
+      <div className={styles.taskHeading}><h2>My tasks <span>{openTasks.length}</span></h2><Link href="/work">View all <span aria-hidden="true">→</span></Link></div>
+      {work === null ? <p>Tasks are unavailable right now.</p> : openTasks.length === 0 ? <p>No open tasks.</p> :
+        <ul className={styles.taskList}>{openTasks.slice(0, 5).map((task) => <li key={task.id}>
+          <Link href={task.sourceHref}><strong>{task.title}</strong><small>{taskDetail(task)}</small><span aria-hidden="true">↗</span></Link>
+        </li>)}</ul>}
+    </section>}
     {staff && <div className={styles.groupGrid}><EntryGroup title="Duty records" paths={["/my-attendance", "/my-work-time", "/my-availability"]} allowed={allowed} /><EntryGroup title="Requests & evidence" paths={["/hr", "/my-time-away", "/onboarding", "/documents", "/credentials", "/my-equipment"]} allowed={allowed} /></div>}
     {(office || operations) && <div className={styles.groupGrid}><EntryGroup title="Delivery" paths={["/mobilisations", "/service-delivery", "/documents"]} allowed={allowed} /><EntryGroup title="People & administration" paths={["/people", "/hr", "/onboarding", "/time-away"]} allowed={allowed} /></div>}
     {(trainingCatalogue || trainingAdmin || trainingAssignments) && <section className={styles.learning} aria-label="Learning"><h2>Learning</h2><div className={styles.learningList}>
