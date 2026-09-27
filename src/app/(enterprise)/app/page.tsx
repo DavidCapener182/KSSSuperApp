@@ -38,6 +38,12 @@ function taskDetail(task: WorkItem) {
   return task.dueAt ? `CRM follow-up · due ${new Date(task.dueAt).toLocaleDateString("en-GB")}` : "CRM follow-up";
 }
 
+function taskClientLabel(task: WorkItem) {
+  if (task.sourceKind === "TFS_LP_ISSUE") return task.clientLabel;
+  if (task.sourceKind === "CRM_ORGANISATION") return task.sourceTitle;
+  return null;
+}
+
 const entries: Record<string, Entry> = {
   "/my-duty": { href: "/my-duty", title: "Today's duty", detail: "See your next duty facts and open the exact source actions." },
   "/my-attendance": { href: "/my-attendance", title: "My attendance", detail: "Check arrival and departure evidence for your own duties." },
@@ -104,10 +110,14 @@ export default async function AppHome() {
         {openTasks.length > 6 && <Link href="/work">Open My Work <span aria-hidden="true">→</span></Link>}
       </div>
       {work === null ? <p>Tasks are unavailable right now.</p> : openTasks.length === 0 ? <p>No open tasks.</p> :
-        <ul className={styles.taskList}>{openTasks.slice(0, 6).map((task) => <li key={task.id}>
-          <Link href={task.sourceHref}><strong>{task.title}</strong><small>{taskDetail(task)}</small>
-            <span className={styles.taskArrow} aria-hidden="true">↗</span></Link>
-        </li>)}</ul>}
+        <ul className={styles.taskList}>{openTasks.slice(0, 6).map((task) => {
+          const clientLabel = taskClientLabel(task);
+          return <li key={task.id}><Link href={task.sourceHref} className={clientLabel ? styles.taskWithClient : undefined}>
+            {clientLabel && <span className={styles.taskClient}>{clientLabel}</span>}
+            <span className={styles.taskBody}><strong>{task.title}</strong><small>{taskDetail(task)}</small></span>
+            <span className={styles.taskArrow} aria-hidden="true">↗</span>
+          </Link></li>;
+        })}</ul>}
     </section>}
     {staff && <div className={styles.groupGrid}><EntryGroup title="Duty records" paths={["/my-attendance", "/my-work-time", "/my-availability"]} allowed={allowed} /><EntryGroup title="Requests & evidence" paths={["/hr", "/my-time-away", "/onboarding", "/documents", "/credentials", "/my-equipment"]} allowed={allowed} /></div>}
     {(office || operations) && <div className={styles.groupGrid}><EntryGroup title="Delivery" paths={["/mobilisations", "/service-delivery", "/documents"]} allowed={allowed} /><EntryGroup title="People & administration" paths={["/people", "/hr", "/onboarding", "/time-away"]} allowed={allowed} /></div>}

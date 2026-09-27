@@ -28,8 +28,12 @@
 .taskList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
 .taskList li { min-width: 0; }.taskList li:nth-child(2n) { border-left: 1px solid #e8edf3; }.taskList li:nth-child(n+3) { border-top: 1px solid #e8edf3; }
 .taskList a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .15rem .75rem; min-height: 44px; padding: .6rem 1rem; color: #172b42; text-decoration: none; }
-.taskList a:hover { background: #f3f7fc; }.taskList strong { overflow-wrap: anywhere; font-size: .86rem; }.taskList small { grid-column: 1; color: #566579; font-size: .76rem; }
-.taskList .taskArrow { grid-column: 2; grid-row: 1 / 3; align-self: center; color: #286298; }
+.taskList .taskWithClient { grid-template-columns: auto minmax(0, 1fr) auto; }
+.taskList a:hover { background: #f3f7fc; }
+.taskClient { align-self: center; justify-self: start; min-width: 2.7rem; padding: .3rem .4rem; border-radius: .35rem; background: #e8f1f9; color: #225887; font-size: .68rem; font-weight: 800; text-align: center; }
+.taskBody { display: grid; gap: .15rem; min-width: 0; }.taskWithClient .taskBody { grid-column: 2; }
+.taskList strong { overflow-wrap: anywhere; font-size: .86rem; }.taskList small { color: #566579; font-size: .76rem; }
+.taskList .taskArrow { grid-column: 2; align-self: center; color: #286298; }.taskList .taskWithClient .taskArrow { grid-column: 3; }
 .quickLink:focus-visible, .taskPanel a:focus-visible { outline: 3px solid #225887; outline-offset: 3px; }
 @media (max-width: 760px) { .hero { align-items: start; flex-direction: column; } .quickGrid, .taskList { grid-template-columns: 1fr; } .taskList li:nth-child(2n) { border-left: 0; } .taskList li:nth-child(n+2) { border-top: 1px solid #e8edf3; } }
 @media (max-width: 480px) { .hero { padding: 1.3rem; } }

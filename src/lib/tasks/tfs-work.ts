@@ -12,6 +12,7 @@ export type TfsWorkTask = {
   sourceKind: "TFS_LP_ISSUE";
   sourceId: string;
   sourceTitle: string;
+  clientLabel: string;
   sourceStatus: string;
   priority: Issue["priority"];
   redStockLoss: boolean;
@@ -35,6 +36,7 @@ function projectIssue(issue: Issue, workspace: Workspace, personId: string): Tfs
     sourceKind: "TFS_LP_ISSUE",
     sourceId: issue.id,
     sourceTitle: `${workspace.name}${issue.store_number ? ` · Store ${issue.store_number}` : ""}`,
+    clientLabel: workspace.name === "The Fragrance Shop" ? "TFS" : workspace.name,
     sourceStatus: issue.status,
     priority: issue.priority,
     redStockLoss,
