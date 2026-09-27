@@ -42,6 +42,7 @@
 .staffSearch{display:flex;align-items:end;gap:8px;margin:12px 0}.staffSearch label{display:grid;gap:4px;font-size:.76rem;font-weight:750}.staffSearch input{height:40px;padding:0 10px;border:1px solid #adbdcd;border-radius:7px;background:#fff;color:var(--ink);min-width:220px}
 .sampleToggle{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px;background:#fff6e6;border:1px solid #e0bf86;border-radius:8px;color:#684b20;font-size:.8rem;font-weight:700}.sampleAction{padding:12px;border:1px solid #e0bf86;border-radius:6px;background:#fff6e6;color:#684b20;font-weight:800}.filters:disabled{opacity:.65}
 .mobileCoverage{display:none}.mobileCoverage h3{font-weight:800;font-size:1.05rem;margin:12px 0}
+@media(max-width:700px){.summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.summary>div,.summary>button{padding:10px 12px}.summary span,.summary>button span{font-size:.75rem;overflow-wrap:normal}.summary>button{grid-column:1/-1}}
 .rota{border:1px solid var(--line);border-radius:10px;overflow-x:auto;background:#fff;overscroll-behavior-inline:contain}
 .rotaHead,.rotaRow{display:grid;grid-template-columns:minmax(180px,1.3fr) repeat(7,minmax(132px,1fr));min-width:1110px}
 .rotaHead{background:#21374c;color:#fff}.rotaHead>*{padding:10px 8px;font-size:.76rem;border-right:1px solid #516579;text-align:center}.rotaHead>*:first-child{text-align:left;position:sticky;left:0;z-index:2;background:#21374c}
