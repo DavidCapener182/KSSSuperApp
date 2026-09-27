@@ -16,6 +16,7 @@
 .training-area .training-eyebrow{letter-spacing:.06em}
 .training-area .training-card{min-width:0;overflow-wrap:anywhere}
 .training-area .training-card h2{margin:.5rem 0;font-size:1.25rem}
+.training-next{margin-top:32px}.training-next .training-card{min-height:0}.training-next .training-card h3{margin:0 0 8px;font-size:1.1rem}
 .training-area .training-card p{font-size:.95rem;color:#344054}
 .training-area .training-card>a{padding:8px 0;text-underline-offset:3px}
 .training-source-note{max-width:76ch;margin:0 0 26px;padding:14px 18px;border-left:3px solid #245b9c;border-radius:0 10px 10px 0;background:#eef4fa;color:#1d2939;line-height:1.6}

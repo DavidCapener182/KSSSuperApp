@@ -385,7 +385,7 @@ export function OnboardingClient({ office, selectedCaseId }: { office: boolean; 
             <ActionButton onClick={() => void action("start")} disabled={busy}>Start onboarding</ActionButton>}
           {selectedCaseId && caseView === "TRAINING" && <section className="onboarding-source-panel" aria-labelledby="onboarding-training-heading">
             <p className="eyebrow">Native KSS Training</p><h2 id="onboarding-training-heading">Core KSS induction</h2>
-            <strong>Training status unavailable for this onboarding case</strong>
+            <strong>Training connection coming soon</strong>
             <p>KSS Training exists, but this case has no authorised Person-specific Training assignment or completion read. No induction outcome is inferred.</p>
             <Link className="ui-action ui-action--secondary" href={office ? "/training" : "/training/my-learning"}>Open Training</Link>
           </section>}
