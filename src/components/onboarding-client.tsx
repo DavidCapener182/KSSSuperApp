@@ -15,7 +15,7 @@ type Requirement = { id: string; code: string; title: string; position: number; 
   controlled: { assignmentId: string; versionId: string; title: string; versionNumber: number;
     publishedAt: string | null; effectiveOn: string | null; scanState: string;
     accessedAt: string | null; acknowledgedAt: string | null; acknowledgedBy: string | null } | null };
-type Case = { id: string; starterName: string; personId: string; siteName: string; intendedRole: string;
+type Case = { id: string; starterName: string; personId: string; siteId: string | null; siteName: string; intendedRole: string;
   templateVersion: number; state: string; createdAt: string; startedAt: string | null; ownerName: string | null;
   ownerPersonId: string; teamId: string | null; isCover: boolean; canReassign: boolean;
   canManage: boolean; canIssueIdentity: boolean; verifiedCount: number; totalCount: number;
@@ -25,7 +25,6 @@ type Case = { id: string; starterName: string; personId: string; siteName: strin
   submittedSia: { id: string; category: string; synthetic_reference: string; expires_on: string } | null; siaSubmittedAt: string | null };
 type Site = { id: string; name: string; status: string; canManage: boolean };
 type Target = { person_id: string; display_name: string };
-type OnboardingTeam = { id: string; name: string };
 type EligibleOffice = { personId: string; displayName: string };
 type CaseCoverGrant = { id: string; coveringName: string; startsAt: string; endsAt: string; reason: string };
 type PublisherVersion = { id: string; version_number: number; title: string; state: string;
@@ -94,13 +93,12 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
   const [detail, setDetail] = useState<Case | null>(null);
   const [sites, setSites] = useState<Site[]>([]);
   const [siteId, setSiteId] = useState("");
+  const [caseSiteId, setCaseSiteId] = useState("");
   const [targets, setTargets] = useState<Target[]>([]);
   const [targetId, setTargetId] = useState("");
-  const [teams, setTeams] = useState<OnboardingTeam[]>([]);
-  const [teamId, setTeamId] = useState("");
-  const [owners, setOwners] = useState<EligibleOffice[]>([]);
-  const [ownerPersonId, setOwnerPersonId] = useState("");
   const [requestKey, setRequestKey] = useState(() => crypto.randomUUID());
+  const [starterName, setStarterName] = useState("");
+  const [starterRequestKey, setStarterRequestKey] = useState(() => crypto.randomUUID());
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
@@ -152,9 +150,9 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
   }, [load]);
   useEffect(() => {
     if (!office) return;
-    void fetch("/api/sites?search=Synthetic Static Security Site", { cache: "no-store" })
+    void fetch("/api/sites", { cache: "no-store" })
       .then(async (response) => { if (response.ok) setSites(((await response.json()).sites ?? [])
-        .filter((site: Site) => site.name === "Synthetic Static Security Site" && site.status === "ACTIVE" && site.canManage)); })
+        .filter((site: Site) => site.status === "ACTIVE" && site.canManage)); })
       .catch(() => {});
   }, [office]);
   useEffect(() => {
@@ -163,31 +161,44 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
       .then(async (response) => { setTargets(response.ok ? (await response.json()).targets ?? [] : []); })
       .catch(() => setTargets([]));
   }, [office, siteId]);
-  useEffect(() => {
-    if (!superAdmin || selectedCaseId) return;
-    void fetch("/api/onboarding/teams", { cache: "no-store" })
-      .then(async (response) => { setTeams(response.ok ? (await response.json()).teams ?? [] : []); })
-      .catch(() => setTeams([]));
-  }, [superAdmin, selectedCaseId]);
-  useEffect(() => {
-    if (!superAdmin || !teamId) return;
-    void fetch(`/api/onboarding/teams?teamId=${encodeURIComponent(teamId)}`, { cache: "no-store" })
-      .then(async (response) => { setOwners(response.ok ? (await response.json()).members ?? [] : []); })
-      .catch(() => setOwners([]));
-  }, [superAdmin, teamId]);
-
   async function createCase(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setBusy(true); setMessage("");
     try {
       const response = await fetch("/api/onboarding", { method: "POST", headers: { "content-type": "application/json" },
-        body: JSON.stringify({ targetPersonId: targetId, siteId, requestKey,
-          ...(superAdmin ? { teamId, ownerPersonId } : {}) }) });
+        body: JSON.stringify({ targetPersonId: targetId, siteId, requestKey }) });
       if (!response.ok) throw new Error("create denied");
       const id = (await response.json()).id;
       setRequestKey(crypto.randomUUID());
       router.push(`/onboarding/${id}`);
       router.refresh();
-    } catch { setMessage("Case could not be created. Check the synthetic Site and Staff assignment, then retry."); }
+    } catch { setMessage("Case could not be created. Check the active Site, Staff assignment, team and owner, then retry."); }
+    finally { setBusy(false); }
+  }
+  async function registerStarter(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault(); setBusy(true); setMessage("");
+    try {
+      const response = await fetch("/api/onboarding/starters", { method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ name: starterName, siteId: siteId || null, requestKey: starterRequestKey }) });
+      if (!response.ok) throw new Error("registration denied");
+      const { caseId } = await response.json();
+      setStarterName(""); setStarterRequestKey(crypto.randomUUID());
+      if (!caseId) throw new Error("case unavailable");
+      router.push(`/onboarding/${caseId}`);
+      router.refresh();
+    } catch { setMessage("Staff member could not be registered. Check the name and Site, then retry."); }
+    finally { setBusy(false); }
+  }
+  async function attachSite(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!detail || !caseSiteId) return;
+    setBusy(true); setMessage("");
+    try {
+      const response = await fetch(`/api/onboarding/${detail.id}/site`, { method: "POST",
+        headers: { "content-type": "application/json" }, body: JSON.stringify({ siteId: caseSiteId }) });
+      if (!response.ok) throw new Error("Site denied");
+      setCaseSiteId(""); await load(); setMessage("Site context added to this case. Staff Site access remains separate.");
+    } catch { setMessage("Site could not be added. Check that the case is still a draft and the Site is active."); }
     finally { setBusy(false); }
   }
   async function action(path: string) {
@@ -292,8 +303,8 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
 
   const shownCases = office || showOlderCases ? cases : cases.slice(0, 5);
   return <main className={`enterprise-main onboarding-main${selectedCaseId ? " onboarding-record" : ""}`}>
-    {!selectedCaseId && <PageHeader eyebrow="Synthetic development onboarding" title={office ? "Onboarding" : "My Onboarding"}
-      description={office ? "Manage each starter checklist. Evidence review and requirement verification remain separate decisions."
+    {!selectedCaseId && <PageHeader eyebrow="People / onboarding" title={office ? "New starter" : "My Onboarding"}
+      description={office ? "Add a person to onboarding. Their case starts with the company checklist; you can add a Site later."
         : "See what is complete and what needs your attention next."} />}
     {selectedCaseId && <Link className="crm-record-back" href="/onboarding">← {office ? "Onboarding cases" : "My cases"}</Link>}
     {selectedCaseId && detail && <><header className="onboarding-record-header onboarding-case-hero"><div>
@@ -315,7 +326,7 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
           <button type="button" key={item.code} aria-current={caseView === item.code ? "page" : undefined}
             onClick={() => setCaseView(item.code)}>{item.label}</button>)}
       </nav></>}
-    {office && <FeedbackBanner>Development workflow only. No legal Right to Work check, compliance decision or deployment approval is recorded here.</FeedbackBanner>}
+    {office && <FeedbackBanner>This checklist records onboarding progress. It does not perform a legal Right to Work check, SIA register check or deployment approval.</FeedbackBanner>}
     {message && <FeedbackBanner tone={message.includes("could not") || message.includes("not recorded") ? "error" : "success"}>{message}</FeedbackBanner>}
     {error && <FeedbackBanner tone="error">Onboarding is unavailable. Refresh to try again.</FeedbackBanner>}
     <div className="onboarding-grid">
@@ -327,28 +338,33 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
             <span>{c.siteName} · Template V{c.templateVersion} · {label[c.state] ?? c.state} · Started {new Date(c.createdAt).toLocaleString("en-GB")}</span></Link></li>)}</ul>
           {!office && cases.length > 5 && <button type="button" className="onboarding-history-toggle" onClick={() => setShowOlderCases(!showOlderCases)}>
             {showOlderCases ? "Show current cases" : `Show ${cases.length - 5} older synthetic cases`}</button>}</> :
-          <EmptyState title="No onboarding cases" description={office ? "Start a synthetic Security Staff case below." : "An authorised Office user will start your onboarding case."} />}
-        {office && <form className="onboarding-form" onSubmit={(event) => void createCase(event)}>
-          <h3>Start a synthetic starter</h3>
-          <label className="ui-field">Synthetic static-security Site
+          <EmptyState title="No onboarding cases" description={office ? "Add the first new starter below." : "An authorised Office user will start your onboarding case."} />}
+        {office && superAdmin && <form className="onboarding-form" onSubmit={(event) => void registerStarter(event)}>
+          <h3>Add a new starter</h3>
+          <p className="ui-help">This creates the Person record and a draft onboarding case together. Sign-in access and personal submissions come later.</p>
+          <label className="ui-field">Full name
+            <input value={starterName} onChange={(event) => setStarterName(event.target.value)}
+              minLength={2} maxLength={120} autoComplete="name" required /></label>
+          <label className="ui-field">Site context (optional)
+            <select value={siteId} onChange={(event) => { setSiteId(event.target.value); setTargetId(""); setTargets([]); }}>
+              <option value="">Choose a Site later</option>{sites.map((site) => <option key={site.id} value={site.id}>{site.name}</option>)}
+            </select></label>
+          <p className="ui-help">Choosing a Site records context for this case. Staff access to the Site is assigned separately.</p>
+          <ActionButton type="submit" disabled={busy || starterName.trim().length < 2}>
+            {busy ? "Adding…" : "Add to onboarding"}</ActionButton>
+        </form>}
+        {office && !superAdmin && <form className="onboarding-form" onSubmit={(event) => void createCase(event)}>
+          <h3>Create an onboarding case</h3>
+          <label className="ui-field">Site
             <select value={siteId} onChange={(event) => { setSiteId(event.target.value); setTargetId(""); setTargets([]); }} required>
               <option value="">Choose Site</option>{sites.map((site) => <option key={site.id} value={site.id}>{site.name}</option>)}
             </select></label>
-          <label className="ui-field">Eligible synthetic Security Staff
+          <label className="ui-field">Security Staff member assigned to this Site
             <select value={targetId} onChange={(event) => setTargetId(event.target.value)} required>
               <option value="">Choose Staff</option>{targets.map((target) => <option key={target.person_id} value={target.person_id}>{target.display_name}</option>)}
             </select></label>
-          {superAdmin && <><label className="ui-field">Accountable onboarding team
-            <select value={teamId} onChange={(event) => { setTeamId(event.target.value); setOwnerPersonId(""); setOwners([]); }} required>
-              <option value="">Choose team</option>{teams.map((team) => <option key={team.id} value={team.id}>{team.name}</option>)}
-            </select></label>
-            <label className="ui-field">Office case owner
-              <select value={ownerPersonId} onChange={(event) => setOwnerPersonId(event.target.value)} required>
-                <option value="">Choose Office Admin</option>{owners.map((owner) =>
-                  <option key={owner.personId} value={owner.personId}>{owner.displayName}</option>)}
-              </select></label></>}
-          {sites.length === 0 && <p className="ui-help">Create and activate “Synthetic Static Security Site” in <Link href="/sites">Sites</Link>, then assign a synthetic Security Staff member.</p>}
-          <ActionButton type="submit" disabled={busy || !siteId || !targetId || (superAdmin && (!teamId || !ownerPersonId))}>
+          {sites.length === 0 && <p className="ui-help">There are no active Sites yet. <Link href="/sites">Create and activate a Site</Link> before creating a case.</p>}
+          <ActionButton type="submit" disabled={busy || !siteId || !targetId}>
             {busy ? "Creating…" : "Create draft case"}</ActionButton>
         </form>}
       </section>}
@@ -412,7 +428,18 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
             <Link className="ui-action ui-action--secondary" href="/profile">Open my Personal Details</Link>
           </section>}
           {office && detail.canManage && detail.state === "DRAFT" && (!selectedCaseId || caseView === "OVERVIEW") &&
-            <ActionButton onClick={() => void action("start")} disabled={busy}>Start onboarding</ActionButton>}
+            <>
+              {superAdmin && !detail.siteId && <form className="onboarding-form" onSubmit={(event) => void attachSite(event)}>
+                <h3>Add Site context (optional)</h3>
+                <p className="ui-help">You can choose an active Site while this case is a draft. This does not grant the starter access to the Site.</p>
+                <label className="ui-field">Site
+                  <select value={caseSiteId} onChange={(event) => setCaseSiteId(event.target.value)} required>
+                    <option value="">Choose Site</option>{sites.map((site) => <option key={site.id} value={site.id}>{site.name}</option>)}
+                  </select></label>
+                <ActionButton type="submit" disabled={busy || !caseSiteId}>Add Site to case</ActionButton>
+              </form>}
+              <ActionButton onClick={() => void action("start")} disabled={busy}>Start onboarding</ActionButton>
+            </>}
           {selectedCaseId && caseView === "TRAINING" && <section className="onboarding-source-panel" aria-labelledby="onboarding-training-heading">
             <p className="eyebrow">Native KSS Training</p><h2 id="onboarding-training-heading">Core KSS induction</h2>
             <strong>Training connection coming soon</strong>
