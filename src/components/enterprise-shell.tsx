@@ -25,7 +25,7 @@ type Props = Readonly<{
 export function EnterpriseShell({ person, roles, incidentReviewer, navigation, children }: Props) {
   const pathname = usePathname();
   const tfsPage = pathname === "/tfs" || pathname.startsWith("/client-workspaces/") && pathname.includes("/loss-prevention");
-  const dataLabel = tfsPage ? "TFS source-backed records · review in progress" : "Synthetic development data";
+  const dataLabel = tfsPage ? "TFS source-backed records · review in progress" : "KSS Enterprise workspace";
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [signOutError, setSignOutError] = useState("");

@@ -331,7 +331,7 @@ export async function readOnboardingCase(client: SupabaseClient, principal: Prin
     siteId: c.site_id, siteName: access?.siteName ?? site?.name ?? "Company onboarding",
     intendedRole: c.intended_role, templateVersion: version.version_number, state: c.state,
     createdAt: c.created_at, startedAt: c.started_at, cancelledAt: c.cancelled_at,
-    canManage: access?.canAct ?? canManageOnboarding(principal, c),
+    canManage: Boolean(access?.canAct) || (c.state !== "CANCELLED" && canManageOnboarding(principal, c)),
     canIssueIdentity: c.state === "IN_PROGRESS" && version.version_number === 2 &&
       principal.roles.includes("OFFICE_ADMIN") && c.owner_person_id === principal.personId && c.person_id !== principal.personId,
     verifiedCount: sorted.filter((row) =>

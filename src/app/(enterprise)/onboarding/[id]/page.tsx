@@ -12,5 +12,6 @@ export default async function OnboardingDetail({ params }: { params: Promise<{ i
   const principal = await getPrincipal(client);
   if (!principal) redirect(`/?next=${encodeURIComponent(`/onboarding/${id}`)}`);
   if (!canUseOnboarding(principal) || !await readOnboardingCase(client, principal, id)) notFound();
-  return <OnboardingClient office={principal.roles.includes("OFFICE_ADMIN") || principal.roles.includes("SUPER_ADMIN")} selectedCaseId={id} />;
+  return <OnboardingClient office={principal.roles.includes("OFFICE_ADMIN") || principal.roles.includes("SUPER_ADMIN")}
+    superAdmin={principal.roles.includes("SUPER_ADMIN")} selectedCaseId={id} />;
 }

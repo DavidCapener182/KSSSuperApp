@@ -11,6 +11,8 @@ type Event = { id: string; actor_person_id: string | null; entity_type: string; 
 
 const emptySite = { site_reference: "", name: "", address_line1: "", town_city: "", postcode: "", reporting_point: "", site_type: "" };
 const siteTypes = ["STADIUM","VENUE","RETAIL","WAREHOUSE","OFFICE","FESTIVAL_SITE","STATIC_SITE","OTHER"];
+const fieldLabels = { site_reference: "Site reference", name: "Site name", address_line1: "Address line 1",
+  town_city: "Town or city", postcode: "Postcode", reporting_point: "Reporting point" };
 
 async function json(url: string, init?: RequestInit) {
   const response = await fetch(url, { ...init, cache: "no-store" });
@@ -140,7 +142,7 @@ export default function SitesPage({ organisationId, mobilisationId }: { organisa
   const office = roles.includes("OFFICE_ADMIN") || roles.includes("SUPER_ADMIN");
 
   return <main className={`sites-shell ${journey.controls}`}>
-    <header className="sites-header"><div><Link href="/app">← Home</Link><p className="eyebrow">Synthetic development journey</p><h1>Sites</h1><p>Only Sites in your authorised scope appear here. {office&&<Link href="/sites?view=operational">Browse operational Sites</Link>}</p></div></header>
+    <header className="sites-header"><div><Link href="/app">← Home</Link><p className="eyebrow">Clients / Sites</p><h1>Sites</h1><p>Create and manage the locations where KSS works. Only Sites in your authorised scope appear here. {office&&<Link href="/sites?view=operational">Browse operational Sites</Link>}</p></div></header>
     {office && <nav className={journey.context} aria-label="Commercial and Site context"><Link href="/crm?view=organisations">Clients</Link><span>→</span><strong>Site / Venue</strong><span>→</span><Link href="/events">Events</Link><span>Site Services are separate ongoing work.</span></nav>}
     {mobilisationId && office && <p className="enterprise-honesty">Choose or create a Site using the Site source. Once its exact record is confirmed, return to Mobilisation and link it explicitly.</p>}
     {notice && <p className="sites-notice" role="status">{notice}</p>}
@@ -171,7 +173,7 @@ export default function SitesPage({ organisationId, mobilisationId }: { organisa
           {canManage && <>
             <h3>Manage Site</h3>
             <form className="sites-form" onSubmit={(event) => { event.preventDefault(); void changeSite({ name: draft.name, address_line1: draft.address_line1, town_city: draft.town_city, postcode: draft.postcode, reporting_point: draft.reporting_point, site_type:draft.site_type }); }}>
-              {(["name", "address_line1", "town_city", "postcode", "reporting_point"] as const).map((field) => <label key={field}>{field.replaceAll("_", " ")}<input value={draft[field]} onChange={(event) => setDraft({ ...draft, [field]: event.target.value })} required /></label>)}
+              {(["name", "address_line1", "town_city", "postcode", "reporting_point"] as const).map((field) => <label key={field}>{fieldLabels[field]}<input value={draft[field]} onChange={(event) => setDraft({ ...draft, [field]: event.target.value })} required /></label>)}
               <label>Site type<select value={draft.site_type} onChange={(event)=>setDraft({...draft,site_type:event.target.value})}><option value="">Unclassified</option>{siteTypes.map((type)=><option key={type} value={type}>{type.replaceAll("_"," ")}</option>)}</select></label>
               <button disabled={busy}>Save Site fields</button>
             </form>
@@ -191,8 +193,12 @@ export default function SitesPage({ organisationId, mobilisationId }: { organisa
             <h3>Change history</h3>
             <ul className="sites-history">{history.map((event) => <li key={event.id}>{event.occurred_at} · {event.action} {event.entity_type} · actor {event.actor_person_id}{event.reason ? ` · ${event.reason}` : ""}</li>)}</ul>
           </>}
-        </> : office ? <><h2>Create a synthetic Site</h2><p>Draft Sites remain private until activated and assigned.</p><form className="sites-form" onSubmit={createSite}>
-          {(["site_reference", "name", "address_line1", "town_city", "postcode", "reporting_point"] as const).map((field) => <label key={field}>{field.replaceAll("_", " ")}<input value={draft[field]} onChange={(event) => setDraft({ ...draft, [field]: event.target.value })} required /></label>)}
+        </> : office ? <><h2>Add a Site</h2><p>Save the Site as a draft, then review its details before activation. Staff access is assigned separately.</p><form className="sites-form" onSubmit={createSite}>
+          {(["site_reference", "name", "address_line1", "town_city", "postcode", "reporting_point"] as const).map((field) =>
+            <label key={field}>{fieldLabels[field]}<input value={draft[field]}
+              onChange={(event) => setDraft({ ...draft, [field]: field === "site_reference" ? event.target.value.toUpperCase() : event.target.value })}
+              placeholder={field === "site_reference" ? "e.g. KSS-LONDON-01" : undefined} required /></label>)}
+          <p className="ui-help">Use a unique reference with letters, numbers or hyphens. It cannot be changed after creation.</p>
           <label>Site type<select value={draft.site_type} onChange={(event)=>setDraft({...draft,site_type:event.target.value})}><option value="">Unclassified</option>{siteTypes.map((type)=><option key={type} value={type}>{type.replaceAll("_"," ")}</option>)}</select></label>
           <button disabled={busy}>Create Draft Site</button>
         </form></> : <><h2>Select a Site</h2><p>Choose one of your assigned active Sites to view its location and reporting point.</p></>}

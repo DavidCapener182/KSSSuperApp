@@ -52,8 +52,8 @@ export function SignInEntry({ returnTarget }: { returnTarget: string }) {
     <section className="welcome" aria-labelledby="welcome-title">
       <div className="welcome-copy"><p className="eyebrow">KSS Enterprise</p>
         <h1 id="welcome-title">A secure place to start.</h1>
-        <p className="lead">Sign in to your {isStaging ? "staging" : "development"} workspace. Operational systems and live staff data are not connected.</p>
-        <div className="notice"><span className="notice-dot" aria-hidden="true" /><div><strong>Development accounts only</strong><p>Use synthetic test accounts. This is not an operational dashboard.</p></div></div>
+        <p className="lead">Sign in to your {isStaging ? "staging" : "development"} workspace. Access to records and actions is checked against your role.</p>
+        <div className="notice"><span className="notice-dot" aria-hidden="true" /><div><strong>Use your authorised KSS account</strong><p>Some external checks and integrations are still unavailable; each workflow shows its current status.</p></div></div>
       </div>
       <div className="welcome-access">
       {message && <p className="access-status" role="alert">{message}</p>}
@@ -72,6 +72,6 @@ export function SignInEntry({ returnTarget }: { returnTarget: string }) {
       {state === "unavailable" && <div className="access-panel" role="status"><h2>Access check unavailable</h2><p>We could not confirm your Enterprise access. Please retry.</p><Button type="button" onClick={() => void inspectAccess()}>Retry access check</Button></div>}
       </div>
     </section>
-    <footer className="shell-footer"><span>KSS Enterprise Platform</span><span>Synthetic development data only</span></footer>
+    <footer className="shell-footer"><span>KSS Enterprise Platform</span><span>{environmentLabel} workspace</span></footer>
   </main>;
 }
