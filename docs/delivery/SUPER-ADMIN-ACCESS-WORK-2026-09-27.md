@@ -10,7 +10,9 @@ At `https://project-2hiwc.vercel.app/onboarding`, the signed-in David Capener Su
 
 The new page allows an active Super Admin. The create form requires an explicit onboarding team and active Office case owner. A separate guarded function creates the case with the Super Admin as attributable creator and the selected Office member as owner. It retains exact synthetic Site, active Staff SiteAssignment, active Staff role, published template, six requirements, idempotency and audit checks. The Office Admin path is unchanged. A narrow target-list function filters Staff by the selected Site. No Staff personal submission or acknowledgement action is delegated.
 
-Focused ESLint and a Webpack production build with synthetic build-only environment placeholders passed. The source-controlled SQL parsed inside a rolled-back transaction on the synthetic Development Supabase project; readback confirmed the new function was absent afterward. No persistent migration has been applied. The published synthetic database currently has zero onboarding teams, zero active Office team owners and zero active `Synthetic Static Security Site` records, so a real case creation cannot be exercised without explicit synthetic setup.
+Focused ESLint and a Webpack production build with synthetic build-only environment placeholders passed. The first SQL migration parsed inside a rolled-back transaction. A transactional success-path test then found that the existing case trigger required creator and owner to match. A second source-controlled migration narrowly allows a Super Admin creator with an active Office team owner; the rest of that trigger is preserved. Both migrations were applied to the synthetic Development project as remote versions `20260927201613` and `20260927201840`. A repeat transaction created a Super Admin case with temporary synthetic Staff, Office, Site and team fixtures and returned `created=true`; rollback readback found zero test People, Sites and teams. `anon` cannot execute the new create function, while `authenticated` can reach its internal role checks.
+
+The published synthetic database currently has zero onboarding teams, zero active Office team owners and zero active `Synthetic Static Security Site` records, so a persistent case creation cannot be exercised without explicit synthetic setup. The exact published browser still runs the pre-release 404 at this report stage.
 
 ## Wider access boundary
 
@@ -18,4 +20,4 @@ The current capability map already gives Super Admin most manager navigation. A 
 
 Examples verified in source: `POST /api/credentials` `requestEvidence` requires `OFFICE_ADMIN`; `GET /api/assets?holders=1` requires Office or Operations; `POST /api/assets` starts several management actions from an `office` boolean; `GET /api/operational-documents/context-status` requires Operations. Their database functions have independent guards, so changing route checks alone would not grant reliable access. These are inventory findings, not completed fixes.
 
-No branch push, production deployment, or hosted postflight is recorded in this report.
+Branch push, production deployment and hosted postflight are separate release checks; no such result is claimed here.
