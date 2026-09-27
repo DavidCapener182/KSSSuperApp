@@ -15,6 +15,7 @@ export type StaffRecordSections = {
   documents: DocumentSummary[] | null;
   sites: SiteSummary[] | null;
   canReadPrivate: boolean;
+  importedExistingStaff: boolean;
 };
 
 export async function readStaffRecordSections(client: SupabaseClient, principal: Principal,
@@ -23,7 +24,7 @@ export async function readStaffRecordSections(client: SupabaseClient, principal:
   const operationsOnly = principal.roles.includes("OPERATIONS") &&
     !principal.roles.some((role) => role === "OFFICE_ADMIN" || role === "SUPER_ADMIN") && !self;
   if (operationsOnly) return { cases: [], profile: null, submittedProfile: null,
-    documents: null, sites: null, canReadPrivate: false };
+    documents: null, sites: null, canReadPrivate: false, importedExistingStaff: false };
 
   const listed = await client.from("onboarding_cases")
     .select("id,state,template_version_id,created_at").eq("person_id", personId)
@@ -45,13 +46,17 @@ export async function readStaffRecordSections(client: SupabaseClient, principal:
     .sort((a, b) => Number(b.state === "IN_PROGRESS") - Number(a.state === "IN_PROGRESS") ||
       Number(b.state === "DRAFT") - Number(a.state === "DRAFT") ||
       Date.parse(b.createdAt) - Date.parse(a.createdAt));
-  const canReadPrivate = self || cases.length > 0;
+  const importedRead = principal.roles.includes("SUPER_ADMIN") && cases.length === 0
+    ? await client.rpc("read_imported_person_profile", { requested_person: personId }) : null;
+  const importedProfile = importedRead && !importedRead.error && importedRead.data
+    ? importedRead.data as Profile : null;
+  const canReadPrivate = self || cases.length > 0 || Boolean(importedProfile);
   if (!canReadPrivate) return { cases: [], profile: null, submittedProfile: null,
-    documents: null, sites: null, canReadPrivate: false };
+    documents: null, sites: null, canReadPrivate: false, importedExistingStaff: false };
 
   const own = self && principal.roles.includes("SECURITY_STAFF") ? await readOwnProfile(client, principal) : null;
   const primary = cases.find((row) => row.state === "IN_PROGRESS") ?? cases[0] ?? null;
-  const profile = own?.profile ?? primary?.profile ?? null;
+  const profile = own?.profile ?? primary?.profile ?? importedProfile;
   const submittedProfile = cases.map((row) => row.submittedProfile).filter((row): row is ProfileRevision => Boolean(row))
     .sort((a, b) => Date.parse(b.submitted_at) - Date.parse(a.submitted_at))[0] ?? null;
 
@@ -80,5 +85,6 @@ export async function readStaffRecordSections(client: SupabaseClient, principal:
     return name ? [{ name, from: row.effective_from, until: row.effective_until,
       ended: Boolean(row.revoked_at || (row.effective_until && Date.parse(row.effective_until) <= Date.now())) }] : [];
   });
-  return { cases, profile, submittedProfile, documents, sites, canReadPrivate };
+  return { cases, profile, submittedProfile, documents, sites, canReadPrivate,
+    importedExistingStaff: Boolean(importedProfile) };
 }

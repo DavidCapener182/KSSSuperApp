@@ -23,6 +23,9 @@ function Restricted({ name }: { name: string }) {
 async function StaffRecordBody({ client, principal, person }: { client: SupabaseClient; principal: Principal; person: DirectoryPerson }) {
   const self = principal.personId === person.id;
   const detail = await readStaffRecordSections(client, principal, person.id, person.onboardingCaseId);
+  const { data: workPositions } = await client.from("person_work_positions")
+    .select("position_name").eq("person_id", person.id).eq("source_system", "PARIM")
+    .order("position_name");
   const oversight = principal.roles.includes("SUPER_ADMIN")
     ? await client.rpc("read_credential_oversight_16b", { subject: person.id }) : null;
   const oversightData = oversight?.data as { claims: { id: string; type_code: string; latest_revision_id: string | null;
@@ -43,7 +46,7 @@ async function StaffRecordBody({ client, principal, person }: { client: Supabase
   const profile = detail.profile;
   const submitted = detail.submittedProfile;
   const profileChanged = Boolean(profile && submitted && !requiredProfileMatches(profile, submitted));
-  const safeStatus = person.onboardingState === "IN_PROGRESS"
+  const safeStatus = detail.importedExistingStaff ? "Existing staff · PARiM active" : person.onboardingState === "IN_PROGRESS"
     ? person.completed === null ? "Onboarding in progress" : `${person.completed} of ${person.totalRequirements} requirements complete`
     : person.onboardingState === "DRAFT" ? "Onboarding draft" : "No current onboarding case";
   return <div className="people-record-grid">
@@ -53,6 +56,7 @@ async function StaffRecordBody({ client, principal, person }: { client: Supabase
         <div><dt>Active roles</dt><dd>{person.roles.length ? person.roles.map(roleLabel).join(" · ") : "No active role"}</dd></div>
         <div><dt>Current work context</dt><dd>{person.sites.length ? person.sites.join(" · ") : "No permitted Site context shown"}</dd></div>
         <div><dt>Training</dt><dd>Provider not connected</dd></div>
+        {workPositions?.length ? <div><dt>Working positions in PARiM</dt><dd>{workPositions.map((row) => row.position_name).join(" · ")}</dd></div> : null}
         {profile?.preferred_name && <div><dt>Preferred name</dt><dd>{profile.preferred_name}</dd></div>}
         {currentCase && <div><dt>Authorised case</dt><dd>{currentCase.verifiedCount} of {currentCase.totalCount} requirements complete · Template v{currentCase.templateVersion}</dd></div>}
         {sia && <div><dt>Synthetic SIA workflow</dt><dd>{roleLabel(sia.state)}</dd></div>}
@@ -75,7 +79,7 @@ async function StaffRecordBody({ client, principal, person }: { client: Supabase
       {self && <Link href="/profile">Open my Profile</Link>}
     </section>
     <section id="onboarding" className="people-record-section"><h2>Onboarding</h2>
-      {detail.cases.length ? <ul className="people-record-list">{detail.cases.map((item) => {
+      {detail.importedExistingStaff ? <p>Existing working staff. No starter case is required.</p> : detail.cases.length ? <ul className="people-record-list">{detail.cases.map((item) => {
         const blocker = item.requirements.find((row) => !complete.has(row.state));
         return <li key={item.id}><div><strong>{roleLabel(item.intendedRole)} · Template v{item.templateVersion}</strong><span>{roleLabel(item.state)} · {item.verifiedCount} of {item.totalCount} complete</span>{blocker && <small>Next: {blocker.title} — {blocker.nextAction}</small>}</div><Link href={`/onboarding/${item.id}`}>Open case</Link></li>;
       })}</ul> : detail.canReadPrivate ? <p>No authorised onboarding case is available.</p>
