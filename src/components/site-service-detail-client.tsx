@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { addCivilDays, londonToday, londonWeekStart } from "@/lib/events/workforce-week";
 import { londonDueToIso } from "@/lib/crm/due-time";
 import { LeaveReconciliation } from "@/components/leave-reconciliation";
+import { OperationalDocumentContextCard } from "@/components/operational-document-context-card";
 import journey from "./commercial-journey.module.css";
 
 type Service = { id:string;name:string;type:string;state:string;effective_from:string;effective_until:string|null;
@@ -86,6 +87,7 @@ export function SiteServiceDetailClient({siteId,serviceId,canAdmin,initialDemand
    {error&&<p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={()=>void load()}>Retry</Button></p>}
    {notice&&<p role="status" className="enterprise-honesty">{notice}</p>}
    {loading?<p role="status" className="crm-skeleton">Loading Service…</p>:service&&<>
+    <OperationalDocumentContextCard kind="SITE_SERVICE" id={serviceId} />
     <section id="service-state" className="crm-panel"><p><strong>{service.state}</strong> · {service.type.replaceAll("_"," ")} · Effective {service.effective_from}{service.effective_until?` to ${service.effective_until}`:" onward"}</p>
      <p>Service status and staffing counts describe planning only. They do not confirm attendance or worked hours.</p>
      {detail?.pauses.length? <p>Pause periods: {detail.pauses.map((pause)=>`${pause.starts_on} to ${pause.ends_before} (exclusive)`).join(" · ")}</p>:null}

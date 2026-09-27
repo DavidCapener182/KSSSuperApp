@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { OperationalDocumentContextCard } from "@/components/operational-document-context-card";
 
 type Row = Record<string, unknown>;
 type Choice = { id: string; name: string };
@@ -41,6 +42,7 @@ export function OperationalSitesClient({ selected, office }: { selected?: string
         {Boolean(site.client_name)&&<p><Link href={`/sites/${site.id}/services`}>Ongoing Site Services and shift demand</Link></p>}
         <h3>Upcoming / active Events</h3>{((site.events as Row[])??[]).length===0?<p>No active Events at this Site.</p>:<ul>{((site.events as Row[])??[]).map((event)=><li key={String(event.id)}><Link href={`/events/${event.id}`}>{String(event.name)} · {labels(event.status)}</Link></li>)}</ul>}
         {Boolean(site.can_manage)&&office&&<p>Site administration remains in <Link href="/sites">Manage my Sites</Link>.</p>}</section>}
+      {site && selected && <OperationalDocumentContextCard kind="SITE" id={selected} />}
       <p className="enterprise-honesty">{total} authorised Site{total===1?"":"s"}. Unlinked Sites remain valid.</p>
       {items.length===0?<p className="crm-empty">No Sites match these filters.</p>:<div className="crm-list">{items.map((row)=><Link className="crm-row" href={`/sites?view=operational&selected=${row.id}`} key={String(row.id)}>
         <strong>{String(row.name)}</strong><span>{String(row.client_name ?? "Unlinked")} · {labels(row.site_type)}</span><span>{labels(row.status)} · {String(row.town_city)}</span></Link>)}</div>}

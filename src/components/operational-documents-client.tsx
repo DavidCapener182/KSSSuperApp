@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { OperationalDocumentPicker, type DocumentChoice } from "@/components/operational-document-picker";
 import styles from "./operational-documents.module.css";
 
 type Version = { id: string; version_number: number; title: string; state: string; upload_state: string; effective_on: string | null };
@@ -24,7 +25,10 @@ async function jsonRequest(path: string, method = "GET", body?: unknown) {
 const dateText = (value: string | null) => value ? new Date(value).toLocaleString("en-GB") : "—";
 const iso = (value: string) => value ? new Date(value).toISOString() : null;
 
-export function OperationalDocumentsClient({ staff, manager, operations, superAdmin }: { staff: boolean; manager: boolean; operations: boolean; superAdmin: boolean }) {
+export function OperationalDocumentsClient({ staff, manager, operations, superAdmin, initialContext }: {
+  staff: boolean; manager: boolean; operations: boolean; superAdmin: boolean;
+  initialContext?: { kind: string; id: string };
+}) {
   const [mine, setMine] = useState<Mine[]>([]);
   const [documents, setDocuments] = useState<Document[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
@@ -34,14 +38,21 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
   const [message, setMessage] = useState("");
   const [title, setTitle] = useState("");
   const [versionId, setVersionId] = useState("");
+  const [versionLabel, setVersionLabel] = useState("");
   const [targetKind, setTargetKind] = useState("SITE_SERVICE");
   const [targetId, setTargetId] = useState("");
+  const [targetLabel, setTargetLabel] = useState("");
+  const [parentSite, setParentSite] = useState<DocumentChoice | null>(null);
   const [contextKind, setContextKind] = useState("SITE_SERVICE");
   const [contextId, setContextId] = useState("");
+  const [contextLabel, setContextLabel] = useState("");
   const [effectiveFrom, setEffectiveFrom] = useState("");
   const [effectiveUntil, setEffectiveUntil] = useState("");
   const [required, setRequired] = useState(true);
   const [assignmentReason, setAssignmentReason] = useState("");
+  const [assignmentPreview, setAssignmentPreview] = useState<{ key: string; asOf: string;
+    currentlyResolvedRecipients: number; existingTargetAssignments: number } | null>(null);
+  const [previewCurrent, setPreviewCurrent] = useState(false);
   const [selected, setSelected] = useState<string[]>([]);
   const [replacementVersion, setReplacementVersion] = useState("");
   const [replacementAt, setReplacementAt] = useState("");
@@ -49,8 +60,9 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
   const [replacementPreview, setReplacementPreview] = useState<{ key: string; rows: Array<{ id: string; title: string; recipients: number; acknowledged: number; asOf: string }> } | null>(null);
   const [ackConfirmed, setAckConfirmed] = useState<string[]>([]);
   const [status, setStatus] = useState<Record<string, string>>({});
-  const [opsKind, setOpsKind] = useState("SITE_SERVICE");
-  const [opsId, setOpsId] = useState("");
+  const [opsKind, setOpsKind] = useState(initialContext?.kind ?? "SITE_SERVICE");
+  const [opsId, setOpsId] = useState(initialContext?.id ?? "");
+  const [opsLabel, setOpsLabel] = useState("");
   const [opsStatus, setOpsStatus] = useState<{ assignments: Array<{ assignmentId: string; title: string;
     version: number; required: boolean; recipientCount: number; acknowledgedCount: number }> ; asOf: string } | null>(null);
   const [grantPerson, setGrantPerson] = useState("");
@@ -71,6 +83,17 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
     }
   }, [staff, manager]);
   useEffect(() => { void Promise.resolve().then(load).catch((caught) => setError(caught instanceof Error ? caught.message : "Documents unavailable")); }, [load]);
+  useEffect(() => {
+    if (!initialContext || (!operations && !caps.assign)) return;
+    void jsonRequest(`/api/operational-documents/context-card?kind=${initialContext.kind}&id=${encodeURIComponent(initialContext.id)}`)
+      .then((result) => setOpsStatus(result))
+      .catch(() => setError("Exact context status unavailable for this account."));
+  }, [initialContext, operations, caps.assign]);
+  useEffect(() => {
+    if (!assignmentPreview || !previewCurrent) return;
+    const timer = window.setTimeout(() => setPreviewCurrent(false), 60_000);
+    return () => window.clearTimeout(timer);
+  }, [assignmentPreview, previewCurrent]);
   async function act(work: () => Promise<unknown>, success: string) {
     setBusy(true); setError(""); setMessage("");
     try { await work(); await load(); setMessage(success); }
@@ -99,6 +122,10 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
     item.documentId === active.find((candidate) => candidate.id === selected[0])?.documentId &&
     item.versionId !== replacementVersion && !selected.includes(item.id)).length : 0;
   const previewKey = JSON.stringify({ ids: [...selected].sort(), replacementVersion, replacementAt });
+  const assignmentKey = JSON.stringify({ versionId, targetKind, targetId,
+    contextKind: targetKind === "OPERATIONAL_ROLE" ? contextKind : null,
+    contextId: targetKind === "OPERATIONAL_ROLE" ? contextId : null, effectiveFrom, effectiveUntil, required });
+  const freshAssignmentPreview = previewCurrent && assignmentPreview?.key === assignmentKey ? assignmentPreview : null;
 
   return <main className={`enterprise-main ${styles.page}`}>
     <div className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Controlled operational instructions</p>
@@ -130,13 +157,19 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
       </article>)}</div>
     </section>}
 
-    {operations && <section className={styles.section} aria-labelledby="ops-doc-heading"><h2 id="ops-doc-heading">Operational document status</h2>
-      <p>Factual acknowledgement counts for one exact operational context. No publishing or assignment actions.</p>
-      <div className={styles.actions}><label>Context<select value={opsKind} onChange={(event) => setOpsKind(event.target.value)}>
+    {(operations || caps.assign) && <section className={styles.section} aria-labelledby="ops-doc-heading"><h2 id="ops-doc-heading">Operational document status</h2>
+      <p>Factual acknowledgement counts for one exact operational context. Status access does not grant PDF access.</p>
+      <div className={styles.actions}><label>Context<select value={opsKind} onChange={(event) => { setOpsKind(event.target.value); setOpsId(""); setOpsLabel(""); setOpsStatus(null); }}>
         <option value="SITE">Site</option><option value="SITE_SERVICE">Site Service</option><option value="EVENT">Event</option></select></label>
-        <label>Exact context ID<input value={opsId} onChange={(event) => setOpsId(event.target.value)} /></label>
+        {opsKind === "SITE_SERVICE" && <OperationalDocumentPicker key="ops-parent-site" kind="SITE" title="Parent Site"
+          onChoose={(choice) => { setParentSite(choice); setOpsId(""); setOpsLabel(""); }} />}
+        {opsKind !== "SITE_SERVICE" || parentSite ? <OperationalDocumentPicker key={`ops-${opsKind}-${parentSite?.id ?? ""}`}
+          kind={opsKind as "SITE" | "SITE_SERVICE" | "EVENT"} title={opsKind.replaceAll("_", " ")}
+          siteId={opsKind === "SITE_SERVICE" ? parentSite?.id : undefined}
+          onChoose={(choice) => { setOpsId(choice.id); setOpsLabel(choice.label); setOpsStatus(null); }} /> : null}
+        {opsId && <p>Selected: {opsLabel}</p>}
         <button disabled={busy || !opsId} onClick={() => void act(async () => {
-          const result = await jsonRequest(`/api/operational-documents/context-status?kind=${opsKind}&id=${encodeURIComponent(opsId)}`);
+          const result = await jsonRequest(`/api/operational-documents/context-card?kind=${opsKind}&id=${encodeURIComponent(opsId)}`);
           setOpsStatus(result); }, "Current context status loaded")}>View status</button></div>
       {opsStatus && <><p>As of {dateText(opsStatus.asOf)}</p><div className={styles.grid}>
         {opsStatus.assignments.map((item) => <article className={styles.card} key={item.assignmentId}>
@@ -184,23 +217,60 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
       {caps.assign && <section className={styles.section} aria-labelledby="assignment-heading"><h2 id="assignment-heading">Exact assignments</h2>
         <p>A Site Service or role without a qualifying current or future allocation remains manager-side configuration.</p>
         <div className={styles.form}>
-          <label>Published version<select value={versionId} onChange={(event) => setVersionId(event.target.value)}><option value="">Choose exact version</option>
-            {published.map((version) => <option key={version.id} value={version.id}>{version.documentTitle} · v{version.version_number}</option>)}</select></label>
-          <label>Target kind<select value={targetKind} onChange={(event) => setTargetKind(event.target.value)}>
+          <OperationalDocumentPicker kind="DOCUMENT" title="Published document and version" onChoose={(choice) => {
+            setVersionId(choice.id); setVersionLabel(choice.label); setAssignmentPreview(null);
+          }} />
+          {versionId && <p>Selected: {versionLabel}</p>}
+          <label>Target kind<select value={targetKind} onChange={(event) => { setTargetKind(event.target.value);
+            setTargetId(""); setTargetLabel(""); setContextId(""); setContextLabel(""); setParentSite(null); setAssignmentPreview(null);
+          }}>
             {["SITE", "SITE_SERVICE", "EVENT", "OPERATIONAL_ROLE", "PERSON"].map((kind) => <option key={kind} value={kind}>{kind.replaceAll("_", " ")}</option>)}</select></label>
-          <label>Exact target ID<input value={targetId} onChange={(event) => setTargetId(event.target.value)} placeholder="UUID from source record" /></label>
-          {targetKind === "OPERATIONAL_ROLE" && <><label>Context kind<select value={contextKind} onChange={(event) => setContextKind(event.target.value)}>
-            <option value="SITE">Site</option><option value="SITE_SERVICE">Site Service</option><option value="EVENT">Event</option></select></label>
-            <label>Exact context ID<input value={contextId} onChange={(event) => setContextId(event.target.value)} /></label></>}
+          {targetKind === "SITE_SERVICE" && <OperationalDocumentPicker key="assign-parent-site" kind="SITE" title="Parent Site"
+            onChoose={(choice) => { setParentSite(choice); setTargetId(""); setTargetLabel(""); setAssignmentPreview(null); }} />}
+          {(targetKind !== "SITE_SERVICE" || parentSite) && <OperationalDocumentPicker
+            key={`target-${targetKind}-${parentSite?.id ?? ""}`} kind={targetKind as "SITE" | "SITE_SERVICE" | "EVENT" | "PERSON" | "OPERATIONAL_ROLE"}
+            title={targetKind.replaceAll("_", " ")} siteId={targetKind === "SITE_SERVICE" ? parentSite?.id : undefined}
+            onChoose={(choice) => { setTargetId(choice.id); setTargetLabel(`${choice.label}${choice.parent ? ` · ${choice.parent}` : ""}`); setAssignmentPreview(null); }} />}
+          {targetId && <p>Selected target: {targetLabel}</p>}
+          {targetKind === "OPERATIONAL_ROLE" && <><label>Context kind<select value={contextKind} onChange={(event) => {
+            setContextKind(event.target.value); setContextId(""); setContextLabel(""); setParentSite(null); setAssignmentPreview(null);
+          }}>
+            <option value="SITE_SERVICE">Site Service</option><option value="EVENT">Event</option></select></label>
+            {contextKind === "SITE_SERVICE" && <OperationalDocumentPicker key="role-parent-site" kind="SITE" title="Context parent Site"
+              onChoose={(choice) => { setParentSite(choice); setContextId(""); setContextLabel(""); setAssignmentPreview(null); }} />}
+            {(contextKind !== "SITE_SERVICE" || parentSite) && <OperationalDocumentPicker
+              key={`role-context-${contextKind}-${parentSite?.id ?? ""}`}
+              kind={contextKind as "SITE" | "SITE_SERVICE" | "EVENT"} title="Exact role context"
+              siteId={contextKind === "SITE_SERVICE" ? parentSite?.id : undefined}
+              onChoose={(choice) => { setContextId(choice.id); setContextLabel(choice.label); setAssignmentPreview(null); }} />}
+            {contextId && <p>Selected context: {contextLabel}</p>}</>}
           <label>Effective from<input type="datetime-local" value={effectiveFrom} onChange={(event) => setEffectiveFrom(event.target.value)} /></label>
           <label>Effective until, optional<input type="datetime-local" value={effectiveUntil} onChange={(event) => setEffectiveUntil(event.target.value)} /></label>
           <label><input type="checkbox" checked={required} onChange={(event) => setRequired(event.target.checked)} /> Acknowledgement required</label>
           <label>Assignment reason<textarea value={assignmentReason} onChange={(event) => setAssignmentReason(event.target.value)} maxLength={300} /></label>
-          <button disabled={busy || !versionId || !targetId || !effectiveFrom || assignmentReason.trim().length < 3} onClick={() => void act(() => jsonRequest(
+          <button disabled={busy || !versionId || !targetId || !effectiveFrom || (targetKind === "OPERATIONAL_ROLE" && !contextId)}
+            onClick={() => void act(async () => {
+              const result = await jsonRequest("/api/operational-documents/preview", "POST", { versionId, targetKind, targetId,
+                contextKind: targetKind === "OPERATIONAL_ROLE" ? contextKind : null,
+                contextId: targetKind === "OPERATIONAL_ROLE" ? contextId : null, effectiveFrom: iso(effectiveFrom) });
+              setAssignmentPreview({ key: assignmentKey, asOf: result.asOf,
+                currentlyResolvedRecipients: result.currentlyResolvedRecipients,
+                existingTargetAssignments: result.existingTargetAssignments });
+              setPreviewCurrent(true);
+            }, "Current audience preview loaded")}>Preview audience</button>
+          {freshAssignmentPreview && <p role="status">{freshAssignmentPreview.currentlyResolvedRecipients} currently resolved recipients
+            {freshAssignmentPreview.currentlyResolvedRecipients === 0 ? " · Qualifying work may create recipients later" : ""}.
+            {" "}{freshAssignmentPreview.existingTargetAssignments > 0 ? "An assignment already exists for this document and target." : "No existing target assignment conflict."}
+            {" "}As of {dateText(freshAssignmentPreview.asOf)}. Audience may change before the effective time.</p>}
+          <button disabled={busy || !freshAssignmentPreview || freshAssignmentPreview.existingTargetAssignments > 0 || assignmentReason.trim().length < 3}
+            onClick={() => { if (!assignmentPreview || assignmentPreview.key !== assignmentKey ||
+              Date.now() - Date.parse(assignmentPreview.asOf) >= 60_000) { setAssignmentPreview(null); return; }
+              void act(async () => { await jsonRequest(
             "/api/operational-documents/assignments", "POST", { versionId, targetKind, targetId,
               contextKind: targetKind === "OPERATIONAL_ROLE" ? contextKind : null,
               contextId: targetKind === "OPERATIONAL_ROLE" ? contextId : null, required,
-              effectiveFrom: iso(effectiveFrom), effectiveUntil: iso(effectiveUntil), reason: assignmentReason }), "Exact assignment created")}>Assign exact version</button>
+              effectiveFrom: iso(effectiveFrom), effectiveUntil: iso(effectiveUntil), reason: assignmentReason });
+              setAssignmentPreview(null); }, "Exact assignment created"); }}>Assign exact version</button>
         </div>
         <div className={styles.grid}>{assignments.map((item) => <article key={item.id} className={styles.card}>
           <h3>{item.title} · v{item.version}</h3><p>{item.targetKind.replaceAll("_", " ")} · {item.targetId}</p>

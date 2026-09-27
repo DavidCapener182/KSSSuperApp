@@ -1,11 +1,13 @@
 import { notFound, redirect } from "next/navigation";
 import { OperationalDocumentsClient } from "@/components/operational-documents-client";
-import { getPrincipal } from "@/lib/auth/principal";
+import { getPrincipal, isUuid } from "@/lib/auth/principal";
 import { operationalCapabilities } from "@/lib/controlled/operational";
 import { createServerSupabase } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
-export default async function OperationalDocumentsPage() {
+export default async function OperationalDocumentsPage({ searchParams }: {
+  searchParams: Promise<{ kind?: string; id?: string }>;
+}) {
   const client = await createServerSupabase();
   const principal = await getPrincipal(client);
   if (!principal) redirect("/?next=%2Foperational-documents");
@@ -18,6 +20,10 @@ export default async function OperationalDocumentsPage() {
         <h1>Operational documents</h1><p>A finite Publisher or Assigner grant is required for this workspace.</p></div></div>
     </main>;
   if (!staff && !operations && !capabilities.publish && !capabilities.assign) notFound();
+  const query = await searchParams;
+  const initialKind = ["SITE", "SITE_SERVICE", "EVENT"].includes(query.kind ?? "") ? query.kind : undefined;
+  const initialId = query.id && isUuid(query.id) ? query.id : undefined;
   return <OperationalDocumentsClient staff={staff} operations={operations}
-    manager={capabilities.publish || capabilities.assign} superAdmin={principal.roles.includes("SUPER_ADMIN")} />;
+    manager={capabilities.publish || capabilities.assign} superAdmin={principal.roles.includes("SUPER_ADMIN")}
+    initialContext={initialKind && initialId ? { kind: initialKind, id: initialId } : undefined} />;
 }

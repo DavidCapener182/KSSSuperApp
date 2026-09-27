@@ -9,6 +9,7 @@ import { StaffingPlanClient } from "@/components/staffing-plan-client";
 import journey from "./commercial-journey.module.css";
 import record from "./event-record.module.css";
 import { RecordSectionTracker } from "./record-section-tracker";
+import { OperationalDocumentContextCard } from "@/components/operational-document-context-card";
 
 type Row = Record<string, unknown>;
 type Choice = { id: string; name: string };
@@ -150,6 +151,7 @@ export function EventsClient({ roles, id, organisation, opportunity, mobilisatio
       <RecordSectionTracker label="Event sections" />
       <div className={record.content}>
       <nav className={record.related} aria-label="Related Event workflows"><h2>Related workflows</h2><div><Link href={`/events/${id}/attendance`}>Event attendance <span aria-hidden="true">→</span></Link><Link href={`/events/${id}/work-time`}>Worked-time review <span aria-hidden="true">→</span></Link><Link href={`/operational-contacts/manage?kind=EVENT&id=${id}`}>Operational contacts <span aria-hidden="true">→</span></Link></div></nav>
+      <OperationalDocumentContextCard kind="EVENT" id={id} />
       <div className="crm-detail-grid"><section id="event-context" className="crm-panel"><h2>Event context</h2><dl>
         <div><dt>Client</dt><dd>{office?<Link href={`/crm/organisations/${event.organisation_id}`}>{String(event.client_name)}</Link>:String(event.client_name)}</dd></div>
         <div><dt>Site / Venue</dt><dd><Link href={`/sites?view=operational&selected=${event.site_id}`}>{String(event.site_name)}</Link> · {String(event.site_reference)}</dd></div>
