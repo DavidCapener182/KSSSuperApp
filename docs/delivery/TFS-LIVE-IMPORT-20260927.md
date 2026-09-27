@@ -13,6 +13,7 @@
 - At David's explicit request, David Capener's KSS Person has an exact OPERATE grant for this TFS workspace. The grant and reason were read back. The scheduled review uses David's logged-in account; there is no independent agent identity.
 - The deployed app accepted a new, closed historical Lewisham issue through its issue form and read back revision 1 with David's attribution. Its source notes cite the 28 March red and 1 June green Outlook messages. The missing-lines attachment was not reviewed.
 - The daily 08:00 TFS review was updated to search up to six months back, reconcile source keys, preserve edits, and write only through the authorised app. A scheduled future run is not evidence of a completed backfill.
+- Later board exports use the stable source key independently of the export checksum, so the same source card cannot be inserted twice under a newer file hash. Further mail review is additive: preserve current cards and manual edits, update the relevant existing issue for a later outcome at the same store, and keep separate issues at that store distinct. Older mail supplies context and does not itself justify a visit request.
 
 ## Remaining evidence
 
