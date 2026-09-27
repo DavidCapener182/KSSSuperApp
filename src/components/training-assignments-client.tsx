@@ -30,21 +30,35 @@ export function TrainingAssignmentsClient({ initial, choices, grants: initialGra
   const current = choices?.courses.find(c => c.courseId === course);
   async function refresh() {
     const response = await fetch("/api/training-learning?view=admin", { cache: "no-store" });
-    if (response.ok) setAssignments((await response.json()).data);
-    if (rights.superAdmin) { const grantsResponse = await fetch("/api/training-learning?view=grants", { cache: "no-store" }); if (grantsResponse.ok) setGrants((await grantsResponse.json()).data); }
-    if (selected) openHistory(selected);
+    if (!response.ok) throw new Error("The server accepted the action, but assignments could not be read back.");
+    setAssignments((await response.json()).data);
+    if (rights.superAdmin) {
+      const grantsResponse = await fetch("/api/training-learning?view=grants", { cache: "no-store" });
+      if (!grantsResponse.ok) throw new Error("The server accepted the action, but assigner grants could not be read back.");
+      setGrants((await grantsResponse.json()).data);
+    }
+    if (selected) {
+      const historyResponse = await fetch(`/api/training-learning?view=history&id=${encodeURIComponent(selected)}`, { cache: "no-store" });
+      if (!historyResponse.ok) throw new Error("The server accepted the action, but assignment history could not be read back.");
+      setHistory((await historyResponse.json()).data);
+    }
   }
   async function openHistory(id: string) {
-    setSelected(id);
-    const response = await fetch(`/api/training-learning?view=history&id=${id}`, { cache: "no-store" });
-    setHistory(response.ok ? (await response.json()).data : []);
+    setSelected(id); setMessage("");
+    try {
+      const response = await fetch(`/api/training-learning?view=history&id=${encodeURIComponent(id)}`, { cache: "no-store" });
+      if (!response.ok) throw new Error("Assignment history is unavailable for this exact record.");
+      setHistory((await response.json()).data);
+    } catch (error) { setHistory([]); setMessage(error instanceof Error ? error.message : "Assignment history unavailable."); }
   }
   async function act(payload: Record<string, unknown>) {
     setBusy(true); setMessage("");
-    const response = await fetch("/api/training-learning", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-    setBusy(false);
-    setMessage(response.ok ? "Action recorded." : "Action denied or stale. Refresh the assignments and check authority, version and revision.");
-    if (response.ok) { setReason(""); await refresh(); }
+    try {
+      const response = await fetch("/api/training-learning", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      if (!response.ok) throw new Error("Action denied or stale. Refresh assignments and check authority, version and revision.");
+      await refresh(); setReason(""); setMessage("Server action accepted; current assignments and authority refreshed.");
+    } catch (error) { setMessage(error instanceof Error ? error.message : "Assignment action unavailable."); }
+    finally { setBusy(false); }
   }
   const chosen = assignments.find(a => a.id === selected);
   return <div className="training-assignment-admin">

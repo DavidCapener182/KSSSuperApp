@@ -27,7 +27,9 @@ export function TrainingAssessmentAdminClient({ initial, courses, rights, grants
     const response = await fetch("/api/training-assessments?view=admin", { cache: "no-store" });
     if (!response.ok) throw new Error("Assessment records unavailable");
     const payload = await response.json(); setVersions(payload.data as Version[]);
-    if (rights.superAdmin) { const grantsResponse = await fetch("/api/training-assessments?view=grants", { cache: "no-store" }); if (grantsResponse.ok) setGrantRows((await grantsResponse.json()).data as Grant[]); }
+    if (rights.superAdmin) { const grantsResponse = await fetch("/api/training-assessments?view=grants", { cache: "no-store" });
+      if (!grantsResponse.ok) throw new Error("Assessment grants could not be read back.");
+      setGrantRows((await grantsResponse.json()).data as Grant[]); }
   }
   async function loadHistory() {
     setMessage("");
@@ -42,7 +44,7 @@ export function TrainingAssessmentAdminClient({ initial, courses, rights, grants
       if (!response.ok) throw new Error("Action denied or draft changed. Check the fields and refresh.");
       const payload = await response.json();
       if (action === "CREATE") setSelected(payload.data as string);
-      await reload(); setMessage(`${action.toLowerCase().replaceAll("_", " ")} saved.`);
+      await reload(); setMessage("Server action accepted; current assessment records refreshed.");
     } catch (error) { setMessage(error instanceof Error ? error.message : "Action unavailable"); }
     finally { setBusy(false); }
   }
