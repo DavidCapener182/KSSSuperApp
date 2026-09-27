@@ -154,14 +154,15 @@ export default function SitesPage({ organisationId, mobilisationId }: { organisa
           <button disabled={busy}>Search</button>
         </form>
         <p className="sites-count">{count} permitted Site{count === 1 ? "" : "s"}</p>
-        <ul className="sites-list">{sites.map((site) => <li key={site.id}><button onClick={() => void act(() => openSite(site.id))}><strong>{site.name}</strong><span>{site.siteReference} · {site.townCity} · {site.status}</span></button></li>)}</ul>
+        <ul className="sites-list">{sites.map((site) => <li key={site.id}><button onClick={() => void act(() => openSite(site.id))}><strong>{site.name}</strong><span>{site.townCity} · {site.status}</span></button><Link href={`/sites/${site.id}/workspace`}>Open workspace →</Link></li>)}</ul>
         {!sites.length && <p>{search ? "No permitted Sites match this search." : "You have no permitted Sites yet."}</p>}
       </div>
 
       <div className="sites-card">
         {selected ? <>
           {mobilisationId && office && <p role="status"><Link href={`/mobilisations/${mobilisationId}?sourceType=SITE&sourceId=${selected.id}#links-heading`}>Return to Mobilisation with exact Site ID</Link></p>}
-          <div className="sites-title"><div><p className="eyebrow">{selected.site_reference} · {selected.status}</p><h2>{selected.name}</h2></div><button className="subtle" onClick={() => { setSelected(null); setDraft(emptySite); }}>Close</button></div>
+          <div className="sites-title"><div><p className="eyebrow">{selected.status}</p><h2>{selected.name}</h2></div><button className="subtle" onClick={() => { setSelected(null); setDraft(emptySite); }}>Close</button></div>
+          <p><Link href={`/sites/${selected.id}/workspace`}>Open Site workspace →</Link></p>
           <p>{selected.address_line1}, {selected.town_city}, {selected.postcode}</p>
           <p><strong>Reporting point:</strong> {selected.reporting_point}</p>
           <p><strong>Type:</strong> {selected.site_type?.replaceAll("_"," ") ?? "Unclassified"}</p>

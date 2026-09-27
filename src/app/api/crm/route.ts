@@ -130,6 +130,10 @@ export async function POST(request: Request) {
     operation = "crm_create_organisation";
     args = { p_name: body.name, p_trading_name: body.tradingName ?? null, p_website: body.website ?? null,
       p_email: body.email ?? null, p_phone: body.phone ?? null, p_owner: body.ownerId ?? null };
+  } else if (action === "confirmExistingClient" && isUuid(body.id) && text(body.reason, 500)
+    && principal.roles.includes("SUPER_ADMIN")) {
+    operation = "crm_confirm_existing_client";
+    args = { p_id: body.id, p_reason: body.reason.trim() };
   } else if (action === "updateOrganisation" && isUuid(body.id) && text(body.name, 160) && maybe(body.tradingName, 160)
     && maybe(body.website, 300) && maybe(body.email, 254) && maybe(body.phone, 30)
     && (!body.ownerId || isUuid(body.ownerId))) {
