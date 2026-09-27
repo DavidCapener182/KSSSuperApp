@@ -23,7 +23,7 @@ Date: 27 September 2026. Isolated worktree: `client-cw01-build`, starting `origi
 
 ## Not yet verified
 
-- Authenticated browser visual checks and global navigation integration remain open. The coordinator owns shared shell changes. Navigation must point to the guarded `/client-workspaces` directory; `CRM_USE` or a role alone never authorises issue content.
+- The isolated branch now proposes global navigation through a fresh server `cw_directory()` check: a workspace link appears only when at least one exact grant is returned. A separate Super Admin link opens access management. Scoped ESLint and a Next Webpack build pass with those changes. The coordinator still owns final shared-shell integration, and authenticated browser visual/mobile readback remains open. `CRM_USE` or a role alone never authorises issue content.
 - The synthetic test workspaces were created through CRM and grant RPCs for security proof. They do not establish a verified TFS Client/Site/Person mapping or complete the actual TFS board.
 - Existing TFS browser-local state and Outlook group have not been imported or represented in this build. The standalone source inventory and private-data mapping gates must close before import. An empty board is expected until then.
 - No real evidence attachments, Visits contract, Reports projection, generic workflow engine, real KSS/TFS data or production connection is part of this candidate.

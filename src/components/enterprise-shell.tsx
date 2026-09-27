@@ -45,7 +45,7 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
   const destinations = [...navigation, ...bookNavigation, ...bookAccessNavigation];
   const groupFor = (href: string) => {
     if (["/app", "/work", "/action-centre"].includes(href)) return "Overview";
-    if (["/crm", "/sites", "/events", "/mobilisations", "/service-delivery", "/operational-contacts"].includes(href)) return "Clients & delivery";
+    if (["/crm", "/client-workspaces", "/client-workspaces/manage", "/sites", "/events", "/mobilisations", "/service-delivery", "/operational-contacts"].includes(href)) return "Clients & delivery";
     if (["/workforce", "/control-room", "/site-book", "/site-book/access", "/incidents", "/assets", "/management-reports"].includes(href)) return "Operations";
     if (["/people", "/hr", "/onboarding", "/documents", "/time-away", "/access"].includes(href)) return "People & administration";
     if (href.startsWith("/my-") || href === "/profile") return "My account";
@@ -65,7 +65,7 @@ export function EnterpriseShell({ person, roles, incidentReviewer, navigation, c
   const current = (href: string) => pathname === href || (href === "/site-book" && pathname === "/site-book/access" ? false : href !== "/app" && pathname.startsWith(`${href}/`));
   const iconFor = (href: string) => {
     const Icon = href === "/app" ? House : href.startsWith("/site-book") ? BookOpenText : href === "/incidents" ? Siren : href === "/onboarding" ? ClipboardList : ["/documents", "/operational-documents"].includes(href)
-      ? FileText : href === "/action-centre" ? Bell : ["/my-duty", "/my-schedule", "/my-deployments", "/my-availability", "/events", "/workforce"].includes(href) ? CalendarDays : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/hr" ? HeartHandshake : href === "/crm" ? Building2 : href === "/sites" ? MapPin : UserRound;
+      ? FileText : href === "/action-centre" ? Bell : ["/my-duty", "/my-schedule", "/my-deployments", "/my-availability", "/events", "/workforce"].includes(href) ? CalendarDays : href === "/work" ? BriefcaseBusiness : href === "/people" ? UsersRound : href === "/hr" ? HeartHandshake : ["/crm", "/client-workspaces", "/client-workspaces/manage"].includes(href) ? Building2 : href === "/sites" ? MapPin : UserRound;
     return <Icon size={19} strokeWidth={1.9} aria-hidden="true" />;
   };
 
