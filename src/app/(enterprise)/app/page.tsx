@@ -31,7 +31,7 @@ function taskDetail(task: WorkItem) {
   if (task.sourceKind === "TFS_LP_ISSUE") {
     const details = [task.sourceStatus === "Visit needed" ? "Site visit needed" : task.sourceStatus];
     if (task.redStockLoss) details.push("Red stock loss");
-    if (task.potentialInternalTheftReview) details.push("Potential internal theft review (unproven)");
+    if (task.potentialInternalTheftReview) details.push("Internal theft review (unproven)");
     return details.join(" · ");
   }
   if (task.sourceKind === "DOCUMENT_VERSION") return "Document review";
@@ -100,11 +100,12 @@ export default async function AppHome() {
     <header className={styles.hero}><div><p className={styles.kicker}>KSS workspace / Synthetic Development</p><h1>Welcome, {principal.displayName}</h1><p>{staff && !office && !operations ? "Your duty and personal records are a step away." : "Open an operational area or continue your assigned work."}</p></div><p className={styles.date}>{date}</p></header>
     <section className={styles.section} aria-label="Quick access"><h2>Quick access</h2><QuickLinks paths={staff && !office && !operations ? ["/my-duty", "/my-schedule", "/my-deployments"] : ["/workforce", "/events", "/control-room"]} allowed={allowed} /></section>
     {allowed.has("/work") && <section className={styles.taskPanel} aria-label="My tasks">
-      <div className={styles.taskHeading}><h2>My tasks <span>{openTasks.length}</span></h2><Link href="/work">View all <span aria-hidden="true">→</span></Link></div>
+      <div className={styles.taskHeading}><h2>My tasks <span>{openTasks.length}</span></h2>
+        {openTasks.length > 6 && <Link href="/work">Open My Work <span aria-hidden="true">→</span></Link>}
+      </div>
       {work === null ? <p>Tasks are unavailable right now.</p> : openTasks.length === 0 ? <p>No open tasks.</p> :
-        <ul className={styles.taskList}>{openTasks.slice(0, 5).map((task) => <li key={task.id}>
+        <ul className={styles.taskList}>{openTasks.slice(0, 6).map((task) => <li key={task.id}>
           <Link href={task.sourceHref}><strong>{task.title}</strong><small>{taskDetail(task)}</small>
-            {task.sourceKind === "TFS_LP_ISSUE" && task.nextAction && <span className={styles.taskNext}>Next: {task.nextAction}</span>}
             <span className={styles.taskArrow} aria-hidden="true">↗</span></Link>
         </li>)}</ul>}
     </section>}
