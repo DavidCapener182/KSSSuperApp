@@ -15,12 +15,14 @@ Date: 27 September 2026. Isolated worktree: `client-cw01-build`, starting `origi
 - Installed locked dependencies and read the installed Next 16.3.6 page/route-handler guidance before coding.
 - Scoped ESLint passed for all new route/component/module files.
 - `npx tsc --noEmit` passed after the Next build generated route type definitions.
-- PostgreSQL parser accepted all 32 statements in the migration. `node --check` passed for the new synthetic security regression; that regression has not been executed against Dev.
+- PostgreSQL parser accepted all 32 statements in the base migration and the one-statement stale-revision followup. `node --check`, scoped ESLint and `git diff --check` passed after the followup.
 - Next Webpack production build passed with nonfunctional placeholder public Supabase values, including the Client Workspace directory, management, board, detail and API routes. The first build without any public Supabase settings compiled and passed TypeScript but failed while prerendering the existing `/staging-access` page; placeholder values resolved that local environment issue.
+- Synthetic Dev project `dnfhkmmnlbiabqypclqg` has migrations `20260927190000_client_workspace_tfs_cw01.sql` and `20260927192406_client_workspace_stale_revision_conflict.sql` applied. The latter changes a stale issue revision from retryable PostgreSQL `40001` to business error `P0001`; the API maps that exact error to HTTP 409. The first authenticated regression exposed a test-fixture error: direct CRM table insertion was denied. The fixture now uses the guarded CRM Prospect → Won → Client route.
+- The root task ran the corrected authenticated regression against synthetic Dev: **1/1 passed in 2.68s**. It checked direct-table denial, exact grants, cross-client UUID denial, issue create/update/history readback, prompt stale-revision rejection and revocation. Earlier timed-out attempts left labelled synthetic CRM, workspace and issue fixtures; they are not TFS source records.
 
 ## Not yet verified
 
-- Migration `20260927190000_client_workspace_tfs_cw01.sql` has **not** been applied to synthetic Dev due to concurrent migration sequencing. Thus SQL execution, authenticated grant/denial, cross-client guessed UUIDs, revocation readback, write/readback and browser visual checks against data remain open. Do not deploy this candidate before these checks.
-- The CRM Organisation link and global navigation require the coordinator's shared shell/CRM ownership. They must use exact workspace grant checks, not `CRM_USE` or a role alone.
+- Authenticated browser visual checks and global navigation integration remain open. The coordinator owns shared shell changes. Navigation must point to the guarded `/client-workspaces` directory; `CRM_USE` or a role alone never authorises issue content.
+- The synthetic test workspaces were created through CRM and grant RPCs for security proof. They do not establish a verified TFS Client/Site/Person mapping or complete the actual TFS board.
 - Existing TFS browser-local state and Outlook group have not been imported or represented in this build. The standalone source inventory and private-data mapping gates must close before import. An empty board is expected until then.
 - No real evidence attachments, Visits contract, Reports projection, generic workflow engine, real KSS/TFS data or production connection is part of this candidate.
