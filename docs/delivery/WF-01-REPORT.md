@@ -36,6 +36,12 @@ No WF-02 publication/application contract, WF-03 leave block, WF-04 Site worked 
 
 ## Checks performed
 
+### Candidate search follow-up, 27 September 2026
+
+The in-page Event and Site Shift candidate search now exposes all authorised candidate pages, 20 at a time, using the existing guarded source search and its returned total. The prior panel displayed only the first 20 results, so a manager could not assign a candidate beyond that page without knowing a name to search. Empty results and the current result range are shown in the panel. This is an isolated source/UI correction on the already integrated WF-01 candidate; it does not change candidate policy, the database, or the active DUTY-01 paths.
+
+Focused ESLint, TypeScript, `git diff --check`, the London schedule week test and the Webpack production build passed. A scoped localhost approval was needed after sandboxed binding returned `EPERM`. The isolated build then passed read-only synthetic Office/Staff route checks: Office Workforce page/API/Staff search 200 and Staff 404/403; Staff My Schedule page/API 200 and Office 404/403. In the authenticated local Office browser, a real synthetic Site Shift opened the exact duty panel, returned three guarded candidates and showed `1–3 of 3` with disabled page controls. At 390px the dialog and document each measured 390px wide, with no horizontal overflow. The browser viewport was restored. The Development source has only three Staff candidates, so a second page was not observable there. The post-write flow still needs a bounded synthetic Development action and exact readback. No database write was made for this follow-up. David's visual acceptance remains open.
+
 | Check | Result |
 |---|---|
 | Relevant Next.js 16.3.6 `node_modules/next/dist/docs` for async `searchParams` and Link navigation | Read before edits |
