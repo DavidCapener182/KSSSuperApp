@@ -41,3 +41,11 @@
 .selectedSection button[type="button"] { background: #fff; color: #174c9d; }
 .workspace :is(button,summary,input,select):focus-visible { outline: 3px solid #1d4ed8; outline-offset: 3px; }
 @media (max-width: 390px) { .panel, .card { padding: .85rem; } .card dl { grid-template-columns: 1fr; gap: .12rem; } .card dd { margin-bottom: .4rem; } }
+
+.views,.pagination { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .8rem 0; }
+.views button,.pagination button,.review button { min-height: 44px; border: 1px solid #9db1cf; border-radius: .6rem; padding: .5rem .75rem; background: #fff; color: #174c9d; cursor: pointer; }
+.views button[aria-pressed="true"] { background: #174c9d; color: #fff; }
+.pagination button:disabled { opacity: .5; cursor: not-allowed; }
+.review { margin: 1rem 0; padding: 1rem; border: 2px solid #174c9d; border-radius: .75rem; background: #f4f8fe; }
+.review h3 { margin: 0 0 .5rem; }
+.review p { overflow-wrap: anywhere; }

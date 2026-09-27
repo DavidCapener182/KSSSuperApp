@@ -19,12 +19,37 @@ export async function GET(request: Request) {
   const admin = url.searchParams.get("admin") === "1";
   const holders = url.searchParams.get("holders") === "1";
   const self = url.searchParams.get("self") === "1";
+  const register = url.searchParams.get("register") === "1";
+  const support = url.searchParams.get("support") === "1";
+  const stockChoices = url.searchParams.get("stockChoices");
+  const receipt = url.searchParams.get("receipt");
+  const stockReceipt = url.searchParams.get("stockReceipt");
+  const page = Number(url.searchParams.get("page") ?? "1");
+  const size = Number(url.searchParams.get("size") ?? "30");
+  if (register && (!Number.isInteger(page) || page < 1 || page > 100000 || !Number.isInteger(size) || size < 1 || size > 100))
+    return privateJson({ error: "Invalid asset page" }, 400);
+  if (url.searchParams.has("context") && !uuid(url.searchParams.get("context")))
+    return privateJson({ error: "Invalid asset context" }, 400);
+  for (const value of [stockChoices, receipt, stockReceipt])
+    if (value && !uuid(value)) return privateJson({ error: "Invalid asset reference" }, 400);
+  if ((register || support || stockChoices) && !principal.roles.some((role) =>
+    ["OPERATIONS", "OFFICE_ADMIN", "SUPER_ADMIN"].includes(role))) return forbidden();
   if (assetId && !uuid(assetId)) return privateJson({ error: "Invalid asset" }, 400);
   if (stockId && !uuid(stockId)) return privateJson({ error: "Invalid stock" }, 400);
   if (admin && !principal.roles.includes("SUPER_ADMIN")) return forbidden();
   if (holders && !principal.roles.some((role) => role === "OPERATIONS" || role === "OFFICE_ADMIN")) return forbidden();
   if (self && !principal.roles.includes("SECURITY_STAFF")) return forbidden();
-  const call = admin ? client.rpc("asset_admin_choices")
+  const call = register ? client.rpc("asset_register_page", {
+    p_search: url.searchParams.get("search"), p_class: url.searchParams.get("class"),
+    p_holder_kind: url.searchParams.get("holder"), p_context: url.searchParams.get("context"),
+    p_condition: url.searchParams.get("condition"), p_repair: url.searchParams.get("repair"),
+    p_exception: url.searchParams.get("exception"), p_return: url.searchParams.get("return"),
+    p_view: url.searchParams.get("view"), p_page: page, p_size: size,
+  }) : support ? client.rpc("asset_register_support")
+    : stockChoices ? client.rpc("asset_stock_issue_choices", { p_stock: stockChoices })
+    : receipt ? client.rpc("asset_event_receipt", { p_event: receipt })
+    : stockReceipt ? client.rpc("asset_stock_event_receipt", { p_event: stockReceipt })
+    : admin ? client.rpc("asset_admin_choices")
     : assetId ? client.rpc("asset_history", { p_asset: assetId })
       : stockId ? client.rpc("asset_stock_history", { p_stock: stockId })
         : holders ? client.rpc("asset_holder_choices")
@@ -100,6 +125,19 @@ export async function POST(request: Request) {
   }
   if (!operation) return privateJson({ error: "Invalid or unauthorised asset action" }, 403);
   const { data, error } = await operation;
-  return error ? privateJson({ error: "Asset action was not saved. Refresh and review the current state." }, 409)
-    : privateJson({ result: data });
+  if (error) return privateJson({ error: "Asset action was not saved. Refresh and review the current state." }, 409);
+  if (["GRANT", "REVOKE_GRANT"].includes(body.action)) return privateJson({ result: data });
+  if (!data || typeof data !== "object" || !uuid(data.eventId))
+    return privateJson({ error: "Asset action response is incomplete. Refresh before retrying." }, 409);
+  const stockAction = typeof body.action === "string" && body.action.startsWith("STOCK_");
+  const { data: receiptData, error: receiptError } = await client.rpc(
+    stockAction ? "asset_stock_event_receipt" : "asset_event_receipt", { p_event: data.eventId });
+  const wrongAssetEvent = !stockAction && receiptData && (receiptData.action !== body.action ||
+    receiptData.assetId !== data.id ||
+    (["ISSUE", "TRANSFER", "RETURN"].includes(body.action) &&
+      (receiptData.holderKind !== body.holderKind || receiptData.holderId !== body.holderId)));
+  if (receiptError || !receiptData || receiptData.eventId !== data.eventId || wrongAssetEvent ||
+    (body.action !== "STOCK_ACK" && receiptData.revision !== data.revision))
+    return privateJson({ result: data, error: "Action submitted; exact event readback is unavailable. Refresh before retrying." }, 202);
+  return privateJson({ result: data, receipt: receiptData });
 }
