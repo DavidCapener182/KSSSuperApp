@@ -5,6 +5,7 @@ import { getPrincipal } from "@/lib/auth/principal";
 import { parseDirectoryFilters, readDirectory, type DirectoryPerson } from "@/lib/people/directory";
 import { createServerSupabase } from "@/lib/supabase/server";
 import styles from "./people.module.css";
+import { PeopleLiveSearch } from "./people-live-search";
 
 export const dynamic = "force-dynamic";
 
@@ -77,7 +78,7 @@ export default async function PeoplePage({ searchParams }: { searchParams: Query
     <nav aria-label="People groups"><Link href="/people?view=existing" aria-current={view === "existing" ? "page" : undefined}>Existing staff</Link>{" · "}<Link href="/people?view=onboarding" aria-current={view === "onboarding" ? "page" : undefined}>Onboarding staff</Link></nav>
     <form className="people-filters" method="get" action="/people" role="search">
       <input type="hidden" name="view" value={view} />
-      <label>Search name, role or permitted Site<input name="search" maxLength={100} defaultValue={filters.search} placeholder="Search People" /></label>
+      <label>Search name, role or permitted Site<PeopleLiveSearch initialValue={filters.search} /></label>
       <label>Role<select name="role" defaultValue={filters.role}>{roleOptions.map((value) => <option value={value} key={value}>{label(value)}</option>)}</select></label>
       <button type="submit">Apply filters</button>
     </form>
