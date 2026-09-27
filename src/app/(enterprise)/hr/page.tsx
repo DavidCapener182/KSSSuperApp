@@ -16,6 +16,26 @@ const tabs: { id: View; label: string }[] = [
   { id: "requests", label: "My requests" },
 ];
 
+// Labels only. No version, file, policy wording, acknowledgement or access grant is implied.
+const policyPlaceholders = [
+  "Employee Handbook", "Disciplinary Policy", "Grievance Policy",
+  "Equality, Diversity & Inclusion", "Attendance / Absence Policy",
+  "Expenses Policy", "Data Protection / Privacy", "Social Media Policy",
+  "Uniform / Standards", "Whistleblowing",
+];
+const formPlaceholders = [
+  "Expense claim", "Mileage claim", "Change of personal details",
+  "Grievance form", "Flexible working request", "Return-to-work form",
+];
+
+function AwaitingDocuments({ items }: { items: string[] }) {
+  return <ul className="hr-placeholder-list">{items.map((title) => <li key={title}>
+    <FileText size={19} aria-hidden="true" />
+    <span><strong>{title}</strong><small>Placeholder · awaiting approved KSS document</small></span>
+    <span className="hr-placeholder-state">Unavailable</span>
+  </li>)}</ul>;
+}
+
 function ViewLink({ href, label, description, icon: Icon }: { href: string; label: string; description: string; icon: typeof UserRound }) {
   return <Link className="hr-service-link" href={href}>
     <span className="hr-service-icon"><Icon size={20} strokeWidth={1.8} aria-hidden="true" /></span>
@@ -72,14 +92,14 @@ export default async function HrPage({ searchParams }: { searchParams: Promise<{
         </div>
       </section>}
       <div className="hr-two-column">
-        <section className="hr-preview" aria-labelledby="hr-policies-title"><BookOpenText size={23} aria-hidden="true" /><h2 id="hr-policies-title">Handbook & policies</h2><p>No approved HR handbook or policy catalogue is connected yet. Current versions will appear here after a separate publication and audience contract.</p><Link href="/hr?view=policies">View catalogue state <ArrowRight size={16} aria-hidden="true" /></Link></section>
-        <section className="hr-preview" aria-labelledby="hr-forms-title"><FileDown size={23} aria-hidden="true" /><h2 id="hr-forms-title">Forms</h2><p>No approved HR form catalogue is connected yet. Downloads and online workflows will be labelled separately when available.</p><Link href="/hr?view=forms">View forms state <ArrowRight size={16} aria-hidden="true" /></Link></section>
+        <section className="hr-preview" aria-labelledby="hr-policies-title"><BookOpenText size={23} aria-hidden="true" /><h2 id="hr-policies-title">Handbook & policies</h2><p>Planned catalogue labels are visible now. Approved KSS versions will be connected when supplied.</p><Link href="/hr?view=policies">See policy placeholders <ArrowRight size={16} aria-hidden="true" /></Link></section>
+        <section className="hr-preview" aria-labelledby="hr-forms-title"><FileDown size={23} aria-hidden="true" /><h2 id="hr-forms-title">Forms</h2><p>Planned forms are listed without downloads. Approved templates can be connected later.</p><Link href="/hr?view=forms">See form placeholders <ArrowRight size={16} aria-hidden="true" /></Link></section>
       </div>
     </>}
 
-    {view === "policies" && <section className="hr-collection" aria-labelledby="hr-policy-page-title"><div className="hr-collection-icon"><BookOpenText size={25} aria-hidden="true" /></div><p className="hr-kicker">Controlled material</p><h2 id="hr-policy-page-title">Handbook & policies</h2><p>There is no approved HR policy catalogue available to this account in this development slice. This page does not treat operational documents, uploaded evidence, or example policy titles as published HR policy.</p><div className="hr-empty"><strong>No current HR policies to show</strong><span>A later controlled catalogue must verify audience, exact version, effective date and private file access before showing a document here.</span></div><p className="hr-boundary">Opening a document, acknowledging its exact version and understanding it are separate facts.</p></section>}
+    {view === "policies" && <section className="hr-collection" aria-labelledby="hr-policy-page-title"><div className="hr-collection-icon"><BookOpenText size={25} aria-hidden="true" /></div><p className="hr-kicker">Planned catalogue · no files connected</p><h2 id="hr-policy-page-title">Handbook & policies</h2><p>These are placeholders for the KSS documents David will add later. None is published, available to open, or counted as acknowledged. Titles are examples and may change to match the approved documents.</p><AwaitingDocuments items={policyPlaceholders} /><p className="hr-boundary">Opening a document, acknowledging its exact version and understanding it are separate facts.</p></section>}
 
-    {view === "forms" && <section className="hr-collection" aria-labelledby="hr-forms-page-title"><div className="hr-collection-icon"><FileDown size={25} aria-hidden="true" /></div><p className="hr-kicker">Approved templates and workflows</p><h2 id="hr-forms-page-title">Forms</h2><p>No approved downloadable HR templates are connected. A catalogue entry will say whether it downloads a file, opens an existing KSS workflow, or goes to a verified external service.</p><div className="hr-empty"><strong>No HR forms published</strong><span>There is no placeholder download or invented KSS form to act on.</span></div>{canUseTimeAway && <div className="hr-related"><strong>Available native workflow</strong><ViewLink href="/my-time-away" label="My time away" description="Start or review a request in the existing Time Away service." icon={ClipboardList} /></div>}</section>}
+    {view === "forms" && <section className="hr-collection" aria-labelledby="hr-forms-page-title"><div className="hr-collection-icon"><FileDown size={25} aria-hidden="true" /></div><p className="hr-kicker">Planned forms · no files connected</p><h2 id="hr-forms-page-title">Forms</h2><p>These placeholders show where approved KSS forms will appear. None downloads a file or starts an HR workflow. Existing KSS services remain available below.</p><AwaitingDocuments items={formPlaceholders} />{canUseTimeAway && <div className="hr-related"><strong>Available native workflow</strong><ViewLink href="/my-time-away" label="My time away" description="Start or review a request in the existing Time Away service." icon={ClipboardList} /></div>}</section>}
 
     {view === "requests" && <section className="hr-collection" aria-labelledby="hr-requests-title"><div className="hr-collection-icon"><ClipboardList size={25} aria-hidden="true" /></div><p className="hr-kicker">Source-owned work</p><h2 id="hr-requests-title">My requests</h2><p>HR does not keep a second request status. Open the relevant source for its authoritative record and next action.</p><div className="hr-service-grid hr-request-links">{canUseTimeAway && <ViewLink href="/my-time-away" label="Time away requests" description="Current requests and decisions in Time Away." icon={ClipboardList} />}{staff && <ViewLink href="/onboarding" label="My onboarding" description="Your exact starter case and checklist, if authorised." icon={FileText} />}{canSeeDocuments && <ViewLink href="/documents" label="Document requests" description="Your permitted document requests and submissions." icon={FileText} />}</div>{!canUseTimeAway && !staff && !canSeeDocuments && <div className="hr-empty"><strong>No connected request view for this role</strong><span>Your identity remains available in My details.</span></div>}</section>}
     <p className="hr-footer-note">HR-01 uses existing guarded KSS services. Private employee relations cases and HR publishing authority are outside this slice.</p>
