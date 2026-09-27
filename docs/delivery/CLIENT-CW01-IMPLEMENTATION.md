@@ -8,7 +8,7 @@ Date: 27 September 2026. Isolated worktree: `client-cw01-build`, starting `origi
 - One workspace is bound by unique FK to an existing CRM Organisation with `CLIENT` relationship. `LOSS_PREVENTION` is an explicit module registration. Three finite Person permissions are `VIEW`, `OPERATE`, `MANAGE`; reasoned grant/revocation is recorded. The guard checks effective/revoked times, current Person, active Client relationship, active workspace and enabled module on every RPC call.
 - Six source TFS states remain distinct. The board has source region, search, priority, unproven internal-theft review marker, evidence summary and next action. Issue detail has source note, next action and immutable revision history. Narrow view uses a single selected lane and 44px controls. Updates use revision checking, pending state and server readback before confirmation.
 - `tfs_lp_issues` stores exact text store number, nullable Site/Person mapping fields, human source labels, and optional source-system/key/snapshot hash provenance. No source record or invented prototype card is seeded. `tfs_lp_issue_events` preserves before/after snapshots. Direct table grants to `anon`/`authenticated` are revoked and RLS is enabled. Only guarded authenticated RPCs expose the data.
-- A real import path is reserved by `(workspace_id, source_system, source_key)` uniqueness and snapshot hash. Import implementation and actual data movement remain pending inventory and exact mapping readback.
+- A real import path is reserved by `(workspace_id, source_system, source_snapshot_sha256, source_key)` uniqueness within a frozen export and snapshot hash. Import implementation and actual data movement remain pending inventory and exact mapping readback.
 
 ## Checks run
 

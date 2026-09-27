@@ -59,7 +59,7 @@ create table public.tfs_lp_issues (
  updated_at timestamptz not null default now(), revision integer not null default 1 check (revision>0),
  unique(id,workspace_id)
 );
-create unique index tfs_lp_import_key_idx on public.tfs_lp_issues(workspace_id,source_system,source_key) where source_key is not null;
+create unique index tfs_lp_import_key_idx on public.tfs_lp_issues(workspace_id,source_system,source_snapshot_sha256,source_key) where source_key is not null;
 create index tfs_lp_issues_board_idx on public.tfs_lp_issues(workspace_id,status,priority,updated_at desc);
 create table public.tfs_lp_issue_events (
  id uuid primary key default gen_random_uuid(), workspace_id uuid not null,
@@ -83,6 +83,7 @@ revoke all on public.client_workspaces,public.client_workspace_modules,public.cl
 create function private.cw_access(p_workspace uuid,p_level text) returns boolean
 language sql stable security definer set search_path='' as $$
  select (select auth.uid()) is not null and (select private.current_person_id()) is not null
+ and (select private.has_any_active_role())
  and exists (
   select 1 from public.client_workspaces w join public.client_workspace_modules m on m.workspace_id=w.id
   join public.crm_organisations o on o.id=w.organisation_id and o.relationship_status='CLIENT'
