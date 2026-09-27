@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TrainingCertificateAdmin } from "@/components/training-certificate-admin";
 
@@ -10,8 +10,9 @@ type RuleChoice = { courseVersionId: string; courseTitle: string; courseVersion:
 type AdminData = { assignments: Assignment[]; rules: { id: string; courseVersionId: string; version: number }[] };
 type Evidence = { assignment: { id: string; courseVersionId: string; contentHash: string; pageCount: number; viewedCount: number }; rule: null | { id: string; version: number; hash: string; requiredAssessmentVersionIds: string[]; validityMonths: number | null; pinned: boolean }; attempts: { id: string; assessmentVersionId: string; state: string; result: string | null }[]; completion: null | { id: string; ruleHash: string; passedAttemptIds: string[]; pageMarkCount: number; pageCount: number; voidedAt: string | null; voidedBy: string | null; voidReason: string | null }; events: { id: string; action: string; actorPersonId: string; reason: string | null; occurredAt: string }[] };
 
-export function TrainingCompletionAdmin({ rights, initial, choices, grants, templates }: {
+export function TrainingCompletionAdmin({ rights, initial, choices, grants, templates, initialAssignmentId }: {
   rights: { manager: boolean; publisher: boolean; superAdmin: boolean }; initial: unknown; choices: RuleChoice[]; grants: unknown; templates: unknown;
+  initialAssignmentId?: string | null;
 }) {
   const router = useRouter();
   const data = initial && typeof initial === "object" ? initial as AdminData : { assignments: [], rules: [] };
@@ -37,6 +38,14 @@ export function TrainingCompletionAdmin({ rights, initial, choices, grants, temp
     } catch (cause) { setMessage(cause instanceof Error ? cause.message : "Evidence unavailable."); }
     finally { setBusy(false); }
   }
+  useEffect(() => {
+    if (rights.manager && initialAssignmentId && assignments.some(item => item.id === initialAssignmentId)) {
+      const timer = window.setTimeout(() => { void review(initialAssignmentId); }, 0);
+      return () => window.clearTimeout(timer);
+    }
+    // The initial exact-ID handoff is read once; later refreshes use the local review action.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialAssignmentId, rights.manager]);
   async function act(payload: Record<string, unknown>) {
     setBusy(true); setMessage("");
     try {

@@ -27,3 +27,4 @@
 .training-admin-course>div{padding:4px 0 12px 16px}
 .training-admin-course summary:focus-visible{outline:3px solid #245b9c;outline-offset:3px}
 .training-admin-list input[type=search]{min-height:44px}
+.training-requirement-pilot{display:grid;gap:20px}.training-requirement-pilot .training-card{min-height:0}.training-requirement-pilot label{display:block;font-weight:650;margin:14px 0}.training-requirement-pilot input,.training-requirement-pilot select{display:block;width:100%;max-width:720px;margin-top:5px;padding:10px;border:1px solid #98a2b3;border-radius:8px;font:inherit}.training-requirement-pilot button{min-height:44px;border:1px solid #8998ab;border-radius:8px;padding:8px 14px;background:#eef4fa;color:#173b65;cursor:pointer;margin:5px}.training-requirement-pilot button:disabled{opacity:.55;cursor:default}.training-requirement-pilot li,.training-requirement-pilot p{overflow-wrap:anywhere}

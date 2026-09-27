@@ -29,7 +29,7 @@ export default async function MyLearning() {
     <Link href={`/training/my-learning/${a.id}/assessment`}>Assessment and attempts</Link><Link href={`/training/my-learning/${a.id}/history`}>View assignment history</Link>
   </article>;
   return <main className="training-area"><header><p className="training-eyebrow">Native learning · Synthetic Dev</p><h1>My Learning</h1><p>Page progress records which learning pages you have marked as viewed. It does not mean the course has been completed or that you have passed an assessment.</p></header>
-    <nav className="training-section-links"><Link href="/training">Course catalogue</Link><Link href="/training/my-learning" aria-current="page">My Learning</Link></nav>
+    <nav className="training-section-links"><Link href="/training">Course catalogue</Link><Link href="/training/my-learning" aria-current="page">My Learning</Link><Link href="/training/my-requirements">My requirements pilot</Link></nav>
     <p className="training-source-note">Learning page progress and assessment attempts are separate records. Neither verifies a credential or decides whether you can be deployed.</p>
     {error ? <p role="alert">My Learning is unavailable for this role.</p> : <><h2>Active assignments</h2>{active.length ? <div className="training-cards">{active.map(card)}</div> : <p>No active assignments.</p>}
       <h2>Assignment history</h2>{history.length ? <div className="training-cards">{history.map(card)}</div> : <p>No earlier assignments.</p>}

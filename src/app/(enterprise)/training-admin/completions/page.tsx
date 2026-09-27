@@ -5,7 +5,9 @@ import { TrainingCompletionAdmin } from "@/components/training-completion-admin"
 import "../../training/training.css";
 
 export const dynamic = "force-dynamic";
-export default async function CompletionAdministration() {
+export default async function CompletionAdministration({ searchParams }: {
+  searchParams: Promise<{ assignment?: string }>;
+}) {
   const client = await createServerSupabase();
   if (!(await getPrincipal(client))) return null;
   const { data: access, error } = await client.rpc("training_completion_access");
@@ -23,6 +25,7 @@ export default async function CompletionAdministration() {
   return <main className="training-area"><Link href="/training-admin">← Training administration</Link>
     <header><p className="training-eyebrow">Native Training · Synthetic Dev</p><h1>Course completion</h1>
       <p>Published rules determine completion from exact learning facts. Certificate issue is a separate named manager decision with a private PDF and its own history.</p></header>
-    <TrainingCompletionAdmin rights={rights} initial={admin} choices={Array.isArray(choices) ? choices : []} grants={grants} templates={templates} />
+    <TrainingCompletionAdmin rights={rights} initial={admin} choices={Array.isArray(choices) ? choices : []} grants={grants} templates={templates}
+      initialAssignmentId={(await searchParams).assignment} />
   </main>;
 }
