@@ -7,6 +7,6 @@ export const dynamic = "force-dynamic";
 export default async function NewOnboardingPage() {
   const principal = await getPrincipal(await createServerSupabase());
   if (!principal) redirect("/?next=%2Fonboarding%2Fnew");
-  if (!principal.roles.includes("OFFICE_ADMIN")) notFound();
-  return <OnboardingClient office />;
+  if (!principal.roles.includes("OFFICE_ADMIN") && !principal.roles.includes("SUPER_ADMIN")) notFound();
+  return <OnboardingClient office superAdmin={principal.roles.includes("SUPER_ADMIN")} />;
 }
