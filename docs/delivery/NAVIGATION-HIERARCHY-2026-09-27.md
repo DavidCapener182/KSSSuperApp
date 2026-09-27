@@ -1,0 +1,9 @@
+# Enterprise navigation hierarchy — 27 September 2026
+
+David requested a clearer navigation tree. Overview keeps Home and My Work in the same order. The other groups now show nested destinations: TFS under Client workspaces; HR and Time Away under People; Operational documents under Documents; Training administration under Training; and Workspace access, Site Book access and Access administration under Settings. Settings is a new role-guarded landing page for Super Admin and Office Admin, with only permitted actions shown. Existing routes and server-side access checks remain in place.
+
+## Verification
+
+- Next.js 16.3.6 Webpack build passed with Development Supabase environment supplied from the existing local configuration. TypeScript, focused ESLint and `git diff --check` passed after the final navigation and breadcrumb edits.
+- Signed-in local Super Admin browser at `http://127.0.0.1:3000/settings` showed the nested desktop tree and Settings cards. At a 390 px viewport, the mobile drawer exposed the same tree. The TFS link opened the existing Loss prevention desk, with TFS alone marked as the current navigation item. The Workspace access card opened its existing page and the breadcrumb read Home / Settings / Workspace access.
+- The local preview remains on port 3000 for review. No database change or application deployment is part of this navigation change.

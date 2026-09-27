@@ -18,7 +18,7 @@ export function hasCapability(principal: Principal, capability: Capability): boo
   return capabilitiesFor(principal).has(capability);
 }
 
-export type NavigationItem = { href: "/app" | "/work" | "/people" | "/hr" | "/crm" | "/tfs" | "/client-workspaces" | "/client-workspaces/manage" | "/sites" | "/events" | "/mobilisations" | "/service-delivery" | "/workforce" | "/control-room" | "/management-reports" | "/assets" | "/my-equipment" | "/my-duty" | "/my-schedule" | "/my-deployments" | "/my-work-time" | "/action-centre" | "/my-availability" | "/my-time-away" | "/time-away" | "/documents" | "/operational-documents" | "/onboarding" | "/profile" | "/incidents" | "/credentials" | "/training" | "/training-admin" | "/access" | "/access/incident-reviewers"; label: string };
+export type NavigationItem = { href: "/app" | "/work" | "/people" | "/hr" | "/crm" | "/tfs" | "/client-workspaces" | "/client-workspaces/manage" | "/sites" | "/events" | "/mobilisations" | "/service-delivery" | "/workforce" | "/control-room" | "/management-reports" | "/assets" | "/my-equipment" | "/my-duty" | "/my-schedule" | "/my-deployments" | "/my-work-time" | "/action-centre" | "/my-availability" | "/my-time-away" | "/time-away" | "/documents" | "/operational-documents" | "/onboarding" | "/profile" | "/incidents" | "/credentials" | "/training" | "/training-admin" | "/access" | "/access/incident-reviewers" | "/settings" | "/site-book" | "/site-book/access"; label: string };
 
 export function navigationFor(principal: Principal): NavigationItem[] {
   const allowed = capabilitiesFor(principal);
@@ -64,5 +64,6 @@ export function navigationFor(principal: Principal): NavigationItem[] {
     { href: "/training-admin", label: "Training administration" },
     { href: "/access", label: "Access administration" },
   );
+  if (principal.roles.some((role) => role === "SUPER_ADMIN" || role === "OFFICE_ADMIN")) links.push({ href: "/settings", label: "Settings" });
   return links;
 }
