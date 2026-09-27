@@ -32,7 +32,10 @@ export default async function HrPage({ searchParams }: { searchParams: Promise<{
   const view: View = tabs.some((tab) => tab.id === requested) ? requested as View : "home";
   const staff = principal.roles.includes("SECURITY_STAFF");
   const canSeeDocuments = hasCapability(principal, "DOCUMENT_SELF_READ");
+  const canReviewDocuments = hasCapability(principal, "DOCUMENT_OFFICE_REVIEW");
   const canUseTimeAway = hasCapability(principal, "TIME_AWAY_SELF");
+  const canManageTimeAway = hasCapability(principal, "TIME_AWAY_ENTRY");
+  const canManageOnboarding = hasCapability(principal, "ONBOARDING_OFFICE_READ");
   const canSeeCredentials = staff || principal.roles.includes("OFFICE_ADMIN") || principal.roles.includes("SUPER_ADMIN");
 
   return <main className="enterprise-main hr-area" id="enterprise-content">
@@ -60,6 +63,14 @@ export default async function HrPage({ searchParams }: { searchParams: Promise<{
           {canSeeCredentials && <ViewLink href="/credentials" label="My credentials" description="Open the credential record under its separate checks." icon={IdCard} />}
         </div>
       </section>
+      {(canManageTimeAway || canManageOnboarding || canReviewDocuments) && <section className="hr-section" aria-labelledby="hr-authorised-work-title">
+        <div className="hr-section-heading"><div><p className="hr-kicker">Existing sources</p><h2 id="hr-authorised-work-title">Authorised people work</h2></div><span>Each workspace checks your current scope</span></div>
+        <div className="hr-service-grid">
+          {canManageTimeAway && <ViewLink href="/time-away" label="Time away review" description="Review requests in the existing manager workspace." icon={ClipboardList} />}
+          {canManageOnboarding && <ViewLink href="/onboarding" label="Onboarding cases" description="Open cases available to your current Office scope." icon={UserRound} />}
+          {canReviewDocuments && <ViewLink href="/documents" label="Document review" description="Open requests and evidence under their own access rules." icon={FileText} />}
+        </div>
+      </section>}
       <div className="hr-two-column">
         <section className="hr-preview" aria-labelledby="hr-policies-title"><BookOpenText size={23} aria-hidden="true" /><h2 id="hr-policies-title">Handbook & policies</h2><p>No approved HR handbook or policy catalogue is connected yet. Current versions will appear here after a separate publication and audience contract.</p><Link href="/hr?view=policies">View catalogue state <ArrowRight size={16} aria-hidden="true" /></Link></section>
         <section className="hr-preview" aria-labelledby="hr-forms-title"><FileDown size={23} aria-hidden="true" /><h2 id="hr-forms-title">Forms</h2><p>No approved HR form catalogue is connected yet. Downloads and online workflows will be labelled separately when available.</p><Link href="/hr?view=forms">View forms state <ArrowRight size={16} aria-hidden="true" /></Link></section>
