@@ -6,7 +6,7 @@ David asked for real Site and new-starter entry, with a local preview before app
 
 - Forward migration `20260927204828_real_staff_starter_registration.sql` is applied to the Development Supabase project `dnfhkmmnlbiabqypclqg` as remote version `20260927204828`. It adds a deny-by-default idempotency table; audited Super Admin team ownership; transactional starter and case registration; a one-time draft Site-context attachment; and removal of the fixed synthetic Site-name restriction from case creation. Existing Office-owned case gates remain.
 - Existing Site create/activate APIs and RLS already support Super Admin. No Site schema change was needed. The current database contains zero Sites, zero onboarding cases and zero onboarding teams; it contains only the existing Super Admin Person. No real Person or Site was created by this task.
-- The local application uses this database and runs at `http://127.0.0.1:3000`. Application code and copy remain on the local `codex/super-admin-manager-access` branch for David's review. No application deployment was made.
+- The application change was published to `main` at `9b21d966d23a4befcb7f33175b26bba1a5284dba` after the user requested release. Vercel production deployment `dpl_CAqbx43hVQrRrJbGiC4ahm7oEQrm` reached READY. The published app is at `https://project-2hiwc.vercel.app` and uses this Development Supabase project.
 
 ## Verification
 
@@ -15,7 +15,8 @@ David asked for real Site and new-starter entry, with a local preview before app
 - Post-rollback readback: zero Sites, zero onboarding cases, zero starter requests and zero onboarding teams; one pre-existing Person.
 - Security advisor readback showed the new idempotency table as RLS enabled with no policy, intentionally denying direct table access. Other advisor findings predate this migration.
 - Next.js 16.3.6 Webpack production build, TypeScript, focused ESLint and `git diff --check` passed. Signed-in local browser readback showed **Add to onboarding** with one name field and optional Site context, and **Add a Site** with the draft form. No persistent browser write was made.
+- Signed-in published browser readback as David Capener, Super Admin, showed **New starter**, one **Add a new starter** form, optional Site context and **Add to onboarding** at `/onboarding/new`. The `/sites` page showed **Add a Site** and the real draft Site fields. Both pages loaded without synthetic copy in the checked flows. No real Person, Site or case was created during release verification.
 
 ## Remaining boundary
 
-The draft case can be managed by Super Admin. Giving a new starter their own sign-in requires an explicit AuthIdentity connection and credential handoff; this action does not send an invitation or complete a personal attestation. Existing evidence and verification actions retain their own source-specific rules and must be reviewed before live compliance use. David has not yet accepted or requested application deployment of this preview.
+The draft case can be managed by Super Admin. Giving a new starter their own sign-in requires an explicit AuthIdentity connection and credential handoff; this action does not send an invitation or complete a personal attestation. Existing evidence and verification actions retain their own source-specific rules and must be reviewed before live compliance use. The wider app-wide Super Admin role audit remains separate from this release.
