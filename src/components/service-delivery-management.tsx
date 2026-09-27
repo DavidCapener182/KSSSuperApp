@@ -34,6 +34,36 @@ function changeLabel(c: Change) {
   return c.state.replaceAll("_", " ").toLowerCase().replace(/^./, x => x.toUpperCase());
 }
 
+type Candidate = { eventId: string; kind: string; previousRevision: number; newRevision: number; effectiveOn: string; occurredAt: string };
+function ApplicationCandidate({ deliveryId, changeId, busy, onRecord }: {
+  deliveryId: string; changeId: string; busy: boolean; onRecord: (eventId: string, reason: string) => void;
+}) {
+  const [candidate,setCandidate] = useState<Candidate | null>(null);
+  const [checked,setChecked] = useState(false);
+  const [checking,setChecking] = useState(false);
+  const [error,setError] = useState("");
+  async function check() {
+    setChecking(true); setError(""); setCandidate(null); setChecked(false);
+    try {
+      const data = await serviceRequest(`/api/service-delivery/${deliveryId}/application-candidate?changeId=${changeId}`);
+      if (data.changeId !== changeId) throw new Error("Exact change readback mismatch");
+      setCandidate(data.candidate ?? null); setChecked(true);
+    } catch (cause) { setError(cause instanceof Error ? cause.message : "Source event unavailable"); }
+    finally { setChecking(false); }
+  }
+  return <div className={styles.card}>
+    <h4>Source application</h4><p>The Site Service action must be completed under its own authority. A candidate event is a current source fact, not an applied management change.</p>
+    <button type="button" className={`${styles.button} ${styles.secondary}`} onClick={() => void check()} disabled={checking || busy}>{checking ? "Checking source…" : "Check exact source event"}</button>
+    {error && <p role="alert" className={styles.error}>{error}</p>}
+    {checked && !candidate && <p>No eligible current source event was found. Complete the guarded Site Service action, then check again.</p>}
+    {candidate && <form className={styles.form} onSubmit={event => { event.preventDefault(); const fields = new FormData(event.currentTarget); onRecord(candidate.eventId,String(fields.get("reason") || "")); setCandidate(null); setChecked(false); }}>
+      <p><strong>Candidate event:</strong> {candidate.kind.replaceAll("_"," ")} · revision {candidate.previousRevision} → {candidate.newRevision} · effective {candidate.effectiveOn} · recorded {london(candidate.occurredAt)}</p>
+      <p className={styles.meta}>Event {candidate.eventId}. Recorder authority and the 21D server guard will recheck the current exact event before application is recorded.</p>
+      <Reason /><button className={styles.button} disabled={busy}>Record this exact source application</button>
+    </form>}
+  </div>;
+}
+
 export function ServiceDeliveryManagement({ deliveryId, deliveryRevision, terminal }: { deliveryId: string; deliveryRevision: number; terminal: boolean }) {
   const [data, setData] = useState<Management | null>(null);
   const [grants, setGrants] = useState<Grant[]>([]);
@@ -60,6 +90,11 @@ export function ServiceDeliveryManagement({ deliveryId, deliveryRevision, termin
     try {
       const observedRevision = entity === "COMMITMENT" && kind === "CREATE" ? deliveryRevision : entity === "CHANGE" && kind === "PROPOSE" ? data?.sourceRevision : expectedRevision;
       await serviceRequest(`/api/service-delivery/${deliveryId}/management`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ entity, kind, subjectId, expectedRevision: observedRevision, requestKey: crypto.randomUUID(), ...(entity === "GRANT" ? payload : { data: payload }) }) });
+      if (entity === "CHANGE" && kind === "APPLIED") {
+        const verified: Management = await serviceRequest(`/api/service-delivery/${deliveryId}/management`);
+        if (!verified.changes.some(change => change.id === subjectId && change.applicationOutcome === "APPLIED" && change.applicationEventId === payload.sourceEventId))
+          throw new Error("The exact application was not confirmed on source readback. Refresh before trying again.");
+      }
       await load();
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Management action denied"); }
     finally { setBusy(false); }
@@ -96,7 +131,7 @@ export function ServiceDeliveryManagement({ deliveryId, deliveryRevision, termin
           {data.permissions.propose && <><Form title="Revise proposal" busy={busy} onSave={f => void save("CHANGE", "REVISED", c.id, c.revision, f)}><label>Revised change<textarea name="summary" required minLength={3} maxLength={500} defaultValue={c.summary} /></label><label>Requested effective time · Europe/London<input name="requestedEffectiveLocal" type="datetime-local" required /><span>Enter the intended London time again; past times are not accepted.</span></label><Reason /></Form><Form title="Withdraw change" busy={busy} onSave={f => void save("CHANGE", "WITHDRAWN", c.id, c.revision, f)}><Reason /></Form></>}
           {data.permissions.approve && <><Form title="Approve management change" busy={busy} onSave={f => void save("CHANGE", "APPROVED", c.id, c.revision, f)}><p>Approval does not change the Site Service. The proposer cannot approve this request.</p><Reason /></Form><Form title="Reject change" busy={busy} onSave={f => void save("CHANGE", "REJECTED", c.id, c.revision, f)}><Reason /></Form></>}
         </>}
-        {c.state === "APPROVED" && c.applicationOutcome == null && data.permissions.record && !terminal && <><Form title="Record verified source application" busy={busy} onSave={f => void save("CHANGE", "APPLIED", c.id, c.revision, f)}><p>Complete the Site Service change in its own workflow first. Enter its exact resulting event ID; this record verifies the event and revision.</p><label>Resulting Site Service event ID<input name="sourceEventId" required /></label><Reason /></Form><Form title="Record not applied" busy={busy} onSave={f => void save("CHANGE", "NOT_APPLIED", c.id, c.revision, f)}><Reason /></Form></>}
+        {c.state === "APPROVED" && c.applicationOutcome == null && data.permissions.record && !terminal && <><ApplicationCandidate deliveryId={deliveryId} changeId={c.id} busy={busy} onRecord={(sourceEventId,reason) => void save("CHANGE", "APPLIED", c.id, c.revision, { sourceEventId, reason })} /><Form title="Record not applied" busy={busy} onSave={f => void save("CHANGE", "NOT_APPLIED", c.id, c.revision, f)}><Reason /></Form></>}
         <Timeline items={c.history} />
       </article>)}</div>
     </section>
