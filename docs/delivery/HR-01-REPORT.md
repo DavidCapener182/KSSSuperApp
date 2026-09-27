@@ -39,3 +39,9 @@ No global CSS, Supabase schema, migration, Storage, Auth user, deployment or oth
 - Current HR policy/version and approved form catalogues need a separate bounded publisher, audience, exact-version and private-file read contract before any real content appears.
 - Office HR dashboard, private cases, named authority, evidence and disciplinary workflow belong to later HR slices and need explicit security design and approval.
 - No human acceptance or protected hosted deployment is claimed for this implementation.
+
+## Phase 1 finish — 27 September 2026
+
+- The earlier HR-01 implementation was already merged into integrated `main` by `2c88f4a`; this finish does not repeat it.
+- The HR home now links authorised Office/manager users to existing Time Away review, Onboarding cases and Document review workspaces. Links are shown by the existing capability map; each destination retains its own server and source guards. No HR-owned case, request status or private data read was added.
+- `git diff --check` passed. A fresh build and authenticated Staff/Office desktop and 390px readback remain unverified in this worktree because its shared `node_modules` target was removed during the current checkout session. The earlier Super Admin desktop/390px browser proof above remains historical evidence only.
