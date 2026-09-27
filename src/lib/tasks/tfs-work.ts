@@ -13,13 +13,16 @@ export type TfsWorkTask = {
   sourceId: string;
   sourceTitle: string;
   sourceStatus: string;
+  priority: Issue["priority"];
   nextAction: string;
   dueAt: null;
   sourceHref: string;
 };
 
 function projectIssue(issue: Issue, workspace: Workspace, personId: string): TfsWorkTask | null {
-  if (issue.workspace_id !== workspace.id || issue.owner_person_id !== personId || issue.status === "Closed") return null;
+  const redStockLoss = issue.issue_type === "Stock loss" && issue.priority === "Urgent";
+  if (issue.workspace_id !== workspace.id || issue.owner_person_id !== personId || issue.status === "Closed" ||
+    (!issue.potential_internal_theft_review && !redStockLoss)) return null;
   return {
     id: issue.id,
     title: `${issue.store_name} · ${issue.issue_type}`,
@@ -31,6 +34,7 @@ function projectIssue(issue: Issue, workspace: Workspace, personId: string): Tfs
     sourceId: issue.id,
     sourceTitle: `${workspace.name}${issue.store_number ? ` · Store ${issue.store_number}` : ""}`,
     sourceStatus: issue.status,
+    priority: issue.priority,
     nextAction: issue.next_action,
     dueAt: null,
     sourceHref: `/client-workspaces/${workspace.id}/loss-prevention/${issue.id}`,

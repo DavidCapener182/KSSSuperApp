@@ -245,6 +245,17 @@ h1 { margin: 18px 0 21px; font-size: clamp(42px, 6vw, 72px); line-height: 1.05; 
 .work-card-heading strong { color: var(--kss-ink); font-size: 16px; overflow-wrap: anywhere; }
 .work-card p { margin: 0; color: var(--kss-ink-soft); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
 .work-card .ui-action { justify-self: start; }
+.work-open-groups { display: grid; gap: 14px; }
+.work-group { min-width: 0; border: 1px solid var(--kss-border); border-radius: 12px; background: var(--kss-surface); overflow: hidden; }
+.work-group-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 16px; border-bottom: 1px solid var(--kss-border); }
+.work-group-heading h3 { margin: 0; font-size: 16px; }.work-group-heading span { color: var(--kss-ink-soft); font-size: 13px; }
+.work-group-list { list-style: none; margin: 0; padding: 0; max-height: 440px; overflow-y: auto; overscroll-behavior: contain; }
+.work-group-list li + li { border-top: 1px solid var(--kss-border); }
+.work-group-link { display: grid; gap: 3px; padding: 11px 16px; color: var(--kss-ink); text-decoration: none; }
+.work-group-link:hover, .work-group-link:focus-visible { background: var(--kss-blue-soft); }
+.work-group-title { font-size: 14px; font-weight: 700; overflow-wrap: anywhere; }
+.work-group-meta { font-size: 12px; color: var(--kss-ink-soft); }.work-group-meta strong { color: var(--kss-amber); }
+.work-group-next { color: var(--kss-ink-soft); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @media (max-width: 700px) {
   .documents-record-header { flex-direction: column; }.documents-review-actions { display: grid; grid-template-columns: 1fr; }
   .documents-review-actions .ui-action, .documents-form .ui-action { width: 100%; }.ui-dialog { padding: 18px; }

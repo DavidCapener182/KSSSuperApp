@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { EmptyState, FeedbackBanner, LoadingBlock, PageHeader } from "@/components/ui/workflow";
+import { EmptyState, FeedbackBanner, LoadingBlock } from "@/components/ui/workflow";
 import { crmDueStatus } from "@/lib/crm/due-status";
 
 type WorkTask = {
@@ -12,6 +12,7 @@ type WorkTask = {
   sourceTitle?: string; dueAt: string | null; versionNumber?: number;
   requestTitle?: string; subjectName?: string | null;
   sourceStatus?: string; nextAction?: string; sourceHref?: string;
+  priority?: "Urgent" | "High" | "Review" | "Monitor";
 };
 const date = (value: string) => new Date(value).toLocaleDateString("en-GB", {
   day: "numeric", month: "short", year: "numeric",
@@ -33,6 +34,31 @@ function TaskCard({ task }: { task: WorkTask }) {
   </li>;
 }
 
+const priorityRank: Record<NonNullable<WorkTask["priority"]>, number> = {
+  Urgent: 0, High: 1, Review: 2, Monitor: 3,
+};
+
+function tfsRank(task: WorkTask) {
+  // A requested visit needs attention before other urgent evidence reviews.
+  const priority = priorityRank[task.priority ?? "Review"];
+  return task.sourceStatus === "Visit needed" ? priority - 10 : priority;
+}
+
+function TfsWorkGroup({ tasks, kind }: { tasks: WorkTask[]; kind: "actions" | "links" }) {
+  const ordered = [...tasks].sort((a, b) => tfsRank(a) - tfsRank(b) || b.createdAt.localeCompare(a.createdAt));
+  const headingId = kind === "actions" ? "tfs-actions-heading" : "tfs-links-heading";
+  return <section className="work-group" aria-labelledby={headingId}>
+    <div className="work-group-heading"><h3 id={headingId}>{kind === "actions" ? "TFS actions" : "TFS to review"}</h3><span>{tasks.length}</span></div>
+    <ul className="work-group-list">{ordered.map((task) => <li key={task.id}>
+      <Link href={task.sourceHref ?? "/tfs"} className="work-group-link">
+        <span className="work-group-title">{task.title}</span>
+        <span className="work-group-meta"><strong>{task.sourceStatus === "Visit needed" ? "Visit needed" : task.priority}</strong>{task.sourceStatus !== "Visit needed" ? ` · ${task.sourceStatus}` : ""}</span>
+        {kind === "actions" && task.nextAction && <span className="work-group-next">{task.nextAction}</span>}
+      </Link>
+    </li>)}</ul>
+  </section>;
+}
+
 export function WorkClient() {
   const [tasks, setTasks] = useState<WorkTask[]>([]);
   const [loading, setLoading] = useState(true);
@@ -48,17 +74,23 @@ export function WorkClient() {
     return () => { active = false; };
   }, []);
   const open = tasks.filter((task) => task.state === "OPEN" && !task.covering);
+  const tfsOpen = open.filter((task) => task.sourceKind === "TFS_LP_ISSUE");
+  const tfsActions = tfsOpen.filter((task) => task.sourceStatus === "Visit needed" || task.sourceStatus === "Investigating");
+  const tfsLinks = tfsOpen.filter((task) => task.sourceStatus !== "Visit needed" && task.sourceStatus !== "Investigating");
+  const otherOpen = open.filter((task) => task.sourceKind !== "TFS_LP_ISSUE");
   const covering = tasks.filter((task) => task.state === "OPEN" && task.covering);
   const done = tasks.filter((task) => task.state === "DONE");
   const cancelled = tasks.filter((task) => task.state === "CANCELLED");
   return <main className="enterprise-main work-main">
-    <PageHeader eyebrow="Assigned work" title="My Work"
-      description="Assigned TFS issues, document reviews and CRM follow-ups. Open each item in its source workspace." />
+    <header className="ui-page-header"><h1>My Work</h1></header>
     {error && <FeedbackBanner tone="error">Work is unavailable. Refresh to try again.</FeedbackBanner>}
     {loading ? <LoadingBlock label="Loading your work…" /> : !error && <div className="work-sections">
       <section aria-labelledby="open-work-heading"><h2 id="open-work-heading">Open work</h2>
-        {open.length ? <ul className="work-list">{open.map((task) => <TaskCard key={task.id} task={task} />)}</ul> :
-          <EmptyState title="No open tasks" description="No assigned TFS issues, document reviews or CRM follow-ups were returned for this account." />}
+        {open.length ? <div className="work-open-groups">
+          {tfsActions.length > 0 && <TfsWorkGroup tasks={tfsActions} kind="actions" />}
+          {otherOpen.length > 0 && <ul className="work-list">{otherOpen.map((task) => <TaskCard key={task.id} task={task} />)}</ul>}
+          {tfsLinks.length > 0 && <TfsWorkGroup tasks={tfsLinks} kind="links" />}
+        </div> : <EmptyState title="No open tasks" description="No tasks were returned for this account." />}
       </section>
       {covering.length > 0 && <section aria-labelledby="covering-work-heading"><h2 id="covering-work-heading">Covering</h2>
         <ul className="work-list">{covering.map((task) => <TaskCard key={task.id} task={task} />)}</ul>
