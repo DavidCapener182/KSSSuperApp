@@ -15,7 +15,7 @@ import lists from "./crm-list-work.module.css";
 
 type Row = Record<string, unknown>;
 type Props = { view: "overview" | "pipeline" | "organisations" | "contacts" | "opportunities" | "organisation" | "opportunity"; id?: string; currentPersonId: string };
-const stageNames = ["NEW_LEAD","CONTACTED","QUALIFIED","PROPOSAL_TENDER","NEGOTIATION","WON","LOST"];
+const stageNames = ["NEW_LEAD","CONTACTED","QUALIFIED","PROPOSAL_TENDER","NEGOTIATION","DORMANT","WON","LOST"];
 const typeNames = ["TENDER","DIRECT_ENQUIRY","EXISTING_CLIENT_EXPANSION","RENEWAL","PROSPECTING"];
 const title = (value: unknown) => String(value ?? "").replaceAll("_", " ").toLowerCase().replace(/(^|\s)\S/g, (c) => c.toUpperCase());
 const value = (pence: unknown) => pence == null ? "Not estimated" : new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(Number(pence)/100);
@@ -115,11 +115,11 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
   const personName = (personId:unknown) => personId ? owners.find((o)=>o.id===personId)?.displayName ?? "Authorised Office actor" : "Unassigned";
   const org = data?.organisation as Row | undefined;
   const opportunity = data?.opportunity as Row | undefined;
-  const backwards = !!opportunity && stageNames.indexOf(stage)>=0 && stageNames.indexOf(stage)<stageNames.indexOf(String(opportunity.stage));
+  const backwards = !!opportunity && (stage === "DORMANT" || opportunity.stage === "DORMANT" || ( stageNames.indexOf(stage)>=0 && stageNames.indexOf(stage)<stageNames.indexOf(String(opportunity.stage))));
   const openOrganisationEdit = () => { if (!org) return; setFields({name:String(org.name),tradingName:String(org.trading_name ?? ""),website:String(org.website ?? ""),email:String(org.general_email ?? ""),phone:String(org.main_phone ?? ""),ownerId:String(org.owner_person_id ?? "")}); setForm("editOrganisation"); };
   const openContactEdit = (contact:Row) => { setFields({contactId:String(contact.id),firstName:String(contact.first_name),lastName:String(contact.last_name),jobTitle:String(contact.job_title ?? ""),email:String(contact.business_email ?? ""),phone:String(contact.business_phone ?? ""),primary:contact.is_primary?"yes":"no",active:contact.active?"yes":"no"}); setForm("editContact"); };
   return <main className={`enterprise-main crm-page ${journey.controls}`}>
-    <p className="eyebrow">Commercial workspace · synthetic development data</p>
+    <p className="eyebrow">Commercial workspace</p>
     {view !== "organisation" && view !== "opportunity" && <div className={`crm-heading ${lists.heading}`}><div><h1>CRM</h1>
       <p className="enterprise-intro">{view === "overview" ? "Organisations, business contacts and opportunities in one place." : "Commercial records remain separate from private Staff information."}</p></div><Link className={lists.newLead} href="/crm/new-lead">+ New lead</Link></div>}
     {view !== "organisation" && view !== "opportunity" && <nav className="crm-tabs" aria-label="CRM sections">
@@ -153,9 +153,9 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
           <Link href="/crm?view=organisations">Choose Organisation to add Contact</Link>}</div>
       {rows("items").length===0?<p className="crm-empty">No matching records. Try a different search or create an Organisation.</p>:<div className="crm-list">
         {rows("items").map((row)=><Link className={lists.row} key={String(row.id)} href={view==="organisations"?`/crm/organisations/${row.id}`:view==="opportunities"?`/crm/opportunities/${row.id}`:`/crm/organisations/${row.organisation_id}`}>
-          {view==="organisations" ? <><div><strong>{String(row.name)}</strong><small>{String(row.trading_name ?? "")}</small></div><div><span className={lists.tag}>{title(row.relationship_status)}</span><small>Account owner: {personName(row.owner_person_id)}</small></div><div><span>Primary: {String(row.primaryContactName ?? "Not set")}</span><small>{String(row.openOpportunityCount ?? 0)} open Opportunities</small></div></> :
+          {view==="organisations" ? <><div><strong>{String(row.name)}</strong><small>{String(row.trading_name ?? "")}</small></div><div><span className={lists.tag}>{title(row.relationship_status)}</span><small>Account owner: {String((row.people as Row)?.display_name ?? personName(row.owner_person_id))}</small></div><div><span>Primary: {String(row.primaryContactName ?? "Not set")}</span><small>{String(row.openOpportunityCount ?? 0)} open Opportunities</small></div></> :
             view==="contacts" ? <><div><strong>{String(row.first_name)} {String(row.last_name)}</strong><small>{String((row.crm_organisations as Row)?.name ?? "Organisation")}</small></div><div><span>{String(row.job_title ?? "Role not recorded")}</span><small>{row.is_primary ? "Primary Contact" : row.active ? "Active Contact" : "Inactive Contact"}</small></div><div><span>{String(row.business_email ?? "Business email not recorded")}</span><small>{String(row.business_phone ?? "Business phone not recorded")}</small></div></> :
-              <><div><strong>{String(row.title)}</strong><small>{String((row.crm_organisations as Row)?.name ?? "Organisation")} · {title(row.stage)}</small></div><div><span>{value(row.estimated_value_gbp_pence)} estimated</span><small>Opportunity owner: {personName(row.owner_person_id)} · Decision: {String(row.expected_decision_date ?? "Not set")}</small></div><div><span>{row.nextFollowUp ? `Next: ${String((row.nextFollowUp as Row).title)}` : "No open Opportunity follow-up"}</span><small>{row.nextFollowUp ? date((row.nextFollowUp as Row).due_at) : "Due date not set"}</small></div></>}
+              <><div><strong>{String(row.title)}</strong><small>{String((row.crm_organisations as Row)?.name ?? "Organisation")} · {title(row.stage)}</small></div><div><span>{value(row.estimated_value_gbp_pence)} estimated</span><small>Opportunity owner: {String((row.people as Row)?.display_name ?? personName(row.owner_person_id))} · Decision: {String(row.expected_decision_date ?? "Not set")}</small></div><div><span>{row.nextFollowUp ? `Next: ${String((row.nextFollowUp as Row).title)}` : "No open Opportunity follow-up"}</span><small>{row.nextFollowUp ? date((row.nextFollowUp as Row).due_at) : "Due date not set"}</small></div></>}
         </Link>)}
       </div>}
       <div className="people-pagination">{offset>0&&<Button variant="outline" onClick={()=>setOffset(Math.max(0,offset-25))}>Previous</Button>}
@@ -164,7 +164,7 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
     </>}
     {!loading && org && view==="organisation" && <div className="crm-organisation-record">
       <Link className="crm-record-back" href="/crm?view=organisations">← Organisations</Link>
-      <header className="crm-organisation-header"><h1>{String(org.name)}</h1><div className="crm-record-identity"><span>Organisation</span><strong>{title(org.relationship_status)}</strong></div><p>Account owner: {owners.find((o)=>o.id===org.owner_person_id)?.displayName ?? "Assigned Office"} · Created {date(org.created_at)}</p></header>
+      <header className="crm-organisation-header"><h1>{String(org.name)}</h1><div className="crm-record-identity"><span>Organisation</span><strong>{title(org.relationship_status)}</strong></div><p>Account owner: {owners.find((o)=>o.id===org.owner_person_id)?.displayName ?? String((org.people as Row)?.display_name ?? "Assigned Office")} · Created {date(org.created_at)}</p></header>
       <nav className="crm-organisation-sections" aria-label="Organisation sections"><a href="#organisation-overview">Overview</a><a href="#organisation-contacts">Contacts</a><a href="#organisation-opportunities">Opportunities</a><a href="#organisation-history">History</a><a href="#organisation-work">Work</a><a href="#organisation-sources">Sites and Events</a></nav>
       <RecordSectionTracker label="Organisation sections" />
       <div className="crm-organisation-related"><strong>Related workflows</strong><a href="#organisation-opportunities">Sales opportunities</a><Link href={`/crm/new-lead?organisation=${org.id}`}>New lead for this Organisation</Link><Link href={`/commercial-handoff?organisation=${org.id}`}>Relationship and delivery context</Link>{org.relationship_status==="CLIENT"&&<Link href={`/mobilisations?organisation=${org.id}`}>Authorise mobilisation</Link>}<a href="#organisation-sources">Source records</a></div>
@@ -190,7 +190,7 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
       </div></div>}
     {!loading && opportunity && view==="opportunity" && <div className="crm-opportunity-record">
       <Link className="crm-record-back" href="/crm?view=opportunities">← Opportunities</Link>
-      <header className="crm-organisation-header"><h1>{String(opportunity.title)}</h1><div className="crm-record-identity"><span>Opportunity</span><strong>{title(opportunity.stage)}</strong><span>{title(opportunity.opportunity_type)}</span></div><p>{String((data?.organisation as Row)?.name ?? "Organisation")} · Owner: {owners.find((o)=>o.id===opportunity.owner_person_id)?.displayName ?? "Assigned Office"}</p></header>
+      <header className="crm-organisation-header"><h1>{String(opportunity.title)}</h1><div className="crm-record-identity"><span>Opportunity</span><strong>{title(opportunity.stage)}</strong><span>{title(opportunity.opportunity_type)}</span></div><p>{String((data?.organisation as Row)?.name ?? "Organisation")} · Owner: {owners.find((o)=>o.id===opportunity.owner_person_id)?.displayName ?? String((opportunity.people as Row)?.display_name ?? "Assigned Office")}</p></header>
       <nav className="crm-opportunity-sections" aria-label="Opportunity sections"><a href="#opportunity-overview">Overview</a><a href="#opportunity-stage">Stage and owner</a><a href="#opportunity-work">Work and history</a></nav>
       <RecordSectionTracker label="Opportunity sections" />
       <div className="crm-organisation-related"><strong>Related workflows</strong><Link href={`/crm/organisations/${opportunity.organisation_id}`}>Organisation</Link><Link href={`/commercial-handoff?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Commercial handoff</Link>{opportunity.stage==="WON"&&<><Link href={`/mobilisations?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Authorise mobilisation</Link><Link href={`/events?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Create operational Event</Link></>}</div>
@@ -198,12 +198,12 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
       <div className="crm-detail-grid"><section id="opportunity-overview" className="crm-panel"><h2>Opportunity</h2><dl>
         <div><dt>Estimated opportunity value</dt><dd>{value(opportunity.estimated_value_gbp_pence)}</dd></div>
         <div><dt>Expected decision</dt><dd>{String(opportunity.expected_decision_date ?? "Not set")}</dd></div>
-        <div><dt>Opportunity owner</dt><dd>{owners.find((o)=>o.id===opportunity.owner_person_id)?.displayName ?? "Assigned Office"}</dd></div>
+        <div><dt>Opportunity owner</dt><dd>{owners.find((o)=>o.id===opportunity.owner_person_id)?.displayName ?? String((opportunity.people as Row)?.display_name ?? "Assigned Office")}</dd></div>
         <div><dt>Primary Contact</dt><dd>{data?.contact?`${String((data.contact as Row).first_name)} ${String((data.contact as Row).last_name)}`:"Not selected"}</dd></div>
         <div><dt>Summary</dt><dd>{String(opportunity.summary ?? "No summary")}</dd></div>
       </dl></section><section id="opportunity-stage" className="crm-panel"><h2>Stage and ownership</h2>{!["WON","LOST"].includes(String(opportunity.stage)) ? <>
         <label className="crm-field">Move to stage<select value={stage} onChange={(e)=>setStage(e.target.value)}><option value="">Select stage</option>{stageNames.filter((s)=>s!==opportunity.stage).map((s)=><option key={s} value={s}>{title(s)}</option>)}</select></label>
-        {(stage==="LOST"||backwards)&&<label className="crm-field">{stage==="LOST"?"Lost reason":"Reason for moving backwards"}<Input required value={reason} maxLength={500} onChange={(e)=>setReason(e.target.value)}/></label>}
+        {(stage==="LOST"||backwards)&&<label className="crm-field">{stage==="LOST"?"Lost reason":"Reason for stage change"}<Input required value={reason} maxLength={500} onChange={(e)=>setReason(e.target.value)}/></label>}
         {stage==="WON"&&<label className="crm-confirm"><input type="checkbox" checked={confirm} onChange={(e)=>setConfirm(e.target.checked)}/> I confirm this opportunity is Won. This does not establish a contract or active service.</label>}
         <Button disabled={busy||!stage||(stage==="WON"&&!confirm)||((stage==="LOST"||backwards)&&reason.trim().length<3)} onClick={()=>void act("transition",{id:opportunity.id,stage,reason})}>Record stage change</Button>
         <label className="crm-field">Change accountable owner<select value={fields.ownerId ?? ""} onChange={(e)=>setFields({...fields,ownerId:e.target.value})}><option value="">Select owner</option>{ownerOptions.map((x)=><option key={x.value} value={x.value}>{x.label}</option>)}</select></label>
@@ -212,7 +212,8 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
         <Button variant="outline" disabled={busy} onClick={()=>void act("changeValue",{id:opportunity.id,valuePence:fields.value===""?null:Math.round(Number(fields.value)*100)})}>Update estimate</Button>
       </>:<><p><strong>{title(opportunity.stage)} recorded</strong></p><p>This outcome is terminal in 05A. The record and its history remain available; corrections require a future approved process.</p></>}</section>
       </div>
-      <div id="opportunity-work"><CrmRecordWork kind="opportunity" id={String(opportunity.id)} organisationId={String(opportunity.organisation_id)}
+      <div id="opportunity-work">{Boolean(data?.importedSource) && <section className="crm-panel"><h2>Imported spreadsheet detail</h2><dl>{Object.entries((data?.importedSource as Row).source_data as Row).filter(([, value]) => value != null && value !== "").map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{String(value)}</dd></div>)}</dl></section>}
+      <CrmRecordWork kind="opportunity" id={String(opportunity.id)} organisationId={String(opportunity.organisation_id)}
         owners={owners} currentPersonId={currentPersonId} accountableOwnerId={String(opportunity.owner_person_id)} commercialHistory={rows("history")} /></div>
       <p className="enterprise-honesty">Estimated value is not contracted or invoiced revenue.</p>
     </div>}

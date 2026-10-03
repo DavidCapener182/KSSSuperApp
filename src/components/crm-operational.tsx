@@ -30,6 +30,7 @@ async function send(path: string, body: Record<string, unknown>) {
 export function CrmPipeline({ owners }: { owners: Owner[] }) {
   const [columns, setColumns] = useState<{ stage: string; count: number; items: Row[] }[]>([]);
   const [closed, setClosed] = useState(false);
+  const [dormant, setDormant] = useState(false);
   const [owner, setOwner] = useState("");
   const [type, setType] = useState("");
   const [orgInput, setOrgInput] = useState("");
@@ -47,7 +48,7 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const params = new URLSearchParams({ view: "pipeline", closed: String(closed) });
+      const params = new URLSearchParams({ view: "pipeline", closed: String(closed), dormant: String(dormant) });
       if (owner) params.set("owner", owner);
       if (type) params.set("type", type);
       if (orgSearch) params.set("orgSearch", orgSearch);
@@ -57,7 +58,7 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
       setError("");
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Pipeline unavailable"); }
     finally { setLoading(false); }
-  }, [closed, owner, type, orgSearch]);
+  }, [closed, dormant, owner, type, orgSearch]);
   useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); }, [load]);
   useEffect(() => {
     if (!pending) return;
@@ -96,10 +97,11 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
   }
   return <section aria-label="Opportunity pipeline">
     <div className="crm-operational-tools">
-      <div className="crm-view-switch"><Button variant={!closed ? "default" : "outline"} onClick={() => { setClosed(false); setMobileStage("NEW_LEAD"); }}>Active pipeline</Button>
-        <Button variant={closed ? "default" : "outline"} onClick={() => { setClosed(true); setMobileStage("WON"); }}>Closed history</Button></div>
+      <div className="crm-view-switch"><Button variant={!closed && !dormant ? "default" : "outline"} onClick={() => { setClosed(false); setDormant(false); setMobileStage("NEW_LEAD"); }}>Active pipeline</Button>
+        <Button variant={closed ? "default" : "outline"} onClick={() => { setClosed(true); setDormant(false); setMobileStage("WON"); }}>Closed history</Button>
+        <Button variant={dormant ? "default" : "outline"} onClick={() => { setClosed(false); setDormant(true); setMobileStage("DORMANT"); }}>Dormant</Button></div>
       <label className="crm-field crm-mobile-stage">Stage<select value={mobileStage} onChange={(event) => setMobileStage(event.target.value)}>
-        {(closed ? ["WON", "LOST"] : openStages).map((stage) => <option key={stage} value={stage}>{label(stage)}</option>)}
+        {(closed ? ["WON", "LOST"] : dormant ? ["DORMANT"] : openStages).map((stage) => <option key={stage} value={stage}>{label(stage)}</option>)}
       </select></label>
       <Button className={sales.filterToggle} variant="outline" aria-expanded={filtersOpen} aria-controls="crm-pipeline-filters"
         onClick={() => setFiltersOpen((value) => !value)}>{filtersOpen ? "Hide filters" : "Filter pipeline"}</Button>
@@ -133,14 +135,14 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
             <Link className={sales.dealTitle} href={`/crm/opportunities/${item.id}`}><strong>{String(item.title)}</strong><span>{String((item.crm_organisations as Row)?.name ?? "Organisation")}</span></Link>
             <span className={sales.stage}>{label(String(item.stage))}</span>
             <strong className={sales.value}>{item.estimated_value_gbp_pence == null ? "Estimate not recorded" : `${money(item.estimated_value_gbp_pence)} estimated`}</strong>
-            <div className={sales.details}><span>Owner: {owners.find((person) => person.id === item.owner_person_id)?.displayName ?? "Office"}</span>
+            <div className={sales.details}><span>Owner: {owners.find((person) => person.id === item.owner_person_id)?.displayName ?? String((item.people as Row)?.display_name ?? "Office")}</span>
               <span>Decision: {item.expected_decision_date ? String(item.expected_decision_date) : "Not set"}</span>
               {Boolean(item.primaryContactName) && <span>Contact: {String(item.primaryContactName)}</span>}</div>
-            <div className={sales.next}><small>Next action</small>{item.nextFollowUp ? <><strong>{String((item.nextFollowUp as Row).title)}</strong><span>{crmDueStatus((item.nextFollowUp as Row).due_at as string | null)} · {time((item.nextFollowUp as Row).due_at)}</span></> : <span>No open Opportunity follow-up</span>}</div>
+            <div className={sales.next}><small>Next action</small>{item.nextFollowUp ? <><strong>{String((item.nextFollowUp as Row).title)}</strong><span>{crmDueStatus((item.nextFollowUp as Row).due_at as string | null)} · {time((item.nextFollowUp as Row).due_at)}</span></> : item.importedFollowUp && (item.importedFollowUp as Row)["Next Action"] ? <><strong>{String((item.importedFollowUp as Row)["Next Action"])}</strong><span>Spreadsheet follow-up: {String((item.importedFollowUp as Row)["Next Follow-Up Date"] || "No date")}</span></> : <span>No open Opportunity follow-up</span>}</div>
             {item.stage === "WON" && <Link className={sales.handoff} href={`/commercial-handoff?organisation=${item.organisation_id}&opportunity=${item.id}`}>Review Won handoff →</Link>}
             {!closed && <details className={sales.stageControl}><summary>Change stage</summary><label className="crm-board-stage-action">New stage<select aria-label={`Move ${item.title} to stage`} value=""
               onChange={(event) => move(String(item.id), String(item.stage), event.target.value)}>
-              <option value="">Select stage</option>{[...openStages, "WON", "LOST"].filter((stage) => stage !== item.stage)
+              <option value="">Select stage</option>{[...openStages, "DORMANT", "WON", "LOST"].filter((stage) => stage !== item.stage)
                 .map((stage) => <option key={stage} value={stage}>{label(stage)}</option>)}
             </select></label></details>}
           </article>)}
@@ -150,13 +152,13 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
     {pending && <div className="crm-dialog-backdrop"><section ref={dialogRef} className="crm-dialog" role="dialog" aria-modal="true" aria-label="Confirm stage change">
       <h2>Move to {label(pending.to)}?</h2><p>{label(pending.from)} → {label(pending.to)}</p>
       {error && <p role="alert" className="enterprise-error">{error}</p>}
-      {(pending.to === "LOST" || rank(pending.to) < rank(pending.from)) && <label className="crm-field">Reason
+      {(pending.to === "LOST" || pending.to === "DORMANT" || pending.from === "DORMANT" || rank(pending.to) < rank(pending.from)) && <label className="crm-field">Reason
         <Input autoFocus value={reason} maxLength={500} onChange={(event) => setReason(event.target.value)} /></label>}
       {pending.to === "WON" && <label className="crm-confirm"><input type="checkbox" checked={confirm}
         onChange={(event) => setConfirm(event.target.checked)} /> I confirm this commercial decision. It does not establish a signed contract.</label>}
       <div className="crm-dialog-actions"><Button variant="outline" onClick={() => { setPending(null); returnFocus.current?.focus(); }}>Cancel</Button>
         <Button disabled={busy || (pending.to === "WON" && !confirm) ||
-          ((pending.to === "LOST" || rank(pending.to) < rank(pending.from)) && reason.trim().length < 3)} onClick={() => void commit()}>
+          ((pending.to === "LOST" || pending.to === "DORMANT" || pending.from === "DORMANT" || rank(pending.to) < rank(pending.from)) && reason.trim().length < 3)} onClick={() => void commit()}>
           {busy ? "Saving…" : "Record stage change"}</Button></div>
     </section></div>}
   </section>;

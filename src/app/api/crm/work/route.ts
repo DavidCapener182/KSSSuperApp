@@ -35,11 +35,11 @@ export async function GET(request: Request) {
         .eq("task_type", "CRM_FOLLOW_UP").eq("source_kind", "CRM_OPPORTUNITY").eq("state", "OPEN")
         .lt("due_at", weekEnd.toISOString()).order("due_at", { ascending: true }).limit(25),
       client.from("crm_opportunities").select("id,title,stage,owner_person_id,expected_decision_date,crm_organisations(name)")
-        .not("stage", "in", '("WON","LOST")').gte("expected_decision_date", today)
+        .not("stage", "in", '("WON","LOST","DORMANT")').gte("expected_decision_date", today)
         .lte("expected_decision_date", weekEnd.toISOString().slice(0, 10))
         .order("expected_decision_date").limit(15),
       client.from("crm_opportunities").select("id,title,stage,owner_person_id,expected_decision_date,crm_organisations(name)")
-        .not("stage", "in", '("WON","LOST")').order("updated_at", { ascending: false }).limit(50),
+        .not("stage", "in", '("WON","LOST","DORMANT")').order("updated_at", { ascending: false }).limit(50),
     ]);
     if (followUps.error || decisions.error || openSample.error) return privateJson({ error: "Commercial attention unavailable" }, 503);
     const sourceIds = [...new Set((followUps.data ?? []).map(task => task.source_id).filter(isUuid))];
@@ -59,10 +59,10 @@ export async function GET(request: Request) {
   }
   if (view === "pipeline") {
     const closed = params.get("closed") === "true";
-    const selectedStages = closed ? ["WON", "LOST"] : stages;
+    const selectedStages = closed ? ["WON", "LOST"] : params.get("dormant") === "true" ? ["DORMANT"] : stages;
     const results = await Promise.all(selectedStages.map(async (stage) => {
       let query = client.from("crm_opportunities")
-        .select("id,title,stage,organisation_id,owner_person_id,opportunity_type,estimated_value_gbp_pence,expected_decision_date,primary_contact_id,crm_organisations!inner(name)", { count: "exact" })
+        .select("id,title,stage,organisation_id,owner_person_id,opportunity_type,estimated_value_gbp_pence,expected_decision_date,primary_contact_id,crm_organisations!inner(name),people!crm_opportunities_owner_person_id_fkey(display_name)", { count: "exact" })
         .eq("stage", stage).order("updated_at", { ascending: false }).order("id");
       if (owner) query = query.eq("owner_person_id", owner === "mine" ? principal.personId : owner);
       if (type) query = query.eq("opportunity_type", type);
@@ -84,11 +84,14 @@ export async function GET(request: Request) {
       .eq("state", "OPEN").in("source_id", ids).order("due_at", { ascending: true, nullsFirst: false })
       .order("created_at", { ascending: true }).order("id", { ascending: true }) : null;
     if (tasks?.error) return privateJson({ error: "CRM unavailable" }, 503);
+    const imported = ids.length ? await client.from("crm_import_records").select("opportunity_id,source_data").in("opportunity_id", ids) : null;
+    if (imported?.error) return privateJson({ error: "CRM unavailable" }, 503);
+    const sourceById = new Map((imported?.data ?? []).map((item) => [item.opportunity_id, item.source_data]));
     const next = new Map<string, { title: string; due_at: string | null }>();
     for (const task of tasks?.data ?? []) if (!next.has(task.source_id)) next.set(task.source_id, task);
     return privateJson({ columns: results.map(({ stage, count, items }) => ({
       stage, count, items: items.map((item) => ({ ...item, primaryContactName: contactNames.get(item.primary_contact_id) ?? null,
-        nextFollowUp: next.get(item.id) ?? null })),
+        nextFollowUp: next.get(item.id) ?? null, importedFollowUp: sourceById.get(item.id) ?? null })),
     })) });
   }
   if (view === "opportunity" || view === "organisation") {

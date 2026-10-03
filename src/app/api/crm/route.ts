@@ -5,7 +5,7 @@ import { createServerSupabase } from "@/lib/supabase/server";
 
 const views = new Set(["overview", "organisations", "contacts", "opportunities", "organisation", "opportunity"]);
 const types = new Set(["TENDER", "DIRECT_ENQUIRY", "EXISTING_CLIENT_EXPANSION", "RENEWAL", "PROSPECTING"]);
-const stages = new Set(["NEW_LEAD", "CONTACTED", "QUALIFIED", "PROPOSAL_TENDER", "NEGOTIATION", "WON", "LOST"]);
+const stages = new Set(["NEW_LEAD", "CONTACTED", "QUALIFIED", "PROPOSAL_TENDER", "NEGOTIATION", "DORMANT", "WON", "LOST"]);
 const statuses = new Set(["PROSPECT", "CLIENT", "FORMER_CLIENT", "PARTNER"]);
 const text = (value: unknown, max: number) => typeof value === "string" && value.length <= max && !/[\x00-\x1f\x7f]/.test(value);
 const maybe = (value: unknown, max: number) => value == null || text(value, max);
@@ -34,7 +34,7 @@ export async function GET(request: Request) {
     const [organisations, contacts, open, newLeads, proposals, won, lost, operational] = await Promise.all([
       client.from("crm_organisations").select("id", { count: "exact", head: true }),
       client.from("crm_contacts").select("id", { count: "exact", head: true }),
-      client.from("crm_opportunities").select("id", { count: "exact", head: true }).not("stage", "in", '("WON","LOST")'),
+      client.from("crm_opportunities").select("id", { count: "exact", head: true }).not("stage", "in", '("WON","LOST","DORMANT")'),
       client.from("crm_opportunities").select("id", { count: "exact", head: true }).eq("stage", "NEW_LEAD"),
       client.from("crm_opportunities").select("id", { count: "exact", head: true }).eq("stage", "PROPOSAL_TENDER"),
       client.from("crm_opportunities").select("id", { count: "exact", head: true }).eq("stage", "WON"),
@@ -48,9 +48,9 @@ export async function GET(request: Request) {
   }
   if (view === "organisation") {
     const [organisation, contacts, opportunities, history, ownerHistory] = await Promise.all([
-      client.from("crm_organisations").select("*").eq("id", id!).maybeSingle(),
+      client.from("crm_organisations").select("*,people!crm_organisations_owner_person_id_fkey(display_name)").eq("id", id!).maybeSingle(),
       client.from("crm_contacts").select("*").eq("organisation_id", id!).order("created_at"),
-      client.from("crm_opportunities").select("*").eq("organisation_id", id!).order("created_at", { ascending: false }),
+      client.from("crm_opportunities").select("*,people!crm_opportunities_owner_person_id_fkey(display_name)").eq("organisation_id", id!).order("created_at", { ascending: false }),
       client.from("crm_relationship_events").select("*").eq("organisation_id", id!).order("occurred_at", { ascending: false }).limit(100),
       client.from("crm_organisation_owner_events").select("*").eq("organisation_id", id!).order("occurred_at", { ascending: false }).limit(100),
     ]);
@@ -59,19 +59,20 @@ export async function GET(request: Request) {
     return privateJson({ organisation: organisation.data, contacts: contacts.data, opportunities: opportunities.data, history: history.data, ownerHistory: ownerHistory.data });
   }
   if (view === "opportunity") {
-    const opportunity = await client.from("crm_opportunities").select("*").eq("id", id!).maybeSingle();
+    const opportunity = await client.from("crm_opportunities").select("*,people!crm_opportunities_owner_person_id_fkey(display_name)").eq("id", id!).maybeSingle();
     if (opportunity.error) return privateJson({ error: "CRM unavailable" }, 503);
     if (!opportunity.data) return privateJson({ error: "Not found" }, 404);
-    const [organisation, contact, history] = await Promise.all([
+    const [organisation, contact, history, importedSource] = await Promise.all([
       client.from("crm_organisations").select("id,name,relationship_status").eq("id", opportunity.data.organisation_id).single(),
       opportunity.data.primary_contact_id ? client.from("crm_contacts").select("id,first_name,last_name").eq("id", opportunity.data.primary_contact_id).single() : Promise.resolve({ data: null, error: null }),
       client.from("crm_opportunity_events").select("*").eq("opportunity_id", id!).order("occurred_at", { ascending: false }).limit(100),
+      client.from("crm_import_records").select("source_data,source_name,imported_at").eq("opportunity_id", id!).maybeSingle(),
     ]);
-    if (organisation.error || contact.error || history.error) return privateJson({ error: "CRM unavailable" }, 503);
-    return privateJson({ opportunity: opportunity.data, organisation: organisation.data, contact: contact.data, history: history.data });
+    if (organisation.error || contact.error || history.error || importedSource.error) return privateJson({ error: "CRM unavailable" }, 503);
+    return privateJson({ opportunity: opportunity.data, organisation: organisation.data, contact: contact.data, history: history.data, importedSource: importedSource.data });
   }
   if (view === "organisations") {
-    let query = client.from("crm_organisations").select("*", { count: "exact" }).order("name").order("id");
+    let query = client.from("crm_organisations").select("*,people!crm_organisations_owner_person_id_fkey(display_name)", { count: "exact" }).order("name").order("id");
     if (search) query = query.or(`name.ilike.%${search}%,trading_name.ilike.%${search}%`);
     if (status) query = query.eq("relationship_status", status);
     if (owner) query = query.eq("owner_person_id", owner);
@@ -81,7 +82,7 @@ export async function GET(request: Request) {
     if (!ids.length) return privateJson({ items: [], total: result.count, offset });
     const [primary, open] = await Promise.all([
       client.from("crm_contacts").select("organisation_id,first_name,last_name").in("organisation_id", ids).eq("is_primary", true).eq("active", true),
-      client.from("crm_opportunities").select("organisation_id").in("organisation_id", ids).not("stage", "in", '("WON","LOST")'),
+      client.from("crm_opportunities").select("organisation_id").in("organisation_id", ids).not("stage", "in", '("WON","LOST","DORMANT")'),
     ]);
     if (primary.error || open.error) return privateJson({ error: "CRM unavailable" }, 503);
     const primaryByOrg = new Map((primary.data ?? []).map((row) => [row.organisation_id, `${row.first_name} ${row.last_name}`]));
@@ -96,7 +97,7 @@ export async function GET(request: Request) {
     if (result.error) return privateJson({ error: "CRM unavailable" }, 503);
     return privateJson({ items: result.data, total: result.count, offset });
   }
-  let query = client.from("crm_opportunities").select("*,crm_organisations(name)", { count: "exact" }).order("created_at", { ascending: false }).order("id");
+  let query = client.from("crm_opportunities").select("*,crm_organisations(name),people!crm_opportunities_owner_person_id_fkey(display_name)", { count: "exact" }).order("created_at", { ascending: false }).order("id");
   if (search) query = query.ilike("title", `%${search}%`);
   if (stage) query = query.eq("stage", stage);
   if (type) query = query.eq("opportunity_type", type);
