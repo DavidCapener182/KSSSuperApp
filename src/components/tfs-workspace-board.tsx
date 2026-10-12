@@ -2,11 +2,11 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { STATUSES, type Issue } from "@/lib/client-workspaces/types";
+import { STATUSES, type Issue, type OwnerChoice } from "@/lib/client-workspaces/types";
 const REGIONS = ["all", "north", "south", "unassigned"] as const;
 const TYPES = ["Stock loss", "External theft", "Tester orders", "Stock discrepancy", "Other"] as const;
 const PRIORITIES = ["Urgent", "High", "Review", "Monitor"] as const;
-export function TfsBoard({workspaceId,issues,canOperate}:{workspaceId:string;issues:Issue[];canOperate:boolean}) {
+export function TfsBoard({workspaceId,issues,canOperate,owners}:{workspaceId:string;issues:Issue[];canOperate:boolean;owners:OwnerChoice[]|null}) {
  const [region,setRegion]=useState<typeof REGIONS[number]>("all"); const [query,setQuery]=useState("");
  const [lane,setLane]=useState<typeof STATUSES[number]>(STATUSES[0]); const [newIssue,setNewIssue]=useState(false);
  const filtered=useMemo(()=>issues.filter(i=>(region==="all"||i.source_region===region) &&
@@ -16,16 +16,17 @@ export function TfsBoard({workspaceId,issues,canOperate}:{workspaceId:string;iss
  <div className="cw-metrics"><div><b>{filtered.length}</b><span>Total cards · {open} open</span></div><div><b>{filtered.filter(i=>i.status==="Visit needed").length}</b><span>Visit needed</span></div><div><b>{filtered.filter(i=>i.potential_internal_theft_review&&i.status!=="Closed").length}</b><span>Internal theft review · unproven</span></div><div><b>{filtered.filter(i=>i.priority==="Urgent"&&i.status!=="Closed").length}</b><span>Red / urgent</span></div></div>
  <div className="cw-lane-tabs" aria-label="Issue status">{STATUSES.map(s=><button type="button" key={s} aria-pressed={lane===s} onClick={()=>setLane(s)}>{s} <span>{filtered.filter(i=>i.status===s).length}</span></button>)}</div>
  <div className="cw-board">{STATUSES.map(s=><section key={s} className={`cw-lane ${lane===s?"cw-lane-active":""}`} aria-label={s}><h2>{s} <span>{filtered.filter(i=>i.status===s).length}</span></h2><div className="cw-lane-list" role="region" aria-label={`${s} cards`} tabIndex={0}>{filtered.filter(i=>i.status===s).map(i=><Link className="cw-issue-card" key={i.id} href={`/client-workspaces/${workspaceId}/loss-prevention/${i.id}`}><span className="cw-card-top"><strong>{i.store_number?`${i.store_number} · `:""}{i.store_name}</strong><span className={`cw-priority cw-${i.priority.toLowerCase()}`}>{i.priority}</span></span><small>{i.ownerPersonName||i.source_owner} · {i.issue_type} · {i.evidence_date||"Date to verify"}</small><p>{i.evidence_summary}</p>{i.potential_internal_theft_review&&<em>◉ Internal theft review · unproven</em>}<span className="cw-next"><b>Next:</b> {i.next_action}</span>{i.source_note&&<span className="cw-source">{i.source_note}</span>}</Link>)}</div></section>)}</div>
- {newIssue&&<div className="cw-dialog-wrap"><div className="cw-dialog" role="dialog" aria-modal="true" aria-label="Add issue"><button type="button" className="cw-dialog-close" onClick={()=>setNewIssue(false)}>Close</button><h2>Add issue</h2><p>New details are saved only after the server accepts and reads them back.</p><TfsIssueEditor workspaceId={workspaceId} onSaved={()=>setNewIssue(false)}/></div></div>}</>;
+ {newIssue&&<div className="cw-dialog-wrap"><div className="cw-dialog" role="dialog" aria-modal="true" aria-label="Add issue"><button type="button" className="cw-dialog-close" onClick={()=>setNewIssue(false)}>Close</button><h2>Add issue</h2><p>New details are saved only after the server accepts and reads them back.</p><TfsIssueEditor workspaceId={workspaceId} owners={owners} onSaved={()=>setNewIssue(false)}/></div></div>}</>;
 }
-export function TfsIssueEditor({workspaceId,issue,onSaved}:{workspaceId:string;issue?:Issue;onSaved?:()=>void}) {
+export function TfsIssueEditor({workspaceId,issue,onSaved,owners}:{workspaceId:string;issue?:Issue;owners:OwnerChoice[]|null;onSaved?:()=>void}) {
  const router=useRouter(); const [busy,setBusy]=useState(false); const [message,setMessage]=useState("");
  const [status,setStatus]=useState(issue?.status||STATUSES[0]); const [priority,setPriority]=useState(issue?.priority||"Review");
  const [type,setType]=useState(issue?.issue_type||TYPES[0]); const [region,setRegion]=useState(issue?.source_region||"unassigned");
  async function save(form:FormData) {
+  if (owners === null) {setMessage("Person choices unavailable. Reload before saving.");return;}
   setBusy(true); setMessage("Saving and reading back…");
   const data={storeName:String(form.get("storeName")||""),storeNumber:String(form.get("storeNumber")||""),region,
-   owner:String(form.get("owner")||"Unassigned"),type,priority,status,evidenceDate:String(form.get("evidenceDate")||""),
+   owner:String(form.get("owner")||"Unassigned"),ownerPersonId:String(form.get("ownerPersonId")||"")||null,type,priority,status,evidenceDate:String(form.get("evidenceDate")||""),
    evidenceSummary:String(form.get("evidenceSummary")||""),nextAction:String(form.get("nextAction")||""),
    sourceNote:String(form.get("sourceNote")||""),potentialInternalTheftReview:form.get("internal")==="on"};
   try { const path=`/api/client-workspaces/${workspaceId}/issues${issue?`/${issue.id}`:""}`;
@@ -37,7 +38,12 @@ export function TfsIssueEditor({workspaceId,issue,onSaved}:{workspaceId:string;i
  }
  return <form className="cw-form" action={save}><label>Store name<input name="storeName" required maxLength={160} defaultValue={issue?.store_name}/></label><label>Store number (text, exact)<input name="storeNumber" maxLength={40} defaultValue={issue?.store_number||""}/></label>
  <label>Source region<select value={region} onChange={e=>setRegion(e.target.value as typeof region)}><option value="north">North</option><option value="south">South</option><option value="unassigned">Unassigned</option></select></label>
- <label>Owner name<input name="owner" required maxLength={120} defaultValue={issue?.ownerPersonName||issue?.source_owner||"Unassigned"}/></label>
+ <label>Source owner label<input name="owner" required maxLength={120} defaultValue={issue?.source_owner||"Unassigned"}/></label>
+ <label>Assigned KSS Person<select name="ownerPersonId" defaultValue={issue?.owner_person_id || ""} disabled={owners===null}>
+ <option value="">Unassigned / source label only</option>
+ {issue?.owner_person_id&&!owners?.some(p=>p.id===issue.owner_person_id)&&<option value={issue.owner_person_id}>{issue.ownerPersonName||"Existing Person"} · preserve current link</option>}
+ {owners?.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></label>
+ {owners===null&&<p role="alert">Person choices unavailable. Reload before saving.</p>}
  <label>Type<select value={type} onChange={e=>setType(e.target.value)}>{TYPES.map(t=><option key={t}>{t}</option>)}</select></label>
  <label>Priority<select value={priority} onChange={e=>setPriority(e.target.value as typeof priority)}>{PRIORITIES.map(p=><option key={p}>{p}</option>)}</select></label>
  <label>Status<select value={status} onChange={e=>setStatus(e.target.value as typeof status)}>{STATUSES.map(s=><option key={s}>{s}</option>)}</select></label>
@@ -47,5 +53,5 @@ export function TfsIssueEditor({workspaceId,issue,onSaved}:{workspaceId:string;i
  <label className="cw-span">Source note<textarea name="sourceNote" maxLength={1000} defaultValue={issue?.source_note||""}/></label>
  <label className="cw-checkbox cw-span"><input name="internal" type="checkbox" defaultChecked={issue?.potential_internal_theft_review}/><span>Potential internal theft review · unproven</span></label>
  {issue&&<label className="cw-span">Reason for change<input name="reason" required minLength={10} maxLength={500}/></label>}
- <div className="cw-span"><button className="cw-primary" disabled={busy}>{busy?"Confirming…":issue?"Save change":"Create issue"}</button><p role="status" aria-live="polite">{message}</p></div></form>;
+ <div className="cw-span"><button className="cw-primary" disabled={busy||owners===null}>{busy?"Confirming…":issue?"Save change":"Create issue"}</button><p role="status" aria-live="polite">{message}</p></div></form>;
 }

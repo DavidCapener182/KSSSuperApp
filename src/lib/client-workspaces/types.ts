@@ -10,3 +10,5 @@ export type Issue = {
   history?: { revision: number; action: string; actorPersonId: string; reason: string | null; occurredAt: string; before: unknown; after: unknown }[];
 };
 export type Workspace = { id: string; organisationId: string; name: string; status: string; permission: "VIEW" | "OPERATE" | "MANAGE" };
+
+export type OwnerChoice = { id: string; name: string };

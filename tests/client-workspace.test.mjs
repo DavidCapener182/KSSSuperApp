@@ -53,6 +53,19 @@ test('CW01 exact grant, cross-client denial, revocation and issue readback', {ti
  const after=await a.rpc('cw_issue',{p_workspace:wa.data,p_issue:created.data});assert.ifError(after.error);
  assert.equal(after.data.status,'Investigating');assert.equal(after.data.revision,2);assert.equal(after.data.history.length,2);
  phase('issue revision 2 read back');
+ const choices=await a.rpc('cw_owner_choices',{p_workspace:wa.data});assert.ifError(choices.error);
+ assert.ok(choices.data.some(p=>p.id===staffA));
+ assert.ok((await b.rpc('cw_owner_choices',{p_workspace:wa.data})).error);
+ assert.ok((await anon.rpc('cw_owner_choices',{p_workspace:wa.data})).error);
+ const assign=await a.rpc('cw_issue_save',{p_workspace:wa.data,p_issue:created.data,p_revision:2,p_data:{...issue,status:'Investigating',ownerPersonId:staffA},p_reason:'Exact synthetic Person assignment'});assert.ifError(assign.error);
+ const assigned=await a.rpc('cw_issue',{p_workspace:wa.data,p_issue:created.data});assert.ifError(assigned.error);
+ assert.equal(assigned.data.owner_person_id,staffA);assert.equal(assigned.data.status,'Investigating');assert.equal(assigned.data.history.length,3);
+ const invalid=await a.rpc('cw_issue_save',{p_workspace:wa.data,p_issue:created.data,p_revision:3,p_data:{...issue,ownerPersonId:crypto.randomUUID()},p_reason:'Invalid Person must fail'});assert.ok(invalid.error);
+ const preserve=await a.rpc('cw_issue_save',{p_workspace:wa.data,p_issue:created.data,p_revision:3,p_data:{...issue,status:'Investigating'},p_reason:'Legacy omission preserves assignment'});assert.ifError(preserve.error);
+ const preserved=await a.rpc('cw_issue',{p_workspace:wa.data,p_issue:created.data});assert.equal(preserved.data.owner_person_id,staffA);assert.equal(preserved.data.revision,4);
+ const clear=await a.rpc('cw_issue_save',{p_workspace:wa.data,p_issue:created.data,p_revision:4,p_data:{...issue,status:'Investigating',ownerPersonId:null},p_reason:'Explicit clear removes assignment'});assert.ifError(clear.error);
+ const cleared=await a.rpc('cw_issue',{p_workspace:wa.data,p_issue:created.data});assert.equal(cleared.data.owner_person_id,null);assert.equal(cleared.data.status,'Investigating');
+
  const stale=await a.rpc('cw_issue_save',{p_workspace:wa.data,p_issue:created.data,p_revision:1,p_data:issue,p_reason:'Stale synthetic write'});
  assert.equal(stale.error?.code,'P0001');
  phase('stale revision rejected');

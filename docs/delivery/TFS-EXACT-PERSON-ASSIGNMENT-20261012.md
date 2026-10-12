@@ -1,0 +1,7 @@
+# TFS exact Person assignment — 12 October 2026
+
+David requested the live app assignment repair and Dumfries link. The old editor sent only a source owner label and cw_issue_save never wrote owner_person_id.
+
+The editor now provides an explicit KSS Person choice from a guarded minimal ID/name projection. The existing exact OPERATE guard, optimistic revision check, reason and immutable before/after history remain. A Person assignment grants no access. Missing ownerPersonId preserves the link for older clients; explicit null clears it; unknown Person IDs fail. Failed choices disable saves. Source owner text remains separate. No automatic name matching or bulk reassignment is performed.
+
+Validation: scoped ESLint and production Webpack build passed (placeholder public Supabase build settings). Synthetic transactional rollback proof under authenticated database role passed create/reassign, Andy choice, omitted-field preservation, explicit clearing, invalid ID rejection, stale revision rejection and status/history preservation. The credential-based CW01 regression could not authenticate the stored synthetic Office persona (Invalid login credentials); no credential reset attempted. The expanded regression is retained for valid test credentials. The additive migration was applied to the verified canonical dnfhkmmnlbiabqypclqg project; no operational issue was mutated through SQL. Live browser assignment/readback remains to be completed after deployment.

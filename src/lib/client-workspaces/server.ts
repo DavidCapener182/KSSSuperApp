@@ -3,7 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getPrincipal, isUuid } from "@/lib/auth/principal";
 import { createServerSupabase } from "@/lib/supabase/server";
 
-import type { Issue, Workspace } from "./types";
+import type { Issue, Workspace, OwnerChoice } from "./types";
 export async function workspaceClient() {
   const client = await createServerSupabase();
   const principal = await getPrincipal(client);
@@ -29,4 +29,9 @@ export async function readIssue(client: SupabaseClient, workspaceId: string, iss
   return data as Issue;
 }
 
-export type { Issue, Workspace } from "./types";
+export type { Issue, Workspace, OwnerChoice } from "./types";
+
+export async function readOwnerChoices(client: SupabaseClient, workspaceId: string): Promise<OwnerChoice[] | null> {
+  const { data, error } = await client.rpc("cw_owner_choices", { p_workspace: workspaceId });
+  return error || !Array.isArray(data) ? null : data as OwnerChoice[];
+}
