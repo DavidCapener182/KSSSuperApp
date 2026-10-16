@@ -1,0 +1,77 @@
+{
+  "baseline": "a216616cb41899f6476b2788219f63eb0de7b5fe",
+  "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-home-favourites-fixture-eKuigX",
+  "manifest": [
+    {
+      "file": "src/app/(enterprise)/app/page.tsx",
+      "sha256": "ec72909d228ce87cb222afec37b793690e9016bb58fe3f688a19dda707e36937"
+    },
+    {
+      "file": "src/app/(enterprise)/app/home.module.css",
+      "sha256": "610a919ec7ea2b3212542f6f62261bb8eda34f01c5a021fd27481a2bcb951f06"
+    },
+    {
+      "file": "src/components/home-favourites.tsx",
+      "sha256": "b2931f5720f4a00a1a6ab0a863941af2b8f19034d04300f748a71ff421809b03"
+    },
+    {
+      "file": "src/components/home-favourites.module.css",
+      "sha256": "4bc0cf06ed12449dca93568b1bf5eff21d1604d36dc94c8a1ca0ebcbabd56445"
+    },
+    {
+      "file": "src/lib/home-favourites.ts",
+      "sha256": "285c1bb697fc2c05af018a47c4de600a37442ca8eb86ee3067c813dbdf0e718d"
+    },
+    {
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "sha256": "08e5f87833c5db8436e89337ebde0f776bcdbf649d3de69fb89be6441ca2e366"
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "9af6a0da7258746624346506c3ff98c9e300ceb10ef17ca079a1c8c5d5090814"
+    },
+    {
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+    },
+    {
+      "file": "src/lib/auth/return-target.ts",
+      "sha256": "f8203e4cce09b400ced1872f44dfe0da40e5392e0dab5e627f9241a1950d0bee"
+    },
+    {
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "file": "src/components/external-app-shortcuts.tsx",
+      "sha256": "e6c920dac23460637bb4f9bf754e9d1d0edde981798fccfb1505710c4a7029e2"
+    },
+    {
+      "file": "src/components/external-app-shortcuts.module.css",
+      "sha256": "06d621eb0befe7bc8df6b1f9e500199d44a92a3526eaad8ef47dc4451247d7a2"
+    },
+    {
+      "file": "src/lib/external-apps.ts",
+      "sha256": "19827804470e65fab7d4c933f53d8d3a42d345697e41fd41979a4eb8df34661f"
+    },
+    {
+      "file": "src/app/globals.css",
+      "sha256": "b33a3b8e550c51ef8fc3946d1e43cd520e25f9bd1918e6941325f4f11b74a541"
+    },
+    {
+      "file": "postcss.config.mjs",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    }
+  ],
+  "mocked": [
+    "cookie-selected principal",
+    "Supabase clients",
+    "task/training reads",
+    "/api/me",
+    "Sites destination"
+  ]
+}

@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { OperationalDocumentPicker, type DocumentChoice } from "@/components/operational-document-picker";
 import styles from "./operational-documents.module.css";
+import readingStyles from "./operational-reading-filters.module.css";
+import { filterReadingList, groupReadingAssignments, type ReadingAssignment, type ReadingFilter } from "@/lib/controlled/reading-list";
 
 type Version = { id: string; version_number: number; title: string; state: string; upload_state: string; effective_on: string | null };
 type Document = { id: string; title: string; controlled_document_versions: Version[] };
@@ -10,10 +12,7 @@ type Assignment = { id: string; documentId: string; versionId: string; title: st
   targetKind: string; targetId: string; contextKind: string | null; contextId: string | null;
   required: boolean; effectiveFrom: string; effectiveUntil: string | null; closedAt: string | null;
   closeKind: string | null; replacementId: string | null };
-type Mine = { id: string; document_id: string; version_id: string; version_number: number; title: string;
-  target_kind: string; target_id: string; required: boolean; effective_from: string;
-  current: boolean; conflict: boolean; opened: boolean; acknowledged_at: string | null; close_kind: string | null;
-  context_label?: string };
+
 
 async function jsonRequest(path: string, method = "GET", body?: unknown) {
   const response = await fetch(path, { method, cache: "no-store", headers: body ? { "Content-Type": "application/json" } : undefined,
@@ -29,7 +28,11 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
   staff: boolean; manager: boolean; operations: boolean; superAdmin: boolean;
   initialContext?: { kind: string; id: string };
 }) {
-  const [mine, setMine] = useState<Mine[]>([]);
+  const [mine, setMine] = useState<ReadingAssignment[]>([]);
+  const [readingState, setReadingState] = useState<"loading" | "ready" | "unavailable">("loading");
+  const [readingSearch, setReadingSearch] = useState("");
+  const [readingFilter, setReadingFilter] = useState<ReadingFilter>("ALL");
+  const clearReadingFilters = () => { setReadingSearch(""); setReadingFilter("ALL"); };
   const [documents, setDocuments] = useState<Document[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [caps, setCaps] = useState({ publish: false, assign: false });
@@ -72,8 +75,16 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
 
   const load = useCallback(async () => {
     if (staff) {
-      const result = await jsonRequest("/api/operational-documents/my");
-      setMine(result.assignments ?? []);
+      setReadingState("loading");
+      try {
+        const result = await jsonRequest("/api/operational-documents/my");
+        setMine(result.assignments ?? []);
+        setReadingState("ready");
+      } catch (caught) {
+        setMine([]);
+        setReadingState("unavailable");
+        throw caught;
+      }
     }
     if (manager) {
       const result = await jsonRequest("/api/operational-documents");
@@ -104,20 +115,9 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
     .filter((version) => version.state === "PUBLISHED" && version.upload_state === "READY")
     .map((version) => ({ ...version, documentTitle: doc.title, documentId: doc.id })));
   const active = assignments.filter((item) => !item.closedAt || new Date(item.closedAt) > new Date());
-  const grouped = new Map<string, Mine[]>();
-  for (const item of mine) {
-    const key = `${item.document_id}:${item.version_id}`;
-    grouped.set(key, [...(grouped.get(key) ?? []), item]);
-  }
-  const reading = Array.from(grouped.values()).map((items) => {
-    const currentItems = items.filter((item) => item.current);
-    const selected = currentItems.find((item) => item.opened) ?? currentItems[0] ?? items[0];
-    return { ...selected, contexts: items.map((item) => item.context_label ?? item.target_kind.replaceAll("_", " ")),
-      current: currentItems.length > 0, conflict: items.some((item) => item.conflict),
-      opened: currentItems.some((item) => item.opened),
-      acknowledged_at: items.find((item) => item.acknowledged_at)?.acknowledged_at ?? null,
-      required: items.some((item) => item.required) };
-  });
+  const reading = groupReadingAssignments(mine);
+  const visibleReading = filterReadingList(reading, readingFilter, readingSearch);
+  const readingFiltered = readingFilter !== "ALL" || readingSearch.length > 0;
   const remaining = selected.length && replacementVersion ? active.filter((item) =>
     item.documentId === active.find((candidate) => candidate.id === selected[0])?.documentId &&
     item.versionId !== replacementVersion && !selected.includes(item.id)).length : 0;
@@ -135,8 +135,24 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
     {message && <p className={styles.message} role="status">{message}</p>}
 
     {staff && <section className={styles.section} aria-labelledby="reading-heading"><h2 id="reading-heading">Required reading</h2>
-      {!reading.length && <p>No current operational documents or acknowledgement history.</p>}
-      <div className={styles.grid}>{reading.map((item) => <article key={`${item.document_id}:${item.version_id}`} className={styles.card}>
+      {readingState === "loading" ? <p role="status">Loading your reading list…</p> :
+        readingState === "unavailable" ? <p>Reading list unavailable. Refresh to try again.</p> : <>
+      <div className={readingStyles.filters} role="search" aria-label="Filter reading list">
+        <div className={readingStyles.search}><label htmlFor="reading-search">Search documents</label>
+          <input id="reading-search" type="search" value={readingSearch} placeholder="Titles and contexts"
+            onChange={(event) => setReadingSearch(event.target.value)} /></div>
+        <div><label htmlFor="reading-status">Reading status</label>
+          <select id="reading-status" value={readingFilter} onChange={(event) => setReadingFilter(event.target.value as ReadingFilter)}>
+            <option value="ALL">All reading statuses</option><option value="NOT_OPENED">Not opened</option>
+            <option value="OPENED">Opened, not acknowledged</option><option value="ACKNOWLEDGED">Acknowledged</option>
+            <option value="CONFLICT">Conflicting versions</option><option value="HISTORICAL">Historical</option>
+          </select></div>
+        <button type="button" disabled={!readingFiltered} onClick={clearReadingFilters}>Clear filters</button>
+      </div>
+      <p className={readingStyles.summary} role="status">Showing {visibleReading.length} of {reading.length} returned document versions.</p>
+      {!reading.length && !readingFiltered && <p>No current operational documents or acknowledgement history.</p>}
+      {readingFiltered && !visibleReading.length && <p>No matching documents. Try another title, context or status, or clear filters.</p>}
+      <div className={styles.grid}>{visibleReading.map((item) => <article key={`${item.document_id}:${item.version_id}`} className={styles.card}>
         <p className={styles.eyebrow}>{item.contexts.join(" · ")} · Version {item.version_number}</p>
         <h3>{item.title}</h3><p>Effective {dateText(item.effective_from)} · {item.required ? "Acknowledgement required" : "Optional reading"}</p>
         {item.conflict ? <p className={styles.error}>Conflicting current versions. Ask a manager to resolve the assignments.</p>
@@ -155,6 +171,7 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
             {item.acknowledged_at ? ` Acknowledged ${dateText(item.acknowledged_at)}.` : " No acknowledgement recorded."}
             {" "}PDF access has ended.</p>}
       </article>)}</div>
+      </>}
     </section>}
 
     {(operations || caps.assign) && <section className={styles.section} aria-labelledby="ops-doc-heading"><h2 id="ops-doc-heading">Operational document status</h2>

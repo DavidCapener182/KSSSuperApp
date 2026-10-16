@@ -1,0 +1,98 @@
+[
+  {
+    "name": "all-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "conflict-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "historical-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "grouped-context-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "no-match-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "acknowledged-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "all-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "conflict-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "historical-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "grouped-context-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "no-match-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "acknowledged-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "loading-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "empty-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "denied-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "error-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  }
+]

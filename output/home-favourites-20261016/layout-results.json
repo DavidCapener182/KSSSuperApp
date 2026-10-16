@@ -1,0 +1,58 @@
+[
+  {
+    "name": "home-390-selected",
+    "viewport": 390,
+    "pageWidth": 390,
+    "skipLinkTop": -64,
+    "activeTag": "INPUT"
+  },
+  {
+    "name": "home-390-staff",
+    "viewport": 390,
+    "pageWidth": 390,
+    "skipLinkTop": -64,
+    "activeTag": "SUMMARY"
+  },
+  {
+    "name": "home-390-empty",
+    "viewport": 390,
+    "pageWidth": 390,
+    "skipLinkTop": -64,
+    "activeTag": "BODY"
+  },
+  {
+    "name": "home-1280-selected",
+    "viewport": 1280,
+    "pageWidth": 1280,
+    "skipLinkTop": -64,
+    "activeTag": "INPUT"
+  },
+  {
+    "name": "home-1280-staff",
+    "viewport": 1280,
+    "pageWidth": 1280,
+    "skipLinkTop": -64,
+    "activeTag": "SUMMARY"
+  },
+  {
+    "name": "home-1280-empty",
+    "viewport": 1280,
+    "pageWidth": 1280,
+    "skipLinkTop": -64,
+    "activeTag": "BODY"
+  },
+  {
+    "name": "home-storage-read",
+    "viewport": 390,
+    "pageWidth": 390,
+    "skipLinkTop": -64,
+    "activeTag": "INPUT"
+  },
+  {
+    "name": "home-storage-write",
+    "viewport": 390,
+    "pageWidth": 390,
+    "skipLinkTop": -64,
+    "activeTag": "INPUT"
+  }
+]

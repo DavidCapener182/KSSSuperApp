@@ -1,0 +1,12 @@
+{
+  "baseline": "a216616cb41899f6476b2788219f63eb0de7b5fe",
+  "files": {
+    "src/app/(enterprise)/app/page.tsx": "ec72909d228ce87cb222afec37b793690e9016bb58fe3f688a19dda707e36937",
+    "src/components/home-favourites.tsx": "b2931f5720f4a00a1a6ab0a863941af2b8f19034d04300f748a71ff421809b03",
+    "src/components/home-favourites.module.css": "4bc0cf06ed12449dca93568b1bf5eff21d1604d36dc94c8a1ca0ebcbabd56445",
+    "src/lib/home-favourites.ts": "285c1bb697fc2c05af018a47c4de600a37442ca8eb86ee3067c813dbdf0e718d",
+    "tests/home-favourites-local.test.mjs": "38d2ba0eb0098f4b6c49cd3c52625baecc215300c288c1dc841e3cd907f8bcc9",
+    "tests/home-favourites-browser.spec.mjs": "4a2ece63fca50bc05db60c29c9a568d70678848fbd383c76df102053a3b5767b",
+    "docs/delivery/HOME-FAVOURITES-20261016.md": "624cfd270d5151ff4d9ceedbfab4da096ad33c2ca44ba7e467cf37374c455266"
+  }
+}

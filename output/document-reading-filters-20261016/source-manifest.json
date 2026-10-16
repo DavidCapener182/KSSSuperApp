@@ -1,0 +1,33 @@
+{
+  "baseline": "a216616cb41899f6476b2788219f63eb0de7b5fe",
+  "manifest": [
+    {
+      "file": "src/components/operational-documents-client.tsx",
+      "sha256": "f3fe4797a342c8b4f1a18442c2ecde1f8ea8495c37018b5ef3e6b0d3852b2388"
+    },
+    {
+      "file": "src/components/operational-documents.module.css",
+      "sha256": "e463d401c3ecd60230f936645b3ad0517d4ce9523fccc28865ed51cbadbd424e"
+    },
+    {
+      "file": "src/components/operational-reading-filters.module.css",
+      "sha256": "59a89e7fb558354aa1fa85bd46bb8b4e82f363ab8968bd674e86c58c9ad3fb83"
+    },
+    {
+      "file": "src/components/operational-document-picker.tsx",
+      "sha256": "c8c038c3c932c03cb7e1d0d3c5978b5b11782bbf803556a0a8a3785fad8d4e19"
+    },
+    {
+      "file": "src/lib/controlled/reading-list.ts",
+      "sha256": "523e3999b0ec4e4c9b1b6fd441aa91603f6c1d68f97afb7f946265f5b421e95e"
+    },
+    {
+      "file": "src/app/globals.css",
+      "sha256": "b33a3b8e550c51ef8fc3946d1e43cd520e25f9bd1918e6941325f4f11b74a541"
+    },
+    {
+      "file": "postcss.config.mjs",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    }
+  ]
+}

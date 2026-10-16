@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { navigationFor } from "@/lib/auth/capabilities";
 import { getPrincipal } from "@/lib/auth/principal";
 import { createServerSupabase } from "@/lib/supabase/server";
+import { HomeFavourites } from "@/components/home-favourites";
 import { ExternalAppShortcuts } from "@/components/external-app-shortcuts";
 import { listTasks } from "@/lib/tasks/policy";
 import styles from "./home.module.css";
@@ -87,7 +88,8 @@ export default async function AppHome() {
   const client = await createServerSupabase();
   const principal = await getPrincipal(client);
   if (!principal) redirect("/?next=%2Fapp");
-  const allowed = new Set<string>(navigationFor(principal).map((item) => item.href));
+  const navigation = navigationFor(principal);
+  const allowed = new Set<string>(navigation.map((item) => item.href));
   const staff = principal.roles.includes("SECURITY_STAFF");
   if (staff && allowed.has("/my-deployments")) { allowed.add("/my-attendance"); allowed.add("/credentials"); }
   const office = principal.roles.some((role) => role === "OFFICE_ADMIN" || role === "SUPER_ADMIN");
@@ -105,6 +107,7 @@ export default async function AppHome() {
   return <main className={`enterprise-main ${styles.home}`}>
     <header className={styles.hero}><div><p className={styles.kicker}>KSS workspace / Synthetic Development</p><h1>Welcome, {principal.displayName}</h1><p>{staff && !office && !operations ? "Your duty and personal records are a step away." : "Open an operational area or continue your assigned work."}</p></div><p className={styles.date}>{date}</p></header>
     <section className={styles.section} aria-label="Quick access"><h2>Quick access</h2><QuickLinks paths={staff && !office && !operations ? ["/my-duty", "/my-schedule", "/my-deployments"] : ["/workforce", "/events", "/control-room"]} allowed={allowed} /></section>
+    <HomeFavourites key={principal.personId} accountId={principal.personId} entries={navigation} />
     {allowed.has("/work") && <section className={styles.taskPanel} aria-label="My tasks">
       <div className={styles.taskHeading}><h2>My tasks <span>{openTasks.length}</span></h2>
         {openTasks.length > 6 && <Link href="/work">Open My Work <span aria-hidden="true">→</span></Link>}
