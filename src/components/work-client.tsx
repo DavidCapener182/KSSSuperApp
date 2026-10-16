@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { EmptyState, FeedbackBanner, LoadingBlock } from "@/components/ui/workflow";
 import styles from "./work-filters.module.css";
+import { WorkCalendar } from "@/components/work-calendar";
+import calendarStyles from "./work-calendar.module.css";
 import { crmDueStatus } from "@/lib/crm/due-status";
 
-type WorkTask = {
+export type WorkTask = {
   id: string; title: string; state: "OPEN" | "DONE" | "CANCELLED"; covering: boolean;
   createdAt: string; completedAt: string | null;
   sourceKind: "DOCUMENT_VERSION" | "CRM_OPPORTUNITY" | "CRM_ORGANISATION" | "TFS_LP_ISSUE"; sourceId: string;
@@ -78,6 +80,7 @@ function TfsWorkGroup({ tasks, kind }: { tasks: WorkTask[]; kind: "actions" | "l
 }
 
 export function WorkClient() {
+  const [view, setView] = useState<"list" | "calendar">("list");
   const [tasks, setTasks] = useState<WorkTask[]>([]);
   const [source, setSource] = useState<WorkSource>("ALL");
   const [status, setStatus] = useState<WorkStatus>("ALL");
@@ -109,6 +112,10 @@ export function WorkClient() {
     <header className="ui-page-header"><h1>My Work</h1></header>
     {error && <FeedbackBanner tone="error">Work is unavailable. Refresh to try again.</FeedbackBanner>}
     {loading ? <LoadingBlock label="Loading your work…" /> : !error && <>
+      <div className={calendarStyles.views} role="group" aria-label="Work view">
+        <button type="button" aria-pressed={view === "list"} onClick={() => setView("list")}>List</button>
+        <button type="button" aria-pressed={view === "calendar"} onClick={() => setView("calendar")}>Deadline calendar</button>
+      </div>
       <div className={styles.filters} role="search" aria-label="Filter My Work">
         <label className={styles.search}>Search work
           <input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Titles and source labels" />
@@ -126,7 +133,7 @@ export function WorkClient() {
         <button type="button" className="ui-action ui-action--secondary" onClick={clearFilters} disabled={!filtered}>Clear filters</button>
       </div>
       <p className={styles.summary} role="status">Showing {visibleTasks.length} of {tasks.length} returned tasks. Filters apply to work available to this account.</p>
-      {filtered && !visibleTasks.length ? <EmptyState title="No matching work" description="Try a different source, status or search, or clear filters." /> : <div className="work-sections">
+      {filtered && !visibleTasks.length ? <EmptyState title="No matching work" description="Try a different source, status or search, or clear filters." /> : view === "calendar" ? <WorkCalendar tasks={visibleTasks} renderTask={task => <TaskCard key={task.id} task={task} />} /> : <div className="work-sections">
       {(!filtered || open.length > 0) && <section aria-labelledby="open-work-heading"><h2 id="open-work-heading">Open work</h2>
         {open.length ? <div className="work-open-groups">
           {tfsActions.length > 0 && <TfsWorkGroup tasks={tfsActions} kind="actions" />}

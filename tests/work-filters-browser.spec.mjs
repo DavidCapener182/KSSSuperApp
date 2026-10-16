@@ -24,7 +24,7 @@ const rows = [
 ].map((row, i) => ({ covering: false, createdAt: '2026-10-16T09:00:00Z', completedAt: null, dueAt: null, sourceId: `synthetic-source-${i}`, sourceHref: `/tfs/issues/synthetic-${i}?issue=exact`, nextAction: 'Synthetic next step', ...row }));
 async function prepare() {
   const runtime = await mkdtemp(join(tmpdir(), 'kss-work-filters-fixture-'));
-  const files = ['src/components/work-client.tsx', 'src/components/work-filters.module.css', 'src/components/ui/workflow.tsx', 'src/components/ui/badge.tsx', 'src/components/ui/button.tsx', 'src/components/ui/skeleton.tsx', 'src/lib/crm/due-status.ts', 'src/lib/utils.ts', 'src/app/globals.css', 'postcss.config.mjs'];
+  const files = ['src/components/work-calendar.tsx', 'src/components/work-calendar.module.css', 'src/lib/tasks/calendar.ts', 'src/components/work-client.tsx', 'src/components/work-filters.module.css', 'src/components/ui/workflow.tsx', 'src/components/ui/badge.tsx', 'src/components/ui/button.tsx', 'src/components/ui/skeleton.tsx', 'src/lib/crm/due-status.ts', 'src/lib/utils.ts', 'src/app/globals.css', 'postcss.config.mjs'];
   const manifest = [];
   for (const file of files) {
     await mkdir(dirname(join(runtime, file)), { recursive: true }); await cp(join(root, file), join(runtime, file));

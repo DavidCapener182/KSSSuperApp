@@ -1,0 +1,23 @@
+.calendar { margin-top: 20px; min-width: 0; }
+.views, .toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+.views button, .toolbar button { min-height: 44px; padding: 8px 14px; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface); color: var(--kss-ink); cursor: pointer; font: inherit; }
+.views button[aria-pressed=true] { background: var(--kss-blue-soft); border-color: var(--kss-blue); color: var(--kss-blue-strong); font-weight: 700; }
+.views button:focus-visible, .toolbar button:focus-visible, .day:focus-visible { outline: 3px solid var(--kss-blue); outline-offset: 2px; }
+.toolbar button:disabled { opacity: .55; cursor: default; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.month, .agenda, .undated { min-width: 0; }
+.calendar h2 { margin: 0 0 12px; font-size: 21px; overflow-wrap: anywhere; }
+.note { color: var(--kss-ink-soft); font-size: 13px; line-height: 1.5; margin: 10px 0; }
+.grid { width: 100%; table-layout: fixed; border-spacing: 3px; }
+.grid th { font-size: 12px; font-weight: 600; color: var(--kss-ink-soft); padding: 8px 0; }
+.grid td { padding: 0; vertical-align: top; }
+.day { display: flex; width: 100%; min-height: 58px; flex-direction: column; gap: 4px; align-items: center; justify-content: center; padding: 5px 1px; border: 1px solid var(--kss-border); border-radius: 7px; background: var(--kss-surface); color: var(--kss-ink); font: inherit; font-size: 14px; cursor: pointer; }
+.day[aria-current=date] { border-width: 2px; border-color: var(--kss-blue); }
+.day[aria-pressed=true] { background: var(--kss-blue-soft); border-color: var(--kss-blue); font-weight: 700; }
+.outside { color: var(--kss-ink-soft); background: var(--kss-bg); }
+.count { font-size: 10px; white-space: nowrap; }
+.agendaList { display: grid; gap: 18px; list-style: none; padding: 0; margin: 0; }
+.dueTime { font-size: 13px; font-weight: 600; color: var(--kss-ink); margin: 0 0 8px; }
+.undated { margin-top: 28px; }
+.undated > ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 760px) { .layout, .undated > ul { grid-template-columns: minmax(0, 1fr); } .grid { border-spacing: 2px; } }

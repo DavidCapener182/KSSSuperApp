@@ -1,0 +1,57 @@
+{
+  "baseline": "184795739c4b66a43c6727072e684aecb94de4b3",
+  "manifest": [
+    {
+      "file": "src/components/work-calendar.tsx",
+      "sha256": "661280d954840cb49705b7bb25a8f176cd32077eacdf64c4e37a7f74f1742575"
+    },
+    {
+      "file": "src/components/work-calendar.module.css",
+      "sha256": "a654e96add2c371ffe969d694f9bd8803fef2ee037b5979260348fb47f978c77"
+    },
+    {
+      "file": "src/lib/tasks/calendar.ts",
+      "sha256": "de9f94a0237e5b684dfdb78a9cf5e4a07e8751443a126932c2f99f52b13f7aa6"
+    },
+    {
+      "file": "src/components/work-client.tsx",
+      "sha256": "d1948d73172f99000525b4246c58aa9983284a3fb4c189b92e2a857160fef291"
+    },
+    {
+      "file": "src/components/work-filters.module.css",
+      "sha256": "5dba9607f665bb4f067726f396c62ebf682297184e9a655359e253ce74c3f18d"
+    },
+    {
+      "file": "src/components/ui/workflow.tsx",
+      "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b"
+    },
+    {
+      "file": "src/components/ui/badge.tsx",
+      "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801"
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "sha256": "08e5f87833c5db8436e89337ebde0f776bcdbf649d3de69fb89be6441ca2e366"
+    },
+    {
+      "file": "src/components/ui/skeleton.tsx",
+      "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc"
+    },
+    {
+      "file": "src/lib/crm/due-status.ts",
+      "sha256": "f1190f79a2d0e62275a4eca1eb74e29bfbc0763a4dd5035618e2814f857fb976"
+    },
+    {
+      "file": "src/lib/utils.ts",
+      "sha256": "14300d758170c270c75b057f38fedb3793a5920ea872f0477e29fb131185e8a7"
+    },
+    {
+      "file": "src/app/globals.css",
+      "sha256": "b33a3b8e550c51ef8fc3946d1e43cd520e25f9bd1918e6941325f4f11b74a541"
+    },
+    {
+      "file": "postcss.config.mjs",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    }
+  ]
+}
