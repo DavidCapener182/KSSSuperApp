@@ -1,0 +1,19 @@
+.page { max-width: 960px; }
+.page h1 { margin: 8px 0 20px; }
+.page a { color: var(--kss-blue-strong); overflow-wrap: anywhere; }
+.card { margin-top: 24px; padding: 22px; border: 1px solid var(--kss-border); border-radius: 12px; background: var(--kss-surface); overflow-wrap: anywhere; }
+.card h2 { margin: 0 0 14px; font-size: 22px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.actions button, .refresh { min-height: 44px; padding: 10px 14px; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface); color: var(--kss-ink); font: inherit; cursor: pointer; }
+.refresh { margin-top: 20px; }
+.page button:focus-visible, .page a:focus-visible, .message:focus-visible { outline: 3px solid var(--kss-blue); outline-offset: 3px; }
+.page button:disabled { opacity: .55; cursor: default; }
+.error { color: var(--kss-red, #9b2635); line-height: 1.5; }
+.message { color: var(--kss-ink); line-height: 1.5; }
+.dialog { margin: auto; }
+.review { overflow-wrap: anywhere; }
+.review label { display: grid; gap: 8px; margin: 14px 0; font-size: 14px; }
+.review input { width: 100%; min-width: 0; min-height: 44px; padding: 10px 12px; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface); color: var(--kss-ink); font: inherit; }
+.review input:focus-visible { outline: 3px solid var(--kss-blue); outline-offset: 2px; }
+.review p { line-height: 1.5; }
+@media (max-width: 600px) { .card { padding: 16px; } .actions { display: grid; grid-template-columns: minmax(0, 1fr); } }

@@ -1,0 +1,80 @@
+[
+  {
+    "name": "october-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "dst-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "november-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "covering-undated-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "no-match-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "october-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "dst-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "november-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "covering-undated-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "no-match-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "loading-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "empty-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "unavailable-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "src/app/(enterprise)/work/[taskId]/page.tsx": "568d795528b2327031ec1699285ed357bea7d33c13231dbe29dbddaadc7862d6",
+  "src/components/crm-task-actions.tsx": "3afdda486d6ac567f3e1525d27323816c368f924115dd819b71136e5814e354c",
+  "src/components/crm-task-actions.module.css": "a24a3f3a51eab4e682cb06f3134af2299492529a4f35efa0beb897732624dec0",
+  "src/lib/tasks/crm-action-readback.ts": "f9d3e1dcbe600b86d9a7fbd3a9fbbc6de98cdb2bc1ade4d7582230ff584de96c",
+  "tests/crm-task-actions-local.test.mjs": "f382909bbf2a7553d1617f5b0c1ab68740623d1ea64d1ef1681970ce983bcc3b",
+  "tests/crm-task-actions-browser.spec.mjs": "0d8f5223e692d50e6a690856c270442404a32aceac39afe3ceb064ad093971f7"
+}

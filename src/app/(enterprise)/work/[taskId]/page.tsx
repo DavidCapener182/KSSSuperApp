@@ -1,3 +1,5 @@
+import { CrmTaskActions } from "@/components/crm-task-actions";
+import { readCrmActionTask } from "@/lib/tasks/crm-action-readback";
 import { notFound, redirect } from "next/navigation";
 import { getPrincipal, isUuid } from "@/lib/auth/principal";
 import { readTask, canUseWork } from "@/lib/tasks/policy";
@@ -13,5 +15,10 @@ export default async function WorkTask({ params }: { params: Promise<{ taskId: s
   if (!canUseWork(principal)) notFound();
   const task = await readTask(client, principal, taskId);
   if (!task) notFound();
+  if (task.sourceKind === "CRM_OPPORTUNITY" || task.sourceKind === "CRM_ORGANISATION") {
+    const crmTask = readCrmActionTask(task);
+    if (!crmTask) notFound();
+    return <CrmTaskActions key={crmTask.id} initialTask={crmTask} />;
+  }
   redirect(task.sourceHref);
 }

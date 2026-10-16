@@ -1,0 +1,29 @@
+{
+  "baseline": "1139203851a025eb6cb9c7bb35126fa5794002c2",
+  "files": [
+    {
+      "file": "src/app/(enterprise)/work/[taskId]/page.tsx",
+      "sha256": "568d795528b2327031ec1699285ed357bea7d33c13231dbe29dbddaadc7862d6"
+    },
+    {
+      "file": "src/components/crm-task-actions.tsx",
+      "sha256": "3afdda486d6ac567f3e1525d27323816c368f924115dd819b71136e5814e354c"
+    },
+    {
+      "file": "src/components/crm-task-actions.module.css",
+      "sha256": "a24a3f3a51eab4e682cb06f3134af2299492529a4f35efa0beb897732624dec0"
+    },
+    {
+      "file": "src/lib/tasks/crm-action-readback.ts",
+      "sha256": "f9d3e1dcbe600b86d9a7fbd3a9fbbc6de98cdb2bc1ade4d7582230ff584de96c"
+    },
+    {
+      "file": "tests/crm-task-actions-local.test.mjs",
+      "sha256": "f382909bbf2a7553d1617f5b0c1ab68740623d1ea64d1ef1681970ce983bcc3b"
+    },
+    {
+      "file": "tests/crm-task-actions-browser.spec.mjs",
+      "sha256": "76dd14e3989ed17fc0cc3c3f57fc24246d4e05600b1e01a265fc438b967d084b"
+    }
+  ]
+}
