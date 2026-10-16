@@ -6,16 +6,18 @@ import { safeWorkforceReturn } from "@/lib/events/workforce-navigation";
 import { londonWeekStart } from "@/lib/events/workforce-week";
 import { safeReturnTarget } from "@/lib/auth/return-target";
 import Link from "next/link";
+import { safeReportReturn } from "@/lib/reports/navigation";
 
 export const dynamic = "force-dynamic";
-export default async function SiteServiceDetailPage({ params, searchParams }: { params: Promise<{ siteId: string; serviceId: string }>; searchParams: Promise<{ demand?: string; returnTo?: string; sourceWeek?: string }> }) {
+export default async function SiteServiceDetailPage({ params, searchParams }: { params: Promise<{ siteId: string; serviceId: string }>; searchParams: Promise<{ demand?: string; returnTo?: string; sourceWeek?: string; reportReturn?: string }> }) {
   const principal = await getPrincipal(await createServerSupabase());
   if (!principal) redirect("/?next=%2Fsites");
   if (!principal.roles.some((role) => ["SUPER_ADMIN", "OFFICE_ADMIN", "OPERATIONS"].includes(role))) notFound();
   const { siteId, serviceId } = await params; if (!isUuid(siteId) || !isUuid(serviceId)) notFound();
   const query=await searchParams;
   const controlReturn=safeReturnTarget(query.returnTo);
-  return <>{controlReturn?.startsWith("/control-room?")&&<p className="enterprise-main"><Link href={controlReturn}>← Return to Control Room</Link></p>}<SiteServiceDetailClient siteId={siteId} serviceId={serviceId} initialDemandId={query.demand && isUuid(query.demand) ? query.demand : undefined}
+  const reportReturn = principal.roles.some(role => role === "OFFICE_ADMIN" || role === "SUPER_ADMIN") ? safeReportReturn(query.reportReturn) : undefined;
+  return <>{reportReturn && <p className="enterprise-main"><Link href={reportReturn}>← Return to Management Reports</Link></p>}{controlReturn?.startsWith("/control-room?")&&<p className="enterprise-main"><Link href={controlReturn}>← Return to Control Room</Link></p>}<SiteServiceDetailClient siteId={siteId} serviceId={serviceId} initialDemandId={query.demand && isUuid(query.demand) ? query.demand : undefined}
     initialWeek={query.sourceWeek && londonWeekStart(query.sourceWeek) === query.sourceWeek ? query.sourceWeek : undefined}
     workforceReturn={safeWorkforceReturn(query.returnTo)}
     canAdmin={principal.roles.some((role) => ["SUPER_ADMIN", "OFFICE_ADMIN"].includes(role))} /></>;

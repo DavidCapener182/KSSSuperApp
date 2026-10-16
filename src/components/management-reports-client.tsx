@@ -1,8 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { addCivilDays, londonToday } from "@/lib/events/workforce-week";
+import { useRouter, useSearchParams } from "next/navigation";
+import { addCivilDays } from "@/lib/events/workforce-week";
+import { defaultReportNavigation, parseReportNavigation, reportApiQuery, reportHref, reportNavigationQuery, reportSourceHref, validReportNavigation, type ReportNavigation, type ReportMeasure } from "@/lib/reports/navigation";
 import { ContextHeader, FactualMetrics, FactualStatus, FilterBar, ResponsiveRecordList, SourceCard, StatePanel } from "@/components/ui13/operational";
 import styles from "./management-reports.module.css";
 
@@ -23,39 +25,62 @@ type Report = {
   breakdowns?: Array<Pick<Line, "client_id" | "client_name" | "site_id" | "site_name" | "parent_id" | "parent_name" | "service_date" | "source" | "required" | "allocated" | "accepted" | "remaining">>;
   filters?: { clients: Choice[]; sites: Choice[]; services: Choice[]; events: Choice[] };
 };
-const currentDate = londonToday();
 const clock = (value: string) => new Date(value).toLocaleString("en-GB", { timeZone: "Europe/London", dateStyle: "medium", timeStyle: "short" });
 const title = (value: string) => value.replaceAll("_", " ").toLowerCase().replace(/^./, (first) => first.toUpperCase());
-const destination = (line: Line) => line.source === "EVENT" ? `/events/${line.parent_id}` : `/sites/${line.site_id}/services/${line.parent_id}`;
-
-export function ManagementReportsClient() {
-  const [preset, setPreset] = useState("last28");
-  const [start, setStart] = useState(addCivilDays(currentDate, -27));
-  const [endInclusive, setEndInclusive] = useState(currentDate);
-  const [mode, setMode] = useState("CURRENT");
-  const [client, setClient] = useState(""); const [site, setSite] = useState("");
-  const [service, setService] = useState(""); const [event, setEvent] = useState("");
-  const [source, setSource] = useState(""); const [offset, setOffset] = useState(0);
-  const [focusMeasure, setFocusMeasure] = useState<string | null>(null);
-  const [report, setReport] = useState<Report | null>(null);
+export function ManagementReportsClient({ initial, invalidQuery = false }: { initial?: ReportNavigation; invalidQuery?: boolean }) {
+  const router = useRouter(); const searchParams = useSearchParams();
+  const query = searchParams.toString();
+  const [state, setState] = useState<ReportNavigation>(() => initial ?? defaultReportNavigation());
+  const stateRef = useRef(state);
+  useEffect(() => { stateRef.current = state; }, [state]);
+  const [invalidUrl, setInvalidUrl] = useState(invalidQuery);
+  const { preset, start, end: endInclusive, mode, client, site, service, event, source, offset, measure: focusMeasure } = state;
+  const [reportState, setReport] = useState<Report | null>(null);
+  const [loadedKey, setLoadedKey] = useState("");
   const [error, setError] = useState(""); const [loading, setLoading] = useState(true);
+  const sequence = useRef(0);
+  const valid = !invalidUrl && parseReportNavigation(new URLSearchParams(query)) !== null && validReportNavigation(state);
+  const requestKey = valid ? reportApiQuery(state) : "";
+  const report = valid && loadedKey === requestKey ? reportState : null;
 
-  const load = useCallback(async (signal: AbortSignal) => {
-    setLoading(true); setError("");
-    const params = new URLSearchParams({ preset, mode, offset: String(offset) });
-    if (preset === "custom") { params.set("start", start); params.set("end", addCivilDays(endInclusive, 1)); }
-    for (const [key, value] of Object.entries({ client, site, service, event, source })) if (value) params.set(key, value);
-    try {
-      const response = await fetch(`/api/management-reports?${params}`, { cache: "no-store", signal });
-      if (!response.ok) throw new Error(response.status === 400 ? "Select a valid range of up to 90 London days." : "Management report unavailable. No totals can be shown.");
-      const body = await response.json(); setReport(body.report);
-    } catch (caught) {
-      if (!signal.aborted) { setReport(null); setError(caught instanceof Error ? caught.message : "Management report unavailable."); }
-    } finally { if (!signal.aborted) setLoading(false); }
-  }, [preset, start, endInclusive, mode, client, site, service, event, source, offset]);
-  useEffect(() => { const controller = new AbortController(); const timer = setTimeout(() => void load(controller.signal), 0); return () => { clearTimeout(timer); controller.abort(); }; }, [load]);
+  useEffect(() => {
+    const parsed = parseReportNavigation(new URLSearchParams(query));
+    const timer = setTimeout(() => {
+      setInvalidUrl(!parsed);
+      if (!parsed) { setReport(null); return; }
+      if (!validReportNavigation(stateRef.current) || reportApiQuery(stateRef.current) !== reportApiQuery(parsed)) setReport(null);
+      setState(current => reportNavigationQuery(current) === reportNavigationQuery(parsed) ? current : parsed);
+      if (query !== reportNavigationQuery(parsed)) router.replace(reportHref(parsed), { scroll: false });
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [query, router]);
 
-  const updateFilter = (setter: (value: string) => void) => (value: string) => { setter(value); setOffset(0); };
+  useEffect(() => {
+    const controller = new AbortController(); const current = ++sequence.current;
+    const timer = setTimeout(async () => {
+      setError(""); setReport(null);
+      if (!requestKey) { setLoading(false); return; }
+      setLoading(true);
+      try {
+        const response = await fetch(`/api/management-reports?${requestKey}`, { cache: "no-store", signal: controller.signal });
+        if (!response.ok) throw new Error(response.status === 400 ? "Select a valid range of up to 90 London days." : "Management report unavailable. No totals can be shown.");
+        const body = await response.json();
+        if (!controller.signal.aborted && current === sequence.current) { setLoadedKey(requestKey); setReport(body.report); }
+      } catch (caught) {
+        if (!controller.signal.aborted && current === sequence.current) { setReport(null); setError(caught instanceof Error ? caught.message : "Management report unavailable."); }
+      } finally { if (!controller.signal.aborted && current === sequence.current) setLoading(false); }
+    }, 0);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [requestKey]);
+
+  function change(patch: Partial<ReportNavigation>) {
+    const next = { ...state, ...patch };
+    setState(next); setInvalidUrl(false); setError("");
+    if (!validReportNavigation(state) || !validReportNavigation(next) || reportApiQuery(state) !== reportApiQuery(next)) setReport(null);
+    if (validReportNavigation(next)) router.push(reportHref(next), { scroll: false });
+  }
+  const updateFilter = (key: "client" | "site" | "service" | "event" | "source") => (value: string) => change({ [key]: value, offset: 0 });
+  const destination = (line: Line) => reportSourceHref(line, state);
   const totals = report?.totals;
   const estate = report?.estate_current_state;
   const metrics = [
@@ -65,24 +90,26 @@ export function ManagementReportsClient() {
   ] as const;
   const estateGroups = [["Clients", estate?.clients], ["Sites", estate?.sites], ["Site Services", estate?.services], ["Events", estate?.events]] as const;
   const activeFilters = [client, site, service, event, source].filter(Boolean).length;
-  const clearFilters = () => { setClient(""); setSite(""); setService(""); setEvent(""); setSource(""); setOffset(0); };
+  const clearFilters = () => change({ client: "", site: "", service: "", event: "", source: "", offset: 0 });
 
   return <main className={`enterprise-main ${styles.page}`}>
     <ContextHeader context="Synthetic development · source facts" title="Management Reports"
       description="Overview · factual period reporting with source reconciliation." />
     <FilterBar><section className={styles.toolbar} aria-label="Reporting mode and period">
-      <label>Report mode<select value={mode} onChange={(event) => { setMode(event.target.value); setOffset(0); }}><option value="CURRENT">Current snapshot</option><option value="HISTORICAL">Historical report</option></select></label>
-      <label>Reporting period<select value={preset} onChange={(event) => { setPreset(event.target.value); setOffset(0); }}><option value="today">Today</option><option value="last7">Last 7 days</option><option value="last28">Last 28 days</option><option value="custom">Custom, up to 90 days</option></select></label>
-      {preset === "custom" && <><label>From<input type="date" value={start} onChange={(event) => { setStart(event.target.value); setOffset(0); }} /></label><label>Through<input type="date" value={endInclusive} onChange={(event) => { setEndInclusive(event.target.value); setOffset(0); }} /></label></>}
+      <label>Report mode<select value={mode} onChange={(event) => change({ mode: event.target.value as ReportNavigation["mode"], offset: 0 })}><option value="CURRENT">Current snapshot</option><option value="HISTORICAL">Historical report</option></select></label>
+      <label>Reporting period<select value={preset} onChange={(event) => change({ preset: event.target.value as ReportNavigation["preset"], offset: 0 })}><option value="today">Today</option><option value="last7">Last 7 days</option><option value="last28">Last 28 days</option><option value="custom">Custom, up to 90 days</option></select></label>
+      {preset === "custom" && <><label>From<input type="date" value={start} onChange={(event) => change({ start: event.target.value, offset: 0 })} /></label><label>Through<input type="date" value={endInclusive} onChange={(event) => change({ end: event.target.value, offset: 0 })} /></label></>}
     </section></FilterBar>
     <details className={styles.filters}><summary>Filters{activeFilters ? ` · ${activeFilters} applied` : " · all authorised records"}</summary><div className={styles.filterGrid}>
-      <label>Client<select value={client} onChange={(event) => updateFilter(setClient)(event.target.value)}><option value="">All authorised</option>{report?.filters?.clients.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
-      <label>Site<select value={site} onChange={(event) => updateFilter(setSite)(event.target.value)}><option value="">All authorised</option>{report?.filters?.sites.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
-      <label>Site Service<select value={service} onChange={(event) => updateFilter(setService)(event.target.value)}><option value="">All authorised</option>{report?.filters?.services.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
-      <label>Event<select value={event} onChange={(eventChange) => updateFilter(setEvent)(eventChange.target.value)}><option value="">All authorised</option>{report?.filters?.events.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
-      <label>Source<select value={source} onChange={(event) => updateFilter(setSource)(event.target.value)}><option value="">Event and Site Shift</option><option value="EVENT">Event</option><option value="SITE_SHIFT">Site Shift</option></select></label>
+      <label>Client<select value={client} onChange={(event) => updateFilter("client")(event.target.value)}><option value="">All authorised</option>{report?.filters?.clients.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
+      <label>Site<select value={site} onChange={(event) => updateFilter("site")(event.target.value)}><option value="">All authorised</option>{report?.filters?.sites.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
+      <label>Site Service<select value={service} onChange={(event) => updateFilter("service")(event.target.value)}><option value="">All authorised</option>{report?.filters?.services.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
+      <label>Event<select value={event} onChange={(eventChange) => updateFilter("event")(eventChange.target.value)}><option value="">All authorised</option>{report?.filters?.events.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
+      <label>Source<select value={source} onChange={(event) => updateFilter("source")(event.target.value)}><option value="">Event and Site Shift</option><option value="EVENT">Event</option><option value="SITE_SHIFT">Site Shift</option></select></label>
     </div><button type="button" className={styles.clear} onClick={clearFilters} disabled={!activeFilters}>Clear filters</button></details>
-    {loading && <StatePanel kind="loading" title="Loading source facts" description="Waiting for the authorised reporting read." />}
+    {!valid && <StatePanel kind="error" title="Invalid report context" description="Choose valid filters and an inclusive range of up to 90 London days. No reporting read was sent for this context." />}
+    {invalidUrl && <Link href={reportHref(defaultReportNavigation())}>Reset report context</Link>}
+    {valid && loading && <StatePanel kind="loading" title="Loading source facts" description="Waiting for the authorised reporting read." />}
     {error && <StatePanel kind="error" title="Management report unavailable" description={error} />}
     {report && !loading && <>
       <div className={styles.context}><p><strong>{report.mode === "CURRENT" ? "Current snapshot" : "Historical report"}</strong> · Reporting period: {report.period_start} to {addCivilDays(report.period_end, -1)} (London dates)</p><p>Data as of {clock(report.data_as_of)}</p><details><summary>Measure definitions and versions</summary><p>{Object.entries(report.definitions).map(([code, version]) => `${code} v${version}`).join(" · ")}</p></details></div>
@@ -91,7 +118,7 @@ export function ManagementReportsClient() {
           label,
           value: value?.toLocaleString("en-GB") ?? "Unavailable",
           selected: focusMeasure === code,
-          action: <a href="#lines-heading" onClick={() => setFocusMeasure(code)}>Inspect {label.toLowerCase()} lines</a>,
+          action: <a href="#lines-heading" onClick={(event) => { event.preventDefault(); change({ measure: code as ReportMeasure }); document.getElementById("lines-heading")?.focus(); }}>Inspect {label.toLowerCase()} lines</a>,
         }))} />
           <p className={styles.note}>Allocated and accepted are staffing responses, not attendance or worked time. Missing declarations are unknown.</p>
           <p className={styles.note}>Unavailable conflict: {totals?.unavailable_conflicts ?? 0} · Coverage no longer declared: {totals?.removed_coverage_conflicts ?? 0} · Missing declaration: {totals?.missing_declarations ?? 0} · Partial coverage: {totals?.partial_coverage ?? 0}</p>
@@ -116,7 +143,7 @@ export function ManagementReportsClient() {
                 <span key="context">{line.client_name} · {line.site_name} · {line.parent_name}<br /><code>Parent UUID: {line.parent_id}</code></span>,
                 <span key="state"><FactualStatus label={line.source_state} /><br />Definition v{line.definition_version}</span>,
                 line.required, line.allocated, line.accepted, line.remaining,
-                <Link key="record" href={destination(line)}>Open source record</Link>,
+                destination(line) ? <Link key="record" href={destination(line)!}>Open source record</Link> : <span key="record">Source unavailable</span>,
               ],
               mobile: {
                 title: `${line.source === "EVENT" ? "Event requirement" : "Site Shift demand"} · ${line.service_date}`,
@@ -126,11 +153,11 @@ export function ManagementReportsClient() {
                   `Required ${line.required} · Allocated ${line.allocated} · Accepted ${line.accepted} · Remaining ${line.remaining}`,
                   <span key="ids"><code>Source UUID: {line.source_id}</code> · <code>Parent UUID: {line.parent_id}</code> · Definition v{line.definition_version}</span>,
                 ],
-                action: <Link href={destination(line)}>Open source record</Link>,
+                action: destination(line) ? <Link href={destination(line)!}>Open source record</Link> : <span>Source unavailable</span>,
               },
             })) ?? []}
             empty={<StatePanel kind="empty" title="No source lines" description="No source lines for this period and filter selection." />} />
-          <div className={styles.pager}><button type="button" disabled={offset === 0} onClick={() => setOffset(Math.max(0, offset - 30))}>Previous</button><button type="button" disabled={offset + 30 >= (report.total_lines ?? 0)} onClick={() => setOffset(offset + 30)}>Next</button></div>
+          <div className={styles.pager}><button type="button" disabled={offset === 0} onClick={() => change({ offset: Math.max(0, offset - 30) })}>Previous</button><button type="button" disabled={offset + 30 >= (report.total_lines ?? 0) || offset + 30 > 10000} onClick={() => change({ offset: offset + 30 })}>Next</button></div>
         </section>
       </>}
     </>}

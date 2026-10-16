@@ -1,0 +1,52 @@
+[
+  {
+    "name": "report-390-context",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "source-EVENT-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "source-SITE_SHIFT-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "report-390-denied",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "report-390-invalid",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "report-1280-context",
+    "viewport": 1280,
+    "pageWidth": 1280
+  },
+  {
+    "name": "source-EVENT-1280",
+    "viewport": 1280,
+    "pageWidth": 1280
+  },
+  {
+    "name": "source-SITE_SHIFT-1280",
+    "viewport": 1280,
+    "pageWidth": 1280
+  },
+  {
+    "name": "report-1280-denied",
+    "viewport": 1280,
+    "pageWidth": 1280
+  },
+  {
+    "name": "report-1280-invalid",
+    "viewport": 1280,
+    "pageWidth": 1280
+  }
+]

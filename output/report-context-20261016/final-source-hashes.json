@@ -1,0 +1,12 @@
+{
+  "baseline": "13cce15060f0c561e43e71cfcf9aeecc7094ba16",
+  "files": {
+    "src/lib/reports/navigation.ts": "81e4b458a7e95b3a5e7ace98965899079c8bed8f060facd34ead5108ffd7595a",
+    "src/components/management-reports-client.tsx": "ee290d2f5613c4e51718f82de8d3a9611dfeb9a04216920ba8124f0d3d418676",
+    "src/app/(enterprise)/management-reports/page.tsx": "63458ef62e115beaf976ca3c3b325d20dcd1ec5155f953cefa18b1285697df61",
+    "src/app/(enterprise)/events/[id]/page.tsx": "49e6ad61f452a6d848e36c4d43d2b9852701662e6b8044a36b581da085503541",
+    "src/app/(enterprise)/sites/[siteId]/services/[serviceId]/page.tsx": "e310235cd5254f821d03007d188536e012363ebc9d4ae515592311c6acf22fd4",
+    "tests/management-report-navigation-local.test.mjs": "94d0eb3864b420d2e1867c8b2cffb0141fc86f7824da5dfe5db0bcaa84a7c759",
+    "tests/management-report-navigation-browser.spec.mjs": "c3b371ce8851322d89e67df27d6a82cd773001617779d2295529294efa9df359"
+  }
+}

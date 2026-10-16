@@ -6,16 +6,18 @@ import { EventsClient } from "@/components/events-client";
 import { safeWorkforceReturn } from "@/lib/events/workforce-navigation";
 import { safeReturnTarget } from "@/lib/auth/return-target";
 import Link from "next/link";
+import { safeReportReturn } from "@/lib/reports/navigation";
 
 export const dynamic = "force-dynamic";
-export default async function EventPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ requirement?: string; returnTo?: string; mobilisation?: string }> }) {
+export default async function EventPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ requirement?: string; returnTo?: string; mobilisation?: string; reportReturn?: string }> }) {
   const { id } = await params; if (!isUuid(id)) notFound();
   const principal = await getPrincipal(await createServerSupabase());
   if (!principal) redirect("/?next=%2Fevents");
   if (!hasCapability(principal, "EVENTS_USE")) notFound();
   const search = await searchParams;
   const controlReturn=safeReturnTarget(search.returnTo);
-  return <>{controlReturn?.startsWith("/control-room?")&&<p className="enterprise-main"><Link href={controlReturn}>← Return to Control Room</Link></p>}<EventsClient roles={principal.roles} id={id} focusRequirement={search.requirement && isUuid(search.requirement) ? search.requirement : undefined}
+  const reportReturn = principal.roles.some(role => role === "OFFICE_ADMIN" || role === "SUPER_ADMIN") ? safeReportReturn(search.reportReturn) : undefined;
+  return <>{reportReturn && <p className="enterprise-main"><Link href={reportReturn}>← Return to Management Reports</Link></p>}{controlReturn?.startsWith("/control-room?")&&<p className="enterprise-main"><Link href={controlReturn}>← Return to Control Room</Link></p>}<EventsClient roles={principal.roles} id={id} focusRequirement={search.requirement && isUuid(search.requirement) ? search.requirement : undefined}
     mobilisation={search.mobilisation && isUuid(search.mobilisation) ? search.mobilisation : undefined}
     workforceReturn={safeWorkforceReturn(search.returnTo)} /></>;
 }

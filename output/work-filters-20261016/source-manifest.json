@@ -1,0 +1,45 @@
+{
+  "baseline": "13cce15060f0c561e43e71cfcf9aeecc7094ba16",
+  "manifest": [
+    {
+      "file": "src/components/work-client.tsx",
+      "sha256": "d721276e61649c98ff6f5c6473d0df17cfa2cb503b9b12a7dda66eaab06faabe"
+    },
+    {
+      "file": "src/components/work-filters.module.css",
+      "sha256": "5dba9607f665bb4f067726f396c62ebf682297184e9a655359e253ce74c3f18d"
+    },
+    {
+      "file": "src/components/ui/workflow.tsx",
+      "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b"
+    },
+    {
+      "file": "src/components/ui/badge.tsx",
+      "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801"
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "sha256": "08e5f87833c5db8436e89337ebde0f776bcdbf649d3de69fb89be6441ca2e366"
+    },
+    {
+      "file": "src/components/ui/skeleton.tsx",
+      "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc"
+    },
+    {
+      "file": "src/lib/crm/due-status.ts",
+      "sha256": "f1190f79a2d0e62275a4eca1eb74e29bfbc0763a4dd5035618e2814f857fb976"
+    },
+    {
+      "file": "src/lib/utils.ts",
+      "sha256": "14300d758170c270c75b057f38fedb3793a5920ea872f0477e29fb131185e8a7"
+    },
+    {
+      "file": "src/app/globals.css",
+      "sha256": "b33a3b8e550c51ef8fc3946d1e43cd520e25f9bd1918e6941325f4f11b74a541"
+    },
+    {
+      "file": "postcss.config.mjs",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    }
+  ]
+}
