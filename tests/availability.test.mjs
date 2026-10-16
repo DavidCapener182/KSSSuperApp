@@ -141,4 +141,12 @@ test('07A Staff availability, exact candidate result and accepted-deployment con
  assert.ok((await staffA.rpc('availability_cancel_ack',{p_declaration:preview.replaced[0].id,p_expected_revision:joined+1,
   p_acknowledge_deployment_conflict:false})).error,
   'a superseded declaration cannot be cancelled');
+ await rpc(office,'operational_change_event',{p_event:event,p_action:'STATUS',p_status:'CANCELLED',
+  p_reason:'Synthetic 07A fixture complete'});
+ const finalAvailability=await allRows(staffA,'my_availability');
+ let cleanupRevision=finalAvailability.revision;
+ for(const item of finalAvailability.items.filter((row)=>row.lifecycle==='CURRENT'&&
+  new Date(row.starts_at)>=new Date(`${date}T12:00:00Z`)&&new Date(row.ends_at)<=new Date(`${date}T20:00:00Z`)))
+  cleanupRevision=await rpc(staffA,'availability_cancel_ack',{p_declaration:item.id,
+   p_expected_revision:cleanupRevision,p_acknowledge_deployment_conflict:false});
 });

@@ -38,7 +38,7 @@ test('03E bounded team triage, cover, reassignment and cancellation', {timeout:3
   const appPort=await port(),base=`http://127.0.0.1:${appPort}`;
   const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port',String(appPort)],
     {cwd:process.cwd(),stdio:'ignore'});
-  let membershipId=null;
+  let membershipId=null,coveredCaseId=null,permanentCaseId=null;
   try{
     for(let i=0;i<100;i++){try{await fetch(base);break;}catch{await new Promise((resolve)=>setTimeout(resolve,200));}}
     const request=(path,as,options={})=>fetch(base+path,{redirect:'manual',...options,
@@ -47,19 +47,14 @@ test('03E bounded team triage, cover, reassignment and cancellation', {timeout:3
       return [response.status,await response.json().catch(()=>null)];};
     const queue=async(as,view='TEAM_QUEUE',search='')=>json(`/api/onboarding/queue?view=${view}&search=${encodeURIComponent(search)}&limit=50`,as);
     const caseAt=async(id,as)=>(await json(`/api/onboarding/${id}`,as))[1]?.case;
-    const [initialStatus,initial]=await queue('office');assert.equal(initialStatus,200);
+    const [initialStatus]=await queue('office');assert.equal(initialStatus,200);
     const [acceptedStatus,acceptedRecord]=await json(`/api/onboarding/${acceptedCase}`,'office');
     assert.equal(acceptedStatus,200,JSON.stringify(acceptedRecord));
     const acceptedBefore=acceptedRecord.case?.verifiedCount;
     assert.ok(Number.isInteger(acceptedBefore) && acceptedBefore>=0 && acceptedBefore<=6);
-    let acceptedQueueRow=initial.rows.find((row)=>row.id===acceptedCase);
-    for(let offset=50;!acceptedQueueRow && offset<10000 && initial.rows.length===50;offset+=50){
-      const [pageStatus,page]=await json(`/api/onboarding/queue?view=TEAM_QUEUE&limit=50&offset=${offset}`,'office');
-      assert.equal(pageStatus,200);
-      acceptedQueueRow=page.rows.find((row)=>row.id===acceptedCase);
-      if(page.rows.length<50)break;
-    }
-    const teamId=acceptedQueueRow?.teamId;assert.ok(teamId);
+    // The team is fixture identity, not a guarantee that this older case stays on page 1
+    // after later synthetic regression cases move ahead in the activity ordering.
+    const teamId=acceptedRecord.case?.teamId;assert.ok(teamId);
     const site=(await actors.office.db.from('sites').select('id').eq('name','Synthetic Static Security Site')
       .eq('created_by_person_id',officeId).single());assert.ifError(site.error);
     const createCase=async()=>{const [status,body]=await json('/api/onboarding','office',post({
@@ -79,7 +74,7 @@ test('03E bounded team triage, cover, reassignment and cancellation', {timeout:3
         .eq('source_id',document.version.id).single());assert.ifError(task.error);
       return {requestId:issued.requestId,versionId:document.version.id,task:task.data};
     };
-    const coveredCase=await createCase();
+    const coveredCase=coveredCaseId=await createCase();
     assert.equal((await queue('officeB'))[1].total,0,'outside-team Office has no queue count');
     assert.ok([403,404].includes((await json(`/api/onboarding/${coveredCase}`,'officeB'))[0]));
     assert.ok((await actors.officeB.db.from('onboarding_cases').select('id').eq('id',coveredCase)).data.length===0);
@@ -125,7 +120,7 @@ test('03E bounded team triage, cover, reassignment and cancellation', {timeout:3
     assert.equal((await request(`/api/onboarding/${coveredCase}/cover/${cover.grantId}`,'office',{method:'DELETE'})).status,200);
     assert.ok([403,404].includes((await json(`/api/onboarding/${coveredCase}`,'officeB'))[0]));
     assert.ok([403,404].includes((await json(`/api/documents/${coveredWork.requestId}`,'officeB'))[0]));
-    const permanentCase=await createCase();const openWork=await issueAndSubmit(permanentCase);
+    const permanentCase=permanentCaseId=await createCase();const openWork=await issueAndSubmit(permanentCase);
     assert.ok((await actors.staff.db.rpc('reassign_onboarding_case',{requested_case:permanentCase,
       new_owner:officeBId,reason_text:'Synthetic Staff self reassignment denied'})).error);
     assert.ok((await actors.officeB.db.rpc('reassign_onboarding_case',{requested_case:permanentCase,
@@ -175,7 +170,22 @@ test('03E bounded team triage, cover, reassignment and cancellation', {timeout:3
       assert.ok([403,404].includes((await json(`/api/documents/${openWork.requestId}`,as))[0]));
     }
   }finally{
-    if(membershipId) await actors.admin.db.rpc('revoke_onboarding_team_member',{requested_membership:membershipId});
-    server.kill();await once(server,'exit').catch(()=>{});
+    try{
+      try{
+        for(const caseId of [coveredCaseId,permanentCaseId]){
+          if(!caseId) continue;
+          const record=await actors.admin.db.from('onboarding_cases').select('state,owner_person_id').eq('id',caseId).maybeSingle();
+          assert.ifError(record.error);
+          if(record.data?.state!=='IN_PROGRESS') continue;
+          const owner=record.data.owner_person_id===officeId?'office':record.data.owner_person_id===officeBId?'officeB':null;
+          assert.ok(owner,'synthetic case cleanup must use its current exact owner');
+          const {error}=await actors[owner].db.rpc('cancel_onboarding_case',{requested_case:caseId});assert.ifError(error);
+        }
+      }finally{
+        if(membershipId) await actors.admin.db.rpc('revoke_onboarding_team_member',{requested_membership:membershipId});
+      }
+    }finally{
+      server.kill();if(server.exitCode===null) await once(server,'exit').catch(()=>{});
+    }
   }
 });

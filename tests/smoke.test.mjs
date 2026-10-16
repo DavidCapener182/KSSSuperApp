@@ -14,7 +14,7 @@ async function availablePort() {
   return port;
 }
 
-test("built KSS foundation serves the correct, honest page", { timeout: 30000 }, async () => {
+test("built KSS sign-in shell serves current access and integration guidance", { timeout: 30000 }, async () => {
   const port = await availablePort();
   const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], {
     cwd: process.cwd(),
@@ -36,8 +36,9 @@ test("built KSS foundation serves the correct, honest page", { timeout: 30000 },
     assert.equal(response.status, 200);
     const html = await response.text();
     assert.match(html, /KSS Enterprise Platform/);
-    assert.match(html, /Operational systems and live staff data are not connected/);
-    assert.match(html, /Development accounts only/);
+    assert.match(html, /A secure place to start/);
+    assert.match(html, /Use your authorised KSS account/);
+    assert.match(html, /Some external checks and integrations are still unavailable/);
     assert.doesNotMatch(html, /Create Next App|Deploy Now|Next\.js logo/);
   } finally {
     server.kill("SIGTERM");

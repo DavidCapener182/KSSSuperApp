@@ -1,5 +1,7 @@
 # KSS build status
 
+Local integration note, 16 October 2026: the candidate at `ec463382352fb2bb56eed2d7873eedbd694f9ad6` selectively reconciles existing local Staff pilot/test edits and adds local document-audience and TFS assignment checks plus the reproduced Workforce dialog contrast/title-clearance repair. See [LOCAL-INTEGRATION-20261016.md](LOCAL-INTEGRATION-20261016.md), [DOC-AUDIENCE-20261016.md](DOC-AUDIENCE-20261016.md) and [TFS-PERSON-LOCAL-20261016.md](TFS-PERSON-LOCAL-20261016.md). See also [MOBILE-WORKFORCE-ATTENDANCE-20261016.md](MOBILE-WORKFORCE-ATTENDANCE-20261016.md): 12 local browser checks pass at 390px/1280px; authenticated acceptance stays open. The September summary below is historical; the current TASK-17C brief records its later synthetic acceptance. This candidate has local verification only; publication authorization and the Git-triggered deployment hold are recorded in its integration report. It is not authenticated service acceptance.
+
 Updated: 24 September 2026
 Current stage: TASK-07A Staff Availability accepted at `7f46f1b`; TASK-07B Workforce Schedule / Rota implemented in synthetic development, pending David's review. TASK-03G protected synthetic staging remains unchanged; independent phone access and personal UX review remain pending credential handoff.
 Current authorised work: TASK-07B only. A later workforce or product-review task requires separate approval.

@@ -1,0 +1,250 @@
+[
+  {
+    "name": "staff-EVENT-390-assigned",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "staff-EVENT-390-attendance",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "staff-EVENT-390-history",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "staff-SITE_SHIFT-390-assigned",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "staff-SITE_SHIFT-390-attendance",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "staff-SITE_SHIFT-390-history",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "office-EVENT-390-actions",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "office-EVENT-390-readback",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "office-SITE_SHIFT-390-actions",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "office-SITE_SHIFT-390-readback",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "workforce-390-day",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "workforce-390-dialog",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "workforce-390-dialog-legibility",
+    "color": "rgb(83, 103, 125)",
+    "background": "rgb(255, 255, 255)",
+    "contrast": 5.826806003923272,
+    "titleOverlapsClose": false
+  },
+  {
+    "name": "workforce-390-schedule",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "workforce-390-coverage",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "office-EVENT-390-long-resolution",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "office-EVENT-390-correction-validation",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "office-SITE_SHIFT-390-long-resolution",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "office-SITE_SHIFT-390-correction-validation",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "staff-EVENT-1280-assigned",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "staff-EVENT-1280-attendance",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "staff-EVENT-1280-history",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "staff-SITE_SHIFT-1280-assigned",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "staff-SITE_SHIFT-1280-attendance",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "staff-SITE_SHIFT-1280-history",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "office-EVENT-1280-actions",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "office-EVENT-1280-readback",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "office-SITE_SHIFT-1280-actions",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "office-SITE_SHIFT-1280-readback",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "workforce-1280-day",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "workforce-1280-dialog",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "workforce-1280-dialog-legibility",
+    "color": "rgb(83, 103, 125)",
+    "background": "rgb(255, 255, 255)",
+    "contrast": 5.826806003923272,
+    "titleOverlapsClose": false
+  },
+  {
+    "name": "workforce-1280-schedule",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "workforce-1280-coverage",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "office-EVENT-1280-long-resolution",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "office-EVENT-1280-correction-validation",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "office-SITE_SHIFT-1280-long-resolution",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "office-SITE_SHIFT-1280-correction-validation",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "overflowing": []
+  },
+  {
+    "name": "staff-390-empty",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "staff-390-error",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  },
+  {
+    "name": "office-390-uncertain-readback",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "overflowing": []
+  }
+]

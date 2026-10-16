@@ -7,6 +7,10 @@
 .matrixHidden{display:none}.dayShown{display:block}
 .panel :global([data-slot="sheet-close"]){min-width:44px;min-height:44px}
 
+/* The sheet is portalled outside .planner and needs its own inherited tokens. */
+.panel{--line:#d7e0e9;--ink:#1b2c3e;--muted:#53677d;color:var(--ink)}
+.panel :global([data-slot="sheet-header"]){padding-right:4rem}
+
 /* Workforce cards keep the same source facts visible while scanning the week. */
 .matrix{overflow-x:auto;overscroll-behavior-inline:contain}
 .matrixHead,.matrixRow{grid-template-columns:minmax(205px,1.35fr) repeat(7,minmax(134px,1fr));min-width:1170px}

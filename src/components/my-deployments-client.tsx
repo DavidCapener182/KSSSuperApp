@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import styles from "./my-shift-entry.module.css";
 
 type Deployment = { source:"EVENT"|"SITE_SHIFT"; id: string; status: "ALLOCATED"|"ACCEPTED"|"DECLINED"|"CANCELLED"; revision: number;
   event_name: string; event_status: string; site_name: string; reporting_point: string|null; role_name: string;
@@ -31,7 +32,7 @@ export function MyDeploymentsClient({focus,focusSource,returnWeek}:{focus?:strin
       const data = await response.json();
       const current = (data.deployments?.items ?? []) as Deployment[];
       setItems(current); setTotal(data.deployments?.total ?? 0); setOffset(page); setError(""); return current;
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Your deployments are unavailable."); return null; }
+    } catch (caught) { setItems([]); setTotal(0); setError(caught instanceof Error ? caught.message : "Your deployments are unavailable."); return null; }
     finally { setLoading(false); }
   }, [focus, focusSource]);
   useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); }, [load]);
@@ -41,11 +42,16 @@ export function MyDeploymentsClient({focus,focusSource,returnWeek}:{focus?:strin
       const result = await fetch(item.source==="SITE_SHIFT"?`/api/deployments/site-shifts/me/${item.id}`:`/api/deployments/me/${item.id}`, { method: "PATCH", headers: { "content-type": "application/json" },
         body: JSON.stringify({ response, expectedRevision: item.revision, ...(response === "DECLINED" ? { reasonCode, note } : {}) }) });
       if (!result.ok) throw new Error((await result.json()).error ?? "Response not saved");
-      setDeclining(null); setNote("");
+      const check = await fetch(`/api/deployments/me?offset=0&allocationId=${encodeURIComponent(item.id)}&source=${item.source}`, { cache: "no-store" });
+      if (!check.ok) throw new Error("Response sent, but its current state could not be confirmed. Retry loading your deployments.");
+      const checked = await check.json();
+      if (!checked.deployments?.items?.some((entry: Deployment) => entry.id === item.id && entry.source === item.source && entry.status === response))
+        throw new Error("Response sent, but its current state could not be confirmed. Retry loading your deployments.");
       const current = await load(offset);
       if (!current?.some((row) => row.id === item.id && row.source === item.source && row.status === response))
         throw new Error("The response was sent, but the current allocation state could not be confirmed. Refresh before acting again.");
-      setNotice(response === "ACCEPTED" ? "You accepted this allocation. This does not record attendance or work." : "You declined this allocation. The position is available for reassignment.");
+      setDeclining(null); setNote("");
+      setNotice(response === "ACCEPTED" ? "Accepted allocation confirmed. Attendance and worked time remain separate." : "Declined allocation confirmed. The position is available for reassignment.");
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Response not saved"); }
     finally { setBusy(false); }
   }
@@ -56,11 +62,12 @@ export function MyDeploymentsClient({focus,focusSource,returnWeek}:{focus?:strin
     <dl className="deployment-self-facts"><div><dt>Area</dt><dd>{item.area_label}</dd></div><div><dt>Report</dt><dd>{time(item.report_at)}</dd></div><div><dt>Shift</dt><dd>{time(item.shift_starts_at)} → {time(item.shift_ends_at)}</dd></div>{item.reporting_point && <div><dt>Reporting point</dt><dd>{item.reporting_point}</dd></div>}</dl>
     {item.availability_conflict && <p className="enterprise-error" role="status">{item.availability_conflict === "UNAVAILABLE_CONFLICT" ? "Availability conflict with this allocation" : "Declaration no longer covers this allocation"}. Your response has not changed.</p>}
     {item.status === "ALLOCATED" && item.event_status !== "COMPLETED" && item.event_status !== "CANCELLED" && <div className="deployment-actions"><Button disabled={busy} onClick={() => void respond(item, "ACCEPTED")}>Accept allocation</Button><Button variant="outline" disabled={busy} onClick={() => { setDeclining(item); setError(""); }}>Decline</Button></div>}
-    {item.status === "ACCEPTED" && <div className="deployment-actions"><Button asChild variant="outline"><Link href={`/operational-contacts?source=${item.source}&allocationId=${encodeURIComponent(item.id)}`}>Operational contacts</Link></Button><Button asChild variant="outline"><Link href={`/my-attendance?${item.source === "SITE_SHIFT" ? "source=SITE_SHIFT&" : ""}allocationId=${encodeURIComponent(item.id)}`}>Open attendance</Link></Button>{item.source === "EVENT" && <Button asChild variant="outline"><Link href={`/my-work-time?allocationId=${encodeURIComponent(item.id)}`}>Open worked time</Link></Button>}</div>}
+    {item.status === "ACCEPTED" && <div className={styles.actions}><Link className={styles.primaryAction} href={`/my-attendance?source=${item.source}&allocationId=${encodeURIComponent(item.id)}`}>Next: open attendance</Link><Link href={`/operational-contacts?source=${item.source}&allocationId=${encodeURIComponent(item.id)}`}>Operational contacts</Link>{item.source === "EVENT" && <Link href={`/my-work-time?allocationId=${encodeURIComponent(item.id)}`}>Event worked time</Link>}</div>}
   </article>;
   return <main className="enterprise-main deployment-self"><div className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Your operational work</p><h1>My Deployments</h1><p>See only your own allocations. Accepting does not record attendance or hours worked.</p></div></div>
     <p className="enterprise-honesty">Responses and availability are separate from attendance. <Link href={returnWeek?`/my-schedule?week=${returnWeek}`:"/my-schedule"}>{returnWeek?"Return to My Schedule":"My Schedule"}</Link> · <Link href="/my-attendance">My Attendance</Link></p>
     {notice && <p className="enterprise-honesty" role="status">{notice}</p>}
+    {busy && <p className="enterprise-honesty" role="status">Saving your response…</p>}
     {error && <p className="enterprise-error" role="alert">{error} <Button variant="outline" onClick={() => void load(offset)}>Retry</Button></p>}
     {loading ? <p className="crm-skeleton" role="status">Loading your deployments…</p> : items.length === 0 ? <div className="crm-empty">No deployments to show.</div> : <>
       <section aria-label="Current deployments"><h2>Current allocations</h2>{currentItems.length ? <div className="deployment-self-list">{currentItems.map(card)}</div> : <p className="crm-empty">No current allocations on this page.</p>}</section>

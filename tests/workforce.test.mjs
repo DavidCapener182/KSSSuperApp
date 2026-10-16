@@ -13,6 +13,12 @@ const ids={office:'10000000-0000-4000-8000-000000000002',staffA:'10000000-0000-4
 async function signed(name){const client=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
  const {error}=await signInWithTestSession(client,{email:creds[name][0],password:creds[name][1]});assert.ifError(error);return client;}
 async function rpc(client,name,args){const {data,error}=await client.rpc(name,args);assert.ifError(error);return data;}
+async function allAvailability(client){
+ const first=await rpc(client,'my_availability',{p_offset:0,p_limit:50}),items=[...first.items];
+ for(let offset=50;offset<first.total;offset+=50)
+  items.push(...(await rpc(client,'my_availability',{p_offset:offset,p_limit:50})).items);
+ return {...first,items};
+}
 const plus=(date,days)=>new Date(Date.parse(`${date}T00:00:00Z`)+days*86400000).toISOString().slice(0,10);
 const monday=(date)=>plus(date,-((new Date(`${date}T00:00:00Z`).getUTCDay()+6)%7));
 
@@ -101,4 +107,14 @@ test('07B authorised week, gaps, explicit conflicts and own schedule', {timeout:
  assert.equal((await rpc(office,'workforce_week',{p_week:week,p_event:'00000000-0000-4000-8000-000000000000'})).total_lines,0);
  assert.equal((await rpc(office,'workforce_person_week',{p_week:week,p_person:'00000000-0000-4000-8000-000000000000'})).total,0);
  assert.ok((await office.rpc('workforce_week',{p_week:plus(week,1)})).error,'non-Monday input denied');
+ await rpc(office,'operational_change_event',{p_event:football,p_action:'STATUS',p_status:'CANCELLED',
+  p_reason:'Synthetic 07B fixture complete'});
+ await rpc(office,'operational_change_event',{p_event:festival,p_action:'STATUS',p_status:'CANCELLED',
+  p_reason:'Synthetic 07B fixture complete'});
+ const finalAvailability=await allAvailability(staffA),unavailable=finalAvailability.items.find((item)=>
+  item.lifecycle==='CURRENT'&&item.state==='UNAVAILABLE'&&new Date(item.starts_at).getTime()===new Date(at(5,'14:00')).getTime()&&
+  new Date(item.ends_at).getTime()===new Date(at(5,'15:00')).getTime());
+ assert.ok(unavailable,'the exact synthetic unavailability fixture remains identifiable for cleanup');
+ await rpc(staffA,'availability_cancel_ack',{p_declaration:unavailable.id,p_expected_revision:finalAvailability.revision,
+  p_acknowledge_deployment_conflict:false});
 });

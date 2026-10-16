@@ -1,0 +1,101 @@
+{
+  "baseline": "ec463382352fb2bb56eed2d7873eedbd694f9ad6",
+  "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-mobile-fixture-5O0s70",
+  "manifest": [
+    {
+      "file": "src/components/my-attendance-client.tsx",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "a25fb1d44c186e91d3274050851a9ce6b83831c998e56053466705fc48393727"
+    },
+    {
+      "file": "src/components/event-attendance-client.tsx",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "bff2252c78329708ae96b0c2f116c441338f3408d6ca995816464321e8f63680"
+    },
+    {
+      "file": "src/components/site-attendance-client.tsx",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "74c2c842374e1f44416115cdaaa636a701e1bb24b7ac72ecae3e94d7ed36ad66"
+    },
+    {
+      "file": "src/components/attendance.module.css",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "f06c07e47c78ba9cdff241ab6d7dbc4c00b15c5b7188b40a081079ac5f6b0307"
+    },
+    {
+      "file": "src/components/workforce-client.tsx",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "85ca66c5d227fca6048ad9ec3c0e5fbfe8fd565f028040eecf351b4775934d99"
+    },
+    {
+      "file": "src/components/workforce-planner.tsx",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "43adbfd0cd8f75d46701419808e8b8db659bcdc6f354be2b2887202182fa7690"
+    },
+    {
+      "file": "src/components/workforce-duty-actions.tsx",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "69366b1421ebf6fc61d18eb255f810f5d756d6012151d5665d75080c94f09687"
+    },
+    {
+      "file": "src/components/workforce-planner.module.css",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "e84e62f7e45f4b4dbc96203ff4bddb848775bc23092dcdfc717a3a0b1001a591"
+    },
+    {
+      "file": "src/components/my-deployments-client.tsx",
+      "sourceRoot": "/tmp/kss-local-integration-20261016",
+      "sha256": "28861743a632d57c53644cdad69fe2ad2d0509b32e4826e6bb8e483225b572fc"
+    },
+    {
+      "file": "src/components/my-schedule-client.tsx",
+      "sourceRoot": "/tmp/kss-local-integration-20261016",
+      "sha256": "8b64aa524b809d17d2ab9e04289e11ff7d2bb3b04c3797ebedf3aacb74635b18"
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "08e5f87833c5db8436e89337ebde0f776bcdbf649d3de69fb89be6441ca2e366"
+    },
+    {
+      "file": "src/components/ui/input.tsx",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "75418e030b2a54dd017ac0f4588db4bbdbabca7525e88bbc9d84cb3e18bcb905"
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "9af6a0da7258746624346506c3ff98c9e300ceb10ef17ca079a1c8c5d5090814"
+    },
+    {
+      "file": "src/lib/events/workforce-week.ts",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "8b7a7a0e7a6e186efd75babea34eac951cd509e4f917d274b0ed16a92959ac64"
+    },
+    {
+      "file": "src/lib/events/workforce-navigation.ts",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "af2f5a3398442bb2916447f53b5b04e79670a4fe13108ae97041e6e622e57136"
+    },
+    {
+      "file": "src/lib/crm/due-time.ts",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "91c20dd59611328cfd68bd07f43e672bf6719a207654326e09d26e607ea4dd20"
+    },
+    {
+      "file": "src/app/globals.css",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "b33a3b8e550c51ef8fc3946d1e43cd520e25f9bd1918e6941325f4f11b74a541"
+    },
+    {
+      "file": "postcss.config.mjs",
+      "sourceRoot": "/private/tmp/kss-document-audience-20261016",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    },
+    {
+      "file": "src/components/my-shift-entry.module.css",
+      "sourceRoot": "/tmp/kss-local-integration-20261016",
+      "sha256": "f72d448cf99537c05744bd8b180e022025d92a0b9dd8c17b7a7bb7829a308771"
+    }
+  ]
+}
