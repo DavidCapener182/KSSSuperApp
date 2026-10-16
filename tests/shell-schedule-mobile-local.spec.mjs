@@ -18,7 +18,7 @@ const person={id:id(1),name:'Synthetic Staff with a deliberately long name for s
 const week='2026-10-12';
 async function prepare(){
  const runtime=await mkdtemp(join(tmpdir(),'kss-shell-schedule-fixture-'));
- const files=['src/components/enterprise-shell.tsx','src/components/my-schedule-client.tsx','src/components/my-shift-entry.module.css','src/components/ui/button.tsx','src/components/ui/input.tsx','src/components/ui/sheet.tsx','src/lib/events/workforce-week.ts','src/lib/crm/due-time.ts','src/lib/environment-label.ts','src/app/globals.css','postcss.config.mjs'];
+ const files=['src/components/enterprise-shell.tsx','src/components/my-schedule-client.tsx','src/components/my-shift-entry.module.css','src/components/my-schedule-presentation.module.css','src/components/ui/button.tsx','src/components/ui/input.tsx','src/components/ui/sheet.tsx','src/lib/events/workforce-week.ts','src/lib/crm/due-time.ts','src/lib/environment-label.ts','src/app/globals.css','postcss.config.mjs'];
  const manifest=[];
  for(const file of files){const target=join(runtime,file);await mkdir(dirname(target),{recursive:true});await cp(join(root,file),target);manifest.push({file,sha256:createHash('sha256').update(await readFile(join(root,file))).digest('hex')});}
  await mkdir(join(runtime,'src/lib/supabase'),{recursive:true});

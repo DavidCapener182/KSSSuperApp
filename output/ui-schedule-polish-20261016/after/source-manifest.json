@@ -1,0 +1,55 @@
+{
+  "baseline": "a216616cb41899f6476b2788219f63eb0de7b5fe",
+  "baselineTree": "4b0170fffdd1a97f1ecfd72577b367a0e653a989",
+  "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-shell-schedule-fixture-QtlD1b",
+  "manifest": [
+    {
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "file": "src/components/my-schedule-client.tsx",
+      "sha256": "84899e2b3db8e8847a2fbd3fb9fd8605df12488e496afc61e5e695b8bc44c3db"
+    },
+    {
+      "file": "src/components/my-shift-entry.module.css",
+      "sha256": "f72d448cf99537c05744bd8b180e022025d92a0b9dd8c17b7a7bb7829a308771"
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "sha256": "08e5f87833c5db8436e89337ebde0f776bcdbf649d3de69fb89be6441ca2e366"
+    },
+    {
+      "file": "src/components/ui/input.tsx",
+      "sha256": "75418e030b2a54dd017ac0f4588db4bbdbabca7525e88bbc9d84cb3e18bcb905"
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "9af6a0da7258746624346506c3ff98c9e300ceb10ef17ca079a1c8c5d5090814"
+    },
+    {
+      "file": "src/lib/events/workforce-week.ts",
+      "sha256": "8b7a7a0e7a6e186efd75babea34eac951cd509e4f917d274b0ed16a92959ac64"
+    },
+    {
+      "file": "src/lib/crm/due-time.ts",
+      "sha256": "91c20dd59611328cfd68bd07f43e672bf6719a207654326e09d26e607ea4dd20"
+    },
+    {
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "file": "src/app/globals.css",
+      "sha256": "b33a3b8e550c51ef8fc3946d1e43cd520e25f9bd1918e6941325f4f11b74a541"
+    },
+    {
+      "file": "postcss.config.mjs",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    },
+    {
+      "file": "src/components/my-schedule-presentation.module.css",
+      "sha256": "7c947a69e8b47460e3f392a5932d338af13c72b2e88ab2fbf6f425e824203858"
+    }
+  ]
+}

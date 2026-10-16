@@ -1,0 +1,1198 @@
+[
+  {
+    "name": "schedule-390-initial",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "mainControls": [
+      {
+        "label": "Previous week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "This week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "Next week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "date",
+        "height": 44,
+        "width": 358
+      },
+      {
+        "label": "Mon12",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Tue13",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Wed14",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Thu15",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Fri16",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sat17",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sun18",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "View and respond to allocation",
+        "height": 44.78125,
+        "width": 324
+      },
+      {
+        "label": "Open duty",
+        "height": 44,
+        "width": 324
+      },
+      {
+        "label": "Open attendance",
+        "height": 44.78125,
+        "width": 324
+      },
+      {
+        "label": "Open duty",
+        "height": 44,
+        "width": 324
+      },
+      {
+        "label": "Deployment details",
+        "height": 44,
+        "width": 324
+      }
+    ],
+    "colours": [
+      {
+        "text": "Awaiting your response",
+        "foreground": "rgb(131, 80, 9)",
+        "background": "rgb(255, 241, 215)"
+      },
+      {
+        "text": "Synthetic EVENT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Shift",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00 → Tue 13 Oct, 00:30",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "View and respond to allocation",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(23, 105, 210)"
+      },
+      {
+        "text": "Open duty",
+        "foreground": "rgb(14, 86, 179)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Accepted allocation",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgb(241, 244, 249)"
+      },
+      {
+        "text": "Synthetic SITE_SHIFT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      }
+    ]
+  },
+  {
+    "name": "schedule-390-focus",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "mainControls": [
+      {
+        "label": "Previous week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "This week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "Next week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "date",
+        "height": 44,
+        "width": 358
+      },
+      {
+        "label": "Mon12",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Tue13",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Wed14",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Thu15",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Fri16",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sat17",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sun18",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "View and respond to allocation",
+        "height": 44.78125,
+        "width": 324
+      },
+      {
+        "label": "Open duty",
+        "height": 44,
+        "width": 324
+      },
+      {
+        "label": "Open attendance",
+        "height": 44.78125,
+        "width": 324
+      },
+      {
+        "label": "Open duty",
+        "height": 44,
+        "width": 324
+      },
+      {
+        "label": "Deployment details",
+        "height": 44,
+        "width": 324
+      }
+    ],
+    "colours": [
+      {
+        "text": "Awaiting your response",
+        "foreground": "rgb(131, 80, 9)",
+        "background": "rgb(255, 241, 215)"
+      },
+      {
+        "text": "Synthetic EVENT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Shift",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00 → Tue 13 Oct, 00:30",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "View and respond to allocation",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(23, 105, 210)"
+      },
+      {
+        "text": "Open duty",
+        "foreground": "rgb(14, 86, 179)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Accepted allocation",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgb(241, 244, 249)"
+      },
+      {
+        "text": "Synthetic SITE_SHIFT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      }
+    ]
+  },
+  {
+    "name": "shell-schedule-390-drawer",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "mainControls": [
+      {
+        "label": "Previous week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "This week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "Next week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "date",
+        "height": 44,
+        "width": 358
+      },
+      {
+        "label": "Mon12",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Tue13",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Wed14",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Thu15",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Fri16",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sat17",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sun18",
+        "height": 50,
+        "width": 47.71875
+      }
+    ],
+    "colours": [
+      {
+        "text": "Awaiting your response",
+        "foreground": "rgb(131, 80, 9)",
+        "background": "rgb(255, 241, 215)"
+      },
+      {
+        "text": "Synthetic EVENT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Shift",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00 → Tue 13 Oct, 00:30",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "View and respond to allocation",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(23, 105, 210)"
+      },
+      {
+        "text": "Open duty",
+        "foreground": "rgb(14, 86, 179)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Accepted allocation",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgb(241, 244, 249)"
+      },
+      {
+        "text": "Synthetic SITE_SHIFT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      }
+    ]
+  },
+  {
+    "name": "schedule-390-next-week",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "mainControls": [
+      {
+        "label": "Previous week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "This week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "Next week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "date",
+        "height": 44,
+        "width": 358
+      },
+      {
+        "label": "Mon19",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Tue20",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Wed21",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Thu22",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Fri23",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sat24",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sun25",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "View and respond to allocation",
+        "height": 44.78125,
+        "width": 324
+      },
+      {
+        "label": "Open duty",
+        "height": 44,
+        "width": 324
+      },
+      {
+        "label": "Open attendance",
+        "height": 44.78125,
+        "width": 324
+      },
+      {
+        "label": "Open duty",
+        "height": 44,
+        "width": 324
+      },
+      {
+        "label": "Deployment details",
+        "height": 44,
+        "width": 324
+      }
+    ],
+    "colours": [
+      {
+        "text": "Awaiting your response",
+        "foreground": "rgb(131, 80, 9)",
+        "background": "rgb(255, 241, 215)"
+      },
+      {
+        "text": "Synthetic EVENT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 19 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Shift",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 19 Oct, 10:00 → Tue 20 Oct, 00:30",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "View and respond to allocation",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(23, 105, 210)"
+      },
+      {
+        "text": "Open duty",
+        "foreground": "rgb(14, 86, 179)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Accepted allocation",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgb(241, 244, 249)"
+      },
+      {
+        "text": "Synthetic SITE_SHIFT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 19 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      }
+    ]
+  },
+  {
+    "name": "schedule-390-empty",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "mainControls": [
+      {
+        "label": "Previous week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "This week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "Next week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "date",
+        "height": 44,
+        "width": 358
+      },
+      {
+        "label": "Mon12",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Tue13",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Wed14",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Thu15",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Fri16",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sat17",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sun18",
+        "height": 50,
+        "width": 47.71875
+      }
+    ],
+    "colours": []
+  },
+  {
+    "name": "schedule-390-loading",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "mainControls": [
+      {
+        "label": "Previous week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "This week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "Next week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "date",
+        "height": 44,
+        "width": 358
+      },
+      {
+        "label": "Mon19",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Tue20",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Wed21",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Thu22",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Fri23",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sat24",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sun25",
+        "height": 50,
+        "width": 47.71875
+      }
+    ],
+    "colours": []
+  },
+  {
+    "name": "shell-schedule-390-error",
+    "viewport": 390,
+    "scrollWidth": 390,
+    "mainControls": [
+      {
+        "label": "Previous week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "This week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "Next week",
+        "height": 44,
+        "width": 114
+      },
+      {
+        "label": "date",
+        "height": 44,
+        "width": 358
+      },
+      {
+        "label": "Mon12",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Tue13",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Wed14",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Thu15",
+        "height": 50,
+        "width": 47.703125
+      },
+      {
+        "label": "Fri16",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sat17",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Sun18",
+        "height": 50,
+        "width": 47.71875
+      },
+      {
+        "label": "Retry",
+        "height": 44,
+        "width": 57.359375
+      }
+    ],
+    "colours": []
+  },
+  {
+    "name": "schedule-1280-initial",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "mainControls": [
+      {
+        "label": "Previous week",
+        "height": 44,
+        "width": 124.28125
+      },
+      {
+        "label": "This week",
+        "height": 44,
+        "width": 95.328125
+      },
+      {
+        "label": "Next week",
+        "height": 44,
+        "width": 98
+      },
+      {
+        "label": "date",
+        "height": 44,
+        "width": 165
+      },
+      {
+        "label": "View and respond to allocation",
+        "height": 44.78125,
+        "width": 264.765625
+      },
+      {
+        "label": "Open duty",
+        "height": 44,
+        "width": 80.53125
+      },
+      {
+        "label": "Open attendance",
+        "height": 44.78125,
+        "width": 160.453125
+      },
+      {
+        "label": "Open duty",
+        "height": 44,
+        "width": 80.53125
+      },
+      {
+        "label": "Deployment details",
+        "height": 44,
+        "width": 149.890625
+      }
+    ],
+    "colours": [
+      {
+        "text": "Awaiting your response",
+        "foreground": "rgb(131, 80, 9)",
+        "background": "rgb(255, 241, 215)"
+      },
+      {
+        "text": "Synthetic EVENT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Shift",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00 → Tue 13 Oct, 00:30",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "View and respond to allocation",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(23, 105, 210)"
+      },
+      {
+        "text": "Open duty",
+        "foreground": "rgb(14, 86, 179)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Accepted allocation",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgb(241, 244, 249)"
+      },
+      {
+        "text": "Synthetic SITE_SHIFT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      }
+    ]
+  },
+  {
+    "name": "schedule-1280-focus",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "mainControls": [
+      {
+        "label": "Previous week",
+        "height": 44,
+        "width": 124.28125
+      },
+      {
+        "label": "This week",
+        "height": 44,
+        "width": 95.328125
+      },
+      {
+        "label": "Next week",
+        "height": 44,
+        "width": 98
+      },
+      {
+        "label": "date",
+        "height": 44,
+        "width": 165
+      },
+      {
+        "label": "View and respond to allocation",
+        "height": 44.78125,
+        "width": 264.765625
+      },
+      {
+        "label": "Open duty",
+        "height": 44,
+        "width": 80.53125
+      },
+      {
+        "label": "Open attendance",
+        "height": 44.78125,
+        "width": 160.453125
+      },
+      {
+        "label": "Open duty",
+        "height": 44,
+        "width": 80.53125
+      },
+      {
+        "label": "Deployment details",
+        "height": 44,
+        "width": 149.890625
+      }
+    ],
+    "colours": [
+      {
+        "text": "Awaiting your response",
+        "foreground": "rgb(131, 80, 9)",
+        "background": "rgb(255, 241, 215)"
+      },
+      {
+        "text": "Synthetic EVENT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Shift",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00 → Tue 13 Oct, 00:30",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "View and respond to allocation",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(23, 105, 210)"
+      },
+      {
+        "text": "Open duty",
+        "foreground": "rgb(14, 86, 179)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Accepted allocation",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgb(241, 244, 249)"
+      },
+      {
+        "text": "Synthetic SITE_SHIFT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 12 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      }
+    ]
+  },
+  {
+    "name": "schedule-1280-next-week",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "mainControls": [
+      {
+        "label": "Previous week",
+        "height": 44,
+        "width": 124.28125
+      },
+      {
+        "label": "This week",
+        "height": 44,
+        "width": 95.328125
+      },
+      {
+        "label": "Next week",
+        "height": 44,
+        "width": 98
+      },
+      {
+        "label": "date",
+        "height": 44,
+        "width": 165
+      },
+      {
+        "label": "View and respond to allocation",
+        "height": 44.78125,
+        "width": 264.765625
+      },
+      {
+        "label": "Open duty",
+        "height": 44,
+        "width": 80.53125
+      },
+      {
+        "label": "Open attendance",
+        "height": 44.78125,
+        "width": 160.453125
+      },
+      {
+        "label": "Open duty",
+        "height": 44,
+        "width": 80.53125
+      },
+      {
+        "label": "Deployment details",
+        "height": 44,
+        "width": 149.890625
+      }
+    ],
+    "colours": [
+      {
+        "text": "Awaiting your response",
+        "foreground": "rgb(131, 80, 9)",
+        "background": "rgb(255, 241, 215)"
+      },
+      {
+        "text": "Synthetic EVENT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 19 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Shift",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 19 Oct, 10:00 → Tue 20 Oct, 00:30",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "View and respond to allocation",
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(23, 105, 210)"
+      },
+      {
+        "text": "Open duty",
+        "foreground": "rgb(14, 86, 179)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Accepted allocation",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgb(241, 244, 249)"
+      },
+      {
+        "text": "Synthetic SITE_SHIFT work with a deliberately long operational title for overnight coverage",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Report",
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Mon 19 Oct, 10:00",
+        "foreground": "rgb(24, 35, 52)",
+        "background": "rgba(0, 0, 0, 0)"
+      }
+    ]
+  },
+  {
+    "name": "schedule-1280-empty",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "mainControls": [
+      {
+        "label": "Previous week",
+        "height": 44,
+        "width": 124.28125
+      },
+      {
+        "label": "This week",
+        "height": 44,
+        "width": 95.328125
+      },
+      {
+        "label": "Next week",
+        "height": 44,
+        "width": 98
+      },
+      {
+        "label": "date",
+        "height": 44,
+        "width": 165
+      }
+    ],
+    "colours": []
+  },
+  {
+    "name": "schedule-1280-loading",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "mainControls": [
+      {
+        "label": "Previous week",
+        "height": 44,
+        "width": 124.28125
+      },
+      {
+        "label": "This week",
+        "height": 44,
+        "width": 95.328125
+      },
+      {
+        "label": "Next week",
+        "height": 44,
+        "width": 98
+      },
+      {
+        "label": "date",
+        "height": 44,
+        "width": 165
+      }
+    ],
+    "colours": []
+  },
+  {
+    "name": "shell-schedule-1280-error",
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "mainControls": [
+      {
+        "label": "Previous week",
+        "height": 44,
+        "width": 124.28125
+      },
+      {
+        "label": "This week",
+        "height": 44,
+        "width": 95.328125
+      },
+      {
+        "label": "Next week",
+        "height": 44,
+        "width": 98
+      },
+      {
+        "label": "date",
+        "height": 44,
+        "width": 165
+      },
+      {
+        "label": "Retry",
+        "height": 44,
+        "width": 57.359375
+      }
+    ],
+    "colours": []
+  }
+]

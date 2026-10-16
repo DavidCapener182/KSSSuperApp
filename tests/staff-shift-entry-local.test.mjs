@@ -40,6 +40,7 @@ function componentHarness(file, name, props, fetcher) {
     '@/lib/events/workforce-week': weekDates,
     '@/lib/crm/due-time': dueDates,
     './my-shift-entry.module.css': { __esModule: true, default: new Proxy({}, { get: (_, key) => key }) },
+    './my-schedule-presentation.module.css': { __esModule: true, default: new Proxy({}, { get: (_, key) => key }) },
   };
   const loadedModule = { exports: {} };
   const js = ts.transpileModule(readFileSync(new URL(`../src/components/${file}`, import.meta.url), 'utf8'), {

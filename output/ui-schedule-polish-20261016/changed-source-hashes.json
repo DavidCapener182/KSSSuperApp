@@ -1,0 +1,5 @@
+{
+  "src/components/my-schedule-client.tsx": "84899e2b3db8e8847a2fbd3fb9fd8605df12488e496afc61e5e695b8bc44c3db",
+  "src/components/my-schedule-presentation.module.css": "7c947a69e8b47460e3f392a5932d338af13c72b2e88ab2fbf6f425e824203858",
+  "tests/ui-schedule-polish-browser.spec.mjs": "d583448b13e026bb43e7c3e600ad9dbfd68243c3ce52388f4e9c7a70c8b76b59"
+}

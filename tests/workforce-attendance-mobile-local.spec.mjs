@@ -59,9 +59,13 @@ async function prepare() {
     if (error.code === 'ENOENT') return false;
     throw error;
   })) files.push('src/components/my-shift-entry.module.css');
+  if (await stat(join(staffRoot, 'src/components/my-schedule-presentation.module.css')).then(info => info.isFile(), error => {
+    if (error.code === 'ENOENT') return false;
+    throw error;
+  })) files.push('src/components/my-schedule-presentation.module.css');
   const manifest = [];
   for (const file of files) {
-    const sourceRoot = /my-(deployments-client|schedule-client|shift-entry.module)/.test(file) ? staffRoot : root;
+    const sourceRoot = /my-(deployments-client|schedule-client|shift-entry.module|schedule-presentation.module)/.test(file) ? staffRoot : root;
     const source = join(sourceRoot, file), target = join(runtime, file);
     await mkdir(dirname(target), { recursive: true }); await cp(source, target);
     manifest.push({ file, sourceRoot, sha256: createHash('sha256').update(await readFile(source)).digest('hex') });

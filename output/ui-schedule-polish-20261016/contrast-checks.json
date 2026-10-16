@@ -1,0 +1,22 @@
+[
+  {
+    "pair": "primary action",
+    "ratio": 5.27
+  },
+  {
+    "pair": "attention state",
+    "ratio": 6.04
+  },
+  {
+    "pair": "secondary text on surface",
+    "ratio": 7.58
+  },
+  {
+    "pair": "secondary text on muted",
+    "ratio": 6.87
+  },
+  {
+    "pair": "focus on background",
+    "ratio": 3.06
+  }
+]
