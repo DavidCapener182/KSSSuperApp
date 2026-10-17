@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { addCivilDays, londonToday, londonWeekStart } from "@/lib/events/workforce-week";
 import styles from "@/app/(enterprise)/my-duty/my-duty.module.css";
@@ -15,6 +15,10 @@ const key = (item: Focus) => `${item.source}:${item.id}`;
 const sourceName = (source: Source) => source === "EVENT" ? "Event duty" : "Site shift";
 
 export function MyDutyClient({ focus }: { focus?: Focus }) {
+  const focusId = focus?.id;
+  const focusSource = focus?.source;
+  const requestedFocus = focus ? key(focus) : "";
+  const [appliedFocus, setAppliedFocus] = useState(requestedFocus);
   const [duties, setDuties] = useState<Duty[]>([]);
   const [selected, setSelected] = useState<Focus | null>(focus ?? null);
   const [duty, setDuty] = useState<Duty | null>(null);
@@ -25,7 +29,25 @@ export function MyDutyClient({ focus }: { focus?: Focus }) {
   const [detailError, setDetailError] = useState("");
   const [partial, setPartial] = useState(false);
 
+  const listSequence = useRef(0);
+  const detailSequence = useRef(0);
+
+  useEffect(() => {
+    const sequence = detailSequence;
+    sequence.current++;
+    const timer = setTimeout(() => {
+      setDuty(null); setAttendance(null); setDetailError("");
+      if (focusId && focusSource) {
+        setSelected({ id: focusId, source: focusSource });
+        setDetailLoading(true);
+      }
+      setAppliedFocus(requestedFocus);
+    }, 0);
+    return () => { clearTimeout(timer); sequence.current++; };
+  }, [focusId, focusSource, requestedFocus]);
+
   const loadList = useCallback(async () => {
+    const current = ++listSequence.current;
     setLoading(true); setError("");
     try {
       const monday = londonWeekStart(londonToday());
@@ -35,6 +57,7 @@ export function MyDutyClient({ focus }: { focus?: Focus }) {
       const responses = await Promise.all([previous, monday, next].map((week) => fetch(`/api/my-schedule?week=${week}`, { cache: "no-store" })));
       if (responses.some((response) => !response.ok)) throw new Error("Your duty list is unavailable. Retry to refresh.");
       const schedules = await Promise.all(responses.map((response) => response.json()));
+      if (current !== listSequence.current) return;
       const rows = schedules.flatMap((value) => (value.schedule?.work ?? []) as Duty[]);
       const unique = [...new Map(rows.map((item) => [key(item), item])).values()]
         .filter((item) => ["ALLOCATED", "ACCEPTED"].includes(item.status))
@@ -49,19 +72,25 @@ export function MyDutyClient({ focus }: { focus?: Focus }) {
         const candidate = current ?? today ?? upcoming ?? null;
         setSelected(candidate ? { id: candidate.id, source: candidate.source } : null);
       }
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Your duty list is unavailable."); }
-    finally { setLoading(false); }
+    } catch (caught) { if (current === listSequence.current) setError(caught instanceof Error ? caught.message : "Your duty list is unavailable."); }
+    finally { if (current === listSequence.current) setLoading(false); }
   }, [focus]);
 
-  useEffect(() => { const timer = setTimeout(() => void loadList(), 0); return () => clearTimeout(timer); }, [loadList]);
+  useEffect(() => {
+    const sequence = listSequence;
+    const timer = setTimeout(() => void loadList(), 0);
+    return () => { clearTimeout(timer); sequence.current++; };
+  }, [loadList]);
 
   const loadDetail = useCallback(async (item: Focus) => {
+    const current = ++detailSequence.current;
     setDetailLoading(true); setDetailError(""); setDuty(null); setAttendance(null);
     try {
       const params = new URLSearchParams({ allocationId: item.id, source: item.source });
       const response = await fetch(`/api/deployments/me?${params}`, { cache: "no-store" });
       if (!response.ok) throw new Error("This duty could not be confirmed from your allocation record.");
       const data = await response.json();
+      if (current !== detailSequence.current) return;
       const exact = ((data.deployments?.items ?? []) as Duty[]).find((row) => key(row) === key(item));
       if (!exact) throw new Error("This allocation is not available in your own duty records.");
       setDuty(exact);
@@ -69,16 +98,22 @@ export function MyDutyClient({ focus }: { focus?: Focus }) {
         const attendanceResponse = await fetch(`/api/attendance/me?${params}`, { cache: "no-store" });
         if (!attendanceResponse.ok) throw new Error("Allocation confirmed, but attendance is unavailable. Refresh before using its state.");
         const attendanceData = await attendanceResponse.json();
+        if (current !== detailSequence.current) return;
         const attendanceRow = ((attendanceData.attendance?.items ?? []) as (Attendance & { source: Source; allocation_id: string })[])
           .find((row) => row.source === item.source && row.allocation_id === item.id);
         if (!attendanceRow) throw new Error("Allocation confirmed, but its attendance record could not be confirmed.");
         setAttendance(attendanceRow);
       }
-    } catch (caught) { setDetailError(caught instanceof Error ? caught.message : "Duty detail unavailable."); }
-    finally { setDetailLoading(false); }
+    } catch (caught) { if (current === detailSequence.current) setDetailError(caught instanceof Error ? caught.message : "Duty detail unavailable."); }
+    finally { if (current === detailSequence.current) setDetailLoading(false); }
   }, []);
 
-  useEffect(() => { if (!selected) return; const timer = setTimeout(() => void loadDetail(selected), 0); return () => clearTimeout(timer); }, [selected, loadDetail]);
+  useEffect(() => {
+    if (!selected) return;
+    const sequence = detailSequence;
+    const timer = setTimeout(() => void loadDetail(selected), 0);
+    return () => { clearTimeout(timer); sequence.current++; };
+  }, [selected, loadDetail]);
   useEffect(() => { if (!selected) return; const refresh = () => { if (document.visibilityState === "visible") void loadDetail(selected); }; document.addEventListener("visibilitychange", refresh); return () => document.removeEventListener("visibilitychange", refresh); }, [selected, loadDetail]);
 
   const sourceQuery = duty ? new URLSearchParams({ allocationId: duty.id, source: duty.source }).toString() : "";
@@ -95,12 +130,12 @@ export function MyDutyClient({ focus }: { focus?: Focus }) {
     {error && <div className={styles.alert} role="alert">{error} <button type="button" onClick={() => void loadList()}>Retry</button></div>}
     {loading ? <p role="status">Loading your duties…</p> : <>
       {partial && <p className={styles.note}>This view shows the first 50 duties in each week. Open <Link href="/my-schedule">My Schedule</Link> for the full week.</p>}
-      {duties.length > 1 && <div className={styles.switcher}><label htmlFor="duty-select">Choose duty</label><select id="duty-select" value={selected ? key(selected) : ""} onChange={(event) => { const match = duties.find((item) => key(item) === event.target.value); setSelected(match ? { id: match.id, source: match.source } : null); }}><option value="">Select a duty</option>{duties.map((item) => <option key={key(item)} value={key(item)}>{when(item.report_at)} · {item.event_name} · {item.site_name}</option>)}</select></div>}
+      {duties.length > 1 && <div className={styles.switcher}><label htmlFor="duty-select">Choose duty</label><select id="duty-select" value={selected ? key(selected) : ""} onChange={(event) => { const match = duties.find((item) => key(item) === event.target.value); detailSequence.current++; setDuty(null); setAttendance(null); setDetailError(""); setDetailLoading(Boolean(match)); setSelected(match ? { id: match.id, source: match.source } : null); }}><option value="">Select a duty</option>{duties.map((item) => <option key={key(item)} value={key(item)}>{when(item.report_at)} · {item.event_name} · {item.site_name}</option>)}</select></div>}
       {!selected && <section className={styles.empty}><h2>No current or upcoming duty shown</h2><p>This view checks this week and next week. Past duties and a fuller view are in My Schedule.</p><Link href="/my-schedule">Open My Schedule <span aria-hidden="true">→</span></Link></section>}
     </>}
     {selected && detailLoading && <p role="status">Checking this duty’s source records…</p>}
     {selected && detailError && <div className={styles.alert} role="alert">{detailError} <button type="button" onClick={() => void loadDetail(selected)}>Retry</button></div>}
-    {duty && !detailLoading && !detailError && <>
+    {duty && appliedFocus === requestedFocus && selected && key(duty) === key(selected) && !detailLoading && !detailError && <>
       <section className={styles.hero} aria-labelledby="duty-title"><div className={styles.heroTop}><span>{isToday ? "TODAY" : "UPCOMING"} · {sourceName(duty.source)}</span><span className={styles.phase}>{phase}</span></div><h2 id="duty-title">{duty.event_name}</h2><p>{duty.site_name} <span aria-hidden="true">·</span> {duty.role_name}</p><div className={styles.heroFacts}><div><small>Report</small><strong>{when(duty.report_at)}</strong></div><div><small>Shift</small><strong>{when(duty.shift_starts_at)} – {when(duty.shift_ends_at)}</strong></div><div><small>Area</small><strong>{duty.area_label}</strong></div></div>{duty.reporting_point && <p className={styles.reporting}><strong>Reporting point</strong> {duty.reporting_point}</p>}<Link className={styles.primaryAction} href={duty.status === "ALLOCATED" ? `/my-deployments?${sourceQuery}` : `/my-attendance?${sourceQuery}`}>{duty.status === "ALLOCATED" ? "Respond to allocation" : attendance?.attendance.check_out_at ? "Review attendance" : attendance?.attendance.check_in_at ? "Check out or review attendance" : "Check in or review attendance"} <span aria-hidden="true">↗</span></Link></section>
       {attendanceMismatch && <p className={styles.alert} role="status">Recorded attendance falls outside the current scheduled shift. Review the allocation and attendance history before relying on this duty’s timing. <Link href={`/my-attendance?${sourceQuery}`}>Open attendance</Link></p>}
       {duty.availability_conflict && <p className={styles.alert} role="status">{duty.availability_conflict === "UNAVAILABLE_CONFLICT" ? "Availability conflicts with this allocation." : "Your availability declaration no longer covers this allocation."} Your response has not changed. <Link href="/my-availability">Review availability</Link></p>}

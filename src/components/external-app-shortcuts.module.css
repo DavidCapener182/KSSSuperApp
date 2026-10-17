@@ -130,3 +130,24 @@ a.card:focus-visible {
   .card { transition: none; }
   a.card:hover { transform: none; }
 }
+/* External tools share a quiet utility row, separate from owned work. */
+.section { margin-top: 34px; padding-top: 24px; border-top: 1px solid var(--kss-border); }
+.heading { font-size: 15px; font-weight: 650; }
+.eyebrow { font-size: 9px; }
+.card { min-height: 100px; padding: 16px 18px; border-radius: 9px; gap: 7px; box-shadow: none; }
+.cardTop { min-height: 26px; }
+.iconWrap { border: 0; border-radius: 0; width: 22px; height: 24px; flex-basis: 22px; background: transparent; }
+.name { font-size: 13px; }
+.description { font-size: 11px; }
+.unavailable { background: transparent; }
+a.card:hover { transform: none; box-shadow: none; background: var(--kss-blue-soft); }
+@media(max-width:560px) { .card { min-height: 100px; } }
+/* V2 connected-tool directory. */
+.section { margin-top: 48px; padding-top: 28px; border-top: 2px solid var(--kss-ink); }
+.heading { font-size: 21px; }
+.grid { gap: 0; }
+.card { border: 0; border-radius: 0; padding: 18px 28px; background: transparent; }
+.card:first-child { padding-left: 0; }
+.card + .card { border-left: 1px solid var(--kss-border); }
+.name { font-size: 15px; }.description { font-size: 12px; }
+@media(max-width:560px) { .card { padding: 22px 0; }.card + .card { border-left: 0; border-top: 1px solid var(--kss-border); } }

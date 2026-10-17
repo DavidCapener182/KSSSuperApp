@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight, CalendarDays, ClipboardList, Radio, Layers3 } from "lucide-react";
 import { redirect } from "next/navigation";
 import { navigationFor } from "@/lib/auth/capabilities";
 import { getPrincipal } from "@/lib/auth/principal";
@@ -73,15 +74,16 @@ function EntryGroup({ title, paths, allowed }: { title: string; paths: string[];
   const visible = paths.filter((path) => allowed.has(path)).map((path) => entries[path]);
   if (!visible.length) return null;
   return <section className={styles.group} aria-label={title}>
-    <h2>{title}</h2><div className={styles.groupList}>{visible.map((entry) =>
+    <h2><Layers3 size={18} aria-hidden="true"/>{title}</h2><div className={styles.groupList}>{visible.map((entry) =>
       <Link className={styles.row} href={entry.href} key={entry.href}>
-        <span><strong>{entry.title}</strong><small>{entry.detail}</small></span><span className={styles.rowArrow} aria-hidden="true">↗</span>
+        <span><strong>{entry.title}</strong><small>{entry.detail}</small></span><ArrowUpRight className={styles.rowArrow} size={18} aria-hidden="true"/>
       </Link>)}</div>
   </section>;
 }
 
 function QuickLinks({ paths, allowed }: { paths: string[]; allowed: Set<string> }) {
-  return <nav className={styles.quickGrid} aria-label="Quick access">{paths.filter((path) => allowed.has(path)).map((path) => <Link className={styles.quickLink} href={path} key={path}>{entries[path].title}<span aria-hidden="true">↗</span></Link>)}</nav>;
+  const icons = [CalendarDays, ClipboardList, Radio];
+  return <nav className={styles.quickGrid} aria-label="Quick access">{paths.filter((path) => allowed.has(path)).map((path, index) => { const Icon = icons[index % icons.length]; return <Link className={styles.quickLink} href={path} key={path}><Icon size={21} strokeWidth={1.7} aria-hidden="true"/><span>{entries[path].title}<small>{index === 0 ? "Plan your day" : index === 1 ? "View the detail" : "Open workspace"}</small></span><ArrowUpRight size={18} aria-hidden="true"/></Link>; })}</nav>;
 }
 
 export default async function AppHome() {
@@ -105,18 +107,18 @@ export default async function AppHome() {
   const openTasks = work?.filter(isHomeTask).sort((a, b) =>
     taskRank(a, now.getTime()) - taskRank(b, now.getTime()) || b.createdAt.localeCompare(a.createdAt)) ?? [];
   return <main className={`enterprise-main ${styles.home}`}>
-    <header className={styles.hero}><div><p className={styles.kicker}>KSS workspace / Synthetic Development</p><h1>Welcome, {principal.displayName}</h1><p>{staff && !office && !operations ? "Your duty and personal records are a step away." : "Open an operational area or continue your assigned work."}</p></div><p className={styles.date}>{date}</p></header>
-    <section className={styles.section} aria-label="Quick access"><h2>Quick access</h2><QuickLinks paths={staff && !office && !operations ? ["/my-duty", "/my-schedule", "/my-deployments"] : ["/workforce", "/events", "/control-room"]} allowed={allowed} /></section>
-    <HomeFavourites key={principal.personId} accountId={principal.personId} entries={navigation} />
+    <header className={styles.hero}><div><p className={styles.kicker}><Layers3 size={15} aria-hidden="true"/> Welcome, {principal.displayName}</p><h1>{staff && !office && !operations ? "Your next move." : "Your working day."}</h1><p>{staff && !office && !operations ? "Your duty and personal records are a step away." : "Open an operational area or continue your assigned work."}</p></div><div className={styles.date}><CalendarDays size={18} aria-hidden="true"/><span>{date}<small>KSS Enterprise workspace</small></span></div>
+    <section className={styles.section} aria-label="Quick access"><h2>Quick access</h2><QuickLinks paths={staff && !office && !operations ? ["/my-duty", "/my-schedule", "/my-deployments"] : ["/workforce", "/events", "/control-room"]} allowed={allowed} /></section></header>
+    <div className={styles.workspaceGrid}><div className={styles.mainColumn}>
     {allowed.has("/work") && <section className={styles.taskPanel} aria-label="My tasks">
-      <div className={styles.taskHeading}><h2>My tasks <span>{openTasks.length}</span></h2>
+      <div className={styles.taskHeading}><div><p className={styles.sectionKicker}>01 / Assigned to you</p><h2>My tasks <span>{work === null ? "Unavailable" : openTasks.length}</span></h2></div>
         {openTasks.length > 6 && <Link href="/work">Open My Work <span aria-hidden="true">→</span></Link>}
       </div>
       {work === null ? <p>Tasks are unavailable right now.</p> : openTasks.length === 0 ? <p>No open tasks.</p> :
-        <ul className={styles.taskList}>{openTasks.slice(0, 6).map((task) => {
+        <ul className={styles.taskList}>{openTasks.slice(0, 6).map((task, index) => {
           const clientLabel = taskClientLabel(task);
           return <li key={task.id}><Link href={task.sourceHref} className={clientLabel ? styles.taskWithClient : undefined}>
-            {clientLabel && <span className={styles.taskClient}>{clientLabel}</span>}
+            <span className={styles.taskNumber} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>{clientLabel && <span className={styles.taskClient}>{clientLabel}</span>}
             <span className={styles.taskBody}><strong>{task.title}</strong><small>{taskDetail(task)}</small></span>
             <span className={styles.taskArrow} aria-hidden="true">↗</span>
           </Link></li>;
@@ -124,13 +126,14 @@ export default async function AppHome() {
     </section>}
     {staff && <div className={styles.groupGrid}><EntryGroup title="Duty records" paths={["/my-attendance", "/my-work-time", "/my-availability"]} allowed={allowed} /><EntryGroup title="Requests & evidence" paths={["/hr", "/my-time-away", "/onboarding", "/documents", "/credentials", "/my-equipment"]} allowed={allowed} /></div>}
     {(office || operations) && <div className={styles.groupGrid}><EntryGroup title="Delivery" paths={["/mobilisations", "/service-delivery", "/documents"]} allowed={allowed} /><EntryGroup title="People & administration" paths={["/people", "/hr", "/onboarding", "/time-away"]} allowed={allowed} /></div>}
+    </div><aside className={styles.sideColumn}><HomeFavourites key={principal.personId} accountId={principal.personId} entries={navigation} />
     {(trainingCatalogue || trainingAdmin || trainingAssignments) && <section className={styles.learning} aria-label="Learning"><h2>Learning</h2><div className={styles.learningList}>
       {trainingCatalogue && <Link href="/training">Course catalogue <span aria-hidden="true">↗</span></Link>}
       {staff && <Link href="/training/my-learning">My learning <span aria-hidden="true">↗</span></Link>}
       {trainingAdmin && <Link href="/training-admin">Training administration <span aria-hidden="true">↗</span></Link>}
       {trainingAssignments && <Link href="/training-admin/assignments">Training assignments <span aria-hidden="true">↗</span></Link>}
     </div></section>}
-    <ExternalAppShortcuts roles={principal.roles} />
+    </aside></div><ExternalAppShortcuts roles={principal.roles} />
     <p className="enterprise-honesty">This development workspace does not contain live operational data.</p>
   </main>;
 }

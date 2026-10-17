@@ -36,9 +36,9 @@ test("built KSS sign-in shell serves current access and integration guidance", {
     assert.equal(response.status, 200);
     const html = await response.text();
     assert.match(html, /KSS Enterprise Platform/);
-    assert.match(html, /A secure place to start/);
-    assert.match(html, /Use your authorised KSS account/);
-    assert.match(html, /Some external checks and integrations are still unavailable/);
+    assert.match(html, /One workspace/);
+    assert.match(html, /Your KSS account/);
+    assert.match(html, /Each workflow shows its current integration status/);
     assert.doesNotMatch(html, /Create Next App|Deploy Now|Next\.js logo/);
   } finally {
     server.kill("SIGTERM");

@@ -40,6 +40,7 @@ test('current server navigation is the only client candidate source; existing Ho
   const rpcCalls = [];
   const mocks = {
     'react/jsx-runtime': { jsx, jsxs: jsx, Fragment: 'Fragment' },
+    'lucide-react': { ArrowUpRight: 'ArrowUpRight', CalendarDays: 'CalendarDays', ClipboardList: 'ClipboardList', Radio: 'Radio', Layers3: 'Layers3' },
     'next/link': { default: 'Link' }, 'next/navigation': { redirect: path => { throw new Error(`redirect:${path}`); } },
     '@/lib/auth/capabilities': { navigationFor: () => Nav },
     '@/lib/auth/principal': { getPrincipal: async () => ({ personId: accountA, displayName: 'Synthetic Staff', roles: ['SECURITY_STAFF'] }) },

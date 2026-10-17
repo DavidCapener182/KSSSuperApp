@@ -847,3 +847,52 @@ body { min-width: 320px; }
   .my-schedule-declaration { display:grid; }
 }
 .enterprise-native-learning{margin:32px 0;padding:24px;border:1px solid #cbd5e1;border-radius:16px;background:#f7fafe}.enterprise-native-learning h2{font-size:1.4rem;margin:.2rem 0}.enterprise-native-learning p{line-height:1.5}
+
+/* Constrained correction: original navigation, restrained blue accents. */
+:root { --kss-rail: oklch(24% .023 255); --kss-rail-ink: oklch(87% .014 255); }
+.enterprise-sidebar { background: #e7e9ed; }
+.enterprise-sidebar .enterprise-nav a[aria-current="page"] { box-shadow: none; }
+.enterprise-sidebar .enterprise-nav { gap: 19px; }
+.enterprise-sidebar .enterprise-nav-group-label { font-size: 10px; letter-spacing: .055em; }
+.enterprise-sidebar .enterprise-nav a { gap: 10px; }
+.enterprise-shell-sidebar .enterprise-main { padding-top: 18px; }
+.enterprise-main h1 { font-weight: 650; }
+.enterprise-shell-sidebar :is(.ui-page-header,.enterprise-page-heading) { padding-bottom: 22px; margin-bottom: 26px; border-bottom: 1px solid var(--kss-border); }
+.enterprise-shell-sidebar :is(.work-card,.documents-card,.profile-card,.onboarding-panel) { border-radius: 8px; box-shadow: none; }
+.enterprise-shell-sidebar .work-card { border: 0; border-bottom: 1px solid var(--kss-border); padding: 22px 0; background: transparent; }
+.enterprise-shell-sidebar .work-card h2 { font-size: 18px; }
+.enterprise-shell-sidebar :is(.crm-filters,.workforce-toolbar) { background: var(--kss-surface); border: 1px solid var(--kss-border); border-radius: 6px; padding: 18px; }
+.enterprise-shell-sidebar .enterprise-footer { color: var(--kss-ink-subtle); font-size: 10px; }
+@media(max-width:760px) { .enterprise-shell-sidebar .enterprise-main { padding-top: 18px; } }
+
+/* Public entry shares the brand masthead and full-width workspace composition. */
+.entry-shell { padding: 0; background: var(--kss-surface); }
+.entry-shell .shell-header { min-height: 84px; padding: 20px 5vw; background: var(--kss-surface); border-bottom: 1px solid var(--kss-border); color: var(--kss-ink); }
+.entry-shell .identity-name { font-size: 17px; }
+.entry-shell .identity-name span { color: var(--kss-ink-soft); }
+.entry-shell .phase-label { background: var(--kss-surface-muted); border: 1px solid var(--kss-border); color: var(--kss-ink-soft); border-radius: 4px; font-size: 11px; }
+.entry-shell .welcome { display: grid; align-items: stretch; gap: 0; grid-template-columns: minmax(0,1.12fr) minmax(340px,.88fr); width: 100%; max-width: none; margin: 0; padding: 0; flex: 1; }
+.entry-shell .welcome-copy { position: relative; padding: 72px max(48px,calc((100vw - 1280px)/2)); padding-right: 64px; background: var(--kss-surface-muted); color: var(--kss-ink); }
+.entry-shell .welcome-copy .eyebrow { color: var(--kss-blue-strong); font-size: 11px; }
+.entry-shell .welcome-copy h1 { margin: 24px 0; max-width: 13ch; font-size: 64px; font-weight: 600; letter-spacing: -.055em; line-height: 1.03; }
+.entry-shell .lead { max-width: 40ch; color: var(--kss-ink-soft); font-size: 17px; line-height: 1.6; }
+.entry-index { margin-top: 46px; max-width: 450px; }
+.entry-index p { display: flex; align-items: baseline; gap: 24px; padding: 19px 0; margin: 0; border-top: 1px solid var(--kss-border); }
+.entry-index p > span { color: var(--kss-ink-subtle); font-size: 11px; font-variant-numeric: tabular-nums; }
+.entry-index strong { font-size: 16px; font-weight: 550; }
+.entry-index small { display: block; margin-top: 6px; color: var(--kss-ink-soft); font-size: 12px; font-weight: 400; }
+.entry-boundary { margin-top: 34px; max-width: 52ch; color: var(--kss-ink-subtle); font-size: 11px; line-height: 1.6; }
+.entry-shell .welcome-access { display: flex; flex-direction: column; justify-content: center; align-items: stretch; padding: 64px max(40px,calc((100vw - 1280px)/2)); padding-left: 64px; min-width: 0; }
+.entry-form-heading .eyebrow { margin: 0 0 14px; font-size: 11px; }
+.entry-form-heading h2 { margin: 0; font-size: 38px; line-height: 1.1; letter-spacing: -.04em; font-weight: 650; }
+.entry-form-heading > p:last-child { margin: 14px 0 30px; color: var(--kss-ink-soft); font-size: 14px; line-height: 1.5; }
+.entry-shell .access-panel { max-width: 440px; margin: 0; padding: 0; border: 0; border-radius: 0; box-shadow: none; }
+.entry-shell .access-panel h3 { margin: 0 0 24px; padding-bottom: 16px; border-bottom: 1px solid var(--kss-border); font-size: 15px; }
+.entry-shell .access-panel label { margin: 20px 0; font-size: 12px; }
+.entry-shell .access-panel input { min-height: 52px; border-radius: 5px; background: var(--kss-surface); }
+.entry-shell .access-panel button[type="submit"] { min-height: 52px; border-radius: 5px; }
+.entry-shell .entry-form-note { margin: 22px 0 14px; font-size: 11px; line-height: 1.6; }
+.entry-shell .entry-message { margin: 0 0 20px; padding: 14px 16px; border: 1px solid var(--kss-red); border-radius: 5px; background: var(--kss-red-soft); color: var(--kss-red); font-size: 13px; line-height: 1.5; }
+.entry-shell .shell-footer { min-height: 56px; padding: 16px 5vw; background: var(--kss-surface); color: var(--kss-ink-subtle); border-top: 1px solid var(--kss-border); }
+@media(max-width:900px) { .entry-shell .welcome-copy { padding: 52px 32px; } .entry-shell .welcome-copy h1 { font-size: 50px; } .entry-shell .welcome-access { padding: 48px 32px; } }
+@media(max-width:600px) { .entry-shell .shell-header { min-height: 70px; padding: 16px 20px; } .entry-shell .identity-name { font-size: 14px; } .entry-shell .identity-name span { display: block; margin-top: 3px; font-size: 10px; } .entry-shell .phase-label { width: auto; height: auto; padding: 6px 8px; font-size: 9px; } .entry-shell .welcome { grid-template-columns: 1fr; } .entry-shell .welcome-copy { padding: 32px 24px; } .entry-shell .welcome-copy h1 { font-size: 43px; max-width: 15ch; margin: 16px 0; } .entry-shell .lead { font-size: 14px; } .entry-index,.entry-boundary { display: none; } .entry-shell .welcome-access { padding: 34px 24px 42px; } .entry-form-heading h2 { font-size: 30px; } .entry-form-heading > p:last-child { margin-bottom: 24px; } .entry-shell .shell-footer { padding-inline: 24px; } }

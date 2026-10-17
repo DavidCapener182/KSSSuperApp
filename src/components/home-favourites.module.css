@@ -18,3 +18,25 @@
 .choices input { flex: none; width: 1.1rem; height: 1.1rem; accent-color: var(--primary); }
 .section :is(a, button, summary, input):focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
 @media (max-width: 760px) { .list, .choices { grid-template-columns: minmax(0, 1fr); } }
+/* Compact personal rail beside the task workspace. */
+.section { margin: 0; padding: 20px; border-radius: 10px; }
+.heading h2 { font-size: 14px; font-weight: 650; }
+.heading { align-items: start; }
+.heading button { border: 0; background: transparent; padding: 0; min-height: 25px; color: var(--kss-blue-strong); font-size: 10px; }
+.hint { margin: 11px 0 16px; font-size: 11px; line-height: 1.6; }
+.section > p:not(.hint):not(.status) { margin: 14px 0; color: var(--kss-ink-soft); font-size: 12px; line-height: 1.6; }
+.list { grid-template-columns: 1fr; gap: 0; }
+.list li { border: 0; border-bottom: 1px solid var(--kss-border); border-radius: 0; padding: 3px 0; }
+.list a { font-size: 12px; padding-inline: 0; }
+.list button { border: 0; background: transparent; min-height: 44px; font-size: 10px; color: var(--kss-ink-subtle); padding: 4px; }
+.picker summary { color: var(--kss-blue-strong); font-size: 11px; }
+.choices { grid-template-columns: 1fr; gap: 0; }
+.choices label, .picker legend { font-size: 12px; }
+.status { font-size: 11px; }
+/* V2 personal tools are a flat rail rather than another card. */
+.section { padding: 0; border: 0; border-radius: 0; background: transparent; }
+.heading h2 { font-size: 16px; font-weight: 600; }
+.hint { font-size: 12px; margin-block: 14px 20px; }
+.section > p:not(.hint):not(.status) { font-size: 13px; }
+.picker summary { font-size: 12px; }
+.heading button { min-height: 44px; }
