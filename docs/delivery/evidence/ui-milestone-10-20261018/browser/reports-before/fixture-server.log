@@ -1,0 +1,31 @@
+▲ Next.js 16.3.6 (webpack)
+- Local:         http://127.0.0.1:3230
+- Network:       http://127.0.0.1:3230
+✓ Ready in 169ms
+✓ Running next.config.mjs took 5ms
+
+  We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default.
+  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+  	- allowJs was set to true
+  	- skipLibCheck was set to true
+  	- strict was set to false
+  	- noEmit was set to true
+  	- incremental was set to true
+  	- include was set to ['next-env.d.ts', '.next/types/**/*.ts', '.next/dev/types/**/*.ts', '**/*.mts', '**/*.ts', '**/*.tsx']
+  	- plugins was updated to add { name: 'next' }
+  	- exclude was set to ['node_modules']
+
+  The following mandatory changes were made to your tsconfig.json:
+
+  	- resolveJsonModule was set to true (to match webpack resolution)
+  	- isolatedModules was set to true (requirement for SWC / Babel)
+
+
+○ Compiling / ...
+ GET / 200 in 5.8s (next.js: 5.4s, application-code: 359ms)
+ GET /management-reports?preset=custom&mode=CURRENT&start=2026-10-01&end=2026-10-16&client=00000000-0000-4000-8000-000000000010&site=00000000-0000-4000-8000-000000000001&offset=0&measure=REQUIRED 200 in 1824ms (next.js: 1707ms, application-code: 117ms)
+ GET /management-reports?preset=custom&mode=CURRENT&start=2026-10-01&end=2026-10-16&client=00000000-0000-4000-8000-000000000010&site=00000000-0000-4000-8000-000000000001&offset=0&measure=REQUIRED 200 in 53ms (next.js: 1.8ms, application-code: 51ms)
+ GET /management-reports?preset=custom&mode=CURRENT&start=2026-10-01&end=2026-10-16&client=00000000-0000-4000-8000-000000000010&site=00000000-0000-4000-8000-000000000001&offset=0&measure=REQUIRED 200 in 28ms (next.js: 1.8ms, application-code: 27ms)
+ GET /management-reports?preset=custom&mode=CURRENT&start=2026-10-01&end=2026-10-16&client=00000000-0000-4000-8000-000000000010&site=00000000-0000-4000-8000-000000000001&offset=0&measure=REQUIRED 200 in 31ms (next.js: 1.8ms, application-code: 29ms)
+[?25h

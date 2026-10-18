@@ -1,0 +1,13 @@
+{
+  "scopedSourceTestsReplayReportExit": 0,
+  "fullStagedExit": 2,
+  "reason": "Byte-preserved generated Next/TAP logs and historical unified patch contain whitespace diagnostics; no product/test/replay/report warning. Raw evidence retained unchanged.",
+  "files": [
+    "docs/delivery/evidence/ui-milestone-10-20261018/browser/assets-after-original-scroll-red-matched-me/server.log",
+    "docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-after/fixture-server.log",
+    "docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-before/fixture-server.log",
+    "docs/delivery/evidence/ui-milestone-10-20261018/build.txt",
+    "docs/delivery/evidence/ui-milestone-10-20261018/final-full-lint.txt",
+    "docs/delivery/evidence/ui-milestone-10-20261018/full-lint.txt"
+  ]
+}

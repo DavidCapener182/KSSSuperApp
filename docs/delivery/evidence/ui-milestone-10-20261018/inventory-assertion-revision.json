@@ -1,0 +1,7 @@
+{
+  "before": "tests/ui-milestone-9-preservation-local.test.mjs",
+  "beforeSha256": "464d722c8828f58c33d8e4059c0102aa9e35d755a0db4c4430a82ccd2f2c4f0c",
+  "after": "tests/ui-milestone-10-preservation-local.test.mjs",
+  "sha256": "6da1e236f13105d9258a9a17dfba0cafd6021841e5f661ebbcd29035a28488c6",
+  "scope": "Same exact source inventory/hash assertion rolled forward from15+415 to3+427; original byte-preserved as text; no duplicate stale assertion left in executable test discovery"
+}

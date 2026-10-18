@@ -1,0 +1,36 @@
+▲ Next.js 16.3.6 (webpack)
+- Local:         http://127.0.0.1:3231
+- Network:       http://127.0.0.1:3231
+✓ Ready in 133ms
+✓ Running next.config.mjs took 5ms
+
+ GET / 200 in 415ms (next.js: 354ms, application-code: 61ms)
+ GET /assets 200 in 1054ms (next.js: 976ms, application-code: 78ms)
+ GET /assets 200 in 23ms (next.js: 0.8ms, application-code: 23ms)
+ GET /assets 200 in 30ms (next.js: 0.8ms, application-code: 29ms)
+ GET /assets 200 in 22ms (next.js: 2ms, application-code: 20ms)
+ GET /assets 200 in 19ms (next.js: 0.8ms, application-code: 18ms)
+ GET /assets 404 in 21ms (next.js: 0.8ms, application-code: 20ms)
+ GET /assets 404 in 22ms (next.js: 0.8ms, application-code: 22ms)
+ GET /assets 200 in 50ms (next.js: 3ms, application-code: 47ms)
+ GET /assets 200 in 31ms (next.js: 1.5ms, application-code: 29ms)
+ GET /assets 200 in 84ms (next.js: 5ms, application-code: 79ms)
+ GET /assets 200 in 31ms (next.js: 1.3ms, application-code: 30ms)
+ GET /assets 200 in 23ms (next.js: 0.8ms, application-code: 22ms)
+ GET /assets 404 in 35ms (next.js: 1.0ms, application-code: 34ms)
+ GET /assets 404 in 19ms (next.js: 0.9ms, application-code: 18ms)
+ GET /assets 200 in 26ms (next.js: 1.0ms, application-code: 25ms)
+ GET /assets 200 in 26ms (next.js: 2ms, application-code: 24ms)
+ GET /assets 200 in 22ms (next.js: 0.7ms, application-code: 21ms)
+ GET /assets 200 in 19ms (next.js: 0.7ms, application-code: 18ms)
+ GET /assets 200 in 29ms (next.js: 2ms, application-code: 26ms)
+ GET /assets 404 in 20ms (next.js: 0.7ms, application-code: 20ms)
+ GET /assets 404 in 19ms (next.js: 1.2ms, application-code: 18ms)
+ GET /assets 200 in 23ms (next.js: 0.7ms, application-code: 22ms)
+ GET /assets 200 in 17ms (next.js: 0.6ms, application-code: 16ms)
+ GET /assets 200 in 29ms (next.js: 0.7ms, application-code: 29ms)
+ GET /assets 200 in 30ms (next.js: 0.7ms, application-code: 29ms)
+ GET /assets 200 in 22ms (next.js: 0.7ms, application-code: 21ms)
+ GET /assets 404 in 22ms (next.js: 0.6ms, application-code: 21ms)
+ GET /assets 404 in 18ms (next.js: 0.7ms, application-code: 17ms)
+[?25h

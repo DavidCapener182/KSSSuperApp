@@ -1,0 +1,12 @@
+▲ Next.js 16.3.6 (webpack)
+- Local:         http://127.0.0.1:3230
+- Network:       http://127.0.0.1:3230
+✓ Ready in 156ms
+✓ Running next.config.mjs took 5ms
+
+ GET / 200 in 511ms (next.js: 449ms, application-code: 62ms)
+ GET /assets 200 in 1113ms (next.js: 1036ms, application-code: 76ms)
+ GET /assets 200 in 33ms (next.js: 0.9ms, application-code: 32ms)
+ GET /assets 200 in 32ms (next.js: 1.1ms, application-code: 30ms)
+ GET /assets 200 in 22ms (next.js: 0.8ms, application-code: 21ms)
+[?25h

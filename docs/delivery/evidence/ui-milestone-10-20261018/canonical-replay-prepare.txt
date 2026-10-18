@@ -1,0 +1,2 @@
+[{"stage": "before", "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-reports-assets-before-6215nmc2", "files": 21}, {"stage": "after", "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-reports-assets-after-v80cew8w", "files": 21}]
+Prepared source-pinned fixtures: /var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-ui-milestone10-replay-_12wuo1w

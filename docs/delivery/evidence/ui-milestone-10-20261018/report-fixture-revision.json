@@ -1,0 +1,9 @@
+{
+  "file": "tests/helpers/ui-management-reports-fixture.mjs",
+  "origin": "kss-followup-integration same helper",
+  "change": "Remove unused Service Delivery return-context static import/stub; unpublished unrelated module absent from base; Reports tests and all9 assertions retained",
+  "beforeSha256": "85015f1259c2443ec71aaaa676126dc56b4c6db9f05421372cd2f86f4db0d417",
+  "sha256": "422052730550c54a125ef473d8008f9c76e91cd2081b580cda29e214ebc14c66",
+  "patch": "report-fixture.patch",
+  "assertionsRemoved": 0
+}

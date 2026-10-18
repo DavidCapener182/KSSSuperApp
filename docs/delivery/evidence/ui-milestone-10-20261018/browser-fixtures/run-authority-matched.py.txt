@@ -1,0 +1,8 @@
+from pathlib import Path
+import os,subprocess,json
+out=Path(__file__).resolve().parent;root=out.parent.parent;env={k:os.environ[k]for k in ['PATH','HOME','TMPDIR','LANG']if k in os.environ};env['KSS_PLAYWRIGHT_MODULE']='/Users/davidcapener/.npm/_npx/e41f203b7505f1fb/node_modules/playwright';runs=[]
+steps=[('reports-before',['node','--test',str(out/'reports-browser.spec.mjs')],{'KSS_STAGE':'before'}),('reports-after',['node','--test',str(out/'reports-browser.spec.mjs')],{'KSS_STAGE':'after'}),('assets-before',['node',str(out/'assets-browser.mjs')],{'KSS_STAGE':'before','KSS_RUN_LABEL':'matched-me'}),('assets-after',['node',str(out/'assets-browser.mjs')],{'KSS_STAGE':'after','KSS_MANIFEST':'repair-runtime-manifests.json','KSS_RUN_LABEL':'scroll-repair-matched-me'}),('assets-original-red-geometry',['node',str(out/'assets-red-scroll-probe.mjs')],{'KSS_STAGE':'after','KSS_MANIFEST':'original-css-runtime-manifests.json','KSS_RUN_LABEL':'original-scroll-red-matched-me'}),('equipment-after',['python3',str(out/'run-equipment.py')],{})]
+for name,cmd,extra in steps:
+ with (out/(name+'-matched-me.log')).open('w')as log:r=subprocess.run(cmd,cwd=root,env={**env,**extra},stdout=log,stderr=subprocess.STDOUT)
+ runs.append({'name':name,'exit':r.returncode,'log':name+'-matched-me.log','authority':'Full /me shape matches person31,current role array,reviewerfalse; navigation from exact published capabilities pure source'});(out/'authority-matched-runs.json').write_text(json.dumps(runs,indent=2)+'\n');print(name,r.returncode,flush=True)
+ if r.returncode:raise SystemExit(r.returncode)

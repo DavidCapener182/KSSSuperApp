@@ -1,0 +1,126 @@
+[
+  {
+    "name": "report-1440-context",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "source-EVENT-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "source-SITE_SHIFT-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "report-1440-denied",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "report-1440-invalid",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "report-834-context",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "source-EVENT-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "source-SITE_SHIFT-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "report-834-denied",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "report-834-invalid",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "report-390-context",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "source-EVENT-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "source-SITE_SHIFT-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "report-390-denied",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "report-390-invalid",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "report-320-context",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "source-EVENT-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "source-SITE_SHIFT-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "report-320-denied",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "report-320-invalid",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "SUPER_ADMIN",
+    "status": 200,
+    "synthetic": true
+  },
+  {
+    "name": "server-role-gate",
+    "role": "OPERATIONS",
+    "status": 404,
+    "synthetic": true
+  },
+  {
+    "name": "server-role-gate",
+    "role": "SECURITY_STAFF",
+    "status": 404,
+    "synthetic": true
+  },
+  {
+    "name": "server-role-gate",
+    "role": "CLIENT",
+    "status": 404,
+    "synthetic": true
+  }
+]

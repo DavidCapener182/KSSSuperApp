@@ -1,0 +1,64 @@
+[
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "office-register",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "office-record",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "office-stock",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "office-stock-record",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "original-scroll-red-proof",
+    "overflowY": "visible",
+    "clientHeight": 1000,
+    "scrollHeight": 1191,
+    "scrollTop": 0,
+    "top": 0,
+    "bottom": 1000,
+    "viewport": 1000,
+    "targetBounds": {
+      "top": 1059.9375,
+      "bottom": 1103.9375,
+      "viewport": 1000
+    }
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "original-long-handover-red",
+    "role": "OPERATIONS",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true
+  }
+]

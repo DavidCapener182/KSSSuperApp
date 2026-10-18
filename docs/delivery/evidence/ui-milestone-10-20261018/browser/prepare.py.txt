@@ -1,0 +1,46 @@
+from pathlib import Path
+import hashlib,json,os,re,tempfile,subprocess
+ROOT=Path.cwd();OUT=ROOT/'output/ui-management-assets-resumed-20261018';CURRENT=ROOT/'kss-ui-milestone-10';SHARED=ROOT/'kss-ui-milestone-10'
+BASE_REPORT=ROOT/'kss-ui-operations/output/ui-management-reports-20261018/baseline-source';BASE_ASSET=ROOT/'kss-ui-shared/output/ui-custody-20261018/baseline'
+PRODUCTS=['src/components/management-reports-client.tsx','src/components/management-reports.module.css','src/app/(enterprise)/management-reports/page.tsx','src/components/assets-workspace.tsx','src/components/assets-workspace.module.css','src/app/(enterprise)/assets/page.tsx']
+BOUND={'src/lib/auth/principal.ts','src/lib/supabase/server.ts','src/lib/supabase/browser.ts','src/components/events-client.tsx','src/components/site-service-detail-client.tsx'}
+manifest=[]
+for stage,port in [('before',3230),('after',3231)]:
+ runtime=Path(tempfile.mkdtemp(prefix='kss-reports-assets-'+stage+'-'));files=[]
+ def save(f,b):
+  p=runtime/f;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b if isinstance(b,bytes)else b.encode())
+ def source(f):
+  if f in PRODUCTS:
+   base=BASE_REPORT if 'management-reports' in f else BASE_ASSET
+   p=(base if stage=='before' else CURRENT)/f
+   assert p.is_file(),p
+   return p.read_bytes(),str(p)
+  return (SHARED/f).read_bytes(),str(SHARED/f)
+ queue=PRODUCTS+['src/components/enterprise-shell.tsx','src/lib/auth/capabilities.ts','src/app/globals.css','src/app/(enterprise)/events/[id]/page.tsx','src/app/(enterprise)/sites/[siteId]/services/[serviceId]/page.tsx'];seen=set()
+ while queue:
+  f=queue.pop()
+  if f in seen or f in BOUND:continue
+  seen.add(f);b,origin=source(f);save(f,b);files.append({'file':f,'origin':origin,'sha256':hashlib.sha256(b).hexdigest()})
+  if not f.endswith(('.ts','.tsx')):continue
+  for spec in re.findall(r'''(?:from\s+|import\s*)['"]([^'"]+)['"]''',b.decode()):
+   stem=Path('src')/spec[2:] if spec.startswith('@/')else Path(f).parent/spec if spec.startswith('.')else None
+   if stem is None:continue
+   stem=Path(os.path.normpath(stem))
+   for q in [stem,Path(str(stem)+'.ts'),Path(str(stem)+'.tsx'),stem/'index.ts',stem/'index.tsx']:
+    if (SHARED/q).is_file():queue.append(str(q));break
+ (runtime/'node_modules').symlink_to(SHARED/'node_modules',target_is_directory=True)
+ save('package.json','{"private":true}')
+ save('tsconfig.json',json.dumps({'compilerOptions':{'target':'ES2022','lib':['dom','esnext'],'jsx':'react-jsx','module':'esnext','moduleResolution':'bundler','esModuleInterop':True,'paths':{'@/*':['./src/*']}}}))
+ save('next.config.mjs','export default {devIndicators:false};')
+ save('postcss.config.mjs',(SHARED/'postcss.config.mjs').read_bytes())
+ save('src/lib/auth/principal.ts',"import{cookies}from'next/headers';export async function getPrincipal(){const c=await cookies();return{personId:'00000000-0000-4000-8000-000000000031',displayName:'Synthetic Reviewer',roles:(c.get('fixtureRole')?.value??'OFFICE_ADMIN').split(','),incidentReviewer:false}};export const isUuid=value=>typeof value==='string'&&/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(value);")
+ save('src/lib/supabase/server.ts','export const createServerSupabase=async()=>({});')
+ save('src/lib/supabase/browser.ts','export const createBrowserSupabase=()=>({auth:{signOut:async()=>({error:null})}});')
+ save('src/components/fixture-source.tsx',"'use client';import{useEffect,useState}from'react';export function Source({id,exact}){const[state,setState]=useState('Loading synthetic source');useEffect(()=>{fetch('/api/fixture-source?id='+id).then(r=>setState(r.ok?'Synthetic source available':'Synthetic source denied; no source detail returned'))},[id]);return <main className='enterprise-main' data-exact-source={exact}><h1>Local source boundary</h1><p role='status'>{state}</p></main>}")
+ save('src/components/events-client.tsx',"import{Source}from'./fixture-source';export function EventsClient({id,focusRequirement}){return <Source id={id} exact={focusRequirement}/>}")
+ save('src/components/site-service-detail-client.tsx',"import{Source}from'./fixture-source';export function SiteServiceDetailClient({serviceId,initialDemandId}){return <Source id={serviceId} exact={initialDemandId}/>}")
+ save('src/app/layout.tsx',"import './globals.css';export default function Layout({children}){return <html lang='en'><body><aside style={{padding:8,background:'#fff1d7',color:'#182334'}}>Local synthetic Reports / Assets · mock principal and APIs · no hosted Auth/RPC/RLS or real writes</aside>{children}</body></html>}")
+ save('src/app/(enterprise)/layout.tsx',"import{EnterpriseShell}from'@/components/enterprise-shell';import{getPrincipal}from'@/lib/auth/principal';import{navigationFor}from'@/lib/auth/capabilities';export default async function Layout({children}){const p=await getPrincipal();return <EnterpriseShell person={{id:p.personId,name:p.displayName}} roles={p.roles} incidentReviewer={false} navigation={navigationFor(p)}>{children}</EnterpriseShell>}")
+ save('src/app/page.tsx','export default function Page(){return <h1>Local synthetic fixture ready</h1>}')
+ manifest.append({'stage':stage,'port':port,'runtime':str(runtime),'files':files,'mocked':sorted(BOUND|{'src/components/fixture-source.tsx','src/app/layout.tsx','src/app/(enterprise)/layout.tsx'}),'scope':'Actual Reports and Assets route/client source. Source destination client is an explicitly synthetic boundary; no destination UI acceptance.'})
+(OUT/'runtime-manifests.json').write_text(json.dumps(manifest,indent=2)+'\n');print(json.dumps([{'stage':r['stage'],'runtime':r['runtime'],'files':len(r['files'])}for r in manifest]))

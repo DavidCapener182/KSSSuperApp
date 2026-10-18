@@ -1,0 +1,16 @@
+{
+  "controlledProducts": 3,
+  "base": "e3a5e8826e74d1341ae466c0d9834afcac357c82",
+  "beforeAfterSharedFoundation": "Exact base shared UI and dependencies; before products from original frozen UI checkpoints",
+  "assetTypeScriptUnchanged": true,
+  "APIAuthRPCSQLPackageUnchanged": true,
+  "historicalBoundaryCorrection": "Reports /api/me person100 vs rendered31 and Super constantOffice fixed in boundary only; full matched replay required; historical checkpoint01 not final acceptance",
+  "comparedAuthorityFields": [
+    "person.id",
+    "roles exact ordered array",
+    "incidentReviewer"
+  ],
+  "finalBoundary": "person31/displayNameSyntheticReviewer/current roles/reviewerfalse/navigationFor exact published pure source",
+  "protectedArtifacts": 239,
+  "nonOwnedSource": 427
+}

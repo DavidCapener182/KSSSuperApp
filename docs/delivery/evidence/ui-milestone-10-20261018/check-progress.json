@@ -1,0 +1,22 @@
+[
+  {
+    "check": "offline-tests",
+    "exit": 0,
+    "log": "offline-tests.txt"
+  },
+  {
+    "check": "full-lint",
+    "exit": 0,
+    "log": "full-lint.txt"
+  },
+  {
+    "check": "build",
+    "exit": 0,
+    "log": "build.txt"
+  },
+  {
+    "check": "types",
+    "exit": 0,
+    "log": "types.txt"
+  }
+]

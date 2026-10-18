@@ -1,0 +1,17 @@
+{
+  "file": "src/lib/auth/capabilities.ts",
+  "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+  "executedMeBoundaryOrigin": "candidate9 exact published source; byte-identical to candidate10 conserved source",
+  "comparedFields": [
+    "person.id",
+    "ordered roles",
+    "incidentReviewer"
+  ],
+  "completeShape": [
+    "person.id",
+    "person.displayName",
+    "roles",
+    "incidentReviewer",
+    "navigation"
+  ]
+}

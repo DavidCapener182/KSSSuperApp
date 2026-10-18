@@ -1,0 +1,18 @@
+from pathlib import Path
+import subprocess,json,os,time,urllib.request
+out=Path(__file__).resolve().parent;m=json.loads((out/'repair-runtime-manifests.json').read_text())[0];env={k:os.environ[k]for k in ['PATH','HOME','TMPDIR','LANG']if k in os.environ};env['NEXT_TELEMETRY_DISABLED']='1'
+with (out/'equipment-server.log').open('w') as log:
+ server=subprocess.Popen(['node','node_modules/next/dist/bin/next','dev','--webpack','--hostname','127.0.0.1','--port',str(m['port'])],cwd=m['runtime'],env=env,stdout=log,stderr=subprocess.STDOUT)
+ try:
+  for attempt in range(100):
+   if server.poll() is not None:raise RuntimeError('Synthetic server exited; inspect log')
+   try:
+    urllib.request.urlopen('http://127.0.0.1:'+str(m['port']),timeout=2);break
+   except Exception:time.sleep(.2)
+  else:raise RuntimeError('Synthetic server startup timed out')
+  with (out/'equipment-regression.log').open('w') as browserlog:result=subprocess.run(['node',str(out/'equipment-regression.mjs')],env=env,stdout=browserlog,stderr=subprocess.STDOUT)
+  print('EQUIPMENT_REGRESSION_EXIT',result.returncode,flush=True);raise SystemExit(result.returncode)
+ finally:
+  server.terminate()
+  try:server.wait(timeout=5)
+  except subprocess.TimeoutExpired:print('Server termination pending; do not duplicate runtime',flush=True)

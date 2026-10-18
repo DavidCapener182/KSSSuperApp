@@ -1,0 +1,56 @@
+{
+  "stores": [],
+  "stock": [],
+  "items": [
+    {
+      "id": "00000000-0000-4000-8000-000000000101",
+      "reference": "SYN-RADIO-001",
+      "class": "RADIO",
+      "description": "Synthetic issued radio",
+      "condition": "GOOD",
+      "maintenanceState": "NONE",
+      "exceptionState": "NONE",
+      "holderKind": "PERSON",
+      "holderId": "00000000-0000-4000-8000-000000000031",
+      "holderLabel": "Synthetic Staff",
+      "locationLabel": "Synthetic handover point",
+      "expectedReturnAt": "2026-10-25T17:00:00Z",
+      "pendingAck": "ISSUE",
+      "revision": 4,
+      "overdue": false
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000102",
+      "reference": "SYN-PHONE-002",
+      "class": "PHONE",
+      "description": "Synthetic issued phone",
+      "condition": "DAMAGED",
+      "maintenanceState": "REQUESTED",
+      "exceptionState": "NONE",
+      "holderKind": "PERSON",
+      "holderId": "00000000-0000-4000-8000-000000000031",
+      "holderLabel": "Synthetic Staff",
+      "locationLabel": "Synthetic handover point",
+      "expectedReturnAt": null,
+      "pendingAck": null,
+      "revision": 6,
+      "overdue": false
+    }
+  ],
+  "myStock": [
+    {
+      "issueId": "00000000-0000-4000-8000-000000000201",
+      "garment": "Synthetic polo",
+      "size": "M",
+      "outstanding": 2,
+      "acknowledgement": "PENDING"
+    },
+    {
+      "issueId": "00000000-0000-4000-8000-000000000202",
+      "garment": "Synthetic jacket",
+      "size": "L",
+      "outstanding": 1,
+      "acknowledgement": "ACKNOWLEDGED"
+    }
+  ]
+}

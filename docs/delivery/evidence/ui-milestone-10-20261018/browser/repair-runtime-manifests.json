@@ -1,0 +1,130 @@
+[
+  {
+    "stage": "after",
+    "port": 3231,
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-reports-assets-after-elcz_55m",
+    "files": [
+      {
+        "file": "src/app/(enterprise)/sites/[siteId]/services/[serviceId]/page.tsx",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/app/(enterprise)/sites/[siteId]/services/[serviceId]/page.tsx",
+        "sha256": "e310235cd5254f821d03007d188536e012363ebc9d4ae515592311c6acf22fd4"
+      },
+      {
+        "file": "src/lib/reports/navigation.ts",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/lib/reports/navigation.ts",
+        "sha256": "81e4b458a7e95b3a5e7ace98965899079c8bed8f060facd34ead5108ffd7595a"
+      },
+      {
+        "file": "src/lib/events/workforce-week.ts",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/lib/events/workforce-week.ts",
+        "sha256": "8b7a7a0e7a6e186efd75babea34eac951cd509e4f917d274b0ed16a92959ac64"
+      },
+      {
+        "file": "src/lib/auth/return-target.ts",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/lib/auth/return-target.ts",
+        "sha256": "f8203e4cce09b400ced1872f44dfe0da40e5392e0dab5e627f9241a1950d0bee"
+      },
+      {
+        "file": "src/lib/events/workforce-navigation.ts",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/lib/events/workforce-navigation.ts",
+        "sha256": "af2f5a3398442bb2916447f53b5b04e79670a4fe13108ae97041e6e622e57136"
+      },
+      {
+        "file": "src/app/(enterprise)/events/[id]/page.tsx",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/app/(enterprise)/events/[id]/page.tsx",
+        "sha256": "49e6ad61f452a6d848e36c4d43d2b9852701662e6b8044a36b581da085503541"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+      },
+      {
+        "file": "src/app/globals.css",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+      },
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+      },
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+      },
+      {
+        "file": "src/components/ui/sheet.module.css",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/components/ui/sheet.module.css",
+        "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+      },
+      {
+        "file": "src/app/(enterprise)/assets/page.tsx",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/app/(enterprise)/assets/page.tsx",
+        "sha256": "981115be1c96a2b3e9f9325dc2aea0c34df6be612739583c9ba05c27539f8e82"
+      },
+      {
+        "file": "src/components/ui13/operational.tsx",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/components/ui13/operational.tsx",
+        "sha256": "677989d995289f67e059c123155bc3dffdbb1cfa43de1d5d0d76513910248bde"
+      },
+      {
+        "file": "src/components/ui13/operational.module.css",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/components/ui13/operational.module.css",
+        "sha256": "51bc245f03f32b68e5753daafeb74bf66dccf27b34fe15494f23e3d2a0d75f6d"
+      },
+      {
+        "file": "src/components/assets-workspace.tsx",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/components/assets-workspace.tsx",
+        "sha256": "4b3f3d2236e28ecbfefbc8d7244c918dfdb5adb20c58651bb6660edf21c4128b"
+      },
+      {
+        "file": "src/components/assets-workspace.module.css",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/components/assets-workspace.module.css",
+        "sha256": "ccda37a932ad22020fbc2dfceea849a33b9969d3b5100227a952dc2821994216"
+      },
+      {
+        "file": "src/app/(enterprise)/management-reports/page.tsx",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/app/(enterprise)/management-reports/page.tsx",
+        "sha256": "63458ef62e115beaf976ca3c3b325d20dcd1ec5155f953cefa18b1285697df61"
+      },
+      {
+        "file": "src/components/management-reports-client.tsx",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/components/management-reports-client.tsx",
+        "sha256": "83fef0da08ee35a1685262e06c007f5ee3d55d7f39c6ec20551f6708613ae244"
+      },
+      {
+        "file": "src/components/management-reports.module.css",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/components/management-reports.module.css",
+        "sha256": "89ff8a1a9c203db3d70011d2fd6b5cdbd10c06d8ca4d96ebd5d02ea8528262d6"
+      },
+      {
+        "file": "src/app/(enterprise)/my-equipment/page.tsx",
+        "sha256": "295e73960770d80f3b2536d0e66d0978f123d9b53800e3e7bb95fa2f98090952",
+        "origin": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-10/src/app/(enterprise)/my-equipment/page.tsx"
+      }
+    ],
+    "mocked": [
+      "src/app/(enterprise)/layout.tsx",
+      "src/app/layout.tsx",
+      "src/components/events-client.tsx",
+      "src/components/fixture-source.tsx",
+      "src/components/site-service-detail-client.tsx",
+      "src/lib/auth/principal.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "scope": "Actual Reports and Assets route/client source. Source destination client is an explicitly synthetic boundary; no destination UI acceptance."
+  }
+]

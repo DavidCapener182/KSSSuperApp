@@ -1,0 +1,63 @@
+{
+  "status": "READY_FOR_ROOT_REVIEW_STAGED_NOT_COMMITTED",
+  "branch": "codex/ui-milestone-10-reports-assets",
+  "base": "e3a5e8826e74d1341ae466c0d9834afcac357c82",
+  "newCommit": null,
+  "products": 3,
+  "nonOwnedPublishedSource": 427,
+  "protectedConfigurationSchemaPublic": 239,
+  "tests": {
+    "files": 44,
+    "passed": 662,
+    "failed": 0,
+    "command": "test-command.json"
+  },
+  "fullLint": {
+    "exit": 0,
+    "warning": "Only existing unused officeId in site-horizon-maintenance.test.mjs",
+    "log": "final-full-lint.txt"
+  },
+  "build": {
+    "exit": 0,
+    "syntheticOnly": true,
+    "log": "build.txt"
+  },
+  "types": {
+    "exit": 0,
+    "log": "types.txt"
+  },
+  "browser": {
+    "freshCandidateReplay": true,
+    "sourceBeforePostParity": true,
+    "reportsNamedTests": 5,
+    "reportsRecords": 24,
+    "assetsRecords": 44,
+    "equipmentRecords": 28,
+    "widths": [
+      1440,
+      834,
+      390,
+      320
+    ],
+    "sixStagesExit": 0,
+    "sourceParity": "browser/executed-source-parity.json",
+    "images": 155,
+    "imageManifest": "image-manifest.json"
+  },
+  "canonicalReplay": {
+    "file": "scripts/ui-milestone10-browser-replay.py",
+    "sha256": "24a6038ba3c88056458e71547322c8304e799bdef1fb2fef93c581116c7209d6",
+    "preparationVerified": true,
+    "browserAcceptance": "Actual stored executed scripts/six-stage receipt; wrapper browser execution not claimed"
+  },
+  "priorDiagnostics": "checkpoint01 and early unmatched /me runs superseded; final matched fresh replay only accepted",
+  "sourceMocksLimits": "No hosted authentication/RPC/RLS or persisted custody/grants; source destination clients mocked; read-only register CSS fixture not authority proof",
+  "reportSha256": "ed80ee7ac6d2d5e261202f0536d38338e19cd3d7c4c9cc3e528a208e3b23b7f8",
+  "remainingGate": "Independent root review, then root owns any commit/push/deployment",
+  "diffCheck": {
+    "scopedExit": 0,
+    "fullExit": 2,
+    "receipt": "diff-check-receipt.json",
+    "exception": "Raw immutable diagnostic log/patch whitespace only"
+  }
+}

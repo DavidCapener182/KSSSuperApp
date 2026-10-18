@@ -1,0 +1,1 @@
+import{AssetsWorkspace}from"@/components/assets-workspace";export default function Fixture(){return <main className="enterprise-main"><h1>Synthetic register Sheet CSS check</h1><p>Fixture-only read-only register presentation; no register authority acceptance.</p><AssetsWorkspace mode="register" office={false} operations={false} superAdmin={false}/></main>}

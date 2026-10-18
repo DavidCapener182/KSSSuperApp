@@ -27,7 +27,7 @@
 .count { margin: 16px 0; font-size: 13px; color: #475569; }
 .registerSection { min-width: 0; }.registerSection > .hint { margin-bottom: 16px; }.registerSection label { flex: 1 1 180px; }
 .views, .pagination { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-block: 16px; }.pagination { justify-content: space-between; }.pagination span { font-size: 13px; color: #475569; }
-.rowAction { color: #0e56b3; }.sheet { width: min(100%,760px); max-width: 760px !important; padding: 24px; }
+.rowAction { color: #0e56b3; }.sheet { width: min(100%,760px); max-width: 760px !important; padding: 24px; overflow-y: auto; }
 .sheet > :global([data-slot="sheet-title"]) { padding-inline-end: 32px; }
 .sheet > .panel { padding: 0; border: 0; border-radius: 0; margin-top: 24px; }.sheet .selectedSection form { padding: 20px; margin-block: 24px; border: 1px solid #dce3ed; border-radius: 12px; }
 .recordHistory { margin-top: 24px; border-top: 1px solid #dce3ed; }.history { padding-inline-start: 20px; }.history li { padding: 12px 0; border-bottom: 1px solid #dce3ed; line-height: 1.6; font-size: 14px; overflow-wrap: anywhere; }.history span { display: block; color: #475569; }

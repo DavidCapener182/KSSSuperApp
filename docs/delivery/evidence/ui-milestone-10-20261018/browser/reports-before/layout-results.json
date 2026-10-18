@@ -1,0 +1,22 @@
+[
+  {
+    "name": "report-1440-context",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "report-834-context",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "report-390-context",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "report-320-context",
+    "viewport": 320,
+    "pageWidth": 320
+  }
+]

@@ -1,0 +1,69 @@
+docs/delivery/evidence/ui-milestone-10-20261018/browser/assets-after-original-scroll-red-matched-me/server.log:10: space before tab in indent.
++  	- allowJs was set to true
+docs/delivery/evidence/ui-milestone-10-20261018/browser/assets-after-original-scroll-red-matched-me/server.log:11: space before tab in indent.
++  	- skipLibCheck was set to true
+docs/delivery/evidence/ui-milestone-10-20261018/browser/assets-after-original-scroll-red-matched-me/server.log:12: space before tab in indent.
++  	- strict was set to false
+docs/delivery/evidence/ui-milestone-10-20261018/browser/assets-after-original-scroll-red-matched-me/server.log:13: space before tab in indent.
++  	- noEmit was set to true
+docs/delivery/evidence/ui-milestone-10-20261018/browser/assets-after-original-scroll-red-matched-me/server.log:14: space before tab in indent.
++  	- incremental was set to true
+docs/delivery/evidence/ui-milestone-10-20261018/browser/assets-after-original-scroll-red-matched-me/server.log:15: space before tab in indent.
++  	- include was set to ['next-env.d.ts', '.next/types/**/*.ts', '.next/dev/types/**/*.ts', '**/*.mts', '**/*.ts', '**/*.tsx']
+docs/delivery/evidence/ui-milestone-10-20261018/browser/assets-after-original-scroll-red-matched-me/server.log:16: space before tab in indent.
++  	- plugins was updated to add { name: 'next' }
+docs/delivery/evidence/ui-milestone-10-20261018/browser/assets-after-original-scroll-red-matched-me/server.log:17: space before tab in indent.
++  	- exclude was set to ['node_modules']
+docs/delivery/evidence/ui-milestone-10-20261018/browser/assets-after-original-scroll-red-matched-me/server.log:21: space before tab in indent.
++  	- resolveJsonModule was set to true (to match webpack resolution)
+docs/delivery/evidence/ui-milestone-10-20261018/browser/assets-after-original-scroll-red-matched-me/server.log:22: space before tab in indent.
++  	- isolatedModules was set to true (requirement for SWC / Babel)
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-after/fixture-server.log:10: space before tab in indent.
++  	- allowJs was set to true
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-after/fixture-server.log:11: space before tab in indent.
++  	- skipLibCheck was set to true
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-after/fixture-server.log:12: space before tab in indent.
++  	- strict was set to false
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-after/fixture-server.log:13: space before tab in indent.
++  	- noEmit was set to true
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-after/fixture-server.log:14: space before tab in indent.
++  	- incremental was set to true
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-after/fixture-server.log:15: space before tab in indent.
++  	- include was set to ['next-env.d.ts', '.next/types/**/*.ts', '.next/dev/types/**/*.ts', '**/*.mts', '**/*.ts', '**/*.tsx']
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-after/fixture-server.log:16: space before tab in indent.
++  	- plugins was updated to add { name: 'next' }
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-after/fixture-server.log:17: space before tab in indent.
++  	- exclude was set to ['node_modules']
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-after/fixture-server.log:21: space before tab in indent.
++  	- resolveJsonModule was set to true (to match webpack resolution)
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-after/fixture-server.log:22: space before tab in indent.
++  	- isolatedModules was set to true (requirement for SWC / Babel)
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-before/fixture-server.log:10: space before tab in indent.
++  	- allowJs was set to true
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-before/fixture-server.log:11: space before tab in indent.
++  	- skipLibCheck was set to true
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-before/fixture-server.log:12: space before tab in indent.
++  	- strict was set to false
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-before/fixture-server.log:13: space before tab in indent.
++  	- noEmit was set to true
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-before/fixture-server.log:14: space before tab in indent.
++  	- incremental was set to true
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-before/fixture-server.log:15: space before tab in indent.
++  	- include was set to ['next-env.d.ts', '.next/types/**/*.ts', '.next/dev/types/**/*.ts', '**/*.mts', '**/*.ts', '**/*.tsx']
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-before/fixture-server.log:16: space before tab in indent.
++  	- plugins was updated to add { name: 'next' }
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-before/fixture-server.log:17: space before tab in indent.
++  	- exclude was set to ['node_modules']
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-before/fixture-server.log:21: space before tab in indent.
++  	- resolveJsonModule was set to true (to match webpack resolution)
+docs/delivery/evidence/ui-milestone-10-20261018/browser/reports-before/fixture-server.log:22: space before tab in indent.
++  	- isolatedModules was set to true (requirement for SWC / Babel)
+docs/delivery/evidence/ui-milestone-10-20261018/build.txt:18: trailing whitespace.
++  Generating static pages using 9 workers (19/76) 
+docs/delivery/evidence/ui-milestone-10-20261018/build.txt:19: trailing whitespace.
++  Generating static pages using 9 workers (38/76) 
+docs/delivery/evidence/ui-milestone-10-20261018/build.txt:20: trailing whitespace.
++  Generating static pages using 9 workers (57/76) 
+docs/delivery/evidence/ui-milestone-10-20261018/build.txt:256: new blank line at EOF.
+docs/delivery/evidence/ui-milestone-10-20261018/final-full-lint.txt:10: new blank line at EOF.
+docs/delivery/evidence/ui-milestone-10-20261018/full-lint.txt:10: new blank line at EOF.

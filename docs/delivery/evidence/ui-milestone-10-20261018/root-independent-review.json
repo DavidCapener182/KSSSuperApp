@@ -1,0 +1,11 @@
+{
+  "products": 3,
+  "nonOwned": 427,
+  "protected": 239,
+  "imageHashes": 155,
+  "sourceGraphFrozenRows": 86,
+  "independentTests": 62,
+  "failed": 0,
+  "workerFinalReceiptSha256": "94fadb49ff2593e72335f3bc0163eac3cc40352b1130c27595a8083871764c02",
+  "rootTestLogSha256": "9c20b4f56e82bc918d486e03b819999c0b143ce7bbf4bbd26cf12d71354f34be"
+}

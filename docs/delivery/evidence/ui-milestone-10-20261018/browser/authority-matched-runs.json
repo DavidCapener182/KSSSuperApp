@@ -1,0 +1,38 @@
+[
+  {
+    "name": "reports-before",
+    "exit": 0,
+    "log": "reports-before-matched-me.log",
+    "authority": "Full /me shape matches person31,current role array,reviewerfalse; navigation from exact published capabilities pure source"
+  },
+  {
+    "name": "reports-after",
+    "exit": 0,
+    "log": "reports-after-matched-me.log",
+    "authority": "Full /me shape matches person31,current role array,reviewerfalse; navigation from exact published capabilities pure source"
+  },
+  {
+    "name": "assets-before",
+    "exit": 0,
+    "log": "assets-before-matched-me.log",
+    "authority": "Full /me shape matches person31,current role array,reviewerfalse; navigation from exact published capabilities pure source"
+  },
+  {
+    "name": "assets-after",
+    "exit": 0,
+    "log": "assets-after-matched-me.log",
+    "authority": "Full /me shape matches person31,current role array,reviewerfalse; navigation from exact published capabilities pure source"
+  },
+  {
+    "name": "assets-original-red-geometry",
+    "exit": 0,
+    "log": "assets-original-red-geometry-matched-me.log",
+    "authority": "Full /me shape matches person31,current role array,reviewerfalse; navigation from exact published capabilities pure source"
+  },
+  {
+    "name": "equipment-after",
+    "exit": 0,
+    "log": "equipment-after-matched-me.log",
+    "authority": "Full /me shape matches person31,current role array,reviewerfalse; navigation from exact published capabilities pure source"
+  }
+]

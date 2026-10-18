@@ -1,0 +1,17 @@
+[
+  {
+    "file": "src/components/assets-workspace.module.css",
+    "sha256": "ccda37a932ad22020fbc2dfceea849a33b9969d3b5100227a952dc2821994216",
+    "beforeSha256": "320e976760f3951684fb06ab351f80722ef8a07f66cc14ec93299b584b8d3c1a"
+  },
+  {
+    "file": "src/components/management-reports-client.tsx",
+    "sha256": "83fef0da08ee35a1685262e06c007f5ee3d55d7f39c6ec20551f6708613ae244",
+    "beforeSha256": "ee290d2f5613c4e51718f82de8d3a9611dfeb9a04216920ba8124f0d3d418676"
+  },
+  {
+    "file": "src/components/management-reports.module.css",
+    "sha256": "89ff8a1a9c203db3d70011d2fd6b5cdbd10c06d8ca4d96ebd5d02ea8528262d6",
+    "beforeSha256": "d015ee0c67caf5ab181059013548fe467e2d6b542fe7a812f6a833c8b41b7ca6"
+  }
+]

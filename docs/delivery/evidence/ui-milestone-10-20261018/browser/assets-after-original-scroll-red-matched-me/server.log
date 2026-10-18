@@ -1,0 +1,28 @@
+▲ Next.js 16.3.6 (webpack)
+- Local:         http://127.0.0.1:3233
+- Network:       http://127.0.0.1:3233
+✓ Ready in 153ms
+✓ Running next.config.mjs took 6ms
+
+  We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default.
+  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+  	- allowJs was set to true
+  	- skipLibCheck was set to true
+  	- strict was set to false
+  	- noEmit was set to true
+  	- incremental was set to true
+  	- include was set to ['next-env.d.ts', '.next/types/**/*.ts', '.next/dev/types/**/*.ts', '**/*.mts', '**/*.ts', '**/*.tsx']
+  	- plugins was updated to add { name: 'next' }
+  	- exclude was set to ['node_modules']
+
+  The following mandatory changes were made to your tsconfig.json:
+
+  	- resolveJsonModule was set to true (to match webpack resolution)
+  	- isolatedModules was set to true (requirement for SWC / Babel)
+
+
+ GET / 200 in 1277ms (next.js: 1217ms, application-code: 60ms)
+ GET /assets 200 in 1559ms (next.js: 1483ms, application-code: 76ms)
+ GET /assets 200 in 26ms (next.js: 2ms, application-code: 24ms)
+[?25h

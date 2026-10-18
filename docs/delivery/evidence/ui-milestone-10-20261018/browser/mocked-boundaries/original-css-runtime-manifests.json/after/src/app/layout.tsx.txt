@@ -1,0 +1,1 @@
+import './globals.css';export default function Layout({children}){return <html lang='en'><body><aside style={{padding:8,background:'#fff1d7',color:'#182334'}}>Local synthetic Reports / Assets · mock principal and APIs · no hosted Auth/RPC/RLS or real writes</aside>{children}</body></html>}

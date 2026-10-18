@@ -1,0 +1,14 @@
+{
+  "inheritedAllowlist": [
+    "PATH",
+    "HOME",
+    "TMPDIR",
+    "LANG"
+  ],
+  "compileOnlySupabaseUrl": "https://synthetic.invalid",
+  "credentials": "Invalid synthetic placeholders only; no credential or .env reads",
+  "stage": "staging",
+  "VERCEL": "unset",
+  "telemetry": "disabled",
+  "source": "Explicit check-candidate10.py controlled environment"
+}

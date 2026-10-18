@@ -1,0 +1,127 @@
+{
+  "status": "PASS_FRESH_EXECUTED_CANDIDATE_SOURCE",
+  "base": "e3a5e8826e74d1341ae466c0d9834afcac357c82",
+  "reports": {
+    "namedTests": 5,
+    "records": 24,
+    "widths": [
+      1440,
+      834,
+      390,
+      320
+    ],
+    "roleGates": [
+      [
+        "SUPER_ADMIN",
+        200
+      ],
+      [
+        "OPERATIONS",
+        404
+      ],
+      [
+        "SECURITY_STAFF",
+        404
+      ],
+      [
+        "CLIENT",
+        404
+      ]
+    ]
+  },
+  "assets": {
+    "records": 44,
+    "widths": [
+      1440,
+      834,
+      390,
+      320
+    ],
+    "writes": 0,
+    "scrollProof": [
+      {
+        "stage": "after",
+        "width": 1440,
+        "name": "handover-scroll-proof",
+        "overflowY": "auto",
+        "clientHeight": 1000,
+        "scrollHeight": 1000,
+        "scrollTop": 0,
+        "top": 0,
+        "bottom": 1000,
+        "viewport": 1000
+      },
+      {
+        "stage": "after",
+        "width": 834,
+        "name": "handover-scroll-proof",
+        "overflowY": "auto",
+        "clientHeight": 1000,
+        "scrollHeight": 1000,
+        "scrollTop": 0,
+        "top": 0,
+        "bottom": 1000,
+        "viewport": 1000
+      },
+      {
+        "stage": "after",
+        "width": 390,
+        "name": "handover-scroll-proof",
+        "overflowY": "auto",
+        "clientHeight": 1000,
+        "scrollHeight": 1141,
+        "scrollTop": 38,
+        "top": 0,
+        "bottom": 1000,
+        "viewport": 1000
+      },
+      {
+        "stage": "after",
+        "width": 320,
+        "name": "handover-scroll-proof",
+        "overflowY": "auto",
+        "clientHeight": 1000,
+        "scrollHeight": 1207,
+        "scrollTop": 207,
+        "top": 0,
+        "bottom": 1000,
+        "viewport": 1000
+      }
+    ]
+  },
+  "equipment": {
+    "records": 28,
+    "widths": [
+      1440,
+      834,
+      390,
+      320
+    ],
+    "syntheticOnly": true
+  },
+  "original320Red": [
+    {
+      "stage": "after",
+      "width": 320,
+      "name": "original-scroll-red-proof",
+      "overflowY": "visible",
+      "clientHeight": 1000,
+      "scrollHeight": 1191,
+      "scrollTop": 0,
+      "top": 0,
+      "bottom": 1000,
+      "viewport": 1000,
+      "targetBounds": {
+        "top": 1059.9375,
+        "bottom": 1103.9375,
+        "viewport": 1000
+      }
+    }
+  ],
+  "priorCheckpoint01": "Historical/superseded where authority boundary mismatch affected Reports; not final acceptance",
+  "fullMeBoundary": "Exact person31,ordered current roles,reviewerfalse,displayName and navigationFor; no compensating product source edits",
+  "sourceProductCount": 3,
+  "nonOwnedSource": 427,
+  "protected": 239,
+  "limits": "No hosted Auth/RPC/RLS, actual custody persistence, real grants or source-destination client acceptance; register CSS fixture is read-only synthetic only."
+}

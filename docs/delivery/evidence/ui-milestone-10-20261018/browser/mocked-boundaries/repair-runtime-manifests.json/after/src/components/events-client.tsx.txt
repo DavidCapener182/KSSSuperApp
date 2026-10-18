@@ -1,0 +1,1 @@
+import{Source}from'./fixture-source';export function EventsClient({id,focusRequirement}){return <Source id={id} exact={focusRequirement}/>}

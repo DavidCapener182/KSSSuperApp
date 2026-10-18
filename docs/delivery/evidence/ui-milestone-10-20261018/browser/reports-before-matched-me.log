@@ -1,0 +1,14 @@
+▶ report URL context and safe source return in genuine shell viewports
+  ✔ 1440px original UI capture only (3221.803125ms)
+  ✔ 834px original UI capture only (1170.722209ms)
+  ✔ 390px original UI capture only (923.092458ms)
+  ✔ 320px original UI capture only (944.607125ms)
+✔ report URL context and safe source return in genuine shell viewports (14054.948458ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16326.099667

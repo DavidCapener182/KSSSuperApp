@@ -1,0 +1,74 @@
+[
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "office-register",
+    "role": "OFFICE_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "office-record",
+    "role": "OFFICE_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "office-register",
+    "role": "OFFICE_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "office-record",
+    "role": "OFFICE_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "office-register",
+    "role": "OFFICE_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "office-record",
+    "role": "OFFICE_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "office-register",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "office-record",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true
+  }
+]
