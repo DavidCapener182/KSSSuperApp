@@ -1,0 +1,718 @@
+[
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "staff",
+    "grant": "staff",
+    "path": "/training/my-requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "viewer",
+    "grant": "viewer",
+    "path": "/training-admin/requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "author",
+    "grant": "author",
+    "path": "/training-admin/requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "publisher",
+    "grant": "publisher",
+    "path": "/training-admin/requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "super",
+    "grant": "super",
+    "path": "/training-admin/requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "combined",
+    "grant": "all",
+    "path": "/training-admin/requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "ungranted",
+    "grant": "none",
+    "path": "/training-admin/requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "staff",
+    "grant": "staff",
+    "path": "/training/my-requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "viewer",
+    "grant": "viewer",
+    "path": "/training-admin/requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "author",
+    "grant": "author",
+    "path": "/training-admin/requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "publisher",
+    "grant": "publisher",
+    "path": "/training-admin/requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "super",
+    "grant": "super",
+    "path": "/training-admin/requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "combined",
+    "grant": "all",
+    "path": "/training-admin/requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "ungranted",
+    "grant": "none",
+    "path": "/training-admin/requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "staff",
+    "grant": "staff",
+    "path": "/training/my-requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "viewer",
+    "grant": "viewer",
+    "path": "/training-admin/requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "author",
+    "grant": "author",
+    "path": "/training-admin/requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "publisher",
+    "grant": "publisher",
+    "path": "/training-admin/requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "super",
+    "grant": "super",
+    "path": "/training-admin/requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "combined",
+    "grant": "all",
+    "path": "/training-admin/requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "ungranted",
+    "grant": "none",
+    "path": "/training-admin/requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "staff",
+    "grant": "staff",
+    "path": "/training/my-requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "viewer",
+    "grant": "viewer",
+    "path": "/training-admin/requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "author",
+    "grant": "author",
+    "path": "/training-admin/requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "publisher",
+    "grant": "publisher",
+    "path": "/training-admin/requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "super",
+    "grant": "super",
+    "path": "/training-admin/requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "combined",
+    "grant": "all",
+    "path": "/training-admin/requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "ungranted",
+    "grant": "none",
+    "path": "/training-admin/requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "staff",
+    "grant": "staff",
+    "path": "/training/my-requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "viewer",
+    "grant": "viewer",
+    "path": "/training-admin/requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "author",
+    "grant": "author",
+    "path": "/training-admin/requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "publisher",
+    "grant": "publisher",
+    "path": "/training-admin/requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "super",
+    "grant": "super",
+    "path": "/training-admin/requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "combined",
+    "grant": "all",
+    "path": "/training-admin/requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "ungranted",
+    "grant": "none",
+    "path": "/training-admin/requirements",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "interaction-boundaries",
+    "matrixExactIdentityAndLink": true,
+    "mismatchClearsPriorEvidence": true,
+    "notApplicableDistinctFromUnavailable": true,
+    "contextChangeClearsMatrix": true,
+    "pendingMatrixLocksViewSwitch": true,
+    "publisherDeniedExactPayloadNoRetry": true,
+    "authorDeniedExactPayloadNoRetry": true,
+    "writes": [
+      {
+        "path": "/api/training-requirements",
+        "body": {
+          "action": "PUBLISH",
+          "versionId": "00000000-0000-4000-8000-000000000031",
+          "reason": "Synthetic publication reason"
+        }
+      },
+      {
+        "path": "/api/training-requirements",
+        "body": {
+          "action": "CREATE",
+          "label": "Synthetic new requirement",
+          "roleId": "00000000-0000-4000-8000-000000000012",
+          "siteId": "00000000-0000-4000-8000-000000000010",
+          "serviceId": "00000000-0000-4000-8000-000000000011",
+          "courseVersionId": "00000000-0000-4000-8000-000000000040",
+          "priorEvidence": "NOT_ACCEPTED",
+          "effectiveFrom": "2026-10-19",
+          "effectiveUntil": null,
+          "reason": "Synthetic draft decision"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "staff",
+    "grant": "staff",
+    "path": "/training/my-requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "viewer",
+    "grant": "viewer",
+    "path": "/training-admin/requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "author",
+    "grant": "author",
+    "path": "/training-admin/requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "publisher",
+    "grant": "publisher",
+    "path": "/training-admin/requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "super",
+    "grant": "super",
+    "path": "/training-admin/requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "combined",
+    "grant": "all",
+    "path": "/training-admin/requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "ungranted",
+    "grant": "none",
+    "path": "/training-admin/requirements",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "interaction-boundaries",
+    "matrixExactIdentityAndLink": true,
+    "mismatchClearsPriorEvidence": true,
+    "notApplicableDistinctFromUnavailable": true,
+    "contextChangeClearsMatrix": true,
+    "pendingMatrixLocksViewSwitch": true,
+    "publisherDeniedExactPayloadNoRetry": true,
+    "authorDeniedExactPayloadNoRetry": true,
+    "writes": [
+      {
+        "path": "/api/training-requirements",
+        "body": {
+          "action": "PUBLISH",
+          "versionId": "00000000-0000-4000-8000-000000000031",
+          "reason": "Synthetic publication reason"
+        }
+      },
+      {
+        "path": "/api/training-requirements",
+        "body": {
+          "action": "CREATE",
+          "label": "Synthetic new requirement",
+          "roleId": "00000000-0000-4000-8000-000000000012",
+          "siteId": "00000000-0000-4000-8000-000000000010",
+          "serviceId": "00000000-0000-4000-8000-000000000011",
+          "courseVersionId": "00000000-0000-4000-8000-000000000040",
+          "priorEvidence": "NOT_ACCEPTED",
+          "effectiveFrom": "2026-10-19",
+          "effectiveUntil": null,
+          "reason": "Synthetic draft decision"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "staff",
+    "grant": "staff",
+    "path": "/training/my-requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "viewer",
+    "grant": "viewer",
+    "path": "/training-admin/requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "author",
+    "grant": "author",
+    "path": "/training-admin/requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "publisher",
+    "grant": "publisher",
+    "path": "/training-admin/requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "super",
+    "grant": "super",
+    "path": "/training-admin/requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "combined",
+    "grant": "all",
+    "path": "/training-admin/requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "ungranted",
+    "grant": "none",
+    "path": "/training-admin/requirements",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "interaction-boundaries",
+    "matrixExactIdentityAndLink": true,
+    "mismatchClearsPriorEvidence": true,
+    "notApplicableDistinctFromUnavailable": true,
+    "contextChangeClearsMatrix": true,
+    "pendingMatrixLocksViewSwitch": true,
+    "publisherDeniedExactPayloadNoRetry": true,
+    "authorDeniedExactPayloadNoRetry": true,
+    "writes": [
+      {
+        "path": "/api/training-requirements",
+        "body": {
+          "action": "PUBLISH",
+          "versionId": "00000000-0000-4000-8000-000000000031",
+          "reason": "Synthetic publication reason"
+        }
+      },
+      {
+        "path": "/api/training-requirements",
+        "body": {
+          "action": "CREATE",
+          "label": "Synthetic new requirement",
+          "roleId": "00000000-0000-4000-8000-000000000012",
+          "siteId": "00000000-0000-4000-8000-000000000010",
+          "serviceId": "00000000-0000-4000-8000-000000000011",
+          "courseVersionId": "00000000-0000-4000-8000-000000000040",
+          "priorEvidence": "NOT_ACCEPTED",
+          "effectiveFrom": "2026-10-19",
+          "effectiveUntil": null,
+          "reason": "Synthetic draft decision"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "staff",
+    "grant": "staff",
+    "path": "/training/my-requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "viewer",
+    "grant": "viewer",
+    "path": "/training-admin/requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "author",
+    "grant": "author",
+    "path": "/training-admin/requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "publisher",
+    "grant": "publisher",
+    "path": "/training-admin/requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "super",
+    "grant": "super",
+    "path": "/training-admin/requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "combined",
+    "grant": "all",
+    "path": "/training-admin/requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "ungranted",
+    "grant": "none",
+    "path": "/training-admin/requirements",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "interaction-boundaries",
+    "matrixExactIdentityAndLink": true,
+    "mismatchClearsPriorEvidence": true,
+    "notApplicableDistinctFromUnavailable": true,
+    "contextChangeClearsMatrix": true,
+    "pendingMatrixLocksViewSwitch": true,
+    "publisherDeniedExactPayloadNoRetry": true,
+    "authorDeniedExactPayloadNoRetry": true,
+    "writes": [
+      {
+        "path": "/api/training-requirements",
+        "body": {
+          "action": "PUBLISH",
+          "versionId": "00000000-0000-4000-8000-000000000031",
+          "reason": "Synthetic publication reason"
+        }
+      },
+      {
+        "path": "/api/training-requirements",
+        "body": {
+          "action": "CREATE",
+          "label": "Synthetic new requirement",
+          "roleId": "00000000-0000-4000-8000-000000000012",
+          "siteId": "00000000-0000-4000-8000-000000000010",
+          "serviceId": "00000000-0000-4000-8000-000000000011",
+          "courseVersionId": "00000000-0000-4000-8000-000000000040",
+          "priorEvidence": "NOT_ACCEPTED",
+          "effectiveFrom": "2026-10-19",
+          "effectiveUntil": null,
+          "reason": "Synthetic draft decision"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  }
+]

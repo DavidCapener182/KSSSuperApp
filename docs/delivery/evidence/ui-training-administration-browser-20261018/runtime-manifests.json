@@ -1,0 +1,268 @@
+[
+  {
+    "stage": "before",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-training-administration-before-ep3crccm",
+    "port": 3130,
+    "publishedShared": "3c8ba25deab4c03d89bc847f37688c12bab54c8c",
+    "files": [
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/training-admin/completions/page.tsx",
+        "sha256": "fb8a9e430ec31a25458427dc0120185847ef3da64e7d6b013d012fab93dc7ad9",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/app/(enterprise)/training/training.css",
+        "sha256": "ea9fb054ef198f533d8c5a47a633a5d74ade5da0b9d88839c7594be918a5c1ea",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/training-completion-admin.tsx",
+        "sha256": "8d0864d616464004d65be67cc6ec8a3aa88759ae9eb36d6bc6378f9626287c64",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/training-certificate-admin.tsx",
+        "sha256": "250bb2a4b20869922da2892902a474633799e1c7586414218cc563f42ec8e146",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/app/(enterprise)/training-admin/assessments/page.tsx",
+        "sha256": "b33df979cd7b8f011611a21a1df8907078a50563c65413273380b76b77311e8c",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/training-assessment-admin-client.tsx",
+        "sha256": "fe6bd4299743f389440c83e5db44afbc56fce990732a6e6988673af447ab6629",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/app/(enterprise)/training-admin/assignments/page.tsx",
+        "sha256": "9c6ad8b59567f8699ad6372d12d315c3ec0b2eac90ece31bf400457d151cb633",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/training-assignments-client.tsx",
+        "sha256": "2cd5c324d5526f0f8dfedf9185181a74faa38f28c74bd877b6db4963b88ee696",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/lib/training/learning-types.ts",
+        "sha256": "3ac0fa97280020cd750bc54ce3e228621cd9f73abfb995488222b40f032ce352",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/training/types.ts",
+        "sha256": "43e11f54a2d96bccb05666fecaefe32bab21a7643afb8794bd9008d81aaa64a7",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/training-admin/page.tsx",
+        "sha256": "46e2d7c52610a459220ad3277b421cfd93e14d74f069475928d3e44889a5dc48",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/training-admin-client.tsx",
+        "sha256": "b0bb9c83f305c4fd53fb8d685fa0b6c595c267ffb42f90b8b5884400985f2892",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/training-content.tsx",
+        "sha256": "b011e107f8e5a6365c5bc2ec151a75dc8601c92759ce34bbefe7c0c6d7f3cae5",
+        "origin": "frozen-before"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "boundaryHashes": [
+      {
+        "file": "src/lib/auth/principal.ts",
+        "sha256": "f24b8576069e6f0c93c62a0bd03ae873024b9494e2c8ed2ed4a6f60743090a00"
+      },
+      {
+        "file": "src/lib/supabase/browser.ts",
+        "sha256": "3ef4092e6e607a5869ac957ecb90a20869f44424ce38f8384f0a12f51fc52dd8"
+      },
+      {
+        "file": "src/lib/supabase/server.ts",
+        "sha256": "19324ab078f856dec0e3676c0babe857f7553e1f5f99aea2a54706bcf58712d4"
+      }
+    ],
+    "scope": "Actual four Training administration routes; synthetic identity/RPC/API boundaries; no real writes or hosted acceptance"
+  },
+  {
+    "stage": "after",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-training-administration-after-hhx6iagt",
+    "port": 3131,
+    "publishedShared": "3c8ba25deab4c03d89bc847f37688c12bab54c8c",
+    "files": [
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/training-admin/completions/page.tsx",
+        "sha256": "6f6bbfc4d75513c1bbc11073b4f2a9b47b68afecd9c97222b10f780c84adaf1d",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/app/(enterprise)/training/training.css",
+        "sha256": "ea9fb054ef198f533d8c5a47a633a5d74ade5da0b9d88839c7594be918a5c1ea",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/training-completion-admin.tsx",
+        "sha256": "0eb5fbb557eeffdb0df234033ebcbeb2f0a437863de7707e827a37b2bba37a14",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/training-certificate-admin.tsx",
+        "sha256": "c2a7695f1ccff5133cbd136dcd1d3e5968ecf7d882354a9d6ec06fdd1ecc9e24",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/ui/workflow.tsx",
+        "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/skeleton.tsx",
+        "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/badge.tsx",
+        "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/training-administration.module.css",
+        "sha256": "0ff45905d79a3a84abf508f0402bb9d2539a1a52b58ad36c80756186a0f5dc17",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/app/(enterprise)/training-admin/assessments/page.tsx",
+        "sha256": "d1a4fbd97347c07da6dd3e0cff6b7c73d32709fc4c2a8b97781d6af2a170368a",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/training-assessment-admin-client.tsx",
+        "sha256": "4dbdf0abcfb770e114a38f60f68ffacd981a8f5c2edb50d5e662ced680c5fda2",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/app/(enterprise)/training-admin/assignments/page.tsx",
+        "sha256": "614ff5f293870254ab31068c6091ab5b85276f7f7ca0e65fdfe5b2438e6afc40",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/training-assignments-client.tsx",
+        "sha256": "e56b7289a4edcb4fb9e47c917083ddcd13dd7490219a0c80654557d64e94b823",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/lib/training/learning-types.ts",
+        "sha256": "3ac0fa97280020cd750bc54ce3e228621cd9f73abfb995488222b40f032ce352",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/training/types.ts",
+        "sha256": "43e11f54a2d96bccb05666fecaefe32bab21a7643afb8794bd9008d81aaa64a7",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/training-admin/page.tsx",
+        "sha256": "18a9bd8016cfbc547a95cb922c2e3a34ca0ef45852b84e915dad147d9d3ced6c",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/training-admin-client.tsx",
+        "sha256": "4334abce12ae649bb4cc0041ec4a235a6da58116b298f8f5f796e9433dffec65",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/training-content.tsx",
+        "sha256": "b011e107f8e5a6365c5bc2ec151a75dc8601c92759ce34bbefe7c0c6d7f3cae5",
+        "origin": "published-shared-and-dependencies"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "boundaryHashes": [
+      {
+        "file": "src/lib/auth/principal.ts",
+        "sha256": "f24b8576069e6f0c93c62a0bd03ae873024b9494e2c8ed2ed4a6f60743090a00"
+      },
+      {
+        "file": "src/lib/supabase/browser.ts",
+        "sha256": "3ef4092e6e607a5869ac957ecb90a20869f44424ce38f8384f0a12f51fc52dd8"
+      },
+      {
+        "file": "src/lib/supabase/server.ts",
+        "sha256": "19324ab078f856dec0e3676c0babe857f7553e1f5f99aea2a54706bcf58712d4"
+      }
+    ],
+    "scope": "Actual four Training administration routes; synthetic identity/RPC/API boundaries; no real writes or hosted acceptance"
+  }
+]

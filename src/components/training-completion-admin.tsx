@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import styles from "./training-administration.module.css";
 import { useRouter } from "next/navigation";
 import { TrainingCertificateAdmin } from "@/components/training-certificate-admin";
 
@@ -58,19 +59,22 @@ export function TrainingCompletionAdmin({ rights, initial, choices, grants, temp
     } catch (cause) { setMessage(cause instanceof Error ? cause.message : "Action unavailable."); }
     finally { setBusy(false); }
   }
+  const [correction, setCorrection] = useState<Record<string, unknown> | null>(null);
+  const canConfirmCorrection = Boolean(rights.manager && correction && evidence?.completion && correction.completionId === evidence.completion.id && !evidence.completion.voidedAt && reviewedAssignment === evidence.assignment.id);
+  const reviewedRecord = assignments.find(item => item.id === reviewedAssignment);
   const selected = choices.find(item => item.assessmentVersionId === choice);
-  return <div className="training-completion-admin">
-    {rights.publisher && <section className="training-card"><h2>Publish a completion rule</h2>
-      <p>The first rule pins all page marks and one exact published AssessmentVersion. Publication creates an immutable rule version.</p>
-      <label htmlFor="completion-rule-source">Course and assessment version</label>
-      <select id="completion-rule-source" value={choice} onChange={event => setChoice(event.target.value)}>{choices.map(item =>
-        <option key={item.assessmentVersionId} value={item.assessmentVersionId}>{item.courseTitle} · Course v{item.courseVersion} · Assessment v{item.assessmentVersion}</option>)}</select>
-      <button type="button" disabled={busy || !selected} onClick={() => selected && act({ action: "PUBLISH_RULE", courseVersionId: selected.courseVersionId,
-        assessmentVersionId: selected.assessmentVersionId, effectiveFrom: new Date(Date.now() - 60_000).toISOString(), effectiveUntil: null, validityMonths: null })}>Publish rule with no expiry</button>
-    </section>}
-    {rights.manager && <section><h2>Assignment completion checks</h2><p>Review the exact assignment and recorded rule before a check or correction.</p>
+  return <div className={`training-completion-admin ${styles.workspace} ${styles.completionWorkspace}`}>
+    {rights.manager && <section className={styles.completionReview}><header><h2>Assignment completion checks</h2><p>Review the exact assignment and recorded rule before a check or correction.</p></header>
+      <div className={styles.completionRegister} aria-label="Completion review register">{assignments.map(item => <article className={`training-card ${reviewedAssignment === item.id ? styles.selectedRecord : ""}`} key={item.id}>
+        <small>{item.state} · Course v{item.courseVersion}</small><h3>{item.personName} · {item.courseTitle}</h3>
+        <p>Rule: {item.ruleVersionId ?? "Not pinned"} · Completion: {item.completionId ?? "None"}</p>
+        {item.voidedAt && <p>Completion voided</p>}
+        <button type="button" disabled={busy} onClick={() => review(item.id)}>Review evidence</button>
+        {item.state === "ACTIVE" && !item.completionId && <button type="button" disabled={busy || reviewedAssignment !== item.id} onClick={() => act({ action: "EVALUATE", assignmentId: item.id, requestId: crypto.randomUUID() })}>Request completion check</button>}
+      </article>)}</div>
+      {!evidence && <div className={styles.selectionEmpty}><h3>{busy ? "Reading exact evidence…" : "Select an assignment to review"}</h3><p>Completion checks become available only after reviewing that assignment. Certificate issue remains a separate decision.</p></div>}
       {evidence && <section className="training-card training-completion-evidence" aria-label="Selected assignment evidence">
-        <h3>Exact evidence for selected assignment</h3>
+        <h3>{reviewedRecord ? `${reviewedRecord.personName} · ${reviewedRecord.courseTitle}` : "Exact evidence for selected assignment"}</h3>
         <p>Assignment {evidence.assignment.id} · CourseVersion {evidence.assignment.courseVersionId}</p>
         <p>Page marks: {evidence.assignment.viewedCount} of {evidence.assignment.pageCount} · Content hash: {evidence.assignment.contentHash}</p>
         {evidence.rule ? <p>{evidence.rule.pinned ? "Pinned" : "Current"} rule v{evidence.rule.version}: {evidence.rule.id} · Hash: {evidence.rule.hash} · Required AssessmentVersion: {evidence.rule.requiredAssessmentVersionIds.join(", ")} · Validity months: {evidence.rule.validityMonths ?? "None"}</p> : <p>No published rule currently applies.</p>}
@@ -79,17 +83,18 @@ export function TrainingCompletionAdmin({ rights, initial, choices, grants, temp
         {evidence.completion && <><h4>Recorded completion</h4><p>Completion {evidence.completion.id} · {evidence.completion.pageMarkCount} of {evidence.completion.pageCount} page marks · Passed Attempts: {evidence.completion.passedAttemptIds.join(", ")} · Rule hash: {evidence.completion.ruleHash}</p>
           {evidence.completion.voidedAt && <p>Voided by {evidence.completion.voidedBy} at {new Date(evidence.completion.voidedAt).toLocaleString("en-GB", { timeZone: "Europe/London" })}. Reason: {evidence.completion.voidReason}</p>}
           {!evidence.completion.voidedAt && <><label htmlFor="completion-correction-reason">Controlled correction reason</label><textarea id="completion-correction-reason" minLength={10} maxLength={300} value={reason} onChange={event => setReason(event.target.value)} />
-            <button type="button" disabled={busy || reason.trim().length < 10} onClick={() => act({ action: "VOID", completionId: evidence.completion?.id, reason, requestId: crypto.randomUUID() })}>Void reviewed completion with reason</button></>}</>}
+            <button type="button" disabled={busy || reason.trim().length < 10} onClick={() => setCorrection({ action: "VOID", completionId: evidence.completion?.id, reason, requestId: crypto.randomUUID() })}>Void reviewed completion with reason</button></>}</>}
         <h4>Completion events</h4><ul>{evidence.events.map(item => <li key={item.id}>{item.action} · {new Date(item.occurredAt).toLocaleString("en-GB", { timeZone: "Europe/London" })} · Actor {item.actorPersonId}{item.reason ? ` · ${item.reason}` : ""}</li>)}</ul>
       </section>}
-      <div className="training-cards">{assignments.map(item => <article className="training-card" key={item.id}>
-        <small>{item.state} · Course v{item.courseVersion}</small><h3>{item.personName} · {item.courseTitle}</h3>
-        <p>Rule: {item.ruleVersionId ?? "Not pinned"} · Completion: {item.completionId ?? "None"}</p>
-        {item.voidedAt && <p>Completion voided</p>}
-        <button type="button" disabled={busy} onClick={() => review(item.id)}>Review evidence</button>
-        {item.state === "ACTIVE" && !item.completionId && <button type="button" disabled={busy || reviewedAssignment !== item.id} onClick={() => act({ action: "EVALUATE", assignmentId: item.id, requestId: crypto.randomUUID() })}>Request completion check</button>}
-      </article>)}</div>
     </section>}
+    {rights.publisher && <details className={styles.ruleForm}><summary>Completion rule publication</summary><section className="training-card"><h2>Publish a completion rule</h2>
+      <p>The first rule pins all page marks and one exact published AssessmentVersion. Publication creates an immutable rule version.</p>
+      <label htmlFor="completion-rule-source">Course and assessment version</label>
+      <select id="completion-rule-source" value={choice} onChange={event => setChoice(event.target.value)}>{choices.map(item =>
+        <option key={item.assessmentVersionId} value={item.assessmentVersionId}>{item.courseTitle} · Course v{item.courseVersion} · Assessment v{item.assessmentVersion}</option>)}</select>
+      <button type="button" disabled={busy || !selected} onClick={() => selected && act({ action: "PUBLISH_RULE", courseVersionId: selected.courseVersionId,
+        assessmentVersionId: selected.assessmentVersionId, effectiveFrom: new Date(Date.now() - 60_000).toISOString(), effectiveUntil: null, validityMonths: null })}>Publish rule with no expiry</button>
+    </section></details>}
     {(rights.manager || rights.publisher) && <TrainingCertificateAdmin publisher={rights.publisher} manager={rights.manager}
       assignmentId={reviewedAssignment} completionId={evidence?.completion?.id ?? null}
       completionVoided={Boolean(evidence?.completion?.voidedAt)} initialTemplates={templates} />}
@@ -106,5 +111,6 @@ export function TrainingCompletionAdmin({ rights, initial, choices, grants, temp
         {!item.revokedAt && <button type="button" disabled={busy || reason.trim().length < 10} onClick={() => act({ action: "REVOKE_GRANT", grantId: item.id, reason })}>Revoke grant</button>}</li>)}</ul>
     </section>}
     <p role="status">{message}</p>
+    {correction && canConfirmCorrection && <section className={styles.correctionReview} role="group" aria-label="Confirm completion correction"><h3>Void this reviewed completion?</h3><p>Completion {String(correction.completionId ?? "")}. This correction retains the history and invalidates current certificate access.</p><p>Reason: {String(correction.reason ?? "")}</p><button type="button" disabled={busy} onClick={() => setCorrection(null)}>Cancel correction</button><button type="button" disabled={busy} onClick={() => { if (canConfirmCorrection && !busy) { const payload = correction; setCorrection(null); void act(payload); } else { setCorrection(null); } }}>Confirm void completion</button></section>}
   </div>;
 }

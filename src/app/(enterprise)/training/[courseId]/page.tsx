@@ -1,3 +1,5 @@
+import { TrainingReaderOutline } from "@/components/training-reader-outline";
+import styles from "@/components/training-learners.module.css";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPrincipal, isUuid } from "@/lib/auth/principal";
@@ -21,7 +23,7 @@ export default async function CourseReader({ params, searchParams }: { params: P
   const index = Number.isInteger(requested) ? requested - 1 : -1;
   if (index < 0 || index >= pages.length) notFound();
   const selected = pages[index];
-  return <main className="training-area training-reader"><Link href="/training">← Course catalogue</Link><header><p className="training-eyebrow">Synthetic example · Version {course.versionNumber}</p><h1>{course.title}</h1><p>{course.summary}</p></header>
-    <div className="training-reader-grid"><nav aria-label="Course pages" className="training-outline">{course.modules.map((module, moduleIndex) => <div key={moduleIndex}><h2>{module.title}</h2>{module.pages.map((page, pageIndex) => { const position = pages.findIndex(item => item.moduleIndex === moduleIndex && item.pageIndex === pageIndex) + 1; return <Link aria-current={position === requested ? "page" : undefined} href={`/training/${courseId}?page=${position}`} key={pageIndex}>{position}. {page.title}</Link>; })}</div>)}</nav>
+  return <main className={`training-area training-reader ${styles.surface} ${styles.reader}`}><Link href="/training">← Course catalogue</Link><header><p className="training-eyebrow">Synthetic example · Version {course.versionNumber}</p><h1>{course.title}</h1><p>{course.summary}</p></header>
+    <div className="training-reader-grid"><TrainingReaderOutline label="Course pages">{course.modules.map((module, moduleIndex) => <div key={moduleIndex}><h2>{module.title}</h2>{module.pages.map((page, pageIndex) => { const position = pages.findIndex(item => item.moduleIndex === moduleIndex && item.pageIndex === pageIndex) + 1; return <Link aria-current={position === requested ? "page" : undefined} href={`/training/${courseId}?page=${position}`} key={pageIndex}>{position}. {page.title}</Link>; })}</div>)}</TrainingReaderOutline>
       <article className="training-page"><p className="training-eyebrow">Page {requested} of {pages.length} · {selected.module.title}</p><h2>{selected.page.title}</h2><TrainingContent blocks={selected.page.blocks} /><nav className="training-page-nav" aria-label="Page navigation">{index > 0 ? <Link href={`/training/${courseId}?page=${index}`}>← Previous page</Link> : <span />}{index + 1 < pages.length ? <Link href={`/training/${courseId}?page=${index + 2}`}>Next page →</Link> : <Link href="/training">Back to catalogue</Link>}</nav><p className="training-boundary">Page position is navigation only. No learning result is stored.</p></article></div></main>;
 }

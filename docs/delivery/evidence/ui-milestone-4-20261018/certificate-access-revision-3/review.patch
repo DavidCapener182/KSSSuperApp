@@ -1,0 +1,20 @@
+--- a/src/components/training-certificate-admin.tsx
++++ b/src/components/training-certificate-admin.tsx
+@@ -74,7 +74,7 @@
+   const [revocation, setRevocation] = useState<Record<string, unknown> | null>(null);
+   const relevant = history.filter(item => item.completionId === completionId);
+   const current = relevant.find(item => item.current);
+-  const canConfirmRevocation = Boolean(manager && revocation && current && revocation.issueId === current.id);
++  const canConfirmRevocation = Boolean(manager && !completionVoided && revocation && current && revocation.issueId === current.id);
+   const lastRevoked = relevant.find(item => item.state === "REVOKED" && !relevant.some(next => next.reissueOf === item.id));
+   return <section className={`training-card ${styles.certificatePanel}`} aria-label="Certificate issue and history">
+     <h2>Certificates</h2>
+@@ -110,7 +110,7 @@
+         {item.reissueOf && <span> · Reissue of {item.reissueOf}</span>}
+         {item.issuedBy && <span> · Issuer {item.issuedBy}</span>}
+         {item.revokeReason && <span> · Revocation reason {item.revokeReason}</span>}
+-        {item.current && <><a href={`/api/training-certificates/${item.id}/file`} target="_blank" rel="noreferrer">Open private PDF</a>
++        {item.current && !completionVoided && <><a href={`/api/training-certificates/${item.id}/file`} target="_blank" rel="noreferrer">Open private PDF</a>
+           <button type="button" disabled={busy || reason.trim().length < 10} onClick={() => setRevocation({ action: "REVOKE", issueId: item.id,
+             reason, requestId: crypto.randomUUID() })}>Revoke with reason</button></>}
+         <ul>{item.events.map((event, index) => <li key={`${item.id}-${index}`}>{event.action} · {new Date(event.occurredAt).toLocaleString("en-GB", { timeZone: "Europe/London" })}

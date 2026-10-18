@@ -1,0 +1,9 @@
+# Training certificate current-access presentation correction
+
+Bounded revision3: training-certificate-admin.tsx only. A valid actual-source red test proved that completionVoided=true with cached current certificate history still rendered Open private PDF and Revoke with reason, contradicting the voided-completion notice. It also permitted the staged revocation dialog. Add the existing completionVoided context to those two presentation/confirmation conditions. Historical issue rows stay visible and a non-voided current issue retains its exact private link. Server PDF authorisation, history/evaluation/submit/effect functions, API payloads and named rights remain unchanged. This is no grant or permission expansion.
+
+Two dedicated actual-source tests pass after correction, including current matching and historical revoked controls. The exact existing five offline suites plus the new certificate test pass95 total,0fail/skip. TypeScript and focused ESLint pass. Existing administrative test verifies all five clients’ action/readback/effect functions byte-exact. Initial harness lint caught a module variable name and was corrected; final focused lint exit0.
+
+Immutable receipt and review patch: output/ui-training-administration-20261018/certificate-access-revision-3/. It contains preserved original source as before.txt, valid red/current green proofs, old/new source receipt, current ten-file hashes and dedicated test hash. Earlier revision1/2 manifests are untouched. No other product file changed.
+
+Final four-width browser rerun is in progress, with synthetic assignment/current-version labels reconciled consistently. Prior revision2 browser run passed60records/56screens; its evidence is preserved separately and is not presented as the newsource result. No hosted acceptance or real certificate operation occurred.

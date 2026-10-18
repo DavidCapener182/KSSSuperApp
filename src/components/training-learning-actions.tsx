@@ -23,5 +23,5 @@ export function LearningActions({ assignmentId, module, page, marked }: { assign
     } catch (error) { setMessage(error instanceof Error ? error.message : "Learning action unavailable. Refresh and try again."); }
     finally { setBusy(false); }
   }
-  return <div className="training-learning-actions"><button type="button" disabled={busy} onClick={() => act("SAVE_PLACE")}>Save my place</button><button type="button" disabled={busy || marked} onClick={() => act("MARK_PAGE")}>{marked ? "Page marked viewed" : "Mark page viewed"}</button><p role="status">{message}</p></div>;
+  return <div className="training-learning-actions"><button type="button" disabled={busy} onClick={() => act("SAVE_PLACE")}>Save my place</button><button type="button" disabled={busy || marked} onClick={() => act("MARK_PAGE")}>{marked ? "Page marked viewed" : "Mark page viewed"}</button><p role="status">{busy ? "Saving learning action…" : message}</p></div>;
 }

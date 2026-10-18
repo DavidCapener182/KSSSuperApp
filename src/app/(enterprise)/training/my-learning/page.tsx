@@ -1,3 +1,4 @@
+import styles from "@/components/training-learners.module.css";
 import Link from "next/link";
 import { getPrincipal } from "@/lib/auth/principal";
 import { createServerSupabase } from "@/lib/supabase/server";
@@ -8,7 +9,7 @@ export const dynamic = "force-dynamic";
 export default async function MyLearning() {
   const client = await createServerSupabase();
   if (!(await getPrincipal(client))) return null;
-  const [{ data, error }, { data: completionData }] = await Promise.all([
+  const [{ data, error }, { data: completionData, error: completionError }] = await Promise.all([
     client.rpc("training_my_learning"), client.rpc("training_completion_mine"),
   ]);
   const completions = Array.isArray(completionData) ? completionData as {
@@ -22,18 +23,17 @@ export default async function MyLearning() {
   const active = assignments.filter(a => a.state === "ACTIVE");
   const history = assignments.filter(a => a.state !== "ACTIVE");
   const card = (a: TrainingAssignment) => <article className="training-card" key={a.id}>
-    <small>Synthetic learning · Version {a.versionNumber} · Assignment {a.state.toLowerCase()}</small><h2>{a.title}</h2>
-    <p>Assigned {new Date(a.assignedAt).toLocaleDateString("en-GB", { timeZone: "Europe/London" })} · Due {a.dueOn}</p>
-    <p>{a.viewedCount} of {a.pageCount} pages marked viewed</p>
+    <h2>{a.title}</h2><small>Assigned Version {a.versionNumber} · {a.state.replaceAll("_", " ").toLowerCase()}</small>
+    <dl className={styles.assignmentFacts}><div><dt>Due</dt><dd>{a.dueOn}</dd></div><div><dt>Marked viewed</dt><dd>{a.viewedCount} of {a.pageCount} pages</dd></div><div><dt>Assigned</dt><dd>{new Date(a.assignedAt).toLocaleDateString("en-GB", { timeZone: "Europe/London" })}</dd></div></dl>
     {a.retired && a.state === "ACTIVE" ? <p role="status">Content retired — assignment needs review.</p> : a.state === "ACTIVE" ? <Link href={`/training/my-learning/${a.id}`}>Resume version {a.versionNumber} →</Link> : null}
     <Link href={`/training/my-learning/${a.id}/assessment`}>Assessment and attempts</Link><Link href={`/training/my-learning/${a.id}/history`}>View assignment history</Link>
   </article>;
-  return <main className="training-area"><header><p className="training-eyebrow">Native learning · Synthetic Dev</p><h1>My Learning</h1><p>Page progress records which learning pages you have marked as viewed. It does not mean the course has been completed or that you have passed an assessment.</p></header>
+  return <main className={`training-area ${styles.surface}`}><header><p className="training-eyebrow">Native learning · Synthetic Dev</p><h1>My Learning</h1><p>Page progress records which learning pages you have marked as viewed. It does not mean the course has been completed or that you have passed an assessment.</p></header>
     <nav className="training-section-links"><Link href="/training">Course catalogue</Link><Link href="/training/my-learning" aria-current="page">My Learning</Link><Link href="/training/my-requirements">My requirements pilot</Link></nav>
     <p className="training-source-note">Learning page progress and assessment attempts are separate records. Neither verifies a credential or decides whether you can be deployed.</p>
     {error ? <p role="alert">My Learning is unavailable for this role.</p> : <><h2>Active assignments</h2>{active.length ? <div className="training-cards">{active.map(card)}</div> : <p>No active assignments.</p>}
-      <h2>Assignment history</h2>{history.length ? <div className="training-cards">{history.map(card)}</div> : <p>No earlier assignments.</p>}
-      <h2>Completion history</h2>{completions.length ? <div className="training-cards">{completions.map(completion => {
+      <details className={styles.secondary}><summary>Assignment history · {history.length}</summary><h2>Earlier assignments</h2>{history.length ? <div className="training-cards">{history.map(card)}</div> : <p>No earlier assignments.</p>}
+      </details><details className={styles.secondary}><summary>Completion and certificate history · {completionError ? "Unavailable" : completions.length}</summary><h2>Recorded completions</h2>{completionError ? <p role="status">Completion history is unavailable.</p> : completions.length ? <div className="training-cards">{completions.map(completion => {
         const assignment = assignments.find(item => item.id === completion.assignmentId);
         const certificateRead = certificateHistory.get(completion.id);
         const issues = !certificateRead?.error && Array.isArray(certificateRead?.data) ? certificateRead.data as {
@@ -54,6 +54,6 @@ export default async function MyLearning() {
             </li>)}</ul>
           </div> : <p>No certificate issued for this Completion.</p>}
         </article>;
-      })}</div> : <p>No course completions recorded.</p>}</>}
+      })}</div> : <p>No course completions recorded.</p>}</details></>}
   </main>;
 }

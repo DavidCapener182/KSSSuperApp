@@ -1,7 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import styles from "./training-requirements.module.css";
+import { TrainingRequirementEvidence, type TrainingRequirementContext as Context } from "@/components/training-requirement-evidence";
+
+import { trainingActionAllowed, trainingAdminReadback, trainingAdminShape } from "@/lib/training/admin-readback";
 
 type Rights = { author: boolean; publisher: boolean; viewer: boolean; superAdmin: boolean; staff: boolean };
 type Choice = { id: string; name?: string; title?: string; siteId?: string };
@@ -15,22 +18,23 @@ type Requirement = { id: string; label: string; versions: Version[];
 type Grant = { id: string; personId: string; capability: string; serviceId: string | null; revokedAt: string | null };
 type Admin = { requirements: Requirement[]; roles: Choice[]; courses: Choice[]; sites: Choice[];
   services: Choice[]; grants: Grant[] };
-type Context = { personId: string; personName: string; serviceId: string; serviceName: string;
-  roleId: string; roleName: string; asOf: string };
-type MatrixRow = { requirementId: string; versionId: string; version: number; label: string;
-  status: string; courseVersionId: string; assignmentId: string | null; completionId: string | null;
-  completionRuleVersionId: string | null; completedAt: string | null;
-  certificateIssueId: string | null; certificateReference: string | null; hash: string };
-type Matrix = { rows: MatrixRow[]; asOf: string; policy: string };
 
 export function TrainingRequirementPilot({ rights, initial, contexts, canReviewCompletions = false }: {
   rights: Rights; initial: Admin | null; contexts: Context[]; canReviewCompletions?: boolean;
 }) {
-  const [admin, setAdmin] = useState(initial);
+  const [adminRecord, setAdmin] = useState(initial);
+  const activeRequest = useRef<AbortController | null>(null);
+  const contextKey = JSON.stringify([rights, contexts, canReviewCompletions, initial]);
+  const [recordContext] = useState(contextKey);
+  const admin = recordContext === contextKey ? adminRecord : null;
+  const previousContext = useRef(contextKey);
   const [selected, setSelected] = useState(0);
-  const [matrix, setMatrix] = useState<Matrix | null>(null);
+  const selectedContext = contexts[selected] ?? contexts[0];
+  const selectedIndex = contexts[selected] ? selected : 0;
   const [message, setMessage] = useState("");
-  const [busy, setBusy] = useState(false);
+  const [actionBusy, setBusy] = useState(false);
+  const [matrixBusy, setMatrixBusy] = useState(false);
+  const busy = actionBusy || matrixBusy;
   const [label, setLabel] = useState("");
   const [roleId, setRoleId] = useState("");
   const [siteId, setSiteId] = useState("");
@@ -46,73 +50,70 @@ export function TrainingRequirementPilot({ rights, initial, contexts, canReviewC
   const [grantServiceId, setGrantServiceId] = useState("");
   const [grantUntil, setGrantUntil] = useState("");
   const [grantReason, setGrantReason] = useState("");
+  const [requirementView, setRequirementView] = useState<"matrix" | "rules">("matrix");
+  const rulesAvailable = Boolean(admin && (rights.author || rights.publisher || rights.superAdmin));
+  const currentView = rulesAvailable && (!(rights.staff || rights.viewer) || requirementView === "rules") ? "rules" : "matrix";
 
-  async function refreshAdmin() {
-    if (!admin) return;
-    const response = await fetch("/api/training-requirements?view=admin", { cache: "no-store" });
-    const result = await response.json();
-    if (response.ok) setAdmin(result.data as Admin);
-  }
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    if (previousContext.current !== contextKey) {
+      previousContext.current = contextKey;
+      timer = setTimeout(() => { activeRequest.current = null; setAdmin(null); setBusy(false);
+        setMessage("Context changed. Reload to read the current admin record."); }, 0);
+    }
+    return () => { clearTimeout(timer); activeRequest.current?.abort(); };
+  }, [contextKey]);
+
   async function action(payload: Record<string, unknown>) {
-    setBusy(true); setMessage("");
+    if (busy || activeRequest.current || !admin || !trainingActionAllowed(rights, payload.action)) return;
+    const controller = new AbortController(); activeRequest.current = controller;
+    const before = admin;
+    setAdmin(null); setBusy(true); setMessage("Saving and checking the current admin record…");
     try {
       const response = await fetch("/api/training-requirements", {
-        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload), signal: controller.signal,
       });
       const result = await response.json();
+      if (controller.signal.aborted) return;
       if (!response.ok) throw new Error(result.error ?? "Action unavailable");
-      setMessage("Saved. The requirement record was read back.");
-      await refreshAdmin();
-    } catch (error) { setMessage(error instanceof Error ? error.message : "Action unavailable"); }
-    finally { setBusy(false); }
-  }
-  async function readMatrix() {
-    const context = contexts[selected];
-    if (!context) return;
-    setBusy(true); setMessage(""); setMatrix(null);
-    try {
-      const params = new URLSearchParams({ view: "matrix", person: context.personId,
-        service: context.serviceId, role: context.roleId, asOf: context.asOf });
-      const response = await fetch(`/api/training-requirements?${params}`, { cache: "no-store" });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error ?? "Source unavailable");
-      setMatrix(result.data as Matrix);
-    } catch { setMessage("SOURCE_UNAVAILABLE — this context or its Training source could not be read."); }
-    finally { setBusy(false); }
+      const accessResponse = await fetch("/api/training-requirements?view=access", { cache: "no-store", signal: controller.signal });
+      const access = await accessResponse.json();
+      if (controller.signal.aborted) return;
+      if (!accessResponse.ok || !trainingActionAllowed(access.data, payload.action)) throw new Error("Admin access changed");
+      const readResponse = await fetch("/api/training-requirements?view=admin", { cache: "no-store", signal: controller.signal });
+      const read = await readResponse.json();
+      if (controller.signal.aborted) return;
+      if (!readResponse.ok || !trainingAdminShape(read.data) || !trainingAdminReadback(before, read.data, payload, result.data)) throw new Error("Readback unavailable");
+      setAdmin(read.data as Admin);
+      setMessage(payload.action === "GRANT" || payload.action === "REVOKE_GRANT"
+        ? "The requested grant state was confirmed in the refreshed admin record."
+        : "The exact requirement change and decision history were confirmed in the refreshed admin record.");
+    } catch {
+      if (!controller.signal.aborted) setMessage("The action could not be confirmed and may have saved. Reload and verify the current admin record before another change.");
+    } finally {
+      if (!controller.signal.aborted) { activeRequest.current = null; setBusy(false); }
+    }
   }
 
-  return <div className="training-requirement-pilot">
+  return <div className={`training-requirement-pilot ${styles.pilot}`}>
     <p className="training-source-note">Synthetic Training requirement pilot. Assignment, Attempt, Completion, CertificateIssue,
       Credential verification and deployment eligibility are separate decisions. This matrix does not decide whether someone can work.</p>
     {message && <p role="status">{message}</p>}
-    <section className="training-card">
+    {rulesAvailable && (rights.staff || rights.viewer) && <div className={styles.views} role="group" aria-label="Training requirement views"><button type="button" disabled={busy} aria-pressed={currentView === "matrix"} onClick={() => setRequirementView("matrix")}>Evidence matrix</button><button type="button" disabled={busy} aria-pressed={currentView === "rules"} onClick={() => setRequirementView("rules")}>Requirement rules</button></div>}
+    <section className="training-card" hidden={currentView !== "matrix"} aria-label="Requirement evidence matrix">
       <h2>Requirement matrix</h2>
       <p>Choose an allocated Site Shift context. Results are factual for its Person, duty role, Service and London service date.</p>
-      {contexts.length ? <><label>Person and assigned context
-        <select value={selected} onChange={event => { setSelected(Number(event.target.value)); setMatrix(null); }}>
+      {(rights.staff || rights.viewer) && contexts.length ? <><label>Person and assigned context
+        <select value={selectedIndex} onChange={event => setSelected(Number(event.target.value))}>
           {contexts.map((context, index) => <option key={`${context.personId}-${context.serviceId}-${context.roleId}-${context.asOf}`} value={index}>
             {context.personName} · {context.roleName} · {context.serviceName} · {context.asOf}
           </option>)}
-        </select></label><button disabled={busy} onClick={readMatrix}>Read requirement evidence</button></>
+        </select></label>{selectedContext && <dl className={styles.contextFacts}><div><dt>Person</dt><dd>{selectedContext.personName}</dd></div><div><dt>Duty role</dt><dd>{selectedContext.roleName}</dd></div><div><dt>Site Service</dt><dd>{selectedContext.serviceName}</dd></div><div><dt>London service date</dt><dd>{selectedContext.asOf}</dd></div></dl>}{selectedContext && <TrainingRequirementEvidence
+          key={JSON.stringify([selectedContext.personId, selectedContext.serviceId, selectedContext.roleId, selectedContext.asOf, rights.staff, rights.viewer, canReviewCompletions])}
+          context={selectedContext} actionBusy={actionBusy} onBusyChange={setMatrixBusy} staffLinks={rights.staff && !rights.viewer} canReviewCompletions={canReviewCompletions} />}</>
         : <p>No authorised allocated context in the pilot window.</p>}
-      {matrix && <div aria-live="polite">
-        <p>As of {matrix.asOf}. A blank result means no published Training requirement applies to this context.</p>
-        {matrix.rows.length ? <div className="training-cards">{matrix.rows.map(row =>
-          <article className="training-card" key={row.versionId}>
-            <small>Requirement version {row.version} · Synthetic policy</small>
-            <h3>{row.label}</h3><p><strong>{row.status.replaceAll("_", " ")}</strong></p>
-            <p>CourseVersion {row.courseVersionId}</p>
-            {row.assignmentId && <p>Assignment {rights.staff && !rights.viewer
-              ? <Link href={`/training/my-learning/${row.assignmentId}`}>{row.assignmentId}</Link>
-              : canReviewCompletions
-                ? <Link href={`/training-admin/completions?assignment=${row.assignmentId}`}>{row.assignmentId}</Link>
-                : row.assignmentId}</p>}
-            {row.completionId && <p>Completion {row.completionId} · rule {row.completionRuleVersionId} · {row.completedAt}</p>}
-            {row.certificateIssueId && <p>Separate certificate issue: {row.certificateReference}</p>}
-          </article>)}</div> : <p>NOT_APPLICABLE — no published requirement matches this context and date.</p>}
-      </div>}
     </section>
-    {admin && (rights.author || rights.publisher || rights.superAdmin) && <section className="training-card">
+    {admin && (rights.author || rights.publisher || rights.superAdmin) && <section className="training-card" hidden={currentView !== "rules"} aria-label="Requirement rules">
       <h2>Requirement versions</h2>
       {(rights.author || rights.publisher) && <label>Decision reason
         <input value={reason} onChange={event => setReason(event.target.value)} minLength={10} maxLength={300} />
@@ -121,9 +122,9 @@ export function TrainingRequirementPilot({ rights, initial, contexts, canReviewC
         <input type="date" value={endOn} onChange={event => setEndOn(event.target.value)} />
       </label>}
       {admin.requirements.length ? admin.requirements.map(item =>
-        <article key={item.id}><h3>{item.label}</h3><ul>{item.versions.map(version =>
-          <li key={version.id}>Version {version.number} · {version.state} · {version.effectiveFrom}
-            {version.endedOn ? ` ended ${version.endedOn}` : version.effectiveUntil ? ` to ${version.effectiveUntil}` : " onward"} · CourseVersion {version.courseVersionId}
+        <article className={styles.rule} key={item.id}><h3>{item.label}</h3><ul>{item.versions.map(version =>
+          <li className={styles.ruleVersion} key={version.id}><strong>Version {version.number} · {version.state}</strong><p>{version.effectiveFrom}
+            {version.endedOn ? ` ended ${version.endedOn}` : version.effectiveUntil ? ` to ${version.effectiveUntil}` : " onward"}</p><dl className={styles.scopeFacts}><div><dt>Duty role</dt><dd>{admin.roles.find((choice) => choice.id === version.roleId)?.name ?? version.roleId}</dd></div><div><dt>Site</dt><dd>{admin.sites.find((choice) => choice.id === version.siteId)?.name ?? version.siteId ?? "Not recorded"}</dd></div><div><dt>Site Service scope</dt><dd>{version.serviceId ? admin.services.find((choice) => choice.id === version.serviceId)?.name ?? version.serviceId : "Site-wide, all Services"}</dd></div><div><dt>Exact course version</dt><dd>{admin.courses.find((choice) => choice.id === version.courseVersionId)?.title ?? version.courseVersionId}</dd></div><div><dt>Earlier completion policy</dt><dd>{version.priorEvidence === "ACCEPT_IF_CURRENT" ? "Accept if unvoided" : version.priorEvidence === "NOT_ACCEPTED" ? "Not accepted" : version.priorEvidence}</dd></div></dl><details className={styles.provenance}><summary>Exact source identity</summary><p>Requirement {item.id} · Version {version.id} · CourseVersion {version.courseVersionId}{version.hash ? ` · Hash ${version.hash}` : ""}</p></details>
             {version.state === "DRAFT" && rights.publisher && <button disabled={busy || reason.trim().length < 10}
               onClick={() => action({ action: "PUBLISH", versionId: version.id, reason })}>Publish with reason</button>}
             {version.state === "PUBLISHED" && rights.author && <button disabled={busy || !from || reason.trim().length < 10}
@@ -135,14 +136,14 @@ export function TrainingRequirementPilot({ rights, initial, contexts, canReviewC
           </li>)}</ul><details><summary>Decision history</summary><ol>{item.events.map((event, index) =>
             <li key={`${event.versionId}-${index}`}>{event.action.replaceAll("_", " ")} · {event.occurredAt}
               · actor {event.actorPersonId} · {event.reason}</li>)}</ol></details></article>) : <p>No requirement recorded.</p>}
-      {rights.author && <form onSubmit={event => {
+      {rights.author && <details className={styles.form}><summary>Draft a requirement</summary><form onSubmit={event => {
         event.preventDefault();
         action({ action: "CREATE", label, roleId, siteId,
           serviceId: serviceId || null, courseVersionId, priorEvidence, effectiveFrom: from,
           effectiveUntil: until || null, reason });
       }}>
         <h3>Draft a synthetic requirement</h3>
-        <label>Requirement label<input value={label} onChange={event => setLabel(event.target.value)} required minLength={3} maxLength={120} /></label>
+        <fieldset><legend>Scope</legend><label>Requirement label<input value={label} onChange={event => setLabel(event.target.value)} required minLength={3} maxLength={120} /></label>
         <label>Duty role<select value={roleId} onChange={event => setRoleId(event.target.value)} required>
           <option value="">Select duty role</option>{admin.roles.map(role => <option key={role.id} value={role.id}>{role.name}</option>)}
         </select></label>
@@ -154,19 +155,19 @@ export function TrainingRequirementPilot({ rights, initial, contexts, canReviewC
           <option value="">Site-wide, all Services</option>{admin.services.filter(service => service.siteId === siteId).map(service =>
             <option key={service.id} value={service.id}>{service.name}</option>)}
         </select></label>
-        <label>Exact CourseVersion<select value={courseVersionId} onChange={event => setCourseVersionId(event.target.value)} required>
+        </fieldset><fieldset><legend>Evidence policy</legend><label>Exact CourseVersion<select value={courseVersionId} onChange={event => setCourseVersionId(event.target.value)} required>
           <option value="">Select published version</option>{admin.courses.map(course =>
             <option key={course.id} value={course.id}>{course.title}</option>)}
         </select></label>
         <label>Earlier Completion<select value={priorEvidence} onChange={event => setPriorEvidence(event.target.value)}>
           <option value="NOT_ACCEPTED">Not accepted</option><option value="ACCEPT_IF_CURRENT">Accept if unvoided</option>
         </select></label>
-        <label>Effective from<input type="date" value={from} onChange={event => setFrom(event.target.value)} required /></label>
+        </fieldset><fieldset><legend>Effective period</legend><label>Effective from<input type="date" value={from} onChange={event => setFrom(event.target.value)} required /></label>
         <label>Effective until, exclusive<input type="date" value={until} onChange={event => setUntil(event.target.value)} /></label>
-        <button disabled={busy || reason.trim().length < 10}>Create draft</button>
-      </form>}
+        </fieldset><button disabled={busy || reason.trim().length < 10}>Create draft</button>
+      </form></details>}
     </section>}
-    {admin && rights.superAdmin && <section className="training-card"><h2>Named pilot grants</h2>
+    {admin && rights.superAdmin && <details className={styles.grants}><summary>Named pilot grants</summary><section className="training-card"><h2>Grant administration</h2>
       <p>Only Super Admin manages these grants. A Viewer may be limited to one Site Service.</p>
       <label>Office Person ID<input value={personId} onChange={event => setPersonId(event.target.value)} /></label>
       <label>Capability<select value={capability} onChange={event => setCapability(event.target.value)}>
@@ -191,6 +192,6 @@ export function TrainingRequirementPilot({ rights, initial, contexts, canReviewC
           <button disabled={busy || grantReason.trim().length < 10} onClick={() =>
             action({ action: "REVOKE_GRANT", grantId: grant.id, reason: grantReason })}>Revoke</button>
         </li>)}</ul>
-    </section>}
+    </section></details>}
   </div>;
 }

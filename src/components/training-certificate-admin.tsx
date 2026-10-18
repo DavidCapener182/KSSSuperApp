@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import styles from "./training-administration.module.css";
+import { ConfirmDialog } from "@/components/ui/workflow";
 
 type Template = { id: string; version: number; title: string; issuerLabel: string; statement: string; hash: string };
 type Issue = { id: string; reference: string; completionId: string; issueDate: string; expiryOn: string | null;
@@ -69,13 +71,15 @@ export function TrainingCertificateAdmin({ publisher, manager, assignmentId, com
     } finally { setBusy(false); }
   }
 
+  const [revocation, setRevocation] = useState<Record<string, unknown> | null>(null);
   const relevant = history.filter(item => item.completionId === completionId);
   const current = relevant.find(item => item.current);
+  const canConfirmRevocation = Boolean(manager && !completionVoided && revocation && current && revocation.issueId === current.id);
   const lastRevoked = relevant.find(item => item.state === "REVOKED" && !relevant.some(next => next.reissueOf === item.id));
-  return <section className="training-card" aria-label="Certificate issue and history">
+  return <section className={`training-card ${styles.certificatePanel}`} aria-label="Certificate issue and history">
     <h2>Certificates</h2>
     <p>Certificate issue is a separate manager decision. Each PDF is tied to one immutable issue and private download authority.</p>
-    {publisher && <div><h3>Publish certificate template version</h3>
+    {publisher && <details className={styles.templateForm}><summary>Publish a certificate template</summary><div><h3>Publish certificate template version</h3>
       <label htmlFor="certificate-template-title">Certificate title</label>
       <input id="certificate-template-title" maxLength={32} value={title} onChange={event => setTitle(event.target.value)} />
       <label htmlFor="certificate-template-issuer">Issuer label</label>
@@ -84,7 +88,7 @@ export function TrainingCertificateAdmin({ publisher, manager, assignmentId, com
       <textarea id="certificate-template-statement" minLength={10} maxLength={180} value={statement} onChange={event => setStatement(event.target.value)} />
       <button type="button" disabled={busy || title.trim().length < 3 || issuerLabel.trim().length < 3 || statement.trim().length < 10}
         onClick={() => submit({ action: "PUBLISH_TEMPLATE", title, issuerLabel, statement }, "Template publication confirmed from readback.")}>Publish immutable template</button>
-    </div>}
+    </div></details>}
     {manager && <div><h3>Exact issue decision</h3>
       <p>{assignmentId ? `Selected assignment ${assignmentId}` : "Review an exact assignment above to inspect certificate history."}</p>
       <label htmlFor="certificate-template-version">Published template version</label>
@@ -106,13 +110,14 @@ export function TrainingCertificateAdmin({ publisher, manager, assignmentId, com
         {item.reissueOf && <span> · Reissue of {item.reissueOf}</span>}
         {item.issuedBy && <span> · Issuer {item.issuedBy}</span>}
         {item.revokeReason && <span> · Revocation reason {item.revokeReason}</span>}
-        {item.current && <><a href={`/api/training-certificates/${item.id}/file`} target="_blank" rel="noreferrer">Open private PDF</a>
-          <button type="button" disabled={busy || reason.trim().length < 10} onClick={() => submit({ action: "REVOKE", issueId: item.id,
-            reason, requestId: crypto.randomUUID() }, "Revocation confirmed; current download access removed.")}>Revoke with reason</button></>}
+        {item.current && !completionVoided && <><a href={`/api/training-certificates/${item.id}/file`} target="_blank" rel="noreferrer">Open private PDF</a>
+          <button type="button" disabled={busy || reason.trim().length < 10} onClick={() => setRevocation({ action: "REVOKE", issueId: item.id,
+            reason, requestId: crypto.randomUUID() })}>Revoke with reason</button></>}
         <ul>{item.events.map((event, index) => <li key={`${item.id}-${index}`}>{event.action} · {new Date(event.occurredAt).toLocaleString("en-GB", { timeZone: "Europe/London" })}
           {event.actorPersonId ? ` · Actor ${event.actorPersonId}` : ""}{event.reason ? ` · ${event.reason}` : ""}</li>)}</ul>
       </li>)}</ul> : <p>No certificate issued for this Completion.</p>}
     </div>}
     <p role="status">{message}</p>
+    <ConfirmDialog open={canConfirmRevocation} title="Revoke this certificate issue?" description={`Issue ${revocation?.issueId ?? ""}. Current download access will be removed; its history is retained. Reason: ${revocation?.reason ?? ""}`} confirmLabel="Revoke certificate" variant="caution" busy={busy} onClose={() => setRevocation(null)} onConfirm={() => { if (revocation && canConfirmRevocation && !busy) { const payload = revocation; setRevocation(null); void submit(payload, "Revocation confirmed; current download access removed."); } else { setRevocation(null); } }} />
   </section>;
 }

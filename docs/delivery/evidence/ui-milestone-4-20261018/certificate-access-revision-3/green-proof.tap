@@ -1,0 +1,29 @@
+✔ newly voided completion hides stale current PDF and revoke controls while retaining certificate history (34.774708ms)
+✔ non-voided matching current issue retains its exact private PDF and revoked history never exposes one (15.413458ms)
+✔ course initial editor matches the selected returned exact draft, not blank replacement content (42.639791ms)
+✔ all existing course, assignment, assessment, completion and certificate functions/effects remain byte-exact (22.208333ms)
+✔ course outline focuses one module/page and safely falls back after selected page removal (34.1925ms)
+✔ course author/publisher rights remain distinct and publishing stages exact saved revision before any network (16.775875ms)
+✔ assessment outline edits only one question, leaves keys restricted and preserves exact draft publish payload (7.420917ms)
+✔ published assessment remains sealed for authors and without named author/publisher rights no authoring controls appear (13.40425ms)
+✔ assignment register precedes selected detail and manual assignment is a separate focused disclosure (11.914958ms)
+✔ Super assignment oversight without active assigner rights exposes no assignment/write controls (4.7305ms)
+✔ completion register preserves review prerequisite; no shared Complete-and-certify action exists (6.824958ms)
+✔ selected completion evidence keeps Person/course/exact IDs and stages void with unchanged request payload (5.220708ms)
+✔ completion publisher and Super never gain manager evidence/evaluation or certificate issue controls (8.213167ms)
+✔ certificate panel keeps template publication separate, exact current PDF private, and revocation confirmed before submission (4.036125ms)
+✔ certificate historical issues expose no current PDF or revoke and voided completion cannot issue/reissue (7.319125ms)
+✔ course POST accepted followed by denied readback does not announce success and pending lock is released (5.903584ms)
+✔ certificate POST receipt still needs the same exact issued history before showing confirmation (5.313041ms)
+✔ all four actual server routes preserve baseline RPC/grant query boundaries, exact initial Assignment handoff and fail-closed access (46.973458ms)
+✔ frozen learner/requirements source, shared Training content and CSS remain unchanged (3.884958ms)
+✔ new publication confirmations fail closed when selected version/revision or publisher authority changes (15.661459ms)
+✔ new completion/certificate correction confirmations do not survive selected source or manager authority loss (9.632958ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 379.793625

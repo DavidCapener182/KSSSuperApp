@@ -1,0 +1,1322 @@
+[
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "courses",
+    "path": "/training-admin",
+    "authority": "all",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "assignments",
+    "path": "/training-admin/assignments",
+    "authority": "all",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "assessments",
+    "path": "/training-admin/assessments",
+    "authority": "all",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "completions",
+    "path": "/training-admin/completions?assignment=00000000-0000-4000-8000-000000000041",
+    "authority": "all",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "publisher",
+    "path": "/training-admin",
+    "authority": "publisher",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "assigner-oversight",
+    "path": "/training-admin/assignments",
+    "authority": "super",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "completion-oversight",
+    "path": "/training-admin/completions",
+    "authority": "super",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "courses",
+    "path": "/training-admin",
+    "authority": "all",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "assignments",
+    "path": "/training-admin/assignments",
+    "authority": "all",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "assessments",
+    "path": "/training-admin/assessments",
+    "authority": "all",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "completions",
+    "path": "/training-admin/completions?assignment=00000000-0000-4000-8000-000000000041",
+    "authority": "all",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "publisher",
+    "path": "/training-admin",
+    "authority": "publisher",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "assigner-oversight",
+    "path": "/training-admin/assignments",
+    "authority": "super",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "completion-oversight",
+    "path": "/training-admin/completions",
+    "authority": "super",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "courses",
+    "path": "/training-admin",
+    "authority": "all",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "assignments",
+    "path": "/training-admin/assignments",
+    "authority": "all",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "assessments",
+    "path": "/training-admin/assessments",
+    "authority": "all",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "completions",
+    "path": "/training-admin/completions?assignment=00000000-0000-4000-8000-000000000041",
+    "authority": "all",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "publisher",
+    "path": "/training-admin",
+    "authority": "publisher",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "assigner-oversight",
+    "path": "/training-admin/assignments",
+    "authority": "super",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "completion-oversight",
+    "path": "/training-admin/completions",
+    "authority": "super",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "courses",
+    "path": "/training-admin",
+    "authority": "all",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "assignments",
+    "path": "/training-admin/assignments",
+    "authority": "all",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "assessments",
+    "path": "/training-admin/assessments",
+    "authority": "all",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "completions",
+    "path": "/training-admin/completions?assignment=00000000-0000-4000-8000-000000000041",
+    "authority": "all",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "publisher",
+    "path": "/training-admin",
+    "authority": "publisher",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "assigner-oversight",
+    "path": "/training-admin/assignments",
+    "authority": "super",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "completion-oversight",
+    "path": "/training-admin/completions",
+    "authority": "super",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "courses",
+    "path": "/training-admin",
+    "authority": "all",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "assignments",
+    "path": "/training-admin/assignments",
+    "authority": "all",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "assessments",
+    "path": "/training-admin/assessments",
+    "authority": "all",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "completions",
+    "path": "/training-admin/completions?assignment=00000000-0000-4000-8000-000000000041",
+    "authority": "all",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "publisher",
+    "path": "/training-admin",
+    "authority": "publisher",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "assigner-oversight",
+    "path": "/training-admin/assignments",
+    "authority": "super",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "completion-oversight",
+    "path": "/training-admin/completions",
+    "authority": "super",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "interactions",
+    "clonedInitialDraft": true,
+    "pageQuestionKeyboard": true,
+    "publishExactSnapshot": true,
+    "dialogCancelFocus": true,
+    "deniedReadbackNoSuccess": true,
+    "assignmentExactVersion": true,
+    "sealedAssessment": true,
+    "completionReviewBeforeCheck": true,
+    "certificateRevokeReissueReadback": true,
+    "correctionHistory": true,
+    "finiteRights": true,
+    "writes": [
+      {
+        "path": "/api/training",
+        "input": {
+          "action": "PUBLISH",
+          "versionId": "00000000-0000-4000-8000-000000000003",
+          "revision": 7
+        }
+      },
+      {
+        "path": "/api/training",
+        "input": {
+          "action": "EDIT_DRAFT",
+          "versionId": "00000000-0000-4000-8000-000000000003",
+          "revision": 7,
+          "title": "Synthetic exact draft",
+          "summary": "Returned draft summary",
+          "modules": [
+            {
+              "title": "Exact first module",
+              "pages": [
+                {
+                  "title": "First returned page",
+                  "blocks": [
+                    {
+                      "type": "paragraph",
+                      "text": "Exact returned content"
+                    }
+                  ]
+                },
+                {
+                  "title": "Second returned page",
+                  "blocks": [
+                    {
+                      "type": "paragraph",
+                      "text": "Second page content"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Second module",
+              "pages": [
+                {
+                  "title": "Third returned page",
+                  "blocks": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "DUE_CHANGE",
+          "assignmentId": "00000000-0000-4000-8000-000000000040",
+          "revision": 9,
+          "dueOn": "2026-11-02",
+          "reason": "Synthetic exact due-date change",
+          "requestId": "3cc86d79-b647-44fd-82a7-5982868a5487"
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "ASSIGN",
+          "personId": "00000000-0000-4000-8000-000000000050",
+          "courseId": "00000000-0000-4000-8000-000000000001",
+          "versionId": "00000000-0000-4000-8000-000000000002",
+          "dueOn": "2026-11-04",
+          "reason": "Synthetic manual exact assignment",
+          "requestId": "00e7a661-620e-4b85-ab9d-c9914ee35c57"
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "PUBLISH",
+          "versionId": "00000000-0000-4000-8000-000000000020",
+          "revision": 4
+        }
+      },
+      {
+        "path": "/api/training-certificates",
+        "input": {
+          "action": "REVOKE",
+          "issueId": "00000000-0000-4000-8000-000000000071",
+          "reason": "Synthetic certificate revocation",
+          "requestId": "f5d50b81-fc9b-4a2f-a19b-d584345ed6c0"
+        }
+      },
+      {
+        "path": "/api/training-certificates",
+        "input": {
+          "action": "ISSUE",
+          "completionId": "00000000-0000-4000-8000-000000000062",
+          "templateVersionId": "00000000-0000-4000-8000-000000000070",
+          "reissueOf": "00000000-0000-4000-8000-000000000071",
+          "reason": "Synthetic certificate revocation",
+          "requestId": "12e9657d-1ce8-4ad0-b456-a7dbd59b09fa"
+        }
+      },
+      {
+        "path": "/api/training-certificates",
+        "input": {
+          "action": "ISSUE",
+          "completionId": "00000000-0000-4000-8000-000000000062",
+          "templateVersionId": "00000000-0000-4000-8000-000000000070",
+          "reissueOf": "00000000-0000-4000-8000-000000000071",
+          "reason": "Synthetic certificate revocation",
+          "requestId": "f7c666f5-0aca-44ac-bda9-51bd692938f6"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "VOID",
+          "completionId": "00000000-0000-4000-8000-000000000062",
+          "reason": "Synthetic controlled correction",
+          "requestId": "30819a6b-cfc6-4657-8193-943feb79088e"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "EVALUATE",
+          "assignmentId": "00000000-0000-4000-8000-000000000040",
+          "requestId": "760c1bd6-cb68-4934-9b2a-8359424782fb"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "PUBLISH_RULE",
+          "courseVersionId": "00000000-0000-4000-8000-000000000002",
+          "assessmentVersionId": "00000000-0000-4000-8000-000000000020",
+          "effectiveFrom": "2026-10-18T11:59:00.000Z",
+          "effectiveUntil": null,
+          "validityMonths": null
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "courses",
+    "path": "/training-admin",
+    "authority": "all",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "assignments",
+    "path": "/training-admin/assignments",
+    "authority": "all",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "assessments",
+    "path": "/training-admin/assessments",
+    "authority": "all",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "completions",
+    "path": "/training-admin/completions?assignment=00000000-0000-4000-8000-000000000041",
+    "authority": "all",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "publisher",
+    "path": "/training-admin",
+    "authority": "publisher",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "assigner-oversight",
+    "path": "/training-admin/assignments",
+    "authority": "super",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "completion-oversight",
+    "path": "/training-admin/completions",
+    "authority": "super",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "interactions",
+    "clonedInitialDraft": true,
+    "pageQuestionKeyboard": true,
+    "publishExactSnapshot": true,
+    "dialogCancelFocus": true,
+    "deniedReadbackNoSuccess": true,
+    "assignmentExactVersion": true,
+    "sealedAssessment": true,
+    "completionReviewBeforeCheck": true,
+    "certificateRevokeReissueReadback": true,
+    "correctionHistory": true,
+    "finiteRights": true,
+    "writes": [
+      {
+        "path": "/api/training",
+        "input": {
+          "action": "PUBLISH",
+          "versionId": "00000000-0000-4000-8000-000000000003",
+          "revision": 7
+        }
+      },
+      {
+        "path": "/api/training",
+        "input": {
+          "action": "EDIT_DRAFT",
+          "versionId": "00000000-0000-4000-8000-000000000003",
+          "revision": 7,
+          "title": "Synthetic exact draft",
+          "summary": "Returned draft summary",
+          "modules": [
+            {
+              "title": "Exact first module",
+              "pages": [
+                {
+                  "title": "First returned page",
+                  "blocks": [
+                    {
+                      "type": "paragraph",
+                      "text": "Exact returned content"
+                    }
+                  ]
+                },
+                {
+                  "title": "Second returned page",
+                  "blocks": [
+                    {
+                      "type": "paragraph",
+                      "text": "Second page content"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Second module",
+              "pages": [
+                {
+                  "title": "Third returned page",
+                  "blocks": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "DUE_CHANGE",
+          "assignmentId": "00000000-0000-4000-8000-000000000040",
+          "revision": 9,
+          "dueOn": "2026-11-02",
+          "reason": "Synthetic exact due-date change",
+          "requestId": "ede83ae1-ce7b-4485-afd6-5cbf53bf1c01"
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "ASSIGN",
+          "personId": "00000000-0000-4000-8000-000000000050",
+          "courseId": "00000000-0000-4000-8000-000000000001",
+          "versionId": "00000000-0000-4000-8000-000000000002",
+          "dueOn": "2026-11-04",
+          "reason": "Synthetic manual exact assignment",
+          "requestId": "7b8b50b2-373b-463e-8e61-2a671780d74f"
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "PUBLISH",
+          "versionId": "00000000-0000-4000-8000-000000000020",
+          "revision": 4
+        }
+      },
+      {
+        "path": "/api/training-certificates",
+        "input": {
+          "action": "REVOKE",
+          "issueId": "00000000-0000-4000-8000-000000000071",
+          "reason": "Synthetic certificate revocation",
+          "requestId": "75c2ff0c-fba6-4760-a9bd-50f169e2fa3a"
+        }
+      },
+      {
+        "path": "/api/training-certificates",
+        "input": {
+          "action": "ISSUE",
+          "completionId": "00000000-0000-4000-8000-000000000062",
+          "templateVersionId": "00000000-0000-4000-8000-000000000070",
+          "reissueOf": "00000000-0000-4000-8000-000000000071",
+          "reason": "Synthetic certificate revocation",
+          "requestId": "94e56c1e-e6a7-4672-96b8-06ef25f8b270"
+        }
+      },
+      {
+        "path": "/api/training-certificates",
+        "input": {
+          "action": "ISSUE",
+          "completionId": "00000000-0000-4000-8000-000000000062",
+          "templateVersionId": "00000000-0000-4000-8000-000000000070",
+          "reissueOf": "00000000-0000-4000-8000-000000000071",
+          "reason": "Synthetic certificate revocation",
+          "requestId": "ebf94c66-44f3-4402-9673-cd6667725236"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "VOID",
+          "completionId": "00000000-0000-4000-8000-000000000062",
+          "reason": "Synthetic controlled correction",
+          "requestId": "9eb421c5-5361-43a7-b63f-c14c50c89f7f"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "EVALUATE",
+          "assignmentId": "00000000-0000-4000-8000-000000000040",
+          "requestId": "8ef54c83-f332-4181-977a-1fc2e66443c6"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "PUBLISH_RULE",
+          "courseVersionId": "00000000-0000-4000-8000-000000000002",
+          "assessmentVersionId": "00000000-0000-4000-8000-000000000020",
+          "effectiveFrom": "2026-10-18T11:59:00.000Z",
+          "effectiveUntil": null,
+          "validityMonths": null
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "courses",
+    "path": "/training-admin",
+    "authority": "all",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "assignments",
+    "path": "/training-admin/assignments",
+    "authority": "all",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "assessments",
+    "path": "/training-admin/assessments",
+    "authority": "all",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "completions",
+    "path": "/training-admin/completions?assignment=00000000-0000-4000-8000-000000000041",
+    "authority": "all",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "publisher",
+    "path": "/training-admin",
+    "authority": "publisher",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "assigner-oversight",
+    "path": "/training-admin/assignments",
+    "authority": "super",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "completion-oversight",
+    "path": "/training-admin/completions",
+    "authority": "super",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "interactions",
+    "clonedInitialDraft": true,
+    "pageQuestionKeyboard": true,
+    "publishExactSnapshot": true,
+    "dialogCancelFocus": true,
+    "deniedReadbackNoSuccess": true,
+    "assignmentExactVersion": true,
+    "sealedAssessment": true,
+    "completionReviewBeforeCheck": true,
+    "certificateRevokeReissueReadback": true,
+    "correctionHistory": true,
+    "finiteRights": true,
+    "writes": [
+      {
+        "path": "/api/training",
+        "input": {
+          "action": "PUBLISH",
+          "versionId": "00000000-0000-4000-8000-000000000003",
+          "revision": 7
+        }
+      },
+      {
+        "path": "/api/training",
+        "input": {
+          "action": "EDIT_DRAFT",
+          "versionId": "00000000-0000-4000-8000-000000000003",
+          "revision": 7,
+          "title": "Synthetic exact draft",
+          "summary": "Returned draft summary",
+          "modules": [
+            {
+              "title": "Exact first module",
+              "pages": [
+                {
+                  "title": "First returned page",
+                  "blocks": [
+                    {
+                      "type": "paragraph",
+                      "text": "Exact returned content"
+                    }
+                  ]
+                },
+                {
+                  "title": "Second returned page",
+                  "blocks": [
+                    {
+                      "type": "paragraph",
+                      "text": "Second page content"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Second module",
+              "pages": [
+                {
+                  "title": "Third returned page",
+                  "blocks": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "DUE_CHANGE",
+          "assignmentId": "00000000-0000-4000-8000-000000000040",
+          "revision": 9,
+          "dueOn": "2026-11-02",
+          "reason": "Synthetic exact due-date change",
+          "requestId": "6d62e1ef-0085-4087-afc2-569550eb603b"
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "ASSIGN",
+          "personId": "00000000-0000-4000-8000-000000000050",
+          "courseId": "00000000-0000-4000-8000-000000000001",
+          "versionId": "00000000-0000-4000-8000-000000000002",
+          "dueOn": "2026-11-04",
+          "reason": "Synthetic manual exact assignment",
+          "requestId": "e30e7007-3244-4a61-992f-f8908c98655d"
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "PUBLISH",
+          "versionId": "00000000-0000-4000-8000-000000000020",
+          "revision": 4
+        }
+      },
+      {
+        "path": "/api/training-certificates",
+        "input": {
+          "action": "REVOKE",
+          "issueId": "00000000-0000-4000-8000-000000000071",
+          "reason": "Synthetic certificate revocation",
+          "requestId": "a4b60fe7-2d23-42b6-b82c-937d53447f90"
+        }
+      },
+      {
+        "path": "/api/training-certificates",
+        "input": {
+          "action": "ISSUE",
+          "completionId": "00000000-0000-4000-8000-000000000062",
+          "templateVersionId": "00000000-0000-4000-8000-000000000070",
+          "reissueOf": "00000000-0000-4000-8000-000000000071",
+          "reason": "Synthetic certificate revocation",
+          "requestId": "faff34fc-3b5e-43a7-989f-388da148a166"
+        }
+      },
+      {
+        "path": "/api/training-certificates",
+        "input": {
+          "action": "ISSUE",
+          "completionId": "00000000-0000-4000-8000-000000000062",
+          "templateVersionId": "00000000-0000-4000-8000-000000000070",
+          "reissueOf": "00000000-0000-4000-8000-000000000071",
+          "reason": "Synthetic certificate revocation",
+          "requestId": "4351b71f-7635-43b9-a282-6a52a2575e61"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "VOID",
+          "completionId": "00000000-0000-4000-8000-000000000062",
+          "reason": "Synthetic controlled correction",
+          "requestId": "458110f8-3391-45a5-8252-ca8bbd0723a5"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "EVALUATE",
+          "assignmentId": "00000000-0000-4000-8000-000000000040",
+          "requestId": "ed022359-6425-4375-874c-a6032d906907"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "PUBLISH_RULE",
+          "courseVersionId": "00000000-0000-4000-8000-000000000002",
+          "assessmentVersionId": "00000000-0000-4000-8000-000000000020",
+          "effectiveFrom": "2026-10-18T11:59:00.000Z",
+          "effectiveUntil": null,
+          "validityMonths": null
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "courses",
+    "path": "/training-admin",
+    "authority": "all",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "assignments",
+    "path": "/training-admin/assignments",
+    "authority": "all",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "assessments",
+    "path": "/training-admin/assessments",
+    "authority": "all",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "completions",
+    "path": "/training-admin/completions?assignment=00000000-0000-4000-8000-000000000041",
+    "authority": "all",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "publisher",
+    "path": "/training-admin",
+    "authority": "publisher",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "assigner-oversight",
+    "path": "/training-admin/assignments",
+    "authority": "super",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "completion-oversight",
+    "path": "/training-admin/completions",
+    "authority": "super",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "interactions",
+    "clonedInitialDraft": true,
+    "pageQuestionKeyboard": true,
+    "publishExactSnapshot": true,
+    "dialogCancelFocus": true,
+    "deniedReadbackNoSuccess": true,
+    "assignmentExactVersion": true,
+    "sealedAssessment": true,
+    "completionReviewBeforeCheck": true,
+    "certificateRevokeReissueReadback": true,
+    "correctionHistory": true,
+    "finiteRights": true,
+    "writes": [
+      {
+        "path": "/api/training",
+        "input": {
+          "action": "PUBLISH",
+          "versionId": "00000000-0000-4000-8000-000000000003",
+          "revision": 7
+        }
+      },
+      {
+        "path": "/api/training",
+        "input": {
+          "action": "EDIT_DRAFT",
+          "versionId": "00000000-0000-4000-8000-000000000003",
+          "revision": 7,
+          "title": "Synthetic exact draft",
+          "summary": "Returned draft summary",
+          "modules": [
+            {
+              "title": "Exact first module",
+              "pages": [
+                {
+                  "title": "First returned page",
+                  "blocks": [
+                    {
+                      "type": "paragraph",
+                      "text": "Exact returned content"
+                    }
+                  ]
+                },
+                {
+                  "title": "Second returned page",
+                  "blocks": [
+                    {
+                      "type": "paragraph",
+                      "text": "Second page content"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Second module",
+              "pages": [
+                {
+                  "title": "Third returned page",
+                  "blocks": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "DUE_CHANGE",
+          "assignmentId": "00000000-0000-4000-8000-000000000040",
+          "revision": 9,
+          "dueOn": "2026-11-02",
+          "reason": "Synthetic exact due-date change",
+          "requestId": "1d48048c-e1ba-44df-b911-ee9fb486c1bb"
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "ASSIGN",
+          "personId": "00000000-0000-4000-8000-000000000050",
+          "courseId": "00000000-0000-4000-8000-000000000001",
+          "versionId": "00000000-0000-4000-8000-000000000002",
+          "dueOn": "2026-11-04",
+          "reason": "Synthetic manual exact assignment",
+          "requestId": "6bc168f8-7c02-432b-b3da-adf8e37e90e0"
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "PUBLISH",
+          "versionId": "00000000-0000-4000-8000-000000000020",
+          "revision": 4
+        }
+      },
+      {
+        "path": "/api/training-certificates",
+        "input": {
+          "action": "REVOKE",
+          "issueId": "00000000-0000-4000-8000-000000000071",
+          "reason": "Synthetic certificate revocation",
+          "requestId": "909e88ef-12ac-40b8-ae26-f58457148a68"
+        }
+      },
+      {
+        "path": "/api/training-certificates",
+        "input": {
+          "action": "ISSUE",
+          "completionId": "00000000-0000-4000-8000-000000000062",
+          "templateVersionId": "00000000-0000-4000-8000-000000000070",
+          "reissueOf": "00000000-0000-4000-8000-000000000071",
+          "reason": "Synthetic certificate revocation",
+          "requestId": "9c6b7b85-0ef7-4798-af07-ba2f55471004"
+        }
+      },
+      {
+        "path": "/api/training-certificates",
+        "input": {
+          "action": "ISSUE",
+          "completionId": "00000000-0000-4000-8000-000000000062",
+          "templateVersionId": "00000000-0000-4000-8000-000000000070",
+          "reissueOf": "00000000-0000-4000-8000-000000000071",
+          "reason": "Synthetic certificate revocation",
+          "requestId": "cf3304a8-005b-4ddf-bb85-d93707893bc8"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "VOID",
+          "completionId": "00000000-0000-4000-8000-000000000062",
+          "reason": "Synthetic controlled correction",
+          "requestId": "1addcc19-b807-4ce8-8382-5b7626d8b03a"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "EVALUATE",
+          "assignmentId": "00000000-0000-4000-8000-000000000040",
+          "requestId": "6bbe56d6-cf5a-44ef-8c33-6697eba585c3"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "PUBLISH_RULE",
+          "courseVersionId": "00000000-0000-4000-8000-000000000002",
+          "assessmentVersionId": "00000000-0000-4000-8000-000000000020",
+          "effectiveFrom": "2026-10-18T11:59:00.000Z",
+          "effectiveUntil": null,
+          "validityMonths": null
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  }
+]

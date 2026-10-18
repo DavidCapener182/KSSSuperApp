@@ -1,0 +1,515 @@
+{
+  "sourceVerified": [
+    {
+      "stage": "before",
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/training-admin/completions/page.tsx",
+      "sha256": "fb8a9e430ec31a25458427dc0120185847ef3da64e7d6b013d012fab93dc7ad9",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/training/training.css",
+      "sha256": "ea9fb054ef198f533d8c5a47a633a5d74ade5da0b9d88839c7594be918a5c1ea",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/training-completion-admin.tsx",
+      "sha256": "8d0864d616464004d65be67cc6ec8a3aa88759ae9eb36d6bc6378f9626287c64",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/training-certificate-admin.tsx",
+      "sha256": "250bb2a4b20869922da2892902a474633799e1c7586414218cc563f42ec8e146",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/training-admin/assessments/page.tsx",
+      "sha256": "b33df979cd7b8f011611a21a1df8907078a50563c65413273380b76b77311e8c",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/training-assessment-admin-client.tsx",
+      "sha256": "fe6bd4299743f389440c83e5db44afbc56fce990732a6e6988673af447ab6629",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/training-admin/assignments/page.tsx",
+      "sha256": "9c6ad8b59567f8699ad6372d12d315c3ec0b2eac90ece31bf400457d151cb633",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/training-assignments-client.tsx",
+      "sha256": "2cd5c324d5526f0f8dfedf9185181a74faa38f28c74bd877b6db4963b88ee696",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/training/learning-types.ts",
+      "sha256": "3ac0fa97280020cd750bc54ce3e228621cd9f73abfb995488222b40f032ce352",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/training/types.ts",
+      "sha256": "43e11f54a2d96bccb05666fecaefe32bab21a7643afb8794bd9008d81aaa64a7",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/training-admin/page.tsx",
+      "sha256": "46e2d7c52610a459220ad3277b421cfd93e14d74f069475928d3e44889a5dc48",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/training-admin-client.tsx",
+      "sha256": "b0bb9c83f305c4fd53fb8d685fa0b6c595c267ffb42f90b8b5884400985f2892",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/training-content.tsx",
+      "sha256": "b011e107f8e5a6365c5bc2ec151a75dc8601c92759ce34bbefe7c0c6d7f3cae5",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/auth/principal.ts",
+      "sha256": "f24b8576069e6f0c93c62a0bd03ae873024b9494e2c8ed2ed4a6f60743090a00"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/supabase/browser.ts",
+      "sha256": "3ef4092e6e607a5869ac957ecb90a20869f44424ce38f8384f0a12f51fc52dd8"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/supabase/server.ts",
+      "sha256": "19324ab078f856dec0e3676c0babe857f7553e1f5f99aea2a54706bcf58712d4"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/training-admin/completions/page.tsx",
+      "sha256": "6f6bbfc4d75513c1bbc11073b4f2a9b47b68afecd9c97222b10f780c84adaf1d",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/training/training.css",
+      "sha256": "ea9fb054ef198f533d8c5a47a633a5d74ade5da0b9d88839c7594be918a5c1ea",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/training-completion-admin.tsx",
+      "sha256": "0eb5fbb557eeffdb0df234033ebcbeb2f0a437863de7707e827a37b2bba37a14",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/training-certificate-admin.tsx",
+      "sha256": "c2a7695f1ccff5133cbd136dcd1d3e5968ecf7d882354a9d6ec06fdd1ecc9e24",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/ui/workflow.tsx",
+      "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/ui/skeleton.tsx",
+      "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/ui/badge.tsx",
+      "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/training-administration.module.css",
+      "sha256": "0ff45905d79a3a84abf508f0402bb9d2539a1a52b58ad36c80756186a0f5dc17",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/training-admin/assessments/page.tsx",
+      "sha256": "d1a4fbd97347c07da6dd3e0cff6b7c73d32709fc4c2a8b97781d6af2a170368a",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/training-assessment-admin-client.tsx",
+      "sha256": "4dbdf0abcfb770e114a38f60f68ffacd981a8f5c2edb50d5e662ced680c5fda2",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/training-admin/assignments/page.tsx",
+      "sha256": "614ff5f293870254ab31068c6091ab5b85276f7f7ca0e65fdfe5b2438e6afc40",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/training-assignments-client.tsx",
+      "sha256": "e56b7289a4edcb4fb9e47c917083ddcd13dd7490219a0c80654557d64e94b823",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/training/learning-types.ts",
+      "sha256": "3ac0fa97280020cd750bc54ce3e228621cd9f73abfb995488222b40f032ce352",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/training/types.ts",
+      "sha256": "43e11f54a2d96bccb05666fecaefe32bab21a7643afb8794bd9008d81aaa64a7",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/training-admin/page.tsx",
+      "sha256": "18a9bd8016cfbc547a95cb922c2e3a34ca0ef45852b84e915dad147d9d3ced6c",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/training-admin-client.tsx",
+      "sha256": "4334abce12ae649bb4cc0041ec4a235a6da58116b298f8f5f796e9433dffec65",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/training-content.tsx",
+      "sha256": "b011e107f8e5a6365c5bc2ec151a75dc8601c92759ce34bbefe7c0c6d7f3cae5",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/auth/principal.ts",
+      "sha256": "f24b8576069e6f0c93c62a0bd03ae873024b9494e2c8ed2ed4a6f60743090a00"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/supabase/browser.ts",
+      "sha256": "3ef4092e6e607a5869ac957ecb90a20869f44424ce38f8384f0a12f51fc52dd8"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/supabase/server.ts",
+      "sha256": "19324ab078f856dec0e3676c0babe857f7553e1f5f99aea2a54706bcf58712d4"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "after-assessments-1440.png",
+      "sha256": "5e2f40b816301708a8753b51db56ef544d6d618e4b810f1116061f06529ab19e"
+    },
+    {
+      "file": "after-assessments-320.png",
+      "sha256": "edfe4236815d0ff16505d370cac59fefa5669c7814947fa1907886bcb9bea95c"
+    },
+    {
+      "file": "after-assessments-390.png",
+      "sha256": "21b3fd95f5caa4291789b609aefda5bdb4d1c0cb8eb1c411975f2f2466493137"
+    },
+    {
+      "file": "after-assessments-834.png",
+      "sha256": "056740521d24572e22821b79db160af2e0edef6a7be156ef4224826894630751"
+    },
+    {
+      "file": "after-assigner-oversight-1440.png",
+      "sha256": "4dad7849e901f91fed214518918e2ae85ff35b99b66af29d9a3ee10c5fea885e"
+    },
+    {
+      "file": "after-assigner-oversight-320.png",
+      "sha256": "87570261bfb62b1c6e908ae554f081a7f05d9b3a8556690ce60adcb59c060931"
+    },
+    {
+      "file": "after-assigner-oversight-390.png",
+      "sha256": "63c3526caab8c3e55a3123d4048e3c44a6dfc655043bb8a47925d1039b933b27"
+    },
+    {
+      "file": "after-assigner-oversight-834.png",
+      "sha256": "bb840a58cbe4169a1f9e59127dede7d5cf375f0c8706792bf94bd3ee617c81db"
+    },
+    {
+      "file": "after-assignments-1440.png",
+      "sha256": "eb925d469a57c712087a0a85cb724495fa2283443566a6b087583b55eaba8df0"
+    },
+    {
+      "file": "after-assignments-320.png",
+      "sha256": "490b978f67b45147b50423777ee401a4759613a4a9398f78dc53f1a11b7a47e6"
+    },
+    {
+      "file": "after-assignments-390.png",
+      "sha256": "4ebe4e26294128f2fc64eaa17e03744edcdf96c2ec52f419f9fd11bca796af76"
+    },
+    {
+      "file": "after-assignments-834.png",
+      "sha256": "78cfced3f22b2fe3613a790063e87a119791054b69ad1a9f92a4d4dc73227623"
+    },
+    {
+      "file": "after-completion-oversight-1440.png",
+      "sha256": "ffce87d61b24bb239e1db43c1144f4b7849af025c378788d75de785a7fa03d35"
+    },
+    {
+      "file": "after-completion-oversight-320.png",
+      "sha256": "742a1d9ada183634fdd73c686c50bf8817f0488b4ab243f1f0b3c53e99c046e9"
+    },
+    {
+      "file": "after-completion-oversight-390.png",
+      "sha256": "edada8adebccb310460aba5f529e29a2f96232178855b19b170324c8230e782d"
+    },
+    {
+      "file": "after-completion-oversight-834.png",
+      "sha256": "cd01d61ecdfa839bdf039977b2515f26df5c82603f011cf7282fb30e9fa1fa60"
+    },
+    {
+      "file": "after-completions-1440.png",
+      "sha256": "1fa19b9fe36c0554b2269f6adcc47069d516a48e0d99eb5c969c0aa222ace9b3"
+    },
+    {
+      "file": "after-completions-320.png",
+      "sha256": "8fb33674b1fcda36859bec75ec2f9d2a60e6a7f57ed1f42528dd158807cda803"
+    },
+    {
+      "file": "after-completions-390.png",
+      "sha256": "9f730d59653f6f15e2108157028e4e508c76c9f6d9adf9a96c74d0d7f3204a4e"
+    },
+    {
+      "file": "after-completions-834.png",
+      "sha256": "fd7fc56db727226e20ef9335a21e358138b31c900ccca12169a4f3e98a56fa13"
+    },
+    {
+      "file": "after-courses-1440.png",
+      "sha256": "221fe1c080ed610e1d0f446866aabe5df646d8ceaa987a1298cdd5f98863769a"
+    },
+    {
+      "file": "after-courses-320.png",
+      "sha256": "9bf95d5600791efcbf361a86ce7d04c4fb00c0efdf0d1fb0c3933abed3340e82"
+    },
+    {
+      "file": "after-courses-390.png",
+      "sha256": "48ea9e1ae0443ab2eeac04c3a1701b237f01ff0743192f2620bb0c969b4446d8"
+    },
+    {
+      "file": "after-courses-834.png",
+      "sha256": "1d4e7c4107cb07788341b81fe98033b3330dc77064430de752709f6c575bbadf"
+    },
+    {
+      "file": "after-publisher-1440.png",
+      "sha256": "0774b9eea855ffa1a835ac00f2cfefa79800f64da541b20ce11420c16ea4b448"
+    },
+    {
+      "file": "after-publisher-320.png",
+      "sha256": "61c734639d580b50a316e611ba9a63ce9888883ee12fdcc6ec4a69554987117c"
+    },
+    {
+      "file": "after-publisher-390.png",
+      "sha256": "f2ae3c0531105bdd0771e8a461fe174da3394ced1f80604a632b1704300d7230"
+    },
+    {
+      "file": "after-publisher-834.png",
+      "sha256": "08dc47243cd4d0dddcc679b866139e7d037e9ecf4ab4a3167733e0ecd9cd9ecf"
+    },
+    {
+      "file": "before-assessments-1440.png",
+      "sha256": "b993089b5ef54baf0be453aefd9419194952a2143477b7cb68056f43a7063e45"
+    },
+    {
+      "file": "before-assessments-320.png",
+      "sha256": "9bcad289f9133bc94afb3c474599d30153f9376e8a808376b74ba078cc0271fb"
+    },
+    {
+      "file": "before-assessments-390.png",
+      "sha256": "2206c5271a06e1654860a85d45956f7fb8c18326b4b5cdf4c389b7933f11e707"
+    },
+    {
+      "file": "before-assessments-834.png",
+      "sha256": "0d1c27cc68254e34a6b451101f1571a4071230220fcd638f8c3f9dbb6de8a191"
+    },
+    {
+      "file": "before-assigner-oversight-1440.png",
+      "sha256": "35a809a0d288ea24be1f6add68b33548a8bbf9882c26420454fb4af2f5602e78"
+    },
+    {
+      "file": "before-assigner-oversight-320.png",
+      "sha256": "ff3f667351af9ec00e99dfae47527761f0da7a3458bd46b1b88576436516100a"
+    },
+    {
+      "file": "before-assigner-oversight-390.png",
+      "sha256": "3ad099ec9302b6a6573fcd01d9c5d6c73eb7fc6a864040de0bbf32f433b134e6"
+    },
+    {
+      "file": "before-assigner-oversight-834.png",
+      "sha256": "83461cd8493d964f91e205b6f94c0cd62b564b56c14c8e0be66bd60d5432e9bf"
+    },
+    {
+      "file": "before-assignments-1440.png",
+      "sha256": "eb29d2da2f2f639100e8d4be8ff7105250342074cb8180fbd2f10580b0b40233"
+    },
+    {
+      "file": "before-assignments-320.png",
+      "sha256": "f68ec2ff1644fea389eab3bd958f719b8fd91d930d0d82feab7307c20ea64aa5"
+    },
+    {
+      "file": "before-assignments-390.png",
+      "sha256": "5ae8875b7f731d864a8ebd7baa7cb73c05eb5888896de465e0e062d059fb19f6"
+    },
+    {
+      "file": "before-assignments-834.png",
+      "sha256": "830109236b5493b5fb11a2ab5cb74f3a03b7075db77c801b11e667bdd44f4366"
+    },
+    {
+      "file": "before-completion-oversight-1440.png",
+      "sha256": "fe840cba01fb672737f24094101d375f1230e7ef7c39b4d0a38c35f68b2f5c7d"
+    },
+    {
+      "file": "before-completion-oversight-320.png",
+      "sha256": "3cfb96fb705b1a223bef7b2df6252b7a29a298633b84deaedae41ba25cbca97c"
+    },
+    {
+      "file": "before-completion-oversight-390.png",
+      "sha256": "eaf4ba07b6c0cdc21056f791a42d4b7bf456379144846f216482092d6b2f7f93"
+    },
+    {
+      "file": "before-completion-oversight-834.png",
+      "sha256": "393726973028211a1c9d5bc031aa8f4e3c12329361c0665e5d2b67704f746c27"
+    },
+    {
+      "file": "before-completions-1440.png",
+      "sha256": "9c96845538692db5f5fe3e77e133883faf3d73ef3b2e7b1111c0042925cda632"
+    },
+    {
+      "file": "before-completions-320.png",
+      "sha256": "bf18d797b497664475ffa9c8c69e8ac6bc6e362344924ef0e21e9ea75523739a"
+    },
+    {
+      "file": "before-completions-390.png",
+      "sha256": "85654a9eab92274c803fac11f03f810ad7308e89279bf8c0c5c411c878bfdea2"
+    },
+    {
+      "file": "before-completions-834.png",
+      "sha256": "5e8e80828c717c49fb34dbcdc58a144c9f210e68046a06ee7f21a4af40aaeb57"
+    },
+    {
+      "file": "before-courses-1440.png",
+      "sha256": "c41bd826f071c30af80ba1b1318b1b68fcccf61f368371da95997f80d8bf699b"
+    },
+    {
+      "file": "before-courses-320.png",
+      "sha256": "964d58f914958c5fb021204c98a5c7808f2f4578395ce33b1b9a6d78416926e6"
+    },
+    {
+      "file": "before-courses-390.png",
+      "sha256": "c2b43de15d27e20164be14032297f8fa1ff2b13746ec38e6d6eff365e883a125"
+    },
+    {
+      "file": "before-courses-834.png",
+      "sha256": "960263f15e5cc6e4664feaf037196f32abdf50985f553e6e65fd843379f898fa"
+    },
+    {
+      "file": "before-publisher-1440.png",
+      "sha256": "ba48496f1c8662fb116b6b2c3bf34f700c0df33b6d9f9689c15012cdb1e5787b"
+    },
+    {
+      "file": "before-publisher-320.png",
+      "sha256": "457e9af4f5d23f9516f3dc491b98fd5fcc76a8a7aa4798291c5c9e39a58e299b"
+    },
+    {
+      "file": "before-publisher-390.png",
+      "sha256": "f8bfc13b826a9b72ae63953b9f67ccc792bd2f953514866f603d3fb870e2de9a"
+    },
+    {
+      "file": "before-publisher-834.png",
+      "sha256": "90a841ac650f7b0d10c985da17edeae0e7a0508817d59edd8a512fed7429b370"
+    }
+  ],
+  "records": 60,
+  "mockWrites": 44,
+  "realWrites": 0
+}

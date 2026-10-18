@@ -1,0 +1,164 @@
+[
+  {
+    "file": "src/app/(enterprise)/training/page.tsx",
+    "publishedBaselineSha256": "8d4237db658a566ad14425497ab7f2305b51feca4250756192c0b078b6d3241b",
+    "preUIFrozenBaselineSha256": "8d4237db658a566ad14425497ab7f2305b51feca4250756192c0b078b6d3241b",
+    "sha256": "02ef4a75cd3ba8d9de9345fe9a26bcacac01671fa928ae563b88be59bff67024"
+  },
+  {
+    "file": "src/app/(enterprise)/training/[courseId]/page.tsx",
+    "publishedBaselineSha256": "bdb8cae133991d90bc45e1276b30f12b01b9a758269a131037dec45317ed697b",
+    "preUIFrozenBaselineSha256": "bdb8cae133991d90bc45e1276b30f12b01b9a758269a131037dec45317ed697b",
+    "sha256": "00380daf1041a915d00bc6fed68a1cb6be6938c761758f41d03659258d493a8a"
+  },
+  {
+    "file": "src/app/(enterprise)/training/my-learning/page.tsx",
+    "publishedBaselineSha256": "c606a416bd8c533a141e600b902b3e3402aaa2dde32ad3d6f63879eb1c540237",
+    "preUIFrozenBaselineSha256": "c606a416bd8c533a141e600b902b3e3402aaa2dde32ad3d6f63879eb1c540237",
+    "sha256": "75401f785b8a2b05d7f35019a5a2204e053dae39d2dcd1274724a5b533304bd3"
+  },
+  {
+    "file": "src/app/(enterprise)/training/my-learning/[assignmentId]/page.tsx",
+    "publishedBaselineSha256": "22a455347fd3944ccdeeed5205ae0108586c5370f7e8d13a3af3532b27222cfe",
+    "preUIFrozenBaselineSha256": "22a455347fd3944ccdeeed5205ae0108586c5370f7e8d13a3af3532b27222cfe",
+    "sha256": "a094fa2f96bc9f4a3c51a83a7fc0532a1b5108b644e8a99bc97c65dffbc5deb5"
+  },
+  {
+    "file": "src/app/(enterprise)/training/my-learning/[assignmentId]/assessment/page.tsx",
+    "publishedBaselineSha256": "1bda4ef710fcaf269f7d363deb7eb54560a76babec5ee9486e9419c711110afc",
+    "preUIFrozenBaselineSha256": "1bda4ef710fcaf269f7d363deb7eb54560a76babec5ee9486e9419c711110afc",
+    "sha256": "4ba28c6d11efe0d1df08b47f442a46b71136f8dc21a5ccf7bd919d5d0ec4fa49"
+  },
+  {
+    "file": "src/app/(enterprise)/training/my-learning/[assignmentId]/history/page.tsx",
+    "publishedBaselineSha256": "b46a3f4bff0b822cfa120ef4325bc49dbb2a4ffaad5e0d86baf1e2a9efe37c9b",
+    "preUIFrozenBaselineSha256": "b46a3f4bff0b822cfa120ef4325bc49dbb2a4ffaad5e0d86baf1e2a9efe37c9b",
+    "sha256": "ab9b51ad66a998a4ee317771f3d052b96551d7cd1daea3156fc9685046c49f6f"
+  },
+  {
+    "file": "src/components/training-assessment-client.tsx",
+    "publishedBaselineSha256": "c8e9773972f96c867a9c0c288138a9d2e613443b9f548ab1ee15ee93c6e1c6da",
+    "preUIFrozenBaselineSha256": "c8e9773972f96c867a9c0c288138a9d2e613443b9f548ab1ee15ee93c6e1c6da",
+    "sha256": "46745da60afd8534ef3b6da1148ac7783deadbd47bc76d35282cd84a076663f1"
+  },
+  {
+    "file": "src/components/training-learning-actions.tsx",
+    "publishedBaselineSha256": "b766c178b170648cd10a2ad2015284eae580a13a01dcf324940fd11842db3828",
+    "preUIFrozenBaselineSha256": "b766c178b170648cd10a2ad2015284eae580a13a01dcf324940fd11842db3828",
+    "sha256": "531ad219e1ec6f8986a70cca7d789f8e0e5784e636500e48bc505a4a5c2be935"
+  },
+  {
+    "file": "src/components/training-reader-outline.tsx",
+    "publishedBaselineSha256": null,
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "bb42a3a425f87f6ffd392a3847a835f0b1574177cfe7a0531bbbdccbb6a16bb9"
+  },
+  {
+    "file": "src/components/training-learners.module.css",
+    "publishedBaselineSha256": null,
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "511bbfc033284b293ca55bc978e72a7b32e7adb54c913de0c5cb8ca93151f257"
+  },
+  {
+    "file": "src/components/training-requirement-pilot.tsx",
+    "publishedBaselineSha256": "f0719752ec3266f55e83f11e26e1870784f42c1b919c5865b33d86e2dc26b52f",
+    "preUIFrozenBaselineSha256": "f081f0c45c4aa96b15022bcefed5fea4fa9b0052266b58cd62074aa3fc756840",
+    "sha256": "b501cf5785ae61c69ccf7805efdaa9af4a101e45c0f6f0744a7aa95135e734a8"
+  },
+  {
+    "file": "src/components/training-requirement-evidence.tsx",
+    "publishedBaselineSha256": null,
+    "preUIFrozenBaselineSha256": "152751fc12246937f05881e12eb2401fc8f2fad578c41e29c0cb397a10d77f6d",
+    "sha256": "b676b08d1621a438d4020dc2fee38f2070d0fd717cf9be1c44bb550ee7b705ce"
+  },
+  {
+    "file": "src/components/training-requirements.module.css",
+    "publishedBaselineSha256": null,
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "2239a945a099578751bec885c1f49f07e839d000f2d3ec7f4bf296ce70d8d0d2"
+  },
+  {
+    "file": "src/app/(enterprise)/training/my-requirements/page.tsx",
+    "publishedBaselineSha256": "09931d2eff0c4a5bdb63615fbbd2d0aaa8334aba05e8b146779043868b9ca45c",
+    "preUIFrozenBaselineSha256": "09931d2eff0c4a5bdb63615fbbd2d0aaa8334aba05e8b146779043868b9ca45c",
+    "sha256": "7a4da1ba84b26e4512cbdcdce08c9d952519a7d538667682218674e84f33179a"
+  },
+  {
+    "file": "src/app/(enterprise)/training-admin/requirements/page.tsx",
+    "publishedBaselineSha256": "3d8a7c42c4588ffab1cea000252361a3b38bfd7393a508a5fdc02571e8377435",
+    "preUIFrozenBaselineSha256": "3d8a7c42c4588ffab1cea000252361a3b38bfd7393a508a5fdc02571e8377435",
+    "sha256": "4f3cb75b9cdc385c31c52ad786d26f383cc3394a7853d769a37f548d2f3b2494"
+  },
+  {
+    "file": "src/components/training-admin-client.tsx",
+    "publishedBaselineSha256": "b0bb9c83f305c4fd53fb8d685fa0b6c595c267ffb42f90b8b5884400985f2892",
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "4334abce12ae649bb4cc0041ec4a235a6da58116b298f8f5f796e9433dffec65"
+  },
+  {
+    "file": "src/components/training-assignments-client.tsx",
+    "publishedBaselineSha256": "2cd5c324d5526f0f8dfedf9185181a74faa38f28c74bd877b6db4963b88ee696",
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "e56b7289a4edcb4fb9e47c917083ddcd13dd7490219a0c80654557d64e94b823"
+  },
+  {
+    "file": "src/components/training-assessment-admin-client.tsx",
+    "publishedBaselineSha256": "fe6bd4299743f389440c83e5db44afbc56fce990732a6e6988673af447ab6629",
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "4dbdf0abcfb770e114a38f60f68ffacd981a8f5c2edb50d5e662ced680c5fda2"
+  },
+  {
+    "file": "src/components/training-completion-admin.tsx",
+    "publishedBaselineSha256": "8d0864d616464004d65be67cc6ec8a3aa88759ae9eb36d6bc6378f9626287c64",
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "0eb5fbb557eeffdb0df234033ebcbeb2f0a437863de7707e827a37b2bba37a14"
+  },
+  {
+    "file": "src/components/training-certificate-admin.tsx",
+    "publishedBaselineSha256": "250bb2a4b20869922da2892902a474633799e1c7586414218cc563f42ec8e146",
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "c2a7695f1ccff5133cbd136dcd1d3e5968ecf7d882354a9d6ec06fdd1ecc9e24",
+    "controlledRevision": {
+      "file": "src/components/training-certificate-admin.tsx",
+      "previousSha256": "7361fec9e4dc2e6617649e58d5245beb67e7025810592faaed6fe124603b6fdd",
+      "sha256": "c2a7695f1ccff5133cbd136dcd1d3e5968ecf7d882354a9d6ec06fdd1ecc9e24",
+      "reason": "Actual-source red test: a newly voided completion must hide cached current private-PDF/revoke controls and staged revocation, while retaining history; functions/effects/API unchanged."
+    }
+  },
+  {
+    "file": "src/components/training-administration.module.css",
+    "publishedBaselineSha256": null,
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "0ff45905d79a3a84abf508f0402bb9d2539a1a52b58ad36c80756186a0f5dc17"
+  },
+  {
+    "file": "src/app/(enterprise)/training-admin/page.tsx",
+    "publishedBaselineSha256": "46e2d7c52610a459220ad3277b421cfd93e14d74f069475928d3e44889a5dc48",
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "18a9bd8016cfbc547a95cb922c2e3a34ca0ef45852b84e915dad147d9d3ced6c"
+  },
+  {
+    "file": "src/app/(enterprise)/training-admin/assignments/page.tsx",
+    "publishedBaselineSha256": "9c6ad8b59567f8699ad6372d12d315c3ec0b2eac90ece31bf400457d151cb633",
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "614ff5f293870254ab31068c6091ab5b85276f7f7ca0e65fdfe5b2438e6afc40"
+  },
+  {
+    "file": "src/app/(enterprise)/training-admin/assessments/page.tsx",
+    "publishedBaselineSha256": "b33df979cd7b8f011611a21a1df8907078a50563c65413273380b76b77311e8c",
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "d1a4fbd97347c07da6dd3e0cff6b7c73d32709fc4c2a8b97781d6af2a170368a"
+  },
+  {
+    "file": "src/app/(enterprise)/training-admin/completions/page.tsx",
+    "publishedBaselineSha256": "fb8a9e430ec31a25458427dc0120185847ef3da64e7d6b013d012fab93dc7ad9",
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "6f6bbfc4d75513c1bbc11073b4f2a9b47b68afecd9c97222b10f780c84adaf1d"
+  },
+  {
+    "file": "src/lib/training/admin-readback.ts",
+    "publishedBaselineSha256": null,
+    "sha256": "f2c90fbae660d73dbdce60913b5bb7365e056083cdd179f1d4cfad9af8ec4822",
+    "purpose": "Pure exact admin receipt/current-record readback guard used by already-planned local functional corrections"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "records": 60,
+  "screenshots": 56,
+  "widths": [
+    1440,
+    834,
+    390,
+    320
+  ],
+  "pageErrors": 0,
+  "externalRequests": 0,
+  "browserWrites": 0,
+  "afterActualSourceFiles": 13,
+  "boundary": "Actual catalogue/MyLearning server routes with narrow synthetic principal/RPCboundary. No hostedAuth/RPC/RLS, actualcertificate fileaccess or acceptance."
+}

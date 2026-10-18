@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import styles from "./training-administration.module.css";
 import type { TrainingAssignment } from "@/lib/training/learning-types";
 
 type Choice = { staff: { personId: string; displayName: string }[]; courses: { courseId: string; versionId: string; versionNumber: number; title: string }[] };
@@ -61,18 +62,12 @@ export function TrainingAssignmentsClient({ initial, choices, grants: initialGra
     finally { setBusy(false); }
   }
   const chosen = assignments.find(a => a.id === selected);
-  return <div className="training-assignment-admin">
-    {rights.assigner && choices && <section className="training-admin-edit"><h2>Assign current version</h2><p>Manual assignment to one active Security Staff Person.</p>
-      <label>Staff Person<select value={staff} onChange={e => setStaff(e.target.value)}>{choices.staff.map(s => <option key={s.personId} value={s.personId}>{s.displayName}</option>)}</select></label>
-      <label>Course and current version<select value={course} onChange={e => setCourse(e.target.value)}>{choices.courses.map(c => <option key={c.courseId} value={c.courseId}>{c.title} · v{c.versionNumber}</option>)}</select></label>
-      <label>Due date · Europe/London calendar<input type="date" value={due} onChange={e => setDue(e.target.value)} /></label>
-      <label>Assignment reason<textarea value={reason} maxLength={300} onChange={e => setReason(e.target.value)} /></label>
-      <button disabled={busy || !staff || !current || !due || reason.trim().length < 10} onClick={() => act({ action: "ASSIGN", personId: staff, courseId: current?.courseId, versionId: current?.versionId, dueOn: due, reason, requestId: crypto.randomUUID() })}>Assign exact version</button>
-    </section>}
-    <section className="training-admin-list"><h2>Assignments</h2>{assignments.length ? assignments.map(a => <button className={selected === a.id ? "selected" : ""} key={a.id} onClick={() => openHistory(a.id)}>
+  return <div className={`training-assignment-admin ${styles.workspace} ${styles.assignmentWorkspace}`}>
+    <section className={`training-admin-list ${styles.assignmentRegister}`} aria-label="Assignment register"><h2>Assignments</h2><p>{assignments.length} returned assignments · select one to review its exact version and history.</p>{assignments.length ? assignments.map(a => <button className={selected === a.id ? "selected" : ""} key={a.id} onClick={() => openHistory(a.id)}>
       <strong>{a.displayName}</strong> · {a.title} · v{a.versionNumber}<br />{a.state} · Due {a.dueOn} · {a.viewedCount}/{a.pageCount} pages viewed{a.retired && a.state === "ACTIVE" ? <><br />Content retired — assignment needs review</> : null}
     </button>) : <p>No assignments yet.</p>}</section>
-    {chosen && <section className="training-admin-edit"><h2>Assignment detail</h2><p>{chosen.displayName} · {chosen.title} · exact version {chosen.versionNumber}</p>
+    {!chosen && <section className={`training-admin-edit ${styles.selectionEmpty}`}><h2>Select an assignment</h2><p>Review one learner’s pinned course version, page progress and action history. New assignments use the separate form below.</p></section>}
+    {chosen && <section className="training-admin-edit" aria-label="Selected assignment"><h2>Assignment detail</h2><p>{chosen.displayName} · {chosen.title} · exact version {chosen.versionNumber}</p>
       <p>Assigned {new Date(chosen.assignedAt).toLocaleString("en-GB", { timeZone: "Europe/London" })} · Due {chosen.dueOn} · Revision {chosen.revision}</p>
       <p>{chosen.viewedCount} of {chosen.pageCount} pages marked viewed · {chosen.state}</p>
       {chosen.retired && chosen.state === "ACTIVE" && <p role="status">Content retired — assignment needs review.</p>}
@@ -82,6 +77,13 @@ export function TrainingAssignmentsClient({ initial, choices, grants: initialGra
         {choices?.courses.find(c => c.courseId === chosen.courseId && c.versionId !== chosen.versionId) && <button disabled={busy || !due || reason.trim().length < 10} onClick={() => { const v = choices.courses.find(c => c.courseId === chosen.courseId); if (v) act({ action: "SUPERSEDE", assignmentId: chosen.id, revision: chosen.revision, versionId: v.versionId, dueOn: due, reason, requestId: crypto.randomUUID() }); }}>Supersede with current version</button>}</div></>}
       <h3>Immutable action history</h3><ol>{history.map(e => <li key={e.id}>{new Date(e.occurredAt).toLocaleString("en-GB", { timeZone: "Europe/London" })} · {detail(e.action, e.details)}</li>)}</ol>
     </section>}
+    {rights.assigner && choices && <details className={styles.assignForm}><summary>Assign a course version</summary><section className="training-admin-edit"><h2>Assign current version</h2><p>Manual assignment to one active Security Staff Person.</p>
+      <label>Staff Person<select value={staff} onChange={e => setStaff(e.target.value)}>{choices.staff.map(s => <option key={s.personId} value={s.personId}>{s.displayName}</option>)}</select></label>
+      <label>Course and current version<select value={course} onChange={e => setCourse(e.target.value)}>{choices.courses.map(c => <option key={c.courseId} value={c.courseId}>{c.title} · v{c.versionNumber}</option>)}</select></label>
+      <label>Due date · Europe/London calendar<input type="date" value={due} onChange={e => setDue(e.target.value)} /></label>
+      <label>Assignment reason<textarea value={reason} maxLength={300} onChange={e => setReason(e.target.value)} /></label>
+      <button disabled={busy || !staff || !current || !due || reason.trim().length < 10} onClick={() => act({ action: "ASSIGN", personId: staff, courseId: current?.courseId, versionId: current?.versionId, dueOn: due, reason, requestId: crypto.randomUUID() })}>Assign exact version</button>
+    </section></details>}
     {rights.superAdmin && <section className="training-grants"><h2>Assigner grants</h2><p>Super Admin oversight. Assignment actions still require a separate active grant.</p>
       <label>Office Admin Person<select value={grantPerson} onChange={e => setGrantPerson(e.target.value)}>{candidates.map(person => <option key={person.personId} value={person.personId}>{person.displayName}</option>)}</select></label>
       <label>Effective from<input type="datetime-local" value={grantFrom} onChange={e => setGrantFrom(e.target.value)} /></label>

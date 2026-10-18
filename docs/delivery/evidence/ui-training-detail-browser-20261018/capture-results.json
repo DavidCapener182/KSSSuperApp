@@ -1,0 +1,1138 @@
+[
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "catalogue-reader",
+    "path": "/training/00000000-0000-4000-8000-000000000700",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "catalogue-last",
+    "path": "/training/00000000-0000-4000-8000-000000000700?page=3",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "assigned-reader",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "assessment-open",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "assessment-intro",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "intro",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "assignment-history",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/history",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "catalogue-reader",
+    "path": "/training/00000000-0000-4000-8000-000000000700",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "catalogue-last",
+    "path": "/training/00000000-0000-4000-8000-000000000700?page=3",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "assigned-reader",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "assessment-open",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "assessment-intro",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "intro",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "assignment-history",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/history",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "catalogue-reader",
+    "path": "/training/00000000-0000-4000-8000-000000000700",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "catalogue-last",
+    "path": "/training/00000000-0000-4000-8000-000000000700?page=3",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "assigned-reader",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "assessment-open",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "assessment-intro",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "intro",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "assignment-history",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/history",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "catalogue-reader",
+    "path": "/training/00000000-0000-4000-8000-000000000700",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "catalogue-last",
+    "path": "/training/00000000-0000-4000-8000-000000000700?page=3",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "assigned-reader",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "assessment-open",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "assessment-intro",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "intro",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "assignment-history",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/history",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "catalogue-reader",
+    "path": "/training/00000000-0000-4000-8000-000000000700",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "catalogue-last",
+    "path": "/training/00000000-0000-4000-8000-000000000700?page=3",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "assigned-reader",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "assessment-open",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "assessment-intro",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "intro",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "assignment-history",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/history",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "assessment-delay",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "delay",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "interactions",
+    "outlineKeyboardFocus": true,
+    "navigationNoWrite": true,
+    "pinnedSavedPage": true,
+    "saveMarkReadback": true,
+    "completionSeparate": true,
+    "assessmentExactRevision": true,
+    "confirmSubmit": true,
+    "failedRefreshNoSuccess": true,
+    "retiredDelayGuards": true,
+    "historySource": true,
+    "routeDenials": true,
+    "writes": [
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "SAVE_PLACE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "module": 1,
+          "page": 2
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "SAVE_PLACE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "module": 1,
+          "page": 2
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "MARK_PAGE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "module": 1,
+          "page": 2
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "EVALUATE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "requestId": "4869c18e-662e-469c-975d-24e0b127b532"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "EVALUATE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "requestId": "eed03902-501b-4e24-8a7a-ea30d3a06473"
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "SAVE",
+          "requestId": "719d6d81-9db2-4939-9a8d-0925b2fd32a0",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "versionId": "00000000-0000-4000-8000-000000000710",
+          "attemptId": "00000000-0000-4000-8000-000000000730",
+          "revision": 4,
+          "answers": {
+            "00000000-0000-4000-8000-000000000720": [
+              "00000000-0000-4000-8000-000000000721"
+            ],
+            "00000000-0000-4000-8000-000000000723": [
+              "00000000-0000-4000-8000-000000000724",
+              "00000000-0000-4000-8000-000000000725"
+            ]
+          }
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "SUBMIT",
+          "requestId": "0a30f641-3a7a-45b3-887d-a52403d05668",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "versionId": "00000000-0000-4000-8000-000000000710",
+          "attemptId": "00000000-0000-4000-8000-000000000730",
+          "revision": 5,
+          "answers": {
+            "00000000-0000-4000-8000-000000000720": [
+              "00000000-0000-4000-8000-000000000721"
+            ],
+            "00000000-0000-4000-8000-000000000723": [
+              "00000000-0000-4000-8000-000000000724",
+              "00000000-0000-4000-8000-000000000725"
+            ]
+          }
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "SAVE",
+          "requestId": "d2565313-3b3d-4bf8-9dfa-c58d8ae4549c",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "versionId": "00000000-0000-4000-8000-000000000710",
+          "attemptId": "00000000-0000-4000-8000-000000000730",
+          "revision": 4,
+          "answers": {}
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "catalogue-reader",
+    "path": "/training/00000000-0000-4000-8000-000000000700",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "catalogue-last",
+    "path": "/training/00000000-0000-4000-8000-000000000700?page=3",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "assigned-reader",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "assessment-open",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "assessment-intro",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "intro",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "assignment-history",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/history",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "assessment-delay",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "delay",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "interactions",
+    "outlineKeyboardFocus": true,
+    "navigationNoWrite": true,
+    "pinnedSavedPage": true,
+    "saveMarkReadback": true,
+    "completionSeparate": true,
+    "assessmentExactRevision": true,
+    "confirmSubmit": true,
+    "failedRefreshNoSuccess": true,
+    "retiredDelayGuards": true,
+    "historySource": true,
+    "routeDenials": true,
+    "writes": [
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "SAVE_PLACE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "module": 1,
+          "page": 2
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "SAVE_PLACE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "module": 1,
+          "page": 2
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "MARK_PAGE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "module": 1,
+          "page": 2
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "EVALUATE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "requestId": "07db8a7a-4204-4b17-a7ba-c74acc655979"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "EVALUATE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "requestId": "fc5537f2-257d-4b0a-a026-5e09d458eb33"
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "SAVE",
+          "requestId": "92157480-1725-498f-a9ec-776e7d0f9eed",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "versionId": "00000000-0000-4000-8000-000000000710",
+          "attemptId": "00000000-0000-4000-8000-000000000730",
+          "revision": 4,
+          "answers": {
+            "00000000-0000-4000-8000-000000000720": [
+              "00000000-0000-4000-8000-000000000721"
+            ],
+            "00000000-0000-4000-8000-000000000723": [
+              "00000000-0000-4000-8000-000000000724",
+              "00000000-0000-4000-8000-000000000725"
+            ]
+          }
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "SUBMIT",
+          "requestId": "e83f0b06-f21b-4321-828e-c3d202db4220",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "versionId": "00000000-0000-4000-8000-000000000710",
+          "attemptId": "00000000-0000-4000-8000-000000000730",
+          "revision": 5,
+          "answers": {
+            "00000000-0000-4000-8000-000000000720": [
+              "00000000-0000-4000-8000-000000000721"
+            ],
+            "00000000-0000-4000-8000-000000000723": [
+              "00000000-0000-4000-8000-000000000724",
+              "00000000-0000-4000-8000-000000000725"
+            ]
+          }
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "SAVE",
+          "requestId": "8870e4cb-1517-4fc3-9083-9d6387d203af",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "versionId": "00000000-0000-4000-8000-000000000710",
+          "attemptId": "00000000-0000-4000-8000-000000000730",
+          "revision": 4,
+          "answers": {}
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "catalogue-reader",
+    "path": "/training/00000000-0000-4000-8000-000000000700",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "catalogue-last",
+    "path": "/training/00000000-0000-4000-8000-000000000700?page=3",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "assigned-reader",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "assessment-open",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "assessment-intro",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "intro",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "assignment-history",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/history",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "assessment-delay",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "delay",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "interactions",
+    "outlineKeyboardFocus": true,
+    "navigationNoWrite": true,
+    "pinnedSavedPage": true,
+    "saveMarkReadback": true,
+    "completionSeparate": true,
+    "assessmentExactRevision": true,
+    "confirmSubmit": true,
+    "failedRefreshNoSuccess": true,
+    "retiredDelayGuards": true,
+    "historySource": true,
+    "routeDenials": true,
+    "writes": [
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "SAVE_PLACE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "module": 1,
+          "page": 2
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "SAVE_PLACE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "module": 1,
+          "page": 2
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "MARK_PAGE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "module": 1,
+          "page": 2
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "EVALUATE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "requestId": "f48f0f4e-53c9-46d7-90ac-cf7be4c3d9bf"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "EVALUATE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "requestId": "b203a80a-0f09-4e07-8059-40dfbc1327e1"
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "SAVE",
+          "requestId": "d05efda4-5ad4-4926-a9d8-1dfb44db9020",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "versionId": "00000000-0000-4000-8000-000000000710",
+          "attemptId": "00000000-0000-4000-8000-000000000730",
+          "revision": 4,
+          "answers": {
+            "00000000-0000-4000-8000-000000000720": [
+              "00000000-0000-4000-8000-000000000721"
+            ],
+            "00000000-0000-4000-8000-000000000723": [
+              "00000000-0000-4000-8000-000000000724",
+              "00000000-0000-4000-8000-000000000725"
+            ]
+          }
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "SUBMIT",
+          "requestId": "b4d2f7fa-526d-4b52-bfe6-cee6df43a0eb",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "versionId": "00000000-0000-4000-8000-000000000710",
+          "attemptId": "00000000-0000-4000-8000-000000000730",
+          "revision": 5,
+          "answers": {
+            "00000000-0000-4000-8000-000000000720": [
+              "00000000-0000-4000-8000-000000000721"
+            ],
+            "00000000-0000-4000-8000-000000000723": [
+              "00000000-0000-4000-8000-000000000724",
+              "00000000-0000-4000-8000-000000000725"
+            ]
+          }
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "SAVE",
+          "requestId": "13e2b93f-e475-4b45-a004-7bce1187e4a1",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "versionId": "00000000-0000-4000-8000-000000000710",
+          "attemptId": "00000000-0000-4000-8000-000000000730",
+          "revision": 4,
+          "answers": {}
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "catalogue-reader",
+    "path": "/training/00000000-0000-4000-8000-000000000700",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "catalogue-last",
+    "path": "/training/00000000-0000-4000-8000-000000000700?page=3",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "assigned-reader",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "assessment-open",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "assessment-intro",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "intro",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "assignment-history",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/history",
+    "state": "normal",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "assessment-delay",
+    "path": "/training/my-learning/00000000-0000-4000-8000-000000000701/assessment",
+    "state": "delay",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "interactions",
+    "outlineKeyboardFocus": true,
+    "navigationNoWrite": true,
+    "pinnedSavedPage": true,
+    "saveMarkReadback": true,
+    "completionSeparate": true,
+    "assessmentExactRevision": true,
+    "confirmSubmit": true,
+    "failedRefreshNoSuccess": true,
+    "retiredDelayGuards": true,
+    "historySource": true,
+    "routeDenials": true,
+    "writes": [
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "SAVE_PLACE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "module": 1,
+          "page": 2
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "SAVE_PLACE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "module": 1,
+          "page": 2
+        }
+      },
+      {
+        "path": "/api/training-learning",
+        "input": {
+          "action": "MARK_PAGE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "module": 1,
+          "page": 2
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "EVALUATE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "requestId": "67cb161c-8bd0-44c6-a770-4f632a593de9"
+        }
+      },
+      {
+        "path": "/api/training-completions",
+        "input": {
+          "action": "EVALUATE",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "requestId": "e8873515-59ad-44fc-a238-9707349397b5"
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "SAVE",
+          "requestId": "6325855b-6eff-43e9-a8b0-b3e8862c6c54",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "versionId": "00000000-0000-4000-8000-000000000710",
+          "attemptId": "00000000-0000-4000-8000-000000000730",
+          "revision": 4,
+          "answers": {
+            "00000000-0000-4000-8000-000000000720": [
+              "00000000-0000-4000-8000-000000000721"
+            ],
+            "00000000-0000-4000-8000-000000000723": [
+              "00000000-0000-4000-8000-000000000724",
+              "00000000-0000-4000-8000-000000000725"
+            ]
+          }
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "SUBMIT",
+          "requestId": "b31ad8ec-69e4-4045-9329-c5db8990809e",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "versionId": "00000000-0000-4000-8000-000000000710",
+          "attemptId": "00000000-0000-4000-8000-000000000730",
+          "revision": 5,
+          "answers": {
+            "00000000-0000-4000-8000-000000000720": [
+              "00000000-0000-4000-8000-000000000721"
+            ],
+            "00000000-0000-4000-8000-000000000723": [
+              "00000000-0000-4000-8000-000000000724",
+              "00000000-0000-4000-8000-000000000725"
+            ]
+          }
+        }
+      },
+      {
+        "path": "/api/training-assessments",
+        "input": {
+          "action": "SAVE",
+          "requestId": "55e8c8cd-dc2a-4064-8032-8fc0f452f9a3",
+          "assignmentId": "00000000-0000-4000-8000-000000000701",
+          "versionId": "00000000-0000-4000-8000-000000000710",
+          "attemptId": "00000000-0000-4000-8000-000000000730",
+          "revision": 4,
+          "answers": {}
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  }
+]

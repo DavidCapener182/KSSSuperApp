@@ -1,0 +1,6 @@
+{
+  "file": "src/components/training-certificate-admin.tsx",
+  "previousSha256": "7361fec9e4dc2e6617649e58d5245beb67e7025810592faaed6fe124603b6fdd",
+  "sha256": "c2a7695f1ccff5133cbd136dcd1d3e5968ecf7d882354a9d6ec06fdd1ecc9e24",
+  "reason": "Actual-source red test: a newly voided completion must hide cached current private-PDF/revoke controls and staged revocation, while retaining history; functions/effects/API unchanged."
+}

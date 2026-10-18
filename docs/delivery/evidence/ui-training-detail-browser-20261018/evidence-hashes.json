@@ -1,0 +1,463 @@
+{
+  "sourceVerified": [
+    {
+      "stage": "before",
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/training/my-learning/[assignmentId]/history/page.tsx",
+      "sha256": "b46a3f4bff0b822cfa120ef4325bc49dbb2a4ffaad5e0d86baf1e2a9efe37c9b",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/training/training.css",
+      "sha256": "ea9fb054ef198f533d8c5a47a633a5d74ade5da0b9d88839c7594be918a5c1ea",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/training/learning-types.ts",
+      "sha256": "3ac0fa97280020cd750bc54ce3e228621cd9f73abfb995488222b40f032ce352",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/training/types.ts",
+      "sha256": "43e11f54a2d96bccb05666fecaefe32bab21a7643afb8794bd9008d81aaa64a7",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/training/my-learning/[assignmentId]/assessment/page.tsx",
+      "sha256": "1bda4ef710fcaf269f7d363deb7eb54560a76babec5ee9486e9419c711110afc",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/training-assessment-client.tsx",
+      "sha256": "c8e9773972f96c867a9c0c288138a9d2e613443b9f548ab1ee15ee93c6e1c6da",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/training/my-learning/[assignmentId]/page.tsx",
+      "sha256": "22a455347fd3944ccdeeed5205ae0108586c5370f7e8d13a3af3532b27222cfe",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/training-completion-check.tsx",
+      "sha256": "c0e7056b6845fd069b41be4aef2460f864a6124ebc28d3b4d11fcf72f6176b7a",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/training-learning-actions.tsx",
+      "sha256": "b766c178b170648cd10a2ad2015284eae580a13a01dcf324940fd11842db3828",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/training-content.tsx",
+      "sha256": "b011e107f8e5a6365c5bc2ec151a75dc8601c92759ce34bbefe7c0c6d7f3cae5",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/training/[courseId]/page.tsx",
+      "sha256": "bdb8cae133991d90bc45e1276b30f12b01b9a758269a131037dec45317ed697b",
+      "origin": "frozen-before"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/auth/principal.ts",
+      "sha256": "f24b8576069e6f0c93c62a0bd03ae873024b9494e2c8ed2ed4a6f60743090a00"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/supabase/browser.ts",
+      "sha256": "3ef4092e6e607a5869ac957ecb90a20869f44424ce38f8384f0a12f51fc52dd8"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/supabase/server.ts",
+      "sha256": "d75e27101054c8cbf519f17d96c5817b7ef599980109806e432fd625c9846c43"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/training/my-learning/[assignmentId]/history/page.tsx",
+      "sha256": "ab9b51ad66a998a4ee317771f3d052b96551d7cd1daea3156fc9685046c49f6f",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/training/training.css",
+      "sha256": "ea9fb054ef198f533d8c5a47a633a5d74ade5da0b9d88839c7594be918a5c1ea",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/training/learning-types.ts",
+      "sha256": "3ac0fa97280020cd750bc54ce3e228621cd9f73abfb995488222b40f032ce352",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/training/types.ts",
+      "sha256": "43e11f54a2d96bccb05666fecaefe32bab21a7643afb8794bd9008d81aaa64a7",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/training-learners.module.css",
+      "sha256": "511bbfc033284b293ca55bc978e72a7b32e7adb54c913de0c5cb8ca93151f257",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/training/my-learning/[assignmentId]/assessment/page.tsx",
+      "sha256": "4ba28c6d11efe0d1df08b47f442a46b71136f8dc21a5ccf7bd919d5d0ec4fa49",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/training-assessment-client.tsx",
+      "sha256": "46745da60afd8534ef3b6da1148ac7783deadbd47bc76d35282cd84a076663f1",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/training/my-learning/[assignmentId]/page.tsx",
+      "sha256": "a094fa2f96bc9f4a3c51a83a7fc0532a1b5108b644e8a99bc97c65dffbc5deb5",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/training-completion-check.tsx",
+      "sha256": "c0e7056b6845fd069b41be4aef2460f864a6124ebc28d3b4d11fcf72f6176b7a",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/training-learning-actions.tsx",
+      "sha256": "531ad219e1ec6f8986a70cca7d789f8e0e5784e636500e48bc505a4a5c2be935",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/training-content.tsx",
+      "sha256": "b011e107f8e5a6365c5bc2ec151a75dc8601c92759ce34bbefe7c0c6d7f3cae5",
+      "origin": "published-shared-and-dependencies"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/training-reader-outline.tsx",
+      "sha256": "bb42a3a425f87f6ffd392a3847a835f0b1574177cfe7a0531bbbdccbb6a16bb9",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/training/[courseId]/page.tsx",
+      "sha256": "00380daf1041a915d00bc6fed68a1cb6be6938c761758f41d03659258d493a8a",
+      "origin": "frozen-after"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/auth/principal.ts",
+      "sha256": "f24b8576069e6f0c93c62a0bd03ae873024b9494e2c8ed2ed4a6f60743090a00"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/supabase/browser.ts",
+      "sha256": "3ef4092e6e607a5869ac957ecb90a20869f44424ce38f8384f0a12f51fc52dd8"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/supabase/server.ts",
+      "sha256": "d75e27101054c8cbf519f17d96c5817b7ef599980109806e432fd625c9846c43"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "after-assessment-delay-1440.png",
+      "sha256": "d6fe8b846e6972212009b016e722926b8bf64e759ab5ab542c0ca6d02af0ba31"
+    },
+    {
+      "file": "after-assessment-delay-320.png",
+      "sha256": "8c93214aa124e2b45a051dc0cd0cc9d8eb31d94fdde306edc42d065c4318d9db"
+    },
+    {
+      "file": "after-assessment-delay-390.png",
+      "sha256": "7cb1286ae26b75f63302c69f1c2e1a2b3f5212855a91a095e7322aedff6b33db"
+    },
+    {
+      "file": "after-assessment-delay-834.png",
+      "sha256": "1aa1aec19abaf268a6e4fdb76fb80a060ccf612fb6f82cc1813d05caf751e22e"
+    },
+    {
+      "file": "after-assessment-intro-1440.png",
+      "sha256": "5f262f712173449c84be8997059cb809152b12aa5a53a49d1f901ab35a69a02c"
+    },
+    {
+      "file": "after-assessment-intro-320.png",
+      "sha256": "39651f84284b6efeb29584a0e28513ae7aabf6f1578892f616141351f63a04b5"
+    },
+    {
+      "file": "after-assessment-intro-390.png",
+      "sha256": "02101dc53c1f0664849f8f3f389d14c56969441943cff82109353573e7d60db7"
+    },
+    {
+      "file": "after-assessment-intro-834.png",
+      "sha256": "87570a58cd14d3bd4b9e12caf92684a11ad0fc2e4cc4f091d6384a5a53bb6a63"
+    },
+    {
+      "file": "after-assessment-open-1440.png",
+      "sha256": "f41daad9bbfb77f4ed5af65ba0ddf41f4da3d38b839e29f3ad9c769d37528470"
+    },
+    {
+      "file": "after-assessment-open-320.png",
+      "sha256": "ee050350d4525a022b43d9ec9abddb63f70db224fcd92c076b40def301a38046"
+    },
+    {
+      "file": "after-assessment-open-390.png",
+      "sha256": "0d997d95a40fcf336405303df949b1aa932440bdfb5e29eabbc34eeffd696aba"
+    },
+    {
+      "file": "after-assessment-open-834.png",
+      "sha256": "bd48eff956d892f26f31733c2247001f614353f2f3f113462e46d76a0277007b"
+    },
+    {
+      "file": "after-assigned-reader-1440.png",
+      "sha256": "7e621c9911c44cde1f0c262fa122b49400f7e37f4ca9be35d33c1c15814fb505"
+    },
+    {
+      "file": "after-assigned-reader-320.png",
+      "sha256": "1a287738a600d0c31c821a9c851da9a6cc1c88e970a7dab7c4524bc7ee2d8341"
+    },
+    {
+      "file": "after-assigned-reader-390.png",
+      "sha256": "ba6d3cd32e4d7c1d990a54f54c5d248278b41851c093bc17fb993535e27c996d"
+    },
+    {
+      "file": "after-assigned-reader-834.png",
+      "sha256": "35defa5ebec90d9242ec6d6ac872029ae66c4dfd9ce884ccd26bf279475db1b3"
+    },
+    {
+      "file": "after-assignment-history-1440.png",
+      "sha256": "b4413990c40934aac4297bf16b2710b044aff4f0d937ff688ffbd2b91f38bae1"
+    },
+    {
+      "file": "after-assignment-history-320.png",
+      "sha256": "a867e4ea8d63868aac1424a537adbbeea0b55b6ed24d07e2a8df6e94d266ce41"
+    },
+    {
+      "file": "after-assignment-history-390.png",
+      "sha256": "601aa54d50a53f01d8a36c78661ab5859861bb3468c40d3c37d4ef2fc70f7aff"
+    },
+    {
+      "file": "after-assignment-history-834.png",
+      "sha256": "ee3f801c55a4dd29938e7912bb343296df8ee5ba7706036b00a57ff637d23a20"
+    },
+    {
+      "file": "after-catalogue-last-1440.png",
+      "sha256": "776a0033fde848868a85d326f4f6c43825316ac479997b2170ec1056f771aaba"
+    },
+    {
+      "file": "after-catalogue-last-320.png",
+      "sha256": "adc30c9bc958aead80e3de74980e7ff0ddf533ffc209dc3e64b5d611f3fb71ee"
+    },
+    {
+      "file": "after-catalogue-last-390.png",
+      "sha256": "90d70e48f838a8b8163ee7a82f2f5dc1ff2214db55731b9eef4518ec5a28c160"
+    },
+    {
+      "file": "after-catalogue-last-834.png",
+      "sha256": "23618fbf5283f5da7a7cb64aa366a926d5e4c3468cb1dabd5f3eb7fbc6b73a9c"
+    },
+    {
+      "file": "after-catalogue-reader-1440.png",
+      "sha256": "ac62bdccabb6c1081e6e9a08197fbcedba1638390790c4f249324e509537a79e"
+    },
+    {
+      "file": "after-catalogue-reader-320.png",
+      "sha256": "c661b47b1b330c84222e20b992c857e0885d122e5bf5c9c50897c77049d855d5"
+    },
+    {
+      "file": "after-catalogue-reader-390.png",
+      "sha256": "98a4be27a13ba9167bee26534cf88f9a0bbc1048e5a50db5a944555b166b705e"
+    },
+    {
+      "file": "after-catalogue-reader-834.png",
+      "sha256": "eafff43680f17a638e4f0ebe2fe316e73e80743b2fecb675e21604ad94323d10"
+    },
+    {
+      "file": "before-assessment-intro-1440.png",
+      "sha256": "794e9b4048fb1a42bb5779961fe27c26deef972c8b7d9fd60688c41a53d3541a"
+    },
+    {
+      "file": "before-assessment-intro-320.png",
+      "sha256": "aa37ba3941e9758804ed5be04c55f64df66ccfbe35e30be6bd2e808f07341546"
+    },
+    {
+      "file": "before-assessment-intro-390.png",
+      "sha256": "d67dea0832fc52b178409cfb43fec446352423192ed2a96fef3d19c5019a9590"
+    },
+    {
+      "file": "before-assessment-intro-834.png",
+      "sha256": "772f94828d74d264446386374f1618de3f7d6baa2af82ab9ac6ab86b4d3974fd"
+    },
+    {
+      "file": "before-assessment-open-1440.png",
+      "sha256": "a0b933009f91ee2ecf0f8012099362293b4c680fa301f5e7483b85a4ad2636c8"
+    },
+    {
+      "file": "before-assessment-open-320.png",
+      "sha256": "851f3aa6dfb92172d623d2884d0f05324edecb89b6eff538686fe90c70fa8384"
+    },
+    {
+      "file": "before-assessment-open-390.png",
+      "sha256": "1ba3f91b807bda4a4321ec325ad2b7116e9f95149c6d3fb6aa318c7a4b181a72"
+    },
+    {
+      "file": "before-assessment-open-834.png",
+      "sha256": "399190726739b4c7dd7b3f92b5045a148d8098e44fbd803abaec57f9051767be"
+    },
+    {
+      "file": "before-assigned-reader-1440.png",
+      "sha256": "d4867ae228b6fe4467c21d3be77cc80e36d33894a3f84f9dbc60bdbee05bcb39"
+    },
+    {
+      "file": "before-assigned-reader-320.png",
+      "sha256": "d7bedf8aed2c8a81e296b18b2007bbe6e2534a954e57f5a5463420d766bfdce8"
+    },
+    {
+      "file": "before-assigned-reader-390.png",
+      "sha256": "4c7f3af0c78d6d8fa0ecefd0cf074c9ef33f5b237448e927d7961c84f4a08512"
+    },
+    {
+      "file": "before-assigned-reader-834.png",
+      "sha256": "a71206eb741170d6ce308947f87b79d867ad026b1f7dc8fc8f960cfb792fb553"
+    },
+    {
+      "file": "before-assignment-history-1440.png",
+      "sha256": "6925564b25483f03866e07a579119ffaab4d71d37b36968652517fee951e36b1"
+    },
+    {
+      "file": "before-assignment-history-320.png",
+      "sha256": "0f12fde1d9941331948f60e5e5876a866e05507eca33d3e711065809ac0d57e7"
+    },
+    {
+      "file": "before-assignment-history-390.png",
+      "sha256": "15d4dc14dc3ec4c530e0a38b16d7ce1d37c19b7cde683d9e6f416a624cd79277"
+    },
+    {
+      "file": "before-assignment-history-834.png",
+      "sha256": "a6642ed2d1f13f29d294dee6e401ce3f435eece2669a302c2ec2c61fc1fdc530"
+    },
+    {
+      "file": "before-catalogue-last-1440.png",
+      "sha256": "d061c92cfa904b6dd9f4a3535e1e4dc3b74ae42c3addbdc4be28b550165d2076"
+    },
+    {
+      "file": "before-catalogue-last-320.png",
+      "sha256": "232d836f29fcb2543c6ff9e48d1d68639de4ea507bc3281d6a2e4551ad2c23fe"
+    },
+    {
+      "file": "before-catalogue-last-390.png",
+      "sha256": "4a39b3c9e4b0ec601c54a095102d3b1e525e3ccf466ce247341a48874c8695a6"
+    },
+    {
+      "file": "before-catalogue-last-834.png",
+      "sha256": "d3366b531910910ce0210803b73503edafd59df07b739ddd7488543aa0c3a20e"
+    },
+    {
+      "file": "before-catalogue-reader-1440.png",
+      "sha256": "b0e15d77df5d5f780bcc40ef1f1d43c7d9aa22c7e9d58556679847e5fdf3235d"
+    },
+    {
+      "file": "before-catalogue-reader-320.png",
+      "sha256": "2034c19b40243f5749ab326af248b1e00eca7b2b8cfe7204333260d7c207a3e9"
+    },
+    {
+      "file": "before-catalogue-reader-390.png",
+      "sha256": "22193f9ca9ef0308d54162b39292de7a700f20d3c67ca0a62114a8c543eae6a2"
+    },
+    {
+      "file": "before-catalogue-reader-834.png",
+      "sha256": "435edfccfa11262c5afcf711d2ae0d89677a0e2f8d2409d460355084e27b0415"
+    }
+  ],
+  "records": 56,
+  "mockWrites": 32,
+  "realWrites": 0
+}

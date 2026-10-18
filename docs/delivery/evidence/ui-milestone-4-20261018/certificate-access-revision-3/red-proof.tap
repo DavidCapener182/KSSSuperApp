@@ -1,0 +1,29 @@
+✖ newly voided completion hides stale current PDF and revoke controls while retaining certificate history (35.007375ms)
+✔ non-voided matching current issue retains its exact private PDF and revoked history never exposes one (14.581083ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 157.329542
+
+✖ failing tests:
+
+test at tests/training-certificate-current-access-local.test.mjs:4:1
+✖ newly voided completion hides stale current PDF and revoke controls while retaining certificate history (35.007375ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Open private PDF|Revoke with reason/. Input:
+  
+  '<section class="training-card undefined" aria-label="Certificate issue and history"><h2>Certificates</h2><p>Certificate issue is a separate manager decision. Each PDF is tied to one immutable issue and private download authority.</p><div><h3>Exact issue decision</h3><p>Selected assignment assignment-exact</p><label for="certificate-template-version">Published template version</label><select id="certificate-template-version"><option value="" selected="">Select template</option></select><label for="certificate-reason">Issue, revoke or reissue reason</label><textarea id="certificate-reason" minLength="10" maxLength="300">Synthetic correction reason</textarea><p role="status">Completion voided. Current certificate download is invalidated; historical issues remain.</p><h3>Certificate history</h3><ul class="training-certificate-history"><li><strong>SYNTHETIC-ONLY</strong><span>ISSUED · Issued 2026-10-18</span><a href="/api/training-certificates/synthetic-issue/file" target="_blank" rel="noreferrer">Open private PDF</a><button type="button">Revoke with reason</button><ul></ul></li></ul></div><p role="status"></p></section>'
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/tests/training-certificate-current-access-local.test.mjs:4:308)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '<section class="training-card undefined" aria-label="Certificate issue and history"><h2>Certificates</h2><p>Certificate issue is a separate manager decision. Each PDF is tied to one immutable issue and private download authority.</p><div><h3>Exact issue decision</h3><p>Selected assignment assignment-exact</p><label for="certificate-template-version">Published template version</label><select id="certificate-template-version"><option value="" selected="">Select template</option></select><label for="certificate-reason">Issue, revoke or reissue reason</label><textarea id="certificate-reason" minLength="10" maxLength="300">Synthetic correction reason</textarea><p role="status">Completion voided. Current certificate download is invalidated; historical issues remain.</p><h3>Certificate history</h3><ul class="training-certificate-history"><li><strong>SYNTHETIC-ONLY</strong><span>ISSUED · Issued 2026-10-18</span><a href="/api/training-certificates/synthetic-issue/file" target="_blank" rel="noreferrer">Open private PDF</a><button type="button">Revoke with reason</button><ul></ul></li></ul></div><p role="status"></p></section>',
+    expected: /Open private PDF|Revoke with reason/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }

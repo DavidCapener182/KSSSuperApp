@@ -1,3 +1,4 @@
+import styles from "@/components/training-learners.module.css";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPrincipal, isUuid } from "@/lib/auth/principal";
@@ -26,9 +27,9 @@ export default async function MyAssignmentHistory({ params }: { params: Promise<
   ]);
   const assignment = !error && Array.isArray(mine) ? (mine as TrainingAssignment[]).find(a => a.id === assignmentId) : null;
   if (!assignment || historyError) notFound();
-  return <main className="training-area"><Link href="/training/my-learning">← My Learning</Link><header><p className="training-eyebrow">Synthetic learning · Assignment history</p><h1>{assignment.title} · Version {assignment.versionNumber}</h1><p>{assignment.state} · {assignment.viewedCount} of {assignment.pageCount} pages marked viewed</p></header>
+  return <main className={`training-area ${styles.surface}`}><Link href="/training/my-learning">← My Learning</Link><header><p className="training-eyebrow">Synthetic learning · Assignment history</p><h1>{assignment.title} · Version {assignment.versionNumber}</h1><p>Assignment <code>{assignmentId}</code> · {assignment.state} · {assignment.viewedCount} of {assignment.pageCount} pages marked viewed</p></header>
     {assignment.retired && assignment.state === "ACTIVE" && <p role="status">Content retired — assignment needs review.</p>}
-    <ol className="training-event-list">{(Array.isArray(events) ? events as Event[] : []).map(event => <li key={event.id}><time>{new Date(event.occurredAt).toLocaleString("en-GB", { timeZone: "Europe/London" })}</time><p>{description(event)}</p></li>)}</ol>
+    <ol className="training-event-list">{(Array.isArray(events) ? events as Event[] : []).map(event => <li key={event.id}><time>{new Date(event.occurredAt).toLocaleString("en-GB", { timeZone: "Europe/London" })}</time><h2>{event.action.replaceAll("_", " ").toLowerCase()}</h2><p>{description(event)}</p><details className={styles.provenance}><summary>Source event</summary><p>Event <code>{event.id}</code> · Assignment <code>{assignmentId}</code></p></details></li>)}</ol>
     <p className="training-boundary">This is an assignment and page-progress record. It does not assert a course result.</p>
   </main>;
 }

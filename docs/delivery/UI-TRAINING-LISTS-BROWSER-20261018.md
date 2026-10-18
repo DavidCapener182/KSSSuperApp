@@ -1,0 +1,7 @@
+# Training catalogue and My Learning — local browser check
+
+U62/U64 pass 60 browser records / 56 screenshots at 1440, 834, 390 and 320 pixels. All 13 after-runtime source entries match the integration; actual route logic runs against synthetic principal/RPC boundaries. No page errors, external requests, writes or actual certificate file fetches occurred. Both local servers stopped after success.
+
+Staff catalogue/MyLearning, Office catalogue, independently granted author catalogue and denied catalogue/learning/completion sources were captured. Finite capability responses control administration links. Active assignments retain exact Resume/assessment/history identities, retired content has no Resume action, and earlier assignments retain exact history without an active Resume. Expanded completion/certificate history links the exact returned certificate ID. Unavailable completions do not falsely assert no completions; denied primary learning shows no private certificate link or old course facts.
+
+The source routes are real; backend authorisation outcomes are synthetic RPC responses. This does not prove hosted role/RLS enforcement, credential eligibility, file authorisation or durable learning acceptance. Course and assigned reader/assessment/history routes are being verified separately by the dedicated worker. Representative desktop and phone MyLearning views were visually inspected. These routes remain local pending a tested publication milestone.
