@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { environmentLabel, isStaging } from "@/lib/environment-label";
+import { environmentLabel } from "@/lib/environment-label";
 import styles from "./entry.module.css";
 
 const supabase = createBrowserSupabase();
@@ -34,7 +34,7 @@ export function SignInEntry({ returnTarget }: { returnTarget: string }) {
     event.preventDefault(); setBusy(true); setMessage("");
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setPassword("");
-    if (error) { setState("unauthenticated"); setMessage("Sign-in failed. Check the development account details."); }
+    if (error) { setState("unauthenticated"); setMessage("Sign-in failed. Check your account details."); }
     else await inspectAccess();
     setBusy(false);
   }
@@ -58,7 +58,7 @@ export function SignInEntry({ returnTarget }: { returnTarget: string }) {
         <p className={styles.boundary}>Access to records and actions is checked against your role. Each workflow shows its current integration status.</p>
       </div>
       <div className={styles.access}>
-      <div className={styles.heading}><h2>Sign in to KSS</h2><p>Your authorised {isStaging ? "staging" : "development"} account.</p></div>
+      <div className={styles.heading}><h2>Sign in to KSS</h2><p>Your authorised KSS account.</p></div>
       {message && state !== "unauthenticated" && <p className={styles.feedback} role="alert">{message}</p>}
       {state === "checking" && <p className={styles.status} role="status">Checking your sign-in…</p>}
       {state === "unauthenticated" && <form className={styles.form} onSubmit={signIn}>
@@ -67,7 +67,7 @@ export function SignInEntry({ returnTarget }: { returnTarget: string }) {
         <label>Email<Input aria-describedby={message ? "sign-in-message" : undefined} type="email" autoComplete="username" required value={email} onChange={(event) => setEmail(event.target.value)} /></label>
         <div><label htmlFor="sign-in-password">Password</label><div className={styles.password}><Input id="sign-in-password" aria-describedby={message ? "sign-in-message" : undefined} type={showPassword ? "text" : "password"} autoComplete="current-password" required value={password} onChange={(event) => setPassword(event.target.value)} /><Button type="button" variant="outline" aria-pressed={showPassword} aria-controls="sign-in-password" onClick={() => setShowPassword(value => !value)}>{showPassword ? "Hide" : "Show"}<span className="sr-only"> password</span></Button></div></div>
         <p className={styles.note}>Use your authorised account. Your password is cleared after each attempt.</p>
-        <Button type="submit" disabled={busy}>{busy ? "Signing in…" : `Sign in to ${isStaging ? "staging" : "development"}`}</Button>
+        <Button type="submit" disabled={busy}>{busy ? "Signing in…" : "Sign in to KSS"}</Button>
       </form>}
       {state === "no_enterprise_access" && <div className={styles.status} role="status">
         <h2>No Enterprise access</h2>

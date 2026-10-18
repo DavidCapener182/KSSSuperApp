@@ -22,13 +22,13 @@ export default function StagingAccess() {
   async function verifyCode(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setBusy(true); setMessage("");
     if (process.env.NEXT_PUBLIC_KSS_STAGE !== "staging" || process.env.NEXT_PUBLIC_SUPABASE_URL !== projectUrl) {
-      setMessage("This handoff is available only in the dedicated staging environment."); setBusy(false); return;
+      setMessage("This handoff is available only in the dedicated recovery environment."); setBusy(false); return;
     }
     const { data, error } = await supabase.auth.verifyOtp({ email, token: code.trim(), type: "recovery" });
     setCode("");
     if (error || data.user?.id !== userId || data.user?.email !== email) {
       await supabase.auth.signOut();
-      setMessage("The one-time code could not be confirmed for the synthetic Staff staging account.");
+      setMessage("The one-time code could not be confirmed for the synthetic Staff recovery account.");
     } else setVerified(true);
     setBusy(false);
   }
@@ -41,22 +41,22 @@ export default function StagingAccess() {
     setBusy(true);
     const { data: { user } } = await supabase.auth.getUser();
     if (user?.id !== userId || user.email !== email) {
-      setVerified(false); setMessage("The Staff staging session is no longer valid. No password was changed."); setBusy(false); return;
+      setVerified(false); setMessage("The Staff recovery session is no longer valid. No password was changed."); setBusy(false); return;
     }
     const { error } = await supabase.auth.updateUser({ password: newPassword });
     setNewPassword(""); setConfirmPassword("");
     if (error) setMessage(`Supabase rejected the password update: ${error.message}`);
     else {
       await supabase.auth.signOut(); setVerified(false);
-      setMessage("Password changed for the synthetic Staff staging account. You can now sign in to the protected staging app from this phone.");
+      setMessage("Password changed for the synthetic Staff recovery account. You can now sign in to the KSS app from this phone.");
     }
     setBusy(false);
   }
 
   return <main className={styles.utility}>
-    <p className={styles.eyebrow}>Restricted staging utility</p>
-    <h1>Synthetic Staff staging access</h1>
-    <p>This temporary page is for <strong>{email}</strong> in KSS Enterprise - Staging only. It does not accept real staff information.</p>
+    <p className={styles.eyebrow}>Restricted account recovery</p>
+    <h1>Synthetic Staff account recovery</h1>
+    <p>This temporary page is for <strong>{email}</strong> in the dedicated synthetic recovery environment only. It does not accept real staff information.</p>
     <p>Enter the one-time recovery code, then choose a password yourself. The password goes directly to Supabase Auth and is not stored in the repository, Vercel settings or the delivery report.</p>
     {message && <p className={styles.feedback} role="status">{message}</p>}
     {!verified ? <form onSubmit={verifyCode}>

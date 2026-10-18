@@ -1,0 +1,11 @@
+{
+  "files": [
+    "tests/ui-documents-local.test.mjs",
+    "tests/ui-training-learners-local.test.mjs",
+    "tests/ui-training-requirements-local.test.mjs",
+    "tests/ui-hr-credentials-local.test.mjs",
+    "tests/ui-staff-records-local.test.mjs",
+    "tests/ui-milestone-13-preservation-local.test.mjs"
+  ],
+  "reason": "Advance exact source-inventory assertions only to3label/434unchanged; all functional/role/API assertions preserved; old bytes stored"
+}

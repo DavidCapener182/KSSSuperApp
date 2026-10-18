@@ -1,0 +1,51 @@
+{
+  "base": "7d8b3d2432943a57f17fdf175e7ae3f916ef2f21",
+  "products": 3,
+  "nonOwnedSource": 434,
+  "apiRoutesUnchanged": 144,
+  "tests": 853,
+  "failed": 0,
+  "buildExit": 0,
+  "typesExit": 0,
+  "scopedLintExit": 0,
+  "browser": {
+    "results": [
+      {
+        "width": 1440,
+        "loginVisible": true,
+        "noEnvironmentName": true
+      },
+      {
+        "width": 390,
+        "loginVisible": true,
+        "noEnvironmentName": true
+      },
+      {
+        "api": "/api/me",
+        "status": 401
+      },
+      {
+        "api": "/api/assets",
+        "status": 401
+      },
+      {
+        "route": "/app",
+        "signedOutDestination": "/"
+      },
+      {
+        "route": "/crm",
+        "signedOutDestination": "/"
+      },
+      {
+        "width": 320,
+        "loginVisible": true,
+        "noEnvironmentName": true
+      }
+    ],
+    "external": [],
+    "serverOutboundNetworkingBlocked": true,
+    "noBusinessWrites": true
+  },
+  "deploymentSettingsChangedByThisTask": false,
+  "authOrEnvironmentFlagLogicChanged": false
+}

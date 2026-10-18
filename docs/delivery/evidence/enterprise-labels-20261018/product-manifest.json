@@ -1,0 +1,17 @@
+[
+  {
+    "file": "src/lib/environment-label.ts",
+    "beforeSha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+    "sha256": "aa8bc65e3329b1931c713b8a263e7e0d021f48d397e485885b7a748d693cff09"
+  },
+  {
+    "file": "src/components/sign-in-entry.tsx",
+    "beforeSha256": "f07773816362543e93185ee7a9352eb043a87fcea3e4246db8cd8041dfdc64c3",
+    "sha256": "8eb9fb46255b9fed8eed84b6d2ce2c6c90c38ed313dd2599506d6e0782670768"
+  },
+  {
+    "file": "src/app/staging-access/page.tsx",
+    "beforeSha256": "68951978ad5ad7e715fa4ab9389bc97d90a54010a7a307b88ce9216d78278612",
+    "sha256": "1e8ee83c714823af0f57f5f24b7345733b9a305c03fc331c1228628cd9b2381b"
+  }
+]

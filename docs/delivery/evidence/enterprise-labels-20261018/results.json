@@ -1,0 +1,38 @@
+{
+  "results": [
+    {
+      "width": 1440,
+      "loginVisible": true,
+      "noEnvironmentName": true
+    },
+    {
+      "width": 390,
+      "loginVisible": true,
+      "noEnvironmentName": true
+    },
+    {
+      "api": "/api/me",
+      "status": 401
+    },
+    {
+      "api": "/api/assets",
+      "status": 401
+    },
+    {
+      "route": "/app",
+      "signedOutDestination": "/"
+    },
+    {
+      "route": "/crm",
+      "signedOutDestination": "/"
+    },
+    {
+      "width": 320,
+      "loginVisible": true,
+      "noEnvironmentName": true
+    }
+  ],
+  "external": [],
+  "serverOutboundNetworkingBlocked": true,
+  "noBusinessWrites": true
+}

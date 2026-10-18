@@ -1,3 +1,4 @@
 export const isStaging = process.env.NEXT_PUBLIC_KSS_STAGE === "staging";
 
-export const environmentLabel = isStaging ? "Staging" : "Development";
+// Product wording is independent of the internal deployment-safety flag.
+export const environmentLabel = "KSS Enterprise";

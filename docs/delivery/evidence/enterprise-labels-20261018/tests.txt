@@ -1,0 +1,44 @@
+(node:28916) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-entry-label-fix-20261018/src/lib/auth/capabilities.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-entry-label-fix-20261018/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ existing Time Away and Service Delivery entry scope: SUPER_ADMIN (0.371333ms)
+✔ existing Time Away and Service Delivery entry scope: OFFICE_ADMIN (0.051167ms)
+✔ existing Time Away and Service Delivery entry scope: OPERATIONS (0.038708ms)
+✔ existing Time Away and Service Delivery entry scope: SECURITY_STAFF (0.037583ms)
+✔ no active role receives neither Time Away nor Service Delivery entry (0.25375ms)
+(node:28917) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-entry-label-fix-20261018/src/lib/auth/return-target.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-entry-label-fix-20261018/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ password reveal is an explicit non-submit control and preserves autofill and entered value (31.014084ms)
+✔ a revealed password is still cleared after a failed authentication attempt (11.306042ms)
+✔ unauthenticated or rejected getUser exposes required labelled email/password without an API call (11.541708ms)
+✔ checking holds navigation until authenticated API200, then uses exact return target (5.241292ms)
+✔ authenticated access API401 never navigates or invents access (8.138167ms)
+✔ authenticated access API403 never navigates or invents access (4.696167ms)
+✔ authenticated access API503 never navigates or invents access (4.833083ms)
+✔ network-unavailable access exposes retry, which must recheck before exact navigation (5.748084ms)
+✔ successful password authentication waits for API200 and clears entered password (4.907625ms)
+✔ failed sign-in clears password, releases busy state and reports failure without an API request (4.4695ms)
+✔ successful sign-in followed by API401 does not claim entry (4.012833ms)
+✔ successful sign-in followed by API403 does not claim entry (3.614416ms)
+✔ successful sign-in followed by API503 does not claim entry (4.251958ms)
+✔ no-access sign-out remains pending, then returns to cleared form only after auth success (3.143375ms)
+✔ failed sign-out retains no-access state and enables retry without false logged-out success (2.929333ms)
+✔ page normalises unsafe return destinations before passing props to the actual entry (1.438291ms)
+✔ access directory denies OPERATIONS before a person read (30.128833ms)
+✔ access directory denies SECURITY_STAFF before a person read (5.557708ms)
+✔ access directory denies OFFICE_ADMIN before a person read (4.377208ms)
+✔ access search retains first25 source scope and refine-name notice without private fields (8.178459ms)
+✔ person review keeps three-row preview,20-row exact history and owning-source authority wording (25.88225ms)
+✔ person review denies Office and rejects malformed identity before reading grants (15.976958ms)
+✔ settings preserves Office and SuperAdmin destinations and denies Staff (13.07725ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 268.794916
