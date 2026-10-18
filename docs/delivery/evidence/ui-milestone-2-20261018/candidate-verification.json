@@ -1,0 +1,15 @@
+{
+  "work-inbox-preview": {
+    "exactRuntimeSourceFiles": 28,
+    "mismatches": []
+  },
+  "people-preview": {
+    "exactRuntimeSourceFiles": 8,
+    "mismatches": []
+  },
+  "originalCheckout": {
+    "headUnchanged": true,
+    "statusUnchanged": true,
+    "fileHashesUnchanged": 51
+  }
+}

@@ -1,0 +1,570 @@
+[
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "work",
+    "path": "/work",
+    "role": "OFFICE_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "deadline-calendar",
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "task",
+    "path": "/work/00000000-0000-4000-8000-000000000101",
+    "role": "OFFICE_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "inbox",
+    "path": "/action-centre",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "work",
+    "path": "/work",
+    "role": "OFFICE_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "deadline-calendar",
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "task",
+    "path": "/work/00000000-0000-4000-8000-000000000101",
+    "role": "OFFICE_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "inbox",
+    "path": "/action-centre",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "work",
+    "path": "/work",
+    "role": "OFFICE_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "deadline-calendar",
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "task",
+    "path": "/work/00000000-0000-4000-8000-000000000101",
+    "role": "OFFICE_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "inbox",
+    "path": "/action-centre",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "work",
+    "path": "/work",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "deadline-calendar",
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "task",
+    "path": "/work/00000000-0000-4000-8000-000000000101",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "inbox",
+    "path": "/action-centre",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "work",
+    "path": "/work",
+    "role": "OFFICE_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "deadline-calendar",
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "task",
+    "path": "/work/00000000-0000-4000-8000-000000000101",
+    "role": "OFFICE_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "inbox",
+    "path": "/action-centre",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "task-dialog",
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "interactions",
+    "workFilters": true,
+    "calendarKeyboard": true,
+    "emptyAndUnavailable": true,
+    "taskCancelFocusReturn": true,
+    "londonDSTValidation": true,
+    "readbackMismatchUnconfirmed": true,
+    "syntheticExactCompletion": true,
+    "roleDenial": true,
+    "noticeKeyboard": true,
+    "exactAllocationSourceHref": true,
+    "readDismissSeparateFromAllocation": true,
+    "mockWrites": [
+      {
+        "path": "/api/crm/work",
+        "method": "POST",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000101",
+          "kind": "COMPLETE"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "method": "POST",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000101",
+          "kind": "COMPLETE"
+        }
+      },
+      {
+        "path": "/api/action-centre/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "action": "READ"
+        }
+      },
+      {
+        "path": "/api/action-centre/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "action": "DISMISS"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "work",
+    "path": "/work",
+    "role": "OFFICE_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "deadline-calendar",
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "task",
+    "path": "/work/00000000-0000-4000-8000-000000000101",
+    "role": "OFFICE_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "inbox",
+    "path": "/action-centre",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "task-dialog",
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "interactions",
+    "workFilters": true,
+    "calendarKeyboard": true,
+    "emptyAndUnavailable": true,
+    "taskCancelFocusReturn": true,
+    "londonDSTValidation": true,
+    "readbackMismatchUnconfirmed": true,
+    "syntheticExactCompletion": true,
+    "roleDenial": true,
+    "noticeKeyboard": true,
+    "exactAllocationSourceHref": true,
+    "readDismissSeparateFromAllocation": true,
+    "mockWrites": [
+      {
+        "path": "/api/crm/work",
+        "method": "POST",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000101",
+          "kind": "COMPLETE"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "method": "POST",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000101",
+          "kind": "COMPLETE"
+        }
+      },
+      {
+        "path": "/api/action-centre/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "action": "READ"
+        }
+      },
+      {
+        "path": "/api/action-centre/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "action": "DISMISS"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "work",
+    "path": "/work",
+    "role": "OFFICE_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "deadline-calendar",
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "task",
+    "path": "/work/00000000-0000-4000-8000-000000000101",
+    "role": "OFFICE_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "inbox",
+    "path": "/action-centre",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "task-dialog",
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "interactions",
+    "workFilters": true,
+    "calendarKeyboard": true,
+    "emptyAndUnavailable": true,
+    "taskCancelFocusReturn": true,
+    "londonDSTValidation": true,
+    "readbackMismatchUnconfirmed": true,
+    "syntheticExactCompletion": true,
+    "roleDenial": true,
+    "noticeKeyboard": true,
+    "exactAllocationSourceHref": true,
+    "readDismissSeparateFromAllocation": true,
+    "mockWrites": [
+      {
+        "path": "/api/crm/work",
+        "method": "POST",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000101",
+          "kind": "COMPLETE"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "method": "POST",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000101",
+          "kind": "COMPLETE"
+        }
+      },
+      {
+        "path": "/api/action-centre/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "action": "READ"
+        }
+      },
+      {
+        "path": "/api/action-centre/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "action": "DISMISS"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "work",
+    "path": "/work",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "deadline-calendar",
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "task",
+    "path": "/work/00000000-0000-4000-8000-000000000101",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "inbox",
+    "path": "/action-centre",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "task-dialog",
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "interactions",
+    "workFilters": true,
+    "calendarKeyboard": true,
+    "emptyAndUnavailable": true,
+    "taskCancelFocusReturn": true,
+    "londonDSTValidation": true,
+    "readbackMismatchUnconfirmed": true,
+    "syntheticExactCompletion": true,
+    "roleDenial": true,
+    "noticeKeyboard": true,
+    "exactAllocationSourceHref": true,
+    "readDismissSeparateFromAllocation": true,
+    "mockWrites": [
+      {
+        "path": "/api/crm/work",
+        "method": "POST",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000101",
+          "kind": "COMPLETE"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "method": "POST",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000101",
+          "kind": "COMPLETE"
+        }
+      },
+      {
+        "path": "/api/action-centre/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "action": "READ"
+        }
+      },
+      {
+        "path": "/api/action-centre/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "action": "DISMISS"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  }
+]

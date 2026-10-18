@@ -1,0 +1,7 @@
+{
+  "file": "src/components/workforce-planner.module.css",
+  "beforeSha256": "f509601cffa6637c91efc83d1feb62b1d9de6ccc7de29ce303396935a6447fac",
+  "sha256": "8725eb1f77ab1f7b9603b2551a505b607d1b44c7db62fa682ccef87e315a88a4",
+  "reason": "Desktop max-height760px persisted into mobile overflow-visible agenda; expand mobile container with rows",
+  "browserReview": "pending coordinator fresh capture; previous receipts immutable"
+}

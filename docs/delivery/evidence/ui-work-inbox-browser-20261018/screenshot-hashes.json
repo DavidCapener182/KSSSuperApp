@@ -1,0 +1,146 @@
+[
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-calendar-1440.png",
+    "sha256": "00b95864f391101b2fd4ab117f047de5ee61ebdb8b2d3cf53abc05725452f431"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-calendar-320.png",
+    "sha256": "3882e3cfe109a58dc84dfda969952519385a39f0d61e43f53f0cc605b0a2c9e7"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-calendar-390.png",
+    "sha256": "a8546913b46c0f4188509e457617b38dc4e6725cdadf649d5a3c2b2c58a98607"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-calendar-834.png",
+    "sha256": "886039ffc35e9c47685a7f835b2e6c760b8feaa93c89cc96a6af83f3bad115fa"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-inbox-1440.png",
+    "sha256": "4f37a53b50eefa6a1403c1582eaa0d1d1eeccda93e02cf90db24c12d52c55829"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-inbox-320.png",
+    "sha256": "437aa56cd29f52669e51d27c56c305a1eab63fc3e19c18351e9cead454fdd158"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-inbox-390.png",
+    "sha256": "d6bdf0e4f499c8c33b5dea65bc45427ba8b0ae0263c98a51c6b349308029daab"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-inbox-834.png",
+    "sha256": "1f3c0bee423418115fc6be08a8b6dd8c3beb2220d021a9d8ab342af25fe19ea2"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-task-1440.png",
+    "sha256": "fff74e40999fbd7e56037bf9ec08560b96be7453bd12caa5835e672f0b10b6c9"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-task-320.png",
+    "sha256": "35cec457b78dcebb7b2346663ed7ca653b0218ea79b03b3c49d6c4b8c2aef949"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-task-390.png",
+    "sha256": "827e372384f655e8b5355a11cbf36940482ff81ef56580194528f915198687e7"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-task-834.png",
+    "sha256": "815163632064694e17486f1a52f9b1000fea66bbe03a66cb1ae0e4960d8484e3"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-task-dialog-1440.png",
+    "sha256": "078d48dce889e84e56870651da683d3989b2abba810838bd267085d68da678e1"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-task-dialog-320.png",
+    "sha256": "c69cd9c0329457199a12e7604c4f5c4cf02dfd63cbe51249ede1c5ff5b99c526"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-task-dialog-390.png",
+    "sha256": "9c610365a6f9f6963e3fd0607648a3d664ba85bbed9deb0a7fcca3fda0113184"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-task-dialog-834.png",
+    "sha256": "f4cbcadac2503aa0a06d8de110034e0eb3bd619f08d16f591ed62c290ca09ea5"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-work-1440.png",
+    "sha256": "51a2ad467475650e8a11e294cfbad75eb01e69dee0f9838b591a4cc604d5c73a"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-work-320.png",
+    "sha256": "ce04fe5011cebe46e8af85a9a320361525844699873843b9559dca31f6eaafea"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-work-390.png",
+    "sha256": "dfe7614e712fd58f6f54ec2bcccfefa51cbe359f439f066fae99c01b25daf0bc"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/after-work-834.png",
+    "sha256": "eb69f85f63e22dc5bb93d6f0cdb08d30cf1a956d4569b400851fc8d581577958"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-calendar-1440.png",
+    "sha256": "7fc5999b1efb9c1f323a5692ae6f6fe50887f2dba79e53e85d992245b61b9b8f"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-calendar-320.png",
+    "sha256": "a2f6d309ac7fdacc940bc0a551c612143dea36f92bde690eb7c3d51c8f199cd4"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-calendar-390.png",
+    "sha256": "cfe09acba420a8abb2b097088c88e932633200533bc851b2f5ab54aff6fce520"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-calendar-834.png",
+    "sha256": "06140d32af41da5e6889e19a1f42b92b7da7be4f115b874ea24538dd56a1bece"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-inbox-1440.png",
+    "sha256": "7e5948308b7960915c4a0136c9dece0ce18e267237afd564bfd079154901fb67"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-inbox-320.png",
+    "sha256": "be0f31dcfab79679845858bc4a7547708f0e7fefd7f19684902c570ffe8ce05e"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-inbox-390.png",
+    "sha256": "139fab7ee98e00910a3257133051210bcd6f1a67c4a94b080ff869a4cacb9c53"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-inbox-834.png",
+    "sha256": "99067d6361ec89a84b959388f094627b6fe7cf74d61a9bc5979afc9fbaa6fd78"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-task-1440.png",
+    "sha256": "c9e4ccbab46ea02317723176da16dae25185ea23897cdb970ea2a38bd7afae52"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-task-320.png",
+    "sha256": "7b9de24cbdf40e9f7e4ef0ef07f2f727a15ed94b87b1a012b07c5ecfdcadaa8f"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-task-390.png",
+    "sha256": "16b44f4807c97c9949865637968009758d69650a0c53c624239bda1662c60fa4"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-task-834.png",
+    "sha256": "486cd9909f1a22b2682f9d9b78fbe4d0bc02fe2ca225207f20fd08fca273ba61"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-work-1440.png",
+    "sha256": "4921ee9943c15d5b04cfa9084662c380e24d1681937255a3d49fef8a7b3de8c0"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-work-320.png",
+    "sha256": "fe3b47c6e92701d7e21202674a3d67c88908589ee56af744866336bb2167686a"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-work-390.png",
+    "sha256": "af0ec75df4a4c845b89279d612bd39ab4261bb3d6bb5765fa7847e39243a4e1f"
+  },
+  {
+    "file": "ui-milestone-evidence/work-inbox-preview/before-work-834.png",
+    "sha256": "6b778960e66b831c546e7c58eb014cd111c7d44c8373305eca4f55e9c6cbfa99"
+  }
+]

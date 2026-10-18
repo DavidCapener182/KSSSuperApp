@@ -1,0 +1,94 @@
+[
+  {
+    "stage": "before",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-people-before-h_wdd0wh",
+    "port": 3120,
+    "files": [
+      {
+        "file": "src/app/(enterprise)/people/[id]/page.tsx",
+        "sha256": "4ad246d53674dadcb74d996e5914714a3863d42de54ac85395cac8635c784bc7"
+      },
+      {
+        "file": "src/app/(enterprise)/people/people.module.css",
+        "sha256": "db3567325dd0aca36e657f77a422fb1896c6956dd7a8d4e60d3a941364629dbf"
+      },
+      {
+        "file": "src/lib/credentials/state.ts",
+        "sha256": "8a73c14a24ce2c25118c0937a191842231616ff93c30918f45dab83a435cc779"
+      },
+      {
+        "file": "src/lib/profile/policy.ts",
+        "sha256": "3cd44ca0b0b1564a79e185d07fbe1d54ff8fc6af70dc9c7365bf0ad848cc9fc6"
+      },
+      {
+        "file": "src/lib/people/directory.ts",
+        "sha256": "2343f7d54d59839c757da639af45b2294086b5557487753b11d844233500a4e1"
+      },
+      {
+        "file": "src/app/(enterprise)/people/page.tsx",
+        "sha256": "46be9e28e9fd3783fc627217a65b0ef890ed63ee3850a9a43e321d6da9afa4a0"
+      },
+      {
+        "file": "src/app/(enterprise)/people/people-live-search.tsx",
+        "sha256": "a7f2a12d8431edc51050d3aa3cb23deb9baacb0fc58a8e168e4564d593921053"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/people/record.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "note": "Synthetic principals and records; no live Auth/RPC/RLS; all writes disabled"
+  },
+  {
+    "stage": "after",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-people-after-lu5kz_ez",
+    "port": 3121,
+    "files": [
+      {
+        "file": "src/app/(enterprise)/people/[id]/page.tsx",
+        "sha256": "4976fcb623601de6af78b2583f6cc0cf92b0eda467462e5b30080bc6e186879f"
+      },
+      {
+        "file": "src/app/(enterprise)/people/people.module.css",
+        "sha256": "a97dcca379f1bb953c556074990881ebec6f47dd00e0c58fdcdebbf722e76c45"
+      },
+      {
+        "file": "src/lib/credentials/state.ts",
+        "sha256": "8a73c14a24ce2c25118c0937a191842231616ff93c30918f45dab83a435cc779"
+      },
+      {
+        "file": "src/lib/profile/policy.ts",
+        "sha256": "3cd44ca0b0b1564a79e185d07fbe1d54ff8fc6af70dc9c7365bf0ad848cc9fc6"
+      },
+      {
+        "file": "src/lib/people/directory.ts",
+        "sha256": "2343f7d54d59839c757da639af45b2294086b5557487753b11d844233500a4e1"
+      },
+      {
+        "file": "src/app/(enterprise)/people/page.tsx",
+        "sha256": "ca961048f6f7f806bca7aec045df856276213250662097d23223ea7f119f2d5b"
+      },
+      {
+        "file": "src/app/(enterprise)/people/people-live-search.tsx",
+        "sha256": "a7f2a12d8431edc51050d3aa3cb23deb9baacb0fc58a8e168e4564d593921053"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/people/record.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "note": "Synthetic principals and records; no live Auth/RPC/RLS; all writes disabled"
+  }
+]

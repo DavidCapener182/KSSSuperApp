@@ -53,7 +53,7 @@ async function StaffRecordBody({ client, principal, person }: { client: Supabase
     <section id="overview" className="people-record-section people-record-overview">
       <div className="people-section-heading"><h2>Overview</h2><span className="people-record-state">{safeStatus}</span></div>
       <dl className="people-overview-list">
-        <div><dt>Active roles</dt><dd>{person.roles.length ? person.roles.map(roleLabel).join(" · ") : "No active role"}</dd></div>
+        <div><dt>KSS access roles</dt><dd>{person.roles.length ? person.roles.map(roleLabel).join(" · ") : "No active role"}</dd></div>
         <div><dt>Current work context</dt><dd>{person.sites.length ? person.sites.join(" · ") : "No permitted Site context shown"}</dd></div>
         <div><dt>Training</dt><dd>Provider not connected</dd></div>
         {workPositions?.length ? <div><dt>Working positions in PARiM</dt><dd>{workPositions.map((row) => row.position_name).join(" · ")}</dd></div> : null}
@@ -139,7 +139,7 @@ export default async function PersonRecord({ params }: { params: Promise<{ id: s
   const backHref = principal.roles.some((role) => role === "OFFICE_ADMIN" || role === "OPERATIONS" || role === "SUPER_ADMIN") ? "/people" : "/profile";
   return <main className={`enterprise-main people-record ${styles.workspace}`}>
     <Link className="people-back" href={backHref}>← {backHref === "/people" ? "People" : "Profile"}</Link>
-    <header className="people-record-header"><div><p className="eyebrow">Staff record · synthetic development data</p><h1>{person.displayName}</h1><p>{person.roles.length ? person.roles.map(roleLabel).join(" · ") : "No active role"}</p></div></header>
+    <header className="people-record-header"><div><p className="eyebrow">Staff record · synthetic development data</p><h1>{person.displayName}</h1><p><span className={styles.contextLabel}>KSS access role</span>{person.roles.length ? person.roles.map(roleLabel).join(" · ") : "No active role"}</p></div><div className={styles.siteContext}><span className={styles.contextLabel}>Permitted Site context</span><p>{person.sites.length ? person.sites.join(" · ") : "No permitted Site context shown"}</p></div></header>
     <nav className="people-record-nav" aria-label="Staff record sections">{sections.map((section) => <a href={`#${section.toLowerCase().replaceAll(" ", "-")}`} key={section}>{section}</a>)}</nav>
     <Suspense fallback={<div className="people-record-loading" role="status">Loading authorised Staff Record sections…</div>}>
       <StaffRecordBody client={client} principal={principal} person={person} />

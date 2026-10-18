@@ -1,0 +1,10 @@
+.filters { display: flex; flex-wrap: wrap; align-items: end; gap: 14px; margin-top: 24px; padding: 18px; border: 1px solid var(--kss-border); border-radius: 12px; background: var(--kss-surface); }
+.filters label { display: grid; gap: 7px; min-width: 0; color: var(--kss-ink); font-size: 13px; font-weight: 600; }
+.field { display: grid; gap: 7px; min-width: 0; }
+.search { flex: 1 1 240px; }
+.filters input, .filters select { width: 100%; min-width: 0; min-height: 44px; padding: 10px 12px; border: 1px solid var(--kss-border); border-radius: 8px; color: var(--kss-ink); background: var(--kss-surface); font: inherit; }
+.filters input:focus-visible, .filters select:focus-visible, .filters button:focus-visible { outline: 2px solid var(--kss-blue); outline-offset: 3px; }
+.filters button { min-height: 44px; }
+.filters button:disabled { opacity: .55; cursor: default; }
+.summary { color: var(--kss-ink-soft); font-size: 13px; line-height: 1.5; margin: 14px 0; }
+@media (max-width: 600px) { .filters { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: 14px; } .search, .filters button { grid-column: 1 / -1; } }

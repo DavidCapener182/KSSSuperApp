@@ -100,14 +100,13 @@ export function CrmTaskActions({ initialTask }: { initialTask: CrmActionTask }) 
     {message && <p className={styles.message} role="status" ref={feedback} tabIndex={-1}>{message}</p>}
     {phase === "loading" && <p role="status">Loading current follow-up…</p>}
     {task && phase === "ready" && <section className={styles.card} aria-labelledby="task-heading">
-      <h2 id="task-heading">{task.title}</h2><p>{task.sourceTitle}</p>
-      <p><strong>Status:</strong> {task.state === "OPEN" ? "Open" : task.state === "DONE" ? "Done" : "Cancelled"}</p>
-      <p><strong>{task.state === "OPEN" ? "Deadline" : "Historical deadline"}:</strong> {crmTaskDueLabel(task.dueAt)}</p>
-      <Link href={task.sourceHref}>Open CRM source</Link>
-      {task.state === "OPEN" ? <div className={styles.actions}>
+      <div className={styles.identity}><p className="enterprise-eyebrow">Source-owned follow-up</p><h2 id="task-heading">{task.title}</h2><p>{task.sourceTitle}</p>
+      <dl className={styles.facts}><div><dt>Status</dt><dd>{task.state === "OPEN" ? "Open" : task.state === "DONE" ? "Done" : "Cancelled"}</dd></div><div><dt>{task.state === "OPEN" ? "Deadline" : "Historical deadline"}</dt><dd>{crmTaskDueLabel(task.dueAt)}</dd></div></dl>
+      <Link href={task.sourceHref}>Open CRM source</Link></div>
+      <section className={styles.actionPanel} aria-label="Supported follow-up actions"><h3>Next action</h3><p>Review this follow-up before confirming a change.</p>{task.state === "OPEN" ? <div className={styles.actions}>
         <button type="button" disabled={busy} onClick={() => review("COMPLETE")}>Complete follow-up</button>
         <button type="button" disabled={busy} onClick={() => review("RESCHEDULE")}>Reschedule follow-up</button>
-      </div> : <p>This follow-up is historical. No completion or reschedule action is available.</p>}
+      </div> : <p>This follow-up is historical. No completion or reschedule action is available.</p>}</section>
     </section>}
     <button className={styles.refresh} ref={refreshButton} type="button" disabled={busy} onClick={() => void refresh()}>Refresh follow-up</button>
     <dialog ref={dialog} className={`ui-dialog ${styles.dialog}`} aria-labelledby="crm-action-title" aria-describedby="crm-action-description"

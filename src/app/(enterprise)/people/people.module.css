@@ -1,157 +1,70 @@
-.workspace {
-  max-width: 1200px;
-  color: var(--kss-ink);
-}
-
-.workspace :global(.enterprise-intro) {
-  max-width: 68ch;
-}
-
-.workspace :global(.people-filters) {
-  border-color: var(--kss-border-strong);
-}
-
-.clearFilters {
-  display: inline-flex;
-  margin: -16px 0 24px;
-  min-height: 44px;
-  align-items: center;
-  justify-content: center;
-  color: var(--kss-blue);
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.workspace :global(.people-table) {
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.workspace :global(.people-table th),
-.workspace :global(.people-table td) {
-  padding-block: 18px;
-}
-
-.workspace :global(.people-table tbody tr:hover) {
-  background: var(--kss-surface-muted);
-}
-
-.workspace :global(.people-table a),
-.workspace :global(.people-mobile-card a),
-.workspace :global(.people-pagination a) {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  gap: 6px;
-}
-
-.workspace :global(.people-record-nav a) {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  font-size: 13px;
-}
-
-.workspace :global(.people-back),
-.workspace :global(.people-empty a) {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-}
-
-.workspace :global(.people-record-section h2) {
-  font-size: 20px;
-  line-height: 1.3;
-}
-
-.workspace :global(.people-record-section h3) {
-  font-size: 15px;
-  line-height: 1.4;
-}
-
-.workspace :global(.people-record-section p),
-.workspace :global(.people-record-list span),
-.workspace :global(.people-record-list small) {
-  font-size: 14px;
-  line-height: 1.55;
-}
-
-.workspace :global(.people-record-section dt) {
-  text-transform: none;
-  letter-spacing: normal;
-  font-size: 12px;
-}
-
-.workspace :global(.people-record-section a) {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-}
-
-.workspace :global(a:focus-visible),
-.workspace :global(button:focus-visible),
-.workspace :global(input:focus-visible),
-.workspace :global(select:focus-visible) {
-  outline: 3px solid var(--kss-blue);
-  outline-offset: 3px;
-}
-
+.workspace { max-width: 1280px; color: var(--kss-ink); }
+.directoryHeader { margin-bottom: 24px; }
+.directoryHeader h1 { margin: 4px 0 8px; }
+.workspace :global(.enterprise-intro) { max-width: 68ch; margin: 0; font-size: 14px; line-height: 1.5; }
+.groups { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; border: 1px solid var(--kss-border); border-radius: 10px; background: var(--kss-surface-muted); }
+.groups a { display: inline-flex; min-height: 40px; align-items: center; padding: 8px 16px; border-radius: 7px; color: var(--kss-ink-soft); font-size: 14px; font-weight: 600; text-decoration: none; }
+.groups a[aria-current="page"] { background: white; color: var(--kss-blue-strong); box-shadow: 0 1px 2px rgb(24 35 52 / 8%); }
+.workspace :global(.people-filters) { grid-template-columns: minmax(200px, 2fr) minmax(180px, 1fr) auto; gap: 16px; margin: 20px 0; padding: 16px; border-color: var(--kss-border); }
+.workspace :global(.people-filters label) { font-size: 13px; }
+.workspace :global(.people-filters input), .workspace :global(.people-filters select) { border-color: var(--kss-control-border); }
+.workspace :global(.people-filters button:hover) { background: var(--kss-blue-strong); }
+.clearFilters { display: inline-flex; min-height: 44px; align-items: center; margin-bottom: 16px; color: var(--kss-blue-strong); font-size: 14px; font-weight: 600; text-underline-offset: 3px; }
+.registerSection { margin-top: 28px; min-width: 0; }
+.workspace :global(.people-result-heading h2) { font-size: 20px; }
+.scopeNote { color: var(--kss-ink-soft); font-size: 13px; line-height: 1.5; margin: -4px 0 16px; }
+.workspace :global(.people-table) { font-size: 14px; line-height: 1.5; }
+.workspace :global(.people-table thead) { font-size: 12px; text-transform: none; letter-spacing: normal; }
+.workspace :global(.people-table th), .workspace :global(.people-table td) { padding: 14px 16px; }
+.workspace :global(.people-table tbody tr:hover) { background: var(--kss-surface-muted); }
+.workspace .personName { color: var(--kss-ink); font-size: 16px; font-weight: 700; }
+.workspace :global(.people-table a), .workspace :global(.people-mobile-card a), .workspace :global(.people-pagination a), .workspace :global(.people-back), .workspace :global(.people-empty a) { display: inline-flex; min-height: 44px; align-items: center; gap: 6px; }
+.workspace :global(.people-pagination) { padding: 4px 0; font-size: 13px; }
+.workspace :global(.people-back) { margin-bottom: 16px; }
+.workspace :global(.people-record-header) { align-items: start; margin-bottom: 24px; gap: 24px; }
+.workspace :global(.people-record-header h1) { margin: 4px 0 12px; }
+.workspace :global(.people-record-header p) { font-size: 14px; line-height: 1.5; }
+.contextLabel { display: block; margin-bottom: 4px; color: var(--kss-ink-soft); font-size: 12px; font-weight: 600; }
+.siteContext { max-width: 360px; min-width: 0; padding-top: 12px; }
+.siteContext p { margin: 0; overflow-wrap: anywhere; }
+.workspace :global(.people-record-nav) { position: sticky; top: 0; z-index: 10; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; gap: 2px; padding: 8px 0; margin: 0 0 24px; background: var(--kss-bg); }
+.workspace :global(.people-record-nav a) { display: inline-flex; flex: none; min-height: 44px; align-items: center; padding: 8px 12px; font-size: 13px; }
+.workspace :global(.people-record-grid) { display: block; border: 1px solid var(--kss-border); border-radius: 12px; background: white; }
+.workspace :global(.people-record-section) { padding: 28px; border: 0; border-bottom: 1px solid var(--kss-border); border-radius: 0; background: transparent; scroll-margin-top: 80px; }
+.workspace :global(.people-record-section:last-child) { border-bottom: 0; }
+.workspace :global(.people-record-section h2) { font-size: 21px; line-height: 1.3; margin-bottom: 20px; }
+.workspace :global(.people-record-section h3) { font-size: 16px; line-height: 1.4; margin: 20px 0 12px; }
+.workspace :global(.people-record-section p), .workspace :global(.people-record-list span), .workspace :global(.people-record-list small) { font-size: 14px; line-height: 1.55; }
+.workspace :global(.people-record-section dt) { text-transform: none; letter-spacing: normal; font-size: 12px; font-weight: 600; }
+.workspace :global(.people-record-section dd) { font-size: 15px; line-height: 1.5; }
+.workspace :global(.people-record-section .people-overview-list) { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.workspace :global(.people-record-section .people-details-list) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 32px; }
+.workspace :global(.people-record-section a) { display: inline-flex; min-height: 44px; align-items: center; }
+.workspace :global(.people-record-state) { border-color: var(--kss-border); color: var(--kss-ink); background: var(--kss-surface-muted); }
+.workspace :global(.people-record-section .people-next-action) { margin-top: 24px; padding: 16px; border: 1px solid var(--kss-border); background: var(--kss-surface-muted); border-radius: 8px; }
+.workspace :global(.people-next-action strong) { font-size: 15px; }
+.workspace :global(.people-record-list li) { padding-block: 16px; align-items: start; }
+.workspace :global(.people-record-list strong) { font-size: 15px; }
+.workspace :global(.people-restricted) { padding: 12px 16px; border-radius: 8px; background: var(--kss-surface-muted); color: var(--kss-ink-soft); font-weight: 400; }
+.workspace :global(:is(a,button,input,select):focus-visible) { outline: 2px solid var(--kss-focus); outline-offset: 3px; }
+.accessFacts { display: grid; gap: 12px; margin: 0; padding-top: 12px; border-top: 1px solid var(--kss-border); }
+.accessFacts dt { color: var(--kss-ink-soft); font-size: 12px; }
+.accessFacts dd { margin: 3px 0 0; font-size: 14px; overflow-wrap: anywhere; }
+.caseState { font-weight: 600; }
 @media (max-width: 760px) {
-  .workspace :global(.people-mobile-card) {
-    gap: 14px;
-  }
-
-  .workspace :global(.people-mobile-card strong) {
-    font-size: 17px;
-    line-height: 1.35;
-  }
-
-  .workspace :global(.people-mobile-card p) {
-    display: grid;
-    gap: 2px;
-    font-size: 14px;
-  }
-
-  .workspace :global(.people-mobile-card p b) {
-    color: var(--kss-ink);
-    font-size: 12px;
-  }
-
-  .workspace :global(.people-mobile-card a) {
-    border-top: 1px solid var(--kss-border);
-    padding-top: 10px;
-  }
-
-  .workspace :global(.people-record-nav) {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: thin;
-  }
-
-  .workspace :global(.people-record-nav a) {
-    flex: none;
-  }
-
-  .workspace :global(.people-pagination) {
-    flex-wrap: wrap;
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 520px) {
-  .workspace :global(.people-filters) {
-    grid-template-columns: 1fr;
-    padding: 16px;
-  }
-
-  .workspace :global(.people-filters label),
-  .workspace :global(.people-filters button) {
-    grid-column: 1;
-  }
-
-  .workspace :global(.people-record-section) {
-    padding: 18px;
-  }
+  .groups { display: flex; }
+  .groups a { flex: 1; justify-content: center; text-align: center; }
+  .workspace :global(.people-filters) { grid-template-columns: minmax(0,1fr); }
+  .workspace :global(.people-filters label), .workspace :global(.people-filters button) { grid-column: 1; }
+  .workspace :global(.people-result-heading) { align-items: start; flex-direction: column; gap: 6px; }
+  .workspace :global(.people-mobile-list) { gap: 0; border: 1px solid var(--kss-border); border-radius: 12px; overflow: hidden; background: white; }
+  .workspace :global(.people-mobile-card) { padding: 16px; gap: 12px; border: 0; border-bottom: 1px solid var(--kss-border); border-radius: 0; }
+  .workspace :global(.people-mobile-card:last-child) { border-bottom: 0; }
+  .workspace :global(.people-mobile-card strong) { font-size: 18px; line-height: 1.35; }
+  .workspace :global(.people-mobile-card span), .workspace :global(.people-mobile-card p) { font-size: 14px; }
+  .workspace :global(.people-pagination) { flex-wrap: wrap; }
+  .workspace :global(.people-record-section) { padding: 20px 16px; }
+  .workspace :global(.people-record-section .people-overview-list), .workspace :global(.people-record-section .people-details-list) { grid-template-columns: minmax(0,1fr); gap: 16px; }
+  .workspace :global(.people-section-heading) { align-items: start; flex-direction: column; }
+  .siteContext { margin-top: 16px; }
 }

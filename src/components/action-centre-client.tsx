@@ -98,7 +98,7 @@ export function ActionCentreClient() {
     <section aria-label={`${sections.find((item) => item.id === section)?.label ?? "Notifications"} notifications`}>
       {loading ? <p className={styles.empty} role="status">Loading notifications…</p>
         : !payload?.items.length ? <p className={styles.empty}>Nothing to show here.</p>
-          : <div className={styles.list}>{payload.items.map((item) => <article className={styles.card} key={item.id}>
+          : <div className={styles.list}>{payload.items.map((item) => <article className={`${styles.card} ${item.requiresAction ? styles.requiresAction : ""}`} key={item.id}><details open={item.requiresAction}><summary className={styles.noticeSummary}>
             <div className={styles.cardHeading}>
               <div className={styles.titleGroup}><span className={styles.source}>{item.source === "SITE_SHIFT" ? "Site shift" : "Deployment"}</span>
                 <h2>{item.source === "SITE_SHIFT"
@@ -106,7 +106,7 @@ export function ActionCentreClient() {
                   : item.currentMessage === "Your response is required in My Deployments." ? "New deployment request" : "Deployment update"}</h2></div>
               <span className={styles.state}>{item.dismissedAt ? "Dismissed" : item.readAt ? "Read" : "Unread"}</span>
             </div>
-            <p className={styles.message}>{item.currentMessage}</p>
+            <p className={styles.noticeContext}>{item.eventName} · {item.siteName}</p><p className={styles.message}>{item.requiresAction && <strong>Response required · </strong>}{item.currentMessage}</p><span className={styles.disclosure}>Duty details and actions <span aria-hidden="true">⌄</span></span></summary>
             <dl className={styles.facts}>
               <div><dt>{item.source === "SITE_SHIFT" ? "Site service" : "Event"}</dt><dd>{item.eventName}</dd></div><div><dt>Site</dt><dd>{item.siteName}</dd></div>
               <div><dt>Role</dt><dd>{item.roleName}</dd></div><div><dt>Service date</dt><dd>{dateOnly(item.serviceDate)}</dd></div>
@@ -123,7 +123,7 @@ export function ActionCentreClient() {
                 {!item.dismissedAt && <Button variant="outline" size="sm" disabled={busyId === item.id} onClick={() => void changeState(item, "DISMISS")}>Dismiss</Button>}
               </div>
             </div>
-          </article>)}</div>}
+          </details></article>)}</div>}
     </section>
     {!!payload && payload.total > 25 && <div className={styles.pagination}>
       <Button variant="outline" disabled={offset === 0 || loading} onClick={() => void load(section, Math.max(0, offset - 25))}>Previous</Button>

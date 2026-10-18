@@ -108,8 +108,8 @@ export function WorkClient() {
   const covering = visibleTasks.filter((task) => task.state === "OPEN" && task.covering);
   const done = visibleTasks.filter((task) => task.state === "DONE");
   const cancelled = visibleTasks.filter((task) => task.state === "CANCELLED");
-  return <main className="enterprise-main work-main">
-    <header className="ui-page-header"><h1>My Work</h1></header>
+  return <main className={`enterprise-main work-main ${styles.page}`}>
+    <header className={styles.heading}><p className="enterprise-eyebrow">Your assigned work</p><h1>My Work</h1><p>Review the next action in its source record, or explore work by deadline.</p></header>
     {error && <FeedbackBanner tone="error">Work is unavailable. Refresh to try again.</FeedbackBanner>}
     {loading ? <LoadingBlock label="Loading your work…" /> : !error && <>
       <div className={calendarStyles.views} role="group" aria-label="Work view">
@@ -144,13 +144,13 @@ export function WorkClient() {
       {covering.length > 0 && <section aria-labelledby="covering-work-heading"><h2 id="covering-work-heading">Covering</h2>
         <ul className="work-list">{covering.map((task) => <TaskCard key={task.id} task={task} />)}</ul>
       </section>}
-      {(!filtered || done.length > 0) && <section aria-labelledby="done-work-heading"><h2 id="done-work-heading">Completed history</h2>
+      {(!filtered || done.length > 0) && <details className={styles.history} open={status === "DONE"}><summary><h2 id="done-work-heading">Completed history</h2><span>{done.length} returned</span></summary>
         {done.length ? <ul className="work-list">{done.map((task) => <TaskCard key={task.id} task={task} />)}</ul> :
           <EmptyState title="No completed tasks" description="Completed document reviews and CRM follow-ups will appear here when available." />}
-      </section>}
-      {cancelled.length > 0 && <section aria-labelledby="cancelled-work-heading"><h2 id="cancelled-work-heading">Cancelled history</h2>
+      </details>}
+      {cancelled.length > 0 && <details className={styles.history} open={status === "CANCELLED"}><summary><h2 id="cancelled-work-heading">Cancelled history</h2><span>{cancelled.length} returned</span></summary>
         <ul className="work-list">{cancelled.map((task) => <TaskCard key={task.id} task={task} />)}</ul>
-      </section>}
+      </details>}
     </div>}
     </>}
   </main>;

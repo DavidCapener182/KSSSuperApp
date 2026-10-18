@@ -1,0 +1,37 @@
+{
+  "verifiedAt": "2026-10-18T02:00:36.320915+00:00",
+  "records": 40,
+  "screenshots": 36,
+  "widths": [
+    1440,
+    834,
+    390,
+    320
+  ],
+  "actualRoutes": [
+    "/work",
+    "/work/[taskId]",
+    "/action-centre"
+  ],
+  "sharedCommit": "67aad4c0f460cfa64371409ba15fc750d8b073df",
+  "sourceAndBoundaryHashChecks": true,
+  "externalRequests": 0,
+  "pageErrors": 0,
+  "mockWrites": 16,
+  "realWrites": 0,
+  "servers": "runner exited0 and terminated both local servers",
+  "scriptHashes": [
+    {
+      "file": "ui-milestone-evidence/prepare-work-inbox-preview.py",
+      "sha256": "122eebf2af1be36c2b77a9c349fd607528ae0159deaf7a305b8734d8f77f1160"
+    },
+    {
+      "file": "ui-milestone-evidence/run-work-inbox-preview.py",
+      "sha256": "66dfb011e0a22e9b18e68b11ded6a7bbefcbfaf85c6733046fcf6aa58f5faa59"
+    },
+    {
+      "file": "ui-milestone-evidence/work-inbox-capture.mjs",
+      "sha256": "172fec0071ac8f9b226b9b72771ffb4a8335459d67f87c3da3d0353fe639f517"
+    }
+  ]
+}

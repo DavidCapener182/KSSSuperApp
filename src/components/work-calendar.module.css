@@ -15,9 +15,9 @@
 .day[aria-current=date] { border-width: 2px; border-color: var(--kss-blue); }
 .day[aria-pressed=true] { background: var(--kss-blue-soft); border-color: var(--kss-blue); font-weight: 700; }
 .outside { color: var(--kss-ink-soft); background: var(--kss-bg); }
-.count { font-size: 10px; white-space: nowrap; }
-.agendaList { display: grid; gap: 18px; list-style: none; padding: 0; margin: 0; }
+.count { font-size: 12px; white-space: nowrap; }
+.agendaList { display: grid; gap: 0; list-style: none; padding: 0; margin: 0; }
 .dueTime { font-size: 13px; font-weight: 600; color: var(--kss-ink); margin: 0 0 8px; }
 .undated { margin-top: 28px; }
-.undated > ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.undated > ul { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
 @media (max-width: 760px) { .layout, .undated > ul { grid-template-columns: minmax(0, 1fr); } .grid { border-spacing: 2px; } }
