@@ -1,0 +1,157 @@
+{
+  "sourceManifestSha256": "1358a0fcd9b88f03d189932cb0be8c40101d700aa639ade7e45d6307ad2f0cf1",
+  "parity": [
+    {
+      "file": "src/app/(enterprise)/events/[id]/attendance/page.tsx",
+      "runtimeSha256": "97212bc0f75699b105b97f55ca39c58d87225f5ce87597dc0bb93f0bba94b227",
+      "candidateSha256": "97212bc0f75699b105b97f55ca39c58d87225f5ce87597dc0bb93f0bba94b227",
+      "matches": true
+    },
+    {
+      "file": "src/lib/auth/capabilities.ts",
+      "runtimeSha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "candidateSha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "matches": true
+    },
+    {
+      "file": "src/components/event-attendance-client.tsx",
+      "runtimeSha256": "0d93e1e7634cce7a905609821ddce4fee0d9a76a586defb43bde18d7410a291e",
+      "candidateSha256": "0d93e1e7634cce7a905609821ddce4fee0d9a76a586defb43bde18d7410a291e",
+      "matches": true
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "runtimeSha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "candidateSha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "matches": true
+    },
+    {
+      "file": "src/components/attendance.module.css",
+      "runtimeSha256": "61adb33cdca0ccde7ea9609aee3fd98cf3239910a278ff186fb239fa115395e7",
+      "candidateSha256": "61adb33cdca0ccde7ea9609aee3fd98cf3239910a278ff186fb239fa115395e7",
+      "matches": true
+    },
+    {
+      "file": "src/components/attendance-desk.tsx",
+      "runtimeSha256": "823d0d56ac015f085cecaaa13b25c5b6237fda925a1721abfba5a446047e8ed9",
+      "candidateSha256": "823d0d56ac015f085cecaaa13b25c5b6237fda925a1721abfba5a446047e8ed9",
+      "matches": true
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "runtimeSha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "candidateSha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "matches": true
+    },
+    {
+      "file": "src/components/ui/sheet.module.css",
+      "runtimeSha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "candidateSha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "matches": true
+    },
+    {
+      "file": "src/lib/auth/return-target.ts",
+      "runtimeSha256": "f8203e4cce09b400ced1872f44dfe0da40e5392e0dab5e627f9241a1950d0bee",
+      "candidateSha256": "f8203e4cce09b400ced1872f44dfe0da40e5392e0dab5e627f9241a1950d0bee",
+      "matches": true
+    },
+    {
+      "file": "src/app/(enterprise)/events/[id]/work-time/page.tsx",
+      "runtimeSha256": "d8e8feae2a8adf03524904f2dd794d6176d95a474052c46b425fe5fd955b4f2e",
+      "candidateSha256": "d8e8feae2a8adf03524904f2dd794d6176d95a474052c46b425fe5fd955b4f2e",
+      "matches": true
+    },
+    {
+      "file": "src/components/event-work-time-client.tsx",
+      "runtimeSha256": "0cb5cc7f154e2603d90b2c66ac74bb944615e0c9c6a33cc28e07265127345597",
+      "candidateSha256": "0cb5cc7f154e2603d90b2c66ac74bb944615e0c9c6a33cc28e07265127345597",
+      "matches": true
+    },
+    {
+      "file": "src/lib/events/work-time-readback.ts",
+      "runtimeSha256": "034ac6454a823e5a925f34cac8a768c30877b13e5acecd4e0d9d7f6233838f6b",
+      "candidateSha256": "034ac6454a823e5a925f34cac8a768c30877b13e5acecd4e0d9d7f6233838f6b",
+      "matches": true
+    },
+    {
+      "file": "src/components/work-time.module.css",
+      "runtimeSha256": "8bc6e40cb59f17af102ec27ab2f06693d52e19be941f908e6caec5a2f38201a1",
+      "candidateSha256": "8bc6e40cb59f17af102ec27ab2f06693d52e19be941f908e6caec5a2f38201a1",
+      "matches": true
+    },
+    {
+      "file": "src/app/(enterprise)/sites/[siteId]/services/[serviceId]/attendance/page.tsx",
+      "runtimeSha256": "0f8d5f9af72530cdc224d23da04ec815729638146f191851c91e1e7693c8c530",
+      "candidateSha256": "0f8d5f9af72530cdc224d23da04ec815729638146f191851c91e1e7693c8c530",
+      "matches": true
+    },
+    {
+      "file": "src/components/site-attendance-client.tsx",
+      "runtimeSha256": "cd9ef97696e911ba8477dfac5de6bdc746dc141004c78d2ae72723d93c74468c",
+      "candidateSha256": "cd9ef97696e911ba8477dfac5de6bdc746dc141004c78d2ae72723d93c74468c",
+      "matches": true
+    },
+    {
+      "file": "src/components/enterprise-shell.tsx",
+      "runtimeSha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "candidateSha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "matches": true
+    },
+    {
+      "file": "src/lib/environment-label.ts",
+      "runtimeSha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "candidateSha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "matches": true
+    },
+    {
+      "file": "src/app/globals.css",
+      "runtimeSha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "candidateSha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "matches": true
+    },
+    {
+      "file": "postcss.config.mjs",
+      "runtimeSha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde",
+      "candidateSha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde",
+      "matches": true
+    }
+  ],
+  "boundaryFiles": [
+    {
+      "file": "src/lib/auth/principal.ts",
+      "sha256": "87b140d649a03084d1653c4fabfc693fe240b88d009872badd7387632f6319e7",
+      "reason": "Explicit synthetic identity/DB/layout/deny-default boundary; excluded from candidate source-parity assertion"
+    },
+    {
+      "file": "src/lib/supabase/server.ts",
+      "sha256": "9754fd47bb5cc6826b446ca2afd6c8d50520987cc2b0bc98eaab924760a75466",
+      "reason": "Explicit synthetic identity/DB/layout/deny-default boundary; excluded from candidate source-parity assertion"
+    },
+    {
+      "file": "src/lib/supabase/browser.ts",
+      "sha256": "5032642de8bd4b04dd8d3c2289a76141bc51e0b22f90044883652d509bbee19b",
+      "reason": "Explicit synthetic identity/DB/layout/deny-default boundary; excluded from candidate source-parity assertion"
+    },
+    {
+      "file": "src/app/layout.tsx",
+      "sha256": "96045099ca4c8f0ae5f551da5842fd985e8f0132a56d350e963ad87acbb149ce",
+      "reason": "Explicit synthetic identity/DB/layout/deny-default boundary; excluded from candidate source-parity assertion"
+    },
+    {
+      "file": "src/app/not-found.tsx",
+      "sha256": "2474382ace99cd7205bfba10d912f30fb141063091817754de997b9bf7638bb6",
+      "reason": "Explicit synthetic identity/DB/layout/deny-default boundary; excluded from candidate source-parity assertion"
+    },
+    {
+      "file": "src/app/api/[...path]/route.ts",
+      "sha256": "4b1ee649e21258a973765534730a10903c62819148f17fa0624eb15f6fdf8c67",
+      "reason": "Explicit synthetic identity/DB/layout/deny-default boundary; excluded from candidate source-parity assertion"
+    }
+  ],
+  "limitations": [
+    "Immutable per-run source copied from recorded runtime only after exact hash verification; no mutable reused fixture path substituted",
+    "Actual route source under synthetic principal/API adapters, no Auth/RPC/RLS/persistence claim",
+    "Office worked-time grant administration branch not rendered; synthetic read grants exercise review only",
+    "LeaveReconciliation imported by Service detail but not rendered by main screenshot/editor cases; no leave reconciliation acceptance inferred"
+  ]
+}

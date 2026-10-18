@@ -1,0 +1,14 @@
+BROWSER_RUNNING_SITES after http://127.0.0.1:3223
+WIDTH_PASS_SITES after 1440 8
+WIDTH_PASS_SITES after 834 19
+WIDTH_PASS_SITES after 390 30
+WIDTH_PASS_SITES after 320 41
+✔ Sites and Services source composition with labelled synthetic boundaries (42443.030375ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 42556.176209

@@ -3,6 +3,9 @@
 import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import journey from "@/components/commercial-journey.module.css";
+import { SiteOperationPanel } from "@/components/site-operation-panel";
+import styles from "@/components/site-operations.module.css";
+import { siteInstant } from "@/components/site-operations-format";
 
 type SiteListItem = { id: string; siteReference: string; name: string; townCity: string; status: string; canManage: boolean };
 type SiteDetail = { id: string; site_reference: string; name: string; address_line1: string; town_city: string; postcode: string; reporting_point: string; site_type: string | null; status: string };
@@ -141,13 +144,13 @@ export default function SitesPage({ organisationId, mobilisationId }: { organisa
   if (authState === "denied") return <main className="sites-shell"><h1>Site access unavailable</h1><p>Your current Enterprise access could not be confirmed.</p><Link href="/app">Return Home</Link></main>;
   const office = roles.includes("OFFICE_ADMIN") || roles.includes("SUPER_ADMIN");
 
-  return <main className={`sites-shell ${journey.controls}`}>
+  return <main className={`sites-shell ${journey.controls} ${styles.workspace}`}>
     <header className="sites-header"><div><Link href="/app">← Home</Link><p className="eyebrow">Clients / Sites</p><h1>Sites</h1><p>Create and manage the locations where KSS works. Only Sites in your authorised scope appear here. {office&&<Link href="/sites?view=operational">Browse operational Sites</Link>}</p></div></header>
     {office && <nav className={journey.context} aria-label="Commercial and Site context"><Link href="/crm?view=organisations">Clients</Link><span>→</span><strong>Site / Venue</strong><span>→</span><Link href="/events">Events</Link><span>Site Services are separate ongoing work.</span></nav>}
     {mobilisationId && office && <p className="enterprise-honesty">Choose or create a Site using the Site source. Once its exact record is confirmed, return to Mobilisation and link it explicitly.</p>}
     {notice && <p className="sites-notice" role="status">{notice}</p>}
-    <section className="sites-grid">
-      <div className="sites-card">
+    <section className={`sites-grid ${styles.workspaceSplit}`}>
+      <div className={`sites-card ${styles.surface}`}>
         <h2>Find a Site</h2>
         <form className="sites-search" onSubmit={(event) => { event.preventDefault(); void act(() => loadSites()); }}>
           <input aria-label="Search Sites" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Name or reference" />
@@ -158,7 +161,7 @@ export default function SitesPage({ organisationId, mobilisationId }: { organisa
         {!sites.length && <p>{search ? "No permitted Sites match this search." : "You have no permitted Sites yet."}</p>}
       </div>
 
-      <div className="sites-card">
+      <div className={`sites-card ${styles.surface}`}>
         {selected ? <>
           {mobilisationId && office && <p role="status"><Link href={`/mobilisations/${mobilisationId}?sourceType=SITE&sourceId=${selected.id}#links-heading`}>Return to Mobilisation with exact Site ID</Link></p>}
           <div className="sites-title"><div><p className="eyebrow">{selected.status}</p><h2>{selected.name}</h2></div><button className="subtle" onClick={() => { setSelected(null); setDraft(emptySite); }}>Close</button></div>
@@ -173,28 +176,29 @@ export default function SitesPage({ organisationId, mobilisationId }: { organisa
           <p className="sites-id">Site ID: {selected.id}</p>
           {canManage && <>
             <h3>Manage Site</h3>
-            <form className="sites-form" onSubmit={(event) => { event.preventDefault(); void changeSite({ name: draft.name, address_line1: draft.address_line1, town_city: draft.town_city, postcode: draft.postcode, reporting_point: draft.reporting_point, site_type:draft.site_type }); }}>
+            <SiteOperationPanel label="Edit Site details" title="Edit Site details" context={selected.name} busy={busy}><form className="sites-form" onSubmit={(event) => { event.preventDefault(); void changeSite({ name: draft.name, address_line1: draft.address_line1, town_city: draft.town_city, postcode: draft.postcode, reporting_point: draft.reporting_point, site_type:draft.site_type }); }}>
               {(["name", "address_line1", "town_city", "postcode", "reporting_point"] as const).map((field) => <label key={field}>{fieldLabels[field]}<input value={draft[field]} onChange={(event) => setDraft({ ...draft, [field]: event.target.value })} required /></label>)}
               <label>Site type<select value={draft.site_type} onChange={(event)=>setDraft({...draft,site_type:event.target.value})}><option value="">Unclassified</option>{siteTypes.map((type)=><option key={type} value={type}>{type.replaceAll("_"," ")}</option>)}</select></label>
               <button disabled={busy}>Save Site fields</button>
-            </form>
+            </form></SiteOperationPanel>
             {!operationalSite?.organisation_id&&office&&<><h3>Link Client</h3><p>Choose the exact Client. This does not grant CRM or Site administration access.</p>
-              <form className="sites-form" onSubmit={linkClient}><label>Client Organisation<select required value={clientId} onChange={(event)=>setClientId(event.target.value)}><option value="">Choose Client</option>{clientChoices.map((item)=><option key={item.id} value={item.id}>{item.name}</option>)}</select></label><button disabled={busy||!clientId}>Link Client</button></form></>}
-            {selected.status === "DRAFT" && <button disabled={busy} onClick={() => void changeSite({ status: "ACTIVE" })}>Activate Site</button>}
+              <SiteOperationPanel label="Link a Client" title="Link the exact Client" context={selected.name} busy={busy}><form className="sites-form" onSubmit={linkClient}><label>Client Organisation<select required value={clientId} onChange={(event)=>setClientId(event.target.value)}><option value="">Choose Client</option>{clientChoices.map((item)=><option key={item.id} value={item.id}>{item.name}</option>)}</select></label><button disabled={busy||!clientId}>Link Client</button></form></SiteOperationPanel></>}
+            {selected.status!=="RETIRED"&&<SiteOperationPanel label="Change Site lifecycle" title="Change Site lifecycle" context={`${selected.name} · currently ${selected.status}`} busy={busy}><p>Review this exact Site before changing its lifecycle. Site access and shift allocation remain separate.</p>            {selected.status === "DRAFT" && <button disabled={busy} onClick={() => void changeSite({ status: "ACTIVE" })}>Activate Site</button>}
             {selected.status === "ACTIVE" && <button disabled={busy} className="subtle" onClick={() => void changeSite({ status: "RETIRED" })}>Retire Site</button>}
+</SiteOperationPanel>}
             <h3>Staff assignments</h3>
-            {selected.status === "ACTIVE" && <form className="sites-form" onSubmit={assign}>
+            {selected.status === "ACTIVE" && <SiteOperationPanel label="Assign Security Staff" title="Dated Site access" context={selected.name} busy={busy}><form className="sites-form" onSubmit={assign}>
               <label>Security Staff Person ID<input value={staffPersonId} onChange={(event) => setStaffPersonId(event.target.value)} required placeholder="Stable Person UUID" /></label>
               <label>Start<input type="datetime-local" value={startAt} onChange={(event) => setStartAt(event.target.value)} required /></label>
               <label>End<input type="datetime-local" value={endAt} onChange={(event) => setEndAt(event.target.value)} required /></label>
               <label>Reason<input value={reason} onChange={(event) => setReason(event.target.value)} required /></label>
               <button disabled={busy}>Assign Security Staff</button>
-            </form>}
-            <ul className="sites-assignments">{assignments.map((a) => <li key={a.id}><span>Person {a.person_id}<br />{a.effective_from} → {a.effective_until ?? "No end"}<br />{a.revoked_at ? "Revoked" : "Recorded"} · {a.change_reason}</span>{selected.status === "ACTIVE" && !a.revoked_at && <div><button disabled={busy} className="subtle" onClick={() => void changeAssignment(a.id, false)}>Expire now</button><button disabled={busy} className="subtle" onClick={() => void changeAssignment(a.id, true)}>Revoke</button></div>}</li>)}</ul>
-            <h3>Change history</h3>
-            <ul className="sites-history">{history.map((event) => <li key={event.id}>{event.occurred_at} · {event.action} {event.entity_type} · actor {event.actor_person_id}{event.reason ? ` · ${event.reason}` : ""}</li>)}</ul>
+            </form></SiteOperationPanel>}
+            <ul className="sites-assignments">{assignments.map((a) => <li key={a.id}><span>Person {a.person_id}<br />{siteInstant(a.effective_from)} → {a.effective_until?siteInstant(a.effective_until):"No end"}<br />{a.revoked_at ? "Revoked" : "Recorded"} · {a.change_reason}</span>{selected.status === "ACTIVE" && !a.revoked_at && <SiteOperationPanel label="Change assignment" title="Change dated Site access" context={`${selected.name} · Person ${a.person_id}`} busy={busy}><p>Recorded until {a.effective_until?siteInstant(a.effective_until):"No end"} · London. Expiry and revocation are distinct recorded actions.</p><label>Change reason<input value={reason} onChange={(event)=>setReason(event.target.value)} required/></label><div className={styles.actions}><button disabled={busy} className="subtle" onClick={() => void changeAssignment(a.id, false)}>Expire now</button><button disabled={busy} className="subtle" onClick={() => void changeAssignment(a.id, true)}>Revoke</button></div></SiteOperationPanel>}</li>)}</ul>
+            <details className={styles.historyDisclosure}><summary>Site change history</summary>
+            <ul className="sites-history">{history.map((event) => <li key={event.id}>{siteInstant(event.occurred_at)} · {event.action} {event.entity_type} · actor {event.actor_person_id}{event.reason ? ` · ${event.reason}` : ""}</li>)}</ul></details>
           </>}
-        </> : office ? <><h2>Add a Site</h2><p>Save the Site as a draft, then review its details before activation. Staff access is assigned separately.</p><form className="sites-form" onSubmit={createSite}>
+        </> : office ? <><h2>Add a Site</h2><p>Save the Site as a draft, then review its details before activation. Staff access is assigned separately.</p><SiteOperationPanel label="Add a Site" title="Create a draft Site" context={"New Site · unique reference"} busy={busy}><form className="sites-form" onSubmit={createSite}>
           {(["site_reference", "name", "address_line1", "town_city", "postcode", "reporting_point"] as const).map((field) =>
             <label key={field}>{fieldLabels[field]}<input value={draft[field]}
               onChange={(event) => setDraft({ ...draft, [field]: field === "site_reference" ? event.target.value.toUpperCase() : event.target.value })}
@@ -202,7 +206,7 @@ export default function SitesPage({ organisationId, mobilisationId }: { organisa
           <p className="ui-help">Use a unique reference with letters, numbers or hyphens. It cannot be changed after creation.</p>
           <label>Site type<select value={draft.site_type} onChange={(event)=>setDraft({...draft,site_type:event.target.value})}><option value="">Unclassified</option>{siteTypes.map((type)=><option key={type} value={type}>{type.replaceAll("_"," ")}</option>)}</select></label>
           <button disabled={busy}>Create Draft Site</button>
-        </form></> : <><h2>Select a Site</h2><p>Choose one of your assigned active Sites to view its location and reporting point.</p></>}
+        </form></SiteOperationPanel></> : <><h2>Select a Site</h2><p>Choose one of your assigned active Sites to view its location and reporting point.</p></>}
       </div>
     </section>
   </main>;

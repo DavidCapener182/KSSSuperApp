@@ -1,0 +1,1 @@
+const deny=()=>Response.json({error:'Unmatched synthetic API/write denied'},{status:403});export const GET=deny;export const POST=deny;export const PATCH=deny;export const DELETE=deny;

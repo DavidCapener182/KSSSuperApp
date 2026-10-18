@@ -1,0 +1,416 @@
+[
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint03-source-authority-red/src/components/operational-sites-client.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint03-source-authority-red/src/components/operational-sites-client.tsx.txt",
+    "sha256": "881136728b577d8eec4a440a775c2c3717ad0734b8f20344deb00d97aa2151e0",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint03-source-authority-red/src/components/site-service-detail-client.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint03-source-authority-red/src/components/site-service-detail-client.tsx.txt",
+    "sha256": "6cbd5da2a48f9e85fce1110da8f4e4d3e2d17c1441aad1375c4189fabfc71fcc",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint03b-mobile-filter-red/operational-sites-client.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint03b-mobile-filter-red/operational-sites-client.tsx.txt",
+    "sha256": "881136728b577d8eec4a440a775c2c3717ad0734b8f20344deb00d97aa2151e0",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/src/components/operational-sites-client.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/src/components/operational-sites-client.tsx.txt",
+    "sha256": "5b785c15df55ff35c9bdfda602817bdc1cede655d9486e597ec1f08e94545768",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/src/components/site-service-detail-client.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/src/components/site-service-detail-client.tsx.txt",
+    "sha256": "373a439ed40664237a066adfd61d196717a268fae6627a444443b5d767b939fa",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/operations/src/app/api/[...path]/route.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/operations/src/app/api/[...path]/route.ts.txt",
+    "sha256": "4b1ee649e21258a973765534730a10903c62819148f17fa0624eb15f6fdf8c67",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/operations/src/app/layout.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/operations/src/app/layout.tsx.txt",
+    "sha256": "96045099ca4c8f0ae5f551da5842fd985e8f0132a56d350e963ad87acbb149ce",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/operations/src/app/not-found.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/operations/src/app/not-found.tsx.txt",
+    "sha256": "2474382ace99cd7205bfba10d912f30fb141063091817754de997b9bf7638bb6",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/operations/src/lib/auth/principal.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/operations/src/lib/auth/principal.ts.txt",
+    "sha256": "87b140d649a03084d1653c4fabfc693fe240b88d009872badd7387632f6319e7",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/operations/src/lib/supabase/browser.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/operations/src/lib/supabase/browser.ts.txt",
+    "sha256": "5032642de8bd4b04dd8d3c2289a76141bc51e0b22f90044883652d509bbee19b",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/operations/src/lib/supabase/server.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/operations/src/lib/supabase/server.ts.txt",
+    "sha256": "9754fd47bb5cc6826b446ca2afd6c8d50520987cc2b0bc98eaab924760a75466",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/sites/src/app/api/[...path]/route.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/sites/src/app/api/[...path]/route.ts.txt",
+    "sha256": "4b1ee649e21258a973765534730a10903c62819148f17fa0624eb15f6fdf8c67",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/sites/src/app/layout.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/sites/src/app/layout.tsx.txt",
+    "sha256": "96045099ca4c8f0ae5f551da5842fd985e8f0132a56d350e963ad87acbb149ce",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/sites/src/app/not-found.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/sites/src/app/not-found.tsx.txt",
+    "sha256": "2474382ace99cd7205bfba10d912f30fb141063091817754de997b9bf7638bb6",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/sites/src/lib/auth/principal.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/sites/src/lib/auth/principal.ts.txt",
+    "sha256": "6b73c34e63e48b2e04d4c076a5058892e6eaadd9b5cad4ae10996251802e08ac",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/sites/src/lib/supabase/browser.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/sites/src/lib/supabase/browser.ts.txt",
+    "sha256": "5032642de8bd4b04dd8d3c2289a76141bc51e0b22f90044883652d509bbee19b",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/sites/src/lib/supabase/server.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-boundaries/sites/src/lib/supabase/server.ts.txt",
+    "sha256": "8b0bb98dd2d214638dbf082dcdde3722c0d3c65aa3bf7a8e10e6a8771e54162f",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/app/(enterprise)/events/[id]/attendance/page.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/app/(enterprise)/events/[id]/attendance/page.tsx.txt",
+    "sha256": "97212bc0f75699b105b97f55ca39c58d87225f5ce87597dc0bb93f0bba94b227",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/app/(enterprise)/events/[id]/work-time/page.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/app/(enterprise)/events/[id]/work-time/page.tsx.txt",
+    "sha256": "d8e8feae2a8adf03524904f2dd794d6176d95a474052c46b425fe5fd955b4f2e",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/app/(enterprise)/sites/[siteId]/services/[serviceId]/attendance/page.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/app/(enterprise)/sites/[siteId]/services/[serviceId]/attendance/page.tsx.txt",
+    "sha256": "0f8d5f9af72530cdc224d23da04ec815729638146f191851c91e1e7693c8c530",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/attendance-desk.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/attendance-desk.tsx.txt",
+    "sha256": "823d0d56ac015f085cecaaa13b25c5b6237fda925a1721abfba5a446047e8ed9",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/enterprise-shell.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/enterprise-shell.tsx.txt",
+    "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/event-attendance-client.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/event-attendance-client.tsx.txt",
+    "sha256": "0d93e1e7634cce7a905609821ddce4fee0d9a76a586defb43bde18d7410a291e",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/event-work-time-client.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/event-work-time-client.tsx.txt",
+    "sha256": "0cb5cc7f154e2603d90b2c66ac74bb944615e0c9c6a33cc28e07265127345597",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/site-attendance-client.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/site-attendance-client.tsx.txt",
+    "sha256": "cd9ef97696e911ba8477dfac5de6bdc746dc141004c78d2ae72723d93c74468c",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/ui/button.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/ui/button.tsx.txt",
+    "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/ui/sheet.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/components/ui/sheet.tsx.txt",
+    "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/lib/auth/capabilities.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/lib/auth/capabilities.ts.txt",
+    "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/lib/auth/return-target.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/lib/auth/return-target.ts.txt",
+    "sha256": "f8203e4cce09b400ced1872f44dfe0da40e5392e0dab5e627f9241a1950d0bee",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/lib/environment-label.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/lib/environment-label.ts.txt",
+    "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/lib/events/work-time-readback.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/src/lib/events/work-time-readback.ts.txt",
+    "sha256": "034ac6454a823e5a925f34cac8a768c30877b13e5acecd4e0d9d7f6233838f6b",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/app/(enterprise)/sites/[siteId]/services/[serviceId]/page.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/app/(enterprise)/sites/[siteId]/services/[serviceId]/page.tsx.txt",
+    "sha256": "e310235cd5254f821d03007d188536e012363ebc9d4ae515592311c6acf22fd4",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/app/(enterprise)/sites/[siteId]/services/page.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/app/(enterprise)/sites/[siteId]/services/page.tsx.txt",
+    "sha256": "ec92c6d6e86f5c7ee3a95dbd4e1b801b35404392274e003264d06aa63813a2f9",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/app/(enterprise)/sites/[siteId]/workspace/page.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/app/(enterprise)/sites/[siteId]/workspace/page.tsx.txt",
+    "sha256": "222dcbf2fdedc359994ead1749292ebbce76038e13fdc0372a1818dca2d36d2b",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/app/(enterprise)/sites/page.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/app/(enterprise)/sites/page.tsx.txt",
+    "sha256": "fa8f96039c41ab69d78f12482fb3311639444b2f4dd88cdf4e89b5c18fb82de0",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/app/(enterprise)/sites/sites-client.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/app/(enterprise)/sites/sites-client.tsx.txt",
+    "sha256": "12152b857f9ea594684a9f383403ce8f5c58f3678aae663c503eae87abdc525d",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/enterprise-shell.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/enterprise-shell.tsx.txt",
+    "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/leave-reconciliation.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/leave-reconciliation.tsx.txt",
+    "sha256": "c183d3534ab19a1553b9bf08e789195efa2dc5df9fa4e14e9cf2488bed6f3763",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/operational-document-context-card.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/operational-document-context-card.tsx.txt",
+    "sha256": "0ecb1f033394ef045ae466ed5c66f9a359387ac3e5cad62be60b81999b8500a3",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/operational-sites-client.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/operational-sites-client.tsx.txt",
+    "sha256": "5b785c15df55ff35c9bdfda602817bdc1cede655d9486e597ec1f08e94545768",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/record-section-tracker.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/record-section-tracker.tsx.txt",
+    "sha256": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/site-operation-panel.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/site-operation-panel.tsx.txt",
+    "sha256": "d189b716b22c68a25df43b2f465be9af27e602844e3ad8fb24f8ef572b286534",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/site-operations-format.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/site-operations-format.ts.txt",
+    "sha256": "bc57937d0fd9c558cb7550bbec1b86fb0a866371a046a4b384a0e3633daef9be",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/site-service-detail-client.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/site-service-detail-client.tsx.txt",
+    "sha256": "373a439ed40664237a066adfd61d196717a268fae6627a444443b5d767b939fa",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/site-services-client.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/site-services-client.tsx.txt",
+    "sha256": "5eb2d0b7d9edaea53fd086e63034e0a0765f7ba9ee1aaa53311d322f7931478e",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/ui/button.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/ui/button.tsx.txt",
+    "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/ui/input.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/ui/input.tsx.txt",
+    "sha256": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/ui/sheet.tsx",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/components/ui/sheet.tsx.txt",
+    "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/auth/capabilities.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/auth/capabilities.ts.txt",
+    "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/auth/return-target.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/auth/return-target.ts.txt",
+    "sha256": "f8203e4cce09b400ced1872f44dfe0da40e5392e0dab5e627f9241a1950d0bee",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/crm/due-time.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/crm/due-time.ts.txt",
+    "sha256": "91c20dd59611328cfd68bd07f43e672bf6719a207654326e09d26e607ea4dd20",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/environment-label.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/environment-label.ts.txt",
+    "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/events/workforce-navigation.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/events/workforce-navigation.ts.txt",
+    "sha256": "af2f5a3398442bb2916447f53b5b04e79670a4fe13108ae97041e6e622e57136",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/events/workforce-week.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/events/workforce-week.ts.txt",
+    "sha256": "8b7a7a0e7a6e186efd75babea34eac951cd509e4f917d274b0ed16a92959ac64",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/reports/navigation.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/reports/navigation.ts.txt",
+    "sha256": "81e4b458a7e95b3a5e7ace98965899079c8bed8f060facd34ead5108ffd7595a",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/sites/policy.ts",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/src/lib/sites/policy.ts.txt",
+    "sha256": "d2964d8a51cec61174023650bc561cedf6fadc853463fdaacaf6a5df536d1426",
+    "note": "Historical partial source text, excluded from TypeScript compile. Original worker snapshot remains untouched outside candidate."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint01-attendance-worktime/before-runner-frozen.mjs",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint01-attendance-worktime/before-runner-frozen.mjs.txt",
+    "sha256": "354e7a957b5563b85999d19d8a413b2c1f118233663bc8e98362100226b9acbe",
+    "note": "Historical executable diagnostic source preserved byte-identically as text; canonical tests/runners remain executable under tests/ and scripts/."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint01-attendance-worktime/operations-attendance-worktime-browser.mjs",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint01-attendance-worktime/operations-attendance-worktime-browser.mjs.txt",
+    "sha256": "27b69ecc28af71fd15aad50b3cc4fdbfd4ab042d03a566695e43a0d602d03455",
+    "note": "Historical executable diagnostic source preserved byte-identically as text; canonical tests/runners remain executable under tests/ and scripts/."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint03-source-authority-red/probe.mjs",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint03-source-authority-red/probe.mjs.txt",
+    "sha256": "1ad1155cac60a83e9116f9356a83428863b40f2e5c4b4f676d672625124f07f9",
+    "note": "Historical executable diagnostic source preserved byte-identically as text; canonical tests/runners remain executable under tests/ and scripts/."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/fixture-evidence/adapted.test.mjs",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/fixture-evidence/adapted.test.mjs.txt",
+    "sha256": "b59bdd79d6a5ff8f756610d38af823392cb220a4fc6b06cd67150af5fb3c5740",
+    "note": "Historical executable diagnostic source preserved byte-identically as text; canonical tests/runners remain executable under tests/ and scripts/."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/fixture-evidence/original.test.mjs",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/fixture-evidence/original.test.mjs.txt",
+    "sha256": "8fff2a74d016d8968afd9634da52fb463fa1635385d6f7a2129a9b794a6f6315",
+    "note": "Historical executable diagnostic source preserved byte-identically as text; canonical tests/runners remain executable under tests/ and scripts/."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/sites-services-repaired-browser.mjs",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/sites-services-repaired-browser.mjs.txt",
+    "sha256": "96c1d84941abfb4d89f33d8c8dd4947884d6c74822cc768d0a453940b53aada9",
+    "note": "Historical executable diagnostic source preserved byte-identically as text; canonical tests/runners remain executable under tests/ and scripts/."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/sites-source-authority-probes-repaired.mjs",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/sites-source-authority-probes-repaired.mjs.txt",
+    "sha256": "c68013d49792bce5c4dbc7edd973c88dc2c7996a7fefd5c1c316ee8d1a4317ee",
+    "note": "Historical executable diagnostic source preserved byte-identically as text; canonical tests/runners remain executable under tests/ and scripts/."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/tests/ui-operations-current-source-local.test.mjs",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/checkpoint04-sites-source-repairs/tests/ui-operations-current-source-local.test.mjs.txt",
+    "sha256": "311cb22bb101a006d65afd6ef66024969ba08501514a1fd80435186793bbc1f4",
+    "note": "Historical executable diagnostic source preserved byte-identically as text; canonical tests/runners remain executable under tests/ and scripts/."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/operations-runner.mjs",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/operations-runner.mjs.txt",
+    "sha256": "27b69ecc28af71fd15aad50b3cc4fdbfd4ab042d03a566695e43a0d602d03455",
+    "note": "Historical executable diagnostic source preserved byte-identically as text; canonical tests/runners remain executable under tests/ and scripts/."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/postcss.config.mjs",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/operations/postcss.config.mjs.txt",
+    "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde",
+    "note": "Historical executable diagnostic source preserved byte-identically as text; canonical tests/runners remain executable under tests/ and scripts/."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/postcss.config.mjs",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/runtime-source/sites/postcss.config.mjs.txt",
+    "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde",
+    "note": "Historical executable diagnostic source preserved byte-identically as text; canonical tests/runners remain executable under tests/ and scripts/."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/sites-authority-runner.mjs",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/sites-authority-runner.mjs.txt",
+    "sha256": "c68013d49792bce5c4dbc7edd973c88dc2c7996a7fefd5c1c316ee8d1a4317ee",
+    "note": "Historical executable diagnostic source preserved byte-identically as text; canonical tests/runners remain executable under tests/ and scripts/."
+  },
+  {
+    "originalCandidateEvidencePath": "docs/delivery/evidence/ui-milestone-9-20261018/sites-runner.mjs",
+    "frozenTextPath": "docs/delivery/evidence/ui-milestone-9-20261018/sites-runner.mjs.txt",
+    "sha256": "96c1d84941abfb4d89f33d8c8dd4947884d6c74822cc768d0a453940b53aada9",
+    "note": "Historical executable diagnostic source preserved byte-identically as text; canonical tests/runners remain executable under tests/ and scripts/."
+  }
+]

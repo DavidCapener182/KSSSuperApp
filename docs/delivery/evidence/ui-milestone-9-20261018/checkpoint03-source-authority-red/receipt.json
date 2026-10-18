@@ -1,0 +1,18 @@
+{
+  "ownedBefore": [
+    {
+      "file": "src/components/operational-sites-client.tsx",
+      "sha256": "881136728b577d8eec4a440a775c2c3717ad0734b8f20344deb00d97aa2151e0"
+    },
+    {
+      "file": "src/components/site-service-detail-client.tsx",
+      "sha256": "6cbd5da2a48f9e85fce1110da8f4e4d3e2d17c1441aad1375c4189fabfc71fcc"
+    }
+  ],
+  "redCases": [
+    "U12 denied current selectedSite read retains facts1440",
+    "U15 denied current Service retains actions1440/390"
+  ],
+  "distinctPhoneBlocker": "U12 Apply filters hidden by generic events-filters mobile rule; not counted as403 reproduction",
+  "apiWrites": 0
+}

@@ -1,0 +1,68 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import vm from 'node:vm';
+import { test } from 'node:test';
+import ts from 'typescript';
+
+// Execute actual Site-family source. Auth/API/clock/child modules are labelled
+// synthetic boundaries: these checks do not establish authenticated RLS access.
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
+const site={id:id(10),site_reference:'SYN-01',name:'Synthetic Site',address_line1:'1 Example Road',town_city:'Manchester',postcode:'SYN 1AA',reporting_point:'Gate',site_type:'WAREHOUSE',status:'ACTIVE'};
+const service={id:id(11),name:'Synthetic Service',state:'ACTIVE',type:'STATIC_GUARDING',revision:3,effective_from:'2026-10-01',effective_until:null,client_name:'Synthetic Client',site_name:site.name};
+const nodes=(node,type)=>{if(!node||typeof node!=='object')return [];if(Array.isArray(node))return node.flatMap(n=>nodes(n,type));return [...(node.type===type?[node]:[]),...nodes(node.props?.children,type)];};
+const text=node=>typeof node==='string'?node:Array.isArray(node)?node.map(text).join(' '):node&&typeof node==='object'?text(node.props?.children):'';
+const tick=async()=>{for(let i=0;i<35;i++)await Promise.resolve();};
+const formatLoaded={exports:{}};new vm.Script(ts.transpileModule(readFileSync(resolve(root,'src/components/site-operations-format.ts'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText).runInNewContext({module:formatLoaded,exports:formatLoaded.exports,Date,Intl});const format=formatLoaded.exports;
+function fixture(file,props={},options={}){
+ let cursor=0,slots=[],timers=[],tree;const calls=[];let created=false;
+ const hooks={useRef(initial){const i=cursor++;return slots[i]??(slots[i]={current:initial});},useState(initial){const i=cursor++;if(!(i in slots))slots[i]=typeof initial==='function'?initial():initial;return [slots[i],value=>{slots[i]=typeof value==='function'?value(slots[i]):value;}];},useCallback(fn,deps){const i=cursor++;if(!slots[i]||deps.some((d,j)=>d!==slots[i].deps[j]))slots[i]={fn,deps};return slots[i].fn;},useEffect(fn,deps){const i=cursor++;if(!slots[i]||deps.some((d,j)=>d!==slots[i].deps[j])){slots[i]={deps};fn();}}};
+ const jsx=(type,props)=>({type,props:props??{}}),loaded={exports:{}};
+ const mocks={'react':hooks,'react/jsx-runtime':{jsx,jsxs:jsx,Fragment:'fragment'},'next/link':{default:'a',__esModule:true},'@/components/ui/button':{Button:'button'},'@/components/ui/input':{Input:'input'},'./site-operation-panel':{SiteOperationPanel:'operation-panel'},'./site-operations-format':format,'@/components/site-operations-format':format,'@/components/site-operation-panel':{SiteOperationPanel:'operation-panel'},'./record-section-tracker':{RecordSectionTracker:'tracker'},'@/components/leave-reconciliation':{LeaveReconciliation:'leave-source'},'@/components/operational-document-context-card':{OperationalDocumentContextCard:'document-source'},'@/lib/events/workforce-week':{londonToday:()=> '2026-10-19',londonWeekStart:()=> '2026-10-19',addCivilDays:()=> '2026-10-26'},'@/lib/crm/due-time':{londonDueToIso:()=> '2026-10-19T06:00:00Z'}};
+ const js=ts.transpileModule(readFileSync(resolve(root,file),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText;
+ new vm.Script(js,{filename:file}).runInNewContext({module:loaded,exports:loaded.exports,require:name=>{if(name.endsWith('.css'))return {__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})};if(mocks[name])return mocks[name];throw Error(`Unapproved dependency ${name}`);},Date,Intl,URLSearchParams,setTimeout:fn=>{timers.push(fn);return timers.length;},clearTimeout:()=>{},
+ fetch:async(url,init={})=>{const body=init.body?JSON.parse(init.body):null;calls.push({url,method:init.method??'GET',body});let data={};
+ if(url==='/api/me')data={roles:options.roles??['OFFICE_ADMIN']};
+ else if(url==='/api/events/choices')data={clients:[{id:id(12),name:'Synthetic Client'}]};
+ else if(url.startsWith('/api/sites?'))data={sites:[{id:site.id,name:site.name,townCity:site.town_city,status:site.status,canManage:options.canManage??true}],count:1};
+ else if(url===`/api/sites/${site.id}`)data={site,canManage:options.canManage??true};
+ else if(url.endsWith('/assignments'))data={assignments:[]};
+ else if(url.endsWith('/history'))data={events:[]};
+ else if(url.startsWith('/api/operational-sites?'))data={items:[{...site,client_name:'Synthetic Client'}],total:1};
+ else if(url.startsWith('/api/operational-sites/'))data={site:{...site,client_name:'Synthetic Client',organisation_id:id(12),events:[]}};
+ else if(url==='/api/events/staffing-roles')data={roles:[{id:id(15),display_name:'Security'}]};
+ else if(url.startsWith(`/api/site-services/${id(11)}`))data=init.method==='POST'?{result:{recorded:true}}:{detail:{service,templates:[],demands:[],pauses:[]}};
+ else if(url==='/api/site-services'&&init.method==='POST'){created=true;data={id:options.wrongReceipt?id(99):service.id};}
+ else if(url.startsWith('/api/site-services?'))data={services:created?[service]:[]};
+ return {ok:true,json:async()=>data};},});
+ const Component=loaded.exports.default??loaded.exports.SiteServicesClient??loaded.exports.SiteServiceDetailClient??loaded.exports.OperationalSitesClient;
+ function render(){cursor=0;tree=Component(props);return tree;}
+ return {calls,render,get tree(){return tree;},async ready(){render();timers.splice(0).forEach(fn=>fn());await tick();render();},async change(label,value){const field=nodes(tree,'label').find(n=>text(n).startsWith(label));assert.ok(field,label);const control=nodes(field,'input')[0]??nodes(field,'select')[0];control.props.onChange({target:{value}});render();},async submitPanel(label){const panel=nodes(tree,'operation-panel').find(n=>n.props.label===label);assert.ok(panel,label);const form=nodes(panel,'form')[0];assert.ok(form);form.props.onSubmit({preventDefault(){}});await tick();render();},async openSite(){const button=nodes(tree,'button').find(n=>text(n).startsWith(site.name));assert.ok(button);button.props.onClick();await tick();render();}};
+}
+
+test('read-only Services retain source list without draft-creation controls',async()=>{
+ const f=fixture('src/components/site-services-client.tsx',{siteId:site.id,personId:id(91),canAdmin:false});await f.ready();assert.equal(nodes(f.tree,'operation-panel').length,0);assert.equal(f.calls.filter(c=>c.method==='POST').length,0);
+});
+test('draft Service creation keeps exact Site/owner/type and confirms returned identity',async()=>{
+ const f=fixture('src/components/site-services-client.tsx',{siteId:site.id,personId:id(91),canAdmin:true});await f.ready();await f.change('Name','Synthetic draft');await f.submitPanel('New Site Service');const write=f.calls.find(c=>c.method==='POST');assert.deepEqual(write.body,{siteId:site.id,name:'Synthetic draft',type:'STATIC_GUARDING',effectiveFrom:'2026-10-19',ownerId:id(91)});assert.equal(text(f.tree).includes('response could not be confirmed'),false);
+});
+test('wrong Service creation receipt preserves draft/error, never invents confirmed identity',async()=>{
+ const f=fixture('src/components/site-services-client.tsx',{siteId:site.id,personId:id(91),canAdmin:true},{wrongReceipt:true});await f.ready();await f.change('Name','Synthetic retained draft');await f.submitPanel('New Site Service');assert.match(text(f.tree),/response could not be confirmed/);assert.equal(nodes(f.tree,'input').find(n=>n.props.value==='Synthetic retained draft')?.props.value,'Synthetic retained draft');
+});
+for(const roles of [['SECURITY_STAFF'],['OFFICE_ADMIN']])test(`Site management retains source canManage denial for ${roles}`,async()=>{
+ const f=fixture('src/app/(enterprise)/sites/sites-client.tsx',{}, {roles,canManage:false});await f.ready();await f.openSite();assert.equal(nodes(f.tree,'operation-panel').length,0);assert.equal(f.calls.some(c=>c.method!=='GET'),false);
+});
+test('Office Site summary exposes focused existing operations rather than changing their contracts',async()=>{
+ const f=fixture('src/app/(enterprise)/sites/sites-client.tsx');await f.ready();await f.openSite();const labels=nodes(f.tree,'operation-panel').map(n=>n.props.label);assert.ok(labels.includes('Edit Site details'));assert.ok(labels.includes('Assign Security Staff'));assert.ok(labels.includes('Change Site lifecycle'));assert.equal(f.calls.some(c=>c.method!=='GET'),false);
+});
+test('non-admin Service view has source anchors and no lifecycle/template/extra editors',async()=>{
+ const f=fixture('src/components/site-service-detail-client.tsx',{siteId:site.id,serviceId:service.id,canAdmin:false});await f.ready();assert.equal(nodes(f.tree,'operation-panel').length,0);for(const hash of ['#service-state','#service-template','#service-demand','#service-history'])assert.ok(nodes(f.tree,'a').some(n=>n.props.href===hash));
+});
+test('weekly template publication keeps existing exact source action and typed scope',async()=>{
+ const f=fixture('src/components/site-service-detail-client.tsx',{siteId:site.id,serviceId:service.id,canAdmin:true});await f.ready();await f.change('Role',id(15));await f.submitPanel('Edit weekly template');const write=f.calls.find(c=>c.method==='POST');assert.equal(write.url,`/api/site-services/${service.id}`);assert.equal(write.body.action,'template');assert.equal(write.body.roleId,id(15));assert.equal(write.body.lineId,null);assert.deepEqual(write.body.weekdays,[1,2,3,4,5,6,7]);assert.equal(f.calls.filter(c=>c.method==='POST').length,1);
+});
+
+test('Operations Site projection keeps client text separate from private CRM/manage controls',async()=>{const f=fixture('src/components/operational-sites-client.tsx',{selected:site.id,office:false});await f.ready();assert.equal(nodes(f.tree,'a').some(n=>String(n.props.href).startsWith('/crm/')),false);assert.equal(nodes(f.tree,'operation-panel').length,0);assert.ok(nodes(f.tree,'a').some(n=>n.props.href===`/sites/${site.id}/services`));});
+test('Site date-only presentation preserves DST calendar days without UTC conversion',()=>{assert.equal(format.siteDate('2026-03-29'),'29 Mar 2026');assert.equal(format.siteDate('2026-10-25'),'25 Oct 2026');assert.match(format.siteInstant('2026-10-18T23:30:00Z'),/19 Oct 2026.*00:30/);});

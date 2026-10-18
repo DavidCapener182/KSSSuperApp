@@ -1,0 +1,273 @@
+(node:26937) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/src/lib/events/workforce-week.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Operational Site valid exact selection remains visible with unchanged query fields (39.39225ms)
+✖ Operational Site denied current list clears old facts, source links and totals (9.685083ms)
+✖ Operational Site denied detail cannot publish a successful broad list as a selected source (7.766375ms)
+✖ Operational Site exact selected identity mismatch is unavailable (7.200292ms)
+✖ Operational Site late old broad read cannot launch a retired detail read (7.148916ms)
+✖ Operational Site unmount retires pending detail result (6.866083ms)
+✖ Operational Site unselected view does not retain a previous selected Site (5.350458ms)
+✔ Service valid exact read and existing exclusive week-end arguments remain accepted (17.635833ms)
+✖ Service denied current week clears all old source facts and derived selections (14.018166ms)
+✖ Service wrong exact identity is unavailable rather than an editable source (11.245916ms)
+✖ Service changing scope hides prior facts before replacement read starts (12.606375ms)
+✖ Service delayed old week cannot overwrite the replacement source or follow-up selection (14.807792ms)
+✖ Service unmount ignores pending current source result (10.16375ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 2
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 309.568292
+
+✖ failing tests:
+
+test at tests/ui-operations-current-source-local.test.mjs:11:1
+✖ Operational Site denied current list clears old facts, source links and totals (9.685083ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   events: [],
+  +   id: '00000000-0000-4000-8000-000000000010',
+  +   name: 'Synthetic Site 10',
+  +   site_type: 'VENUE',
+  +   status: 'ACTIVE'
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/tests/ui-operations-current-source-local.test.mjs:11:256)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { id: '00000000-0000-4000-8000-000000000010', name: 'Synthetic Site 10', status: 'ACTIVE', site_type: 'VENUE', events: [] },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-operations-current-source-local.test.mjs:12:1
+✖ Operational Site denied detail cannot publish a successful broad list as a selected source (7.766375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/tests/ui-operations-current-source-local.test.mjs:12:265)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-operations-current-source-local.test.mjs:13:1
+✖ Operational Site exact selected identity mismatch is unavailable (7.200292ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   events: [],
+  +   id: '00000000-0000-4000-8000-000000000099',
+  +   name: 'Synthetic Site 99',
+  +   site_type: 'VENUE',
+  +   status: 'ACTIVE'
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/tests/ui-operations-current-source-local.test.mjs:13:223)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { id: '00000000-0000-4000-8000-000000000099', name: 'Synthetic Site 99', status: 'ACTIVE', site_type: 'VENUE', events: [] },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-operations-current-source-local.test.mjs:14:1
+✖ Operational Site late old broad read cannot launch a retired detail read (7.148916ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '00000000-0000-4000-8000-000000000010'
+  - '00000000-0000-4000-8000-000000000020'
+                                       ^
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/tests/ui-operations-current-source-local.test.mjs:14:385)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '00000000-0000-4000-8000-000000000010',
+    expected: '00000000-0000-4000-8000-000000000020',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-operations-current-source-local.test.mjs:15:1
+✖ Operational Site unmount retires pending detail result (6.866083ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   events: [],
+  +   id: '00000000-0000-4000-8000-000000000010',
+  +   name: 'Synthetic Site 10',
+  +   site_type: 'VENUE',
+  +   status: 'ACTIVE'
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/tests/ui-operations-current-source-local.test.mjs:15:298)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { id: '00000000-0000-4000-8000-000000000010', name: 'Synthetic Site 10', status: 'ACTIVE', site_type: 'VENUE', events: [] },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-operations-current-source-local.test.mjs:16:1
+✖ Operational Site unselected view does not retain a previous selected Site (5.350458ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Open Site workspace/. Input:
+  
+  'Operational locations Sites / Venues Client and Event context is operational. Site administration remains separately guarded. Sites / Venues Events Manage my Sites Search  Client All Clients  Site type All types Stadium Venue Retail Warehouse Office Festival Site Static Site Other Status All statuses Draft Active Retired Apply filters  Permitted Sites        1  authorised Site  . Unlinked Sites remain valid. Synthetic Site 10 Unlinked  ·  Venue Active  ·  undefined Previous 1 – 1  of  1 Next        Synthetic Site 10 Venue  ·  Active undefined ,  undefined   undefined  · Reporting point:  undefined Client:  Not linked Open Site workspace →  Upcoming / active Events No active Events at this Site.  '
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/tests/ui-operations-current-source-local.test.mjs:16:168)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Operational locations Sites / Venues Client and Event context is operational. Site administration remains separately guarded. Sites / Venues Events Manage my Sites Search  Client All Clients  Site type All types Stadium Venue Retail Warehouse Office Festival Site Static Site Other Status All statuses Draft Active Retired Apply filters  Permitted Sites        1  authorised Site  . Unlinked Sites remain valid. Synthetic Site 10 Unlinked  ·  Venue Active  ·  undefined Previous 1 – 1  of  1 Next        Synthetic Site 10 Venue  ·  Active undefined ,  undefined   undefined  · Reporting point:  undefined Client:  Not linked Open Site workspace →  Upcoming / active Events No active Events at this Site.  ',
+    expected: /Open Site workspace/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests/ui-operations-current-source-local.test.mjs:18:1
+✖ Service denied current week clears all old source facts and derived selections (14.018166ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   demands: [],
+  +   pauses: [],
+  +   service: {
+  +     effective_from: '2026-10-01',
+  +     id: '00000000-0000-4000-8000-000000000011',
+  +     name: 'Synthetic Service 11',
+  +     revision: 3,
+  +     state: 'ACTIVE',
+  +     type: 'STATIC_GUARDING'
+  +   },
+  +   templates: []
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/tests/ui-operations-current-source-local.test.mjs:18:302)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { service: { id: '00000000-0000-4000-8000-000000000011', name: 'Synthetic Service 11', state: 'ACTIVE', type: 'STATIC_GUARDING', effective_from: '2026-10-01', revision: 3 }, templates: [], demands: [], pauses: [] },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-operations-current-source-local.test.mjs:19:1
+✖ Service wrong exact identity is unavailable rather than an editable source (11.245916ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   demands: [],
+  +   pauses: [],
+  +   service: {
+  +     effective_from: '2026-10-01',
+  +     id: '00000000-0000-4000-8000-000000000099',
+  +     name: 'Synthetic Service 99',
+  +     revision: 3,
+  +     state: 'ACTIVE',
+  +     type: 'STATIC_GUARDING'
+  +   },
+  +   templates: []
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/tests/ui-operations-current-source-local.test.mjs:19:163)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { service: { id: '00000000-0000-4000-8000-000000000099', name: 'Synthetic Service 99', state: 'ACTIVE', type: 'STATIC_GUARDING', effective_from: '2026-10-01', revision: 3 }, templates: [], demands: [], pauses: [] },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-operations-current-source-local.test.mjs:20:1
+✖ Service changing scope hides prior facts before replacement read starts (12.606375ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Synthetic Service 11|Manage Service lifecycle/. Input:
+  
+  'Ongoing Site shift · synthetic development data Synthetic Service 11 Site Service ACTIVE STATIC GUARDING   ·   Effective  1 Oct 2026  onward Overview Weekly template Dated demand History  Related workflows Site All Site Services Workforce Attendance Operational contacts   Service overview ACTIVE  ·  STATIC GUARDING  · Effective  1 Oct 2026  onward Service status and staffing counts describe planning only. They do not confirm attendance or worked hours.    Weekly demand template Published versions preserve intent; dated shifts keep their own identity and history. No template published.           Dated shift demand Exact, stable shifts for this week. Operations may manage dated exceptions and staffing. Previous week This week Next week Week of  19 Oct 2026 No dated demand in this week. Check the Service dates, pause periods and generation horizon. Service and shift history Published versions, dated amendments and allocation responses remain attributable. Show recent history '
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/tests/ui-operations-current-source-local.test.mjs:20:225)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Ongoing Site shift · synthetic development data Synthetic Service 11 Site Service ACTIVE STATIC GUARDING   ·   Effective  1 Oct 2026  onward Overview Weekly template Dated demand History  Related workflows Site All Site Services Workforce Attendance Operational contacts   Service overview ACTIVE  ·  STATIC GUARDING  · Effective  1 Oct 2026  onward Service status and staffing counts describe planning only. They do not confirm attendance or worked hours.    Weekly demand template Published versions preserve intent; dated shifts keep their own identity and history. No template published.           Dated shift demand Exact, stable shifts for this week. Operations may manage dated exceptions and staffing. Previous week This week Next week Week of  19 Oct 2026 No dated demand in this week. Check the Service dates, pause periods and generation horizon. Service and shift history Published versions, dated amendments and allocation responses remain attributable. Show recent history ',
+    expected: /Synthetic Service 11|Manage Service lifecycle/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests/ui-operations-current-source-local.test.mjs:21:1
+✖ Service delayed old week cannot overwrite the replacement source or follow-up selection (14.807792ms)
+  TypeError: Cannot read properties of undefined (reading 'props')
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/tests/ui-operations-current-source-local.test.mjs:21:259)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at tests/ui-operations-current-source-local.test.mjs:22:1
+✖ Service unmount ignores pending current source result (10.16375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   demands: [],
+  +   pauses: [],
+  +   service: {
+  +     effective_from: '2026-10-01',
+  +     id: '00000000-0000-4000-8000-000000000011',
+  +     name: 'Synthetic Service 11',
+  +     revision: 3,
+  +     state: 'ACTIVE',
+  +     type: 'STATIC_GUARDING'
+  +   },
+  +   templates: []
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/tests/ui-operations-current-source-local.test.mjs:22:227)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { service: { id: '00000000-0000-4000-8000-000000000011', name: 'Synthetic Service 11', state: 'ACTIVE', type: 'STATIC_GUARDING', effective_from: '2026-10-01', revision: 3 }, templates: [], demands: [], pauses: [] },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

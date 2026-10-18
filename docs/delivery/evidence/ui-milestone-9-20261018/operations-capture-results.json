@@ -1,0 +1,142 @@
+[
+  {
+    "name": "after-event-attendance-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "after-event-attendance-selected-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "after-site-attendance-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "after-site-attendance-selected-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "after-work-time-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "after-work-time-approved-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "after-work-time-denied-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "after-event-attendance-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "after-event-attendance-selected-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "after-site-attendance-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "after-site-attendance-selected-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "after-work-time-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "after-work-time-approved-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "after-work-time-denied-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "after-event-attendance-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "after-event-attendance-selected-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "after-site-attendance-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "after-site-attendance-selected-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "after-work-time-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "after-work-time-approved-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "after-work-time-denied-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "after-event-attendance-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "after-event-attendance-selected-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "after-site-attendance-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "after-site-attendance-selected-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "after-work-time-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "after-work-time-approved-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "after-work-time-denied-320",
+    "viewport": 320,
+    "pageWidth": 320
+  }
+]

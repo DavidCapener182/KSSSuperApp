@@ -1,0 +1,59 @@
+{
+  "scope": "Authorised U12/U15 current-source/phone filter fixes only",
+  "files": [
+    {
+      "file": "src/components/operational-sites-client.tsx",
+      "sha256": "5b785c15df55ff35c9bdfda602817bdc1cede655d9486e597ec1f08e94545768",
+      "beforeSha256": "881136728b577d8eec4a440a775c2c3717ad0734b8f20344deb00d97aa2151e0"
+    },
+    {
+      "file": "src/components/site-service-detail-client.tsx",
+      "sha256": "373a439ed40664237a066adfd61d196717a268fae6627a444443b5d767b939fa",
+      "beforeSha256": "6cbd5da2a48f9e85fce1110da8f4e4d3e2d17c1441aad1375c4189fabfc71fcc"
+    },
+    {
+      "file": "tests/ui-operations-current-source-local.test.mjs",
+      "sha256": "311cb22bb101a006d65afd6ef66024969ba08501514a1fd80435186793bbc1f4",
+      "beforeSha256": null
+    },
+    {
+      "file": "docs/delivery/UI-OPERATIONS-RESUMED-SOURCE-REPAIRS-20261018.md",
+      "sha256": "19e78a4ce40f1d6ea8fd55e5b8f95cf5d386eb094050af87620a267178bfc561",
+      "beforeSha256": null
+    }
+  ],
+  "preservedNonOwnedSourceFiles": 437,
+  "changes": [
+    "Operational load/effect request retirement, exact selected identity, current-context fact projection and is-expanded form class",
+    "Service load/effect current exact source and related-read state clearing; context guards in existing act/loadAllocation/loadHistory/findCandidates; allocate/templateDefaults use current detail; no endpoint/body/role/RPC changes"
+  ],
+  "checks": {
+    "newSource": 18,
+    "existingSiteSource": 10,
+    "types": 0,
+    "lint": 0,
+    "browserCompositionAggregate": 1,
+    "browserAuthorityCases": 12,
+    "widths": [
+      1440,
+      834,
+      390,
+      320
+    ]
+  },
+  "patchSha256": "a66f72571ee6e9e5da6f1fff4782eb8729b87cd3a456b33cf777696941f6f268",
+  "existingFixture": {
+    "path": "tests/ui-sites-contract-local.test.mjs",
+    "beforeSha256": "8fff2a74d016d8968afd9634da52fb463fa1635385d6f7a2129a9b794a6f6315",
+    "afterSha256": "b59bdd79d6a5ff8f756610d38af823392cb220a4fc6b06cd67150af5fb3c5740",
+    "patchSha256": "2fb0f61e29fa0b96d3ea4a81755b2da880eec76e1c5b45416d073316faf48cdd",
+    "change": "Only useRef mock added; no assertion edits"
+  },
+  "immutableEvidence": [
+    "checkpoint01-attendance-worktime",
+    "checkpoint02-sites-services",
+    "checkpoint03-source-authority-red",
+    "checkpoint03b-mobile-filter-red"
+  ],
+  "browserLimits": "Synthetic principal/API boundaries; no hosted Auth/RPC/RLS/persistence acceptance"
+}

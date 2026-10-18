@@ -1,0 +1,93 @@
+[
+  {
+    "file": "src/components/attendance-desk.tsx",
+    "publishedBaselineSha256": null,
+    "sha256": "823d0d56ac015f085cecaaa13b25c5b6237fda925a1721abfba5a446047e8ed9",
+    "origin": "kss-followup-integration/src/components/attendance-desk.tsx"
+  },
+  {
+    "file": "src/components/event-attendance-client.tsx",
+    "publishedBaselineSha256": "bff2252c78329708ae96b0c2f116c441338f3408d6ca995816464321e8f63680",
+    "sha256": "0d93e1e7634cce7a905609821ddce4fee0d9a76a586defb43bde18d7410a291e",
+    "origin": "kss-followup-integration/src/components/event-attendance-client.tsx"
+  },
+  {
+    "file": "src/components/site-attendance-client.tsx",
+    "publishedBaselineSha256": "74c2c842374e1f44416115cdaaa636a701e1bb24b7ac72ecae3e94d7ed36ad66",
+    "sha256": "cd9ef97696e911ba8477dfac5de6bdc746dc141004c78d2ae72723d93c74468c",
+    "origin": "kss-followup-integration/src/components/site-attendance-client.tsx"
+  },
+  {
+    "file": "src/components/attendance.module.css",
+    "publishedBaselineSha256": "f06c07e47c78ba9cdff241ab6d7dbc4c00b15c5b7188b40a081079ac5f6b0307",
+    "sha256": "61adb33cdca0ccde7ea9609aee3fd98cf3239910a278ff186fb239fa115395e7",
+    "origin": "kss-followup-integration/src/components/attendance.module.css"
+  },
+  {
+    "file": "src/components/event-work-time-client.tsx",
+    "publishedBaselineSha256": "561a21e89af6f7b891c33b60721ef9fbf77d1dc33a941398bcaefdea551a018b",
+    "sha256": "0cb5cc7f154e2603d90b2c66ac74bb944615e0c9c6a33cc28e07265127345597",
+    "origin": "kss-followup-integration/src/components/event-work-time-client.tsx"
+  },
+  {
+    "file": "src/components/work-time.module.css",
+    "publishedBaselineSha256": "01f36409174b26181c0cb84a31017569efd4ed7aacd44476373d08db155ec631",
+    "sha256": "8bc6e40cb59f17af102ec27ab2f06693d52e19be941f908e6caec5a2f38201a1",
+    "origin": "kss-followup-integration/src/components/work-time.module.css"
+  },
+  {
+    "file": "src/components/operational-sites-client.tsx",
+    "publishedBaselineSha256": "090420b21f5b8baa83f0a1d73e83e356ecff93f3cc9b321aeb94fb34a3537685",
+    "sha256": "5b785c15df55ff35c9bdfda602817bdc1cede655d9486e597ec1f08e94545768",
+    "origin": "output/ui-operations-resumed-20261018/checkpoint04-sites-source-repairs/src/components/operational-sites-client.tsx"
+  },
+  {
+    "file": "src/components/site-services-client.tsx",
+    "publishedBaselineSha256": "fb5bd27cbceb64cfc8a92f13149b30e3a4d4bdb0abb188e49e34f3ab3b0e0aff",
+    "sha256": "5eb2d0b7d9edaea53fd086e63034e0a0765f7ba9ee1aaa53311d322f7931478e",
+    "origin": "kss-followup-integration/src/components/site-services-client.tsx"
+  },
+  {
+    "file": "src/components/site-service-detail-client.tsx",
+    "publishedBaselineSha256": "9512333aaaeecc85c0b97b66c998d403e176abdcc703ee2d9442fb2e62abd245",
+    "sha256": "373a439ed40664237a066adfd61d196717a268fae6627a444443b5d767b939fa",
+    "origin": "output/ui-operations-resumed-20261018/checkpoint04-sites-source-repairs/src/components/site-service-detail-client.tsx"
+  },
+  {
+    "file": "src/app/(enterprise)/sites/sites-client.tsx",
+    "publishedBaselineSha256": "6f9c53299039096b8c4439060c6e85013bc86876f06edd5c8b483dc10a251e69",
+    "sha256": "12152b857f9ea594684a9f383403ce8f5c58f3678aae663c503eae87abdc525d",
+    "origin": "kss-followup-integration/src/app/(enterprise)/sites/sites-client.tsx"
+  },
+  {
+    "file": "src/app/(enterprise)/sites/[siteId]/workspace/page.tsx",
+    "publishedBaselineSha256": "25f8fd1ab7e3bf4d5a6f61e788065e05f78113e13db914cd3a00dd4b42dee8c5",
+    "sha256": "222dcbf2fdedc359994ead1749292ebbce76038e13fdc0372a1818dca2d36d2b",
+    "origin": "kss-followup-integration/src/app/(enterprise)/sites/[siteId]/workspace/page.tsx"
+  },
+  {
+    "file": "src/components/site-operation-panel.tsx",
+    "publishedBaselineSha256": null,
+    "sha256": "d189b716b22c68a25df43b2f465be9af27e602844e3ad8fb24f8ef572b286534",
+    "origin": "kss-followup-integration/src/components/site-operation-panel.tsx"
+  },
+  {
+    "file": "src/components/site-operations.module.css",
+    "publishedBaselineSha256": null,
+    "sha256": "bf71f05716cdf4274f52207a6066a565ed61c18285a0ee4721bdf14f1febe1b3",
+    "origin": "kss-followup-integration/src/components/site-operations.module.css"
+  },
+  {
+    "file": "src/components/site-operations-format.ts",
+    "publishedBaselineSha256": null,
+    "sha256": "bc57937d0fd9c558cb7550bbec1b86fb0a866371a046a4b384a0e3633daef9be",
+    "origin": "kss-followup-integration/src/components/site-operations-format.ts"
+  },
+  {
+    "file": "src/lib/events/work-time-readback.ts",
+    "publishedBaselineSha256": null,
+    "sha256": "034ac6454a823e5a925f34cac8a768c30877b13e5acecd4e0d9d7f6233838f6b",
+    "origin": "kss-followup-integration/src/lib/events/work-time-readback.ts",
+    "scope": "Explicit required existing pure U11 dependency; parent authorised"
+  }
+]

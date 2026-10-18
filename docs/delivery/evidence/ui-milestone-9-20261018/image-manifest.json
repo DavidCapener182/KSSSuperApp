@@ -1,0 +1,988 @@
+[
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-event-attendance-1440-viewport.png",
+    "sha256": "f33b8df1a27d52aa9caa5f3f04f3d8c76c1bb9413747723f4a2002400cb5bd72"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-event-attendance-1440.png",
+    "sha256": "229b21b83ad6b51f63109a466d45ce6589adda64dfa779e27e53be2239f7dece"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-event-attendance-320-viewport.png",
+    "sha256": "5e96497b8e1c677ebfb47bab801d116e6fa9392afe55495f4ab0b3d79d8a6e52"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-event-attendance-320.png",
+    "sha256": "72952f6990fc5f25fe6b0d666b65751126455f4c92315cff1df0395d7d71b3eb"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-event-attendance-390-viewport.png",
+    "sha256": "f8c31326ce46e3fb03359c3f211a977155d55b005650b54a8fe3fda3dca5651c"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-event-attendance-390.png",
+    "sha256": "d49b2cae890c2b8f0193c0a4bcbc664b24798b9714e2d7818f200a5cc3c2ef88"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-event-attendance-834-viewport.png",
+    "sha256": "5573c44adfb8833d68c3fb6fe22009f567877bb6fe59fe64771746a0577511a2"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-event-attendance-834.png",
+    "sha256": "a4316b8bf965526cdeb9c3f433e208d0c5d18af35b535cbf69ab889e93a66745"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/diagnostics-first-sites-baseline/before-operational-sites-1440-viewport.png",
+    "sha256": "97cd2f48ff774244e48dd6ab0411748c7d160c5d18446d25ef9f181e07fb25bf",
+    "scope": "Historical first baseline attempt; not counted as final Operations evidence"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/diagnostics-first-sites-baseline/before-operational-sites-1440.png",
+    "sha256": "b36b8ad108977b03b19dee41e48f53cddbd052641a30cb965d664119cc3223ca",
+    "scope": "Historical first baseline attempt; not counted as final Operations evidence"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/diagnostics-first-sites-baseline/before-service-workspace-1440-viewport.png",
+    "sha256": "6df7d67686085dec33aaf1a21bed2f242062bf7c372ed5fd8b59cfd318c3c16e",
+    "scope": "Historical first baseline attempt; not counted as final Operations evidence"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/diagnostics-first-sites-baseline/before-service-workspace-1440.png",
+    "sha256": "9724868880d99c9937fa378e7791d5fe59f98fe3a1cdb8b99d8d70a0d20b09d0",
+    "scope": "Historical first baseline attempt; not counted as final Operations evidence"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-site-attendance-1440-viewport.png",
+    "sha256": "f0050d9955a35f988034727cae6ecc2a67ec7874e89e3bff5f8ba9b4ac87cfea"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-site-attendance-1440.png",
+    "sha256": "6419f7a21c2e50e273aa4cb710c18c5f619f87322391947d064a695de91fd445"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-site-attendance-320-viewport.png",
+    "sha256": "09b509d79fc55de7aadb075c58bd989d075ae7d41730aa8ae57ff966913b8d2a"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-site-attendance-320.png",
+    "sha256": "4a13ab61aafc1d1690da9532e6f4f359952d0ed56d14bbe7242119c9154aa7ea"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-site-attendance-390-viewport.png",
+    "sha256": "36505ffc0f2d27e866b1d15abc6881f69c1b67e94a453178a776f37d11c3dca8"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-site-attendance-390.png",
+    "sha256": "8fc06b653a06d5c82c29151e547443c48e2d463c35b1c70ddbcaa0a131d9e1be"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-site-attendance-834-viewport.png",
+    "sha256": "f5f8781ffa00e59c45c040317298785066403f31f667b866fe6b38d4751ea33e"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-site-attendance-834.png",
+    "sha256": "b7e56361ffb0924ad3f9bd4517ea292ebf05cb6e31ce947cb488cb426df88671"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/diagnostics-first-sites-baseline/before-site-services-1440-viewport.png",
+    "sha256": "10ff3ca09b39edab91d008854267b8b18d59ed1c2b640ee566e97a062ef794e2",
+    "scope": "Historical first baseline attempt; not counted as final Operations evidence"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/diagnostics-first-sites-baseline/before-site-services-1440.png",
+    "sha256": "7d465cd2052280c8e50f00dc3da9cc321dba7e6ecd4c4c9cc9d7a6eae7d1a00e",
+    "scope": "Historical first baseline attempt; not counted as final Operations evidence"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/diagnostics-first-sites-baseline/before-site-workspace-1440-viewport.png",
+    "sha256": "c9b3a3b252016cd165003444805650ab68fd1c8c587f3def6701484ba0fdd2e3",
+    "scope": "Historical first baseline attempt; not counted as final Operations evidence"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/diagnostics-first-sites-baseline/before-site-workspace-1440.png",
+    "sha256": "680c6b770b340abed77e6db91e2029adf648d75d2d41633f2b0aa1445cee36e8",
+    "scope": "Historical first baseline attempt; not counted as final Operations evidence"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/diagnostics-first-sites-baseline/before-sites-1440-viewport.png",
+    "sha256": "ae3b86ccd193923e5efad782752c0c787dd7f4d2ce1c5235ece95a54e86001cd",
+    "scope": "Historical first baseline attempt; not counted as final Operations evidence"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/diagnostics-first-sites-baseline/before-sites-1440.png",
+    "sha256": "08366472553727f787c21a9b800cb003de291045a458ab2d119aec2f516cadf0",
+    "scope": "Historical first baseline attempt; not counted as final Operations evidence"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-work-time-1440-viewport.png",
+    "sha256": "53ac9b9632d603f185ca90f1952025b509ff7b2e1b22464bfd74398b41ac8fc7"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-work-time-1440.png",
+    "sha256": "dbcd43f8dfbcd283ecf29c1cfb9d5e471900ffdf06c50b4c4fbcc1c3298abf86"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-work-time-320-viewport.png",
+    "sha256": "b94e8a3b6e88cdf145f3ddfae43540fe250f0776ccb3076a473a548441006892"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-work-time-320.png",
+    "sha256": "625996c3c675eec98241a4e64f223e6ab3a3bff754cf6baf3ef92ec8924e47aa"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-work-time-390-viewport.png",
+    "sha256": "b6ab25f8e2cc7fc6c66d2be5d159538fb2cdf0f012252995f5203d229006c8a2"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-work-time-390.png",
+    "sha256": "d8217b7596b337b0a0378001fe6c65123f255f15a4cb6f746c620af03805fa8e"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-work-time-834-viewport.png",
+    "sha256": "ee3b6c481dafed2aa626e549af8b8cf1dda7454a5cd96b71b53329e807ac012a"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/before-work-time-834.png",
+    "sha256": "d665038920ead1c7e02d482f7abab3478067d046aa4807bf1a5a4f86bf2e42cb"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-1440-viewport.png",
+    "sha256": "b5f44ac9a6ac16adb1b4fa19c76315fec771ee531a575bc2e442a70bc4c18c38"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-1440.png",
+    "sha256": "2e6d4be0eb78920ee3d4a728c5545e687e21863ebd77cdd0b65200088d6fd18a"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-320-viewport.png",
+    "sha256": "fbd8bac37aa0113f0d3d6a7ad6a800fafbf9170c198d73356869378fe103d243"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-320.png",
+    "sha256": "731e2364ceefbf2ee73523d0f6ae37553450ccb59cfdb6791336870986a0d0ea"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-390-viewport.png",
+    "sha256": "a02128e1cbce4ba039597b27342bc5ba81ef7654afbb74a0255665303de5cbca"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-390.png",
+    "sha256": "44ec4e26fedc9bbdf8d3e5e1d5be460d9b49b45133302dcb3cdad900c5c47e19"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-834-viewport.png",
+    "sha256": "79545658554ade4826a7b55a9084564c19946e76d13d2e72ae03c874dd3ca486"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-834.png",
+    "sha256": "2f412d7424d99b779be54392c72e4bf1ae5d83a25f8e0f0a55a3958f2aadb3b8"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-selected-1440-viewport.png",
+    "sha256": "cb0f7a8e7b990376f86a842d0aac6f2c7c1c66ca5cfd82d42d5cab02ca8f08a7"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-selected-1440.png",
+    "sha256": "80aef77873f3755c181e5b746a94929bb28505164c76c07817a727a04c76cabc"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-selected-320-viewport.png",
+    "sha256": "458c64cc6cc00c41bdeb81ed030bcd26bc46ef1ca569423100d0d114a8ce99ec"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-selected-320.png",
+    "sha256": "1015dc356121ffa80c05fcb41566d4e82648664333443145538e325b62f75e4a"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-selected-390-viewport.png",
+    "sha256": "33b91ea88e71c69bfd1822c6add988ddd3f1f4f34777f661a7a6877e0b418ca7"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-selected-390.png",
+    "sha256": "9914fb02bb12fd1036dbe008f3720d1dc41c82921285936c9e4cf6b98982c568"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-selected-834-viewport.png",
+    "sha256": "1beada54818aa9138a2b6d19034a492bbf1a18e92a822c1e5e18077f1d8f994a"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-selected-834.png",
+    "sha256": "fd60b18f7966fd11f9855ebcba0165996ed8f55769e3a8aa534bb8ad82240ee9"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-event-attendance-selected-viewport-390.png",
+    "sha256": "33b91ea88e71c69bfd1822c6add988ddd3f1f4f34777f661a7a6877e0b418ca7"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-1440-viewport.png",
+    "sha256": "5597d05951fdff74ecd5fb4342c8282ae687c8642773a8df556feac91fd91d8a"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-1440.png",
+    "sha256": "d97342422381cda133f2d823eb312f121fc91e54e0ef1b998c83fac5f234a8d8"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-320-viewport.png",
+    "sha256": "ee63f58a451cc51114c777694c37737b446e7ea7c4ac2a962506fe7236c49e6c"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-320.png",
+    "sha256": "071ed94645ec8a3f60152515faa837b51f00df8167c736a093fdf70e0bcfd689"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-390-viewport.png",
+    "sha256": "363237b5b85fdf89fa019ba70d4a120b6514077ff0d71d6b5e565286a632146d"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-390.png",
+    "sha256": "54d31d32e9e0cb83c9d67cdbe317bab6ef8a6dde4f7d253c2d5ab8fe11c2f80c"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-834-viewport.png",
+    "sha256": "df90b933aefedf89e8b1e610ff5b5239777ff1b5dfb53405702b25f2a14ddc05"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-834.png",
+    "sha256": "69c191866c949ac98343b6107c68edc98ba216705e4dff86a9cdc5bd2a2addcc"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-selected-1440-viewport.png",
+    "sha256": "7dfb0ab62282b08a08a96232d09b02a926197ae2d854830d7cd41bbc95500c4a"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-selected-1440.png",
+    "sha256": "e205ccb9fc0ed5a9bd8693f6a84e62f916ec30294ad19a7035387cc4e5c1a310"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-selected-320-viewport.png",
+    "sha256": "2cf6fec2d32df6565b6cb4768beeed36321bbe981023f35ec5e3216f7a3906fe"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-selected-320.png",
+    "sha256": "fa30ceead98910d06eea6621a7b745dbbe99ac1f7c5583888995262e9d16da7c"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-selected-390-viewport.png",
+    "sha256": "c821d691fa4749a0de6bb71bf7cf80d846a80ee46fee8112cb93e157e40b8018"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-selected-390.png",
+    "sha256": "0e972b218cf165ab619d2d080db440f6f429434ba223b1632973cfe5b3f3a3b0"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-selected-834-viewport.png",
+    "sha256": "6df42824ea0a40ab5d502f9c900a7932fccce9605ad6dfd3d3b40300b27aae42"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-selected-834.png",
+    "sha256": "f2afcc603fa46fce013a200c3d1de20b9291492466797b92eadd298567e22a33"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-site-attendance-selected-viewport-390.png",
+    "sha256": "c821d691fa4749a0de6bb71bf7cf80d846a80ee46fee8112cb93e157e40b8018"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-1440-viewport.png",
+    "sha256": "577dc67c73ee0b1c78b2012ecd6a02b5376194b8a134b799530c95221d910d54"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-1440.png",
+    "sha256": "cdef6ce34cf7619ea989e38cbfa7ce6fa4e58232d7a77ec3aa46aa190018939c"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-320-viewport.png",
+    "sha256": "bd46e386e846f6d872bd8c2f9ef1ff8ac0b850b2f93582f2dda12366ff1b134d"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-320.png",
+    "sha256": "dff1b294f8cb0de025f27438cf17dd9ad1858478d44411c7bb722349dba8008c"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-390-viewport.png",
+    "sha256": "b85aba51b8f7532a65b45ebd1804b7433dc76a30aa3422cdf33936cd8b5ffccd"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-390.png",
+    "sha256": "0500f6e30b4d75666bbaf7b4359686f182986bef178970dbbe6671db23148d7f"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-834-viewport.png",
+    "sha256": "3ec5cc234c314163c448efaff8c434c7b63af3dc4554361619787961d18e6180"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-834.png",
+    "sha256": "c40affd498426bafab1e1f9b8504ae0dadbc71d7bc7eb9461d194de7588e9ac6"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-approved-1440-viewport.png",
+    "sha256": "e81d38e336d4ebfd558a213241475e38bc8bb454cb15c3095ae11fa76fa5e298"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-approved-1440.png",
+    "sha256": "f8b5d8c11f9bfbeb1dc22c7d46de88caf0e9599c84e2f312ebe310d54d0e4100"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-approved-320-viewport.png",
+    "sha256": "ed0c5a148b8ae12e34b6553a43b3298513062b7ff2634b9893d353185e5918cd"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-approved-320.png",
+    "sha256": "ed3d8fba280b1f2407e9e19a205ec89dcb80c89a40e8d19cc6941e84b391bed2"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-approved-390-viewport.png",
+    "sha256": "4715cf69af140c346e4729d69d94eac79284703557665b61ad058be93b5534b4"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-approved-390.png",
+    "sha256": "12c7c946af87dadb349e4bec788b214e443e297c342e07dc36fd6c5e9c70c809"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-approved-834-viewport.png",
+    "sha256": "03e1afec6ba0563202dab23b10398baede557c1477f5500772e707d01d270f9d"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-approved-834.png",
+    "sha256": "2745437464908b5a3caee81ceb0d4dfafe7051640de78f14f22b584c6347b3f6"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-denied-1440-viewport.png",
+    "sha256": "13c8d9203900829ad9e872c077a1a00d3a6ebf8dedd8410ce8a25876725ec884"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-denied-1440.png",
+    "sha256": "01fc38a8c32f7a9b0e6e74c9b90209258985003b25f6ac5ddc7029f54a10409b"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-denied-320-viewport.png",
+    "sha256": "da274612b90280be1f46b17161da70cf9bdc7477d268887bc8fa4214178dfe54"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-denied-320.png",
+    "sha256": "58bdb7bd941d5fe171322fd126c359e7955da970889aefbd3645026f35c3de66"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-denied-390-viewport.png",
+    "sha256": "6aadbd56cdf83ca607e52fe35766457a65216e9b57d80b6378a43f4bbd7bcc6e"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-denied-390.png",
+    "sha256": "14e2a05146c4c63457ea67120d4fa7cc2ab46eb70c4225ad9d157135b9ee041f"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-denied-834-viewport.png",
+    "sha256": "af226da3e0285bfe735f166d44b78343c9918d4adc745b3f624db70f5967fc86"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/operations/after-work-time-denied-834.png",
+    "sha256": "4b8e6c124b7dbc0371f37f778eaf34043f6c1123adb6f8e31209e513e66bf2c7"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-operational-sites-1440-viewport.png",
+    "sha256": "97cd2f48ff774244e48dd6ab0411748c7d160c5d18446d25ef9f181e07fb25bf"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-operational-sites-1440.png",
+    "sha256": "b36b8ad108977b03b19dee41e48f53cddbd052641a30cb965d664119cc3223ca"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-operational-sites-320-viewport.png",
+    "sha256": "f98f988c2b9599a6280e55c8eff50e2b0a12d50727fb4303bb252015f67395c9"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-operational-sites-320.png",
+    "sha256": "e690b4654716baf4419735e8710227d0a2db66096e2faa802e2f0a54f7fcf4d1"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-operational-sites-390-viewport.png",
+    "sha256": "1c3f8bac43a9cb69af5f14ff8e4377c71e2d50eb5fed07726166384cb251d37a"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-operational-sites-390.png",
+    "sha256": "f580ef691f3cbda5f0d65b3b79c35c2008d31ab3e0106ca5c70c90f06104844d"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-operational-sites-834-viewport.png",
+    "sha256": "20f98cfb9c7fa9a6c90f64c11d9f843384806c02fa05b57f8df6a97bd72785c1"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-operational-sites-834.png",
+    "sha256": "48d752f02bfb2dda7e14e4989d2aa4ec2ca4da0e9568c4178ae0bafcf51f054f"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-service-workspace-1440-viewport.png",
+    "sha256": "6df7d67686085dec33aaf1a21bed2f242062bf7c372ed5fd8b59cfd318c3c16e"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-service-workspace-1440.png",
+    "sha256": "9724868880d99c9937fa378e7791d5fe59f98fe3a1cdb8b99d8d70a0d20b09d0"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-service-workspace-320-viewport.png",
+    "sha256": "70eeb3db7d4f3f708d502fa34bd979862a62ac2eed8ffebfcff2c94c8be5a011"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-service-workspace-320.png",
+    "sha256": "5e21668a66adb95506b10fcd2fd2803d3a88df16e2e2288c923994d0b8a977bd"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-service-workspace-390-viewport.png",
+    "sha256": "db0da3cd894c1b7762264b89b88cf2614c7bbe08c2fd8d77ee6bfd471380a031"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-service-workspace-390.png",
+    "sha256": "5bd4f15f3e3e9cb827325272b91ba3d400ba74e84d852c4130a1c0852ff4b5f8"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-service-workspace-834-viewport.png",
+    "sha256": "e6b480b954c53968cb9a59719b6f259a79fa3a4ca3f88a169f8a0337f61ab8b5"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-service-workspace-834.png",
+    "sha256": "0841cade28370cabd61154da43dc763b0b5822eb3e6d119eaa8c4397445ad679"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-services-1440-viewport.png",
+    "sha256": "10ff3ca09b39edab91d008854267b8b18d59ed1c2b640ee566e97a062ef794e2"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-services-1440.png",
+    "sha256": "7d465cd2052280c8e50f00dc3da9cc321dba7e6ecd4c4c9cc9d7a6eae7d1a00e"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-services-320-viewport.png",
+    "sha256": "d07dfc33fdd5838b0d5b4752986be980fa5da5411097383a3118ff6d7c74e22d"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-services-320.png",
+    "sha256": "e2b549596c44f9767a48e54dea3d622fcccd352639527595b6e99c9730838c73"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-services-390-viewport.png",
+    "sha256": "53c35bfd33ae9f627e6c6e386e5be7f99628d266711ca926622e951c7ab36980"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-services-390.png",
+    "sha256": "c9975fc65815fc3c03278ff2674105677f6874dc16f91535a45cc18249a5607f"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-services-834-viewport.png",
+    "sha256": "a5bd78c02c549da1d3becbceb87f0b4d924202900eb8cc474af129746df527bc"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-services-834.png",
+    "sha256": "335a2d27897d9188f2ee5a76e5b8fcebe2a7c6234aefb263ce357c640b2fef69"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-workspace-1440-viewport.png",
+    "sha256": "e889a2e6ce345aa9592989c1f7defa8c658c693de881fc084395b2aaf43d41cb"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-workspace-1440.png",
+    "sha256": "680c6b770b340abed77e6db91e2029adf648d75d2d41633f2b0aa1445cee36e8"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-workspace-320-viewport.png",
+    "sha256": "84e05b0d8ce684fb354746c72e38b05b38f7b21d1e135d225a49f943f970d714"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-workspace-320.png",
+    "sha256": "241b1a2ccaeccc22a74b641a394f61d6872ef66e9a7b8717652e7d08a70faed5"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-workspace-390-viewport.png",
+    "sha256": "762c983993fbefb8fb48694cdce03f4e75c223b9628799c27ae7dc8108e66948"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-workspace-390.png",
+    "sha256": "31e2178e644d299d28b61aa855aa7551cf8b7014941c01832f37a4755cea2348"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-workspace-834-viewport.png",
+    "sha256": "053a5f1d9fbb437130ea82292586312c06de6b0de59fc73087267c1ab06058eb"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-site-workspace-834.png",
+    "sha256": "e40613de4327ae232dd2c77214949f33f751803e012081be8c7fdfdfbd4c3b0f"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-sites-1440-viewport.png",
+    "sha256": "ae3b86ccd193923e5efad782752c0c787dd7f4d2ce1c5235ece95a54e86001cd"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-sites-1440.png",
+    "sha256": "08366472553727f787c21a9b800cb003de291045a458ab2d119aec2f516cadf0"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-sites-320-viewport.png",
+    "sha256": "e6ab6230f982485f8850c08a5c76274bc020d6f020f4a8daf6f6caa9b3e9773f"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-sites-320.png",
+    "sha256": "a7c27ea266cef69398f4d643967fbf6d2353269c4130902700a581eeda9e5424"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-sites-390-viewport.png",
+    "sha256": "99f874e82e4a98f7407b8d4499eae956f2bf4ea7b36ec17a56b1302e2365ae53"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-sites-390.png",
+    "sha256": "459b98278741407467029cb60c22cdbe0a900e985644739e0df8b94f1f2aecb0"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-sites-834-viewport.png",
+    "sha256": "14c19ed5ae737ddf0bee87e010e325ffaed4ef824e83747d3ac3ff8db2bcbb21"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-before/before-sites-834.png",
+    "sha256": "b2a9e9558a18b25b53699819b9e730eee6d9028ae8cf8ec059889890f0fa6043"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operational-sites-1440-viewport.png",
+    "sha256": "7e127484e6ee256b0de39b970f8bedc17034f8b523bef13f59b61b08743922b1"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operational-sites-1440.png",
+    "sha256": "2961cea6f1ab5fed07c3d50d246e6d00f367641650d90a21a4db0fc1b0179116"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operational-sites-320-viewport.png",
+    "sha256": "ead8e94dfd1b24ace767366c0d21d4a0218906a029f1a0d7e7466b4d83dafe47"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operational-sites-320.png",
+    "sha256": "fec4a49658ce7bfd239763bd67fa29929d56ef9299addb2413f127fb109ec1e1"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operational-sites-390-viewport.png",
+    "sha256": "08912966f37601cfe9b40e0eacb71b19de9fd9aa907f38d59f31f8121a6b8df5"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operational-sites-390.png",
+    "sha256": "e8f7f3e3719d03e288b81b09939531abb1a7ecc16d214bbab31c8e2115473d2e"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operational-sites-834-viewport.png",
+    "sha256": "0fbe03f35db32c578dad6a511728d58f1edbc5474f1e3b1a962a23b6ea08605f"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operational-sites-834.png",
+    "sha256": "f438c5606e1a8202a749c45b202f4486991816a168a406b46993508d2ac11e2b"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operations-sites-1440-viewport.png",
+    "sha256": "558a4325101fc555613c3ca203c87ae1aeb107326d88f96511af40f50306f697"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operations-sites-1440.png",
+    "sha256": "f8f767e23f41fb3e916415d4fbc2a99d2e7e368dbc920bcaebe5e4d4c3d1e69c"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operations-sites-320-viewport.png",
+    "sha256": "f408161f74854aa1f26da84c8c582f0844252f640cdc10511b5fbc827e1f44a0"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operations-sites-320.png",
+    "sha256": "aa84a598c314e8cd95e6944b78e38a57fd340dc36991bbea7eea569b88d31823"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operations-sites-390-viewport.png",
+    "sha256": "7d1ce37d2b11880faf0cbb6a129cfe40115da22c06243a2183db6354a793cb3c"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operations-sites-390.png",
+    "sha256": "fd0baa34c1810e8181d8e8ff8f1f7b84177b9fd31815f284d998b24136ba2e3d"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operations-sites-834-viewport.png",
+    "sha256": "6d81648b9200edc9c22fbd376bbeaddb75a1f877132e5fb02fa0a13ee4b35ad4"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-operations-sites-834.png",
+    "sha256": "7fc7ffc1318c5b2e5a0d229b898bbe69597ce8ff6302936ff0840ba641048804"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-1440-viewport.png",
+    "sha256": "a86d5650ca5708f9b79be7c38c9eaa204b67207ebffc5f939332184934361257"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-1440.png",
+    "sha256": "df1c46c86eac5991ca65a5b1cc52bb8a48538d46860017d3ffce8673a2af1804"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-320-viewport.png",
+    "sha256": "78f8bc50dedd832c6286608ccbfec7d24b43b4dd2fbeebe396d1b51b924ae6c8"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-320.png",
+    "sha256": "af2afc703b45f7b8a1000fc055ac1a903e8feb9edc4c53c4224d867ae1684851"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-390-viewport.png",
+    "sha256": "793c49a899bfae57616fc0128d45a1fb265b80542f97e68f512fdddc0cedf822"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-390.png",
+    "sha256": "58c3af1fdf93ce570aa7bd62be491f390d34e6fad931df7880386b3f20728890"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-834-viewport.png",
+    "sha256": "50042f155a63dcce18018c019c0b3804bba0170a36eee1a4e57442ec83a538f7"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-834.png",
+    "sha256": "92593bf6996302737d8a6678d28ff88350b406720cd8661793ceeeaad72e3c08"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-editing-1440-viewport.png",
+    "sha256": "9098bc1191c37bb3112a233a7d152302dc80f7ad39598a8df476ce517e31e709"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-editing-1440.png",
+    "sha256": "85c7e567a4cda245bd875513fa9fed0982c21d29a0b9ee095dfeb8dea9ae3cb7"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-editing-320-viewport.png",
+    "sha256": "fb5ed2a216f3ed9d9ce883b938921d1f5383367c0b5bf9d151423787d8dc886a"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-editing-320.png",
+    "sha256": "bd3e78c4aabaf0fbd07033e9ce04f91b29060c6e3a03d1fbcae5f1cf313ed47e"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-editing-390-viewport.png",
+    "sha256": "5c1c2adfb7229babd8c607ba9f503ca8af57dcb4ef39d8228a884c0b3ea0268b"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-editing-390.png",
+    "sha256": "3898e10336b1ac7ac1289d5b38cce98a8c6c3697ad38df01dc5325b618ffd5f6"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-editing-834-viewport.png",
+    "sha256": "b459a2d5c813b7327f44e3d376f3efb44cec10f6c4e5e10f94e021cd442a9d6a"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-service-workspace-editing-834.png",
+    "sha256": "31cecc18bea5e7a563c197ceb242601ef585408492120822dc8696e3b4515820"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-1440-viewport.png",
+    "sha256": "9535e17eacbf9e3a67bb52bca428ea207d40442b321e5e41c3671c32e293b4b6"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-1440.png",
+    "sha256": "dfc4830d20fbbabc95250d7265d40fa17991ea3bb852b03f0c69523ca7726a79"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-320-viewport.png",
+    "sha256": "e95b2aa6e269f1e01f813f4c59adedff8e4c180ffe97186e6110ba484e5589a0"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-320.png",
+    "sha256": "d19e37b9ebcaace38d32d067ae0a579a65352a514d8e9a223683e02b7d4c3deb"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-390-viewport.png",
+    "sha256": "6466f094e43838478ca5ab4fa91f1656f4c4f79952075a9a701855ba99f37595"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-390.png",
+    "sha256": "0342650f71066b1307fc44be22ee5f1f34a326b0be47962e174ba0644c4b10fb"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-834-viewport.png",
+    "sha256": "bf265fd7c2329c90ab7c0b6bbd3f20ef0e92d1d92807cd18918af3cb1858fede"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-834.png",
+    "sha256": "77a176b1511102c38bdb50035d3ea9faccc0cd904125e650a3259238c17b4893"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-editing-1440-viewport.png",
+    "sha256": "0567489dc73d96cd781d2d8b2bcd66c9bf5802e777a6d42ed6c8671d37338e1c"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-editing-1440.png",
+    "sha256": "8c5b878c51b8bfecbb8e03fb9aab17eeea8e9d71f364dd0923d706bdcce6111b"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-editing-320-viewport.png",
+    "sha256": "2e704f7385496f33fdb054fea988febcdd6f26110cb5de4db080a1a206a97dbd"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-editing-320.png",
+    "sha256": "85dab75e671f0f5a810ab9d0039022fbe78fc42e97354865739e4c8ae6ff3a33"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-editing-390-viewport.png",
+    "sha256": "1e3b84f1e1415c7395b6fc4d881ef9504b8a80402c0a80f110fb937e978c812b"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-editing-390.png",
+    "sha256": "4471d692f678d7400a9cf4d569fbc54cb6ff2e736dfdf62fed7afe7d78116df0"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-editing-834-viewport.png",
+    "sha256": "cda60d7170bca2d6bcbd812937f280ddd26a03da13ec86fbe2cd9231037a3c60"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-services-editing-834.png",
+    "sha256": "e2812fd0545efc5d7df2cf41b22eee70abaf6414c809d728e73a303a23c5f96b"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-workspace-1440-viewport.png",
+    "sha256": "c8aeb094ccd62f1903aea5813099703a9bc988b5b26cd8f859c29e5754effac1"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-workspace-1440.png",
+    "sha256": "ba0e50e1024a2a34be9d4192e1b1f0ba431ac2a270ef03d378203ed4bbf605b3"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-workspace-320-viewport.png",
+    "sha256": "35eaa9e42b1c44721bcafdd885026b6e221c49a163946ac5e72fd57a2054f0ea"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-workspace-320.png",
+    "sha256": "5881bf98e644a52435c7b82f2d453b5609f823ade82d826769af8f380639847c"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-workspace-390-viewport.png",
+    "sha256": "bb87cb8e658e33f6bbfcbb840f2e335d7b3aa08150317d4dac066192c9d7298b"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-workspace-390.png",
+    "sha256": "261d1558f686c921805d13c31bf8eccfd332611cb7b7b1a2ad35b60c5ad7e507"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-workspace-834-viewport.png",
+    "sha256": "1a9782b15cfaaa6bdb5c4922ee41df3c02e54edb9a16a4fdf9ea15d23d54a738"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-site-workspace-834.png",
+    "sha256": "ac317e538bbda53f4f16a220c94eb666cdfc5a45c54ee6de084d52cdf6a99672"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-1440-viewport.png",
+    "sha256": "bf5a9ffcedc956cc5064d76ce76ddf8c5f7ef4485d251a187a2e848a0e58d961"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-1440.png",
+    "sha256": "7431ecb4eacce557258f3171b1c2ee4e378b2e50fd893378e1d286036d2d5584"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-320-viewport.png",
+    "sha256": "a7d76e3e6e396cf6aab7ae9b3aeac8aa4c287f6889d328cf6060c5d33828d3e0"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-320.png",
+    "sha256": "1d8c70323761f1a63ca8fbbd339959daf03c4b75cd2974e39ea36ad53b635f4e"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-390-viewport.png",
+    "sha256": "6c80652d100b573fd03e9a9e0d35e0129660e93c23a452cb3d5b1c811f3d8017"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-390.png",
+    "sha256": "782e5adb89f30d7a397fa2e7ec04e5867471bb1137380fb35abb756d304130f3"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-834-viewport.png",
+    "sha256": "f9c892330457377f2e00d0fa099f3ffd234f0411705f12fcb7003bad13f20cb2"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-834.png",
+    "sha256": "70c1d75cdb5b93dfe8c0c675335d354d7c9772cc192e70feb364091312fe0a8f"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-editing-1440-viewport.png",
+    "sha256": "06c1ec6a844d03927738494a35d50e4cec9321d22a860fbc1425194bdc632669"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-editing-1440.png",
+    "sha256": "06fb4ddeb958673bce2863445f4506539ceb06d913868a5502ee57e4b122436e"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-editing-320-viewport.png",
+    "sha256": "5a73118d1d4d63676c0490574a54b545bd3d56c3c70350aaaaa84bd99cabf051"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-editing-320.png",
+    "sha256": "0b84480c8540946e7cb51988c8069affef5b0f3e848888a8f8329b2ab14e57a6"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-editing-390-viewport.png",
+    "sha256": "ae8055ae3ef18755fbe7f08eaf9e1184db72b02c1f67d13ac5c4b6bc2b11cb41"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-editing-390.png",
+    "sha256": "8e847d249771b4d99ef318658e069df89327550fd2e003e98e1091c3c882f792"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-editing-834-viewport.png",
+    "sha256": "797a3790d15e88d5b04c91752f292920ad35367ae4864ffcce7b096f7109c1de"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-editing-834.png",
+    "sha256": "ea328ca3bce109c4b7535d667b835c59949bf108a1755b90d443658d8c0f77c7"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-mobilisation-1440-viewport.png",
+    "sha256": "a80a46fa4d6320ebfb4f6b720f43abb8ca9e8f38d1ac246693c880c344fb63f4"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-mobilisation-1440.png",
+    "sha256": "4b130b94923e9e294c1cc276cd0190c3589480b7032c0fcf1351e5a56a263051"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-mobilisation-320-viewport.png",
+    "sha256": "31a4863fae8972d06eb8aa1b586f17b74d26cbf46d7253ac9ad275235e42f783"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-mobilisation-320.png",
+    "sha256": "88849e493d2bb0081c8cb1b2e70939d06a3cb03897cf86ca44000ff39f976bd7"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-mobilisation-390-viewport.png",
+    "sha256": "03cb31d30a534e34fbd5977b0d2658f36b15caba073d7acba2ec7178d615de75"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-mobilisation-390.png",
+    "sha256": "fb205b15cd21be4bfe972904ea19d2e3ad0db088b1c5616a57b0fd6b8bc71587"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-mobilisation-834-viewport.png",
+    "sha256": "55e4ef779dd6dc39a14ef3b3f8c14d080ef3a58c3a55e5a63446bf66416072fa"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-mobilisation-834.png",
+    "sha256": "d35c5bc67a2438a020c68ba7ea2edb7fc3f4ed12a5cabcf66142177ce2f07324"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-organisation-1440-viewport.png",
+    "sha256": "bac6445431b17d68d6e448934d355cce14e50e15d55bcae1a60c700afc3b3b18"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-organisation-1440.png",
+    "sha256": "7431ecb4eacce557258f3171b1c2ee4e378b2e50fd893378e1d286036d2d5584"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-organisation-320-viewport.png",
+    "sha256": "a7d76e3e6e396cf6aab7ae9b3aeac8aa4c287f6889d328cf6060c5d33828d3e0"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-organisation-320.png",
+    "sha256": "1d8c70323761f1a63ca8fbbd339959daf03c4b75cd2974e39ea36ad53b635f4e"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-organisation-390-viewport.png",
+    "sha256": "6c80652d100b573fd03e9a9e0d35e0129660e93c23a452cb3d5b1c811f3d8017"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-organisation-390.png",
+    "sha256": "782e5adb89f30d7a397fa2e7ec04e5867471bb1137380fb35abb756d304130f3"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-organisation-834-viewport.png",
+    "sha256": "8b74a0651bac79d88d2469dfda66a7fa70138bef3a54ccbfb7c66f6120f65dc6"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-after/after-sites-organisation-834.png",
+    "sha256": "70c1d75cdb5b93dfe8c0c675335d354d7c9772cc192e70feb364091312fe0a8f"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-operational-site-1440-viewport.png",
+    "sha256": "f4c793be01a4f62d7ff7b9f0770c5f8048b66b037a8ed744fc41c619e927e918"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-operational-site-1440.png",
+    "sha256": "095906204f424ef0ae88a35558f653c01b771807c573e97a144d0d7e2d66f931"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-operational-site-320-viewport.png",
+    "sha256": "029d6d2f34c6a6ca47b5266492843b801a7c6e2fd5e4405d633e8c876cb0aaf6"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-operational-site-320.png",
+    "sha256": "add04cf425103e714572e386c93c0611bfa5ce4dbbe78b9616348738e83d7913"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-operational-site-390-viewport.png",
+    "sha256": "f19f3adf0a71f49646058f028cef606928678bfae5a6b015d4f8f0957b8373a8"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-operational-site-390.png",
+    "sha256": "ef3adaaf85ba12f8212c1c2905c572d19fb8cd00079e387274c572755f47bb12"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-operational-site-834-viewport.png",
+    "sha256": "cfed414344ab35e8170f48931e2a3e8dad294918b2dac517828a1a17c190e46d"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-operational-site-834.png",
+    "sha256": "1733e38c980457fa0c0a59cea3c0ead35d22785f96dec9a1482b40b352e9079d"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-service-1440-viewport.png",
+    "sha256": "81c438db6e592849891dfe683848d12dc16b4ccd718c65a252e1b5b967a0f9b4"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-service-1440.png",
+    "sha256": "f12f791fabd5ae97039063078754c43fd48ac161a1fbfdec395fca3b85ecc194"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-service-320-viewport.png",
+    "sha256": "d4e46715e2b464de181be5e594dffa617e1cfdba279bdacdfaa7a72b26471d39"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-service-320.png",
+    "sha256": "b775b44cc606c5f7ced186fa9287629203d42031991e1a8b68177cca391cc0b0"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-service-390-viewport.png",
+    "sha256": "87a73132c9d3c0fd32932e57c665de0f740ad007333b1cf62484831ab1981f7f"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-service-390.png",
+    "sha256": "80ee6a5a8612b222fea027d8ec9f5b784306f8ced12d3933813160ff141578b7"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-service-834-viewport.png",
+    "sha256": "2830fd1beb66511f479ef37df582bd4b40d89c735d5444bdc1422c518fe57729"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/revoked-service-834.png",
+    "sha256": "911e41f883fcdc6191ca50b8971c6f201be421b4d69c4b8f62907dd635951de0"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/search-positive-1440-viewport.png",
+    "sha256": "4b0f65b738ea6aed02bd9f1ddea31b39a6b4aaee6d656c492afc314a8b37685f"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/search-positive-1440.png",
+    "sha256": "a18f45db625e69f7431c43e2797a4d5d123679cf91491cf9d588f8a58b529ea4"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/search-positive-320-viewport.png",
+    "sha256": "138da153055099769f8334f58e294ae038c3f96f57ffe7474b7e1c9f744fdb91"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/search-positive-320.png",
+    "sha256": "265c31e7f037228095c95142b891e5d76ec263bd408c3bdcb04188812b643560"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/search-positive-390-viewport.png",
+    "sha256": "2908871938496c8f8cef3feaa06a9ff79e92860086e55eecae2e12f364342903"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/search-positive-390.png",
+    "sha256": "dfabb05fc6ef9fdb241b08281a8ec25eec219ea4516efa056e2cc2fe89092f2a"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/search-positive-834-viewport.png",
+    "sha256": "359a074945a7c2bfb9d3938efedbbe32dd3d44d397f67bc532f74701e238f7c4"
+  },
+  {
+    "file": "docs/delivery/evidence/ui-milestone-9-20261018/browser/sites-authority/search-positive-834.png",
+    "sha256": "38d2591300fddb6c2f927e4fe8682d939f0c8cdf9ad7770274e4fbdd8ce68d25"
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "status": "READY_FOR_ROOT_REVIEW_STAGED_NOT_COMMITTED",
+  "base": "b12d213ba07d64019c47f10b23db082a43513abf",
+  "branch": "codex/ui-milestone-9-operations",
+  "newCommit": null,
+  "products": 15,
+  "preservedSource": 415,
+  "protectedConfigSchemaPublic": 239,
+  "finalChecks": {
+    "tests": {
+      "passed": 617,
+      "failed": 0,
+      "files": 42,
+      "log": "final-tests.txt"
+    },
+    "fullNpmLint": {
+      "exit": 0,
+      "warnings": "Only pre-existing unused officeId in site-horizon-maintenance.test.mjs",
+      "log": "final-full-lint.txt"
+    },
+    "build": {
+      "exit": 0,
+      "syntheticOnly": true,
+      "log": "final-build.txt"
+    },
+    "types": {
+      "exit": 0,
+      "log": "final-types.txt"
+    }
+  },
+  "initialHistoricalFailures": {
+    "initialTests": {
+      "passed": 611,
+      "failed": 6,
+      "reason": "Old milestone8 preservation manifest references; exact scope receipts updated without dropping assertions"
+    },
+    "initialParity": "One missing pure work-time helper; parent authorised exact existing dependency as15th product; final parity resolves it"
+  },
+  "browserSourceRowsVerified": 50,
+  "everyOwnedProductCoveredByAfterRuntime": true,
+  "finalCorePngs": 234,
+  "historicalDiagnosticPngs": 10,
+  "publicationBlockingLocalMismatch": [],
+  "remainingGate": "Root review; no commit authorised yet",
+  "U13": "Actual protected source remains unavailable/Coming soon",
+  "reportSha256": "e6b78de1c27a776f568817cb6d2c6e49e0731ad0e2e9f3a5a3e20a928614e31e",
+  "diffCheck": {
+    "scopedExit": 0,
+    "fullExit": 2,
+    "receipt": "diff-check-receipt.json",
+    "exception": "Preserved raw diagnostics/patch whitespace only; no product or test warning"
+  }
+}

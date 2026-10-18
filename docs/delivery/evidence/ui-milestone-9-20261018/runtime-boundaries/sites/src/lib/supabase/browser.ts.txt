@@ -1,0 +1,1 @@
+export function createBrowserSupabase(){return {auth:{signOut:async()=>({error:null})}}}

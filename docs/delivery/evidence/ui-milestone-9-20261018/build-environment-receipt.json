@@ -1,0 +1,18 @@
+{
+  "inheritedOnly": [
+    "PATH",
+    "HOME",
+    "TMPDIR",
+    "LANG"
+  ],
+  "fixedModes": {
+    "NODE_ENV": "production",
+    "NEXT_TELEMETRY_DISABLED": "1",
+    "NEXT_PUBLIC_KSS_STAGE": "staging"
+  },
+  "supabaseUrl": "https://synthetic.invalid",
+  "keysAndSigningInputs": "Explicit synthetic compile-only strings with no authority; no credential/environment files read",
+  "VERCEL": "unset; local build only, not deployment",
+  "tests": "Explicit42 files with local-acceptance-network-guard import denies all network",
+  "build": "Managed local sandbox, synthetic configuration only; no hosted verification or deployment"
+}

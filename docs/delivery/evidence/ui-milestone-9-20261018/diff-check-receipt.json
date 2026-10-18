@@ -1,0 +1,15 @@
+{
+  "productTestReportScopedExit": 0,
+  "fullStagedExit": 2,
+  "scope": "Only immutable diagnostic logs and historical patch evidence contain whitespace warnings; product/test/report scoped diff check is clean.",
+  "preservedRawEvidence": true,
+  "exceptions": [
+    "candidate-build.txt",
+    "final-build.txt",
+    "candidate-tests.txt",
+    "checkpoint04 source red TAP diagnostic",
+    "checkpoint04 changes.patch context lines",
+    "final-full-lint.txt"
+  ],
+  "productBytesChangedForPackaging": false
+}

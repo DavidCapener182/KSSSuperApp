@@ -1,0 +1,47 @@
+{
+  "U10": {
+    "route": "/events/[id]/attendance",
+    "browser": "operations",
+    "limits": "Observed manager attendance with synthetic authorised API only"
+  },
+  "U11": {
+    "route": "/events/[id]/work-time",
+    "browser": "operations",
+    "limits": "Synthetic separate review/approval flags; no real named grant created or tested"
+  },
+  "U12": {
+    "route": "/sites",
+    "browser": "sites",
+    "variants": [
+      "management",
+      "operational",
+      "selected Site",
+      "organisation",
+      "mobilisation",
+      "search",
+      "Operations projection",
+      "phone filter",
+      "denied current source"
+    ]
+  },
+  "U13": {
+    "route": "/sites/[siteId]/workspace",
+    "browser": "sites",
+    "limits": "Actual current source remains Workspace unavailable/Coming soon; presentation/server gate only, not functional readiness"
+  },
+  "U14": {
+    "route": "/sites/[siteId]/services",
+    "browser": "sites",
+    "limits": "Focused create editor, Operations/Staff projection; no live business write"
+  },
+  "U15": {
+    "route": "/sites/[siteId]/services/[serviceId]",
+    "browser": "sites",
+    "limits": "Exact read source/lifetime/403 clearing; representative editing and returned history; no real assignments"
+  },
+  "U16": {
+    "route": "/sites/[siteId]/services/[serviceId]/attendance",
+    "browser": "operations",
+    "limits": "Synthetic manager fact and denied readback; no hosted acceptance"
+  }
+}

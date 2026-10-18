@@ -1,0 +1,1 @@
+export default function Missing(){return <main><h1>Unavailable to this synthetic identity</h1></main>}

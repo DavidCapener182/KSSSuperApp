@@ -1,0 +1,14 @@
+BROWSER_RUNNING after http://127.0.0.1:3221
+WIDTH_PASS after 1440 7
+WIDTH_PASS after 834 14
+WIDTH_PASS after 390 21
+WIDTH_PASS after 320 28
+✔ operations composition captures actual clients with synthetic source boundaries (38588.135667ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 38704.376166

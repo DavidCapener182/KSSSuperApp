@@ -1,0 +1,214 @@
+--- a/src/components/operational-sites-client.tsx
++++ b/src/components/operational-sites-client.tsx
+@@ -1,6 +1,6 @@
+ "use client";
+ 
+-import { useCallback, useEffect, useState } from "react";
++import { useCallback, useEffect, useRef, useState } from "react";
+ import Link from "next/link";
+ import { Button } from "@/components/ui/button";
+ import { Input } from "@/components/ui/input";
+@@ -15,40 +15,57 @@
+   const [site,setSite] = useState<Row|null>(null); const [clients,setClients] = useState<Choice[]>([]);
+   const [filters,setFilters] = useState({search:"",organisation:"",type:"",status:""}); const [applied,setApplied] = useState(filters);
+   const [offset,setOffset] = useState(0); const [loading,setLoading] = useState(true); const [error,setError] = useState("");
++  const scope = JSON.stringify({ selected, office, offset, applied });
++  const [loadedScope,setLoadedScope] = useState("");
++  const requests=useRef(0);
+   const load = useCallback(async () => {
++    const ticket=++requests.current;
++    const current=()=>ticket===requests.current;
+     setLoading(true);setError("");
+     try { const params=new URLSearchParams({offset:String(offset)});Object.entries(applied).forEach(([key,value])=>{if(value)params.set(key,value);});
+-      const response=await fetch(`/api/operational-sites?${params}`,{cache:"no-store"}); if(!response.ok)throw Error("Operational Sites unavailable");
+-      const result=await response.json();setItems(result.items ?? []);setTotal(result.total ?? 0);
+-      if(selected){const detail=await fetch(`/api/operational-sites/${selected}`,{cache:"no-store"});if(!detail.ok)throw Error("Site unavailable");setSite((await detail.json()).site);}
+-    }catch(caught){setError(caught instanceof Error?caught.message:"Operational Sites unavailable");}
+-    finally{setLoading(false);}
+-  },[applied,offset,selected]);
+-  useEffect(()=>{const timer=setTimeout(()=>void load(),0);return()=>clearTimeout(timer);},[load]);
+-  useEffect(()=>{void fetch("/api/events/choices",{cache:"no-store"}).then((r)=>r.json()).then((data)=>setClients(data.clients ?? [])).catch(()=>{});},[]);
++      const response=await fetch(`/api/operational-sites?${params}`,{cache:"no-store"});
++      if(!current())return;if(!response.ok)throw Error("Operational Sites unavailable");
++      const result=await response.json();if(!current())return;
++      if(!Array.isArray(result.items)||!Number.isInteger(result.total)||result.total<0)throw Error("Operational Sites unavailable");
++      let selectedSite:Row|null=null;
++      if(selected){const detail=await fetch(`/api/operational-sites/${selected}`,{cache:"no-store"});
++        if(!current())return;if(!detail.ok)throw Error("Site unavailable");
++        const body=await detail.json();if(!current())return;
++        if(!body.site||body.site.id!==selected)throw Error("The selected Site could not be confirmed.");selectedSite=body.site;
++      }
++      setItems(result.items);setTotal(result.total);setSite(selectedSite);setLoadedScope(scope);
++    }catch(caught){if(current()){setItems([]);setTotal(0);setSite(null);setLoadedScope(scope);setError(caught instanceof Error?caught.message:"Operational Sites unavailable");}}
++    finally{if(current())setLoading(false);}
++  },[applied,offset,selected,scope]);
++  useEffect(()=>{const reads=requests;const timer=setTimeout(()=>void load(),0);return()=>{clearTimeout(timer);++reads.current;};},[load]);
++  useEffect(()=>{let active=true;void fetch("/api/events/choices",{cache:"no-store"}).then((r)=>r.json()).then((data)=>{if(active)setClients(data.clients ?? []);}).catch(()=>{});return()=>{active=false;};},[]);
++  const currentItems=loadedScope===scope?items:[];
++  const currentSite=loadedScope===scope?site:null;
++  const currentTotal=loadedScope===scope?total:0;
++  const currentLoading=loading||loadedScope!==scope;
+   return <main className={`enterprise-main events-page ${styles.workspace}`}><p className="eyebrow">Operational locations</p>
+     <div className={styles.pageHeading}><div><h1>Sites / Venues</h1><p className="enterprise-intro">Client and Event context is operational. Site administration remains separately guarded.</p></div></div>
+     <nav className="crm-tabs"><Link href="/sites" aria-current="page">Sites / Venues</Link><Link href="/events">Events</Link>{office&&<Link href="/sites">Manage my Sites</Link>}</nav>
+-    <form className="events-filters" onSubmit={(e)=>{e.preventDefault();setOffset(0);setApplied({...filters});}}>
++    <form className="events-filters is-expanded" onSubmit={(e)=>{e.preventDefault();setOffset(0);setApplied({...filters});}}>
+       <label>Search<Input maxLength={80} value={filters.search} onChange={(e)=>setFilters({...filters,search:e.target.value})}/></label>
+       <label>Client<select value={filters.organisation} onChange={(e)=>setFilters({...filters,organisation:e.target.value})}><option value="">All Clients</option>{clients.map((c)=><option key={c.id} value={c.id}>{c.name}</option>)}</select></label>
+       <label>Site type<select value={filters.type} onChange={(e)=>setFilters({...filters,type:e.target.value})}><option value="">All types</option>{["STADIUM","VENUE","RETAIL","WAREHOUSE","OFFICE","FESTIVAL_SITE","STATIC_SITE","OTHER"].map((t)=><option key={t} value={t}>{labels(t)}</option>)}</select></label>
+       <label>Status<select value={filters.status} onChange={(e)=>setFilters({...filters,status:e.target.value})}><option value="">All statuses</option>{["DRAFT","ACTIVE","RETIRED"].map((t)=><option key={t} value={t}>{labels(t)}</option>)}</select></label>
+       <Button>Apply filters</Button></form>
+     {error&&<p role="alert" className="enterprise-error">{error}<Button variant="ghost" onClick={()=>void load()}>Retry</Button></p>}
+-    {loading?<p role="status" className="crm-skeleton">Loading authorised Sites…</p>:<>
+-      <div className={styles.workspaceSplit}><section className={styles.surface}><h2>Permitted Sites</h2>      <p className="enterprise-honesty">{total} authorised Site{total===1?"":"s"}. Unlinked Sites remain valid.</p>
+-      {items.length===0?<p className="crm-empty">No Sites match these filters.</p>:<div className="crm-list">{items.map((row)=><Link className="crm-row" href={`/sites?view=operational&selected=${row.id}`} key={String(row.id)}>
++    {currentLoading?<p role="status" className="crm-skeleton">Loading authorised Sites…</p>:<>
++      <div className={styles.workspaceSplit}><section className={styles.surface}><h2>Permitted Sites</h2>      <p className="enterprise-honesty">{currentTotal} authorised Site{currentTotal===1?"":"s"}. Unlinked Sites remain valid.</p>
++      {currentItems.length===0?(error?null:<p className="crm-empty">No Sites match these filters.</p>):<div className="crm-list">{currentItems.map((row)=><Link className="crm-row" href={`/sites?view=operational&selected=${row.id}`} key={String(row.id)}>
+         <strong>{String(row.name)}</strong><span>{String(row.client_name ?? "Unlinked")} · {labels(row.site_type)}</span><span>{labels(row.status)} · {String(row.town_city)}</span></Link>)}</div>}
+-      <div className="people-pagination"><Button variant="outline" disabled={offset===0} onClick={()=>setOffset(Math.max(0,offset-25))}>Previous</Button><span>{items.length?offset+1:0}–{offset+items.length} of {total}</span><Button variant="outline" disabled={offset+25>=total} onClick={()=>setOffset(offset+25)}>Next</Button></div>
+-      </section><aside>{site?<>      {site&&<section className={styles.surface}><h2>{String(site.name)}</h2><p>{labels(site.site_type)} · {labels(site.status)}</p>
+-        <p>{String(site.address_line1)}, {String(site.town_city)} {String(site.postcode)} · Reporting point: {String(site.reporting_point)}</p>
+-        <p>Client: {site.client_name ? office ? <Link href={`/crm/organisations/${site.organisation_id}`}>{String(site.client_name)}</Link> : String(site.client_name) : "Not linked"}</p>
+-        <p><Link href={`/sites/${site.id}/workspace`}>Open Site workspace →</Link></p>
+-        {Boolean(site.client_name)&&<p><Link href={`/sites/${site.id}/services`}>Ongoing Site Services and shift demand</Link></p>}
+-        <h3>Upcoming / active Events</h3>{((site.events as Row[])??[]).length===0?<p>No active Events at this Site.</p>:<ul>{((site.events as Row[])??[]).map((event)=><li key={String(event.id)}><Link href={`/events/${event.id}`}>{String(event.name)} · {labels(event.status)}</Link></li>)}</ul>}
+-        {Boolean(site.can_manage)&&office&&<p>Site administration remains in <Link href="/sites">Manage my Sites</Link>.</p>}</section>}
+-      {site && selected && <OperationalDocumentContextCard kind="SITE" id={selected} />}
++      <div className="people-pagination"><Button variant="outline" disabled={offset===0} onClick={()=>setOffset(Math.max(0,offset-25))}>Previous</Button><span>{currentItems.length?offset+1:0}–{offset+currentItems.length} of {currentTotal}</span><Button variant="outline" disabled={offset+25>=currentTotal} onClick={()=>setOffset(offset+25)}>Next</Button></div>
++      </section><aside>{currentSite?<>      {currentSite&&<section className={styles.surface}><h2>{String(currentSite.name)}</h2><p>{labels(currentSite.site_type)} · {labels(currentSite.status)}</p>
++        <p>{String(currentSite.address_line1)}, {String(currentSite.town_city)} {String(currentSite.postcode)} · Reporting point: {String(currentSite.reporting_point)}</p>
++        <p>Client: {currentSite.client_name ? office ? <Link href={`/crm/organisations/${currentSite.organisation_id}`}>{String(currentSite.client_name)}</Link> : String(currentSite.client_name) : "Not linked"}</p>
++        <p><Link href={`/sites/${currentSite.id}/workspace`}>Open Site workspace →</Link></p>
++        {Boolean(currentSite.client_name)&&<p><Link href={`/sites/${currentSite.id}/services`}>Ongoing Site Services and shift demand</Link></p>}
++        <h3>Upcoming / active Events</h3>{((currentSite.events as Row[])??[]).length===0?<p>No active Events at this Site.</p>:<ul>{((currentSite.events as Row[])??[]).map((event)=><li key={String(event.id)}><Link href={`/events/${event.id}`}>{String(event.name)} · {labels(event.status)}</Link></li>)}</ul>}
++        {Boolean(currentSite.can_manage)&&office&&<p>Site administration remains in <Link href="/sites">Manage my Sites</Link>.</p>}</section>}
++      {currentSite && selected && <OperationalDocumentContextCard kind="SITE" id={selected} />}
+ </>:<section className={styles.surface}><h2>Select a Site</h2><p>Open a permitted location to view its address, Services and operational sources.</p></section>}</aside></div>
+     </>}
+   </main>;
+--- a/src/components/site-service-detail-client.tsx
++++ b/src/components/site-service-detail-client.tsx
+@@ -2,7 +2,7 @@
+ import "./record-studies.css";
+ import { RecordSectionTracker } from "./record-section-tracker";
+ 
+-import { useCallback, useEffect, useState } from "react";
++import { useCallback, useEffect, useRef, useState } from "react";
+ import Link from "next/link";
+ import { Button } from "@/components/ui/button";
+ import { Input } from "@/components/ui/input";
+@@ -46,33 +46,49 @@
+  const [warningReason,setWarningReason]=useState("");const [exceptionQuantity,setExceptionQuantity]=useState(1);
+  const [history,setHistory]=useState<{source:string;kind:string;record_id:string;revision:number;occurred_at:string;actor_name:string;reason:string|null}[]>([]);
+  const api=`/api/site-services/${serviceId}`;
+- const load=useCallback(async():Promise<Detail|null>=>{setLoading(true);setError("");try{const [response,roleResponse]=await Promise.all([
+-   read(`${api}?site=${siteId}&from=${week}&until=${addCivilDays(week,7)}`),
+-   read("/api/events/staffing-roles")]);setDetail(response.detail);setRoles(roleResponse.roles??[]);
+-   if(initialDemandId&&response.detail?.demands?.some((demand:Demand)=>demand.id===initialDemandId)){
+-    const allocationResponse=await read(api,{method:"POST",headers:{"content-type":"application/json"},
+-     body:JSON.stringify({action:"allocations",demandId:initialDemandId})});
+-    setSelected(initialDemandId);setAllocations(allocationResponse.result?.allocations??[]);
++ const context=JSON.stringify({siteId,serviceId,canAdmin,initialDemandId,week});
++ const [loadedContext,setLoadedContext]=useState("");
++ const active=useRef(true),scope=useRef(context),requests=useRef(0),source=useRef<Detail|null>(null);
++ const currentDetail=loadedContext===context&&!loading?detail:null;
++ const currentView=()=>active.current&&scope.current===context;
++ const load=useCallback(async():Promise<Detail|null>=>{
++  if(!active.current||scope.current!==context)return null;
++  const ticket=++requests.current;const current=()=>active.current&&scope.current===context&&ticket===requests.current;
++  source.current=null;setLoading(true);setError("");setNotice("");
++  try{const [response,roleResponse]=await Promise.all([
++   read(`${api}?site=${siteId}&from=${week}&until=${addCivilDays(week,7)}`),read("/api/events/staffing-roles")]);
++   if(!current())return null;
++   const next:Detail=response.detail;
++   if(!next||next.service?.id!==serviceId||!Array.isArray(next.templates)||!Array.isArray(next.demands)||!Array.isArray(next.pauses))throw Error("The selected Service could not be confirmed.");
++   let selectedDemand:string|null=null;let currentAllocations:Allocation[]=[];
++   if(initialDemandId&&next.demands.some(demand=>demand.id===initialDemandId)){
++    const allocationResponse=await read(api,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action:"allocations",demandId:initialDemandId})});
++    if(!current())return null;selectedDemand=initialDemandId;currentAllocations=allocationResponse.result?.allocations??[];
+    }
+-   return response.detail as Detail;
+-  }catch(caught){setError(caught instanceof Error?caught.message:"Service unavailable");return null;}finally{setLoading(false);}},[api,siteId,week,initialDemandId]);
+- useEffect(()=>{const timer=setTimeout(()=>void load(),0);return()=>clearTimeout(timer);},[load]);
+- async function act(action:string,fields:Record<string,unknown>){setBusy(true);setError("");setNotice("");try{
++   source.current=next;setDetail(next);setRoles(roleResponse.roles??[]);setLoadedContext(context);setSelected(selectedDemand);setAllocations(currentAllocations);setCandidates([]);setHistory([]);return next;
++  }catch(caught){if(current()){source.current=null;setDetail(null);setRoles([]);setSelected(null);setAllocations([]);setCandidates([]);setHistory([]);setNotice("");setLoadedContext(context);setError(caught instanceof Error?caught.message:"Service unavailable");}return null;}
++  finally{if(current())setLoading(false);}
++ },[api,siteId,serviceId,week,initialDemandId,context]);
++ useEffect(()=>{const view=active,selectedScope=scope,reads=requests,currentSource=source;view.current=true;selectedScope.current=context;
++  const timer=setTimeout(()=>{setBusy(false);void load();},0);
++  return()=>{clearTimeout(timer);view.current=false;++reads.current;currentSource.current=null;};
++ },[load,context]);
++ async function act(action:string,fields:Record<string,unknown>){if(!currentView()||!source.current||loading||busy)return null;setBusy(true);setError("");setNotice("");try{
+   const result=await read(api,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({action,...fields})});
+-  const confirmed=await load();
++  if(!currentView())return null;const confirmed=await load();if(!currentView())return null;
+   if(!confirmed||confirmed.service.id!==serviceId)throw Error("The server responded, but the authorised Service view could not be refreshed. Check the source before another change.");
+   setNotice("Server response received; current Service view refreshed. Check the dated history for the exact change.");return result.result;
+- }catch(caught){setError(caught instanceof Error?caught.message:"Change could not be saved");return null;}finally{setBusy(false);}}
+- async function loadAllocation(demandId:string){setSelected(demandId);setCandidates([]);try{const result=await read(api,{method:"POST",headers:{"content-type":"application/json"},
+-  body:JSON.stringify({action:"allocations",demandId})});setAllocations(result.result?.allocations??[]);}catch{setError("Allocations unavailable");}}
+- async function loadHistory(){try{const result=await read(api,{method:"POST",headers:{"content-type":"application/json"},
+-  body:JSON.stringify({action:"history",siteId,offset:0})});setHistory(result.result?.items??[]);}catch{setError("Service history unavailable");}}
+- async function findCandidates(){if(!selected)return;try{const result=await read(api,{method:"POST",headers:{"content-type":"application/json"},
+-  body:JSON.stringify({action:"candidates",demandId:selected,search,offset:0})});setCandidates(result.result?.items??[]);}catch{setError("Candidate search unavailable");}}
+- async function allocate(personId:string){const demand=detail?.demands.find((item)=>item.id===selected);if(!demand)return;
++ }catch(caught){if(currentView())setError(caught instanceof Error?caught.message:"Change could not be saved");return null;}finally{if(currentView())setBusy(false);}}
++ async function loadAllocation(demandId:string){if(!currentView()||!source.current?.demands.some(demand=>demand.id===demandId))return;const ticket=requests.current;setSelected(demandId);setCandidates([]);try{const result=await read(api,{method:"POST",headers:{"content-type":"application/json"},
++  body:JSON.stringify({action:"allocations",demandId})});if(!currentView()||ticket!==requests.current)return;setAllocations(result.result?.allocations??[]);}catch{if(currentView()&&ticket===requests.current)setError("Allocations unavailable");}}
++ async function loadHistory(){if(!currentView()||!source.current)return;const ticket=requests.current;try{const result=await read(api,{method:"POST",headers:{"content-type":"application/json"},
++  body:JSON.stringify({action:"history",siteId,offset:0})});if(!currentView()||ticket!==requests.current)return;setHistory(result.result?.items??[]);}catch{if(currentView()&&ticket===requests.current)setError("Service history unavailable");}}
++ async function findCandidates(){if(!currentView()||!selected||!source.current?.demands.some(demand=>demand.id===selected))return;const ticket=requests.current;try{const result=await read(api,{method:"POST",headers:{"content-type":"application/json"},
++  body:JSON.stringify({action:"candidates",demandId:selected,search,offset:0})});if(!currentView()||ticket!==requests.current)return;setCandidates(result.result?.items??[]);}catch{if(currentView()&&ticket===requests.current)setError("Candidate search unavailable");}}
++ async function allocate(personId:string){const demand=currentDetail?.demands.find((item)=>item.id===selected);if(!demand)return;
+   const result=await act("allocate",{demandId:demand.id,personId,expectedRevision:demand.revision,
+    acknowledgeWarnings:true,reason:warningReason});if(result){setWarningReason("");await loadAllocation(demand.id);}}
+- function templateDefaults(value:string){setLineId(value);const selectedTemplate=detail?.templates.find((item)=>item.line_id===value&&item.effective_until===null);
++ function templateDefaults(value:string){setLineId(value);const selectedTemplate=currentDetail?.templates.find((item)=>item.line_id===value&&item.effective_until===null);
+   if(selectedTemplate){setDays(selectedTemplate.weekdays);setRoleId(selectedTemplate.role_id);setQuantity(selectedTemplate.required_quantity);
+    setReportTime(selectedTemplate.report_time.slice(0,5));setStartTime(selectedTemplate.shift_start_time.slice(0,5));
+    setEndTime(selectedTemplate.shift_end_time.slice(0,5));setArea(selectedTemplate.area_label);setReporting(selectedTemplate.reporting_point);}}
+@@ -81,7 +97,7 @@
+   if(!report||!start||!end){setError("Enter an unambiguous London local time.");return;}
+   await act("extra",{serviceDate:date,roleId,quantity,reportAt:report,shiftStartsAt:start,shiftEndsAt:end,
+    area,reporting,reason});}
+- const service=detail?.service;
++ const service=currentDetail?.service;
+  return <main className={`enterprise-main site-service-record ${journey.controls} ${styles.workspace}`}><p className="enterprise-eyebrow">Ongoing Site shift · synthetic development data</p>
+    <header className="site-service-record-header"><h1>{service?.name??"Site Service"}</h1>{service&&<><div className="crm-record-identity"><span>Site Service</span><strong>{service.state.replaceAll("_"," ")}</strong><span>{service.type.replaceAll("_"," ")}</span></div><p>{service.client_name} · {service.site_name}</p><p>Effective {siteDate(service.effective_from)}{service.effective_until?` to ${siteDate(service.effective_until)}`:" onward"}</p></>}</header>
+    <nav className="site-service-record-sections" aria-label="Service sections"><a href="#service-state">Overview</a><a href="#service-template">Weekly template</a><a href="#service-demand">Dated demand</a><a href="#service-history">History</a></nav>
+@@ -92,7 +108,7 @@
+    {loading?<p role="status" className="crm-skeleton">Loading Service…</p>:service&&<>
+     <div className={styles.overviewGrid}><section id="service-state" className="crm-panel"><h2>Service overview</h2><p><strong>{service.state}</strong> · {service.type.replaceAll("_"," ")} · Effective {siteDate(service.effective_from)}{service.effective_until?` to ${siteDate(service.effective_until)}`:" onward"}</p>
+      <p>Service status and staffing counts describe planning only. They do not confirm attendance or worked hours.</p>
+-     {detail?.pauses.length? <p>Pause periods: {detail.pauses.map((pause)=>`${pause.starts_on} to ${pause.ends_before} (exclusive)`).join(" · ")}</p>:null}
++     {currentDetail?.pauses.length? <p>Pause periods: {currentDetail.pauses.map((pause)=>`${pause.starts_on} to ${pause.ends_before} (exclusive)`).join(" · ")}</p>:null}
+      {canAdmin&&service.state!=="ENDED"&&<SiteOperationPanel label="Manage Service lifecycle" title="Manage Service lifecycle" context={`${service.name} · ${service.state}`} busy={busy}><div className="sites-form"><label>Effective date<Input type="date" value={effectiveOn} onChange={(event)=>setEffectiveOn(event.target.value)} /></label>
+       <label>Resume on (for a pause)<Input type="date" value={resumeOn} onChange={(event)=>setResumeOn(event.target.value)} /></label>
+       <label>Reason<Input value={reason} maxLength={500} onChange={(event)=>setReason(event.target.value)} /></label>
+@@ -101,11 +117,11 @@
+        {service.state==="PAUSED"&&<Button variant="outline" disabled={busy} onClick={()=>void act("transition",{state:"ACTIVE",effectiveOn,expectedRevision:service.revision,reason})}>Resume</Button>}
+        {service.state!=="ENDED"&&<Button variant="outline" disabled={busy} onClick={()=>void act("transition",{state:"ENDED",effectiveOn,expectedRevision:service.revision,reason})}>End Service</Button>}</div></div></SiteOperationPanel>}</section><aside><OperationalDocumentContextCard kind="SITE_SERVICE" id={serviceId} /></aside></div>
+     <section id="service-template" className="crm-panel"><h2>Weekly demand template</h2><p>Published versions preserve intent; dated shifts keep their own identity and history.</p>
+-      {detail?.templates.length?<ul className={styles.templateList}>{detail.templates.map((item)=><li className={styles.templateLine} key={item.id}><h3>{item.role_name} · {item.area_label} <span className={styles.state}>Version {item.version}</span></h3><p>{item.required_quantity} required · Report {item.report_time.slice(0,5)} · Shift {item.shift_start_time.slice(0,5)}–{item.shift_end_time.slice(0,5)}{item.shift_end_time<=item.shift_start_time?" next day":""}</p><div className={styles.weekPattern} role="group" aria-label="Published weekdays">{weekdays.map((day,index)=><span key={day} className={item.weekdays.includes(index+1)?styles.patternDay:undefined}>{day}<span className="sr-only">{item.weekdays.includes(index+1)?" · included":" · not included"}</span></span>)}</div><p className={styles.quiet}>Effective {siteDate(item.effective_from)} to {item.effective_until?siteDate(item.effective_until):"open-ended"} · Reporting point: {item.reporting_point||"Not specified"}</p></li>)}</ul>:<p>No template published.</p>}
++      {currentDetail?.templates.length?<ul className={styles.templateList}>{currentDetail.templates.map((item)=><li className={styles.templateLine} key={item.id}><h3>{item.role_name} · {item.area_label} <span className={styles.state}>Version {item.version}</span></h3><p>{item.required_quantity} required · Report {item.report_time.slice(0,5)} · Shift {item.shift_start_time.slice(0,5)}–{item.shift_end_time.slice(0,5)}{item.shift_end_time<=item.shift_start_time?" next day":""}</p><div className={styles.weekPattern} role="group" aria-label="Published weekdays">{weekdays.map((day,index)=><span key={day} className={item.weekdays.includes(index+1)?styles.patternDay:undefined}>{day}<span className="sr-only">{item.weekdays.includes(index+1)?" · included":" · not included"}</span></span>)}</div><p className={styles.quiet}>Effective {siteDate(item.effective_from)} to {item.effective_until?siteDate(item.effective_until):"open-ended"} · Reporting point: {item.reporting_point||"Not specified"}</p></li>)}</ul>:<p>No template published.</p>}
+       <div className={styles.actions}>      {canAdmin&&<SiteOperationPanel label="Edit weekly template" title="Publish a weekly template version" context={service.name} busy={busy}><form className="sites-form" onSubmit={(event)=>{event.preventDefault();void act("template",{lineId:lineId||null,effectiveFrom:effectiveOn,weekdays:days,roleId,
+         quantity,reportTime,startTime,endTime,area,reporting,reason});}}>
+        <label>Template line<select value={lineId} onChange={(event)=>templateDefaults(event.target.value)}><option value="">New weekly line</option>
+-         {detail?.templates.filter((item)=>item.effective_until===null).map((item)=><option key={item.id} value={item.line_id}>{item.role_name} · {item.area_label} (v{item.version})</option>)}</select></label>
++         {currentDetail?.templates.filter((item)=>item.effective_until===null).map((item)=><option key={item.id} value={item.line_id}>{item.role_name} · {item.area_label} (v{item.version})</option>)}</select></label>
+        <label>Effective from<Input type="date" value={effectiveOn} onChange={(event)=>setEffectiveOn(event.target.value)} /></label>
+        <div role="group" aria-label="Weekdays" className="workforce-filters is-open">{weekdays.map((label,index)=><label key={label} className="workforce-check"><input type="checkbox" checked={days.includes(index+1)} onChange={(event)=>setDays(event.target.checked?[...days,index+1].sort():days.filter((day)=>day!==index+1))} />{label}</label>)}</div>
+        <label>Role<select value={roleId} onChange={(event)=>setRoleId(event.target.value)}><option value="">Choose role</option>{roles.map((role)=><option key={role.id} value={role.id}>{role.display_name}</option>)}</select></label>
+@@ -124,8 +140,8 @@
+       <div className="workforce-toolbar"><Button variant="outline" onClick={()=>setWeek(addCivilDays(week,-7))}>Previous week</Button>
+        <Button variant="outline" onClick={()=>setWeek(londonWeekStart(londonToday())!)}>This week</Button>
+        <Button variant="outline" onClick={()=>setWeek(addCivilDays(week,7))}>Next week</Button><strong>Week of {siteDate(week)}</strong></div>
+-      {detail?.demands.length===0?<p className="crm-empty">No dated demand in this week. Check the Service dates, pause periods and generation horizon.</p>:
+-       <div className={styles.demandList}>{detail?.demands.map((demand)=><article className={styles.demandRow} key={demand.id}><div>
++      {currentDetail?.demands.length===0?<p className="crm-empty">No dated demand in this week. Check the Service dates, pause periods and generation horizon.</p>:
++       <div className={styles.demandList}>{currentDetail?.demands.map((demand)=><article className={styles.demandRow} key={demand.id}><div>
+         <p className="enterprise-eyebrow">{demand.origin==="EXTRA"?"Dated extra shift":"Recurring Site shift"} · {siteDate(demand.service_date)} · {demand.state}</p>
+         <h3>{demand.role_name} · {demand.area_label}</h3></div><div><p>Report {time(demand.report_at)} · Shift {time(demand.shift_starts_at)} → {time(demand.shift_ends_at)}</p></div>
+         <div><p>{demand.required_quantity} required · {demand.allocated} allocated · {demand.required_quantity-demand.allocated} remaining · {demand.accepted} accepted</p></div><SiteOperationPanel label="Manage dated shift" title={`${demand.role_name} · ${siteDate(demand.service_date)}`} context={service.name} busy={busy}>

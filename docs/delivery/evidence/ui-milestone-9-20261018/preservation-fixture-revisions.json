@@ -1,0 +1,32 @@
+[
+  {
+    "file": "tests/ui-documents-local.test.mjs",
+    "beforeSha256": "b4ebc2ef767423dd3aa3c3fcf8b8684a82512622a88c37049de13bc700ac72fb",
+    "sha256": "52746c7ea9f5ffa3918b8ac0e53621dc9f3bc2b747d6a68eac7d68c04083352a",
+    "change": "Only exact current manifest references; work-time CSS is explicitly owned product, all other published source pinned to415 non-owned manifest; assertions preserved"
+  },
+  {
+    "file": "tests/ui-hr-credentials-local.test.mjs",
+    "beforeSha256": "5be79f0a4b245007377371999b7a52d6bda5de3241c6147189529c32ccf2527f",
+    "sha256": "8a8f24b9dcfb40377a8932cf54b1f13b9abf7d6c9d910a4ad1356272b1cae8e6",
+    "change": "Only exact current manifest references; work-time CSS is explicitly owned product, all other published source pinned to415 non-owned manifest; assertions preserved"
+  },
+  {
+    "file": "tests/ui-staff-records-local.test.mjs",
+    "beforeSha256": "9b59df25f89a29e59ce81ef08274ebee896a5a15f7345ba1251d9197d4b24a9f",
+    "sha256": "67f68d8601fdf6904bc244c304aab53e8ede6b2d0ee2bbf9a0d8251829c2b4f8",
+    "change": "Only exact current manifest references; work-time CSS is explicitly owned product, all other published source pinned to415 non-owned manifest; assertions preserved"
+  },
+  {
+    "file": "tests/ui-training-learners-local.test.mjs",
+    "beforeSha256": "732270bc4847fe51ef0c63a8ac4035369439e5de6d93e3c2445dab2081ff13d9",
+    "sha256": "5359fa6919a14a2b505c681ad33c8f0b2c167174ccb6b9e2e12f70d9727e530c",
+    "change": "Only exact current manifest references; work-time CSS is explicitly owned product, all other published source pinned to415 non-owned manifest; assertions preserved"
+  },
+  {
+    "file": "tests/ui-training-requirements-local.test.mjs",
+    "beforeSha256": "1bdf8e3e64a67a015d389a8c9e4e3fa5c904b5b3225648e89c426f5eb5759388",
+    "sha256": "49f94022dd1669ad3005adfd0fc30740d4e6ee09380e99146ed2eec4dcd588e1",
+    "change": "Only exact current manifest references; work-time CSS is explicitly owned product, all other published source pinned to415 non-owned manifest; assertions preserved"
+  }
+]

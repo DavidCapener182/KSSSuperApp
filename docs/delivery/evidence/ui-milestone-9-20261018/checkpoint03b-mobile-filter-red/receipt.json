@@ -1,0 +1,26 @@
+{
+  "status": "REPRODUCED_PHONE_FILTER_SUBMIT_HIDDEN",
+  "componentBeforeSha256": "881136728b577d8eec4a440a775c2c3717ad0734b8f20344deb00d97aa2151e0",
+  "evidence": "Old current-route390 probe could not locate accessible Apply filters after current Site loaded; no403 requested. Saved current pre-repair screenshots390/320 show unexpandable form. Exact published CSS hides .events-filters:not(.is-expanded)>button:last-child at phone; component has no expansion control.",
+  "sharedFoundation": "cc477fe3f23238b7ecf963d54692ebdd4101bf21",
+  "rule": "globals.css677: .events-filters:not(.is-expanded) label:not(:first-child),.events-filters:not(.is-expanded) > button:last-child { display:none; }",
+  "approvedRepair": "Add is-expanded on this always-visible OperationalSites form only; retain exact submit/query semantics, no shared CSS change",
+  "images": [
+    {
+      "file": "after-operational-sites-320-viewport.png",
+      "sha256": "e0a57724d166df9f5eed6803c99cad80e40c16f23cd2bbd8c468f60a13287079"
+    },
+    {
+      "file": "after-operational-sites-320.png",
+      "sha256": "0f40c59e93c210ad7eea44dba00071fe2c42938831c80df0e1ae35cb1bfab5f0"
+    },
+    {
+      "file": "after-operational-sites-390-viewport.png",
+      "sha256": "3e77e0377e8b5c9916b80e91d6d5f769a3c5bb80460e1695862a1f521553a5f5"
+    },
+    {
+      "file": "after-operational-sites-390.png",
+      "sha256": "16f4c432874f849451b89041ce2ddfe90950086b4814d3dd8509e1a3cb346fad"
+    }
+  ]
+}

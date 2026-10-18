@@ -1,0 +1,30 @@
+(node:27696) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/src/lib/events/workforce-week.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-operations-source-repairs/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Operational Site valid exact selection remains visible with unchanged query fields (41.571791ms)
+✔ Operational Site denied current list clears old facts, source links and totals (9.8725ms)
+✔ Operational Site denied detail cannot publish a successful broad list as a selected source (7.816292ms)
+✔ Operational Site exact selected identity mismatch is unavailable (8.31975ms)
+✔ Operational Site late old broad read cannot launch a retired detail read (7.080958ms)
+✔ Operational Site unmount retires pending detail result (5.683083ms)
+✔ Operational Site unselected view does not retain a previous selected Site (5.812416ms)
+✔ Service valid exact read and existing exclusive week-end arguments remain accepted (18.47475ms)
+✔ Service denied current week clears all old source facts and derived selections (15.40875ms)
+✔ Service wrong exact identity is unavailable rather than an editable source (15.977ms)
+✔ Service changing scope hides prior facts before replacement read starts (10.8155ms)
+✔ Service delayed old context cannot overwrite the replacement source or follow-up selection (11.025792ms)
+✔ Service unmount ignores pending current source result (12.1945ms)
+✔ Operational filters explicitly remain expanded for existing phone submit controls (4.660333ms)
+✔ Service pending initial-demand read retires with exact Service context (10.964375ms)
+✔ Service late history cannot repopulate facts after denied current read (14.949417ms)
+✔ Service mutation resolving after context change starts no old source read or confirmation (10.281834ms)
+✔ Service valid existing transition sends unchanged revision fields and refreshes source (9.652708ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 370.890417

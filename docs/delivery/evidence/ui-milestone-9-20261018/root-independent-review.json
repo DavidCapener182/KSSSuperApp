@@ -1,0 +1,11 @@
+{
+  "base": "b12d213ba07d64019c47f10b23db082a43513abf",
+  "ownedOnlySourceDiff": 15,
+  "nonOwnedPublishedSourceVerified": 415,
+  "allImageHashesVerified": 244,
+  "workerFinalTests": 617,
+  "independentImportedSiteTests": 28,
+  "currentIntegrationTests": 901,
+  "originalCheckoutFilesPreserved": 51,
+  "status": "LOCAL_REVIEW_PASSED_PUBLICATION_PENDING"
+}

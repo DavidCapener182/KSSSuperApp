@@ -1,0 +1,14 @@
+▲ Next.js 16.3.6 (webpack)
+- Local:         http://127.0.0.1:3223
+- Network:       http://127.0.0.1:3223
+✓ Ready in 310ms
+✓ Running next.config.mjs took 10ms
+
+ GET / 200 in 991ms (next.js: 845ms, application-code: 147ms)
+ GET /sites 200 in 1057ms (next.js: 924ms, application-code: 133ms)
+ GET /sites?view=operational&selected=00000000-0000-4000-8000-000000000010 200 in 44ms (next.js: 1.2ms, application-code: 43ms)
+ GET /sites/00000000-0000-4000-8000-000000000010/services/00000000-0000-4000-8000-000000000011?sourceWeek=2026-10-19 200 in 732ms (next.js: 632ms, application-code: 101ms)
+ GET /sites 200 in 29ms (next.js: 4ms, application-code: 26ms)
+ GET /sites?view=operational&selected=00000000-0000-4000-8000-000000000010 200 in 22ms (next.js: 0.8ms, application-code: 21ms)
+ GET /sites/00000000-0000-4000-8000-000000000010/services/00000000-0000-4000-8000-000000000011?sourceWeek=2026-10-19 200 in 51ms (next.js: 4ms, application-code: 47ms)
+[?25h

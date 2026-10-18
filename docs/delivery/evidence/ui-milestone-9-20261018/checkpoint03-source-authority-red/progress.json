@@ -1,0 +1,34 @@
+{
+  "results": [
+    {
+      "name": "U12 existing search retains exact entered query 1440",
+      "status": "passed"
+    },
+    {
+      "name": "U12 revoked selected Site must clear old facts and source links 1440",
+      "status": "failed",
+      "error": "revoked current Site facts remain visible\n\n1 !== 0\n"
+    },
+    {
+      "name": "U15 revoked current Service must clear lifecycle and demand actions 1440",
+      "status": "failed",
+      "error": "revoked current Service action remains available\n\n1 !== 0\n"
+    },
+    {
+      "name": "U12 existing search retains exact entered query 390",
+      "status": "passed"
+    },
+    {
+      "name": "U12 revoked selected Site must clear old facts and source links 390",
+      "status": "failed",
+      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Apply filters', exact: true })\u001b[22m\n"
+    },
+    {
+      "name": "U15 revoked current Service must clear lifecycle and demand actions 390",
+      "status": "failed",
+      "error": "revoked current Service action remains available\n\n1 !== 0\n"
+    }
+  ],
+  "external": [],
+  "writes": []
+}

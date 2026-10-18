@@ -1,0 +1,256 @@
+
+> kss-super-app@0.1.0 prebuild
+> node scripts/check-deployment-env.mjs
+
+
+> kss-super-app@0.1.0 build
+> next build --webpack
+
+▲ Next.js 16.3.6 (webpack)
+✓ Running next.config.ts took 11ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 6.3s
+  Running TypeScript ...
+  Finished TypeScript in 1800ms ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/76) ...
+  Generating static pages using 9 workers (19/76) 
+  Generating static pages using 9 workers (38/76) 
+  Generating static pages using 9 workers (57/76) 
+✓ Generating static pages using 9 workers (76/76) in 198ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /access
+├ ƒ /access/incident-reviewers
+├ ƒ /access/people/[id]
+├ ƒ /action-centre
+├ ƒ /api/access/incident-reviewers
+├ ƒ /api/access/incident-reviewers/[grantId]
+├ ƒ /api/access/roles
+├ ƒ /api/access/roles/[id]
+├ ƒ /api/access/sites
+├ ƒ /api/access/sites/[id]
+├ ƒ /api/access/work-time-grants
+├ ƒ /api/access/work-time-grants/[grantId]
+├ ƒ /api/action-centre
+├ ƒ /api/action-centre/[notificationId]
+├ ƒ /api/assets
+├ ƒ /api/attendance/me
+├ ƒ /api/attendance/me/[allocationId]
+├ ƒ /api/availability/me
+├ ƒ /api/availability/me/[declarationId]
+├ ƒ /api/availability/me/history
+├ ƒ /api/availability/me/preview
+├ ƒ /api/client-workspaces/[workspaceId]/issues
+├ ƒ /api/client-workspaces/[workspaceId]/issues/[issueId]
+├ ƒ /api/client-workspaces/manage
+├ ƒ /api/commercial-handoff
+├ ƒ /api/commercial-handoff/portfolio
+├ ƒ /api/control-room
+├ ƒ /api/controlled-documents
+├ ƒ /api/controlled-documents/[id]/versions
+├ ƒ /api/controlled-documents/[id]/versions/[versionId]/file
+├ ƒ /api/controlled-documents/[id]/versions/[versionId]/publish
+├ ƒ /api/controlled-documents/grants
+├ ƒ /api/credentials
+├ ƒ /api/crm
+├ ƒ /api/crm/work
+├ ƒ /api/deployments/me
+├ ƒ /api/deployments/me/[allocationId]
+├ ƒ /api/deployments/site-shifts/me/[allocationId]
+├ ƒ /api/documents
+├ ƒ /api/documents/[id]
+├ ƒ /api/documents/[id]/file
+├ ƒ /api/documents/[id]/reviews
+├ ƒ /api/documents/[id]/upload
+├ ƒ /api/documents/[id]/versions/[versionId]/file
+├ ƒ /api/documents/targets
+├ ƒ /api/events
+├ ƒ /api/events/[id]
+├ ƒ /api/events/[id]/attendance
+├ ƒ /api/events/[id]/deployment-summary
+├ ƒ /api/events/[id]/staffing-requirements
+├ ƒ /api/events/[id]/staffing-requirements/[requirementId]
+├ ƒ /api/events/[id]/staffing-requirements/[requirementId]/allocations
+├ ƒ /api/events/[id]/staffing-requirements/[requirementId]/allocations/[allocationId]
+├ ƒ /api/events/[id]/staffing-requirements/[requirementId]/candidates
+├ ƒ /api/events/[id]/work-time
+├ ƒ /api/events/choices
+├ ƒ /api/events/contacts
+├ ƒ /api/events/staffing-roles
+├ ƒ /api/incidents
+├ ƒ /api/incidents/[id]
+├ ƒ /api/incidents/[id]/actions
+├ ƒ /api/leave-reconciliation
+├ ƒ /api/management-reports
+├ ƒ /api/me
+├ ƒ /api/mobilisations
+├ ƒ /api/mobilisations/[id]
+├ ƒ /api/mobilisations/[id]/links/[linkId]
+├ ƒ /api/mobilisations/[id]/links/[linkId]/open
+├ ƒ /api/mobilisations/choices
+├ ƒ /api/my-schedule
+├ ƒ /api/onboarding
+├ ƒ /api/onboarding/[id]
+├ ƒ /api/onboarding/[id]/cancel
+├ ƒ /api/onboarding/[id]/contract/acknowledge
+├ ƒ /api/onboarding/[id]/contract/assign
+├ ƒ /api/onboarding/[id]/contract/file
+├ ƒ /api/onboarding/[id]/cover
+├ ƒ /api/onboarding/[id]/cover/[grantId]
+├ ƒ /api/onboarding/[id]/identity-request
+├ ƒ /api/onboarding/[id]/identity-verify
+├ ƒ /api/onboarding/[id]/reassign
+├ ƒ /api/onboarding/[id]/rtw-request
+├ ƒ /api/onboarding/[id]/sia-request
+├ ƒ /api/onboarding/[id]/sia-verify
+├ ƒ /api/onboarding/[id]/site
+├ ƒ /api/onboarding/[id]/start
+├ ƒ /api/onboarding/[id]/verify
+├ ƒ /api/onboarding/queue
+├ ƒ /api/onboarding/starters
+├ ƒ /api/onboarding/targets
+├ ƒ /api/onboarding/teams
+├ ƒ /api/onboarding/teams/[id]/members
+├ ƒ /api/onboarding/teams/members/[id]
+├ ƒ /api/operational-contacts
+├ ƒ /api/operational-documents
+├ ƒ /api/operational-documents/assignments
+├ ƒ /api/operational-documents/assignments/[id]
+├ ƒ /api/operational-documents/assignments/[id]/file
+├ ƒ /api/operational-documents/choices
+├ ƒ /api/operational-documents/context-card
+├ ƒ /api/operational-documents/context-status
+├ ƒ /api/operational-documents/grants
+├ ƒ /api/operational-documents/my
+├ ƒ /api/operational-documents/my/[id]/acknowledge
+├ ƒ /api/operational-documents/my/[id]/file
+├ ƒ /api/operational-documents/preview
+├ ƒ /api/operational-documents/replacements
+├ ƒ /api/operational-sites
+├ ƒ /api/operational-sites/[id]
+├ ƒ /api/people
+├ ƒ /api/people/[id]
+├ ƒ /api/people/directory/[id]
+├ ƒ /api/profile
+├ ƒ /api/profile/sia
+├ ƒ /api/profile/sia/submissions
+├ ƒ /api/profile/submissions
+├ ƒ /api/service-delivery
+├ ƒ /api/service-delivery/[id]
+├ ƒ /api/service-delivery/[id]/application-candidate
+├ ƒ /api/service-delivery/[id]/management
+├ ƒ /api/service-delivery/[id]/source-cards
+├ ƒ /api/service-delivery/portfolio
+├ ƒ /api/site-book
+├ ƒ /api/site-book/[serviceId]
+├ ƒ /api/site-book/grants
+├ ƒ /api/site-services
+├ ƒ /api/site-services/[id]
+├ ƒ /api/site-services/[id]/attendance
+├ ƒ /api/sites
+├ ƒ /api/sites/[id]
+├ ƒ /api/sites/[id]/assignments
+├ ƒ /api/sites/[id]/client
+├ ƒ /api/sites/[id]/history
+├ ƒ /api/tasks
+├ ƒ /api/tasks/[id]
+├ ƒ /api/time-away
+├ ƒ /api/training
+├ ƒ /api/training-assessments
+├ ƒ /api/training-certificates
+├ ƒ /api/training-certificates/[id]/file
+├ ƒ /api/training-completions
+├ ƒ /api/training-learning
+├ ƒ /api/training-requirements
+├ ƒ /api/work-time/me
+├ ƒ /api/work-time/me/[allocationId]
+├ ƒ /api/workforce
+├ ƒ /api/workforce/choices
+├ ƒ /api/workforce/staff
+├ ƒ /app
+├ ƒ /assets
+├ ƒ /client-workspaces
+├ ƒ /client-workspaces/[workspaceId]
+├ ƒ /client-workspaces/[workspaceId]/loss-prevention
+├ ƒ /client-workspaces/[workspaceId]/loss-prevention/[issueId]
+├ ƒ /client-workspaces/manage
+├ ƒ /commercial-handoff
+├ ƒ /control-room
+├ ƒ /credentials
+├ ƒ /crm
+├ ƒ /crm/new-lead
+├ ƒ /crm/opportunities/[id]
+├ ƒ /crm/organisations/[id]
+├ ƒ /documents
+├ ƒ /documents/[requestId]
+├ ƒ /events
+├ ƒ /events/[id]
+├ ƒ /events/[id]/attendance
+├ ƒ /events/[id]/work-time
+├ ƒ /hr
+├ ○ /icon.svg
+├ ƒ /incidents
+├ ƒ /incidents/[id]
+├ ƒ /management-reports
+├ ƒ /mobilisations
+├ ƒ /mobilisations/[id]
+├ ƒ /my-attendance
+├ ƒ /my-availability
+├ ƒ /my-deployments
+├ ƒ /my-duty
+├ ƒ /my-equipment
+├ ƒ /my-schedule
+├ ƒ /my-time-away
+├ ƒ /my-work-time
+├ ƒ /onboarding
+├ ƒ /onboarding/[id]
+├ ƒ /onboarding/new
+├ ƒ /operational-contacts
+├ ƒ /operational-contacts/manage
+├ ƒ /operational-documents
+├ ƒ /people
+├ ƒ /people/[id]
+├ ƒ /profile
+├ ○ /robots.txt
+├ ƒ /service-delivery
+├ ƒ /service-delivery/[id]
+├ ƒ /settings
+├ ƒ /site-book
+├ ƒ /site-book/[serviceId]
+├ ƒ /site-book/access
+├ ƒ /sites
+├ ƒ /sites/[siteId]/services
+├ ƒ /sites/[siteId]/services/[serviceId]
+├ ƒ /sites/[siteId]/services/[serviceId]/attendance
+├ ƒ /sites/[siteId]/workspace
+├ ○ /staging-access
+├ ƒ /tfs
+├ ƒ /time-away
+├ ƒ /training
+├ ƒ /training-admin
+├ ƒ /training-admin/assessments
+├ ƒ /training-admin/assignments
+├ ƒ /training-admin/completions
+├ ƒ /training-admin/requirements
+├ ƒ /training/[courseId]
+├ ƒ /training/my-learning
+├ ƒ /training/my-learning/[assignmentId]
+├ ƒ /training/my-learning/[assignmentId]/assessment
+├ ƒ /training/my-learning/[assignmentId]/history
+├ ƒ /training/my-requirements
+├ ƒ /work
+├ ƒ /work/[taskId]
+└ ƒ /workforce
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

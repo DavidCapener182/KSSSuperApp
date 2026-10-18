@@ -1,0 +1,199 @@
+{
+  "results": [
+    {
+      "name": "U12 existing search retains exact entered query 1440",
+      "status": "passed"
+    },
+    {
+      "name": "U12 revoked selected Site must clear old facts and source links 1440",
+      "status": "passed"
+    },
+    {
+      "name": "U15 revoked current Service must clear lifecycle and demand actions 1440",
+      "status": "passed"
+    },
+    {
+      "name": "U12 existing search retains exact entered query 834",
+      "status": "passed"
+    },
+    {
+      "name": "U12 revoked selected Site must clear old facts and source links 834",
+      "status": "passed"
+    },
+    {
+      "name": "U15 revoked current Service must clear lifecycle and demand actions 834",
+      "status": "passed"
+    },
+    {
+      "name": "U12 existing search retains exact entered query 390",
+      "status": "passed"
+    },
+    {
+      "name": "U12 revoked selected Site must clear old facts and source links 390",
+      "status": "passed"
+    },
+    {
+      "name": "U15 revoked current Service must clear lifecycle and demand actions 390",
+      "status": "passed"
+    },
+    {
+      "name": "U12 existing search retains exact entered query 320",
+      "status": "passed"
+    },
+    {
+      "name": "U12 revoked selected Site must clear old facts and source links 320",
+      "status": "passed"
+    },
+    {
+      "name": "U15 revoked current Service must clear lifecycle and demand actions 320",
+      "status": "passed"
+    }
+  ],
+  "external": [],
+  "writes": [],
+  "sourceManifest": {
+    "baseline": "ad276f566a94b1ff32bc7582eb44a22d45ef6e4e",
+    "foundation": "cc477fe3f23238b7ecf963d54692ebdd4101bf21",
+    "runtime": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/output/ui-operations-resumed-20261018/sites-green-v3/sites-fixture-after",
+    "manifest": [
+      {
+        "file": "src/app/(enterprise)/sites/page.tsx",
+        "sha256": "fa8f96039c41ab69d78f12482fb3311639444b2f4dd88cdf4e89b5c18fb82de0"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+      },
+      {
+        "file": "src/app/(enterprise)/sites/sites-client.tsx",
+        "sha256": "12152b857f9ea594684a9f383403ce8f5c58f3678aae663c503eae87abdc525d"
+      },
+      {
+        "file": "src/components/commercial-journey.module.css",
+        "sha256": "66482671d2892db49e38dfaf73e537c4a4c2d301f823032b73a810a7d4ceeb4c"
+      },
+      {
+        "file": "src/components/site-operation-panel.tsx",
+        "sha256": "d189b716b22c68a25df43b2f465be9af27e602844e3ad8fb24f8ef572b286534"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+      },
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+      },
+      {
+        "file": "src/components/ui/sheet.module.css",
+        "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+      },
+      {
+        "file": "src/components/site-operations.module.css",
+        "sha256": "bf71f05716cdf4274f52207a6066a565ed61c18285a0ee4721bdf14f1febe1b3"
+      },
+      {
+        "file": "src/components/site-operations-format.ts",
+        "sha256": "bc57937d0fd9c558cb7550bbec1b86fb0a866371a046a4b384a0e3633daef9be"
+      },
+      {
+        "file": "src/components/operational-sites-client.tsx",
+        "sha256": "5b785c15df55ff35c9bdfda602817bdc1cede655d9486e597ec1f08e94545768"
+      },
+      {
+        "file": "src/components/ui/input.tsx",
+        "sha256": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04"
+      },
+      {
+        "file": "src/components/operational-document-context-card.tsx",
+        "sha256": "0ecb1f033394ef045ae466ed5c66f9a359387ac3e5cad62be60b81999b8500a3"
+      },
+      {
+        "file": "src/app/(enterprise)/sites/[siteId]/services/page.tsx",
+        "sha256": "ec92c6d6e86f5c7ee3a95dbd4e1b801b35404392274e003264d06aa63813a2f9"
+      },
+      {
+        "file": "src/components/site-services-client.tsx",
+        "sha256": "5eb2d0b7d9edaea53fd086e63034e0a0765f7ba9ee1aaa53311d322f7931478e"
+      },
+      {
+        "file": "src/lib/events/workforce-week.ts",
+        "sha256": "8b7a7a0e7a6e186efd75babea34eac951cd509e4f917d274b0ed16a92959ac64"
+      },
+      {
+        "file": "src/app/(enterprise)/sites/[siteId]/services/[serviceId]/page.tsx",
+        "sha256": "e310235cd5254f821d03007d188536e012363ebc9d4ae515592311c6acf22fd4"
+      },
+      {
+        "file": "src/components/site-service-detail-client.tsx",
+        "sha256": "373a439ed40664237a066adfd61d196717a268fae6627a444443b5d767b939fa"
+      },
+      {
+        "file": "src/components/record-studies.css",
+        "sha256": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e"
+      },
+      {
+        "file": "src/components/record-section-tracker.tsx",
+        "sha256": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc"
+      },
+      {
+        "file": "src/lib/crm/due-time.ts",
+        "sha256": "91c20dd59611328cfd68bd07f43e672bf6719a207654326e09d26e607ea4dd20"
+      },
+      {
+        "file": "src/components/leave-reconciliation.tsx",
+        "sha256": "c183d3534ab19a1553b9bf08e789195efa2dc5df9fa4e14e9cf2488bed6f3763"
+      },
+      {
+        "file": "src/lib/events/workforce-navigation.ts",
+        "sha256": "af2f5a3398442bb2916447f53b5b04e79670a4fe13108ae97041e6e622e57136"
+      },
+      {
+        "file": "src/lib/auth/return-target.ts",
+        "sha256": "f8203e4cce09b400ced1872f44dfe0da40e5392e0dab5e627f9241a1950d0bee"
+      },
+      {
+        "file": "src/lib/reports/navigation.ts",
+        "sha256": "81e4b458a7e95b3a5e7ace98965899079c8bed8f060facd34ead5108ffd7595a"
+      },
+      {
+        "file": "src/app/(enterprise)/sites/[siteId]/workspace/page.tsx",
+        "sha256": "222dcbf2fdedc359994ead1749292ebbce76038e13fdc0372a1818dca2d36d2b"
+      },
+      {
+        "file": "src/lib/sites/policy.ts",
+        "sha256": "d2964d8a51cec61174023650bc561cedf6fadc853463fdaacaf6a5df536d1426"
+      },
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+      },
+      {
+        "file": "postcss.config.mjs",
+        "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+      }
+    ],
+    "mocked": [
+      "Synthetic auth/Site guards",
+      "Site and Service API fixtures",
+      "No persistent business mutations"
+    ],
+    "limits": [
+      "No real authentication or persistence",
+      "No payable/billable/rates",
+      "External requests blocked"
+    ]
+  },
+  "limits": [
+    "Actual source against synthetic principals/APIs; no hosted authority or persistence",
+    "No business write attempted; all unmatched writes denied"
+  ]
+}
