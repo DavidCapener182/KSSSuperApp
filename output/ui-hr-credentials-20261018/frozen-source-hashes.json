@@ -1,0 +1,47 @@
+[
+  {
+    "file": "src/components/profile-client.tsx",
+    "baselineSha256": "676340fb710acbe288e09ac6de1718fc16bb76294b82b7f33909939868601b87",
+    "sha256": "025d9467759c86d44c072e43cd7202f969d58a1eb99738a633891b051c705a39"
+  },
+  {
+    "file": "src/components/profile-family.module.css",
+    "baselineSha256": null,
+    "sha256": "550e89cb21ba44549ac8aa07fa269a53f2ae48c0df5912c24e5ee28cbe4b7644"
+  },
+  {
+    "file": "src/app/(enterprise)/profile/page.tsx",
+    "baselineSha256": "4848f0e7acfecfc0d003eb95c2cc113174d1a80ac4e23e8d2da5b8bcc3a38742",
+    "sha256": "ab7c1f0b1c902c23e15eb52aafba4f9e0af1ec3a76bbd8a7189e11c040fd3601"
+  },
+  {
+    "file": "src/components/credentials-client.tsx",
+    "baselineSha256": "32f7a674e8104cbeeb9ab3ab72d5a3d47b9e95a5b1d1ffd2037936ce0582a3a3",
+    "sha256": "4dc0a8de7171934baca3cad86e533826186e214763cce7072333ba9f65394833"
+  },
+  {
+    "file": "src/components/credentials.module.css",
+    "baselineSha256": "8f613b419d14e4968565eb9ca8b80abc2a0e94ccea2381a708853611aa4df91f",
+    "sha256": "df81683842befd56f4723fec211b4b3cac8b01a34094fdb21ed294e2c837c2a4"
+  },
+  {
+    "file": "src/app/(enterprise)/hr/page.tsx",
+    "baselineSha256": "971718a61a4914fe91dd03251d8d522ed74ead7feac87ab49d02d72c921ceea4",
+    "sha256": "3421aaac02db7846f474c6acd4bb6af30f92d1115011f90b98bd9acacdacdfdc"
+  },
+  {
+    "file": "src/app/(enterprise)/hr/hr.css",
+    "baselineSha256": "ee462cb05321168b514c3dd73ec37f6e72c708d8f396a968d7e41d399da0d7ba",
+    "sha256": "ad022b054ac1994aa122b7bf753bfeca9712a1cd2b922954c53986e6f08b2604"
+  },
+  {
+    "file": "src/components/time-away-client.tsx",
+    "baselineSha256": "97141ec80f40ae44a05ebfe6496523dc0dff09be7cbd5d8fe673b049903e61dd",
+    "sha256": "d38c35b1ac3d906d9c0caed2593a2124115dd0271af6939589626eb6558b3d28"
+  },
+  {
+    "file": "src/components/time-away-manager.module.css",
+    "baselineSha256": null,
+    "sha256": "40bff000b346a7bc8f0776927580f23de9c3b43b03e5e31e0e46d540d5f5bab1"
+  }
+]

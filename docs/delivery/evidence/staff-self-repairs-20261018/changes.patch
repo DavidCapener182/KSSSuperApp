@@ -1,0 +1,505 @@
+--- a/src/components/my-availability-client.tsx
++++ b/src/components/my-availability-client.tsx
+@@ -1,6 +1,6 @@
+ "use client";
+ 
+-import { useCallback, useEffect, useState } from "react";
++import { useCallback, useEffect, useRef, useState } from "react";
+ import Link from "next/link";
+ import { Button } from "@/components/ui/button";
+ import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
+@@ -10,10 +10,10 @@
+   lifecycle: "CURRENT"|"SUPERSEDED"|"CANCELLED"; note: string|null };
+ type HistoryEvent = { id: string; kind: string; old_state: string|null; new_state: string|null;
+   old_starts_at: string|null; old_ends_at: string|null; new_starts_at: string|null; new_ends_at: string|null;
+-  occurred_at: string };
++  occurred_at: string; new_revision: number; new_lifecycle: string|null };
+ type Preview = { revision: number; replaced: Array<{id:string;state:string;starts_at:string;ends_at:string}>;
+   deployments: Array<{id:string;event_name:string;report_at:string;shift_ends_at:string;status:string}>;
+-  range: {starts:string;ends:string} };
++  range: {starts:string;ends:string}; requestKey?: string };
+ const format = (value: string) => new Date(value).toLocaleString("en-GB", { timeZone: "Europe/London",
+   weekday: "short", day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+ const localParts = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", year: "numeric", month: "2-digit",
+@@ -25,7 +25,7 @@
+ async function json(path: string, init?: RequestInit) {
+   const response = await fetch(path, { ...init, cache: "no-store" });
+   const data = await response.json().catch(() => ({}));
+-  if (!response.ok) throw new Error(data.error ?? "Availability request failed");
++  if (!response.ok) throw Object.assign(new Error(data.error ?? "Availability request failed"),{status:response.status});
+   return data;
+ }
+ 
+@@ -45,72 +45,109 @@
+   const [cancelling, setCancelling] = useState<Declaration|null>(null);
+   const [cancelPreview, setCancelPreview] = useState<Preview|null>(null);
+   const [cancelAck, setCancelAck] = useState(false);
+-  const load = useCallback(async (page = 0) => {
+-    setLoading(true);
++  const live = useRef(false);const readSequence = useRef(0);const pending = useRef(false);
++  const [available,setAvailable] = useState(false);
++  const declarationTrigger = useRef<HTMLButtonElement>(null);
++  const actionTrigger = useRef<HTMLButtonElement|null>(null);
++  function restoreActionFocus(event:Event){event.preventDefault();const trigger=actionTrigger.current;if(trigger?.isConnected&&!trigger.disabled)trigger.focus();else declarationTrigger.current?.focus();}
++  function clearCurrent() { setItems([]);setHistory([]);setTotal(0);setHistoryTotal(0);setRevision(0);setAvailable(false);setPreview(null);setCancelPreview(null);setCancelling(null);setOpen(false);setNotice(""); }
++  const load = useCallback(async (page = 0, expectedRevision?: number, expectedChange?: {kind:"CREATED"|"CANCELLED";state:string;starts:string;ends:string}) => {
++    const sequence=++readSequence.current;const current=()=>live.current&&sequence===readSequence.current;
++    setLoading(true);setNotice("");
+     try {
+-      const [current, prior] = await Promise.all([json(`/api/availability/me?offset=${page}`),
+-        json("/api/availability/me/history")]);
+-      setItems(current.availability.items); setRevision(current.availability.revision);
+-      setTotal(current.availability.total); setOffset(page);
+-      setHistory(prior.history.items); setHistoryTotal(prior.history.total); setError("");
+-      return true;
+-    } catch (caught) { setError(caught instanceof Error ? caught.message : "My Availability unavailable"); return false; }
+-    finally { setLoading(false); }
+-  }, []);
+-  useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); }, [load]);
++      const [currentPage,prior] = await Promise.all([json(`/api/availability/me?offset=${page}`),json("/api/availability/me/history")]);
++      if(!current())return false;
++      const data=currentPage.availability;
++      if(!data||!Array.isArray(data.items)||!Number.isInteger(data.revision)||data.revision<0||!Number.isInteger(data.total)||data.total<0||!Array.isArray(prior.history?.items)||!Number.isInteger(prior.history.total)||
++        (expectedRevision!==undefined&&data.revision!==expectedRevision))throw new Error("Current availability is not confirmed. Reload before making another change.");
++      if(expectedChange){
++        const sameInstant=(first:string|null,second:string)=>!!first&&Number.isFinite(Date.parse(first))&&Date.parse(first)===Date.parse(second);
++        if(!prior.history.items.some((event:HistoryEvent)=>event.kind===expectedChange.kind&&event.new_revision===expectedRevision&&
++          (expectedChange.kind==="CREATED"?event.new_state===expectedChange.state&&event.new_lifecycle==="CURRENT"&&sameInstant(event.new_starts_at,expectedChange.starts)&&sameInstant(event.new_ends_at,expectedChange.ends):
++          event.old_state===expectedChange.state&&event.new_lifecycle==="CANCELLED"&&sameInstant(event.old_starts_at,expectedChange.starts)&&sameInstant(event.old_ends_at,expectedChange.ends))))
++          throw new Error("The exact availability change is not confirmed by current history. Reload before another action.");
++      }
++      setItems(data.items);setRevision(data.revision);setTotal(data.total);setOffset(page);setHistory(prior.history.items);setHistoryTotal(prior.history.total);setAvailable(true);setError("");return true;
++    } catch(caught){if(!current())return false;setItems([]);setHistory([]);setTotal(0);setHistoryTotal(0);setRevision(0);setAvailable(false);setPreview(null);setCancelPreview(null);setCancelling(null);setOpen(false);setError(caught instanceof Error?caught.message:"My Availability unavailable");return false;}
++    finally{if(current())setLoading(false);}
++  },[]);
++  useEffect(()=>{live.current=true;const sequence=readSequence;const timer=setTimeout(()=>void load(),0);return()=>{live.current=false;sequence.current++;clearTimeout(timer);};},[load]);
+   const body = { mode, startDate, endDate, startsLocal, endsLocal };
+-  function startEntry() { setPreview(null); setConfirmReplace(false); setAckConflict(false); setNote("");
+-    setStartDate(""); setEndDate(""); setStartsLocal(""); setEndsLocal(""); setOpen(true); }
+-  function changeEntry(item: Declaration) { setState(item.state); setMode("CUSTOM");
+-    setStartsLocal(localInput(item.starts_at)); setEndsLocal(localInput(item.ends_at)); setNote(item.note ?? "");
+-    setPreview(null); setConfirmReplace(false); setAckConflict(false); setOpen(true); }
+-  async function check() { setBusy(true); setError(""); try {
+-    const result = await json("/api/availability/me/preview", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+-    setPreview({ ...result.preview, range: result.range }); setConfirmReplace(false); setAckConflict(false);
+-  } catch (caught) { setError(caught instanceof Error ? caught.message : "Preview unavailable"); }
+-    finally { setBusy(false); } }
+-  async function save() { if (!preview) return; setBusy(true); setError(""); try {
+-    await json("/api/availability/me", { method: "POST", headers: { "content-type": "application/json" },
+-      body: JSON.stringify({ ...body, state, note, expectedRevision: preview.revision, confirmReplace, acknowledgeConflict: ackConflict }) });
+-    setOpen(false); setPreview(null);
+-    if (await load()) setNotice("Availability saved and current declarations refreshed. This does not change any deployment.");
+-    else setError("The server accepted the change, but current availability could not be refreshed. Reload before making another change.");
+-  } catch (caught) { setError(caught instanceof Error ? caught.message : "Availability not saved"); setPreview(null); }
+-    finally { setBusy(false); } }
+-  async function cancel() { if (!cancelling) return; setBusy(true); setError(""); try {
+-    await json(`/api/availability/me/${cancelling.id}`, { method: "PATCH", headers: { "content-type": "application/json" },
+-      body: JSON.stringify({ action: "CANCEL", expectedRevision: revision, acknowledgeConflict: cancelAck }) });
+-    setCancelling(null); setCancelPreview(null);
+-    if (await load(offset)) setNotice("Future declaration cancelled and history refreshed. Any deployment remains in place.");
+-    else setError("The server accepted cancellation, but current availability could not be refreshed. Reload before making another change.");
+-  } catch (caught) { setError(caught instanceof Error ? caught.message : "Cancellation failed"); }
+-    finally { setBusy(false); } }
+-  async function reviewCancel(item: Declaration) {
+-    setBusy(true); setError(""); setCancelAck(false); setCancelPreview(null);
+-    try {
+-      const result = await json("/api/availability/me/preview", { method: "POST", headers: { "content-type": "application/json" },
+-        body: JSON.stringify({ mode: "EXACT", startsIso: item.starts_at, endsIso: item.ends_at }) });
+-      setCancelPreview({ ...result.preview, range: result.range }); setCancelling(item);
+-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Cancellation preview unavailable"); }
+-    finally { setBusy(false); }
++  function startEntry(trigger?:HTMLButtonElement){if(pending.current||loading||!available)return;actionTrigger.current=trigger??declarationTrigger.current;setPreview(null);setConfirmReplace(false);setAckConflict(false);setNote("");setStartDate("");setEndDate("");setStartsLocal("");setEndsLocal("");setOpen(true);}
++  function changeEntry(item:Declaration,trigger?:HTMLButtonElement){if(pending.current||loading||!available)return;actionTrigger.current=trigger??declarationTrigger.current;setState(item.state);setMode("CUSTOM");setStartsLocal(localInput(item.starts_at));setEndsLocal(localInput(item.ends_at));setNote(item.note??"");setPreview(null);setConfirmReplace(false);setAckConflict(false);setOpen(true);}
++  async function check(){
++    if(pending.current||!live.current||!available)return;
++    const view=readSequence.current;const current=()=>live.current&&view===readSequence.current;const requestKey=JSON.stringify(body);
++    pending.current=true;setBusy(true);setError("");
++    try{const result=await json("/api/availability/me/preview",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)});
++      if(!current())return;
++      if(!Number.isInteger(result.preview?.revision)||!Array.isArray(result.preview.replaced)||!Array.isArray(result.preview.deployments)||!result.range?.starts||!result.range.ends)throw new Error("Availability preview unavailable");
++      setPreview({...result.preview,range:result.range,requestKey});setConfirmReplace(false);setAckConflict(false);
++    }catch(caught){if(current()){if(caught instanceof Error&&"status" in caught&&(caught.status===401||caught.status===403))clearCurrent();setPreview(null);setError(caught instanceof Error?caught.message:"Preview unavailable");}}
++    finally{if(live.current){pending.current=false;setBusy(false);}}
+   }
++  async function save(){
++    if(pending.current||!live.current||!available||!preview)return;
++    if(preview.requestKey!==JSON.stringify(body)){setPreview(null);setError("Review the changed period again before saving.");return;}
++    if((preview.replaced.length>0&&!confirmReplace)||(preview.deployments.length>0&&(state==="UNAVAILABLE"||preview.replaced.length>0)&&!ackConflict))return;
++    const view=readSequence.current;const current=()=>live.current&&view===readSequence.current;
++    pending.current=true;setBusy(true);setError("");setNotice("");
++    try{
++      const result=await json("/api/availability/me",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({...body,state,note,expectedRevision:preview.revision,confirmReplace,acknowledgeConflict:ackConflict})});
++      if(!current())return;
++      if(result.revision!==preview.revision+1)throw new Error("The requested availability revision is not confirmed. It may have been saved. Reload before another action.");
++      setOpen(false);setPreview(null);const readbackSequence=readSequence.current+1;
++      const confirmed=await load(0,result.revision,{kind:"CREATED",state,starts:preview.range.starts,ends:preview.range.ends});
++      if(live.current&&readSequence.current===readbackSequence){if(confirmed)setNotice("Availability saved and exact current revision refreshed. This does not change any deployment.");else setError("The returned change is not confirmed by current availability. It may have been saved. Reload before another action.");}
++    }catch(caught){if(current()){clearCurrent();setError(`${caught instanceof Error?caught.message:"Availability not confirmed"} The outcome is unconfirmed; reload before another action.`);}}
++    finally{if(live.current){pending.current=false;setBusy(false);}}
++  }
++  async function cancel(){
++    if(pending.current||!live.current||!available||!cancelling||!cancelPreview)return;
++    if(cancelling.state==="AVAILABLE"&&cancelPreview.deployments.length>0&&!cancelAck)return;
++    const view=readSequence.current;const current=()=>live.current&&view===readSequence.current;
++    pending.current=true;setBusy(true);setError("");setNotice("");
++    try{
++      const result=await json(`/api/availability/me/${cancelling.id}`,{method:"PATCH",headers:{"content-type":"application/json"},body:JSON.stringify({action:"CANCEL",expectedRevision:cancelPreview.revision,acknowledgeConflict:cancelAck})});
++      if(!current())return;
++      if(result.revision!==cancelPreview.revision+1)throw new Error("Cancellation is not confirmed. It may have been saved.");
++      setCancelling(null);setCancelPreview(null);const readbackSequence=readSequence.current+1;
++      const confirmed=await load(offset,result.revision,{kind:"CANCELLED",state:cancelling.state,starts:cancelling.starts_at,ends:cancelling.ends_at});
++      if(live.current&&readSequence.current===readbackSequence){if(confirmed)setNotice("Future declaration cancelled and exact current revision refreshed. Any deployment remains in place.");else setError("The cancellation is not confirmed by current availability. It may have been saved. Reload before another action.");}
++    }catch(caught){if(current()){clearCurrent();setError(`${caught instanceof Error?caught.message:"Cancellation not confirmed"} The outcome is unconfirmed; reload before another action.`);}}
++    finally{if(live.current){pending.current=false;setBusy(false);}}
++  }
++  async function reviewCancel(item:Declaration,trigger?:HTMLButtonElement){
++    if(pending.current||!live.current||!available)return;
++    actionTrigger.current=trigger??declarationTrigger.current;
++    const view=readSequence.current;const current=()=>live.current&&view===readSequence.current;
++    pending.current=true;setBusy(true);setError("");setCancelAck(false);setCancelPreview(null);
++    try{
++      const result=await json("/api/availability/me/preview",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({mode:"EXACT",startsIso:item.starts_at,endsIso:item.ends_at})});
++      if(!current())return;
++      if(!Number.isInteger(result.preview?.revision)||!Array.isArray(result.preview.replaced)||!Array.isArray(result.preview.deployments)||!result.preview.replaced.some((entry:Declaration)=>entry.id===item.id&&entry.state===item.state&&entry.starts_at===item.starts_at&&entry.ends_at===item.ends_at))throw new Error("The selected declaration changed. Reload before cancellation.");
++      setCancelPreview({...result.preview,range:result.range});setCancelling(item);
++    }catch(caught){if(current()){clearCurrent();setError(caught instanceof Error?caught.message:"Cancellation preview unavailable");}}
++    finally{if(live.current){pending.current=false;setBusy(false);}}
++  }
++
+   const current = items.filter((item) => item.lifecycle === "CURRENT" && new Date(item.ends_at) > new Date());
+   const past = items.filter((item) => !current.includes(item));
+   return <main className={`enterprise-main availability-self ${styles.workspace}`}>
+     <div className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Your future work</p><h1>My Availability</h1>
+       <p>Tell KSS when you can or cannot work. Availability does not allocate or accept a deployment.</p></div>
+-      <Button onClick={startEntry}>Declare availability</Button></div>
++      <Button ref={declarationTrigger} disabled={busy || loading || !available} onClick={event=>startEntry(event.currentTarget)}>Declare availability</Button></div>
+     <p className="enterprise-honesty">No declaration means Not declared. Your allocations remain separate in <Link href="/my-deployments">My Deployments</Link>. <Link href="/my-time-away">Time Away requests</Link> are a separate decision workflow.</p>
+     {notice && <p role="status" className="enterprise-honesty">{notice}</p>}
+-    {error && <p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={() => void load(offset)}>Reload</Button></p>}
+-    {loading ? <p role="status" className="crm-skeleton">Loading availability…</p> : <>
+-      <section className={styles.agenda} aria-label="Current availability"><header className={styles.sectionHead}><div><p className={styles.eyebrow}>Your declared periods</p><h2>Upcoming availability</h2></div><span>{current.length} on this page</span></header><p className={styles.scope}>Showing {items.length} of {total} declarations. No declaration means Not declared.</p>
++    {error && <p role="alert" className="enterprise-error">{error} <Button variant="outline" disabled={busy} onClick={() => void load(offset)}>Reload</Button></p>}
++    {loading ? <p role="status" className="crm-skeleton">Loading availability…</p> : !available ? <p role="status">Current availability is unavailable. Reload to read the current source.</p> : <>
++      <section className={styles.agenda} aria-label="Current availability"><header className={styles.sectionHead}><div><p className={styles.eyebrow}>Your declared periods</p><h2>Upcoming availability</h2></div><span>{current.length} on this page</span></header><p className={styles.scope}>Current revision {revision} · Showing {items.length} of {total} declarations. No declaration means Not declared.</p>
+         {current.length === 0 ? <div className="crm-empty">Nothing declared for the upcoming period.</div> :
+           <div className="availability-list">{current.map((item) => <article className={styles.declaration} data-declaration={item.state} key={item.id}>
+             <div><span className={styles.state}>{item.state === "AVAILABLE" ? "Available" : "Unavailable"}</span><p className={styles.period}>{format(item.starts_at)}<span aria-hidden="true"> → </span><span className={styles.periodEnd}>{format(item.ends_at)}</span></p>
+               {item.note && <p className="availability-note">Your note: {item.note}</p>}</div>
+-            <div className={styles.actions}><Button variant="outline" disabled={busy || new Date(item.starts_at) <= new Date()} onClick={() => changeEntry(item)}>Change</Button>
+-              <Button variant="outline" disabled={busy || new Date(item.starts_at) <= new Date()} onClick={() => void reviewCancel(item)}>Cancel future declaration</Button></div>
++            <div className={styles.actions}><Button variant="outline" disabled={busy || new Date(item.starts_at) <= new Date()} onClick={event => changeEntry(item,event.currentTarget)}>Change</Button>
++              <Button variant="outline" disabled={busy || new Date(item.starts_at) <= new Date()} onClick={event => void reviewCancel(item,event.currentTarget)}>Cancel future declaration</Button></div>
+           </article>)}</div>}</section>
+       <details className={styles.history}><summary>History · {historyTotal} changes</summary>
+         <div className={styles.historyList}>{history.map((event) => <article className={styles.historyEntry} key={event.id}>
+@@ -121,8 +158,8 @@
+       {past.length > 0 && <p className="enterprise-honesty">{past.length} earlier declarations on this page are retained in history.</p>}
+       {total > 25 && <div className="deployment-pagination"><Button variant="outline" disabled={offset === 0} onClick={() => void load(Math.max(0, offset - 25))}>Previous</Button><span>{offset + 1}–{Math.min(offset + 25, total)} of {total}</span><Button variant="outline" disabled={offset + 25 >= total} onClick={() => void load(offset + 25)}>Next</Button></div>}
+     </>}
+-    <Sheet open={open} onOpenChange={(value) => { if (!value && !busy) setOpen(false); }}><SheetContent className={`staffing-sheet availability-sheet ${styles.sheet}`}><SheetTitle>Declare availability</SheetTitle><SheetDescription>Choose a declaration and period, then review the exact times, replaced ranges and any deployment conflicts before saving.</SheetDescription>
+-      <div className="availability-form"><label>Declaration<select value={state} onChange={(event) => { setState(event.target.value as typeof state); setPreview(null); }}><option value="AVAILABLE">Available</option><option value="UNAVAILABLE">Unavailable</option></select></label>
++    <Sheet open={open} onOpenChange={(value) => { if (!value && !busy) setOpen(false); }}><SheetContent className={`staffing-sheet availability-sheet ${styles.sheet}`} onCloseAutoFocus={restoreActionFocus}><SheetTitle>Declare availability</SheetTitle><SheetDescription>Choose a declaration and period, then review the exact times, replaced ranges and any deployment conflicts before saving.</SheetDescription>
++      <fieldset disabled={busy || loading || !available} className="availability-form" style={{border:0,padding:0,margin:0,minWidth:0}}><label>Declaration<select value={state} onChange={(event) => { setState(event.target.value as typeof state); setPreview(null); }}><option value="AVAILABLE">Available</option><option value="UNAVAILABLE">Unavailable</option></select></label>
+         <label>Range<select value={mode} onChange={(event) => { setMode(event.target.value as typeof mode); setPreview(null); }}><option value="ALL_DAY">Whole day or days</option><option value="CUSTOM">Custom London times</option><option value="REST_TODAY">Rest of today</option></select></label>
+         {mode === "ALL_DAY" && <><label>First day<input type="date" value={startDate} onChange={(event) => { setStartDate(event.target.value); setPreview(null); }} /></label>
+           <label>Last day<input type="date" value={endDate} onChange={(event) => { setEndDate(event.target.value); setPreview(null); }} /></label></>}
+@@ -130,7 +167,7 @@
+           <label>Ends · Europe/London<input type="datetime-local" value={endsLocal} onChange={(event) => { setEndsLocal(event.target.value); setPreview(null); }} /></label></>}
+         {mode === "REST_TODAY" && <p className="enterprise-honesty">From now until the next London-local midnight.</p>}
+         <label className="availability-wide">Optional note — do not include medical or sensitive personal information<textarea maxLength={300} value={note} onChange={(event) => setNote(event.target.value)} /></label>
+-      </div>
++      </fieldset>
+       {!preview ? <Button disabled={busy} onClick={() => void check()}>Review declaration</Button> : <div className="availability-preview">
+         <h3>Review this change</h3><p>{state === "AVAILABLE" ? "Available" : "Unavailable"} · {format(preview.range.starts)} → {format(preview.range.ends)}</p>
+         {preview.replaced.length > 0 && <><p>These current ranges will be replaced. Unaffected time will be preserved:</p><ul>{preview.replaced.map((item) => <li key={item.id}>{item.state === "AVAILABLE" ? "Available" : "Unavailable"} · {format(item.starts_at)} → {format(item.ends_at)}</li>)}</ul>
+@@ -142,7 +179,7 @@
+           (preview.deployments.length > 0 && (state === "UNAVAILABLE" || preview.replaced.length > 0) && !ackConflict)} onClick={() => void save()}>Save declaration</Button></div></div>}
+       {error && <p role="alert" className="enterprise-error">{error}</p>}
+     </SheetContent></Sheet>
+-    <Sheet open={Boolean(cancelling)} onOpenChange={(value) => { if (!value && !busy) setCancelling(null); }}><SheetContent className={`staffing-sheet ${styles.sheet}`}><SheetTitle>Cancel future declaration?</SheetTitle><SheetDescription>{cancelling?.state === "AVAILABLE" ? "Available" : "Unavailable"} · {cancelling ? `${format(cancelling.starts_at)} → ${format(cancelling.ends_at)}` : ""}</SheetDescription>
++    <Sheet open={Boolean(cancelling)} onOpenChange={(value) => { if (!value && !busy) setCancelling(null); }}><SheetContent className={`staffing-sheet ${styles.sheet}`} onCloseAutoFocus={restoreActionFocus}><SheetTitle>Cancel future declaration?</SheetTitle><SheetDescription>{cancelling?.state === "AVAILABLE" ? "Available" : "Unavailable"} · {cancelling ? `${format(cancelling.starts_at)} → ${format(cancelling.ends_at)}` : ""}</SheetDescription>
+       <p>The declaration will leave current availability. Its history remains attributable. Any deployment stays unchanged.</p>
+       {cancelling?.state === "AVAILABLE" && cancelPreview && cancelPreview.deployments.length > 0 && <><p className="enterprise-error">These existing deployments may no longer have declared coverage:</p>
+         <ul>{cancelPreview.deployments.map((item) => <li key={item.id}>{item.event_name} · {format(item.report_at)} · {item.status}</li>)}</ul>
+--- a/src/components/my-work-time-client.tsx
++++ b/src/components/my-work-time-client.tsx
+@@ -1,6 +1,6 @@
+ "use client";
+ 
+-import { useCallback, useEffect, useState } from "react";
++import { useCallback, useEffect, useRef, useState } from "react";
+ import Link from "next/link";
+ import { Button } from "@/components/ui/button";
+ import styles from "./work-time-self.module.css";
+@@ -46,55 +46,90 @@
+   const [items, setItems] = useState<Item[]>([]); const [loading, setLoading] = useState(true); const [busy, setBusy] = useState("");
+   const [error, setError] = useState(""); const [notice, setNotice] = useState("");
+   const [drafts, setDrafts] = useState<Record<string, EditSegment[]>>({});
+-  const load = useCallback(async () => {
+-    setLoading(true);
++  const live = useRef(false); const readSequence = useRef(0); const pending = useRef(false);
++  const revisions = useRef<Record<string, number | null>>({});
++  const [available, setAvailable] = useState(false);
++  const [loadedSelection,setLoadedSelection] = useState<string|undefined>(allocationId);
++  const clearCurrent = () => { setItems([]); setDrafts({}); revisions.current = {}; setAvailable(false); setNotice(""); };
++  type Expected = { allocation: string; event: string; allocationRevision: number; caseId: string; revision: number; status: string; segments: Segment[] };
++  const load = useCallback(async (expected?: Expected) => {
++    const sequence = ++readSequence.current;
++    const current = () => live.current && sequence === readSequence.current;
++    setLoading(true); setNotice("");
+     try {
+       const query = allocationId ? `?allocationId=${encodeURIComponent(allocationId)}` : "";
+       const response = await fetch(`/api/work-time/me${query}`, { cache: "no-store" });
+-      if (!response.ok) throw new Error("Your worked-time records are unavailable. Refresh to retry.");
+-      const data = await response.json(); const next: Item[] = data.workTime?.items ?? []; setItems(next);
+-      setDrafts((current) => {
+-        const result = { ...current };
++      if (!current()) return false;
++      if (!response.ok) throw new Error("Your worked-time records are unavailable. Refresh to read current records.");
++      const data = await response.json(); if (!current()) return false;
++      const next: Item[] = data.workTime?.items;
++      if (!Array.isArray(next) || new Set(next.map(item => item.allocation_id)).size !== next.length ||
++        next.some(item => !item || typeof item.allocation_id !== "string" || !Array.isArray(item.revisions) || !Array.isArray(item.history)) ||
++        (allocationId && (next.length > 1 || next.some(item => item.allocation_id !== allocationId))))
++        throw new Error("The selected worked-time source is unavailable. Refresh to read current records.");
++      if (expected) {
++        const item = next.find(entry => entry.allocation_id === expected.allocation);
++        const latest = item?.revisions.at(-1);
++        const historyKind = expected.status === "DRAFT" ? "DRAFT_SAVED" : "SUBMITTED";
++        const segmentsMatch = latest && JSON.stringify(latest.segments.map(segment => [segment.type, segment.starts_at && new Date(segment.starts_at).toISOString(), segment.ends_at && new Date(segment.ends_at).toISOString()])) ===
++          JSON.stringify(expected.segments.map(segment => [segment.type, new Date(segment.starts_at).toISOString(), new Date(segment.ends_at).toISOString()]));
++        if (!item || item.event_id !== expected.event || item.allocation_revision !== expected.allocationRevision || item.allocation_status !== "ACCEPTED" || item.event_status === "CANCELLED" ||
++          item.case_id !== expected.caseId || item.current_revision !== expected.revision || item.status !== expected.status || latest?.revision !== expected.revision || latest.kind !== expected.status ||
++          !segmentsMatch || !item.history.some(event => event.kind === historyKind && event.revision === expected.revision))
++          throw new Error("The requested worked-time revision is not confirmed by current records. It may have been saved. Refresh before another action.");
++      }
++      const priorRevisions = revisions.current;setItems(next); setAvailable(true);setLoadedSelection(allocationId);
++      setDrafts(currentDrafts => {
++        const result: Record<string, EditSegment[]> = {};
+         for (const item of next) {
+-          if (result[item.allocation_id]) continue;
+           const latest = item.revisions.at(-1);
+-          if (item.status === "RETURNED" && latest?.kind === "SUBMITTED") result[item.allocation_id] = editSegments(latest.segments);
+-          else if (latest?.kind === "DRAFT") result[item.allocation_id] = editSegments(latest.segments);
++          if (priorRevisions[item.allocation_id] === item.current_revision && currentDrafts[item.allocation_id]) result[item.allocation_id] = currentDrafts[item.allocation_id];
++          else if ((item.status === "RETURNED" && latest?.kind === "SUBMITTED") || latest?.kind === "DRAFT") result[item.allocation_id] = editSegments(latest.segments);
+           else result[item.allocation_id] = [{ type: "WORK", start: "", end: "" }];
+         }
+         return result;
+-      }); setError("");
+-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Worked-time records unavailable."); }
+-    finally { setLoading(false); }
++      }); revisions.current = Object.fromEntries(next.map(item => [item.allocation_id, item.current_revision])); setError(""); return true;
++    } catch (caught) {
++      if (!current()) return false;
++      setItems([]);setDrafts({});revisions.current={};setAvailable(false);setLoadedSelection(allocationId);setError(caught instanceof Error ? caught.message : "Worked-time records unavailable.");return false;
++    } finally { if (current()) setLoading(false); }
+   }, [allocationId]);
+-  useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); }, [load]);
++  useEffect(() => { live.current = true;const sequence=readSequence; const timer = setTimeout(() => void load(), 0); return () => { live.current = false;sequence.current++;clearTimeout(timer); }; }, [load]);
+ 
+   const save = async (item: Item, action: "SAVE_DRAFT" | "SUBMIT") => {
++    if (pending.current || !live.current || !available || loading || (allocationId && item.allocation_id !== allocationId)) return;
+     const current = drafts[item.allocation_id] ?? [];
+-    const payload = action === "SAVE_DRAFT" ? current.map((segment) => ({ kind: segment.type,
+-      startAt: londonInstant(segment.start), endAt: londonInstant(segment.end) })) : undefined;
+-    if (action === "SAVE_DRAFT" && (payload?.some((segment) => !segment.startAt || !segment.endAt) || !payload?.some((segment) => segment.kind === "WORK"))) {
++    const payload = action === "SAVE_DRAFT" ? current.map(segment => ({ kind: segment.type, startAt: londonInstant(segment.start), endAt: londonInstant(segment.end) })) : undefined;
++    if (action === "SAVE_DRAFT" && (payload?.some(segment => !segment.startAt || !segment.endAt || Date.parse(segment.endAt) <= Date.parse(segment.startAt)) || !payload?.some(segment => segment.kind === "WORK"))) {
+       setError("Enter each interval in Europe/London time. Repeated or skipped clock times cannot be used."); return;
+     }
+-    setBusy(item.allocation_id); setError(""); setNotice("");
++    const view = readSequence.current;const isCurrent = () => live.current && readSequence.current === view;
++    pending.current = true;setBusy(item.allocation_id);setError("");setNotice("");
+     const expectedRevision = item.current_revision ?? 0;
+     const storageKey = `kss-work-time:${item.allocation_id}:${action}`;
+-    let request: { action: string; expectedRevision: number; segments?: unknown; idempotencyKey: string };
+     try {
+-      const saved = localStorage.getItem(storageKey); const previous = saved ? JSON.parse(saved) : null;
+-      const expectedPayload = JSON.stringify({ action, expectedRevision, segments: payload });
+-      if (previous?.fingerprint === expectedPayload) request = previous.request;
+-      else {
+-        request = { action, expectedRevision, ...(payload ? { segments: payload.map((segment) => ({ ...segment, startAt: segment.startAt!, endAt: segment.endAt! })) } : {}), idempotencyKey: crypto.randomUUID() };
+-        localStorage.setItem(storageKey, JSON.stringify({ fingerprint: expectedPayload, request }));
+-      }
++      const saved = localStorage.getItem(storageKey);const previous = saved ? JSON.parse(saved) : null;
++      const fingerprint = JSON.stringify({ action, expectedRevision, segments: payload });
++      const request = previous?.fingerprint === fingerprint ? previous.request : { action, expectedRevision,
++        ...(payload ? { segments: payload.map(segment => ({ ...segment, startAt: segment.startAt!, endAt: segment.endAt! })) } : {}), idempotencyKey: crypto.randomUUID() };
++      localStorage.setItem(storageKey, JSON.stringify({ fingerprint, request }));
+       const response = await fetch(`/api/work-time/me/${item.allocation_id}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(request) });
+-      const data = await response.json().catch(() => ({}));
+-      if (!response.ok) throw new Error(data.error ?? "Worked-time change was not recorded.");
+-      localStorage.removeItem(storageKey); setNotice(action === "SUBMIT" ? "Worked-time proposal submitted for manager review." : "Draft saved as a new revision.");
+-      await load();
+-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Worked-time change was not recorded. Retry safely."); }
+-    finally { setBusy(""); }
++      if (!isCurrent()) return;
++      const data = await response.json().catch(() => ({}));if (!isCurrent()) return;
++      if (!response.ok) throw new Error("Worked-time change is not confirmed. It may have been saved. Refresh before another action.");
++      const receipt = data.result;const status = action === "SAVE_DRAFT" ? "DRAFT" : "SUBMITTED";
++      const uuid = (value: unknown) => typeof value === "string" && /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(value);
++      if (!receipt || !uuid(receipt.case_id) || !uuid(receipt.revision_id) || (item.case_id && receipt.case_id !== item.case_id) || receipt.revision !== expectedRevision + 1 || receipt.status !== status)
++        throw new Error("The exact worked-time receipt is not confirmed. It may have been saved. Refresh before another action.");
++      const segments: Segment[] = payload ? payload.map(segment => ({ type: segment.kind, starts_at: segment.startAt!, ends_at: segment.endAt! })) : item.revisions.at(-1)?.segments ?? [];
++      const readbackSequence = readSequence.current + 1;
++      const confirmed = await load({ allocation:item.allocation_id,event:item.event_id,allocationRevision:item.allocation_revision,caseId:receipt.case_id,revision:receipt.revision,status,segments });
++      if (!live.current || !confirmed || readSequence.current !== readbackSequence) return;
++      localStorage.removeItem(storageKey);setNotice(action === "SUBMIT" ? "Worked-time proposal submitted for manager review and exact revision read back." : "Draft saved as a new revision and exact intervals read back.");
++    } catch (caught) {
++      if (!isCurrent()) return;
++      clearCurrent();setError(caught instanceof Error ? caught.message : "Worked-time change is not confirmed. It may have been saved. Refresh before another action.");
++    } finally { if (live.current) { pending.current=false;setBusy(""); } }
+   };
+ 
+   const updateSegment = (item: Item, index: number, field: "type" | "start" | "end", value: string) => setDrafts((current) => ({
+@@ -103,7 +138,7 @@
+   const addSegment = (item: Item, type: EditSegment["type"]) => setDrafts((current) => ({
+     ...current, [item.allocation_id]: [...(current[item.allocation_id] ?? []), { type, start: "", end: "" }],
+   }));
+-  const canEdit = (item: Item) => item.allocation_status === "ACCEPTED" && [null, "DRAFT", "RETURNED"].includes(item.status);
++  const canEdit = (item: Item) => available && !loading && item.event_status !== "CANCELLED" && item.allocation_status === "ACCEPTED" && [null, "DRAFT", "RETURNED"].includes(item.status);
+ 
+   const card = (item: Item) => {
+     const currentDraft = drafts[item.allocation_id] ?? [];
+@@ -123,7 +158,7 @@
+       {evidenceStatus !== "COMPLETE" && <p className={styles.warning} role="status">Attendance evidence is {evidenceStatus?.toLowerCase() ?? "missing"}. You can still submit; this will be flagged for manager review.</p>}
+       <p className={styles.explainer}>Attendance is factual evidence only. It has not filled in any worked interval. Enter all work intervals yourself. Breaks are explicit and are not deducted automatically.</p>
+       {item.history?.filter((event) => event.kind === "RETURNED").map((event, index) => <p className={styles.returnReason} key={`${event.kind}-${event.revision}-${index}`}>Returned for correction: {event.reason}</p>)}
+-      {canEdit(item) && <fieldset className={styles.entry}><legend>{item.status === "RETURNED" ? "Correction · creates a new revision" : "Your proposed time · Europe/London"}</legend>
++      {canEdit(item) && <fieldset className={styles.entry} disabled={Boolean(busy) || loading || !available}><legend>{item.status === "RETURNED" ? "Correction · creates a new revision" : "Your proposed time · Europe/London"}</legend>
+         {currentDraft.map((segment, index) => <div className={styles.segment} data-interval={segment.type} key={`${item.allocation_id}-${index}`}>
+           <label>Interval {index + 1}<select value={segment.type} onChange={(event) => updateSegment(item, index, "type", event.target.value)}>
+             <option value="WORK">Work interval</option><option value="BREAK">Break interval</option></select></label>
+@@ -154,7 +189,7 @@
+     <header className={styles.heading}><p className={styles.eyebrow}>Staff self-service · Event work</p><h1>My Worked Time</h1>
+       <p>Propose time for an accepted Event allocation. This records worked time only; attendance never creates your proposal.</p>
+       <Link href="/my-deployments">Back to My Deployments</Link></header>
+-    {notice && <p role="status" className={styles.notice}>{notice}</p>}{error && <p role="alert" className={styles.error}>{error} <Button variant="outline" onClick={() => void load()}>Refresh</Button></p>}
+-    {loading ? <p role="status">Loading your Event allocations…</p> : items.length === 0 ? <p className={styles.empty}>{allocationId ? "This allocation is not available in your own worked-time view." : "No accepted Event allocations are available."}</p> : items.map(card)}
++    {notice && <p role="status" className={styles.notice}>{notice}</p>}{error && <p role="alert" className={styles.error}>{error} <Button variant="outline" disabled={Boolean(busy)} onClick={() => void load()}>Refresh</Button></p>}
++    {loading || loadedSelection !== allocationId ? <p role="status">Loading your Event allocations…</p> : !available ? <p className={styles.empty}>Current worked-time records are not verified. Refresh to read the current source.</p> : items.length === 0 ? <p className={styles.empty}>{allocationId ? "This allocation is not available in your own worked-time view." : "No accepted Event allocations are available."}</p> : items.map(card)}
+   </main>;
+ }
+--- /dev/null
++++ b/tests/ui-staff-self-readback-local.test.mjs
+@@ -0,0 +1,51 @@
++import{test}from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';import{resolve,dirname}from'node:path';import{fileURLToPath}from'node:url';import vm from'node:vm';import ts from'typescript';
++const root=process.env.KSS_STAFF_SELF_SOURCE_ROOT||resolve(dirname(fileURLToPath(import.meta.url)),'..');
++const id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
++const all=n=>Array.isArray(n)?n.flatMap(all):n&&typeof n==='object'?[n,...all(n.props?.children)]:[];
++const text=n=>n==null||typeof n==='boolean'?'':Array.isArray(n)?n.map(text).join(' '):typeof n==='object'?text(n.props?.children):String(n);
++const nodes=(h,type)=>all(h.tree).filter(n=>n.type===type);const button=(h,label)=>nodes(h,'button').find(n=>text(n).replace(/\s+/g,' ').trim()===label);
++const tick=async()=>{for(let i=0;i<8;i++)await new Promise(setImmediate)};const json=(data,status=200)=>Response.json(data,{status});
++const deferred=()=>{let finish;return{promise:new Promise(r=>finish=r),finish:value=>finish(value)}};
++function fixture(name,props={},handler){
++ const file=`src/components/${name==='MyAvailabilityClient'?'my-availability':'my-work-time'}-client.tsx`,source=readFileSync(resolve(root,file),'utf8');
++ const parsed=ts.createSourceFile(file,source,ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX),stateNames=[];function walk(n){if(ts.isVariableDeclaration(n)&&ts.isArrayBindingPattern(n.name)&&n.initializer&&ts.isCallExpression(n.initializer)&&n.initializer.expression.getText(parsed)==='useState')stateNames.push(n.name.elements[0]?.getText(parsed));ts.forEachChild(n,walk)}walk(parsed);
++ let cursor=0,stateCursor=0,tree;const slots=[],stateMap=new Map(),effects=[],timers=[],calls=[],storage=new Map();const same=(a,b)=>a?.length===b?.length&&a.every((v,i)=>Object.is(v,b[i]));
++ const react={useState(initial){const i=cursor++;stateMap.set(stateNames[stateCursor++],i);if(!slots[i])slots[i]={value:typeof initial==='function'?initial():initial};return[slots[i].value,next=>{slots[i].value=typeof next==='function'?next(slots[i].value):next}]},useRef(value){const i=cursor++;return slots[i]??(slots[i]={current:value})},useCallback(fn,deps){const i=cursor++;if(!slots[i]||!same(slots[i].deps,deps))slots[i]={deps,value:fn};return slots[i].value},useEffect(fn,deps){const i=cursor++;if(!slots[i]||!same(slots[i].deps,deps)){const previous=slots[i];slots[i]={deps};effects.push(()=>{previous?.cleanup?.();slots[i].cleanup=fn()})}}};
++ const jsx=(type,props)=>({type,props:props??{}}),m={exports:{}};const mocks={react,'react/jsx-runtime':{jsx,jsxs:jsx,Fragment:'fragment'},'next/link':{__esModule:true,default:'a'},'@/components/ui/button':{Button:'button'},'@/components/ui/sheet':Object.fromEntries(['Sheet','SheetContent','SheetTitle','SheetDescription'].map(k=>[k,k]))};
++ new vm.Script(ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText,{filename:file}).runInNewContext({module:m,exports:m.exports,require:n=>{if(n.endsWith('.css'))return{__esModule:true,default:new Proxy({},{get:(_,k)=>String(k)})};assert.ok(Object.hasOwn(mocks,n),'Unexpected import '+n);return mocks[n]},fetch:async(url,init={})=>{const call={url,method:init.method??'GET',body:init.body?JSON.parse(init.body):null};calls.push(call);return handler(call,calls)},setTimeout:fn=>{timers.push(fn);return timers.length},clearTimeout(){},localStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},crypto:{randomUUID:()=>id(99)},Date,Intl});
++ const h={calls,storage,props,render(){cursor=0;stateCursor=0;tree=m.exports[name](props);effects.splice(0).forEach(f=>f());return tree},get tree(){return tree},async ready(){h.render();timers.splice(0).forEach(f=>f());await tick();h.render();return h},seed(values){for(const[k,v]of Object.entries(values)){assert.ok(stateMap.has(k),k);slots[stateMap.get(k)].value=v}h.render()},state:k=>slots[stateMap.get(k)].value,unmount(){slots.forEach(s=>s?.cleanup?.())}};return h;
++}
++const segment={type:'WORK',starts_at:'2026-10-17T21:00:00Z',ends_at:'2026-10-18T05:00:00Z'};
++const item={allocation_id:id(1),allocation_status:'ACCEPTED',allocation_revision:3,event_id:id(2),event_name:'Synthetic exact Event',event_status:'ACTIVE',site_name:'Synthetic Site',reporting_point:null,service_date:'2026-10-17',report_at:'2026-10-17T20:00:00Z',shift_starts_at:segment.starts_at,shift_ends_at:segment.ends_at,role_name:'Officer',area_label:'Gate',case_id:null,status:null,current_revision:null,revisions:[],attendance:{revision:2,state:'CHECKED_IN',check_in_at:segment.starts_at,check_out_at:null,review_required:false,events:[]},history:[]};
++const receipt={case_id:id(3),revision_id:id(4),revision:1,status:'DRAFT',proposed_work_minutes:480};
++const saved=()=>({...item,case_id:receipt.case_id,current_revision:1,status:'DRAFT',revisions:[{revision:1,kind:'DRAFT',proposed_work_minutes:480,evidence_status:'NOT_SNAPSHOTTED',parent_revision:null,created_at:'2026-10-18T12:00:00Z',submitted_at:null,segments:[{...segment}],evidence:[]}],history:[{kind:'DRAFT_SAVED',revision:1,reason:null,recorded_at:'2026-10-18T12:00:00Z'}]});
++async function worked(handler,props={allocationId:item.allocation_id}){let reads=0;const h=fixture('MyWorkTimeClient',props,(call,calls)=>call.method==='GET'&&++reads===1?json({workTime:{items:[item]}}):handler(call,calls));await h.ready();h.seed({drafts:{[item.allocation_id]:[{type:'WORK',start:'2026-10-17T22:00',end:'2026-10-18T06:00'}]}});return h;}
++const write=async h=>{button(h,'Save draft').props.onClick();await tick();h.render()};
++test('exact source mismatch renders no other allocation or write affordance',async()=>{const h=fixture('MyWorkTimeClient',{allocationId:id(88)},()=>json({workTime:{items:[item]}}));await h.ready();assert.equal(h.state('items').length,0);assert.equal(button(h,'Save draft'),undefined);assert.match(text(h.tree),/selected worked-time source is unavailable/)});
++test('denied refresh clears previously rendered private work facts/actions and false empty state',async()=>{let count=0;const h=fixture('MyWorkTimeClient',{},()=>++count===1?json({workTime:{items:[item]}}):json({error:'denied'},403));await h.ready();h.props.allocationId=id(1);await h.ready();assert.equal(h.state('items').length,0);assert.equal(h.state('available'),false);assert.equal(button(h,'Save draft'),undefined);assert.doesNotMatch(text(h.tree),/No accepted Event allocations/)});
++test('exact draft receipt+readback confirms only new matching revision/segments/history',async()=>{const h=await worked(c=>c.method==='POST'?json({result:receipt}):json({workTime:{items:[saved()]}}));await write(h);assert.match(h.state('notice'),/exact intervals read back/);assert.equal(h.state('items')[0].current_revision,1);assert.equal(h.storage.size,0);assert.equal(h.calls.length,3)});
++for(const[label,change]of[['different allocation',x=>x.allocation_id=id(9)],['different Event',x=>x.event_id=id(9)],['source revision changed',x=>x.allocation_revision=4],['cancelled source',x=>x.event_status='CANCELLED'],['different case',x=>x.case_id=id(9)],['newer revision',x=>x.current_revision=2],['wrong status',x=>x.status='SUBMITTED'],['different intervals',x=>x.revisions[0].segments[0].ends_at='2026-10-18T04:00:00Z'],['missing history',x=>x.history=[]]])test('draft readback rejects '+label,async()=>{const value=saved();change(value);const h=await worked(c=>c.method==='POST'?json({result:receipt}):json({workTime:{items:[value]}}));await write(h);assert.equal(h.state('notice'),'');assert.equal(h.state('items').length,0);assert.equal(h.storage.size,1);assert.equal(button(h,'Save draft'),undefined)});
++for(const[label,result]of[['missing',null],['wrong case',{...receipt,case_id:'invalid'}],['missing revision ID',{...receipt,revision_id:null}],['wrong revision',{...receipt,revision:4}],['wrong status',{...receipt,status:'SUBMITTED'}]])test('unconfirmed receipt '+label+' causes no readback or retry',async()=>{const h=await worked(()=>json({result}));await write(h);assert.equal(h.calls.length,2);assert.equal(h.state('notice'),'');assert.equal(h.state('items').length,0);assert.equal(h.storage.size,1)});
++test('two synchronous clicks send one write; pending fields disabled; no early success',async()=>{const held=deferred();const h=await worked(c=>c.method==='POST'?held.promise:json({workTime:{items:[saved()]}}));const action=button(h,'Save draft').props.onClick;action();action();h.render();assert.equal(h.calls.filter(c=>c.method==='POST').length,1);assert.equal(nodes(h,'fieldset')[0].props.disabled,true);assert.equal(h.state('notice'),'');held.finish(json({result:receipt}));await tick();h.render();assert.match(h.state('notice'),/exact intervals/)});
++test('late POST after unmount cannot read old source or confirm',async()=>{const held=deferred();const h=await worked(()=>held.promise);button(h,'Save draft').props.onClick();h.unmount();held.finish(json({result:receipt}));await tick();assert.equal(h.calls.length,2);assert.equal(h.state('notice'),'')});
++test('a changed exact selection invalidates old pending response and old source facts',async()=>{const held=deferred();const h=await worked(c=>c.method==='POST'?held.promise:json({workTime:{items:[]}}));button(h,'Save draft').props.onClick();h.props.allocationId=id(8);await h.ready();held.finish(json({result:receipt}));await tick();h.render();assert.equal(h.calls.length,3);assert.equal(h.state('items').length,0);assert.equal(h.state('notice'),'')});
++test('uncertain write retains idempotency key across deliberate refresh and manual identical retry',async()=>{const h=await worked(c=>c.method==='POST'?json({error:'unconfirmed'},503):json({workTime:{items:[item]}}));await write(h);const first=h.calls.find(c=>c.method==='POST').body;button(h,'Refresh').props.onClick();await tick();h.render();h.seed({drafts:{[item.allocation_id]:[{type:'WORK',start:'2026-10-17T22:00',end:'2026-10-18T06:00'}]}});await write(h);const posts=h.calls.filter(c=>c.method==='POST');assert.equal(posts.length,2);assert.equal(posts[1].body.idempotencyKey,first.idempotencyKey);assert.equal(h.state('notice'),'')});
++const declaration={id:id(10),state:'AVAILABLE',starts_at:'2098-10-19T08:00:00Z',ends_at:'2098-10-19T16:00:00Z',lifecycle:'CURRENT',note:'Synthetic source note'};
++const createdHistory={history:{items:[{id:id(11),kind:'CREATED',new_revision:8,new_state:'AVAILABLE',old_state:null,new_starts_at:declaration.starts_at,new_ends_at:declaration.ends_at,new_lifecycle:'CURRENT',occurred_at:'2026-10-18T12:00:00Z'}],total:1}};
++const availability={availability:{items:[declaration],revision:7,total:26}};const history={history:{items:[],total:0}};
++const range={starts:declaration.starts_at,ends:declaration.ends_at};const preview={preview:{revision:7,replaced:[declaration],deployments:[]},range};
++async function available(handler,readHistory=()=>json(history)){let reads=0;const h=fixture('MyAvailabilityClient',{},c=>c.url.includes('/history')?readHistory():c.method==='GET'&&++reads===1?json(availability):handler(c));await h.ready();return h;}
++async function review(h){button(h,'Declare availability').props.onClick({currentTarget:null});h.render();h.seed({startDate:'2098-10-19',endDate:'2098-10-19'});button(h,'Review declaration').props.onClick();await tick();h.render();h.seed({confirmReplace:true})}
++test('Availability403 source refresh clears old facts/actions/history and closes stale panel',async()=>{const h=await available(()=>json({error:'denied'},403));button(h,'Declare availability').props.onClick({currentTarget:null});h.render();button(h,'Next').props.onClick();await tick();h.render();assert.equal(h.state('items').length,0);assert.equal(h.state('open'),false);assert.equal(button(h,'Declare availability').props.disabled,true);assert.equal(button(h,'Change'),undefined);assert.doesNotMatch(text(h.tree),/Nothing declared for the upcoming period/)});
++test('Availability exact revision readback gates confirmation',async()=>{const h=await available(c=>c.url.endsWith('/preview')?json(preview):c.method==='POST'?json({revision:8}):json({availability:{items:[declaration],revision:8,total:1}}),()=>json(createdHistory));await review(h);button(h,'Save declaration').props.onClick();await tick();h.render();assert.match(h.state('notice'),/exact current revision/);assert.equal(h.calls.filter(c=>c.method==='POST'&&!c.url.endsWith('/preview')).length,1)});
++test('Availability stale readback never confirms accepted write or automatically retries',async()=>{const h=await available(c=>c.url.endsWith('/preview')?json(preview):c.method==='POST'?json({revision:8}):json(availability));await review(h);button(h,'Save declaration').props.onClick();await tick();h.render();assert.equal(h.state('notice'),'');assert.equal(h.state('items').length,0);assert.equal(button(h,'Declare availability').props.disabled,true);assert.equal(h.calls.filter(c=>c.method==='POST'&&!c.url.endsWith('/preview')).length,1)});
++test('Availability changed period after preview requires new review without write',async()=>{const h=await available(()=>json(preview));await review(h);h.seed({startDate:'2098-10-20'});button(h,'Save declaration').props.onClick();await tick();h.render();assert.equal(h.calls.filter(c=>c.method==='POST'&&!c.url.endsWith('/preview')).length,0);assert.equal(h.state('preview'),null)});
++test('Availability late mutation after unmount performs no old-source read or confirmation',async()=>{const held=deferred();const h=await available(c=>c.url.endsWith('/preview')?json(preview):held.promise);await review(h);button(h,'Save declaration').props.onClick();h.unmount();held.finish(json({revision:8}));await tick();assert.equal(h.calls.filter(c=>c.method==='GET'&&!c.url.includes('/history')).length,1);assert.equal(h.state('notice'),'')});
++test('Availability duplicate save sends one write and replacement/conflict acknowledgement remains enforced',async()=>{const held=deferred();const h=await available(c=>c.url.endsWith('/preview')?json(preview):held.promise);await review(h);h.seed({confirmReplace:false});button(h,'Save declaration').props.onClick();assert.equal(h.calls.filter(c=>c.method==='POST'&&!c.url.endsWith('/preview')).length,0);h.seed({confirmReplace:true});const click=button(h,'Save declaration').props.onClick;click();click();assert.equal(h.calls.filter(c=>c.method==='POST'&&!c.url.endsWith('/preview')).length,1);h.unmount();held.finish(json({revision:8}));await tick()});
++
++test('matching Availability revision with wrong source history remains unconfirmed',async()=>{const h=await available(c=>c.url.endsWith('/preview')?json(preview):c.method==='POST'?json({revision:8}):json({availability:{items:[declaration],revision:8,total:1}}));await review(h);button(h,'Save declaration').props.onClick();await tick();h.render();assert.equal(h.state('notice'),'');assert.equal(h.state('items').length,0);assert.match(h.state('error'),/may have been saved/)});
++test('cancellation retains exact preview revision and acknowledges existing deployment; matching source history confirms',async()=>{let cancelled=false;const cancelledHistory={history:{items:[{id:id(12),kind:'CANCELLED',new_revision:8,old_state:declaration.state,new_state:null,old_starts_at:declaration.starts_at,old_ends_at:declaration.ends_at,new_lifecycle:'CANCELLED',occurred_at:'2026-10-18T12:00:00Z'}],total:1}};const h=await available(c=>{if(c.url.endsWith('/preview'))return json({...preview,preview:{...preview.preview,deployments:[{id:id(13),event_name:'Synthetic deployment',report_at:declaration.starts_at,shift_ends_at:declaration.ends_at,status:'ACCEPTED'}]}});if(c.method==='PATCH'){cancelled=true;assert.equal(c.body.expectedRevision,7);assert.equal(c.body.acknowledgeConflict,true);return json({revision:8})}return json({availability:{items:[{...declaration,lifecycle:'CANCELLED'}],revision:8,total:1}})},()=>json(cancelled?cancelledHistory:history));button(h,'Cancel future declaration').props.onClick({currentTarget:null});await tick();h.render();assert.equal(button(h,'Cancel declaration').props.disabled,true);button(h,'Cancel declaration').props.onClick();assert.equal(h.calls.filter(c=>c.method==='PATCH').length,0);h.seed({cancelAck:true});button(h,'Cancel declaration').props.onClick();await tick();h.render();assert.match(h.state('notice'),/cancelled and exact current revision/);assert.equal(h.calls.filter(c=>c.method==='PATCH').length,1)});
++
++test('Availability denied preview clears stale declarations and open action without a write',async()=>{const h=await available(()=>json({error:'Synthetic authority lost'},403));await review(h);assert.equal(h.state('items').length,0);assert.equal(h.state('open'),false);assert.equal(h.state('available'),false);assert.equal(h.calls.filter(c=>c.method==='POST'&&!c.url.endsWith('/preview')).length,0)});
++
++test('Availability Sheet restores exact connected action trigger; no shared Sheet contract changes',async()=>{const h=await available(()=>json(preview));let restored=0,prevented=0;const trigger={isConnected:true,disabled:false,focus:()=>restored++};button(h,'Change').props.onClick({currentTarget:trigger});h.render();const content=nodes(h,'SheetContent')[0];content.props.onCloseAutoFocus({preventDefault:()=>prevented++});assert.equal(restored,1);assert.equal(prevented,1)});
+--- /dev/null
++++ b/tests/ui-staff-self-boundaries-local.test.mjs
+@@ -0,0 +1,17 @@
++import{test}from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';import{fileURLToPath}from'node:url';import ts from'typescript';import{resolve,dirname}from'node:path';import vm from'node:vm';
++const source=process.env.KSS_STAFF_SELF_SOURCE_ROOT||resolve(dirname(fileURLToPath(import.meta.url)),'..');const id='00000000-0000-4000-8000-000000000001';
++function execute(file,mocks){const m={exports:{}};const js=ts.transpileModule(readFileSync(resolve(source,file),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText;new vm.Script(js,{filename:file}).runInNewContext({module:m,exports:m.exports,require:name=>{assert.ok(Object.hasOwn(mocks,name),'Unexpected import '+name);return mocks[name]},URL,Response});return m.exports;}
++const capabilities=execute('src/lib/auth/capabilities.ts',{});
++function harness(roles=['SECURITY_STAFF'],rpcError=false){const calls=[];const client={rpc:async(name,args)=>{calls.push({name,args});return{data:{items:[],total:0},error:rpcError?{message:'private source detail'}:null}}};const jsx=(type,props)=>({type,props}),mocks={'react/jsx-runtime':{jsx,jsxs:jsx},'next/navigation':{notFound:()=>{throw Error('NOT_FOUND')},redirect:to=>{throw Error('REDIRECT:'+to)}},'@/lib/auth/principal':{getPrincipal:async()=>roles?{personId:id,roles,incidentReviewer:false}:null,isUuid:s=>/^[0-9a-f-]{36}$/.test(s)},'@/lib/auth/capabilities':capabilities,'@/lib/supabase/server':{createServerSupabase:async()=>client},'@/components/my-availability-client':{MyAvailabilityClient:'availability'},'@/components/time-away-client':{TimeAwayClient:'time-away'},'@/components/my-work-time-client':{MyWorkTimeClient:'work-time'},'@/lib/auth/responses':{privateJson:(data,status=200)=>Response.json(data,{status,headers:{'cache-control':'no-store'}}),unauthorised:()=>Response.json({error:'Unauthorized'},{status:401}),forbidden:()=>Response.json({error:'Forbidden'},{status:403})},'@/lib/events/availability':{availabilityError:()=>{throw Error('not expected')}},'@/lib/events/availability-time':{parseAvailabilityRange:()=>{throw Error('not expected')}}};return{calls,page:slug=>execute(`src/app/(enterprise)/${slug}/page.tsx`,mocks).default,api:file=>execute(`src/app/api/${file}/route.ts`,mocks)};}
++for(const slug of['my-availability','my-time-away','my-work-time']){
++ for(const roles of[['OFFICE_ADMIN'],['SUPER_ADMIN'],['OPERATIONS']])test(`${slug} actual source denies ${roles[0]} without granting staff self-service`,async()=>{const h=harness(roles);await assert.rejects(()=>h.page(slug)({searchParams:Promise.resolve({allocationId:id})}),/NOT_FOUND/);assert.equal(h.calls.length,0)});
++ test(`${slug} absent principal follows exact source denial/redirect`,async()=>{const h=harness(null);await assert.rejects(()=>h.page(slug)({searchParams:Promise.resolve({})}),slug==='my-time-away'?/NOT_FOUND/:/REDIRECT:\/\?next=/);assert.equal(h.calls.length,0)});
++ test(`${slug} Staff projects only its existing client and exact documented selection`,async()=>{const h=harness();const tree=await h.page(slug)({searchParams:Promise.resolve({allocationId:id,personId:'ignored'})});assert.equal(tree.type,slug==='my-availability'?'availability':slug==='my-time-away'?'time-away':'work-time');if(slug==='my-time-away')assert.equal(tree.props.view,'staff');if(slug==='my-work-time')assert.equal(tree.props.allocationId,id);assert.equal(tree.props.personId,undefined);assert.equal(h.calls.length,0)});
++}
++for(const file of['availability/me','work-time/me']){
++ test(`${file} read denies absent and non-Staff before RPC`,async()=>{for(const roles of[null,['SUPER_ADMIN'],['OPERATIONS']]){const h=harness(roles);const res=await h.api(file).GET({url:'http://fixture.invalid/api/'+file});assert.equal(res.status,roles?403:401);assert.equal(h.calls.length,0)}});
++ test(`${file} current source RPC receives finite self scope, never requested Person identity`,async()=>{const h=harness();const res=await h.api(file).GET({url:'http://fixture.invalid/api/'+file+'?allocationId='+id+'&offset=25&personId=other'});assert.equal(res.status,200);assert.equal(res.headers.get('cache-control'),'no-store');assert.deepEqual(JSON.parse(JSON.stringify(h.calls)),file==='availability/me'?[{name:'my_availability',args:{p_offset:25,p_limit:25}}]:[{name:'event_work_time_self_read',args:{p_allocation:id}}]);});
++ test(`${file} unavailable RPC produces generic error without private details`,async()=>{const h=harness(undefined,true);const res=await h.api(file).GET({url:'http://fixture.invalid/api/'+file});assert.equal(res.status,503);assert.doesNotMatch(JSON.stringify(await res.json()),/private source/)});
++}
++test('Time Away detail preserves exact request/action delegated authority and generic denial',async()=>{const h=harness(['SECURITY_STAFF'],true);const res=await h.api('time-away').GET({url:'http://fixture.invalid/api/time-away?mode=detail&id='+id});assert.equal(res.status,403);assert.deepEqual(JSON.parse(JSON.stringify(h.calls)),[{name:'time_away_detail',args:{p_request:id,p_action:'VIEW_REQUESTS'}}]);assert.doesNotMatch(JSON.stringify(await res.json()),/private source/)});
++test('Time Away absent session and unsupported detail view call no RPC',async()=>{const h=harness(null);assert.equal((await h.api('time-away').GET({url:'http://fixture.invalid/api/time-away?mode=authority'})).status,401);assert.equal(h.calls.length,0);const signed=harness();assert.equal((await signed.api('time-away').GET({url:'http://fixture.invalid/api/time-away?mode=detail&id='+id+'&view=DECIDE_REQUEST'})).status,400);assert.equal(signed.calls.length,0)});
+--- /dev/null
++++ b/docs/delivery/STAFF-SELF-SOURCE-REPAIRS-20261018.md
+@@ -0,0 +1,45 @@
++# Staff self-service: verified local source repairs
++
++Status: LOCAL_VERIFIED_AWAITING_INTEGRATION. Two product components only. Root owns independent integration and publication.
++
++## Problem and resulting behaviour
++
++Actual Chromium tests reproduced two defects in the frozen Staff source: a denied Availability refresh retained previous declarations and action buttons; an exact Worked Time allocation selection rendered an unrelated allocation returned by its synthetic API. Both failed at1440px and390px. Original source and failing images are preserved at task-3/output/ui-staff-self-browser-20261018/red-checkpoint01. The corresponding cases now pass against the final exact component bytes.
++
++Availability now clears inaccessible current facts, history and stale action panels after denied/unavailable reads. A denied preview also clears current action authority. Loading and unavailable states do not claim an empty authorised source. A synchronous pending guard and disabled native fieldset preserve the reviewed range while a request is pending. Changed drafts need another preview, and replacement/deployment acknowledgements remain mandatory. Save/cancellation confirmation requires the returned next revision, the same current read revision and the matching existing history kind/state/period/lifecycle at that revision. The source already returns these history fields; no reader, API or SQL changed. Cancellation still targets the exact declaration ID and previews its exact current state/range before the write. Preview/cancellation/POST results are ignored after unmount or retired read lifetime. Sheet dismissal restores the exact connected action trigger, with the declaration trigger as fallback.
++
++Worked Time now rejects responses outside the exact selected allocation and hides old facts immediately when selection changes. Denied/failed reads clear facts, edits and write affordances. A synchronous pending guard and native fieldset lock prevent duplicate writes and in-flight draft edits. Draft/submission success requires the existing receipt's case/revision/status, the exact current allocation/Event/allocation revision/case/revision/status, matching saved intervals and matching existing history. Cancelled Event sources cannot offer an edit that the existing RPC rejects. No attendance interval is inferred; incomplete attendance remains eligible for the existing submission workflow. Proposed minutes remain separate from payable/billable approval.
++
++Unconfirmed writes never produce a success notice or automatic POST retry. Availability requires reload. Worked Time retains the existing persisted idempotency key until exact readback confirmation; a deliberate refresh and identical manual retry reuses that key. Late writes after unmount do not start old-context reads or confirmation. This does not abort a write or assert that the server rejected it.
++
++## Exact scope and preservation
++
++Product files:
++- src/components/my-availability-client.tsx
++- src/components/my-work-time-client.tsx
++
++New dedicated tests:
++- tests/ui-staff-self-readback-local.test.mjs
++- tests/ui-staff-self-boundaries-local.test.mjs
++
++No Time Away manager/client, API, auth, globals/shared Sheet, schema, SQL, grants, policy, credentials or deployment changes.409 other tracked source files in the isolated archive are preserved; copied CSS baseline dependencies remain byte-identical. Both original integration component hashes remain unchanged until root imports the reviewed packet. The archive started at810136361023ac513f8c484aee1a2bca3614ba3a, with the two owned frozen Staff components and CSS dependencies overlaid from verified current integration bytes; the frozen Staff UI was newer than that archive commit.
++
++## Verification
++
++54/54 explicit offline tests passed:31 actual-component source tests plus23 actual route/API source tests. These execute real source with synthetic hooks/JSX/HTTP/principal/RPC projections. Covered: current-source denial, exact selected allocation, valid/mismatched receipt and readback, wrong case/Event/allocation revision/status/interval/history, changed selection, late POST/JSON lifetime, pending duplicate writes, stable idempotency, preview invalidation, cancellation acknowledgement and source-history readback, exact trigger focus callback, absent/non-Staff page/API gates, generic errors and finite self-source RPC arguments. No hosted requests occur.
++
++Scoped ESLint and TypeScript exit0. Native Next typegen supplied generated framework route types in the isolated archive; no product config change is included.
++
++Final actual Chromium evidence: task-3/output/ui-staff-self-browser-20261018/green-run03/browser-results.json.43/43 named checks passed, including an eight-variant Worked Time readback matrix at each of1440/390. All three routes have matching before/after captures at1440/834/390/320. Document overflow checks passed for all candidate captures. Real Sheet keyboard Tab containment, Escape and Declare/Change trigger restoration passed at all four widths. Other representative flows: explicit conflict acknowledgement/stale revision, denied refresh, Time Away draft without team stays non-submittable, manual identical idempotency retry, source mismatch denial, exact saved revision/history, pending duplicate/unmount and Availability cancellation.58 captures were saved as116 full-page/viewport images. Browser process exited0 and fixture servers were closed by the harness. Zero external browser requests were recorded.
++
++The immutable final visual packet is task-3/output/ui-staff-self-browser-20261018/visual-checkpoint02-final. It includes hashes for all116 images, browser results and the effective before/after source manifest. Both phases use published3c8ba25 shared foundation; the before route-local source is the frozen StaffRecords baseline. The actual route pages run against clearly labelled synthetic cookie principals, and API responses/mutations are intercepted locally. Unmatched APIs and writes return403. Existing held Operations browser commands were not run.
++
++## Limits and integration handoff
++
++These are synthetic local browser/source results, not authentication, hosted RPC, RLS, database persistence, real record acceptance or full77-route acceptance. No production writes or publication occurred. All remaining route-family holds remain unchanged.
++
++Existing ui-staff-records-local.test.mjs asserts handler byte identity from the earlier UI-only phase and seeds older hook projections. Root must record this authorised two-file functional revision and adapt that legacy fixture's current-source/pending/lifetime preconditions while preserving its meaningful action assertions. This lane does not edit that legacy file, its frozen manifests or the integration tracker. New source tests and before hashes provide the bounded regression evidence for independent review.
++
++Earlier diagnostic browser runs remain preserved. They include selector/timing issues and an intermediate repair cleanup failure; only green-run03 and its exact source hashes are the final acceptance evidence. The transport-interrupted write was inspected on authorised resume before further edits; no uncertain action was replayed.
++
++Integrate only the five files enumerated in frozen-source/source-manifest.json after verifying the two existing before hashes. Source patch, local check exits, preservation receipt and final browser receipt accompany the frozen handoff.

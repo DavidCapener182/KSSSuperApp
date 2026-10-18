@@ -1,0 +1,9 @@
+# Credentials context correction, revision 2
+
+Actual synthetic browser reproduction: selecting Person B after Person A, with B returning HTTP403, retained A’s verified state, exact Documents link and revoke/evidence-request controls under B’s identity. Evidence: task-root ui-milestone-evidence/hr-credentials-preview/credential-context-red-run/credential-denied-context-1440.json and browser.log. No hosted records or writes.
+
+Bounded change: credentials-client.tsx only. Hide old records synchronously when selected person or role props change; clear facts/actions on unavailable or malformed reads; latest-read and mounted checks cover primary and auxiliary reads. Guard duplicate actions and context changes. An accepted POST followed by denied refresh is reported as unconfirmed and may have saved, with no retry or stale review actions. Existing API endpoints, input payloads, server authority and pure state rules are unchanged. No other HR product file changed.
+
+Offline: first three context regression tests fail against the preserved pre-revision component and pass after correction. Nine focused actual-source context/lifetime/action tests plus thirteen existing HR tests pass (22 total). TypeScript passes; focused ESLint passes. Existing source-preservation test now recognises only the separately hashed load/action/effect correction, and still compares other functions and route guards. Receipt: output/ui-hr-credentials-20261018/credential-context-revision-2.json. Original frozen receipt remains immutable. Red log from an initial incorrect working directory is retained as an explicitly invalid harness attempt; red-context-proof.tap is the valid source regression proof.
+
+Four-width browser acceptance completed separately:60records/60screens at1440/834/390/320 pass; see UI-HR-CREDENTIALS-BROWSER-20261018.md. Authentication/RPC/RLS/live persistence remain unverified, and this work grants no new permission.

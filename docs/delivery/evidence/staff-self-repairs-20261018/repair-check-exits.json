@@ -1,0 +1,11 @@
+{
+  "results": {
+    "local-tests": 0,
+    "lint": 0,
+    "types": 0
+  },
+  "offlineFiles": [
+    "tests/ui-staff-self-readback-local.test.mjs",
+    "tests/ui-staff-self-boundaries-local.test.mjs"
+  ]
+}

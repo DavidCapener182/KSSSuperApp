@@ -1,0 +1,86 @@
+[
+  {
+    "file": "src/components/event-attendance-client.tsx",
+    "beforeSha256": "2aadf949da6bea8c209fd04112766710c2a77d4f5096cfac2f45b99be2febf29",
+    "sha256": "0d93e1e7634cce7a905609821ddce4fee0d9a76a586defb43bde18d7410a291e",
+    "reason": "Remove whitespace-only blank lines identified by git diff --check; no expressions or handlers changed"
+  },
+  {
+    "file": "src/components/site-attendance-client.tsx",
+    "beforeSha256": "e08c3ab73eca8ab73464e8a4e5d3eb016394f9d67aa7fc3bd2a3c2534145771f",
+    "sha256": "cd9ef97696e911ba8477dfac5de6bdc746dc141004c78d2ae72723d93c74468c",
+    "reason": "Remove whitespace-only blank lines identified by git diff --check; no expressions or handlers changed"
+  },
+  {
+    "file": "src/components/site-service-detail-client.tsx",
+    "beforeSha256": "b3d528c4ab3d85c104014ef4cd11f4e030abfc1bef14c80596b44467a889b5d3",
+    "sha256": "6cbd5da2a48f9e85fce1110da8f4e4d3e2d17c1441aad1375c4189fabfc71fcc",
+    "reason": "Remove whitespace-only blank lines identified by git diff --check; no expressions or handlers changed"
+  },
+  {
+    "file": "src/components/my-deployments-client.tsx",
+    "beforeSha256": "8ef3816738bd552fb91ffb7b0dd1218cd335621f517d30c5530119016f04a12a",
+    "sha256": "d958b0047d566e9cf981d819cd0364f132e17843f754edcfb0bf0d88f6c19d4f",
+    "reason": "Coordinator render-only repair retains pending allocation cards and declined-response draft after rejected PATCH; original action and load handlers unchanged; focused tests38 passed"
+  },
+  {
+    "file": "src/components/ui/sheet.tsx",
+    "beforeSha256": "9af6a0da7258746624346506c3ff98c9e300ceb10ef17ca079a1c8c5d5090814",
+    "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+    "reason": "Coordinator scoped reduced-motion CSS class fixes measured browser animation precedence; Entry and navigation browser checks passed"
+  },
+  {
+    "file": "src/components/work-time.module.css",
+    "beforeSha256": "01f36409174b26181c0cb84a31017569efd4ed7aacd44476373d08db155ec631",
+    "sha256": "8bc6e40cb59f17af102ec27ab2f06693d52e19be941f908e6caec5a2f38201a1",
+    "reason": "Authorised Operations checkpoint1 Event worked-time presentation; Staff now imports its own work-time-self.module.css, no longer this module"
+  },
+  {
+    "file": "src/components/attendance.module.css",
+    "beforeSha256": "f06c07e47c78ba9cdff241ab6d7dbc4c00b15c5b7188b40a081079ac5f6b0307",
+    "sha256": "61adb33cdca0ccde7ea9609aee3fd98cf3239910a278ff186fb239fa115395e7",
+    "reason": "Authorised Operations checkpoint1 Event/Site attendance desk presentation; Staff MyAttendance uses its own attendance-self.module.css, no longer this stylesheet"
+  },
+  {
+    "file": "src/components/office-onboarding-workspace.tsx",
+    "beforeSha256": "cf53130cd816ca8381a3586d857c47d8f2de00da179316d0343129750a90b972",
+    "sha256": "352a7b90276ccddb53b2332907af28a919f836ae32bfd12ccc5eca925826e160",
+    "reason": "Real browser DOM proved generated aria-labelledby target absent; bind SheetContent to existing visible title id"
+  },
+  {
+    "file": "src/components/onboarding-client.tsx",
+    "beforeSha256": "6fd6fe458663d2024b3bee1af46ee77703db3bbeb0f0303919a3661797c4e754",
+    "sha256": "0d66a15cd2fb9ccdb8b26b629570c294ebcac3eeac26afbac318dfd8905fac60",
+    "reason": "Red-proven fresh failed list read must not assert no onboarding cases; existing loaded records and all handlers remain unchanged"
+  },
+  {
+    "file": "src/components/documents-client.tsx",
+    "beforeSha256": "5bd88aded6eeecd5e924c1470acae6e3bd8027203f23f52f6a27772c41e5f457",
+    "sha256": "820b3ce7ca31f91903a4da4873a6f024e77ede3c014db13f13d49fed034e3b49",
+    "reason": "Actual browser DOM and red source test proved denied create feedback was aria-hidden behind Sheet; repeat error within open creation form, preserving handler and draft"
+  },
+  {
+    "file": "src/components/credentials-client.tsx",
+    "beforeSha256": "4dc0a8de7171934baca3cad86e533826186e214763cce7072333ba9f65394833",
+    "sha256": "75e226af77b2360d9e31c3a8f963b1bfe675c6d13c2c589f863d669fb809f0d4",
+    "reason": "Actual-browser Person change retained old facts after403; context/lifetime/readback guard only; endpoint and action payloads unchanged."
+  },
+  {
+    "file": "src/components/training-certificate-admin.tsx",
+    "beforeSha256": "7361fec9e4dc2e6617649e58d5245beb67e7025810592faaed6fe124603b6fdd",
+    "sha256": "c2a7695f1ccff5133cbd136dcd1d3e5968ecf7d882354a9d6ec06fdd1ecc9e24",
+    "reason": "Actual-source red test: a newly voided completion must hide cached current private-PDF/revoke controls and staged revocation, while retaining history; functions/effects/API unchanged."
+  },
+  {
+    "file": "src/components/my-availability-client.tsx",
+    "beforeSha256": "493384846b60e79602b375cc98ca001c7cfa0de36fe03f78297e460c7d6ca1f4",
+    "sha256": "b87b01c9b980064601c7c93e7ccc1c0d9512a351e507eead6487ae2f9863ea59",
+    "reason": "Actual synthetic browser red/green Staff self-source denial/exact allocation readback; scope and54source tests in STAFF-SELF-SOURCE-REPAIRS-20261018.md; APIs/auth/SQL unchanged."
+  },
+  {
+    "file": "src/components/my-work-time-client.tsx",
+    "beforeSha256": "663b1f00490688bb1185a27dc99509e1728159345f15aab93dc6587662e5efb0",
+    "sha256": "b6d45cfb29a429724b15a9590199e46b3787301038884874978dc35981391e04",
+    "reason": "Actual synthetic browser red/green Staff self-source denial/exact allocation readback; scope and54source tests in STAFF-SELF-SOURCE-REPAIRS-20261018.md; APIs/auth/SQL unchanged."
+  }
+]

@@ -1,0 +1,1052 @@
+{
+  "status": "passed",
+  "results": [
+    {
+      "name": "before my-availability 1440 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-time-away 1440 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-work-time 1440 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-availability 834 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-time-away 834 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-work-time 834 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-availability 390 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-time-away 390 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-work-time 390 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-availability 320 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-time-away 320 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-work-time 320 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-availability 1440 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-time-away 1440 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-work-time 1440 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-availability 834 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-time-away 834 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-work-time 834 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-availability 390 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-time-away 390 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-work-time 390 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-availability 320 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-time-away 320 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-work-time 320 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "availability exact preview/conflict/revision 1440",
+      "status": "passed"
+    },
+    {
+      "name": "availability denied refresh clears previous source 1440",
+      "status": "passed"
+    },
+    {
+      "name": "time-away draft without team stays non-submittable 1440",
+      "status": "passed"
+    },
+    {
+      "name": "work-time local validation and stable idempotency retry 1440",
+      "status": "passed"
+    },
+    {
+      "name": "work-time exact allocation must reject unrelated response 1440",
+      "status": "passed"
+    },
+    {
+      "name": "availability exact preview/conflict/revision 390",
+      "status": "passed"
+    },
+    {
+      "name": "availability denied refresh clears previous source 390",
+      "status": "passed"
+    },
+    {
+      "name": "time-away draft without team stays non-submittable 390",
+      "status": "passed"
+    },
+    {
+      "name": "work-time local validation and stable idempotency retry 390",
+      "status": "passed"
+    },
+    {
+      "name": "work-time exact allocation must reject unrelated response 390",
+      "status": "passed"
+    },
+    {
+      "name": "work-time exact receipt/readback positive and adversarial matrix 1440",
+      "status": "passed"
+    },
+    {
+      "name": "work-time pending duplicate and late unmount 1440",
+      "status": "passed"
+    },
+    {
+      "name": "availability exact history readback and cancellation 1440",
+      "status": "passed"
+    },
+    {
+      "name": "work-time exact receipt/readback positive and adversarial matrix 390",
+      "status": "passed"
+    },
+    {
+      "name": "work-time pending duplicate and late unmount 390",
+      "status": "passed"
+    },
+    {
+      "name": "availability exact history readback and cancellation 390",
+      "status": "passed"
+    },
+    {
+      "name": "actual server route synthetic Office denial my-availability",
+      "status": "passed"
+    },
+    {
+      "name": "actual server route synthetic Office denial my-time-away",
+      "status": "passed"
+    },
+    {
+      "name": "actual server route synthetic Office denial my-work-time",
+      "status": "passed"
+    }
+  ],
+  "captures": [
+    {
+      "name": "before-my-availability-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "before-my-availability-form-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "before-my-time-away-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "before-my-time-away-detail-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "before-my-work-time-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "before-my-availability-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "before-my-availability-form-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "before-my-time-away-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "before-my-time-away-detail-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "before-my-work-time-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "before-my-availability-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "before-my-availability-form-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "before-my-time-away-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "before-my-time-away-detail-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "before-my-work-time-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "before-my-availability-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "before-my-availability-form-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "before-my-time-away-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "before-my-time-away-detail-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "before-my-work-time-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "after-my-availability-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-my-availability-form-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-my-time-away-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-my-time-away-detail-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-my-work-time-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-my-availability-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "after-my-availability-form-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "after-my-time-away-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "after-my-time-away-detail-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "after-my-work-time-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "after-my-availability-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-my-availability-form-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-my-time-away-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-my-time-away-detail-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-my-work-time-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-my-availability-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "after-my-availability-form-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "after-my-time-away-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "after-my-time-away-detail-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "after-my-work-time-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "after-availability-review-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-availability-denied-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-time-away-no-team-draft-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-work-time-uncertain-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-work-time-wrong-source-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-availability-review-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-availability-denied-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-time-away-no-team-draft-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-work-time-uncertain-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-work-time-wrong-source-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-work-time-confirmed-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-work-time-stale-readback-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-availability-confirmed-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-availability-cancelled-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-work-time-confirmed-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-work-time-stale-readback-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-availability-confirmed-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-availability-cancelled-390",
+      "width": 390,
+      "scrollWidth": 390
+    }
+  ],
+  "external": [],
+  "writes": [
+    {
+      "path": "/api/availability/me/preview",
+      "method": "POST",
+      "body": {
+        "mode": "ALL_DAY",
+        "startDate": "2098-10-19",
+        "endDate": "2098-10-19",
+        "startsLocal": "",
+        "endsLocal": ""
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/availability/me",
+      "method": "POST",
+      "body": {
+        "mode": "ALL_DAY",
+        "startDate": "2098-10-19",
+        "endDate": "2098-10-19",
+        "startsLocal": "",
+        "endsLocal": "",
+        "state": "UNAVAILABLE",
+        "note": "",
+        "expectedRevision": 7,
+        "confirmReplace": true,
+        "acknowledgeConflict": true
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/time-away",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "requestId": null,
+        "category": "ANNUAL_LEAVE",
+        "segments": [
+          {
+            "kind": "WHOLE_DAY",
+            "date": "2098-10-20"
+          },
+          {
+            "kind": "WHOLE_DAY",
+            "date": "2098-10-21"
+          }
+        ],
+        "expectedRevision": 0,
+        "key": "6abfe3eb-f907-44a5-b58c-d4a251cd0332"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "f1a3b07a-9523-4b14-a977-d63c15cc67bf"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "f1a3b07a-9523-4b14-a977-d63c15cc67bf"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/availability/me/preview",
+      "method": "POST",
+      "body": {
+        "mode": "ALL_DAY",
+        "startDate": "2098-10-19",
+        "endDate": "2098-10-19",
+        "startsLocal": "",
+        "endsLocal": ""
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/availability/me",
+      "method": "POST",
+      "body": {
+        "mode": "ALL_DAY",
+        "startDate": "2098-10-19",
+        "endDate": "2098-10-19",
+        "startsLocal": "",
+        "endsLocal": "",
+        "state": "UNAVAILABLE",
+        "note": "",
+        "expectedRevision": 7,
+        "confirmReplace": true,
+        "acknowledgeConflict": true
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/time-away",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "requestId": null,
+        "category": "ANNUAL_LEAVE",
+        "segments": [
+          {
+            "kind": "WHOLE_DAY",
+            "date": "2098-10-20"
+          },
+          {
+            "kind": "WHOLE_DAY",
+            "date": "2098-10-21"
+          }
+        ],
+        "expectedRevision": 0,
+        "key": "a084aa49-31ab-4638-b129-547f0745774f"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "151e2df2-5d64-40d5-a761-55306d5608b8"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "151e2df2-5d64-40d5-a761-55306d5608b8"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "925b18dc-913c-407e-8562-f107e2909bf0"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "1f866641-d2c9-4ca0-a4b8-9ae16d5f9380"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "48ce274c-bfe8-4b12-a50b-e0fab0812331"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "5cf6b90e-df68-4d03-91b0-43236007ccb2"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "c8055197-efe2-4c85-83b3-bab7787a3337"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "252046f3-51c5-4e25-80c1-a49a56b728a1"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "3259bdd0-4ef9-420a-8047-1f3d3e6dde0a"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "eb33db52-0a67-424e-a6e2-2862ce95c6d8"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "0b43fd6c-d066-45e4-afbf-1c027d582f2d"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/availability/me/preview",
+      "method": "POST",
+      "body": {
+        "mode": "CUSTOM",
+        "startDate": "",
+        "endDate": "",
+        "startsLocal": "2098-10-19T09:00",
+        "endsLocal": "2098-10-19T17:00"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/availability/me",
+      "method": "POST",
+      "body": {
+        "mode": "CUSTOM",
+        "startDate": "",
+        "endDate": "",
+        "startsLocal": "2098-10-19T09:00",
+        "endsLocal": "2098-10-19T17:00",
+        "state": "AVAILABLE",
+        "note": "",
+        "expectedRevision": 7,
+        "confirmReplace": true,
+        "acknowledgeConflict": false
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/availability/me/preview",
+      "method": "POST",
+      "body": {
+        "mode": "EXACT",
+        "startsIso": "2098-10-19T08:00:00Z",
+        "endsIso": "2098-10-19T16:00:00Z"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/availability/me/00000000-0000-4000-8000-000000000021",
+      "method": "PATCH",
+      "body": {
+        "action": "CANCEL",
+        "expectedRevision": 8,
+        "acknowledgeConflict": false
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "ad93e453-472d-4d4f-9b63-62f3edb1dbc0"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "094f7631-8d9b-4a44-a727-838c45434428"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "f8190d41-0fc0-4dfe-8898-14fd7bd6f3ad"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "f1651356-0945-48e0-847f-e6d0719d2d7a"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "9811b2da-1aeb-42ff-b058-1037a4a8c133"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "d9c66f4c-d664-48bd-92a2-e4119c8a91a9"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "bf10073b-d572-4f8a-a10a-4fbbab1d206d"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "7850cdbf-9ab1-47f0-8d8e-a4497056b3f5"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/work-time/me/00000000-0000-4000-8000-000000000005",
+      "method": "POST",
+      "body": {
+        "action": "SAVE_DRAFT",
+        "expectedRevision": 0,
+        "segments": [
+          {
+            "kind": "WORK",
+            "startAt": "2026-10-17T21:00:00.000Z",
+            "endAt": "2026-10-18T05:00:00.000Z"
+          }
+        ],
+        "idempotencyKey": "0d1a5646-c853-4e15-a20d-9d82104f649f"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/availability/me/preview",
+      "method": "POST",
+      "body": {
+        "mode": "CUSTOM",
+        "startDate": "",
+        "endDate": "",
+        "startsLocal": "2098-10-19T09:00",
+        "endsLocal": "2098-10-19T17:00"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/availability/me",
+      "method": "POST",
+      "body": {
+        "mode": "CUSTOM",
+        "startDate": "",
+        "endDate": "",
+        "startsLocal": "2098-10-19T09:00",
+        "endsLocal": "2098-10-19T17:00",
+        "state": "AVAILABLE",
+        "note": "",
+        "expectedRevision": 7,
+        "confirmReplace": true,
+        "acknowledgeConflict": false
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/availability/me/preview",
+      "method": "POST",
+      "body": {
+        "mode": "EXACT",
+        "startsIso": "2098-10-19T08:00:00Z",
+        "endsIso": "2098-10-19T16:00:00Z"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/availability/me/00000000-0000-4000-8000-000000000021",
+      "method": "PATCH",
+      "body": {
+        "action": "CANCEL",
+        "expectedRevision": 8,
+        "acknowledgeConflict": false
+      },
+      "synthetic": true
+    }
+  ],
+  "limitations": [
+    "Actual routes/components with synthetic server identity and mocked APIs",
+    "No hosted authentication/RPC/RLS/persistence",
+    "Before route-local source with published shared foundation",
+    "Real writes denied; all intercepted mutation requests synthetic only"
+  ]
+}

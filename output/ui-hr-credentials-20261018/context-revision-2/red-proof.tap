@@ -1,0 +1,62 @@
+(node:4924) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/src/lib/profile/policy.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ selected Person change synchronously hides old facts/actions and denied read never restores them (0.936917ms)
+✖ a held older Person read cannot overwrite a newer selected Person result (0.596416ms)
+✖ unmount during primary read prevents all later React state writes (0.264875ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 122.152125
+
+✖ failing tests:
+
+test at kss-ui-shared/tests/credentials-client-context-local.test.mjs:7:1
+✖ selected Person change synchronously hides old facts/actions and denied read never restores them (0.936917ms)
+  Error: ENOENT: no such file or directory, open 'src/components/credentials-client.tsx'
+      at async open (node:internal/fs/promises:640:25)
+      at async readFile (node:internal/fs/promises:1290:14)
+      at async instance (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/tests/credentials-client-context-local.test.mjs:5:47)
+      at async TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/tests/credentials-client-context-local.test.mjs:7:123)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/components/credentials-client.tsx'
+  }
+
+test at kss-ui-shared/tests/credentials-client-context-local.test.mjs:8:1
+✖ a held older Person read cannot overwrite a newer selected Person result (0.596416ms)
+  Error: ENOENT: no such file or directory, open 'src/components/credentials-client.tsx'
+      at async open (node:internal/fs/promises:640:25)
+      at async readFile (node:internal/fs/promises:1290:14)
+      at async instance (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/tests/credentials-client-context-local.test.mjs:5:47)
+      at async TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/tests/credentials-client-context-local.test.mjs:8:118)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/components/credentials-client.tsx'
+  }
+
+test at kss-ui-shared/tests/credentials-client-context-local.test.mjs:9:1
+✖ unmount during primary read prevents all later React state writes (0.264875ms)
+  Error: ENOENT: no such file or directory, open 'src/components/credentials-client.tsx'
+      at async open (node:internal/fs/promises:640:25)
+      at async readFile (node:internal/fs/promises:1290:14)
+      at async instance (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/tests/credentials-client-context-local.test.mjs:5:47)
+      at async TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/tests/credentials-client-context-local.test.mjs:9:105)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/components/credentials-client.tsx'
+  }

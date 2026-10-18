@@ -1,0 +1,256 @@
+{
+  "foundation": "3c8ba25",
+  "synthetic": true,
+  "manifests": {
+    "before": {
+      "dir": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/output/ui-staff-self-browser-20261018/fixture-before",
+      "files": [
+        {
+          "file": "src/app/globals.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/app/globals.css",
+          "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+        },
+        {
+          "file": "postcss.config.mjs",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/postcss.config.mjs",
+          "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+        },
+        {
+          "file": "src/components/enterprise-shell.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/enterprise-shell.tsx",
+          "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+        },
+        {
+          "file": "src/lib/auth/capabilities.ts",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/lib/auth/capabilities.ts",
+          "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+        },
+        {
+          "file": "src/lib/environment-label.ts",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/lib/environment-label.ts",
+          "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+        },
+        {
+          "file": "src/components/my-availability-client.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/output/ui-staff-records-20261018/baseline/src/components/my-availability-client.tsx",
+          "sha256": "355d973a15e74ac0634b740711e589b15726fd8ba5e524be17dd1f890c590605"
+        },
+        {
+          "file": "src/components/my-availability.module.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/output/ui-staff-records-20261018/baseline/src/components/my-availability.module.css",
+          "sha256": "d946ac9e7f1deda3bb7fa157773db796fcf1b9678298c7358a643afcc9067302"
+        },
+        {
+          "file": "src/components/time-away-client.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/output/ui-staff-records-20261018/baseline/src/components/time-away-client.tsx",
+          "sha256": "d38c35b1ac3d906d9c0caed2593a2124115dd0271af6939589626eb6558b3d28"
+        },
+        {
+          "file": "src/components/time-away.module.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/output/ui-staff-records-20261018/baseline/src/components/time-away.module.css",
+          "sha256": "3b786186b059c03214423758c62a24509971d719e91d98c846e237d94b9e8848"
+        },
+        {
+          "file": "src/components/time-away-manager.module.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/output/ui-staff-records-20261018/baseline/src/components/time-away-manager.module.css",
+          "sha256": "40bff000b346a7bc8f0776927580f23de9c3b43b03e5e31e0e46d540d5f5bab1"
+        },
+        {
+          "file": "src/components/my-work-time-client.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/output/ui-staff-records-20261018/baseline/src/components/my-work-time-client.tsx",
+          "sha256": "631fb52ddf3c02ef2b22bb0fbb96148a18665edce18288805a91746730d1a9a8"
+        },
+        {
+          "file": "src/components/work-time.module.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/output/ui-staff-records-20261018/baseline/src/components/work-time.module.css",
+          "sha256": "01f36409174b26181c0cb84a31017569efd4ed7aacd44476373d08db155ec631"
+        },
+        {
+          "file": "src/app/(enterprise)/my-availability/page.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/app/(enterprise)/my-availability/page.tsx",
+          "sha256": "7a6ece45e57b9fa57176478d7f47bf51153f9316d7d90e997dd1d5985b751cd1"
+        },
+        {
+          "file": "src/app/(enterprise)/my-time-away/page.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/app/(enterprise)/my-time-away/page.tsx",
+          "sha256": "4513e2a9ae30c679460ef5b36440abc15d89e79d7736c1cd716e734d08cc3a13"
+        },
+        {
+          "file": "src/app/(enterprise)/my-work-time/page.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/app/(enterprise)/my-work-time/page.tsx",
+          "sha256": "6094e6fd7dcda4228e5ac86d1b83423ddb6871b092839f640fec810d56cfae43"
+        },
+        {
+          "file": "src/components/ui/badge.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/badge.tsx",
+          "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801"
+        },
+        {
+          "file": "src/components/ui/button.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/button.tsx",
+          "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+        },
+        {
+          "file": "src/components/ui/input.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/input.tsx",
+          "sha256": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04"
+        },
+        {
+          "file": "src/components/ui/progress.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/progress.tsx",
+          "sha256": "65fce8b61903cdaffbc2bf51c5b1f65b112bc553df7b37d450f766dac419b26c"
+        },
+        {
+          "file": "src/components/ui/sheet.module.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/sheet.module.css",
+          "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+        },
+        {
+          "file": "src/components/ui/sheet.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/sheet.tsx",
+          "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+        },
+        {
+          "file": "src/components/ui/skeleton.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/skeleton.tsx",
+          "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc"
+        },
+        {
+          "file": "src/components/ui/workflow.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/workflow.tsx",
+          "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b"
+        }
+      ]
+    },
+    "after": {
+      "dir": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/output/ui-staff-self-browser-20261018/fixture-after",
+      "files": [
+        {
+          "file": "src/app/globals.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/app/globals.css",
+          "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+        },
+        {
+          "file": "postcss.config.mjs",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/postcss.config.mjs",
+          "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+        },
+        {
+          "file": "src/components/enterprise-shell.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/enterprise-shell.tsx",
+          "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+        },
+        {
+          "file": "src/lib/auth/capabilities.ts",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/lib/auth/capabilities.ts",
+          "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+        },
+        {
+          "file": "src/lib/environment-label.ts",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/lib/environment-label.ts",
+          "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+        },
+        {
+          "file": "src/components/my-availability-client.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-self-repairs/src/components/my-availability-client.tsx",
+          "sha256": "b87b01c9b980064601c7c93e7ccc1c0d9512a351e507eead6487ae2f9863ea59"
+        },
+        {
+          "file": "src/components/my-availability.module.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/components/my-availability.module.css",
+          "sha256": "88e6f79cbd7b3e53d05eff7a022372471557db883e2490cbfcea676c7c5cc6dd"
+        },
+        {
+          "file": "src/components/time-away-client.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/components/time-away-client.tsx",
+          "sha256": "2e833f2f424235b5c5f96cbd1aec5db59ccf142e01e061c36bdfb7d323fad555"
+        },
+        {
+          "file": "src/components/time-away.module.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/components/time-away.module.css",
+          "sha256": "3b786186b059c03214423758c62a24509971d719e91d98c846e237d94b9e8848"
+        },
+        {
+          "file": "src/components/time-away-manager.module.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/components/time-away-manager.module.css",
+          "sha256": "40bff000b346a7bc8f0776927580f23de9c3b43b03e5e31e0e46d540d5f5bab1"
+        },
+        {
+          "file": "src/components/my-work-time-client.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-self-repairs/src/components/my-work-time-client.tsx",
+          "sha256": "b6d45cfb29a429724b15a9590199e46b3787301038884874978dc35981391e04"
+        },
+        {
+          "file": "src/components/work-time.module.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/components/work-time.module.css",
+          "sha256": "8bc6e40cb59f17af102ec27ab2f06693d52e19be941f908e6caec5a2f38201a1"
+        },
+        {
+          "file": "src/components/time-away-self.module.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/components/time-away-self.module.css",
+          "sha256": "e3e466b8af2508e766ce48b9f53c402cd78fa7a077ef1ea21d37feda9a3f2bdd"
+        },
+        {
+          "file": "src/components/work-time-self.module.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/components/work-time-self.module.css",
+          "sha256": "49c1b8df6ead31226c3619e98adc9bb2c7b43042028199fce6769053f3c33312"
+        },
+        {
+          "file": "src/app/(enterprise)/my-availability/page.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/app/(enterprise)/my-availability/page.tsx",
+          "sha256": "7a6ece45e57b9fa57176478d7f47bf51153f9316d7d90e997dd1d5985b751cd1"
+        },
+        {
+          "file": "src/app/(enterprise)/my-time-away/page.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/app/(enterprise)/my-time-away/page.tsx",
+          "sha256": "4513e2a9ae30c679460ef5b36440abc15d89e79d7736c1cd716e734d08cc3a13"
+        },
+        {
+          "file": "src/app/(enterprise)/my-work-time/page.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/app/(enterprise)/my-work-time/page.tsx",
+          "sha256": "6094e6fd7dcda4228e5ac86d1b83423ddb6871b092839f640fec810d56cfae43"
+        },
+        {
+          "file": "src/components/ui/badge.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/badge.tsx",
+          "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801"
+        },
+        {
+          "file": "src/components/ui/button.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/button.tsx",
+          "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+        },
+        {
+          "file": "src/components/ui/input.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/input.tsx",
+          "sha256": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04"
+        },
+        {
+          "file": "src/components/ui/progress.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/progress.tsx",
+          "sha256": "65fce8b61903cdaffbc2bf51c5b1f65b112bc553df7b37d450f766dac419b26c"
+        },
+        {
+          "file": "src/components/ui/sheet.module.css",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/sheet.module.css",
+          "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+        },
+        {
+          "file": "src/components/ui/sheet.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/sheet.tsx",
+          "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+        },
+        {
+          "file": "src/components/ui/skeleton.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/skeleton.tsx",
+          "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc"
+        },
+        {
+          "file": "src/components/ui/workflow.tsx",
+          "source": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-3/src/components/ui/workflow.tsx",
+          "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b"
+        }
+      ]
+    }
+  }
+}

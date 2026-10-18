@@ -1,0 +1,14 @@
+[
+  {
+    "file": "src/components/credentials-client.tsx",
+    "sha256": "75e226af77b2360d9e31c3a8f963b1bfe675c6d13c2c589f863d669fb809f0d4"
+  },
+  {
+    "file": "tests/credentials-client-context-local.test.mjs",
+    "sha256": "dece392b6259babd4f6bbb9b473993f4f2a3bb34e24e2901e7a63c7cea318744"
+  },
+  {
+    "file": "tests/ui-hr-credentials-local.test.mjs",
+    "sha256": "67f94ac539655ba93bee2079df0b7346c63e5a3aa9b387808d6b985cc4509dc4"
+  }
+]

@@ -1,0 +1,283 @@
+[
+  {
+    "stage": "before",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-hr-credentials-before-wkbu0af5",
+    "port": 3130,
+    "publishedShared": "2e03e030638e0be8ef9a763cd69c3df8eea4ac0d",
+    "files": [
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/time-away/page.tsx",
+        "sha256": "af2c89c7b2739e7b7d40047320be304851cbd5c1d2d191460cba035327ad66ee",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/time-away-client.tsx",
+        "sha256": "97141ec80f40ae44a05ebfe6496523dc0dff09be7cbd5d8fe673b049903e61dd",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/time-away.module.css",
+        "sha256": "3b786186b059c03214423758c62a24509971d719e91d98c846e237d94b9e8848",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/app/(enterprise)/hr/page.tsx",
+        "sha256": "971718a61a4914fe91dd03251d8d522ed74ead7feac87ab49d02d72c921ceea4",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/app/(enterprise)/hr/hr.css",
+        "sha256": "ee462cb05321168b514c3dd73ec37f6e72c708d8f396a968d7e41d399da0d7ba",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/app/(enterprise)/credentials/page.tsx",
+        "sha256": "4c165d494cfc6d0704aeb21e18f866f184304cb80698e8c0f88f3504559c51c5",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/credentials-client.tsx",
+        "sha256": "32f7a674e8104cbeeb9ab3ab72d5a3d47b9e95a5b1d1ffd2037936ce0582a3a3",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/credentials.module.css",
+        "sha256": "8f613b419d14e4968565eb9ca8b80abc2a0e94ccea2381a708853611aa4df91f",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/lib/credentials/state.ts",
+        "sha256": "8a73c14a24ce2c25118c0937a191842231616ff93c30918f45dab83a435cc779",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/profile/policy.ts",
+        "sha256": "3cd44ca0b0b1564a79e185d07fbe1d54ff8fc6af70dc9c7365bf0ad848cc9fc6",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/profile/page.tsx",
+        "sha256": "4848f0e7acfecfc0d003eb95c2cc113174d1a80ac4e23e8d2da5b8bcc3a38742",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/profile-client.tsx",
+        "sha256": "676340fb710acbe288e09ac6de1718fc16bb76294b82b7f33909939868601b87",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/ui/workflow.tsx",
+        "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/skeleton.tsx",
+        "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/badge.tsx",
+        "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801",
+        "origin": "published-shared-and-dependencies"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "boundaryHashes": [
+      {
+        "file": "src/lib/auth/principal.ts",
+        "sha256": "f24b8576069e6f0c93c62a0bd03ae873024b9494e2c8ed2ed4a6f60743090a00"
+      },
+      {
+        "file": "src/lib/supabase/browser.ts",
+        "sha256": "3ef4092e6e607a5869ac957ecb90a20869f44424ce38f8384f0a12f51fc52dd8"
+      },
+      {
+        "file": "src/lib/supabase/server.ts",
+        "sha256": "9c1e4df8bf516d953dc6195b3b51f6f208322d73b7bcbac9770bde93709f6880"
+      }
+    ],
+    "scope": "Actual Profile/Credentials/HR/manager-TimeAway routes and components; synthetic identity and API boundaries; TimeAway includes explicitly receipted staff-only source revision2 without manager markup/action changes; no real writes or hosted acceptance"
+  },
+  {
+    "stage": "after",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-hr-credentials-after-o_ja27vr",
+    "port": 3131,
+    "publishedShared": "2e03e030638e0be8ef9a763cd69c3df8eea4ac0d",
+    "files": [
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/time-away/page.tsx",
+        "sha256": "af2c89c7b2739e7b7d40047320be304851cbd5c1d2d191460cba035327ad66ee",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/time-away-client.tsx",
+        "sha256": "2e833f2f424235b5c5f96cbd1aec5db59ccf142e01e061c36bdfb7d323fad555",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/time-away-self.module.css",
+        "sha256": "e3e466b8af2508e766ce48b9f53c402cd78fa7a077ef1ea21d37feda9a3f2bdd",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/time-away-manager.module.css",
+        "sha256": "40bff000b346a7bc8f0776927580f23de9c3b43b03e5e31e0e46d540d5f5bab1",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/time-away.module.css",
+        "sha256": "3b786186b059c03214423758c62a24509971d719e91d98c846e237d94b9e8848",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/hr/page.tsx",
+        "sha256": "3421aaac02db7846f474c6acd4bb6af30f92d1115011f90b98bd9acacdacdfdc",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/app/(enterprise)/hr/hr.css",
+        "sha256": "ad022b054ac1994aa122b7bf753bfeca9712a1cd2b922954c53986e6f08b2604",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/app/(enterprise)/credentials/page.tsx",
+        "sha256": "4c165d494cfc6d0704aeb21e18f866f184304cb80698e8c0f88f3504559c51c5",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/credentials-client.tsx",
+        "sha256": "75e226af77b2360d9e31c3a8f963b1bfe675c6d13c2c589f863d669fb809f0d4",
+        "origin": "controlled-credential-context-revision-2"
+      },
+      {
+        "file": "src/components/credentials.module.css",
+        "sha256": "df81683842befd56f4723fec211b4b3cac8b01a34094fdb21ed294e2c837c2a4",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/lib/credentials/state.ts",
+        "sha256": "8a73c14a24ce2c25118c0937a191842231616ff93c30918f45dab83a435cc779",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/profile/policy.ts",
+        "sha256": "3cd44ca0b0b1564a79e185d07fbe1d54ff8fc6af70dc9c7365bf0ad848cc9fc6",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/profile/page.tsx",
+        "sha256": "ab7c1f0b1c902c23e15eb52aafba4f9e0af1ec3a76bbd8a7189e11c040fd3601",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/profile-client.tsx",
+        "sha256": "025d9467759c86d44c072e43cd7202f969d58a1eb99738a633891b051c705a39",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/ui/workflow.tsx",
+        "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/skeleton.tsx",
+        "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/badge.tsx",
+        "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/profile-family.module.css",
+        "sha256": "550e89cb21ba44549ac8aa07fa269a53f2ae48c0df5912c24e5ee28cbe4b7644",
+        "origin": "frozen-after"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "boundaryHashes": [
+      {
+        "file": "src/lib/auth/principal.ts",
+        "sha256": "f24b8576069e6f0c93c62a0bd03ae873024b9494e2c8ed2ed4a6f60743090a00"
+      },
+      {
+        "file": "src/lib/supabase/browser.ts",
+        "sha256": "3ef4092e6e607a5869ac957ecb90a20869f44424ce38f8384f0a12f51fc52dd8"
+      },
+      {
+        "file": "src/lib/supabase/server.ts",
+        "sha256": "9c1e4df8bf516d953dc6195b3b51f6f208322d73b7bcbac9770bde93709f6880"
+      }
+    ],
+    "scope": "Actual Profile/Credentials/HR/manager-TimeAway routes and components; synthetic identity and API boundaries; TimeAway includes explicitly receipted staff-only source revision2 without manager markup/action changes; no real writes or hosted acceptance"
+  }
+]

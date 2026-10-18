@@ -1,0 +1,14 @@
+[
+  {
+    "file": "tests/ui-staff-records-local.test.mjs",
+    "sha256": "4f079e7aebdfe062fd7b4dc389756d6252ed7f7c2ce7e2e024d73433701c440f"
+  },
+  {
+    "file": "tests/ui-staff-duty-local.test.mjs",
+    "sha256": "db7926bf62f92bf9df06128947477b45aac0e9c3be596264928df684b4d7c5cf"
+  },
+  {
+    "file": "tests/ui-hr-credentials-local.test.mjs",
+    "sha256": "f2e8c58f2bab2060e8a25cd73229783893084887810f85a9380c2f7805a62fd0"
+  }
+]

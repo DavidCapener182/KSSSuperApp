@@ -1,0 +1,29 @@
+(node:16268) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/lib/auth/capabilities.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Availability agenda scopes returned declarations and distinguishes Available/Unavailable without implying allocation (84.3645ms)
+✔ Availability preview preserves exact period, replacement and conflict acknowledgements before saving (26.066625ms)
+✔ Cancellation of available coverage repeats exact selected period and keeps required deployment acknowledgement (15.861667ms)
+✔ Time Away leads with My requests, then selected exact request and focused form; no membership remains draft-only (23.914792ms)
+✔ staff cancellation confirmation carries exact snapshot and stops confirmation after selection or revision changes (20.497333ms)
+✔ all manager markup remains byte-identical across selected, calendar, denied and administration states (37.9765ms)
+✔ Worked Time separates scheduled/actual evidence and explicit Work/Break editor with accurate overnight dates (11.924375ms)
+✔ Returned correction is directly above editor; submitted/approved/inactive records expose no edit actions (11.984916ms)
+✔ actual Availability save keeps exact preview revision/replacement/conflict fields and refresh failure is unconfirmed (15.915666ms)
+✔ actual staff Time Away confirmation uses exact selected revision and safe API action without changing manager functions (18.200292ms)
+✔ actual Worked Time save retains idempotency/revision/explicit intervals, never inferring attendance or subtracting breaks (10.750792ms)
+✔ all named request/readback/revision/idempotency functions, effects, pure guards and server role routes remain exact (15.53625ms)
+✔ new Time Away revision explicitly names its previous hash; all other frozen HR and prior batch sources remain intact (4.248625ms)
+✔ loading and unavailable staff records retain live feedback without inventing recorded facts (25.915333ms)
+✔ actual Available cancellation carries revision/conflict acknowledgement and preserves history refresh (14.65225ms)
+✔ actual Worked Time submission permits incomplete attendance, sends no inferred segments and rejects stale writes (9.867625ms)
+✔ actual server routes retain Staff-only role unions, denied/no-session boundaries and exact selected work allocation (30.596583ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 519.8025

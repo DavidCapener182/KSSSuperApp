@@ -1,56 +1,25 @@
-.workspace {
-  min-width: 0;
-}
-
-.workspace :global(.availability-actions button),
-.workspace :global(.enterprise-page-heading button),
-.workspace :global(.deployment-pagination button) {
-  min-height: 44px;
-}
-
-.workspace :global(.enterprise-honesty a) {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  margin-inline-end: 2px;
-}
-
-.workspace :global(.availability-card) {
-  min-width: 0;
-}
-
-.workspace :global(.availability-card p) {
-  line-height: 1.55;
-  overflow-wrap: anywhere;
-}
-
-.workspace :global(.deployment-history summary) {
-  min-height: 44px;
-  padding-block: 12px;
-  cursor: pointer;
-}
-
-.workspace :global(a:focus-visible),
-.workspace :global(button:focus-visible),
-.workspace :global(summary:focus-visible) {
-  outline: 3px solid var(--kss-blue);
-  outline-offset: 3px;
-}
-
-.sheet button {
-  min-width: 44px;
-}
-
-.sheet button,
-.sheet input,
-.sheet select {
-  min-height: 44px;
-}
-
-.sheet button:focus-visible,
-.sheet input:focus-visible,
-.sheet select:focus-visible,
-.sheet textarea:focus-visible {
-  outline: 3px solid var(--kss-blue);
-  outline-offset: 3px;
-}
+.workspace { min-width: 0; display: grid; gap: 24px; }
+.agenda { min-width: 0; border: 1px solid #dce3ed; border-radius: 12px; background: #fff; overflow: hidden; }
+.sectionHead { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px 8px; }
+.sectionHead h2 { margin: 3px 0; font-size: 20px; letter-spacing: -.025em; }
+.sectionHead > span, .scope { color: #475569; font-size: 13px; }
+.eyebrow { margin: 0; font-size: 12px; font-weight: 700; color: #64748b; }
+.scope { margin: 0; padding: 0 24px 20px; }
+.declaration { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 24px; padding: 20px 24px; border-top: 1px solid #dce3ed; min-width: 0; }
+.declaration[data-declaration="UNAVAILABLE"] { border-inline-start: 4px double #64748b; padding-inline-start: 20px; }
+.state { display: inline-block; padding: 4px 8px; border: 1px solid #dce3ed; border-radius: 6px; color: #182334; background: #f1f4f9; font-size: 13px; font-weight: 700; }
+.period { margin: 10px 0 0; color: #182334; font-size: 15px; font-weight: 600; line-height: 1.6; overflow-wrap: anywhere; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.history { border-block: 1px solid #dce3ed; padding-block: 8px; }
+.history summary { min-height: 44px; padding: 12px 4px; cursor: pointer; font-weight: 600; }
+.historyList { display: grid; }
+.historyEntry { padding: 16px 4px; border-top: 1px solid #dce3ed; line-height: 1.6; overflow-wrap: anywhere; }
+.historyEntry p { margin: 4px 0; color: #475569; }
+.historyEntry small { color: #475569; font-size: 13px; }
+.workspace button, .sheet button, .sheet input, .sheet select { min-height: 44px; }
+.workspace :global(.enterprise-honesty a) { display: inline-flex; min-height: 44px; align-items: center; }
+.workspace :global(a:focus-visible), .workspace :global(button:focus-visible), .workspace summary:focus-visible, .sheet button:focus-visible, .sheet input:focus-visible, .sheet select:focus-visible, .sheet textarea:focus-visible { outline: 3px solid #1769d2; outline-offset: 3px; }
+.sheet { max-width: 640px; }
+.sheet :global(.availability-form) { margin-block: 24px; }
+.sheet :global(.availability-preview) { background: #f1f4f9; border: 1px solid #dce3ed; border-radius: 12px; padding: 20px; }
+@media(max-width: 700px) { .sectionHead { align-items: start; padding: 16px 16px 8px; flex-wrap: wrap; }.scope { padding: 0 16px 16px; }.declaration { grid-template-columns: minmax(0,1fr); gap: 12px; padding: 16px; }.declaration[data-declaration="UNAVAILABLE"] { padding-inline-start: 12px; }.periodEnd { display: block; }.actions button { flex: 1; }.sheet { max-width: 100%; }.sheet :global(.availability-form) { grid-template-columns: minmax(0,1fr); } }

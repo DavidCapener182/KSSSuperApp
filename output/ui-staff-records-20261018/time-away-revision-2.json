@@ -1,0 +1,7 @@
+{
+  "file": "src/components/time-away-client.tsx",
+  "previousReceipt": "output/ui-hr-credentials-20261018/frozen-source-hashes.json",
+  "previousSha256": "d38c35b1ac3d906d9c0caed2593a2124115dd0271af6939589626eb6558b3d28",
+  "sha256": "2e833f2f424235b5c5f96cbd1aec5db59ccf142e01e061c36bdfb7d323fad555",
+  "reason": "Authorised U59 staff-only presentation revision after frozen manager checkpoint; manager markup/actions and both existing stylesheets preserved."
+}

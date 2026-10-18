@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { SIA_CATEGORIES, SIA_LABELS, type SiaCategory } from "@/lib/profile/policy";
 import { credentialState } from "@/lib/credentials/state";
 import styles from "./credentials.module.css";
@@ -39,18 +39,33 @@ export function CredentialsClient({ personId, self, office, superAdmin }: { pers
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const staff = self && !office && !superAdmin;
+  const contextKey = JSON.stringify([personId, self, office, superAdmin]);
+  const [recordContext, setRecordContext] = useState(contextKey);
+  const [readFailed, setReadFailed] = useState(false);
+  const mounted = useRef(false);
+  const activeContext = useRef(contextKey);
+  const readSerial = useRef(0);
+  const pendingAction = useRef(false);
 
   const load = useCallback(async () => {
-    setLoading(true);
+    if (!mounted.current || activeContext.current !== contextKey) return false;
+    const serial = ++readSerial.current;
+    const isCurrent = () => mounted.current && activeContext.current === contextKey && readSerial.current === serial;
+    setRecordContext(contextKey); setLoading(true); setReadFailed(false); setMessage("");
+    setData(empty); setQueue([]); setAccepted([]); setHistorical([]);
     try {
       const response = await fetch(`/api/credentials?personId=${encodeURIComponent(personId)}`, { cache: "no-store" });
       if (!response.ok) throw new Error("Credential access is unavailable.");
       const result = await response.json() as CredentialData;
+      if (!isCurrent()) return false;
+      if (!result || ![result.claims, result.revisions, result.decisions, result.grants, result.documents].every(Array.isArray)) {
+        throw new Error("Credential access is unavailable.");
+      }
       setData(result);
       setLoading(false);
       if (office || superAdmin) {
         void fetch("/api/credentials?queue=1", { cache: "no-store" })
-          .then(async (response) => { if (response.ok) setQueue((await response.json()).queue ?? []); }).catch(() => {});
+          .then(async (response) => { if (response.ok) { const result = await response.json(); if (isCurrent()) setQueue(Array.isArray(result.queue) ? result.queue : []); } }).catch(() => {});
       }
       if (staff) {
         void Promise.all(result.documents.map(async (document) => {
@@ -61,7 +76,7 @@ export function CredentialsClient({ personId, self, office, superAdmin }: { pers
           const type = document.title.replace("Synthetic credential evidence: ", "") as SiaCategory;
           return version?.review?.decision === "ACCEPTED_AS_EVIDENCE" && SIA_CATEGORIES.includes(type)
             ? { id: version.id, requestId: document.id, type } as AcceptedVersion : null;
-        })).then((items) => setAccepted(items.filter((item): item is AcceptedVersion => item !== null))).catch(() => {});
+        })).then((items) => { if (isCurrent()) setAccepted(items.filter((item): item is AcceptedVersion => item !== null)); }).catch(() => {});
         void fetch("/api/onboarding", { cache: "no-store" }).then(async (response) => {
           if (!response.ok) return;
           const listing = await response.json();
@@ -73,6 +88,7 @@ export function CredentialsClient({ personId, self, office, superAdmin }: { pers
               category: detail.submittedSia.category, submittedAt: detail.siaSubmittedAt,
               state: detail.requirements?.find((item: { code: string }) => item.code === "SIA_LICENCE")?.state ?? "UNKNOWN" } as HistoricalSia : null;
           }));
+          if (!isCurrent()) return;
           const seen = new Set<SiaCategory>();
           setHistorical(history.filter((item): item is HistoricalSia => {
             if (!item || seen.has(item.category)) return false;
@@ -81,20 +97,34 @@ export function CredentialsClient({ personId, self, office, superAdmin }: { pers
         }).catch(() => {});
       }
       return true;
-    } catch (error) { setMessage(error instanceof Error ? error.message : "Credentials unavailable."); return false; }
-    finally { setLoading(false); }
-  }, [personId, office, superAdmin, staff]);
-  useEffect(() => { void Promise.resolve().then(() => load()); }, [load]);
+    } catch (error) {
+      if (isCurrent()) { setData(empty); setQueue([]); setAccepted([]); setHistorical([]); setReadFailed(true); setMessage(error instanceof Error ? error.message : "Credentials unavailable."); }
+      return false;
+    } finally { if (isCurrent()) setLoading(false); }
+  }, [personId, office, superAdmin, staff, contextKey]);
+  useEffect(() => {
+    mounted.current = true; activeContext.current = contextKey;
+    setBusy(pendingAction.current);
+    setReference(""); setIssuedOn(""); setExpiresOn(""); setReviewerId(""); setGrantUntil("");
+    void Promise.resolve().then(() => load());
+    return () => { mounted.current = false; readSerial.current += 1; };
+  }, [load, contextKey]);
 
   async function action(input: Record<string, unknown>, success: string) {
+    if (pendingAction.current || !mounted.current || activeContext.current !== contextKey || recordContext !== contextKey || loading || readFailed) return;
+    pendingAction.current = true;
+    const isCurrent = () => mounted.current && activeContext.current === contextKey;
     setBusy(true); setMessage("");
     try {
       const response = await fetch("/api/credentials", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(input) });
       if (!response.ok) throw new Error((await response.json()).error ?? "Action denied");
-      if (await load()) setMessage(`${success} Current credential data refreshed.`);
-      else setMessage("The server accepted the action, but current credential data could not be refreshed. Reload before another action.");
-    } catch (error) { setMessage(error instanceof Error ? error.message : "Action denied"); }
-    finally { setBusy(false); }
+      if (!isCurrent()) return;
+      const refreshed = await load();
+      if (!isCurrent()) return;
+      if (refreshed) setMessage(`${success} Current credential data refreshed.`);
+      else setMessage("The server accepted the action, but current credential data could not be refreshed. It may have saved. Reload before another action.");
+    } catch (error) { if (isCurrent()) setMessage(error instanceof Error ? error.message : "Action denied"); }
+    finally { pendingAction.current = false; if (mounted.current) setBusy(false); }
   }
   const decisionsFor = (revisionId: string) => data.decisions.filter((item) => item.revision_id === revisionId);
   const currentState = (claim: Claim, revision: Revision | undefined) => {
@@ -108,19 +138,19 @@ export function CredentialsClient({ personId, self, office, superAdmin }: { pers
     <h1>{staff ? "My Credentials" : "Credential review"}</h1>
     <p className="enterprise-intro">These synthetic claims and reviews do not establish a live SIA check or deployment eligibility.</p>
     <p className={styles.boundary}>Credential verification is separate from Training progress, course assessment results and any deployment decision.</p>
-    {message && <p role="status" className="enterprise-honesty">{message}</p>}
-    {loading ? <p>Loading credentials…</p> : <>
-      {(office || superAdmin) && <section className="profile-card"><h2>Assigned review responsibility</h2>
+    {recordContext === contextKey && message && <p role="status" className="enterprise-honesty">{message}</p>}
+    {loading || recordContext !== contextKey ? <p role="status">Loading credentials…</p> : readFailed ? <section className="profile-card"><h2>Credentials unavailable</h2><p>Current credential records could not be confirmed. Refresh access before reviewing or changing a record.</p><button type="button" className="ui-action" disabled={busy} onClick={() => void load()}>Retry credential read</button></section> : <><div className={styles.reviewLayout} data-reviewer={office || superAdmin ? "true" : undefined}>
+      {(office || superAdmin) && <aside className={`profile-card ${styles.queue}`}><h2>Assigned review responsibility</h2>
         {queue.length ? <ul>{queue.map((item) => <li key={`${item.subject_person_id}-${item.type_code}`}>
-          <Link href={`/credentials?personId=${item.subject_person_id}`}>{item.display_name} — {LABELS[item.type_code]}</Link>
+          <Link href={`/credentials?personId=${item.subject_person_id}`} aria-current={item.subject_person_id === personId ? "page" : undefined}>{item.display_name} — {LABELS[item.type_code]}</Link>
         </li>)}</ul> : <p>No active Credential Reviewer grants.</p>}
-      </section>}
-      <section className="profile-card" aria-labelledby="current-credentials"><h2 id="current-credentials">Current credentials</h2>
+      </aside>}
+      <section className={`profile-card ${styles.wallet}`} aria-labelledby="current-credentials"><h2 id="current-credentials">Current credentials</h2>{(office || superAdmin) && <div className={styles.personContext}><strong>{queue.find((item) => item.subject_person_id === personId)?.display_name ?? "Selected Person"}</strong><small>Person reference <code>{personId}</code></small></div>}
         {!data.claims.some((item) => !item.withdrawn_at) && <p>No current 16B credential claims are available.</p>}
         {data.claims.filter((item) => !item.withdrawn_at).map((claim) => {
           const revision = data.revisions.find((item) => item.id === claim.latest_revision_id);
           const state = currentState(claim, revision);
-          return <article key={claim.id} className="profile-card" style={{ marginBlock: "1rem" }}>
+          return <article key={claim.id} className={styles.claim}>
             <h3>{LABELS[claim.type_code]}</h3>
             <dl className="people-details-list">
               <div><dt>Status</dt><dd>{state}</dd></div>
@@ -144,7 +174,8 @@ export function CredentialsClient({ personId, self, office, superAdmin }: { pers
           </article>;
         })}
       </section>
-      {staff && <section className="profile-card"><h2>Save a credential draft</h2>
+      </div>
+      {staff && <details className={`profile-card ${styles.draft}`}><summary>Save a credential draft</summary>
         <p>Reference must be synthetic and start SYN-SIA-. Dates must come from your evidence; leave issue or expiry blank if the evidence does not establish it.</p>
         <form className="profile-form" onSubmit={(event) => { event.preventDefault(); void action({ action: "save", category, reference, issuedOn: issuedOn || null, expiresOn: expiresOn || null }, "Draft saved. A material change requires a fresh submission and review."); }}>
           <label className="ui-field">Credential category<select value={category} onChange={(event) => setCategory(event.target.value as SiaCategory)}>{SIA_CATEGORIES.map((item) => <option key={item} value={item}>{LABELS[item]}</option>)}</select></label>
@@ -154,7 +185,7 @@ export function CredentialsClient({ personId, self, office, superAdmin }: { pers
           <div className="profile-actions"><button className="ui-action ui-action--primary" disabled={busy}>Save draft</button></div>
         </form>
         <p>Upload and replace files through <Link href="/documents">My Documents</Link>. A Credential Reviewer must request and accept the exact evidence version before submission.</p>
-      </section>}
+      </details>}
       {office && personId !== "" && <section className="profile-card"><h2>Evidence request</h2>
         <p>Request one protected document for this Person and category. Existing Documents review decides evidence acceptance separately.</p>
         {data.grants.filter((grant) => !grant.revoked_at)
@@ -171,11 +202,11 @@ export function CredentialsClient({ personId, self, office, superAdmin }: { pers
         </form>
         {data.grants.filter((item) => !item.revoked_at).map((item) => <p key={item.id}>{LABELS[item.type_code]} · reviewer {item.reviewer_person_id} · until {dateLabel(item.effective_until)} <button className="ui-action ui-action--destructive" disabled={busy} onClick={() => void action({ action: "revokeGrant", grantId: item.id }, "Grant revoked.")}>Revoke</button></p>)}
       </section>}
-      <section className="profile-card"><h2>Credential history</h2>
+      <details className={`profile-card ${styles.history}`}><summary>Credential history</summary>
         {data.revisions.length ? <ul>{data.revisions.map((item) => <li key={item.id}>{LABELS[item.type_code]} · revision {item.revision_number} · submitted {dateLabel(item.submitted_at)} · {decisionsFor(item.id).map((decision) => `${decision.decision} ${dateLabel(decision.decided_at)}`).join(", ") || "No verification decision"}</li>)}</ul> : <p>No 16B submissions yet.</p>}
         {data.claims.filter((item) => item.withdrawn_at).map((item) => <p key={item.id}>{LABELS[item.type_code]} claim withdrawn; revisions and decisions retained.</p>)}
         <p>History is retained in synthetic Dev. An old verification cannot be reactivated by restoring a previous value.</p>
-      </section>
+      </details>
       {staff && <section className="profile-card"><h2>Historical onboarding evidence</h2>
         {historical.length ? <ul>{historical.map((item) => <li key={item.caseId}>
           <strong>{LABELS[item.category]} — onboarding submission</strong> · Submitted: {dateLabel(item.submittedAt)} · Onboarding verification: {item.state.replaceAll("_", " ")} · <Link href={`/onboarding/${item.caseId}`}>Open case</Link>

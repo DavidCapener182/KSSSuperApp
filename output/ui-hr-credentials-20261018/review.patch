@@ -1,0 +1,585 @@
+--- a/src/components/profile-client.tsx
++++ b/src/components/profile-client.tsx
+@@ -1,6 +1,7 @@
+ "use client";
+ 
+ import Link from "next/link";
++import styles from "./profile-family.module.css";
+ import { useCallback, useEffect, useState, type FormEvent } from "react";
+ import { FeedbackBanner, LoadingBlock, PageHeader } from "@/components/ui/workflow";
+ import { PROFILE_FIELDS, SIA_CATEGORIES, SIA_LABELS, type ProfileField, type SiaCategory } from "@/lib/profile/policy";
+@@ -110,7 +111,7 @@
+   }
+   const profileState = selectedCase?.requirements.find((item) => item.code === "PERSONAL_DETAILS");
+   const siaState = selectedCase?.requirements.find((item) => item.code === "SIA_LICENCE");
+-  return <main className="enterprise-main profile-main">
++  return <main className={`enterprise-main profile-main ${styles.workspace}`}>
+     <PageHeader eyebrow="Synthetic development onboarding" title="My Profile"
+       description="Keep your Personal Details current and submit them for your onboarding case. Synthetic SIA details use a separate evidence workflow." />
+     <p><Link href="/credentials">Open My Credentials — current 16B claims and history</Link></p>
+@@ -128,19 +129,19 @@
+             <span className="onboarding-state">{profileState?.state.replaceAll("_", " ").toLowerCase() ?? "Draft"}</span></div>
+           <p>{profileState?.nextAction ?? "Save your details as a draft until a V2 case is available."}</p>
+           <form className="profile-form" onSubmit={(event) => void submitProfile(event)}>
+-            {PROFILE_FIELDS.map((field) => <label key={field} className="ui-field">{fieldLabels[field]}{required.has(field) ? " *" : " (optional)"}
+-              <input value={values[field]} autoComplete={field === "contact_email" ? "email" : field === "mobile" ? "tel" : "off"}
++            {[{title:"Personal details",fields:["legal_first_name","surname","preferred_name"]},{title:"Contact and address",fields:["contact_email","mobile","address_line1","address_line2","town_city","postcode"]}].map((group) => <fieldset className={styles.fieldGroup} key={group.title}><legend>{group.title}</legend>{PROFILE_FIELDS.filter((field) => group.fields.includes(field)).map((field) => <label key={field} className="ui-field">{fieldLabels[field]}{required.has(field) ? " *" : " (optional)"}
++              <input id={`profile-${field}`} aria-describedby={errors[field] ? `profile-${field}-error` : undefined} value={values[field]} autoComplete={field === "contact_email" ? "email" : field === "mobile" ? "tel" : "off"}
+                 type={field === "contact_email" ? "email" : field === "mobile" ? "tel" : "text"}
+                 maxLength={field === "contact_email" ? 254 : field.startsWith("address") ? 160 : 100}
+                 onChange={(event) => setValues((previous) => ({ ...previous, [field]: event.target.value }))} aria-invalid={Boolean(errors[field])} />
+-              {errors[field] && <small className="profile-field-error">{errors[field]}</small>}</label>)}
++              {errors[field] && <small id={`profile-${field}-error`} className="profile-field-error">{errors[field]}</small>}</label>)}</fieldset>)}
+             <div className="profile-actions"><button type="button" className="ui-action ui-action--secondary" disabled={busy} onClick={() => void saveProfile()}>Save draft</button>
+               <button type="submit" className="ui-action" disabled={busy || !selectedCase}>Submit for onboarding</button></div>
+           </form>
+           <p className="ui-help">Complete means required data was self-submitted. It does not mean identity, email ownership or address was verified.</p>
+         </section>
+         <section className="profile-card" aria-labelledby="sia-title">
+-          <div className="profile-card-heading"><div><p className="eyebrow">Synthetic credential</p><h2 id="sia-title">SIA details</h2></div>
++          <div className="profile-card-heading"><div><p className="eyebrow">Historical onboarding workflow</p><h2 id="sia-title">Legacy synthetic SIA details</h2></div>
+             <span className="onboarding-state">{siaState?.state.replaceAll("_", " ").toLowerCase() ?? "Draft"}</span></div>
+           <p>{siaState?.nextAction ?? "Enter synthetic details for an active Template V2 case."}</p>
+           <form className="profile-form" onSubmit={(event) => void submitSia(event)}>
+--- /dev/null
++++ b/src/components/profile-family.module.css
+@@ -0,0 +1,21 @@
++.workspace,.identity { max-width: 1040px; }
++.workspace :global(.ui-page-header) { margin-bottom: 20px; }
++.workspace :global(.profile-context) { display: flex; flex-wrap: wrap; gap: 12px 24px; padding: 16px; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface-muted); font-size: 14px; line-height: 1.5; }
++.workspace :global(.profile-grid) { display: grid; grid-template-columns: minmax(0,1fr); gap: 28px; }
++.workspace :global(.profile-card) { min-width: 0; padding: 24px; border: 1px solid var(--kss-border); border-radius: 12px; background: white; }
++.workspace :global(.profile-card-heading) { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
++.workspace :global(.profile-card h2) { font-size: 22px; margin: 0 0 8px; }
++.workspace :global(.profile-card p) { font-size: 14px; line-height: 1.5; color: var(--kss-ink-soft); }
++.workspace :global(.profile-form) { display: grid; gap: 24px; }
++.fieldGroup { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px 24px; min-width: 0; padding: 20px 0 0; border: 0; border-top: 1px solid var(--kss-border); }
++.fieldGroup legend { padding: 0 12px 0 0; font-size: 16px; font-weight: 600; color: var(--kss-ink); }
++.workspace :global(.ui-field) { min-width: 0; font-size: 14px; }
++.workspace :global(.profile-form input),.workspace :global(.profile-form select) { width: 100%; min-width: 0; min-height: 44px; border: 1px solid var(--kss-control-border); border-radius: 8px; padding: 10px 12px; color: var(--kss-ink); background: white; font-size: 15px; }
++.workspace :global(.profile-actions) { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 16px; border-top: 1px solid var(--kss-border); }
++.workspace :global(.profile-actions button) { min-height: 44px; }
++.workspace :global(.profile-field-error) { color: #9b2635; font-size: 13px; line-height: 1.5; }
++.workspace :global(:is(a,button,input,select):focus-visible),.identity :global(a:focus-visible) { outline: 2px solid var(--kss-focus); outline-offset: 3px; }
++.identity :global(.enterprise-profile) { margin-top: 24px; width: 100%; max-width: 720px; }
++.identity :global(.enterprise-profile dt) { font-size: 13px; }
++.identity :global(.enterprise-profile dd) { font-size: 16px; }
++@media (max-width: 600px) { .workspace :global(.profile-card) { padding: 20px 16px; } .fieldGroup { grid-template-columns: minmax(0,1fr); } .workspace :global(.profile-card-heading) { flex-wrap: wrap; } .workspace :global(.profile-actions) { display: grid; grid-template-columns: minmax(0,1fr); } }
+--- a/src/app/(enterprise)/profile/page.tsx
++++ b/src/app/(enterprise)/profile/page.tsx
+@@ -1,6 +1,7 @@
+ import { redirect } from "next/navigation";
+ import { getPrincipal } from "@/lib/auth/principal";
+ import { createServerSupabase } from "@/lib/supabase/server";
++import styles from "@/components/profile-family.module.css";
+ import { ProfileClient } from "@/components/profile-client";
+ 
+ export const dynamic = "force-dynamic";
+@@ -9,7 +10,7 @@
+   const principal = await getPrincipal(await createServerSupabase());
+   if (!principal) redirect("/?next=%2Fprofile");
+   if (principal.roles.includes("SECURITY_STAFF")) return <ProfileClient />;
+-  return <main className="enterprise-main">
++  return <main className={`enterprise-main ${styles.identity}`}>
+     <p className="eyebrow">Development identity</p>
+     <h1>Profile</h1>
+     <p className="enterprise-intro">Your current KSS Enterprise identity. Staff Personal Details are available only for an onboarding case you are authorised to manage.</p>
+--- a/src/components/credentials-client.tsx
++++ b/src/components/credentials-client.tsx
+@@ -109,18 +109,18 @@
+     <p className="enterprise-intro">These synthetic claims and reviews do not establish a live SIA check or deployment eligibility.</p>
+     <p className={styles.boundary}>Credential verification is separate from Training progress, course assessment results and any deployment decision.</p>
+     {message && <p role="status" className="enterprise-honesty">{message}</p>}
+-    {loading ? <p>Loading credentials…</p> : <>
+-      {(office || superAdmin) && <section className="profile-card"><h2>Assigned review responsibility</h2>
++    {loading ? <p role="status">Loading credentials…</p> : <><div className={styles.reviewLayout} data-reviewer={office || superAdmin ? "true" : undefined}>
++      {(office || superAdmin) && <aside className={`profile-card ${styles.queue}`}><h2>Assigned review responsibility</h2>
+         {queue.length ? <ul>{queue.map((item) => <li key={`${item.subject_person_id}-${item.type_code}`}>
+-          <Link href={`/credentials?personId=${item.subject_person_id}`}>{item.display_name} — {LABELS[item.type_code]}</Link>
++          <Link href={`/credentials?personId=${item.subject_person_id}`} aria-current={item.subject_person_id === personId ? "page" : undefined}>{item.display_name} — {LABELS[item.type_code]}</Link>
+         </li>)}</ul> : <p>No active Credential Reviewer grants.</p>}
+-      </section>}
+-      <section className="profile-card" aria-labelledby="current-credentials"><h2 id="current-credentials">Current credentials</h2>
++      </aside>}
++      <section className={`profile-card ${styles.wallet}`} aria-labelledby="current-credentials"><h2 id="current-credentials">Current credentials</h2>{(office || superAdmin) && <div className={styles.personContext}><strong>{queue.find((item) => item.subject_person_id === personId)?.display_name ?? "Selected Person"}</strong><small>Person reference <code>{personId}</code></small></div>}
+         {!data.claims.some((item) => !item.withdrawn_at) && <p>No current 16B credential claims are available.</p>}
+         {data.claims.filter((item) => !item.withdrawn_at).map((claim) => {
+           const revision = data.revisions.find((item) => item.id === claim.latest_revision_id);
+           const state = currentState(claim, revision);
+-          return <article key={claim.id} className="profile-card" style={{ marginBlock: "1rem" }}>
++          return <article key={claim.id} className={styles.claim}>
+             <h3>{LABELS[claim.type_code]}</h3>
+             <dl className="people-details-list">
+               <div><dt>Status</dt><dd>{state}</dd></div>
+@@ -144,7 +144,8 @@
+           </article>;
+         })}
+       </section>
+-      {staff && <section className="profile-card"><h2>Save a credential draft</h2>
++      </div>
++      {staff && <details className={`profile-card ${styles.draft}`}><summary>Save a credential draft</summary>
+         <p>Reference must be synthetic and start SYN-SIA-. Dates must come from your evidence; leave issue or expiry blank if the evidence does not establish it.</p>
+         <form className="profile-form" onSubmit={(event) => { event.preventDefault(); void action({ action: "save", category, reference, issuedOn: issuedOn || null, expiresOn: expiresOn || null }, "Draft saved. A material change requires a fresh submission and review."); }}>
+           <label className="ui-field">Credential category<select value={category} onChange={(event) => setCategory(event.target.value as SiaCategory)}>{SIA_CATEGORIES.map((item) => <option key={item} value={item}>{LABELS[item]}</option>)}</select></label>
+@@ -154,7 +155,7 @@
+           <div className="profile-actions"><button className="ui-action ui-action--primary" disabled={busy}>Save draft</button></div>
+         </form>
+         <p>Upload and replace files through <Link href="/documents">My Documents</Link>. A Credential Reviewer must request and accept the exact evidence version before submission.</p>
+-      </section>}
++      </details>}
+       {office && personId !== "" && <section className="profile-card"><h2>Evidence request</h2>
+         <p>Request one protected document for this Person and category. Existing Documents review decides evidence acceptance separately.</p>
+         {data.grants.filter((grant) => !grant.revoked_at)
+@@ -171,11 +172,11 @@
+         </form>
+         {data.grants.filter((item) => !item.revoked_at).map((item) => <p key={item.id}>{LABELS[item.type_code]} · reviewer {item.reviewer_person_id} · until {dateLabel(item.effective_until)} <button className="ui-action ui-action--destructive" disabled={busy} onClick={() => void action({ action: "revokeGrant", grantId: item.id }, "Grant revoked.")}>Revoke</button></p>)}
+       </section>}
+-      <section className="profile-card"><h2>Credential history</h2>
++      <details className={`profile-card ${styles.history}`}><summary>Credential history</summary>
+         {data.revisions.length ? <ul>{data.revisions.map((item) => <li key={item.id}>{LABELS[item.type_code]} · revision {item.revision_number} · submitted {dateLabel(item.submitted_at)} · {decisionsFor(item.id).map((decision) => `${decision.decision} ${dateLabel(decision.decided_at)}`).join(", ") || "No verification decision"}</li>)}</ul> : <p>No 16B submissions yet.</p>}
+         {data.claims.filter((item) => item.withdrawn_at).map((item) => <p key={item.id}>{LABELS[item.type_code]} claim withdrawn; revisions and decisions retained.</p>)}
+         <p>History is retained in synthetic Dev. An old verification cannot be reactivated by restoring a previous value.</p>
+-      </section>
++      </details>
+       {staff && <section className="profile-card"><h2>Historical onboarding evidence</h2>
+         {historical.length ? <ul>{historical.map((item) => <li key={item.caseId}>
+           <strong>{LABELS[item.category]} — onboarding submission</strong> · Submitted: {dateLabel(item.submittedAt)} · Onboarding verification: {item.state.replaceAll("_", " ")} · <Link href={`/onboarding/${item.caseId}`}>Open case</Link>
+--- a/src/components/credentials.module.css
++++ b/src/components/credentials.module.css
+@@ -1,80 +1,34 @@
+-.workspace {
+-  max-width: 1100px;
+-  color: var(--kss-ink);
+-}
+-
+-.workspace :global(.enterprise-intro) {
+-  max-width: 70ch;
+-}
+-
+-.boundary {
+-  max-width: 76ch;
+-  margin: 16px 0 28px;
+-  padding: 14px 18px;
+-  border-left: 3px solid var(--kss-blue);
+-  border-radius: 0 10px 10px 0;
+-  background: var(--kss-blue-soft);
+-  color: var(--kss-ink);
+-  line-height: 1.6;
+-}
+-
+-.workspace :global(.profile-card) {
+-  min-width: 0;
+-}
+-
+-.workspace :global(.profile-card h2) {
+-  font-size: 21px;
+-  line-height: 1.3;
+-}
+-
+-.workspace :global(.profile-card h3) {
+-  font-size: 17px;
+-  line-height: 1.35;
+-}
+-
+-.workspace :global(.profile-card p),
+-.workspace :global(.profile-card li),
+-.workspace :global(.profile-card dd) {
+-  font-size: 14px;
+-  line-height: 1.6;
+-  overflow-wrap: anywhere;
+-}
+-
+-.workspace :global(.profile-card dt) {
+-  text-transform: none;
+-  letter-spacing: normal;
+-}
+-
+-.workspace :global(.profile-card a),
+-.workspace :global(.profile-card button) {
+-  min-height: 44px;
+-}
+-
+-.workspace :global(.profile-card a) {
+-  display: inline-flex;
+-  align-items: center;
+-  overflow-wrap: anywhere;
+-}
+-
+-.workspace :global(a:focus-visible),
+-.workspace :global(button:focus-visible),
+-.workspace :global(input:focus-visible),
+-.workspace :global(select:focus-visible) {
+-  outline: 3px solid var(--kss-blue);
+-  outline-offset: 3px;
+-}
+-
+-@media (max-width: 600px) {
+-  .workspace :global(.profile-card) {
+-    padding: 18px;
+-  }
+-
+-  .workspace :global(.profile-actions) {
+-    align-items: stretch;
+-  }
+-
+-  .workspace :global(.profile-actions > *) {
+-    width: 100%;
+-    justify-content: center;
+-  }
+-}
++.workspace { max-width: 1280px; color: var(--kss-ink); }
++.workspace :global(.enterprise-intro) { max-width: 72ch; font-size: 14px; line-height: 1.5; }
++.boundary { margin: 16px 0 24px; padding: 12px 16px; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface-muted); color: var(--kss-ink-soft); font-size: 13px; line-height: 1.5; }
++.reviewLayout { display: grid; grid-template-columns: minmax(0,1fr); gap: 24px; margin-top: 24px; }
++.reviewLayout[data-reviewer] { grid-template-columns: minmax(220px,1fr) minmax(0,2.5fr); }
++.workspace :global(.profile-card) { min-width: 0; padding: 24px; margin-bottom: 24px; border: 1px solid var(--kss-border); border-radius: 12px; background: white; }
++.workspace :global(.profile-card h2) { font-size: 21px; line-height: 1.3; }
++.workspace :global(.profile-card h3) { font-size: 18px; line-height: 1.4; }
++.workspace :global(.profile-card p),.workspace :global(.profile-card li),.workspace :global(.profile-card dd) { font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
++.workspace :global(.profile-card dt) { color: var(--kss-ink-soft); font-size: 12px; text-transform: none; letter-spacing: normal; }
++.queue,.wallet { align-self: start; }
++.queue h2 { font-size: 16px !important; }
++.queue ul { padding: 0; list-style: none; }
++.queue li { border-bottom: 1px solid var(--kss-border); padding-block: 12px; }
++.queue li:last-child { border: 0; }
++.queue a { color: var(--kss-ink); font-size: 14px; font-weight: 600; text-decoration: none; }
++.queue a[aria-current] { color: var(--kss-blue-strong); }
++.queue a:hover { color: var(--kss-blue-strong); text-decoration: underline; }
++.personContext { display: grid; gap: 6px; padding-bottom: 16px; margin-bottom: 20px; border-bottom: 1px solid var(--kss-border); }
++.personContext strong { font-size: 18px; }
++.personContext small { color: var(--kss-ink-soft); font-size: 12px; overflow-wrap: anywhere; }
++.claim { display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap: 16px 24px; padding: 24px 0; border-bottom: 1px solid var(--kss-border); }
++.claim:last-child { border: 0; }
++.claim h3 { grid-column: 1 / -1; margin: 0; }
++.claim dl { display: grid; gap: 16px; margin: 0; }
++.claim dd { margin: 4px 0 0; }
++.claim :global(.profile-actions) { display: grid; align-content: start; gap: 12px; margin: 0; padding: 16px; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface-muted); }
++.workspace :global(.profile-card a),.workspace :global(.profile-card button) { min-height: 44px; }
++.workspace :global(.profile-card a) { display: inline-flex; align-items: center; overflow-wrap: anywhere; }
++.workspace :global(.profile-form input),.workspace :global(.profile-form select) { min-height: 44px; border: 1px solid var(--kss-control-border); border-radius: 8px; background: white; font-size: 15px; }
++.draft summary,.history summary { min-height: 44px; font-size: 18px; font-weight: 600; cursor: pointer; }
++.draft[open] summary,.history[open] summary { padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid var(--kss-border); }
++.workspace :global(:is(a,button,input,select,summary):focus-visible) { outline: 2px solid var(--kss-focus); outline-offset: 3px; }
++@media (max-width: 760px) { .reviewLayout[data-reviewer],.claim { grid-template-columns: minmax(0,1fr); } .workspace :global(.profile-card) { padding: 20px 16px; } .claim h3 { grid-column: 1; } .workspace :global(.profile-actions > *) { width: 100%; justify-content: center; } }
+--- a/src/app/(enterprise)/hr/page.tsx
++++ b/src/app/(enterprise)/hr/page.tsx
+@@ -71,7 +71,7 @@
+     {view === "home" && <>
+       <section className="hr-hero" aria-labelledby="hr-my-title">
+         <span className="hr-hero-mark"><UserRound size={25} strokeWidth={1.8} aria-hidden="true" /></span>
+-        <div><p className="hr-kicker">Your starting point</p><h2 id="hr-my-title">My HR</h2><p>Open the source that holds your information or next action.</p></div>
++        <div><p className="hr-kicker">Current KSS account</p><h2 id="hr-my-title">{principal.displayName}</h2><p>{principal.roles.map((role) => role.replaceAll("_", " ").toLowerCase()).join(" · ")}</p></div>
+       </section>
+       <section className="hr-section" aria-labelledby="hr-services-title">
+         <div className="hr-section-heading"><div><p className="hr-kicker">Self-service</p><h2 id="hr-services-title">Your KSS services</h2></div><span>Links are checked again by each service</span></div>
+@@ -97,11 +97,11 @@
+       </div>
+     </>}
+ 
+-    {view === "policies" && <section className="hr-collection" aria-labelledby="hr-policy-page-title"><div className="hr-collection-icon"><BookOpenText size={25} aria-hidden="true" /></div><p className="hr-kicker">Planned catalogue · no files connected</p><h2 id="hr-policy-page-title">Handbook & policies</h2><p>These are placeholders for the KSS documents David will add later. None is published, available to open, or counted as acknowledged. Titles are examples and may change to match the approved documents.</p><AwaitingDocuments items={policyPlaceholders} /><p className="hr-boundary">Opening a document, acknowledging its exact version and understanding it are separate facts.</p></section>}
++    {view === "policies" && <section className="hr-collection" aria-labelledby="hr-policy-page-title"><div className="hr-collection-icon"><BookOpenText size={25} aria-hidden="true" /></div><p className="hr-kicker">Planned catalogue · no files connected</p><h2 id="hr-policy-page-title">Handbook & policies</h2><p>Approved KSS documents are not yet connected. None is published, available to open, or counted as acknowledged. Titles are examples and may change to match the approved documents.</p><AwaitingDocuments items={policyPlaceholders} /><p className="hr-boundary">Opening a document, acknowledging its exact version and understanding it are separate facts.</p></section>}
+ 
+     {view === "forms" && <section className="hr-collection" aria-labelledby="hr-forms-page-title"><div className="hr-collection-icon"><FileDown size={25} aria-hidden="true" /></div><p className="hr-kicker">Planned forms · no files connected</p><h2 id="hr-forms-page-title">Forms</h2><p>These placeholders show where approved KSS forms will appear. None downloads a file or starts an HR workflow. Existing KSS services remain available below.</p><AwaitingDocuments items={formPlaceholders} />{canUseTimeAway && <div className="hr-related"><strong>Available native workflow</strong><ViewLink href="/my-time-away" label="My time away" description="Start or review a request in the existing Time Away service." icon={ClipboardList} /></div>}</section>}
+ 
+     {view === "requests" && <section className="hr-collection" aria-labelledby="hr-requests-title"><div className="hr-collection-icon"><ClipboardList size={25} aria-hidden="true" /></div><p className="hr-kicker">Source-owned work</p><h2 id="hr-requests-title">My requests</h2><p>HR does not keep a second request status. Open the relevant source for its authoritative record and next action.</p><div className="hr-service-grid hr-request-links">{canUseTimeAway && <ViewLink href="/my-time-away" label="Time away requests" description="Current requests and decisions in Time Away." icon={ClipboardList} />}{staff && <ViewLink href="/onboarding" label="My onboarding" description="Your exact starter case and checklist, if authorised." icon={FileText} />}{canSeeDocuments && <ViewLink href="/documents" label="Document requests" description="Your permitted document requests and submissions." icon={FileText} />}</div>{!canUseTimeAway && !staff && !canSeeDocuments && <div className="hr-empty"><strong>No connected request view for this role</strong><span>Your identity remains available in My details.</span></div>}</section>}
+-    <p className="hr-footer-note">HR-01 uses existing guarded KSS services. Private employee relations cases and HR publishing authority are outside this slice.</p>
++    <p className="hr-footer-note">Each service keeps its own records and access rules. Policies and forms become available only when approved files are connected.</p>
+   </main>;
+ }
+--- a/src/app/(enterprise)/hr/hr.css
++++ b/src/app/(enterprise)/hr/hr.css
+@@ -1,26 +1,52 @@
+-.hr-area{max-width:1180px;padding-top:34px}
+-.hr-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:23px}
+-.hr-heading h1{margin:3px 0 8px;font-size:clamp(38px,4vw,52px);line-height:1.05;letter-spacing:-.04em}
+-.hr-heading p:last-child{margin:0;max-width:640px;color:var(--kss-ink-soft);line-height:1.55}
+-.hr-eyebrow,.hr-kicker{margin:0;color:var(--kss-blue-strong);font-size:11px;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+-.hr-scope-note{flex:none;align-self:start;border:1px solid var(--kss-border);border-radius:99px;background:var(--kss-surface);padding:7px 12px;color:var(--kss-ink-soft);font-size:12px;font-weight:700}
+-.hr-tabs{display:flex;gap:5px;overflow-x:auto;border-bottom:1px solid var(--kss-border);margin-bottom:25px;scrollbar-width:thin}
+-.hr-tabs a{flex:none;display:flex;align-items:center;min-height:46px;padding:10px 15px;border-bottom:3px solid transparent;color:var(--kss-ink-soft);font-size:13px;font-weight:750;text-decoration:none}
+-.hr-tabs a[aria-current="page"]{border-color:var(--kss-blue);color:var(--kss-blue-strong)}
+-.hr-tabs a:hover{background:var(--kss-blue-soft)}
+-.hr-area :is(a,button):focus-visible{outline:3px solid var(--kss-focus);outline-offset:3px}
+-.hr-hero{display:flex;align-items:center;gap:20px;border:1px solid #b7cee8;border-radius:15px;background:linear-gradient(110deg,#e7f0fc,#f3f7fc 72%);padding:23px 27px;margin-bottom:29px}
+-.hr-hero-mark{display:grid;place-items:center;flex:none;width:49px;height:49px;border-radius:12px;background:#d5e5f8;color:var(--kss-blue-strong)}
+-.hr-hero h2{font-size:24px;letter-spacing:-.025em;margin:2px 0 3px}.hr-hero p:last-child{margin:0;color:var(--kss-ink-soft);font-size:14px}
+-.hr-section{margin:25px 0}.hr-section-heading{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:13px}.hr-section-heading h2{font-size:20px;letter-spacing:-.025em;margin:2px 0 0}.hr-section-heading span{color:var(--kss-ink-subtle);font-size:12px}
+-.hr-service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+-.hr-service-link{display:flex;align-items:center;gap:15px;min-height:79px;border:1px solid var(--kss-border);border-radius:11px;background:var(--kss-surface);padding:14px 17px;color:var(--kss-ink);text-decoration:none;min-width:0;transition:border-color .15s,box-shadow .15s}
+-.hr-service-link:hover{border-color:var(--kss-blue);box-shadow:0 7px 22px #203b6014}.hr-service-link>span:nth-child(2){display:grid;gap:3px;min-width:0}.hr-service-link strong{font-size:14px}.hr-service-link small{font-size:12px;color:var(--kss-ink-soft);line-height:1.35}.hr-service-link>svg:last-child{margin-left:auto;flex:none;color:var(--kss-blue-strong)}
+-.hr-service-icon{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:9px;background:var(--kss-blue-soft);color:var(--kss-blue-strong)}
+-.hr-two-column{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:30px 0}.hr-preview{border:1px solid var(--kss-border);border-radius:13px;background:var(--kss-surface);padding:21px 22px;min-width:0}.hr-preview>svg{color:var(--kss-blue-strong)}.hr-preview h2{font-size:19px;margin:11px 0 8px}.hr-preview p{color:var(--kss-ink-soft);line-height:1.55;font-size:13px;min-height:60px;margin:0 0 17px}.hr-preview a{display:inline-flex;align-items:center;gap:7px;color:var(--kss-blue-strong);font-size:13px;font-weight:750;text-decoration:none;min-height:44px}.hr-preview a:hover{text-decoration:underline}
+-.hr-collection{border:1px solid var(--kss-border);border-radius:15px;background:var(--kss-surface);padding:clamp(20px,3vw,34px);max-width:860px}.hr-collection-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:12px;background:var(--kss-blue-soft);color:var(--kss-blue-strong);margin-bottom:20px}.hr-collection h2{font-size:clamp(25px,3vw,31px);letter-spacing:-.03em;margin:5px 0 9px}.hr-collection>p:not(.hr-kicker):not(.hr-boundary){max-width:670px;color:var(--kss-ink-soft);line-height:1.6;margin:0 0 23px}.hr-empty{display:grid;gap:5px;border:1px dashed var(--kss-border-strong);border-radius:11px;background:var(--kss-bg);padding:22px;color:var(--kss-ink)}.hr-empty strong{font-size:14px}.hr-empty span{color:var(--kss-ink-soft);font-size:13px;line-height:1.5}.hr-boundary{border-left:3px solid var(--kss-blue);padding-left:12px;color:var(--kss-ink-soft);font-size:12px;line-height:1.5;margin:22px 0 0}.hr-related{margin-top:26px;display:grid;gap:9px}.hr-related>strong{font-size:13px}.hr-request-links{margin-top:24px}.hr-footer-note{font-size:12px;color:var(--kss-ink-subtle);line-height:1.5;margin:29px 0 0}
+-@media(max-width:700px){.hr-area{padding-top:23px}.hr-heading{display:block}.hr-scope-note{display:inline-block;margin-top:15px}.hr-tabs{margin:18px -16px 20px;padding:0 12px}.hr-hero{align-items:flex-start;padding:19px;gap:13px}.hr-hero-mark{width:39px;height:39px}.hr-hero h2{font-size:21px}.hr-section-heading{display:block}.hr-section-heading span{display:block;margin-top:5px}.hr-service-grid,.hr-two-column{grid-template-columns:1fr}.hr-service-link{min-height:74px}.hr-preview p{min-height:0}.hr-collection{padding:19px}.hr-footer-note{padding-bottom:12px}}
+-@media(max-width:390px){.hr-service-link{padding:13px;gap:11px}.hr-service-icon{width:36px;height:36px}.hr-service-link small{font-size:11px}.hr-tabs a{padding-inline:12px}}
+-
+-.hr-placeholder-list{list-style:none;display:grid;gap:8px;margin:0;padding:0}.hr-placeholder-list li{display:flex;align-items:center;gap:13px;border:1px solid var(--kss-border);border-radius:10px;padding:13px 15px;min-width:0}.hr-placeholder-list li>svg{flex:none;color:var(--kss-blue-strong)}.hr-placeholder-list li>span:nth-child(2){display:grid;gap:3px;min-width:0}.hr-placeholder-list strong{font-size:14px}.hr-placeholder-list small{font-size:12px;color:var(--kss-ink-soft)}.hr-placeholder-state{margin-left:auto;flex:none;border:1px solid var(--kss-border);border-radius:99px;padding:5px 9px;color:var(--kss-ink-soft);font-size:11px;font-weight:750}
+-@media(max-width:390px){.hr-placeholder-list li{gap:9px;padding:11px}.hr-placeholder-state{font-size:10px;padding:4px 6px}}+.hr-area { max-width: 1120px; }
++.hr-heading { display: flex; align-items: start; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
++.hr-heading h1 { margin: 4px 0 8px; font-size: 32px; line-height: 1.15; letter-spacing: -.025em; }
++.hr-heading p:last-child { margin: 0; max-width: 68ch; color: var(--kss-ink-soft); font-size: 14px; line-height: 1.5; }
++.hr-eyebrow,.hr-kicker { margin: 0; color: var(--kss-ink-soft); font-size: 12px; font-weight: 600; }
++.hr-scope-note { flex: none; padding: 6px 10px; border: 1px solid var(--kss-border); border-radius: 6px; color: var(--kss-ink-soft); font-size: 12px; }
++.hr-tabs { display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--kss-border); margin-bottom: 24px; scrollbar-width: thin; }
++.hr-tabs a { flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border-bottom: 2px solid transparent; color: var(--kss-ink-soft); font-size: 14px; font-weight: 600; text-decoration: none; }
++.hr-tabs a[aria-current="page"] { border-color: var(--kss-blue); color: var(--kss-blue-strong); }
++.hr-tabs a:hover { background: var(--kss-blue-soft); }
++.hr-area :is(a,button):focus-visible { outline: 2px solid var(--kss-focus); outline-offset: 3px; }
++.hr-hero { display: flex; align-items: center; gap: 16px; padding: 16px 20px; margin: 0 0 28px; border: 1px solid var(--kss-border); border-radius: 12px; background: var(--kss-surface-muted); }
++.hr-hero-mark { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border: 1px solid var(--kss-border); border-radius: 50%; background: white; color: var(--kss-ink-soft); }
++.hr-hero h2 { margin: 4px 0; font-size: 18px; line-height: 1.4; }
++.hr-hero p:last-child { margin: 0; color: var(--kss-ink-soft); font-size: 13px; line-height: 1.5; }
++.hr-section { margin: 28px 0; }
++.hr-section-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
++.hr-section-heading h2 { margin: 4px 0 0; font-size: 21px; }
++.hr-section-heading span { color: var(--kss-ink-soft); font-size: 12px; }
++.hr-service-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 0; border: 1px solid var(--kss-border); border-radius: 12px; overflow: hidden; background: white; }
++.hr-service-link { display: flex; align-items: center; gap: 16px; min-height: 80px; min-width: 0; padding: 16px 20px; border-bottom: 1px solid var(--kss-border); color: var(--kss-ink); text-decoration: none; transition: background-color .15s; }
++.hr-service-link:last-child { border-bottom: 0; }
++.hr-service-link:hover { background: var(--kss-surface-muted); }
++.hr-service-link > span:nth-child(2) { display: grid; gap: 6px; min-width: 0; }
++.hr-service-link strong { font-size: 16px; line-height: 1.4; }
++.hr-service-link small { font-size: 14px; line-height: 1.5; color: var(--kss-ink-soft); }
++.hr-service-link > svg:last-child { margin-left: auto; flex: none; color: var(--kss-blue-strong); }
++.hr-service-icon { display: grid; place-items: center; flex: none; width: 36px; height: 36px; color: var(--kss-ink-soft); }
++.hr-two-column { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; margin-top: 32px; }
++.hr-preview { min-width: 0; padding: 20px; border: 1px solid var(--kss-border); border-radius: 12px; background: white; }
++.hr-preview > svg { color: var(--kss-ink-soft); }
++.hr-preview h2 { margin: 12px 0 8px; font-size: 19px; }
++.hr-preview p { color: var(--kss-ink-soft); font-size: 14px; line-height: 1.5; }
++.hr-preview a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--kss-blue-strong); font-size: 14px; font-weight: 600; text-decoration: none; }
++.hr-collection { max-width: 960px; padding: 24px; border: 1px solid var(--kss-border); border-radius: 12px; background: white; }
++.hr-collection-icon { display: inline-flex; color: var(--kss-ink-soft); margin-bottom: 16px; }
++.hr-collection h2 { margin: 4px 0 12px; font-size: 24px; }
++.hr-collection > p:not(.hr-kicker) { max-width: 72ch; color: var(--kss-ink-soft); font-size: 14px; line-height: 1.5; }
++.hr-placeholder-list { display: grid; gap: 0; padding: 0; margin: 20px 0; list-style: none; border: 1px solid var(--kss-border); border-radius: 8px; overflow: hidden; }
++.hr-placeholder-list li { display: flex; align-items: center; gap: 16px; min-width: 0; padding: 16px; border-bottom: 1px solid var(--kss-border); }
++.hr-placeholder-list li:last-child { border-bottom: 0; }
++.hr-placeholder-list li > svg { flex: none; color: var(--kss-ink-soft); }
++.hr-placeholder-list li > span:nth-child(2) { display: grid; gap: 6px; min-width: 0; }
++.hr-placeholder-list strong { font-size: 15px; }
++.hr-placeholder-list small { font-size: 12px; color: var(--kss-ink-soft); line-height: 1.5; }
++.hr-placeholder-state { margin-left: auto; flex: none; color: var(--kss-ink-soft); font-size: 12px; }
++.hr-boundary,.hr-footer-note { color: var(--kss-ink-soft); font-size: 13px; line-height: 1.5; }
++.hr-footer-note { margin-top: 28px; }
++.hr-related { margin-top: 24px; }
++.hr-request-links { margin-top: 24px; }
++.hr-empty { display: grid; gap: 8px; padding: 16px; border: 1px dashed var(--kss-border); border-radius: 8px; color: var(--kss-ink-soft); font-size: 14px; }
++@media (max-width: 700px) { .hr-heading { flex-direction: column; gap: 12px; } .hr-heading h1 { font-size: 28px; } .hr-section-heading { flex-direction: column; align-items: start; gap: 8px; } .hr-two-column { grid-template-columns: minmax(0,1fr); gap: 16px; } .hr-service-link { padding: 16px; gap: 12px; } .hr-collection { padding: 20px 16px; } .hr-placeholder-list li { flex-wrap: wrap; gap: 12px; } .hr-placeholder-list li > span:nth-child(2) { flex: 1 1 160px; } .hr-placeholder-state { margin-left: 32px; } }
+--- a/src/components/time-away-client.tsx
++++ b/src/components/time-away-client.tsx
+@@ -3,6 +3,7 @@
+ import { useCallback, useEffect, useMemo, useState } from "react";
+ import Link from "next/link";
+ import styles from "./time-away.module.css";
++import managerStyles from "./time-away-manager.module.css";
+ 
+ type Team = { id: string; name: string; actions?: string[] };
+ type Category = { code: string; version: number; label: string };
+@@ -204,8 +205,59 @@
+     } catch (cause) { setError((cause as Error).message); }
+   }
+ 
++  const [managerTab, setManagerTab] = useState<"requests" | "calendar">("requests");
+   const managerActions = authority?.managerTeams.find((entry) => entry.id === detail?.teamId)?.actions ?? [];
+-  return <main className={styles.page}>
++  const requestDetail = detail && <section className={styles.panel} data-manager-detail={view === "manager" ? "true" : undefined} aria-label="Time Away request detail">
++      <div className={styles.sectionHead}><h2>{detail.categoryLabel} — {label[detail.state] ?? detail.state}</h2><button className={styles.subtle} onClick={() => setDetail(null)}>Close</button></div>
++      <p>{detail.personName}{detail.teamName ? ` · ${detail.teamName}` : ""}</p>
++      <h3>Exact period</h3><ol>{detail.segments.map((segment, index) => <li key={index}>
++        {formatDay(segment.date)} · {segment.kind === "WHOLE_DAY" ? "Whole day" : `${segment.startsLocal?.slice(0, 5)}–${segment.endsLocal?.slice(0, 5)} Europe/London`}</li>)}</ol>
++      {detail.state === "CANCELLATION_REQUESTED" && <p className={styles.notice}>Cancellation requested. The approved period remains effective until an approver decides.</p>}
++      {view === "staff" && <div className={styles.actions}>
++        {detail.state === "DRAFT" && <button type="button" onClick={() => { setDraftId(detail.id);setDraftRevision(detail.revision);setCategory(detail.categoryCode);
++          setSavedPreview(detail.segments.map((segment) => ({ ...segment,
++            startsLocal: segment.startsLocal?.slice(0, 5), endsLocal: segment.endsLocal?.slice(0, 5) })));
++          setMode(detail.segments.some((s) => s.kind === "PARTIAL_DAY") ? "PARTIAL_DAY" : "WHOLE_DAY");
++          setStartDate(detail.segments[0]?.date ?? "");setEndDate(detail.segments.at(-1)?.date ?? "");
++          setPartial(detail.segments.filter((s) => s.kind === "PARTIAL_DAY").map((s) => ({ date: s.date,
++            startsLocal: s.startsLocal?.slice(0, 5) ?? "",endsLocal: s.endsLocal?.slice(0, 5) ?? "" }))); }}>Edit draft</button>}
++        {detail.state === "SUBMITTED" && <button type="button" onClick={() => act("WITHDRAWN")}>Withdraw submitted request</button>}
++        {detail.state === "APPROVED" && <button type="button" onClick={() => act("CANCELLATION_REQUESTED")}>Request cancellation</button>}
++      </div>}
++      {view === "manager" && <aside data-manager-review="true">
++        {conflict && <div className={styles.preview} data-source-impact="true"><h3>Existing allocations</h3>
++          {conflict.allocations.length ? <ul>{conflict.allocations.map((row) => <li key={row.allocationId}>
++            {formatMoment(row.reportAt)} · {row.source === "EVENT" ? "Event" : "Site shift"} · {row.duty} · {row.allocationResponse}
++            {row.remainingPositions > 0 ? ` · ${row.remainingPositions} positions remain` : ""}</li>)}</ul>
++            : <p>No active allocations overlap this period.</p>}
++          <h3>Planning impact</h3><p>{conflict.activeAllocationCount} active {conflict.activeAllocationCount === 1 ? "allocation" : "allocations"} overlap · {conflict.affectedDutyCountWithRemainingPositions} affected {conflict.affectedDutyCountWithRemainingPositions === 1 ? "duty has" : "duties have"} remaining positions.</p>
++          <p>No allocation has been changed.</p></div>}
++        {(detail.state === "SUBMITTED" && managerActions.includes("DECIDE_REQUEST") ||
++          detail.state === "CANCELLATION_REQUESTED" && managerActions.includes("DECIDE_CANCELLATION")) &&
++          <div className={styles.stack} data-decision-confirmation="true"><h3>Review decision</h3><p>{detail.personName} · {formatDay(detail.startsOn)}–{formatDay(detail.endsOn)} · Revision {detail.revision}</p><div className={styles.grid}>
++            <label>{detail.state === "SUBMITTED" ? "Reason if declined" : "Reason if cancellation rejected"}
++              <select value={detail.state === "SUBMITTED"
++                ? (["STAFFING_CONFLICT", "REQUEST_NOT_SUPPORTED", "OTHER"].includes(reason) ? reason : "REQUEST_NOT_SUPPORTED")
++                : (["CANCELLATION_NOT_SUPPORTED", "OTHER"].includes(reason) ? reason : "CANCELLATION_NOT_SUPPORTED")}
++                onChange={(event) => setReason(event.target.value)}>
++                {detail.state === "SUBMITTED" ? <>
++                  <option value="REQUEST_NOT_SUPPORTED">Request not supported</option>
++                  <option value="STAFFING_CONFLICT">Staffing conflict</option>
++                  <option value="OTHER">Other</option>
++                </> : <>
++                  <option value="CANCELLATION_NOT_SUPPORTED">Cancellation not supported</option>
++                  <option value="OTHER">Other</option>
++                </>}
++              </select></label>
++          </div><div className={styles.actions}>
++            {detail.state === "SUBMITTED" ? <><button onClick={() => act("APPROVED")}>Approve</button><button className={styles.subtle} onClick={() => act("DECLINED")}>Decline</button></>
++              : <><button onClick={() => act("CANCELLATION_APPROVED")}>Approve cancellation</button><button className={styles.subtle} onClick={() => act("CANCELLATION_REJECTED")}>Reject cancellation</button></>}
++          </div></div>}
++      </aside>}
++      <h3>Immutable history</h3><ol>{detail.history.map((entry) => <li key={entry.revision}>
++        {formatMoment(entry.occurredAt)} · {entry.kind.replaceAll("_", " ")}</li>)}</ol>
++    </section>;
++  return <main className={`${styles.page}${view === "manager" ? ` ${managerStyles.page}` : ""}`}>
+     <header className={styles.header}><div><p className={styles.eyebrow}>Workforce · synthetic Dev</p>
+       <h1>{view === "staff" ? "My Time Away" : "Time Away requests"}</h1>
+       <p>Requests and decisions are separate from Availability, allocations, attendance and pay.</p></div></header>
+@@ -243,26 +295,32 @@
+       {!authority?.myTeams.length && <p className={styles.muted}>A draft can be saved now. An administrator must configure your Time Away team before submission.</p>}
+     </section>}
+ 
+-    <section className={styles.panel}><div className={styles.sectionHead}><h2>{view === "staff" ? "My requests" : "Team requests and calendar"}</h2>
+-      <span>{total} visible requests</span></div>
+-      {view === "manager" && <label>Time Away team<select value={team} onChange={(event) => { setTeam(event.target.value);setDetail(null); }}>
++    {view === "manager" && <section className={styles.panel} data-manager-controls="true" aria-label="Team and view">
++      <label>Time Away team<select value={team} onChange={(event) => { setTeam(event.target.value);setDetail(null); }}>
+         <option value="">Select an authorised team</option>
+         {(authority?.managerTeams ?? []).filter((entry) => entry.actions?.includes("VIEW_REQUESTS"))
+-          .map((entry) => <option key={entry.id} value={entry.id}>{entry.name}</option>)}</select></label>}
++          .map((entry) => <option key={entry.id} value={entry.id}>{entry.name}</option>)}</select></label>
+       <div className={styles.grid}><label>From<input type="date" value={from} onChange={(event) => setFrom(event.target.value)} /></label>
+         <label>To<input type="date" value={to} onChange={(event) => setTo(event.target.value)} /></label></div>
+-      <div className={styles.list}>{items.map((item) => <button className={styles.request} key={item.id} onClick={() => openDetail(item.id)}>
+-        <span><strong>{item.categoryLabel}</strong><small>{view === "manager" ? `${item.personName} · ` : ""}{formatDay(item.startsOn)}–{formatDay(item.endsOn)}</small></span>
++      <div className={managerStyles.tabs} role="group" aria-label="Time Away view"><button type="button" aria-pressed={managerTab === "requests"} onClick={() => setManagerTab("requests")}>Requests</button>{authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_CALENDAR") && <button type="button" aria-pressed={managerTab === "calendar"} onClick={() => setManagerTab("calendar")}>Calendar</button>}</div>
++    </section>}
++    {view === "manager" && requestDetail}
++    {(view === "staff" || managerTab === "requests") && <section className={styles.panel}><div className={styles.sectionHead}><h2>{view === "staff" ? "My requests" : "Team requests"}</h2>
++      <span>{total} visible requests</span></div>
++      {view === "staff" && <div className={styles.grid}><label>From<input type="date" value={from} onChange={(event) => setFrom(event.target.value)} /></label>
++        <label>To<input type="date" value={to} onChange={(event) => setTo(event.target.value)} /></label></div>}
++      <div className={styles.list}>{items.map((item) => <button className={styles.request} key={item.id} aria-pressed={view === "manager" ? detail?.id === item.id : undefined} onClick={() => openDetail(item.id)}>
++        <span><strong>{view === "manager" ? item.personName : item.categoryLabel}</strong><small>{view === "manager" ? `${item.categoryLabel} · ` : ""}{formatDay(item.startsOn)}–{formatDay(item.endsOn)}</small></span>
+         <span className={styles.state}>{label[item.state] ?? item.state}</span></button>)}</div>
+       {!items.length && <p className={styles.muted}>No requests in this authorised view.</p>}
+-    </section>
+-
+-    {view === "manager" && authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_CALENDAR") && calendarBounds &&
++    </section>}
++
++    {view === "manager" && managerTab === "calendar" && authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_CALENDAR") && calendarBounds &&
+       <section className={styles.panel} aria-label="Time Away calendar">
+         <div className={styles.sectionHead}><h2>Team calendar</h2><label>Month<input type="month" value={calendarMonth}
+           onChange={(event) => setCalendarMonth(event.target.value)} /></label></div>
+         <p className={styles.muted}>Only requests bound to this exact authorised Time Away team are shown.</p>
+-        <div className={styles.calendar}>
++        <div className={styles.calendar} data-manager-calendar="true">
+           {dateSeries(calendarBounds.start, calendarBounds.end).map((day) => {
+             const visible = calendarItems.filter((item) => item.startsOn <= day && item.endsOn >= day);
+             return <div className={styles.calendarDay} key={day}><strong>{formatDay(day)}</strong>
+@@ -278,58 +336,9 @@
+         {calendarTotal > calendarItems.length && <p className={styles.muted}>Showing {calendarItems.length} of {calendarTotal} visible requests. Narrow the date range for complete results.</p>}
+       </section>}
+ 
+-    {detail && <section className={styles.panel} aria-label="Time Away request detail">
+-      <div className={styles.sectionHead}><h2>{detail.categoryLabel} — {label[detail.state] ?? detail.state}</h2><button className={styles.subtle} onClick={() => setDetail(null)}>Close</button></div>
+-      <p>{detail.personName}{detail.teamName ? ` · ${detail.teamName}` : ""}</p>
+-      <h3>Exact period</h3><ol>{detail.segments.map((segment, index) => <li key={index}>
+-        {formatDay(segment.date)} · {segment.kind === "WHOLE_DAY" ? "Whole day" : `${segment.startsLocal?.slice(0, 5)}–${segment.endsLocal?.slice(0, 5)} Europe/London`}</li>)}</ol>
+-      {detail.state === "CANCELLATION_REQUESTED" && <p className={styles.notice}>Cancellation requested. The approved period remains effective until an approver decides.</p>}
+-      {view === "staff" && <div className={styles.actions}>
+-        {detail.state === "DRAFT" && <button type="button" onClick={() => { setDraftId(detail.id);setDraftRevision(detail.revision);setCategory(detail.categoryCode);
+-          setSavedPreview(detail.segments.map((segment) => ({ ...segment,
+-            startsLocal: segment.startsLocal?.slice(0, 5), endsLocal: segment.endsLocal?.slice(0, 5) })));
+-          setMode(detail.segments.some((s) => s.kind === "PARTIAL_DAY") ? "PARTIAL_DAY" : "WHOLE_DAY");
+-          setStartDate(detail.segments[0]?.date ?? "");setEndDate(detail.segments.at(-1)?.date ?? "");
+-          setPartial(detail.segments.filter((s) => s.kind === "PARTIAL_DAY").map((s) => ({ date: s.date,
+-            startsLocal: s.startsLocal?.slice(0, 5) ?? "",endsLocal: s.endsLocal?.slice(0, 5) ?? "" }))); }}>Edit draft</button>}
+-        {detail.state === "SUBMITTED" && <button type="button" onClick={() => act("WITHDRAWN")}>Withdraw submitted request</button>}
+-        {detail.state === "APPROVED" && <button type="button" onClick={() => act("CANCELLATION_REQUESTED")}>Request cancellation</button>}
+-      </div>}
+-      {view === "manager" && <>
+-        {conflict && <div className={styles.preview}><h3>Existing allocations</h3>
+-          {conflict.allocations.length ? <ul>{conflict.allocations.map((row) => <li key={row.allocationId}>
+-            {formatMoment(row.reportAt)} · {row.source === "EVENT" ? "Event" : "Site shift"} · {row.duty} · {row.allocationResponse}
+-            {row.remainingPositions > 0 ? ` · ${row.remainingPositions} positions remain` : ""}</li>)}</ul>
+-            : <p>No active allocations overlap this period.</p>}
+-          <h3>Planning impact</h3><p>{conflict.activeAllocationCount} active {conflict.activeAllocationCount === 1 ? "allocation" : "allocations"} overlap · {conflict.affectedDutyCountWithRemainingPositions} affected {conflict.affectedDutyCountWithRemainingPositions === 1 ? "duty has" : "duties have"} remaining positions.</p>
+-          <p>No allocation has been changed.</p></div>}
+-        {(detail.state === "SUBMITTED" && managerActions.includes("DECIDE_REQUEST") ||
+-          detail.state === "CANCELLATION_REQUESTED" && managerActions.includes("DECIDE_CANCELLATION")) &&
+-          <div className={styles.stack}><div className={styles.grid}>
+-            <label>{detail.state === "SUBMITTED" ? "Reason if declined" : "Reason if cancellation rejected"}
+-              <select value={detail.state === "SUBMITTED"
+-                ? (["STAFFING_CONFLICT", "REQUEST_NOT_SUPPORTED", "OTHER"].includes(reason) ? reason : "REQUEST_NOT_SUPPORTED")
+-                : (["CANCELLATION_NOT_SUPPORTED", "OTHER"].includes(reason) ? reason : "CANCELLATION_NOT_SUPPORTED")}
+-                onChange={(event) => setReason(event.target.value)}>
+-                {detail.state === "SUBMITTED" ? <>
+-                  <option value="REQUEST_NOT_SUPPORTED">Request not supported</option>
+-                  <option value="STAFFING_CONFLICT">Staffing conflict</option>
+-                  <option value="OTHER">Other</option>
+-                </> : <>
+-                  <option value="CANCELLATION_NOT_SUPPORTED">Cancellation not supported</option>
+-                  <option value="OTHER">Other</option>
+-                </>}
+-              </select></label>
+-          </div><div className={styles.actions}>
+-            {detail.state === "SUBMITTED" ? <><button onClick={() => act("APPROVED")}>Approve</button><button className={styles.subtle} onClick={() => act("DECLINED")}>Decline</button></>
+-              : <><button onClick={() => act("CANCELLATION_APPROVED")}>Approve cancellation</button><button className={styles.subtle} onClick={() => act("CANCELLATION_REJECTED")}>Reject cancellation</button></>}
+-          </div></div>}
+-      </>}
+-      <h3>Immutable history</h3><ol>{detail.history.map((entry) => <li key={entry.revision}>
+-        {formatMoment(entry.occurredAt)} · {entry.kind.replaceAll("_", " ")}</li>)}</ol>
+-    </section>}
+-
+-    {view === "manager" && authority?.canAdmin && <section className={styles.panel}><div className={styles.sectionHead}>
++    {view === "staff" && requestDetail}
++
++    {view === "manager" && authority?.canAdmin && <section className={styles.panel} data-manager-admin="true"><div className={styles.sectionHead}>
+       <h2>Time Away authority</h2><button className={styles.subtle} onClick={async () => { try { setAdmin(await api("/api/time-away?mode=admin") as Admin); } catch (cause) { setError((cause as Error).message); } }}>Open administration</button></div>
+       {admin && <div className={styles.stack}>
+         <p>Administration changes team membership and grants only. It does not confer approval authority on your own account.</p>
+--- /dev/null
++++ b/src/components/time-away-manager.module.css
+@@ -0,0 +1,38 @@
++.page { width: 100%; max-width: 1200px; padding: 24px 32px 64px; gap: 24px; color: var(--kss-ink); }
++.page header { padding-bottom: 0; }
++.page header h1 { margin: 4px 0 8px; font-size: 32px; line-height: 1.15; letter-spacing: -.025em; }
++.page header p { font-size: 14px; line-height: 1.5; }
++.page > section { min-width: 0; padding: 24px; border-color: var(--kss-border); border-radius: 12px; background: white; box-shadow: none; }
++.page > section h2 { font-size: 21px; }
++.page > section h3 { font-size: 17px; }
++.page > section p,.page > section li { font-size: 14px; line-height: 1.5; }
++.page [data-manager-controls] { display: grid; grid-template-columns: minmax(220px,1fr) minmax(0,1.5fr); align-items: end; gap: 20px 24px; }
++.page label { font-size: 13px; }
++.page :is(input,select) { min-height: 44px; border-color: var(--kss-control-border); border-radius: 8px; background: white; color: var(--kss-ink); font-size: 15px; }
++.page button { min-height: 44px; border-radius: 8px; font-size: 14px; }
++.page button:hover:not(:disabled) { filter: none; }
++.page button:not([aria-pressed]):hover:not(:disabled) { border-color: var(--kss-blue-strong); }
++.tabs { display: flex; grid-column: 1 / -1; gap: 4px; padding-top: 16px; border-top: 1px solid var(--kss-border); }
++.tabs button { min-width: 120px; background: white; color: var(--kss-ink-soft); border-color: var(--kss-border); }
++.tabs button[aria-pressed="true"] { color: var(--kss-blue-strong); background: var(--kss-blue-soft); border-color: var(--kss-blue); }
++.page button[aria-pressed] { border-radius: 0; border: 0; border-bottom: 1px solid var(--kss-border); padding: 16px; }
++.page button[aria-pressed="true"] { background: var(--kss-blue-soft); }
++.page button[aria-pressed] strong { font-size: 16px; }
++.page button[aria-pressed] small { font-size: 14px; line-height: 1.5; }
++.page button[aria-pressed] > span:last-child { font-size: 12px; }
++.page [data-manager-calendar] { grid-template-columns: repeat(7,minmax(0,1fr)); gap: 0; border-left: 1px solid var(--kss-border); border-top: 1px solid var(--kss-border); }
++.page [data-manager-calendar] > div { min-height: 120px; border: 0; border-right: 1px solid var(--kss-border); border-bottom: 1px solid var(--kss-border); border-radius: 0; padding: 10px; }
++.page [data-manager-calendar] strong { font-size: 12px; }
++.page [data-manager-calendar] button,.page [data-manager-calendar] span { font-size: 12px; line-height: 1.5; padding: 8px; border-radius: 6px; background: var(--kss-blue-soft); color: var(--kss-ink); border-color: var(--kss-border); }
++.page [data-source-impact] { padding: 20px; background: var(--kss-surface-muted); border-color: var(--kss-border); border-radius: 8px; }
++.page [data-decision-confirmation] { padding: 20px; border: 1px solid var(--kss-border); border-radius: 8px; background: white; }
++.page [data-manager-detail] { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); gap: 16px 24px; align-items: start; }
++.page [data-manager-detail] > div:first-child { grid-column: 1 / -1; }
++.page [data-manager-detail] > :is(p,h3,ol) { grid-column: 1; }
++.page [data-manager-detail] > ol { font-size: 14px; }
++.page [data-manager-review] { display: grid; gap: 20px; grid-column: 2; grid-row: 2 / span 6; }
++.page [data-manager-review]:empty { display: none; }
++.page [data-manager-admin] { border-top-width: 2px; }
++.page :is(button,input,select):focus-visible { outline: 2px solid var(--kss-focus); outline-offset: 3px; }
++@media (max-width: 834px) { .page [data-manager-calendar] { grid-template-columns: repeat(3,minmax(0,1fr)); } }
++@media (max-width: 600px) { .page { padding: 20px 16px 64px; } .page header h1 { font-size: 28px; } .page > section { padding: 20px 16px; } .page [data-manager-controls] { grid-template-columns: minmax(0,1fr); } .page [data-manager-calendar] { grid-template-columns: minmax(0,1fr); } .page [data-manager-calendar] > div { min-height: 64px; } .page [data-manager-detail] { grid-template-columns: minmax(0,1fr); } .page [data-manager-review] { grid-column: 1; grid-row: auto; } .page [data-manager-detail] > div:first-child { align-items: start; } .tabs button { flex: 1; min-width: 0; } }

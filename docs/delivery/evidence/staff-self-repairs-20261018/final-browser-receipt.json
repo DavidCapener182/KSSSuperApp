@@ -1,0 +1,18 @@
+{
+  "status": "PASSED_SYNTHETIC_LOCAL_BROWSER",
+  "checks": 43,
+  "captures": 58,
+  "widths": [
+    1440,
+    834,
+    390,
+    320
+  ],
+  "externalRequests": 0,
+  "limitations": [
+    "Actual routes/components with synthetic server identity and mocked APIs",
+    "No hosted authentication/RPC/RLS/persistence",
+    "Before route-local source with published shared foundation",
+    "Real writes denied; all intercepted mutation requests synthetic only"
+  ]
+}

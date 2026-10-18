@@ -1,0 +1,18 @@
+.page { max-width: 1160px; gap: 24px; color: #182334; }
+.page :global(h1) { font-size: 32px; line-height: 1.15; letter-spacing: -.035em; }
+.page > section { min-width: 0; border-radius: 12px; box-shadow: none; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.toolbar p { max-width: 60ch; margin: 0; color: #475569; line-height: 1.6; }
+.toolbar a { min-height: 44px; display: inline-flex; align-items: center; padding: 10px 16px; background: #1769d2; color: white; border-radius: 8px; font-weight: 650; white-space: nowrap; }
+.toolbar a:hover { background: #0e56b3; }
+.page :global(button[aria-pressed="true"]) { border-color: #1769d2; background: #e8f1ff; }
+.page :global(button) { border-radius: 8px; }
+.page :global(button:hover:not(:disabled)) { filter: none; }
+.form { border: 1px solid #dce3ed; border-radius: 12px; background: #fff; min-width: 0; scroll-margin-block-start: 24px; }
+.form > summary { min-height: 56px; cursor: pointer; padding: 18px 24px; font-size: 16px; font-weight: 700; }
+.form > section { border: 0; border-top: 1px solid #dce3ed; border-radius: 0 0 12px 12px; box-shadow: none; }
+.form > section > h2 { display: none; }
+.detail { border-inline-start: 3px solid #1769d2 !important; }
+.confirmation { background: #f1f4f9 !important; }
+.page :global(a:focus-visible), .page summary:focus-visible { outline: 3px solid #1769d2; outline-offset: 3px; }
+@media(max-width: 600px) { .page { padding: 20px 16px 72px; gap: 20px; }.page :global(h1) { font-size: 28px; }.toolbar { align-items: stretch; flex-direction: column; gap: 12px; }.toolbar a { justify-content: center; }.page > section, .form > section { padding: 16px; }.form > summary { padding: 16px; }.page :global(section > div > button[aria-pressed]) { display: grid; grid-template-columns: minmax(0,1fr); gap: 10px; }.page :global(section > div > button[aria-pressed] > span:last-child) { justify-self: start; text-align: start; }.page :global(section > div > label) { min-width: 0; }.page :global(section > div) { min-width: 0; }.form :global(input), .form :global(select) { font-size: 16px; }.page :global(section > div > label) { width: 100%; } }

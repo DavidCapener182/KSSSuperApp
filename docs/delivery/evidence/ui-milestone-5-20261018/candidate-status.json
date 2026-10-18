@@ -1,0 +1,10 @@
+{
+  "status": "VERIFIED_LOCAL_AWAITING_COMMIT_PUSH",
+  "tests": 393,
+  "build": "pass",
+  "types": "pass",
+  "lintErrors": 0,
+  "existingLintWarnings": 1,
+  "parity": "14products/406nonowned/47browsercomparisons",
+  "published": false
+}

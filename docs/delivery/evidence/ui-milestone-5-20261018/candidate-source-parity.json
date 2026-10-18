@@ -1,0 +1,252 @@
+{
+  "productFilesMatched": 14,
+  "nonOwnedPublishedHashesMatched": 406,
+  "browserComparisonsMatched": 47,
+  "allProductFilesCovered": true,
+  "explicitUnusedHarnessFiles": [
+    {
+      "file": "src/components/work-time.module.css",
+      "reason": "Unreferenced Operations CSS copied by Staff harness; Staff imports work-time-self.module.css. Candidate preserves published Operations CSS unchanged.",
+      "runtimeSha256": "8bc6e40cb59f17af102ec27ab2f06693d52e19be941f908e6caec5a2f38201a1",
+      "publishedCandidateSha256": "01f36409174b26181c0cb84a31017569efd4ed7aacd44476373d08db155ec631"
+    }
+  ],
+  "comparisons": [
+    {
+      "packet": "hr",
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+    },
+    {
+      "packet": "hr",
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "packet": "hr",
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "packet": "hr",
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "packet": "hr",
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+    },
+    {
+      "packet": "hr",
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    },
+    {
+      "packet": "hr",
+      "file": "src/app/(enterprise)/time-away/page.tsx",
+      "sha256": "af2c89c7b2739e7b7d40047320be304851cbd5c1d2d191460cba035327ad66ee"
+    },
+    {
+      "packet": "hr",
+      "file": "src/components/time-away-client.tsx",
+      "sha256": "2e833f2f424235b5c5f96cbd1aec5db59ccf142e01e061c36bdfb7d323fad555"
+    },
+    {
+      "packet": "hr",
+      "file": "src/components/time-away-self.module.css",
+      "sha256": "e3e466b8af2508e766ce48b9f53c402cd78fa7a077ef1ea21d37feda9a3f2bdd"
+    },
+    {
+      "packet": "hr",
+      "file": "src/components/time-away-manager.module.css",
+      "sha256": "40bff000b346a7bc8f0776927580f23de9c3b43b03e5e31e0e46d540d5f5bab1"
+    },
+    {
+      "packet": "hr",
+      "file": "src/components/time-away.module.css",
+      "sha256": "3b786186b059c03214423758c62a24509971d719e91d98c846e237d94b9e8848"
+    },
+    {
+      "packet": "hr",
+      "file": "src/app/(enterprise)/hr/page.tsx",
+      "sha256": "3421aaac02db7846f474c6acd4bb6af30f92d1115011f90b98bd9acacdacdfdc"
+    },
+    {
+      "packet": "hr",
+      "file": "src/app/(enterprise)/hr/hr.css",
+      "sha256": "ad022b054ac1994aa122b7bf753bfeca9712a1cd2b922954c53986e6f08b2604"
+    },
+    {
+      "packet": "hr",
+      "file": "src/app/(enterprise)/credentials/page.tsx",
+      "sha256": "4c165d494cfc6d0704aeb21e18f866f184304cb80698e8c0f88f3504559c51c5"
+    },
+    {
+      "packet": "hr",
+      "file": "src/components/credentials-client.tsx",
+      "sha256": "75e226af77b2360d9e31c3a8f963b1bfe675c6d13c2c589f863d669fb809f0d4"
+    },
+    {
+      "packet": "hr",
+      "file": "src/components/credentials.module.css",
+      "sha256": "df81683842befd56f4723fec211b4b3cac8b01a34094fdb21ed294e2c837c2a4"
+    },
+    {
+      "packet": "hr",
+      "file": "src/lib/credentials/state.ts",
+      "sha256": "8a73c14a24ce2c25118c0937a191842231616ff93c30918f45dab83a435cc779"
+    },
+    {
+      "packet": "hr",
+      "file": "src/lib/profile/policy.ts",
+      "sha256": "3cd44ca0b0b1564a79e185d07fbe1d54ff8fc6af70dc9c7365bf0ad848cc9fc6"
+    },
+    {
+      "packet": "hr",
+      "file": "src/app/(enterprise)/profile/page.tsx",
+      "sha256": "ab7c1f0b1c902c23e15eb52aafba4f9e0af1ec3a76bbd8a7189e11c040fd3601"
+    },
+    {
+      "packet": "hr",
+      "file": "src/components/profile-client.tsx",
+      "sha256": "025d9467759c86d44c072e43cd7202f969d58a1eb99738a633891b051c705a39"
+    },
+    {
+      "packet": "hr",
+      "file": "src/components/ui/workflow.tsx",
+      "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b"
+    },
+    {
+      "packet": "hr",
+      "file": "src/components/ui/skeleton.tsx",
+      "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc"
+    },
+    {
+      "packet": "hr",
+      "file": "src/components/ui/badge.tsx",
+      "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801"
+    },
+    {
+      "packet": "hr",
+      "file": "src/components/profile-family.module.css",
+      "sha256": "550e89cb21ba44549ac8aa07fa269a53f2ae48c0df5912c24e5ee28cbe4b7644"
+    },
+    {
+      "packet": "staff",
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "packet": "staff",
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+    },
+    {
+      "packet": "staff",
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/my-availability-client.tsx",
+      "sha256": "b87b01c9b980064601c7c93e7ccc1c0d9512a351e507eead6487ae2f9863ea59"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/my-availability.module.css",
+      "sha256": "88e6f79cbd7b3e53d05eff7a022372471557db883e2490cbfcea676c7c5cc6dd"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/time-away-client.tsx",
+      "sha256": "2e833f2f424235b5c5f96cbd1aec5db59ccf142e01e061c36bdfb7d323fad555"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/time-away.module.css",
+      "sha256": "3b786186b059c03214423758c62a24509971d719e91d98c846e237d94b9e8848"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/time-away-manager.module.css",
+      "sha256": "40bff000b346a7bc8f0776927580f23de9c3b43b03e5e31e0e46d540d5f5bab1"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/my-work-time-client.tsx",
+      "sha256": "b6d45cfb29a429724b15a9590199e46b3787301038884874978dc35981391e04"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/time-away-self.module.css",
+      "sha256": "e3e466b8af2508e766ce48b9f53c402cd78fa7a077ef1ea21d37feda9a3f2bdd"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/work-time-self.module.css",
+      "sha256": "49c1b8df6ead31226c3619e98adc9bb2c7b43042028199fce6769053f3c33312"
+    },
+    {
+      "packet": "staff",
+      "file": "src/app/(enterprise)/my-availability/page.tsx",
+      "sha256": "7a6ece45e57b9fa57176478d7f47bf51153f9316d7d90e997dd1d5985b751cd1"
+    },
+    {
+      "packet": "staff",
+      "file": "src/app/(enterprise)/my-time-away/page.tsx",
+      "sha256": "4513e2a9ae30c679460ef5b36440abc15d89e79d7736c1cd716e734d08cc3a13"
+    },
+    {
+      "packet": "staff",
+      "file": "src/app/(enterprise)/my-work-time/page.tsx",
+      "sha256": "6094e6fd7dcda4228e5ac86d1b83423ddb6871b092839f640fec810d56cfae43"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/ui/badge.tsx",
+      "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/ui/input.tsx",
+      "sha256": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/ui/progress.tsx",
+      "sha256": "65fce8b61903cdaffbc2bf51c5b1f65b112bc553df7b37d450f766dac419b26c"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/ui/sheet.module.css",
+      "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/ui/skeleton.tsx",
+      "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc"
+    },
+    {
+      "packet": "staff",
+      "file": "src/components/ui/workflow.tsx",
+      "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b"
+    }
+  ],
+  "limits": "Exact source parity only; browser packets use synthetic boundaries, not hosted authentication/RPC/RLS"
+}

@@ -1,0 +1,67 @@
+{
+  "status": "LOCAL_VERIFIED_AWAITING_INTEGRATION",
+  "files": {
+    "src/components/my-availability-client.tsx": "b87b01c9b980064601c7c93e7ccc1c0d9512a351e507eead6487ae2f9863ea59",
+    "src/components/my-work-time-client.tsx": "b6d45cfb29a429724b15a9590199e46b3787301038884874978dc35981391e04",
+    "tests/ui-staff-self-readback-local.test.mjs": "cde11247bf2c506dacbb6521ceb2dca2dd098d666ed72b4ef3843b2333317c40",
+    "tests/ui-staff-self-boundaries-local.test.mjs": "de84a1a30d1e01b6bdffedb09c4a8130aa570b7e399371d47153a4689a3dfd0e",
+    "docs/delivery/STAFF-SELF-SOURCE-REPAIRS-20261018.md": "8445c87775d74f0363580be94be415dfcdc1211758c54cbb2af1ac5dd57b91bb"
+  },
+  "beforeHashes": {
+    "src/components/my-availability-client.tsx": "493384846b60e79602b375cc98ca001c7cfa0de36fe03f78297e460c7d6ca1f4",
+    "src/components/my-work-time-client.tsx": "663b1f00490688bb1185a27dc99509e1728159345f15aab93dc6587662e5efb0",
+    "tests/ui-staff-self-readback-local.test.mjs": null,
+    "tests/ui-staff-self-boundaries-local.test.mjs": null,
+    "docs/delivery/STAFF-SELF-SOURCE-REPAIRS-20261018.md": null
+  },
+  "localChecks": {
+    "results": {
+      "local-tests": 0,
+      "lint": 0,
+      "types": 0
+    },
+    "offlineFiles": [
+      "tests/ui-staff-self-readback-local.test.mjs",
+      "tests/ui-staff-self-boundaries-local.test.mjs"
+    ]
+  },
+  "counts": {
+    "componentSourceTests": 31,
+    "routeApiSourceTests": 23,
+    "passedOffline": 54,
+    "browserChecks": 43,
+    "browserReadbackSubvariants": 16,
+    "browserCaptures": 58,
+    "images": 116
+  },
+  "browserReceipt": {
+    "status": "PASSED_SYNTHETIC_LOCAL_BROWSER",
+    "checks": 43,
+    "captures": 58,
+    "widths": [
+      1440,
+      834,
+      390,
+      320
+    ],
+    "externalRequests": 0,
+    "limitations": [
+      "Actual routes/components with synthetic server identity and mocked APIs",
+      "No hosted authentication/RPC/RLS/persistence",
+      "Before route-local source with published shared foundation",
+      "Real writes denied; all intercepted mutation requests synthetic only"
+    ]
+  },
+  "preservation": {
+    "protectedTrackedSourceFiles": 409,
+    "integrationOwnedBaselineUnchanged": true,
+    "readOnlyCSSDependencies": "byte-identical",
+    "appSourceChanges": [
+      "src/components/my-availability-client.tsx",
+      "src/components/my-work-time-client.tsx"
+    ],
+    "APIAuthGlobalSQL": "unchanged",
+    "archiveHead": "810136361023ac513f8c484aee1a2bca3614ba3a"
+  },
+  "visualPacket": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/output/ui-staff-self-browser-20261018/visual-checkpoint02-final"
+}

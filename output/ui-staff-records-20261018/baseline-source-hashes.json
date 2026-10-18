@@ -1,0 +1,50 @@
+[
+  {
+    "file": "src/components/my-availability-client.tsx",
+    "sha256": "355d973a15e74ac0634b740711e589b15726fd8ba5e524be17dd1f890c590605"
+  },
+  {
+    "file": "src/components/my-availability.module.css",
+    "sha256": "d946ac9e7f1deda3bb7fa157773db796fcf1b9678298c7358a643afcc9067302"
+  },
+  {
+    "file": "src/components/time-away-client.tsx",
+    "sha256": "d38c35b1ac3d906d9c0caed2593a2124115dd0271af6939589626eb6558b3d28"
+  },
+  {
+    "file": "src/components/time-away.module.css",
+    "sha256": "3b786186b059c03214423758c62a24509971d719e91d98c846e237d94b9e8848"
+  },
+  {
+    "file": "src/components/time-away-manager.module.css",
+    "sha256": "40bff000b346a7bc8f0776927580f23de9c3b43b03e5e31e0e46d540d5f5bab1"
+  },
+  {
+    "file": "src/components/my-work-time-client.tsx",
+    "sha256": "631fb52ddf3c02ef2b22bb0fbb96148a18665edce18288805a91746730d1a9a8"
+  },
+  {
+    "file": "src/components/work-time.module.css",
+    "sha256": "01f36409174b26181c0cb84a31017569efd4ed7aacd44476373d08db155ec631"
+  },
+  {
+    "file": "src/app/(enterprise)/my-availability/page.tsx",
+    "sha256": "7a6ece45e57b9fa57176478d7f47bf51153f9316d7d90e997dd1d5985b751cd1"
+  },
+  {
+    "file": "src/app/(enterprise)/my-time-away/page.tsx",
+    "sha256": "4513e2a9ae30c679460ef5b36440abc15d89e79d7736c1cd716e734d08cc3a13"
+  },
+  {
+    "file": "src/app/(enterprise)/my-work-time/page.tsx",
+    "sha256": "6094e6fd7dcda4228e5ac86d1b83423ddb6871b092839f640fec810d56cfae43"
+  },
+  {
+    "file": "tests/ui-hr-credentials-local.test.mjs",
+    "sha256": "0c14303d93fd930b24f7b0bbd76c5508b760bc63c8bbb05af86762734084ed56"
+  },
+  {
+    "file": "tests/ui-staff-duty-local.test.mjs",
+    "sha256": "6ec39d5dbf609861239236974b490317182dda8de5e74e9fd6ccc9f3fc64a9a4"
+  }
+]

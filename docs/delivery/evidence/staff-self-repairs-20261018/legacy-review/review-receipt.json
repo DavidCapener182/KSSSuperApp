@@ -1,0 +1,31 @@
+{
+  "frozenAtUTC": "2026-10-18T03:54:10.121143+00:00",
+  "status": "ADAPTED_OFFLINE_17_PASS_AWAITING_ROOT_IMPORT",
+  "integrationLegacyUnchanged": true,
+  "testsBefore": 17,
+  "testsAfter": 17,
+  "files": [
+    {
+      "file": "ui-staff-records-local.test.mjs.txt",
+      "sha256": "1fa80694b51658cea9fc8be19b357a63e106208d07057e4c78308cfeab288fcf"
+    },
+    {
+      "file": "ui-staff-records-local.test.adapted.mjs.txt",
+      "sha256": "ee35f5aec5565dd43fae15f783e6f0615a9efd1e011049c24b4e6ea6fd93eccf"
+    },
+    {
+      "file": "legacy-fixture.patch",
+      "sha256": "4d4330c848e9a5cd41f561a8d88d1125cc9cc90a102fb65914de54b96dfe14ca"
+    },
+    {
+      "file": "legacy-fixture-revision.json",
+      "sha256": "111ba4b15c3d1e1ce7564c0019d1140b6aceaf1fc0a8229ef28062d22055db32"
+    },
+    {
+      "file": "adapted-run-final.tap",
+      "sha256": "3eef94553d191fa2d4b012fb800df03a22682e68fe55b3088997cc44804b90f9"
+    }
+  ],
+  "sourceModified": false,
+  "integrationModified": false
+}

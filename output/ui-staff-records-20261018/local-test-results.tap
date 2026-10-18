@@ -1,0 +1,67 @@
+(node:89517) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/src/lib/events/availability-time.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ London all-day ranges preserve 23/25-hour DST days and inclusive date selection (0.669666ms)
+✔ custom London times reject missing/ambiguous local clocks and support overnight ranges (0.168458ms)
+✔ rest of today starts at the current instant and ends at next London midnight (0.082916ms)
+(node:89518) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/src/lib/profile/policy.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Profile groups editable fields and retains separate sign-in/contact facts, error associations and active-case submission (38.890792ms)
+✔ Profile without active V2 case remains draft-only and legacy categories are not interchangeable (13.386792ms)
+✔ non-staff Profile remains a concise read-only identity route (7.30975ms)
+✔ Staff wallet retains exact accepted evidence submission, withdrawal and separate historical evidence (20.902708ms)
+✔ Reviewer queue preserves person deep link, exact Documents handoff and distinct decision/request controls (14.428917ms)
+✔ real credential state keeps changed drafts from inheriting a prior verification; finite grants remain Super-only (17.309ms)
+✔ HR four query views preserve actual role destinations and unavailable catalogues without downloads (32.060625ms)
+✔ Time Away manager selected record shows exact period/coverage next to gated decision; admin status grants no approval (21.539084ms)
+✔ Time Away cancellation request keeps effective period and separate cancellation decision rights (16.845542ms)
+✔ Time Away calendar-only authority shows facts without request-opening or decision controls (13.134916ms)
+✔ frozen HR checkpoint retains its Staff parity receipt; current U59 revision has separate manager-parity coverage (29.77425ms)
+✔ all source action/readback/approval functions and effects remain exact; source route guards stay exact (13.229167ms)
+✔ all preceding People, Onboarding and Work/Inbox frozen source files are preserved (1.523542ms)
+(node:89519) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/src/lib/events/workforce-week.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Schedule remains a page-scoped London agenda, preserving overnight time and exact source/return week links (41.920791ms)
+✔ Deployment offers prioritise response then accepted duties and keep inactive items behind history without response controls (16.765125ms)
+✔ Deployment decline dialog identifies selected source duty/time, reasons, pending controls and live error without falsely empty state (20.334375ms)
+✔ Attendance separates scheduled and recorded facts and exposes only the existing permitted action (12.341ms)
+✔ Attendance selection is an exact source pair and stale local selection cannot suppress a new exact route (27.313083ms)
+✔ Attendance retains allocated/inactive/no-show/cancelled-Event action boundaries and pending/history facts (10.118ms)
+✔ actual Deployment response keeps Site Shift revision payload and requires two exact readbacks before success (41.632292ms)
+✔ actual Deployment decline keeps reason/note/source and mismatched readback never confirms (42.042875ms)
+✔ all existing readers/action/idempotency/lifetime functions, effects, route guards and shared CSS are unchanged (14.318625ms)
+✔ all prior batches are intact except the explicitly receipted U59 staff Time Away revision (10.696667ms)
+(node:89520) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/src/lib/auth/capabilities.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Availability agenda scopes returned declarations and distinguishes Available/Unavailable without implying allocation (55.435459ms)
+✔ Availability preview preserves exact period, replacement and conflict acknowledgements before saving (17.383875ms)
+✔ Cancellation of available coverage repeats exact selected period and keeps required deployment acknowledgement (11.86225ms)
+✔ Time Away leads with My requests, then selected exact request and focused form; no membership remains draft-only (35.348459ms)
+✔ staff cancellation confirmation carries exact snapshot and stops confirmation after selection or revision changes (20.76125ms)
+✔ all manager markup remains byte-identical across selected, calendar, denied and administration states (37.472958ms)
+✔ Worked Time separates scheduled/actual evidence and explicit Work/Break editor with accurate overnight dates (11.126125ms)
+✔ Returned correction is directly above editor; submitted/approved/inactive records expose no edit actions (11.228625ms)
+✔ actual Availability save keeps exact preview revision/replacement/conflict fields and refresh failure is unconfirmed (9.909292ms)
+✔ actual staff Time Away confirmation uses exact selected revision and safe API action without changing manager functions (17.552166ms)
+✔ actual Worked Time save retains idempotency/revision/explicit intervals, never inferring attendance or subtracting breaks (12.892167ms)
+✔ all named request/readback/revision/idempotency functions, effects, pure guards and server role routes remain exact (18.123458ms)
+✔ new Time Away revision explicitly names its previous hash; all other frozen HR and prior batch sources remain intact (2.998334ms)
+✔ loading and unavailable staff records retain live feedback without inventing recorded facts (22.587584ms)
+✔ actual Available cancellation carries revision/conflict acknowledgement and preserves history refresh (8.452917ms)
+✔ actual Worked Time submission permits incomplete attendance, sends no inferred segments and rejects stale writes (8.171958ms)
+✔ actual server routes retain Staff-only role unions, denied/no-session boundaries and exact selected work allocation (24.979917ms)
+ℹ tests 43
+ℹ suites 0
+ℹ pass 43
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 467.805209

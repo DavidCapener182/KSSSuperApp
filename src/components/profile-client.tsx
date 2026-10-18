@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import styles from "./profile-family.module.css";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { FeedbackBanner, LoadingBlock, PageHeader } from "@/components/ui/workflow";
 import { PROFILE_FIELDS, SIA_CATEGORIES, SIA_LABELS, type ProfileField, type SiaCategory } from "@/lib/profile/policy";
@@ -110,7 +111,7 @@ export function ProfileClient() {
   }
   const profileState = selectedCase?.requirements.find((item) => item.code === "PERSONAL_DETAILS");
   const siaState = selectedCase?.requirements.find((item) => item.code === "SIA_LICENCE");
-  return <main className="enterprise-main profile-main">
+  return <main className={`enterprise-main profile-main ${styles.workspace}`}>
     <PageHeader eyebrow="Synthetic development onboarding" title="My Profile"
       description="Keep your Personal Details current and submit them for your onboarding case. Synthetic SIA details use a separate evidence workflow." />
     <p><Link href="/credentials">Open My Credentials — current 16B claims and history</Link></p>
@@ -128,19 +129,19 @@ export function ProfileClient() {
             <span className="onboarding-state">{profileState?.state.replaceAll("_", " ").toLowerCase() ?? "Draft"}</span></div>
           <p>{profileState?.nextAction ?? "Save your details as a draft until a V2 case is available."}</p>
           <form className="profile-form" onSubmit={(event) => void submitProfile(event)}>
-            {PROFILE_FIELDS.map((field) => <label key={field} className="ui-field">{fieldLabels[field]}{required.has(field) ? " *" : " (optional)"}
-              <input value={values[field]} autoComplete={field === "contact_email" ? "email" : field === "mobile" ? "tel" : "off"}
+            {[{title:"Personal details",fields:["legal_first_name","surname","preferred_name"]},{title:"Contact and address",fields:["contact_email","mobile","address_line1","address_line2","town_city","postcode"]}].map((group) => <fieldset className={styles.fieldGroup} key={group.title}><legend>{group.title}</legend>{PROFILE_FIELDS.filter((field) => group.fields.includes(field)).map((field) => <label key={field} className="ui-field">{fieldLabels[field]}{required.has(field) ? " *" : " (optional)"}
+              <input id={`profile-${field}`} aria-describedby={errors[field] ? `profile-${field}-error` : undefined} value={values[field]} autoComplete={field === "contact_email" ? "email" : field === "mobile" ? "tel" : "off"}
                 type={field === "contact_email" ? "email" : field === "mobile" ? "tel" : "text"}
                 maxLength={field === "contact_email" ? 254 : field.startsWith("address") ? 160 : 100}
                 onChange={(event) => setValues((previous) => ({ ...previous, [field]: event.target.value }))} aria-invalid={Boolean(errors[field])} />
-              {errors[field] && <small className="profile-field-error">{errors[field]}</small>}</label>)}
+              {errors[field] && <small id={`profile-${field}-error`} className="profile-field-error">{errors[field]}</small>}</label>)}</fieldset>)}
             <div className="profile-actions"><button type="button" className="ui-action ui-action--secondary" disabled={busy} onClick={() => void saveProfile()}>Save draft</button>
               <button type="submit" className="ui-action" disabled={busy || !selectedCase}>Submit for onboarding</button></div>
           </form>
           <p className="ui-help">Complete means required data was self-submitted. It does not mean identity, email ownership or address was verified.</p>
         </section>
         <section className="profile-card" aria-labelledby="sia-title">
-          <div className="profile-card-heading"><div><p className="eyebrow">Synthetic credential</p><h2 id="sia-title">SIA details</h2></div>
+          <div className="profile-card-heading"><div><p className="eyebrow">Historical onboarding workflow</p><h2 id="sia-title">Legacy synthetic SIA details</h2></div>
             <span className="onboarding-state">{siaState?.state.replaceAll("_", " ").toLowerCase() ?? "Draft"}</span></div>
           <p>{siaState?.nextAction ?? "Enter synthetic details for an active Template V2 case."}</p>
           <form className="profile-form" onSubmit={(event) => void submitSia(event)}>

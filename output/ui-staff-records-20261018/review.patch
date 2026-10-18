@@ -1,0 +1,420 @@
+--- a/src/components/my-availability-client.tsx
++++ b/src/components/my-availability-client.tsx
+@@ -3,7 +3,7 @@
+ import { useCallback, useEffect, useState } from "react";
+ import Link from "next/link";
+ import { Button } from "@/components/ui/button";
+-import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
++import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
+ import styles from "./my-availability.module.css";
+ 
+ type Declaration = { id: string; state: "AVAILABLE"|"UNAVAILABLE"; starts_at: string; ends_at: string;
+@@ -99,29 +99,29 @@
+   return <main className={`enterprise-main availability-self ${styles.workspace}`}>
+     <div className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Your future work</p><h1>My Availability</h1>
+       <p>Tell KSS when you can or cannot work. Availability does not allocate or accept a deployment.</p></div>
+-      <Button onClick={startEntry}>Add availability</Button></div>
++      <Button onClick={startEntry}>Declare availability</Button></div>
+     <p className="enterprise-honesty">No declaration means Not declared. Your allocations remain separate in <Link href="/my-deployments">My Deployments</Link>. <Link href="/my-time-away">Time Away requests</Link> are a separate decision workflow.</p>
+     {notice && <p role="status" className="enterprise-honesty">{notice}</p>}
+     {error && <p role="alert" className="enterprise-error">{error} <Button variant="outline" onClick={() => void load(offset)}>Reload</Button></p>}
+     {loading ? <p role="status" className="crm-skeleton">Loading availability…</p> : <>
+-      <section aria-label="Current availability"><h2>Upcoming declarations</h2>
++      <section className={styles.agenda} aria-label="Current availability"><header className={styles.sectionHead}><div><p className={styles.eyebrow}>Your declared periods</p><h2>Upcoming availability</h2></div><span>{current.length} on this page</span></header><p className={styles.scope}>Showing {items.length} of {total} declarations. No declaration means Not declared.</p>
+         {current.length === 0 ? <div className="crm-empty">Nothing declared for the upcoming period.</div> :
+-          <div className="availability-list">{current.map((item) => <article className="crm-panel availability-card" key={item.id}>
+-            <div><strong>{item.state === "AVAILABLE" ? "Available" : "Unavailable"}</strong><p>{format(item.starts_at)} → {format(item.ends_at)}</p>
++          <div className="availability-list">{current.map((item) => <article className={styles.declaration} data-declaration={item.state} key={item.id}>
++            <div><span className={styles.state}>{item.state === "AVAILABLE" ? "Available" : "Unavailable"}</span><p className={styles.period}>{format(item.starts_at)}<span aria-hidden="true"> → </span><span className={styles.periodEnd}>{format(item.ends_at)}</span></p>
+               {item.note && <p className="availability-note">Your note: {item.note}</p>}</div>
+-            <div className="availability-actions"><Button variant="outline" disabled={busy || new Date(item.starts_at) <= new Date()} onClick={() => changeEntry(item)}>Change</Button>
+-              <Button variant="outline" disabled={busy || new Date(item.starts_at) <= new Date()} onClick={() => void reviewCancel(item)}>Cancel</Button></div>
++            <div className={styles.actions}><Button variant="outline" disabled={busy || new Date(item.starts_at) <= new Date()} onClick={() => changeEntry(item)}>Change</Button>
++              <Button variant="outline" disabled={busy || new Date(item.starts_at) <= new Date()} onClick={() => void reviewCancel(item)}>Cancel future declaration</Button></div>
+           </article>)}</div>}</section>
+-      <details className="deployment-history"><summary>History · {historyTotal} changes</summary>
+-        <div className="availability-list">{history.map((event) => <article className="crm-panel availability-card" key={event.id}>
++      <details className={styles.history}><summary>History · {historyTotal} changes</summary>
++        <div className={styles.historyList}>{history.map((event) => <article className={styles.historyEntry} key={event.id}>
+           <div><strong>{event.kind.replaceAll("_", " ").toLowerCase()}</strong><p>{format(event.occurred_at)}</p>
+-            <small>{event.new_state ?? event.old_state} · {event.new_starts_at ? format(event.new_starts_at) : event.old_starts_at ? format(event.old_starts_at) : ""}</small></div></article>)}</div>
++            <small>{event.new_state ?? event.old_state} · {event.new_starts_at ? format(event.new_starts_at) : event.old_starts_at ? format(event.old_starts_at) : ""} → {event.new_ends_at ? format(event.new_ends_at) : event.old_ends_at ? format(event.old_ends_at) : ""}</small></div></article>)}</div>
+         {historyTotal > 25 && <p className="enterprise-honesty">Showing the latest 25 changes.</p>}
+       </details>
+       {past.length > 0 && <p className="enterprise-honesty">{past.length} earlier declarations on this page are retained in history.</p>}
+       {total > 25 && <div className="deployment-pagination"><Button variant="outline" disabled={offset === 0} onClick={() => void load(Math.max(0, offset - 25))}>Previous</Button><span>{offset + 1}–{Math.min(offset + 25, total)} of {total}</span><Button variant="outline" disabled={offset + 25 >= total} onClick={() => void load(offset + 25)}>Next</Button></div>}
+     </>}
+-    <Sheet open={open} onOpenChange={(value) => { if (!value && !busy) setOpen(false); }}><SheetContent className={`staffing-sheet availability-sheet ${styles.sheet}`}><SheetTitle>Declare availability</SheetTitle>
++    <Sheet open={open} onOpenChange={(value) => { if (!value && !busy) setOpen(false); }}><SheetContent className={`staffing-sheet availability-sheet ${styles.sheet}`}><SheetTitle>Declare availability</SheetTitle><SheetDescription>Choose a declaration and period, then review the exact times, replaced ranges and any deployment conflicts before saving.</SheetDescription>
+       <div className="availability-form"><label>Declaration<select value={state} onChange={(event) => { setState(event.target.value as typeof state); setPreview(null); }}><option value="AVAILABLE">Available</option><option value="UNAVAILABLE">Unavailable</option></select></label>
+         <label>Range<select value={mode} onChange={(event) => { setMode(event.target.value as typeof mode); setPreview(null); }}><option value="ALL_DAY">Whole day or days</option><option value="CUSTOM">Custom London times</option><option value="REST_TODAY">Rest of today</option></select></label>
+         {mode === "ALL_DAY" && <><label>First day<input type="date" value={startDate} onChange={(event) => { setStartDate(event.target.value); setPreview(null); }} /></label>
+@@ -142,7 +142,7 @@
+           (preview.deployments.length > 0 && (state === "UNAVAILABLE" || preview.replaced.length > 0) && !ackConflict)} onClick={() => void save()}>Save declaration</Button></div></div>}
+       {error && <p role="alert" className="enterprise-error">{error}</p>}
+     </SheetContent></Sheet>
+-    <Sheet open={Boolean(cancelling)} onOpenChange={(value) => { if (!value && !busy) setCancelling(null); }}><SheetContent className={`staffing-sheet ${styles.sheet}`}><SheetTitle>Cancel future declaration?</SheetTitle>
++    <Sheet open={Boolean(cancelling)} onOpenChange={(value) => { if (!value && !busy) setCancelling(null); }}><SheetContent className={`staffing-sheet ${styles.sheet}`}><SheetTitle>Cancel future declaration?</SheetTitle><SheetDescription>{cancelling?.state === "AVAILABLE" ? "Available" : "Unavailable"} · {cancelling ? `${format(cancelling.starts_at)} → ${format(cancelling.ends_at)}` : ""}</SheetDescription>
+       <p>The declaration will leave current availability. Its history remains attributable. Any deployment stays unchanged.</p>
+       {cancelling?.state === "AVAILABLE" && cancelPreview && cancelPreview.deployments.length > 0 && <><p className="enterprise-error">These existing deployments may no longer have declared coverage:</p>
+         <ul>{cancelPreview.deployments.map((item) => <li key={item.id}>{item.event_name} · {format(item.report_at)} · {item.status}</li>)}</ul>
+--- a/src/components/my-availability.module.css
++++ b/src/components/my-availability.module.css
+@@ -1,56 +1,25 @@
+-.workspace {
+-  min-width: 0;
+-}
+-
+-.workspace :global(.availability-actions button),
+-.workspace :global(.enterprise-page-heading button),
+-.workspace :global(.deployment-pagination button) {
+-  min-height: 44px;
+-}
+-
+-.workspace :global(.enterprise-honesty a) {
+-  display: inline-flex;
+-  min-height: 44px;
+-  align-items: center;
+-  margin-inline-end: 2px;
+-}
+-
+-.workspace :global(.availability-card) {
+-  min-width: 0;
+-}
+-
+-.workspace :global(.availability-card p) {
+-  line-height: 1.55;
+-  overflow-wrap: anywhere;
+-}
+-
+-.workspace :global(.deployment-history summary) {
+-  min-height: 44px;
+-  padding-block: 12px;
+-  cursor: pointer;
+-}
+-
+-.workspace :global(a:focus-visible),
+-.workspace :global(button:focus-visible),
+-.workspace :global(summary:focus-visible) {
+-  outline: 3px solid var(--kss-blue);
+-  outline-offset: 3px;
+-}
+-
+-.sheet button {
+-  min-width: 44px;
+-}
+-
+-.sheet button,
+-.sheet input,
+-.sheet select {
+-  min-height: 44px;
+-}
+-
+-.sheet button:focus-visible,
+-.sheet input:focus-visible,
+-.sheet select:focus-visible,
+-.sheet textarea:focus-visible {
+-  outline: 3px solid var(--kss-blue);
+-  outline-offset: 3px;
+-}
++.workspace { min-width: 0; display: grid; gap: 24px; }
++.agenda { min-width: 0; border: 1px solid #dce3ed; border-radius: 12px; background: #fff; overflow: hidden; }
++.sectionHead { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px 8px; }
++.sectionHead h2 { margin: 3px 0; font-size: 20px; letter-spacing: -.025em; }
++.sectionHead > span, .scope { color: #475569; font-size: 13px; }
++.eyebrow { margin: 0; font-size: 12px; font-weight: 700; color: #64748b; }
++.scope { margin: 0; padding: 0 24px 20px; }
++.declaration { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 24px; padding: 20px 24px; border-top: 1px solid #dce3ed; min-width: 0; }
++.declaration[data-declaration="UNAVAILABLE"] { border-inline-start: 4px double #64748b; padding-inline-start: 20px; }
++.state { display: inline-block; padding: 4px 8px; border: 1px solid #dce3ed; border-radius: 6px; color: #182334; background: #f1f4f9; font-size: 13px; font-weight: 700; }
++.period { margin: 10px 0 0; color: #182334; font-size: 15px; font-weight: 600; line-height: 1.6; overflow-wrap: anywhere; }
++.actions { display: flex; flex-wrap: wrap; gap: 8px; }
++.history { border-block: 1px solid #dce3ed; padding-block: 8px; }
++.history summary { min-height: 44px; padding: 12px 4px; cursor: pointer; font-weight: 600; }
++.historyList { display: grid; }
++.historyEntry { padding: 16px 4px; border-top: 1px solid #dce3ed; line-height: 1.6; overflow-wrap: anywhere; }
++.historyEntry p { margin: 4px 0; color: #475569; }
++.historyEntry small { color: #475569; font-size: 13px; }
++.workspace button, .sheet button, .sheet input, .sheet select { min-height: 44px; }
++.workspace :global(.enterprise-honesty a) { display: inline-flex; min-height: 44px; align-items: center; }
++.workspace :global(a:focus-visible), .workspace :global(button:focus-visible), .workspace summary:focus-visible, .sheet button:focus-visible, .sheet input:focus-visible, .sheet select:focus-visible, .sheet textarea:focus-visible { outline: 3px solid #1769d2; outline-offset: 3px; }
++.sheet { max-width: 640px; }
++.sheet :global(.availability-form) { margin-block: 24px; }
++.sheet :global(.availability-preview) { background: #f1f4f9; border: 1px solid #dce3ed; border-radius: 12px; padding: 20px; }
++@media(max-width: 700px) { .sectionHead { align-items: start; padding: 16px 16px 8px; flex-wrap: wrap; }.scope { padding: 0 16px 16px; }.declaration { grid-template-columns: minmax(0,1fr); gap: 12px; padding: 16px; }.declaration[data-declaration="UNAVAILABLE"] { padding-inline-start: 12px; }.periodEnd { display: block; }.actions button { flex: 1; }.sheet { max-width: 100%; }.sheet :global(.availability-form) { grid-template-columns: minmax(0,1fr); } }
+--- a/src/components/time-away-client.tsx
++++ b/src/components/time-away-client.tsx
+@@ -4,6 +4,7 @@
+ import Link from "next/link";
+ import styles from "./time-away.module.css";
+ import managerStyles from "./time-away-manager.module.css";
++import staffStyles from "./time-away-self.module.css";
+ 
+ type Team = { id: string; name: string; actions?: string[] };
+ type Category = { code: string; version: number; label: string };
+@@ -205,24 +206,26 @@
+     } catch (cause) { setError((cause as Error).message); }
+   }
+ 
++  const [staffFormOpen, setStaffFormOpen] = useState(false);
++  const [staffConfirmation, setStaffConfirmation] = useState<{ action: "WITHDRAWN" | "CANCELLATION_REQUESTED"; target: Detail } | null>(null);
+   const [managerTab, setManagerTab] = useState<"requests" | "calendar">("requests");
+   const managerActions = authority?.managerTeams.find((entry) => entry.id === detail?.teamId)?.actions ?? [];
+-  const requestDetail = detail && <section className={styles.panel} data-manager-detail={view === "manager" ? "true" : undefined} aria-label="Time Away request detail">
++  const requestDetail = detail && <section className={`${styles.panel}${view === "staff" ? ` ${staffStyles.detail}` : ""}`} data-manager-detail={view === "manager" ? "true" : undefined} aria-label="Time Away request detail">
+       <div className={styles.sectionHead}><h2>{detail.categoryLabel} — {label[detail.state] ?? detail.state}</h2><button className={styles.subtle} onClick={() => setDetail(null)}>Close</button></div>
+       <p>{detail.personName}{detail.teamName ? ` · ${detail.teamName}` : ""}</p>
+       <h3>Exact period</h3><ol>{detail.segments.map((segment, index) => <li key={index}>
+         {formatDay(segment.date)} · {segment.kind === "WHOLE_DAY" ? "Whole day" : `${segment.startsLocal?.slice(0, 5)}–${segment.endsLocal?.slice(0, 5)} Europe/London`}</li>)}</ol>
+       {detail.state === "CANCELLATION_REQUESTED" && <p className={styles.notice}>Cancellation requested. The approved period remains effective until an approver decides.</p>}
+       {view === "staff" && <div className={styles.actions}>
+-        {detail.state === "DRAFT" && <button type="button" onClick={() => { setDraftId(detail.id);setDraftRevision(detail.revision);setCategory(detail.categoryCode);
++        {detail.state === "DRAFT" && <button type="button" onClick={() => { setStaffFormOpen(true);setDraftId(detail.id);setDraftRevision(detail.revision);setCategory(detail.categoryCode);
+           setSavedPreview(detail.segments.map((segment) => ({ ...segment,
+             startsLocal: segment.startsLocal?.slice(0, 5), endsLocal: segment.endsLocal?.slice(0, 5) })));
+           setMode(detail.segments.some((s) => s.kind === "PARTIAL_DAY") ? "PARTIAL_DAY" : "WHOLE_DAY");
+           setStartDate(detail.segments[0]?.date ?? "");setEndDate(detail.segments.at(-1)?.date ?? "");
+           setPartial(detail.segments.filter((s) => s.kind === "PARTIAL_DAY").map((s) => ({ date: s.date,
+             startsLocal: s.startsLocal?.slice(0, 5) ?? "",endsLocal: s.endsLocal?.slice(0, 5) ?? "" }))); }}>Edit draft</button>}
+-        {detail.state === "SUBMITTED" && <button type="button" onClick={() => act("WITHDRAWN")}>Withdraw submitted request</button>}
+-        {detail.state === "APPROVED" && <button type="button" onClick={() => act("CANCELLATION_REQUESTED")}>Request cancellation</button>}
++        {detail.state === "SUBMITTED" && <button type="button" onClick={() => setStaffConfirmation({ action: "WITHDRAWN", target: detail })}>Withdraw submitted request</button>}
++        {detail.state === "APPROVED" && <button type="button" onClick={() => setStaffConfirmation({ action: "CANCELLATION_REQUESTED", target: detail })}>Request cancellation</button>}
+       </div>}
+       {view === "manager" && <aside data-manager-review="true">
+         {conflict && <div className={styles.preview} data-source-impact="true"><h3>Existing allocations</h3>
+@@ -257,7 +260,7 @@
+       <h3>Immutable history</h3><ol>{detail.history.map((entry) => <li key={entry.revision}>
+         {formatMoment(entry.occurredAt)} · {entry.kind.replaceAll("_", " ")}</li>)}</ol>
+     </section>;
+-  return <main className={`${styles.page}${view === "manager" ? ` ${managerStyles.page}` : ""}`}>
++  return <main className={`${styles.page}${view === "manager" ? ` ${managerStyles.page}` : ` ${staffStyles.page}`}`}>
+     <header className={styles.header}><div><p className={styles.eyebrow}>Workforce · synthetic Dev</p>
+       <h1>{view === "staff" ? "My Time Away" : "Time Away requests"}</h1>
+       <p>Requests and decisions are separate from Availability, allocations, attendance and pay.</p></div></header>
+@@ -265,7 +268,53 @@
+     {error && <p className={styles.error} role="alert">{error}</p>}
+     {notice && <p className={styles.notice} role="status">{notice}</p>}
+ 
+-    {view === "staff" && <section className={styles.panel} aria-label="New Time Away request">
++
++
++    {view === "manager" && <section className={styles.panel} data-manager-controls="true" aria-label="Team and view">
++      <label>Time Away team<select value={team} onChange={(event) => { setTeam(event.target.value);setDetail(null); }}>
++        <option value="">Select an authorised team</option>
++        {(authority?.managerTeams ?? []).filter((entry) => entry.actions?.includes("VIEW_REQUESTS"))
++          .map((entry) => <option key={entry.id} value={entry.id}>{entry.name}</option>)}</select></label>
++      <div className={styles.grid}><label>From<input type="date" value={from} onChange={(event) => setFrom(event.target.value)} /></label>
++        <label>To<input type="date" value={to} onChange={(event) => setTo(event.target.value)} /></label></div>
++      <div className={managerStyles.tabs} role="group" aria-label="Time Away view"><button type="button" aria-pressed={managerTab === "requests"} onClick={() => setManagerTab("requests")}>Requests</button>{authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_CALENDAR") && <button type="button" aria-pressed={managerTab === "calendar"} onClick={() => setManagerTab("calendar")}>Calendar</button>}</div>
++    </section>}
++    {view === "manager" && requestDetail}
++    {view === "staff" && <div className={staffStyles.toolbar}><p>Review a request or start a draft. Your exact covered dates stay attached to each request.</p><a href="#time-away-request-form" onClick={() => setStaffFormOpen(true)}>New request</a></div>}
++    {(view === "staff" || managerTab === "requests") && <section className={styles.panel}><div className={styles.sectionHead}><h2>{view === "staff" ? "My requests" : "Team requests"}</h2>
++      <span>{total} visible requests</span></div>
++      {view === "staff" && <div className={styles.grid}><label>From<input type="date" value={from} onChange={(event) => setFrom(event.target.value)} /></label>
++        <label>To<input type="date" value={to} onChange={(event) => setTo(event.target.value)} /></label></div>}
++      <div className={styles.list}>{items.map((item) => <button className={styles.request} key={item.id} aria-pressed={detail?.id === item.id} onClick={() => openDetail(item.id)}>
++        <span><strong>{view === "manager" ? item.personName : item.categoryLabel}</strong><small>{view === "manager" ? `${item.categoryLabel} · ` : ""}{formatDay(item.startsOn)}–{formatDay(item.endsOn)}</small></span>
++        <span className={styles.state}>{label[item.state] ?? item.state}</span></button>)}</div>
++      {!items.length && <p className={styles.muted}>No requests in this authorised view.</p>}
++    </section>}
++
++    {view === "manager" && managerTab === "calendar" && authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_CALENDAR") && calendarBounds &&
++      <section className={styles.panel} aria-label="Time Away calendar">
++        <div className={styles.sectionHead}><h2>Team calendar</h2><label>Month<input type="month" value={calendarMonth}
++          onChange={(event) => setCalendarMonth(event.target.value)} /></label></div>
++        <p className={styles.muted}>Only requests bound to this exact authorised Time Away team are shown.</p>
++        <div className={styles.calendar} data-manager-calendar="true">
++          {dateSeries(calendarBounds.start, calendarBounds.end).map((day) => {
++            const visible = calendarItems.filter((item) => item.startsOn <= day && item.endsOn >= day);
++            return <div className={styles.calendarDay} key={day}><strong>{formatDay(day)}</strong>
++              {visible.map((item) => { const onDay = (item.segments ?? []).filter((segment) => segment.date === day);
++                const times = onDay.some((segment) => segment.kind === "WHOLE_DAY") ? "Whole day"
++                  : onDay.map((segment) => `${segment.startsLocal?.slice(0, 5)}–${segment.endsLocal?.slice(0, 5)}`).join(", ");
++                const content = `${item.personName} · ${item.categoryLabel} · ${times || "Time away"} · ${label[item.state] ?? item.state}`;
++                return authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_REQUESTS")
++                  ? <button type="button" key={item.id} onClick={() => openDetail(item.id)}>{content}</button>
++                  : <span className={styles.calendarFact} key={item.id}>{content}</span>; })}</div>;
++          })}
++        </div>
++        {calendarTotal > calendarItems.length && <p className={styles.muted}>Showing {calendarItems.length} of {calendarTotal} visible requests. Narrow the date range for complete results.</p>}
++      </section>}
++
++    {view === "staff" && requestDetail}
++    {view === "staff" && staffConfirmation && <section className={`${styles.panel} ${staffStyles.confirmation}`} role="region" aria-label="Confirm request change"><h2>{staffConfirmation.action === "WITHDRAWN" ? "Withdraw submitted request?" : "Request cancellation?"}</h2><p>{staffConfirmation.target.categoryLabel} · {formatDay(staffConfirmation.target.startsOn)}–{formatDay(staffConfirmation.target.endsOn)} · Revision {staffConfirmation.target.revision}</p><ol>{staffConfirmation.target.segments.map((segment, index) => <li key={index}>{formatDay(segment.date)} · {segment.kind === "WHOLE_DAY" ? "Whole day" : `${segment.startsLocal?.slice(0, 5)}–${segment.endsLocal?.slice(0, 5)} Europe/London`}</li>)}</ol><p>{staffConfirmation.action === "CANCELLATION_REQUESTED" ? "The approved period remains effective until an approver decides." : "This withdraws the selected submitted request. Availability and allocations remain separate."}</p><div className={styles.actions}><button type="button" className={styles.subtle} onClick={() => setStaffConfirmation(null)}>Keep request</button><button type="button" disabled={detail?.id !== staffConfirmation.target.id || detail?.revision !== staffConfirmation.target.revision} onClick={() => { const selected = staffConfirmation;setStaffConfirmation(null);void act(selected.action, selected.target); }}>Confirm {staffConfirmation.action === "WITHDRAWN" ? "withdrawal" : "cancellation request"}</button></div></section>}
++    {view === "staff" && <details className={staffStyles.form} id="time-away-request-form" open={staffFormOpen} onToggle={(event) => setStaffFormOpen(event.currentTarget.open)}><summary>New request · category and period</summary><section className={styles.panel} aria-label="New Time Away request">
+       <h2>New request</h2><p>Choose a category label and preview each covered date before submission.</p>
+       <div className={styles.grid}>
+         <label>Category<select value={category} onChange={(event) => setCategory(event.target.value)}>
+@@ -293,50 +342,7 @@
+           {(authority?.myTeams ?? []).map((entry) => <option key={entry.id} value={entry.id}>{entry.name}</option>)}</select></label>
+           <button type="button" onClick={submit} disabled={!authority?.myTeams.length || !draftMatchesPreview}>Submit request</button></>}</div>
+       {!authority?.myTeams.length && <p className={styles.muted}>A draft can be saved now. An administrator must configure your Time Away team before submission.</p>}
+-    </section>}
+-
+-    {view === "manager" && <section className={styles.panel} data-manager-controls="true" aria-label="Team and view">
+-      <label>Time Away team<select value={team} onChange={(event) => { setTeam(event.target.value);setDetail(null); }}>
+-        <option value="">Select an authorised team</option>
+-        {(authority?.managerTeams ?? []).filter((entry) => entry.actions?.includes("VIEW_REQUESTS"))
+-          .map((entry) => <option key={entry.id} value={entry.id}>{entry.name}</option>)}</select></label>
+-      <div className={styles.grid}><label>From<input type="date" value={from} onChange={(event) => setFrom(event.target.value)} /></label>
+-        <label>To<input type="date" value={to} onChange={(event) => setTo(event.target.value)} /></label></div>
+-      <div className={managerStyles.tabs} role="group" aria-label="Time Away view"><button type="button" aria-pressed={managerTab === "requests"} onClick={() => setManagerTab("requests")}>Requests</button>{authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_CALENDAR") && <button type="button" aria-pressed={managerTab === "calendar"} onClick={() => setManagerTab("calendar")}>Calendar</button>}</div>
+-    </section>}
+-    {view === "manager" && requestDetail}
+-    {(view === "staff" || managerTab === "requests") && <section className={styles.panel}><div className={styles.sectionHead}><h2>{view === "staff" ? "My requests" : "Team requests"}</h2>
+-      <span>{total} visible requests</span></div>
+-      {view === "staff" && <div className={styles.grid}><label>From<input type="date" value={from} onChange={(event) => setFrom(event.target.value)} /></label>
+-        <label>To<input type="date" value={to} onChange={(event) => setTo(event.target.value)} /></label></div>}
+-      <div className={styles.list}>{items.map((item) => <button className={styles.request} key={item.id} aria-pressed={view === "manager" ? detail?.id === item.id : undefined} onClick={() => openDetail(item.id)}>
+-        <span><strong>{view === "manager" ? item.personName : item.categoryLabel}</strong><small>{view === "manager" ? `${item.categoryLabel} · ` : ""}{formatDay(item.startsOn)}–{formatDay(item.endsOn)}</small></span>
+-        <span className={styles.state}>{label[item.state] ?? item.state}</span></button>)}</div>
+-      {!items.length && <p className={styles.muted}>No requests in this authorised view.</p>}
+-    </section>}
+-
+-    {view === "manager" && managerTab === "calendar" && authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_CALENDAR") && calendarBounds &&
+-      <section className={styles.panel} aria-label="Time Away calendar">
+-        <div className={styles.sectionHead}><h2>Team calendar</h2><label>Month<input type="month" value={calendarMonth}
+-          onChange={(event) => setCalendarMonth(event.target.value)} /></label></div>
+-        <p className={styles.muted}>Only requests bound to this exact authorised Time Away team are shown.</p>
+-        <div className={styles.calendar} data-manager-calendar="true">
+-          {dateSeries(calendarBounds.start, calendarBounds.end).map((day) => {
+-            const visible = calendarItems.filter((item) => item.startsOn <= day && item.endsOn >= day);
+-            return <div className={styles.calendarDay} key={day}><strong>{formatDay(day)}</strong>
+-              {visible.map((item) => { const onDay = (item.segments ?? []).filter((segment) => segment.date === day);
+-                const times = onDay.some((segment) => segment.kind === "WHOLE_DAY") ? "Whole day"
+-                  : onDay.map((segment) => `${segment.startsLocal?.slice(0, 5)}–${segment.endsLocal?.slice(0, 5)}`).join(", ");
+-                const content = `${item.personName} · ${item.categoryLabel} · ${times || "Time away"} · ${label[item.state] ?? item.state}`;
+-                return authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_REQUESTS")
+-                  ? <button type="button" key={item.id} onClick={() => openDetail(item.id)}>{content}</button>
+-                  : <span className={styles.calendarFact} key={item.id}>{content}</span>; })}</div>;
+-          })}
+-        </div>
+-        {calendarTotal > calendarItems.length && <p className={styles.muted}>Showing {calendarItems.length} of {calendarTotal} visible requests. Narrow the date range for complete results.</p>}
+-      </section>}
+-
+-    {view === "staff" && requestDetail}
++    </section></details>}
+ 
+     {view === "manager" && authority?.canAdmin && <section className={styles.panel} data-manager-admin="true"><div className={styles.sectionHead}>
+       <h2>Time Away authority</h2><button className={styles.subtle} onClick={async () => { try { setAdmin(await api("/api/time-away?mode=admin") as Admin); } catch (cause) { setError((cause as Error).message); } }}>Open administration</button></div>
+--- /dev/null
++++ b/src/components/time-away-self.module.css
+@@ -0,0 +1,18 @@
++.page { max-width: 1160px; gap: 24px; color: #182334; }
++.page :global(h1) { font-size: 32px; line-height: 1.15; letter-spacing: -.035em; }
++.page > section { min-width: 0; border-radius: 12px; box-shadow: none; }
++.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
++.toolbar p { max-width: 60ch; margin: 0; color: #475569; line-height: 1.6; }
++.toolbar a { min-height: 44px; display: inline-flex; align-items: center; padding: 10px 16px; background: #1769d2; color: white; border-radius: 8px; font-weight: 650; white-space: nowrap; }
++.toolbar a:hover { background: #0e56b3; }
++.page :global(button[aria-pressed="true"]) { border-color: #1769d2; background: #e8f1ff; }
++.page :global(button) { border-radius: 8px; }
++.page :global(button:hover:not(:disabled)) { filter: none; }
++.form { border: 1px solid #dce3ed; border-radius: 12px; background: #fff; min-width: 0; scroll-margin-block-start: 24px; }
++.form > summary { min-height: 56px; cursor: pointer; padding: 18px 24px; font-size: 16px; font-weight: 700; }
++.form > section { border: 0; border-top: 1px solid #dce3ed; border-radius: 0 0 12px 12px; box-shadow: none; }
++.form > section > h2 { display: none; }
++.detail { border-inline-start: 3px solid #1769d2 !important; }
++.confirmation { background: #f1f4f9 !important; }
++.page :global(a:focus-visible), .page summary:focus-visible { outline: 3px solid #1769d2; outline-offset: 3px; }
++@media(max-width: 600px) { .page { padding: 20px 16px 72px; gap: 20px; }.page :global(h1) { font-size: 28px; }.toolbar { align-items: stretch; flex-direction: column; gap: 12px; }.toolbar a { justify-content: center; }.page > section, .form > section { padding: 16px; }.form > summary { padding: 16px; }.page :global(section > div > button[aria-pressed]) { display: grid; grid-template-columns: minmax(0,1fr); gap: 10px; }.page :global(section > div > button[aria-pressed] > span:last-child) { justify-self: start; text-align: start; }.page :global(section > div > label) { min-width: 0; }.page :global(section > div) { min-width: 0; }.form :global(input), .form :global(select) { font-size: 16px; }.page :global(section > div > label) { width: 100%; } }
+--- a/src/components/my-work-time-client.tsx
++++ b/src/components/my-work-time-client.tsx
+@@ -3,7 +3,7 @@
+ import { useCallback, useEffect, useState } from "react";
+ import Link from "next/link";
+ import { Button } from "@/components/ui/button";
+-import styles from "./work-time.module.css";
++import styles from "./work-time-self.module.css";
+ 
+ type Segment = { type: "WORK" | "BREAK"; starts_at: string; ends_at: string };
+ type EditSegment = { type: "WORK" | "BREAK"; start: string; end: string };
+@@ -114,27 +114,29 @@
+       <div className={styles.cardHeader}><div><p className={styles.eyebrow}>Event allocation · {item.allocation_status.replaceAll("_", " ")}</p>
+         <h2>{item.event_name}</h2><p>{item.site_name} · {item.role_name}{item.area_label ? ` · ${item.area_label}` : ""}</p></div>
+         <span className={styles.status}>{(item.status ?? "NOT STARTED").replaceAll("_", " ")}</span></div>
+-      <dl className={styles.facts}><div><dt>Reporting point</dt><dd>{item.reporting_point ?? "Not specified"}</dd></div>
++      <div className={styles.sourceLine}>Allocation <code>{item.allocation_id}</code> · {item.current_revision === null ? "No saved revision" : `Current revision ${item.current_revision}`}</div><dl className={styles.facts}><div><dt>Reporting point</dt><dd>{item.reporting_point ?? "Not specified"}</dd></div>
+         <div><dt>Report time · London</dt><dd>{london(item.report_at)}</dd></div>
+         <div><dt>Scheduled shift · London</dt><dd>{london(item.shift_starts_at)} – {london(item.shift_ends_at)}</dd></div>
+-        <div><dt>Attendance evidence</dt><dd>{item.attendance?.state?.replaceAll("_", " ") ?? "No evidence"}</dd></div>
++        </dl><section className={styles.evidence} aria-label="Actual attendance evidence"><h3>Attendance evidence</h3><dl className={styles.evidenceFacts}><div><dt>Evidence state</dt><dd>{item.attendance?.state?.replaceAll("_", " ") ?? "No evidence"}</dd></div>
+         <div><dt>Actual check-in</dt><dd>{london(item.attendance?.check_in_at ?? null)}</dd></div>
+-        <div><dt>Actual check-out</dt><dd>{london(item.attendance?.check_out_at ?? null)}</dd></div></dl>
++        <div><dt>Actual check-out</dt><dd>{london(item.attendance?.check_out_at ?? null)}</dd></div></dl></section>
+       {evidenceStatus !== "COMPLETE" && <p className={styles.warning} role="status">Attendance evidence is {evidenceStatus?.toLowerCase() ?? "missing"}. You can still submit; this will be flagged for manager review.</p>}
+       <p className={styles.explainer}>Attendance is factual evidence only. It has not filled in any worked interval. Enter all work intervals yourself. Breaks are explicit and are not deducted automatically.</p>
++      {item.history?.filter((event) => event.kind === "RETURNED").map((event, index) => <p className={styles.returnReason} key={`${event.kind}-${event.revision}-${index}`}>Returned for correction: {event.reason}</p>)}
+       {canEdit(item) && <fieldset className={styles.entry}><legend>{item.status === "RETURNED" ? "Correction · creates a new revision" : "Your proposed time · Europe/London"}</legend>
+-        {currentDraft.map((segment, index) => <div className={styles.segment} key={`${item.allocation_id}-${index}`}>
+-          <label>Entry type<select value={segment.type} onChange={(event) => updateSegment(item, index, "type", event.target.value)}>
++        {currentDraft.map((segment, index) => <div className={styles.segment} data-interval={segment.type} key={`${item.allocation_id}-${index}`}>
++          <label>Interval {index + 1}<select value={segment.type} onChange={(event) => updateSegment(item, index, "type", event.target.value)}>
+             <option value="WORK">Work interval</option><option value="BREAK">Break interval</option></select></label>
+           <label>Start · London<input type="datetime-local" value={segment.start} onChange={(event) => updateSegment(item, index, "start", event.target.value)} /></label>
+           <label>End · London<input type="datetime-local" value={segment.end} onChange={(event) => updateSegment(item, index, "end", event.target.value)} /></label>
+         </div>)}
+         <div className={styles.actions}><Button type="button" variant="outline" onClick={() => addSegment(item, "WORK")}>Add work interval</Button>
+           <Button type="button" variant="outline" onClick={() => addSegment(item, "BREAK")}>Add break interval</Button></div>
+-        <p className={styles.minutes}>Proposed work: {minutesFor(currentDraft)} minutes. Only the explicit WORK intervals are counted; breaks are shown separately.</p>
++        <p className={styles.minutes}>Proposed work: {minutesFor(currentDraft)} minutes. Only explicit Work intervals are counted; breaks are shown separately. Proposed minutes are not payable time.</p>
+         <div className={styles.actions}><Button type="button" disabled={Boolean(busy)} onClick={() => void save(item, "SAVE_DRAFT")}>{busy === item.allocation_id ? "Saving…" : "Save draft"}</Button>
+           {item.status === "DRAFT" && <Button type="button" variant="outline" disabled={Boolean(busy) || !latest} onClick={() => void save(item, "SUBMIT")}>Submit for review</Button>}</div>
+       </fieldset>}
++      {!canEdit(item) && latest && <section className={styles.savedProposal} aria-label="Saved worked-time proposal"><h3>Revision {latest.revision} · {latest.kind === "SUBMITTED" ? "Submitted proposal" : "Saved draft"}</h3><p>{latest.proposed_work_minutes} proposed work minutes · {latest.evidence_status.toLowerCase()} evidence</p><ul>{latest.segments.map((segment, index) => <li key={index}>{segment.type === "WORK" ? "Work" : "Break"} · {london(segment.starts_at)} → {london(segment.ends_at)}</li>)}</ul><p>Proposed minutes are not payable time.</p></section>}
+       {item.status === "REVIEW_REQUIRED" && <p className={styles.warning}>A linked attendance or Event source changed. The original revision is preserved and flagged for manager review.</p>}
+       {item.revisions.length > 0 && <details className={styles.history}><summary>Revision history · {item.revisions.length}</summary>
+         {item.revisions.map((revision) => <section className={styles.revision} key={revision.revision}>
+@@ -145,7 +147,6 @@
+             <ul>{revision.evidence.map((fact) => <li key={fact.event_id}>{fact.type.replaceAll("_", " ")} · revision {fact.event_revision} · {london(fact.corrected_actual_at ?? fact.actual_at ?? fact.recorded_at)}</li>)}</ul></details>}
+         </section>)}
+       </details>}
+-      {item.history?.filter((event) => event.kind === "RETURNED").map((event, index) => <p className={styles.returnReason} key={`${event.kind}-${event.revision}-${index}`}>Returned for correction: {event.reason}</p>)}
+     </article>;
+   };
+ 
+--- /dev/null
++++ b/src/components/work-time-self.module.css
+@@ -0,0 +1,40 @@
++.wrap { display: grid; gap: 24px; max-width: 1160px; margin-inline: auto; min-width: 0; color: #182334; }
++.heading { display: grid; gap: 8px; }
++.heading h1 { margin: 0; font-size: 32px; line-height: 1.15; letter-spacing: -.035em; }
++.heading p { margin: 0; max-width: 72ch; color: #475569; line-height: 1.6; }
++.eyebrow { margin: 0; color: #64748b; font-size: 12px; font-weight: 700; }
++.heading a { width: max-content; max-width: 100%; min-height: 44px; display: inline-flex; align-items: center; color: #1769d2; font-weight: 600; }
++.card { min-width: 0; overflow-wrap: anywhere; border: 1px solid #dce3ed; border-radius: 12px; background: #fff; overflow: hidden; }
++.cardHeader { display: flex; align-items: start; justify-content: space-between; gap: 16px; padding: 24px 24px 12px; }
++.cardHeader h2 { font-size: 22px; letter-spacing: -.025em; margin: 4px 0 8px; }
++.cardHeader p { margin: 0; color: #475569; line-height: 1.6; }
++.status { padding: 5px 8px; border: 1px solid #dce3ed; border-radius: 6px; background: #f1f4f9; font-size: 12px; font-weight: 700; }
++.sourceLine { margin: 0 24px 20px; color: #64748b; font-size: 12px; overflow-wrap: anywhere; }
++.sourceLine code { color: #475569; }
++.facts, .evidenceFacts { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; margin: 0; }
++.facts { padding: 0 24px 24px; }
++.facts div, .evidenceFacts div { min-width: 0; }
++.facts dt, .evidenceFacts dt { color: #475569; font-size: 12px; margin-bottom: 6px; }
++.facts dd, .evidenceFacts dd { margin: 0; font-size: 14px; line-height: 1.6; }
++.evidence { padding: 20px 24px; background: #f1f4f9; border-block: 1px solid #dce3ed; }
++.evidence h3 { font-size: 14px; margin: 0 0 16px; }
++.explainer { margin: 20px 24px; color: #475569; line-height: 1.6; font-size: 14px; max-width: 80ch; }
++.warning, .notice, .error { padding: 14px 16px; border: 1px solid #dce3ed; border-radius: 8px; line-height: 1.6; margin: 16px 24px; }
++.wrap > .notice, .wrap > .error { margin: 0; }
++.warning { background: #fff9ed; color: #694b12; border-color: #dfcda5; }.notice { background: #e8f1ff; color: #183d77; border-color: #b9cef2; }.error { background: #fff0ef; color: #8f251c; border-color: #efb9b3; }
++.empty { padding: 24px; border: 1px solid #dce3ed; border-radius: 12px; background: #fff; color: #475569; }
++.entry { margin: 20px 24px 24px; padding: 20px; border: 1px solid #dce3ed; border-radius: 12px; min-width: 0; display: grid; gap: 20px; }
++.entry legend { padding-inline: 8px; font-weight: 700; font-size: 16px; }
++.segment { display: grid; grid-template-columns: minmax(140px,.7fr) repeat(2,minmax(0,1fr)); gap: 16px; padding: 16px; border: 1px solid #dce3ed; border-inline-start: 4px solid #64748b; border-radius: 8px; background: #fff; min-width: 0; }
++.segment[data-interval="BREAK"] { border-inline-start-style: double; background: #f1f4f9; }
++.entry label { display: grid; gap: 8px; min-width: 0; color: #475569; font-size: 13px; font-weight: 600; }
++.entry input, .entry select { width: 100%; min-width: 0; min-height: 44px; border: 1px solid #b8c4d4; border-radius: 8px; background: #fff; padding: 10px; color: #182334; font: inherit; }
++.minutes { margin: 0; padding-block: 16px; border-block: 1px solid #dce3ed; color: #182334; font-weight: 600; line-height: 1.6; }
++.actions { display: flex; gap: 8px; flex-wrap: wrap; }.actions button { min-height: 44px; }
++.history { margin: 0 24px 24px; border-top: 1px solid #dce3ed; padding-top: 8px; }
++.history summary { min-height: 44px; padding-block: 12px; cursor: pointer; font-weight: 600; }
++.revision { padding: 16px 0; border-top: 1px solid #dce3ed; }.revision h3 { font-size: 15px; margin: 0 0 8px; }.revision p { color: #475569; font-size: 13px; line-height: 1.6; }.revision ul, .savedProposal ul { padding-inline-start: 20px; line-height: 1.8; }
++.returnReason { margin: 20px 24px; border-inline-start: 3px solid #957238; padding: 12px 16px; background: #fff9ed; color: #694b12; line-height: 1.6; }
++.savedProposal { margin: 20px 24px; padding: 20px; border: 1px solid #dce3ed; border-radius: 12px; }.savedProposal h3 { margin-top: 0; font-size: 16px; }.savedProposal p { color: #475569; font-size: 14px; }
++.wrap a:focus-visible, .wrap button:focus-visible, .wrap summary:focus-visible, .entry input:focus-visible, .entry select:focus-visible { outline: 3px solid #1769d2; outline-offset: 3px; }
++@media(max-width: 700px) { .heading h1 { font-size: 28px; }.cardHeader { flex-direction: column; padding: 16px; }.cardHeader h2 { font-size: 20px; }.sourceLine { margin-inline: 16px; }.facts, .evidenceFacts { grid-template-columns: minmax(0,1fr); gap: 12px; }.facts { padding: 0 16px 16px; }.evidence { padding: 16px; }.evidenceFacts { grid-template-columns: repeat(2,minmax(0,1fr)); }.evidenceFacts > div:first-child { grid-column: 1/-1; }.entry { margin: 20px 16px; padding: 12px; }.segment { grid-template-columns: minmax(0,1fr); padding: 12px; gap: 12px; }.segment input, .segment select { font-size: 16px; }.explainer, .warning, .returnReason, .savedProposal, .history { margin-inline: 16px; }.actions button { flex: 1 1 180px; }.savedProposal { padding: 16px; } }

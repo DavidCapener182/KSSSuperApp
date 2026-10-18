@@ -1,0 +1,11 @@
+{
+  "protectedTrackedSourceFiles": 409,
+  "integrationOwnedBaselineUnchanged": true,
+  "readOnlyCSSDependencies": "byte-identical",
+  "appSourceChanges": [
+    "src/components/my-availability-client.tsx",
+    "src/components/my-work-time-client.tsx"
+  ],
+  "APIAuthGlobalSQL": "unchanged",
+  "archiveHead": "810136361023ac513f8c484aee1a2bca3614ba3a"
+}

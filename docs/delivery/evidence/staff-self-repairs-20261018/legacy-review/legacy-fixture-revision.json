@@ -1,0 +1,141 @@
+{
+  "status": "BOUNDED_LEGACY_FIXTURE_ADAPTATION",
+  "originalLegacyTestSha256": "1fa80694b51658cea9fc8be19b357a63e106208d07057e4c78308cfeab288fcf",
+  "frozenProductManifestSha256": "a89f7fb9edf4c0f5a4140818673f10b234427937fa37664b5994ea04d53eff7f",
+  "files": [
+    {
+      "file": "src/components/my-availability-client.tsx",
+      "previousSha256": "493384846b60e79602b375cc98ca001c7cfa0de36fe03f78297e460c7d6ca1f4",
+      "sha256": "b87b01c9b980064601c7c93e7ccc1c0d9512a351e507eead6487ae2f9863ea59",
+      "preUIBaselineSha256": "355d973a15e74ac0634b740711e589b15726fd8ba5e524be17dd1f890c590605",
+      "changedContracts": [
+        {
+          "key": "function:json",
+          "beforeSha256": "5ccf434375b73088e8ac64c1b6e5a5f9d650d291ea1ee8d7dfdf1323667675d5",
+          "sha256": "3b65f1962922531a9f2c9c17829c5fb5d93d00875677b1c6b2b36f5c85e19263"
+        },
+        {
+          "key": "function:restoreActionFocus",
+          "beforeSha256": null,
+          "sha256": "bb170c1829bd80ed9377a76acae9e7a9e3c2bd86b15cfc15f8068fd75f3715d5"
+        },
+        {
+          "key": "function:clearCurrent",
+          "beforeSha256": null,
+          "sha256": "887743310d86de8122a7a8ac3e38248b0939f3f21ab775ed7a62ba71afff908f"
+        },
+        {
+          "key": "hook:load",
+          "beforeSha256": "415d9162da44f5d352f04c59f9172e0ee977bf42784f13c1b16adb4f117595cb",
+          "sha256": "a5872098671e7093639878d7ee181cf963824660462bbf3adc9f31b66700102d"
+        },
+        {
+          "key": "arrow:current",
+          "beforeSha256": null,
+          "sha256": "ec714ddf1c203994f208a8bcc3fdcd30e23a1b74f1c5c61d7b852534fc22b834"
+        },
+        {
+          "key": "arrow:sameInstant",
+          "beforeSha256": null,
+          "sha256": "bec5b19e96eeabfb67c52ded3cfd353745c46a7b313024d800f91f5703e5adbb"
+        },
+        {
+          "key": "effect:0",
+          "beforeSha256": "862b2f14515fcf630f18a0de2a4fd14c23706148ffc20e6ead3538db32f502d2",
+          "sha256": "15869ce065875c82c9bf632eff2416936be2504b8dcbb1dae8558e2d24422852"
+        },
+        {
+          "key": "function:startEntry",
+          "beforeSha256": "bc0509635b186dbf3b852c5addfbd106372a14ab5ec78b747b25d8ddc57f8d7a",
+          "sha256": "3bb5781ac083e0f0a0ef106f6094a5e1a578ee5483e18e40ab1f44326c9f4715"
+        },
+        {
+          "key": "function:changeEntry",
+          "beforeSha256": "321305d3d0e4a7b3e409d585a6f55c38f65c76c3d9de9202ae84fd24812ad033",
+          "sha256": "e1c7206572629ba5e9c0c46bce0f7b18262aa34e75fbb8d960806c9cee2f843f"
+        },
+        {
+          "key": "function:check",
+          "beforeSha256": "3ba90799ab2e3bf3391a5a981b222361a30186522b28559ddcc78511dae5b92c",
+          "sha256": "04cdb46c0f38760430dfa29f7bf754437c17aca1b3ca692a9f7e290d78333c34"
+        },
+        {
+          "key": "function:save",
+          "beforeSha256": "2658b313c49306c28de8a644aa4d48843d3affcdb13d76d02a6ab0b2385e6026",
+          "sha256": "c6edc417f120bf43af37a73bcf0e39a748379cab249625ce1a92e41b25e36f23"
+        },
+        {
+          "key": "function:cancel",
+          "beforeSha256": "f02d9d61fc5f463078c7bf0989466d1c85874aa6c96a7f301eeb237ac22b920c",
+          "sha256": "6fcb2f41c5185333000bd91df193ba241e0bb3d95f1898ff15963b6ee1beebd5"
+        },
+        {
+          "key": "function:reviewCancel",
+          "beforeSha256": "f6f7dfbae8e8b2de866b5946bfa34b9182be8dcee1724edb5d5289cb7de4a56a",
+          "sha256": "a56e46cf7b65fc84c82d934773fba01096b638bbc391300a6adb93881090c221"
+        }
+      ],
+      "unaffectedContracts": [
+        "arrow:format",
+        "function:localInput"
+      ]
+    },
+    {
+      "file": "src/components/my-work-time-client.tsx",
+      "previousSha256": "663b1f00490688bb1185a27dc99509e1728159345f15aab93dc6587662e5efb0",
+      "sha256": "b6d45cfb29a429724b15a9590199e46b3787301038884874978dc35981391e04",
+      "preUIBaselineSha256": "631fb52ddf3c02ef2b22bb0fbb96148a18665edce18288805a91746730d1a9a8",
+      "changedContracts": [
+        {
+          "key": "arrow:clearCurrent",
+          "beforeSha256": null,
+          "sha256": "0e19b772d7efcb295ee90665822ff5e8b4d68d7cfe62ac7cc2183bc60122a73f"
+        },
+        {
+          "key": "hook:load",
+          "beforeSha256": "f77500df1718e330b318c749e27e50292c826084745ed52ab5c22894484beef8",
+          "sha256": "7391dd98ff86fd1b8db86a9e4e31a058a239cabbae0e1fb240f3dabcad7e8a0a"
+        },
+        {
+          "key": "arrow:current",
+          "beforeSha256": null,
+          "sha256": "289abfe3a9b05b37ebddd092b82f2a318a9b96d4f07b2dcb714eacacd609b73c"
+        },
+        {
+          "key": "effect:0",
+          "beforeSha256": "862b2f14515fcf630f18a0de2a4fd14c23706148ffc20e6ead3538db32f502d2",
+          "sha256": "a3e31737d94cf7df975f9ab51dab494417025c809de0df5023b125e2f3e3b85b"
+        },
+        {
+          "key": "arrow:save",
+          "beforeSha256": "938787d212fde1a3cd436a3db373f4eee17de1c3ef1d57c1cadd0b704f2feb21",
+          "sha256": "16e36d51cbfd938a89bfaf7e5713d7f2d73de20aef5406a937519158a82b8e11"
+        },
+        {
+          "key": "arrow:isCurrent",
+          "beforeSha256": null,
+          "sha256": "11c1f2b6cbd715eedc230fac7586e8c4d8674d7858f72ec60e0b629a06d5ecb5"
+        },
+        {
+          "key": "arrow:uuid",
+          "beforeSha256": null,
+          "sha256": "4e85555e8f3c58d6def13ed26a14b8eea6648d05233bc84ef9df953cded57f87"
+        },
+        {
+          "key": "arrow:canEdit",
+          "beforeSha256": "7137c0ed40857e5bcdc066f9209908a8a052d29e30de31a6774d0745e2c179e1",
+          "sha256": "cfbc9f79a67982dc9197e676f38eb49cc987e50c07b7478906694be47b4641dc"
+        }
+      ],
+      "unaffectedContracts": [
+        "arrow:london",
+        "arrow:localInput",
+        "function:londonInstant",
+        "arrow:editSegments",
+        "arrow:minutesFor",
+        "arrow:updateSegment",
+        "arrow:addSegment"
+      ]
+    }
+  ]
+}

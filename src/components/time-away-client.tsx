@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import styles from "./time-away.module.css";
+import managerStyles from "./time-away-manager.module.css";
+import staffStyles from "./time-away-self.module.css";
 
 type Team = { id: string; name: string; actions?: string[] };
 type Category = { code: string; version: number; label: string };
@@ -204,8 +206,61 @@ export function TimeAwayClient({ view }: { view: "staff" | "manager" }) {
     } catch (cause) { setError((cause as Error).message); }
   }
 
+  const [staffFormOpen, setStaffFormOpen] = useState(false);
+  const [staffConfirmation, setStaffConfirmation] = useState<{ action: "WITHDRAWN" | "CANCELLATION_REQUESTED"; target: Detail } | null>(null);
+  const [managerTab, setManagerTab] = useState<"requests" | "calendar">("requests");
   const managerActions = authority?.managerTeams.find((entry) => entry.id === detail?.teamId)?.actions ?? [];
-  return <main className={styles.page}>
+  const requestDetail = detail && <section className={`${styles.panel}${view === "staff" ? ` ${staffStyles.detail}` : ""}`} data-manager-detail={view === "manager" ? "true" : undefined} aria-label="Time Away request detail">
+      <div className={styles.sectionHead}><h2>{detail.categoryLabel} — {label[detail.state] ?? detail.state}</h2><button className={styles.subtle} onClick={() => setDetail(null)}>Close</button></div>
+      <p>{detail.personName}{detail.teamName ? ` · ${detail.teamName}` : ""}</p>
+      <h3>Exact period</h3><ol>{detail.segments.map((segment, index) => <li key={index}>
+        {formatDay(segment.date)} · {segment.kind === "WHOLE_DAY" ? "Whole day" : `${segment.startsLocal?.slice(0, 5)}–${segment.endsLocal?.slice(0, 5)} Europe/London`}</li>)}</ol>
+      {detail.state === "CANCELLATION_REQUESTED" && <p className={styles.notice}>Cancellation requested. The approved period remains effective until an approver decides.</p>}
+      {view === "staff" && <div className={styles.actions}>
+        {detail.state === "DRAFT" && <button type="button" onClick={() => { setStaffFormOpen(true);setDraftId(detail.id);setDraftRevision(detail.revision);setCategory(detail.categoryCode);
+          setSavedPreview(detail.segments.map((segment) => ({ ...segment,
+            startsLocal: segment.startsLocal?.slice(0, 5), endsLocal: segment.endsLocal?.slice(0, 5) })));
+          setMode(detail.segments.some((s) => s.kind === "PARTIAL_DAY") ? "PARTIAL_DAY" : "WHOLE_DAY");
+          setStartDate(detail.segments[0]?.date ?? "");setEndDate(detail.segments.at(-1)?.date ?? "");
+          setPartial(detail.segments.filter((s) => s.kind === "PARTIAL_DAY").map((s) => ({ date: s.date,
+            startsLocal: s.startsLocal?.slice(0, 5) ?? "",endsLocal: s.endsLocal?.slice(0, 5) ?? "" }))); }}>Edit draft</button>}
+        {detail.state === "SUBMITTED" && <button type="button" onClick={() => setStaffConfirmation({ action: "WITHDRAWN", target: detail })}>Withdraw submitted request</button>}
+        {detail.state === "APPROVED" && <button type="button" onClick={() => setStaffConfirmation({ action: "CANCELLATION_REQUESTED", target: detail })}>Request cancellation</button>}
+      </div>}
+      {view === "manager" && <aside data-manager-review="true">
+        {conflict && <div className={styles.preview} data-source-impact="true"><h3>Existing allocations</h3>
+          {conflict.allocations.length ? <ul>{conflict.allocations.map((row) => <li key={row.allocationId}>
+            {formatMoment(row.reportAt)} · {row.source === "EVENT" ? "Event" : "Site shift"} · {row.duty} · {row.allocationResponse}
+            {row.remainingPositions > 0 ? ` · ${row.remainingPositions} positions remain` : ""}</li>)}</ul>
+            : <p>No active allocations overlap this period.</p>}
+          <h3>Planning impact</h3><p>{conflict.activeAllocationCount} active {conflict.activeAllocationCount === 1 ? "allocation" : "allocations"} overlap · {conflict.affectedDutyCountWithRemainingPositions} affected {conflict.affectedDutyCountWithRemainingPositions === 1 ? "duty has" : "duties have"} remaining positions.</p>
+          <p>No allocation has been changed.</p></div>}
+        {(detail.state === "SUBMITTED" && managerActions.includes("DECIDE_REQUEST") ||
+          detail.state === "CANCELLATION_REQUESTED" && managerActions.includes("DECIDE_CANCELLATION")) &&
+          <div className={styles.stack} data-decision-confirmation="true"><h3>Review decision</h3><p>{detail.personName} · {formatDay(detail.startsOn)}–{formatDay(detail.endsOn)} · Revision {detail.revision}</p><div className={styles.grid}>
+            <label>{detail.state === "SUBMITTED" ? "Reason if declined" : "Reason if cancellation rejected"}
+              <select value={detail.state === "SUBMITTED"
+                ? (["STAFFING_CONFLICT", "REQUEST_NOT_SUPPORTED", "OTHER"].includes(reason) ? reason : "REQUEST_NOT_SUPPORTED")
+                : (["CANCELLATION_NOT_SUPPORTED", "OTHER"].includes(reason) ? reason : "CANCELLATION_NOT_SUPPORTED")}
+                onChange={(event) => setReason(event.target.value)}>
+                {detail.state === "SUBMITTED" ? <>
+                  <option value="REQUEST_NOT_SUPPORTED">Request not supported</option>
+                  <option value="STAFFING_CONFLICT">Staffing conflict</option>
+                  <option value="OTHER">Other</option>
+                </> : <>
+                  <option value="CANCELLATION_NOT_SUPPORTED">Cancellation not supported</option>
+                  <option value="OTHER">Other</option>
+                </>}
+              </select></label>
+          </div><div className={styles.actions}>
+            {detail.state === "SUBMITTED" ? <><button onClick={() => act("APPROVED")}>Approve</button><button className={styles.subtle} onClick={() => act("DECLINED")}>Decline</button></>
+              : <><button onClick={() => act("CANCELLATION_APPROVED")}>Approve cancellation</button><button className={styles.subtle} onClick={() => act("CANCELLATION_REJECTED")}>Reject cancellation</button></>}
+          </div></div>}
+      </aside>}
+      <h3>Immutable history</h3><ol>{detail.history.map((entry) => <li key={entry.revision}>
+        {formatMoment(entry.occurredAt)} · {entry.kind.replaceAll("_", " ")}</li>)}</ol>
+    </section>;
+  return <main className={`${styles.page}${view === "manager" ? ` ${managerStyles.page}` : ` ${staffStyles.page}`}`}>
     <header className={styles.header}><div><p className={styles.eyebrow}>Workforce · synthetic Dev</p>
       <h1>{view === "staff" ? "My Time Away" : "Time Away requests"}</h1>
       <p>Requests and decisions are separate from Availability, allocations, attendance and pay.</p></div></header>
@@ -213,7 +268,53 @@ export function TimeAwayClient({ view }: { view: "staff" | "manager" }) {
     {error && <p className={styles.error} role="alert">{error}</p>}
     {notice && <p className={styles.notice} role="status">{notice}</p>}
 
-    {view === "staff" && <section className={styles.panel} aria-label="New Time Away request">
+
+
+    {view === "manager" && <section className={styles.panel} data-manager-controls="true" aria-label="Team and view">
+      <label>Time Away team<select value={team} onChange={(event) => { setTeam(event.target.value);setDetail(null); }}>
+        <option value="">Select an authorised team</option>
+        {(authority?.managerTeams ?? []).filter((entry) => entry.actions?.includes("VIEW_REQUESTS"))
+          .map((entry) => <option key={entry.id} value={entry.id}>{entry.name}</option>)}</select></label>
+      <div className={styles.grid}><label>From<input type="date" value={from} onChange={(event) => setFrom(event.target.value)} /></label>
+        <label>To<input type="date" value={to} onChange={(event) => setTo(event.target.value)} /></label></div>
+      <div className={managerStyles.tabs} role="group" aria-label="Time Away view"><button type="button" aria-pressed={managerTab === "requests"} onClick={() => setManagerTab("requests")}>Requests</button>{authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_CALENDAR") && <button type="button" aria-pressed={managerTab === "calendar"} onClick={() => setManagerTab("calendar")}>Calendar</button>}</div>
+    </section>}
+    {view === "manager" && requestDetail}
+    {view === "staff" && <div className={staffStyles.toolbar}><p>Review a request or start a draft. Your exact covered dates stay attached to each request.</p><a href="#time-away-request-form" onClick={() => setStaffFormOpen(true)}>New request</a></div>}
+    {(view === "staff" || managerTab === "requests") && <section className={styles.panel}><div className={styles.sectionHead}><h2>{view === "staff" ? "My requests" : "Team requests"}</h2>
+      <span>{total} visible requests</span></div>
+      {view === "staff" && <div className={styles.grid}><label>From<input type="date" value={from} onChange={(event) => setFrom(event.target.value)} /></label>
+        <label>To<input type="date" value={to} onChange={(event) => setTo(event.target.value)} /></label></div>}
+      <div className={styles.list}>{items.map((item) => <button className={styles.request} key={item.id} aria-pressed={detail?.id === item.id} onClick={() => openDetail(item.id)}>
+        <span><strong>{view === "manager" ? item.personName : item.categoryLabel}</strong><small>{view === "manager" ? `${item.categoryLabel} · ` : ""}{formatDay(item.startsOn)}–{formatDay(item.endsOn)}</small></span>
+        <span className={styles.state}>{label[item.state] ?? item.state}</span></button>)}</div>
+      {!items.length && <p className={styles.muted}>No requests in this authorised view.</p>}
+    </section>}
+
+    {view === "manager" && managerTab === "calendar" && authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_CALENDAR") && calendarBounds &&
+      <section className={styles.panel} aria-label="Time Away calendar">
+        <div className={styles.sectionHead}><h2>Team calendar</h2><label>Month<input type="month" value={calendarMonth}
+          onChange={(event) => setCalendarMonth(event.target.value)} /></label></div>
+        <p className={styles.muted}>Only requests bound to this exact authorised Time Away team are shown.</p>
+        <div className={styles.calendar} data-manager-calendar="true">
+          {dateSeries(calendarBounds.start, calendarBounds.end).map((day) => {
+            const visible = calendarItems.filter((item) => item.startsOn <= day && item.endsOn >= day);
+            return <div className={styles.calendarDay} key={day}><strong>{formatDay(day)}</strong>
+              {visible.map((item) => { const onDay = (item.segments ?? []).filter((segment) => segment.date === day);
+                const times = onDay.some((segment) => segment.kind === "WHOLE_DAY") ? "Whole day"
+                  : onDay.map((segment) => `${segment.startsLocal?.slice(0, 5)}–${segment.endsLocal?.slice(0, 5)}`).join(", ");
+                const content = `${item.personName} · ${item.categoryLabel} · ${times || "Time away"} · ${label[item.state] ?? item.state}`;
+                return authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_REQUESTS")
+                  ? <button type="button" key={item.id} onClick={() => openDetail(item.id)}>{content}</button>
+                  : <span className={styles.calendarFact} key={item.id}>{content}</span>; })}</div>;
+          })}
+        </div>
+        {calendarTotal > calendarItems.length && <p className={styles.muted}>Showing {calendarItems.length} of {calendarTotal} visible requests. Narrow the date range for complete results.</p>}
+      </section>}
+
+    {view === "staff" && requestDetail}
+    {view === "staff" && staffConfirmation && <section className={`${styles.panel} ${staffStyles.confirmation}`} role="region" aria-label="Confirm request change"><h2>{staffConfirmation.action === "WITHDRAWN" ? "Withdraw submitted request?" : "Request cancellation?"}</h2><p>{staffConfirmation.target.categoryLabel} · {formatDay(staffConfirmation.target.startsOn)}–{formatDay(staffConfirmation.target.endsOn)} · Revision {staffConfirmation.target.revision}</p><ol>{staffConfirmation.target.segments.map((segment, index) => <li key={index}>{formatDay(segment.date)} · {segment.kind === "WHOLE_DAY" ? "Whole day" : `${segment.startsLocal?.slice(0, 5)}–${segment.endsLocal?.slice(0, 5)} Europe/London`}</li>)}</ol><p>{staffConfirmation.action === "CANCELLATION_REQUESTED" ? "The approved period remains effective until an approver decides." : "This withdraws the selected submitted request. Availability and allocations remain separate."}</p><div className={styles.actions}><button type="button" className={styles.subtle} onClick={() => setStaffConfirmation(null)}>Keep request</button><button type="button" disabled={detail?.id !== staffConfirmation.target.id || detail?.revision !== staffConfirmation.target.revision} onClick={() => { const selected = staffConfirmation;setStaffConfirmation(null);void act(selected.action, selected.target); }}>Confirm {staffConfirmation.action === "WITHDRAWN" ? "withdrawal" : "cancellation request"}</button></div></section>}
+    {view === "staff" && <details className={staffStyles.form} id="time-away-request-form" open={staffFormOpen} onToggle={(event) => setStaffFormOpen(event.currentTarget.open)}><summary>New request · category and period</summary><section className={styles.panel} aria-label="New Time Away request">
       <h2>New request</h2><p>Choose a category label and preview each covered date before submission.</p>
       <div className={styles.grid}>
         <label>Category<select value={category} onChange={(event) => setCategory(event.target.value)}>
@@ -241,95 +342,9 @@ export function TimeAwayClient({ view }: { view: "staff" | "manager" }) {
           {(authority?.myTeams ?? []).map((entry) => <option key={entry.id} value={entry.id}>{entry.name}</option>)}</select></label>
           <button type="button" onClick={submit} disabled={!authority?.myTeams.length || !draftMatchesPreview}>Submit request</button></>}</div>
       {!authority?.myTeams.length && <p className={styles.muted}>A draft can be saved now. An administrator must configure your Time Away team before submission.</p>}
-    </section>}
+    </section></details>}
 
-    <section className={styles.panel}><div className={styles.sectionHead}><h2>{view === "staff" ? "My requests" : "Team requests and calendar"}</h2>
-      <span>{total} visible requests</span></div>
-      {view === "manager" && <label>Time Away team<select value={team} onChange={(event) => { setTeam(event.target.value);setDetail(null); }}>
-        <option value="">Select an authorised team</option>
-        {(authority?.managerTeams ?? []).filter((entry) => entry.actions?.includes("VIEW_REQUESTS"))
-          .map((entry) => <option key={entry.id} value={entry.id}>{entry.name}</option>)}</select></label>}
-      <div className={styles.grid}><label>From<input type="date" value={from} onChange={(event) => setFrom(event.target.value)} /></label>
-        <label>To<input type="date" value={to} onChange={(event) => setTo(event.target.value)} /></label></div>
-      <div className={styles.list}>{items.map((item) => <button className={styles.request} key={item.id} onClick={() => openDetail(item.id)}>
-        <span><strong>{item.categoryLabel}</strong><small>{view === "manager" ? `${item.personName} · ` : ""}{formatDay(item.startsOn)}–{formatDay(item.endsOn)}</small></span>
-        <span className={styles.state}>{label[item.state] ?? item.state}</span></button>)}</div>
-      {!items.length && <p className={styles.muted}>No requests in this authorised view.</p>}
-    </section>
-
-    {view === "manager" && authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_CALENDAR") && calendarBounds &&
-      <section className={styles.panel} aria-label="Time Away calendar">
-        <div className={styles.sectionHead}><h2>Team calendar</h2><label>Month<input type="month" value={calendarMonth}
-          onChange={(event) => setCalendarMonth(event.target.value)} /></label></div>
-        <p className={styles.muted}>Only requests bound to this exact authorised Time Away team are shown.</p>
-        <div className={styles.calendar}>
-          {dateSeries(calendarBounds.start, calendarBounds.end).map((day) => {
-            const visible = calendarItems.filter((item) => item.startsOn <= day && item.endsOn >= day);
-            return <div className={styles.calendarDay} key={day}><strong>{formatDay(day)}</strong>
-              {visible.map((item) => { const onDay = (item.segments ?? []).filter((segment) => segment.date === day);
-                const times = onDay.some((segment) => segment.kind === "WHOLE_DAY") ? "Whole day"
-                  : onDay.map((segment) => `${segment.startsLocal?.slice(0, 5)}–${segment.endsLocal?.slice(0, 5)}`).join(", ");
-                const content = `${item.personName} · ${item.categoryLabel} · ${times || "Time away"} · ${label[item.state] ?? item.state}`;
-                return authority?.managerTeams.find((entry) => entry.id === team)?.actions?.includes("VIEW_REQUESTS")
-                  ? <button type="button" key={item.id} onClick={() => openDetail(item.id)}>{content}</button>
-                  : <span className={styles.calendarFact} key={item.id}>{content}</span>; })}</div>;
-          })}
-        </div>
-        {calendarTotal > calendarItems.length && <p className={styles.muted}>Showing {calendarItems.length} of {calendarTotal} visible requests. Narrow the date range for complete results.</p>}
-      </section>}
-
-    {detail && <section className={styles.panel} aria-label="Time Away request detail">
-      <div className={styles.sectionHead}><h2>{detail.categoryLabel} — {label[detail.state] ?? detail.state}</h2><button className={styles.subtle} onClick={() => setDetail(null)}>Close</button></div>
-      <p>{detail.personName}{detail.teamName ? ` · ${detail.teamName}` : ""}</p>
-      <h3>Exact period</h3><ol>{detail.segments.map((segment, index) => <li key={index}>
-        {formatDay(segment.date)} · {segment.kind === "WHOLE_DAY" ? "Whole day" : `${segment.startsLocal?.slice(0, 5)}–${segment.endsLocal?.slice(0, 5)} Europe/London`}</li>)}</ol>
-      {detail.state === "CANCELLATION_REQUESTED" && <p className={styles.notice}>Cancellation requested. The approved period remains effective until an approver decides.</p>}
-      {view === "staff" && <div className={styles.actions}>
-        {detail.state === "DRAFT" && <button type="button" onClick={() => { setDraftId(detail.id);setDraftRevision(detail.revision);setCategory(detail.categoryCode);
-          setSavedPreview(detail.segments.map((segment) => ({ ...segment,
-            startsLocal: segment.startsLocal?.slice(0, 5), endsLocal: segment.endsLocal?.slice(0, 5) })));
-          setMode(detail.segments.some((s) => s.kind === "PARTIAL_DAY") ? "PARTIAL_DAY" : "WHOLE_DAY");
-          setStartDate(detail.segments[0]?.date ?? "");setEndDate(detail.segments.at(-1)?.date ?? "");
-          setPartial(detail.segments.filter((s) => s.kind === "PARTIAL_DAY").map((s) => ({ date: s.date,
-            startsLocal: s.startsLocal?.slice(0, 5) ?? "",endsLocal: s.endsLocal?.slice(0, 5) ?? "" }))); }}>Edit draft</button>}
-        {detail.state === "SUBMITTED" && <button type="button" onClick={() => act("WITHDRAWN")}>Withdraw submitted request</button>}
-        {detail.state === "APPROVED" && <button type="button" onClick={() => act("CANCELLATION_REQUESTED")}>Request cancellation</button>}
-      </div>}
-      {view === "manager" && <>
-        {conflict && <div className={styles.preview}><h3>Existing allocations</h3>
-          {conflict.allocations.length ? <ul>{conflict.allocations.map((row) => <li key={row.allocationId}>
-            {formatMoment(row.reportAt)} · {row.source === "EVENT" ? "Event" : "Site shift"} · {row.duty} · {row.allocationResponse}
-            {row.remainingPositions > 0 ? ` · ${row.remainingPositions} positions remain` : ""}</li>)}</ul>
-            : <p>No active allocations overlap this period.</p>}
-          <h3>Planning impact</h3><p>{conflict.activeAllocationCount} active {conflict.activeAllocationCount === 1 ? "allocation" : "allocations"} overlap · {conflict.affectedDutyCountWithRemainingPositions} affected {conflict.affectedDutyCountWithRemainingPositions === 1 ? "duty has" : "duties have"} remaining positions.</p>
-          <p>No allocation has been changed.</p></div>}
-        {(detail.state === "SUBMITTED" && managerActions.includes("DECIDE_REQUEST") ||
-          detail.state === "CANCELLATION_REQUESTED" && managerActions.includes("DECIDE_CANCELLATION")) &&
-          <div className={styles.stack}><div className={styles.grid}>
-            <label>{detail.state === "SUBMITTED" ? "Reason if declined" : "Reason if cancellation rejected"}
-              <select value={detail.state === "SUBMITTED"
-                ? (["STAFFING_CONFLICT", "REQUEST_NOT_SUPPORTED", "OTHER"].includes(reason) ? reason : "REQUEST_NOT_SUPPORTED")
-                : (["CANCELLATION_NOT_SUPPORTED", "OTHER"].includes(reason) ? reason : "CANCELLATION_NOT_SUPPORTED")}
-                onChange={(event) => setReason(event.target.value)}>
-                {detail.state === "SUBMITTED" ? <>
-                  <option value="REQUEST_NOT_SUPPORTED">Request not supported</option>
-                  <option value="STAFFING_CONFLICT">Staffing conflict</option>
-                  <option value="OTHER">Other</option>
-                </> : <>
-                  <option value="CANCELLATION_NOT_SUPPORTED">Cancellation not supported</option>
-                  <option value="OTHER">Other</option>
-                </>}
-              </select></label>
-          </div><div className={styles.actions}>
-            {detail.state === "SUBMITTED" ? <><button onClick={() => act("APPROVED")}>Approve</button><button className={styles.subtle} onClick={() => act("DECLINED")}>Decline</button></>
-              : <><button onClick={() => act("CANCELLATION_APPROVED")}>Approve cancellation</button><button className={styles.subtle} onClick={() => act("CANCELLATION_REJECTED")}>Reject cancellation</button></>}
-          </div></div>}
-      </>}
-      <h3>Immutable history</h3><ol>{detail.history.map((entry) => <li key={entry.revision}>
-        {formatMoment(entry.occurredAt)} · {entry.kind.replaceAll("_", " ")}</li>)}</ol>
-    </section>}
-
-    {view === "manager" && authority?.canAdmin && <section className={styles.panel}><div className={styles.sectionHead}>
+    {view === "manager" && authority?.canAdmin && <section className={styles.panel} data-manager-admin="true"><div className={styles.sectionHead}>
       <h2>Time Away authority</h2><button className={styles.subtle} onClick={async () => { try { setAdmin(await api("/api/time-away?mode=admin") as Admin); } catch (cause) { setError((cause as Error).message); } }}>Open administration</button></div>
       {admin && <div className={styles.stack}>
         <p>Administration changes team membership and grants only. It does not confer approval authority on your own account.</p>

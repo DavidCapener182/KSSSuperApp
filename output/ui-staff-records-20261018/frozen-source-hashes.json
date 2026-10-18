@@ -1,0 +1,32 @@
+[
+  {
+    "file": "src/components/my-availability-client.tsx",
+    "baselineSha256": "355d973a15e74ac0634b740711e589b15726fd8ba5e524be17dd1f890c590605",
+    "sha256": "493384846b60e79602b375cc98ca001c7cfa0de36fe03f78297e460c7d6ca1f4"
+  },
+  {
+    "file": "src/components/my-availability.module.css",
+    "baselineSha256": "d946ac9e7f1deda3bb7fa157773db796fcf1b9678298c7358a643afcc9067302",
+    "sha256": "88e6f79cbd7b3e53d05eff7a022372471557db883e2490cbfcea676c7c5cc6dd"
+  },
+  {
+    "file": "src/components/time-away-client.tsx",
+    "baselineSha256": "d38c35b1ac3d906d9c0caed2593a2124115dd0271af6939589626eb6558b3d28",
+    "sha256": "2e833f2f424235b5c5f96cbd1aec5db59ccf142e01e061c36bdfb7d323fad555"
+  },
+  {
+    "file": "src/components/time-away-self.module.css",
+    "baselineSha256": null,
+    "sha256": "e3e466b8af2508e766ce48b9f53c402cd78fa7a077ef1ea21d37feda9a3f2bdd"
+  },
+  {
+    "file": "src/components/my-work-time-client.tsx",
+    "baselineSha256": "631fb52ddf3c02ef2b22bb0fbb96148a18665edce18288805a91746730d1a9a8",
+    "sha256": "663b1f00490688bb1185a27dc99509e1728159345f15aab93dc6587662e5efb0"
+  },
+  {
+    "file": "src/components/work-time-self.module.css",
+    "baselineSha256": null,
+    "sha256": "49c1b8df6ead31226c3619e98adc9bb2c7b43042028199fce6769053f3c33312"
+  }
+]
