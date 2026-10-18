@@ -18,6 +18,7 @@ async function read(url: string, init?: RequestInit) {
 }
 export function CrmNewLead({ currentPersonId, initialOrganisationId }: { currentPersonId: string; initialOrganisationId?: string }) {
   const router = useRouter();
+  const [step, setStep] = useState<1 | 2>(1);
   const [mode, setMode] = useState<"existing" | "new">("existing");
   const [query, setQuery] = useState("");
   const [matches, setMatches] = useState<Organisation[]>([]);
@@ -66,7 +67,9 @@ export function CrmNewLead({ currentPersonId, initialOrganisationId }: { current
     catch { setContacts([]); setError("Organisation selected, but Contacts could not be read. You can still create the lead without one."); }
   }
   async function create(event: React.FormEvent) {
-    event.preventDefault(); setBusy(true); setError("");
+    event.preventDefault();
+    if (step !== 2 || busy) return;
+    setBusy(true); setError("");
     try {
       if (savedOpportunityId) {
         const confirmed = await read(`/api/crm?view=opportunity&id=${savedOpportunityId}`);
@@ -102,12 +105,14 @@ export function CrmNewLead({ currentPersonId, initialOrganisationId }: { current
   }
   return <main className={`enterprise-main ${styles.page}`}>
     <Link href="/crm?view=pipeline">← CRM pipeline</Link>
-    <p className="eyebrow">Commercial workspace · synthetic development data</p>
+    <p className="eyebrow">Commercial workspace</p>
     <h1>New lead</h1>
     <p className="enterprise-intro">Create a New Lead Opportunity for an existing or new Organisation. This records a commercial enquiry; it does not authorise Mobilisation or an operational service.</p>
     {error && <p role="alert" className="enterprise-error">{error}</p>}
+    <ol className={styles.progress} aria-label="New lead progress"><li aria-current={step === 1 ? "step" : undefined}>1 · Organisation</li><li aria-current={step === 2 ? "step" : undefined}>2 · Lead details and review</li></ol>
     <form onSubmit={event => void create(event)} className={styles.form}>
-      <section className={styles.panel}><h2>1 · Organisation</h2>
+      <fieldset disabled={busy} className={styles.fields}>
+      {step === 1 && <section className={styles.panel}><h2>1 · Organisation</h2>
         {selected ? <div className={styles.selected}><strong>{selected.name}</strong><span>{selected.relationship_status.replaceAll("_", " ").toLowerCase()}</span>
           <Button type="button" variant="outline" onClick={() => { setSelected(null); setSavedOrganisationId(null); setContacts([]); setContactId(""); }}>Change Organisation</Button></div> : <>
           <div className={styles.choice}><Button type="button" variant={mode === "existing" ? "default" : "outline"} onClick={() => setMode("existing")}>Find existing</Button>
@@ -117,8 +122,9 @@ export function CrmNewLead({ currentPersonId, initialOrganisationId }: { current
               {!matches.length && <p>No matches in this page of the authorised search. Refine the name before creating a new Organisation.</p>}</div>}</> : <><label>New Organisation name<Input required value={name} maxLength={160} onChange={event => setName(event.target.value)} /></label>
             <p>Check the Organisation list for duplicates. If the next step fails, this Organisation stays saved and can be selected for a retry.</p></>}
         </>}
-      </section>
-      <section className={styles.panel}><h2>2 · Lead details</h2>
+      <Button type="button" disabled={!selected && (mode !== "new" || !name.trim())} onClick={() => setStep(2)}>Continue to lead details</Button>
+      </section>}
+      {step === 2 && <div className={styles.detailsLayout}><section className={styles.panel}><h2>2 · Lead details</h2>
         <label>Opportunity title<Input required maxLength={180} value={title} onChange={event => setTitle(event.target.value)} placeholder="e.g. Reading festival security enquiry" /></label>
         <label>Enquiry type<select value={type} onChange={event => setType(event.target.value)}><option value="DIRECT_ENQUIRY">Direct enquiry</option><option value="TENDER">Tender</option><option value="PROSPECTING">Prospecting</option><option value="EXISTING_CLIENT_EXPANSION">Existing Client expansion</option><option value="RENEWAL">Renewal</option></select></label>
         <label>Opportunity owner<select value={ownerId} onChange={event => setOwnerId(event.target.value)}><option value={currentPersonId}>Me</option>{owners.filter(item => item.id !== currentPersonId).map(item => <option value={item.id} key={item.id}>{item.displayName}</option>)}</select></label>
@@ -126,8 +132,15 @@ export function CrmNewLead({ currentPersonId, initialOrganisationId }: { current
         <div className={styles.two}><label>Estimated value (£)<Input type="number" min="0" step="0.01" value={value} onChange={event => setValue(event.target.value)} /></label>
           <label>Expected decision date<Input type="date" value={decisionDate} onChange={event => setDecisionDate(event.target.value)} /></label></div>
         <label>Short summary<textarea maxLength={1000} value={summary} onChange={event => setSummary(event.target.value)} /></label>
-      </section>
-      <div className={styles.actions}><Button disabled={busy || (!savedOpportunityId && !selected && (mode !== "new" || !name.trim()))}>{busy ? "Saving lead…" : savedOpportunityId ? "Check saved lead" : "Create new lead"}</Button><Link href="/crm?view=pipeline">Cancel</Link></div>
+      </section><aside className={styles.review} aria-label="Review before creating"><p className={styles.kicker}>Review before creating</p><h2>{selected?.name ?? name.trim()}</h2><p>{selected ? selected.relationship_status.replaceAll("_", " ").toLowerCase() : "New Organisation will be created"}</p><dl>
+        <div><dt>Opportunity</dt><dd>{title.trim() || "Enter an opportunity title"}</dd></div>
+        <div><dt>Enquiry type</dt><dd>{type.replaceAll("_", " ").toLowerCase()}</dd></div>
+        <div><dt>Owner</dt><dd>{ownerId === currentPersonId ? "Me" : owners.find(item => item.id === ownerId)?.displayName ?? "Selected Office owner"}</dd></div>
+        <div><dt>Estimated value</dt><dd>{value.trim() && Number.isFinite(Number(value)) ? new Intl.NumberFormat("en-GB", {style:"currency",currency:"GBP"}).format(Number(value)) : "Not estimated"}</dd></div>
+        <div><dt>Expected decision</dt><dd>{decisionDate || "Not set"}</dd></div>
+      </dl><p>This creates a commercial lead. It does not send outreach, establish a contract or authorise operational work.</p></aside></div>}
+      </fieldset>
+      <div className={styles.actions}>{step === 2 && <><Button type="button" variant="outline" disabled={busy || !!savedOpportunityId} onClick={() => setStep(1)}>Back to Organisation</Button><Button disabled={busy || (!savedOpportunityId && !selected && (mode !== "new" || !name.trim()))}>{busy ? "Saving lead…" : savedOpportunityId ? "Check saved lead" : "Create new lead"}</Button></>}<Link href="/crm?view=pipeline">Cancel</Link></div>
     </form>
   </main>;
 }

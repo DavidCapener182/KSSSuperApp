@@ -1,0 +1,43 @@
+{
+  "file": "src/components/crm-operational.tsx",
+  "previousSha256": "9f691720d4fd1a8e1b32d88d734d3e241ddeaadd6ba5709467c3f96886c68af0",
+  "sha256": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c",
+  "unchangedFunctions": {
+    "module:send": "4441eee6c471d06ac181bd2026b0583950cf51978492c3ddb53e2649c205a16c",
+    "CrmPipeline:commit": "0c7d42a551be5f3002804a0b44a3e97ec6d336ccf908fba3d83c9a74a8acfcd5",
+    "CrmRecordWork:createActivity": "4aa17607a9fa0b609447c020c67c4aab4bf1ba0049c1e12a6fa1a9ded906ee8c",
+    "CrmRecordWork:createTask": "4ebb8d2ba87f378eb36ca06cdcb17658dfb9adbb62b548b42dea87f4376e65c6",
+    "CrmRecordWork:changeTask": "1756c897b909d84310d75953da2cd195ce13d2294cfd6999e9a550b22619568a"
+  },
+  "unchangedReaders": {
+    "CrmPipeline:load": "be23ebd3950b8fcf8ac0382d7437e390c5f168aad2681d6a46001535b65a5967",
+    "CrmRecordWork:load": "51a3d625030a822830fe0f44c7a537636bf90ef664e20a2f20c301e4bd2d8250"
+  },
+  "unchangedEffects": [
+    {
+      "owner": "CrmPipeline",
+      "sha256": "862b2f14515fcf630f18a0de2a4fd14c23706148ffc20e6ead3538db32f502d2"
+    },
+    {
+      "owner": "CrmPipeline",
+      "sha256": "f75927749229a35a3b959d3879d351659ae39245e6ba8cd3d534c599ef5cda61"
+    },
+    {
+      "owner": "CrmRecordWork",
+      "sha256": "862b2f14515fcf630f18a0de2a4fd14c23706148ffc20e6ead3538db32f502d2"
+    }
+  ],
+  "addedUiFunctions": [
+    {
+      "key": "CrmRecordWork:confirmTaskChange",
+      "sha256": "daa98aebf08e8360e294d9b1cc40a9fb4a659157a6fabee68a7163c6bd96feb1"
+    }
+  ],
+  "addedUiEffects": [
+    {
+      "owner": "CrmRecordWork",
+      "sha256": "f1912e971ca6f76e647bdcefd8dfaf80476ed8b1e7e842ab6cd8f4c307ea4b09"
+    }
+  ],
+  "scope": "UI-only focus/Tab/Escape/return and synchronous duplicate-submit wrapper; original business functions/readers/effects unchanged"
+}

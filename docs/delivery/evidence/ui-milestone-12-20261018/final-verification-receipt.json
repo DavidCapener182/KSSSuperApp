@@ -1,0 +1,72 @@
+{
+  "status": "READY_FOR_ROOT_REVIEW_STAGED_NOT_COMMITTED",
+  "base": "1ac31f02564820062b3ee037254f5a1933694776",
+  "branch": "codex/ui-milestone-12-crm-commercial",
+  "newCommit": null,
+  "products": 8,
+  "nonOwnedSource": 425,
+  "protectedConfigSchemaPublic": 239,
+  "sourceInventory": 433,
+  "offlineTests": {
+    "files": 54,
+    "passed": 781,
+    "failed": 0,
+    "skipped": 0,
+    "networkGuard": true,
+    "command": "test-command.json"
+  },
+  "build": {
+    "exit": 0,
+    "log": "build.txt",
+    "syntheticCompileOnly": true
+  },
+  "types": {
+    "exit": 0,
+    "log": "types.txt"
+  },
+  "fullLint": {
+    "exit": 0,
+    "log": "final-full-lint.txt",
+    "warning": "Existing unused officeId only"
+  },
+  "browser": {
+    "records": 140,
+    "mainRecords": 108,
+    "supplementalRecords": 32,
+    "images": 149,
+    "imageManifest": "image-manifest.json",
+    "imageBaseDirectory": "browser-images",
+    "widths": [
+      1440,
+      834,
+      390,
+      320
+    ],
+    "allEightProductsCovered": true,
+    "candidateMatchedExecutedAfterSourceRows": 29,
+    "exactMockBoundaryRows": 6,
+    "parity": "runtime-candidate-parity.json",
+    "allBranchesClaimed": false,
+    "syntheticOnly": true
+  },
+  "independentReview": {
+    "passed": 43,
+    "receipt": "independent-review/review-receipt.json",
+    "blockingIntroducedFinding": []
+  },
+  "scopeLimits": [
+    "No ClientWorkspace/LP/TFS product changes or acceptance",
+    "No hosted Auth/RPC/RLS/real persistence acceptance",
+    "Denied clearing applies CrmClient; unchanged Pipeline/RecordWork failure lifecycle not newly repaired",
+    "Main edit-modal/owner-choice lifecycle outside new follow-up wrapper proof"
+  ],
+  "packaging": "Source/helper/diagnostic copies byte-identical .txt via packaging-map.json; canonical acceptance tests executable",
+  "reportSha256": "aa8e80d71abb4db1147a8f75411ec299e98ea4ed94be46ea05658543b71478c3",
+  "remainingGate": "Independent root review and root-owned publication",
+  "diffCheck": {
+    "scopedExit": 0,
+    "fullExit": 2,
+    "receipt": "diff-check-receipt.json",
+    "exception": "Immutable evidence diagnostic/patch whitespace only"
+  }
+}

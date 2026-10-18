@@ -1,0 +1,42 @@
+[
+  {
+    "file": "src/components/commercial-handoff-client.tsx",
+    "beforeSha256": "d30e778f45504de67621acdbf2aa3fb5b1cc4ba4f630150a778578934c96af12",
+    "sha256": "01992772dffbc3e16d42d7ec919ffc5f39374ceca944bd232113c92c7b38dfa2"
+  },
+  {
+    "file": "src/components/commercial-handoff.module.css",
+    "beforeSha256": "3de63c05481c49bf7972c3510b62d2056a52d9f2aa798661ef194a2f8a90d3a7",
+    "sha256": "a9685536e07ec388a816ba428265fd318ad6d279399f542c2e2e1d6d34735fd9"
+  },
+  {
+    "file": "src/components/commercial-record.module.css",
+    "beforeSha256": null,
+    "sha256": "fb1a0401c8de989be8f23e193f6ce0d394f9f2ae97f0c56b9c1a1b10ee5e7080"
+  },
+  {
+    "file": "src/components/crm-client.tsx",
+    "beforeSha256": "19a726b5a1bfe335dab1910d0ab9d1f0e6c34207582389ec1acbdcff701e09a4",
+    "sha256": "634e30f0b953b0d9e3ad32cffba407be30c6be77779480ac0cc34bde76870ad6"
+  },
+  {
+    "file": "src/components/crm-new-lead.module.css",
+    "beforeSha256": "fb7315cdd31507cdee24ddee427058d0b38fdaa9e4f226415202a9bad4541bb6",
+    "sha256": "b7ec5153e9efa866647e1a093e23eeafa76fe4c0e09d33a48847420abb118b6f"
+  },
+  {
+    "file": "src/components/crm-new-lead.tsx",
+    "beforeSha256": "0a9d7252f64f961b524acb7d96e5f14a0b42e601fa548c082fa2832a8e6d4d16",
+    "sha256": "cad1bc4f58ef1d2b6002d5ddf845764bfde6c137d6faab37fd552f4b5e1f0e84"
+  },
+  {
+    "file": "src/components/crm-operational.tsx",
+    "beforeSha256": "4d3d15af8666e159d4f4777e5c47f4b66586045687a4caa5b2e2bdaf4b12251f",
+    "sha256": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c"
+  },
+  {
+    "file": "src/components/crm-sales.module.css",
+    "beforeSha256": "afd21572b8cb7482fc5d1aac8d496b8db22877536f0b56bbda37275b4b3c72a4",
+    "sha256": "0ea2b91505abfb7033b2fa5668d527cfe39685bdd351b6e061c96780ef7518b4"
+  }
+]

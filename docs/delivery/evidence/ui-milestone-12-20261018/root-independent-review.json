@@ -1,0 +1,15 @@
+{
+  "products": 8,
+  "sourceMatchCurrentIntegration": true,
+  "nonOwned": 425,
+  "protected": 239,
+  "verifiedImages": 149,
+  "candidateMatchedAfterSourceRows": 29,
+  "explicitMockedRows": 6,
+  "independentReviewerTests": 43,
+  "rootIntegrationTests": 909,
+  "candidateTests": 781,
+  "candidateTestFiles": 54,
+  "blockingIntroducedFindings": [],
+  "finalReceiptSha256": "960c18b7fc272ca848a6fd6611e14d2e4fababdf9dc835cf983446f4e258d2b2"
+}

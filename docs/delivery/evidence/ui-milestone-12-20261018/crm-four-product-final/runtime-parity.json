@@ -1,0 +1,478 @@
+{
+  "runtimeFileChecks": 69,
+  "authoritativeSourceComparisons": 57,
+  "mismatches": [],
+  "checks": [
+    {
+      "stage": "before",
+      "file": "src/lib/auth/capabilities.ts",
+      "manifest": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "runtime": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "authoritativeSource": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/enterprise-shell.tsx",
+      "manifest": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "runtime": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "authoritativeSource": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/environment-label.ts",
+      "manifest": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "runtime": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "authoritativeSource": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/ui/sheet.tsx",
+      "manifest": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "runtime": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "authoritativeSource": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/ui/sheet.module.css",
+      "manifest": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "runtime": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "authoritativeSource": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/ui/button.tsx",
+      "manifest": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "runtime": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "authoritativeSource": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/globals.css",
+      "manifest": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "runtime": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "authoritativeSource": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/commercial-handoff/page.tsx",
+      "manifest": "a5daae3f29cbf452cbca4683c9b0e2aff25a5fce941b587d931d6c312289e1ea",
+      "runtime": "a5daae3f29cbf452cbca4683c9b0e2aff25a5fce941b587d931d6c312289e1ea",
+      "authoritativeSource": "a5daae3f29cbf452cbca4683c9b0e2aff25a5fce941b587d931d6c312289e1ea"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/commercial-handoff-client.tsx",
+      "manifest": "d30e778f45504de67621acdbf2aa3fb5b1cc4ba4f630150a778578934c96af12",
+      "runtime": "d30e778f45504de67621acdbf2aa3fb5b1cc4ba4f630150a778578934c96af12",
+      "authoritativeSource": "d30e778f45504de67621acdbf2aa3fb5b1cc4ba4f630150a778578934c96af12"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/commercial-handoff.module.css",
+      "manifest": "3de63c05481c49bf7972c3510b62d2056a52d9f2aa798661ef194a2f8a90d3a7",
+      "runtime": "3de63c05481c49bf7972c3510b62d2056a52d9f2aa798661ef194a2f8a90d3a7",
+      "authoritativeSource": "3de63c05481c49bf7972c3510b62d2056a52d9f2aa798661ef194a2f8a90d3a7"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/crm/opportunities/[id]/page.tsx",
+      "manifest": "af0367eabacc0ba4454af16dd795e0c61380cad4d375a2ff401028756364f6ee",
+      "runtime": "af0367eabacc0ba4454af16dd795e0c61380cad4d375a2ff401028756364f6ee",
+      "authoritativeSource": "af0367eabacc0ba4454af16dd795e0c61380cad4d375a2ff401028756364f6ee"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/crm-client.tsx",
+      "manifest": "19a726b5a1bfe335dab1910d0ab9d1f0e6c34207582389ec1acbdcff701e09a4",
+      "runtime": "19a726b5a1bfe335dab1910d0ab9d1f0e6c34207582389ec1acbdcff701e09a4",
+      "authoritativeSource": "19a726b5a1bfe335dab1910d0ab9d1f0e6c34207582389ec1acbdcff701e09a4"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/crm-list-work.module.css",
+      "manifest": "9c0dfcb60e450ad2908f62bc0d212db30e0dffce7e9faf6ec4268255a5c39584",
+      "runtime": "9c0dfcb60e450ad2908f62bc0d212db30e0dffce7e9faf6ec4268255a5c39584",
+      "authoritativeSource": "9c0dfcb60e450ad2908f62bc0d212db30e0dffce7e9faf6ec4268255a5c39584"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/commercial-journey.module.css",
+      "manifest": "66482671d2892db49e38dfaf73e537c4a4c2d301f823032b73a810a7d4ceeb4c",
+      "runtime": "66482671d2892db49e38dfaf73e537c4a4c2d301f823032b73a810a7d4ceeb4c",
+      "authoritativeSource": "66482671d2892db49e38dfaf73e537c4a4c2d301f823032b73a810a7d4ceeb4c"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/crm-attention.tsx",
+      "manifest": "d0ce40dcf0ea859727f28c48887e73aba4088ea5b9d1f8fb463c819c187ea1ed",
+      "runtime": "d0ce40dcf0ea859727f28c48887e73aba4088ea5b9d1f8fb463c819c187ea1ed",
+      "authoritativeSource": "d0ce40dcf0ea859727f28c48887e73aba4088ea5b9d1f8fb463c819c187ea1ed"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/crm-attention.module.css",
+      "manifest": "4c1b97079757d75347cdb8efad6f050ac0d84065c08755872511f1bb54bfeac4",
+      "runtime": "4c1b97079757d75347cdb8efad6f050ac0d84065c08755872511f1bb54bfeac4",
+      "authoritativeSource": "4c1b97079757d75347cdb8efad6f050ac0d84065c08755872511f1bb54bfeac4"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/crm/due-status.ts",
+      "manifest": "f1190f79a2d0e62275a4eca1eb74e29bfbc0763a4dd5035618e2814f857fb976",
+      "runtime": "f1190f79a2d0e62275a4eca1eb74e29bfbc0763a4dd5035618e2814f857fb976",
+      "authoritativeSource": "f1190f79a2d0e62275a4eca1eb74e29bfbc0763a4dd5035618e2814f857fb976"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/crm-operational-links.tsx",
+      "manifest": "e70c113e7cea8469ca6265aeeb45e281f77717e311663eae300d7333b2b08cf9",
+      "runtime": "e70c113e7cea8469ca6265aeeb45e281f77717e311663eae300d7333b2b08cf9",
+      "authoritativeSource": "e70c113e7cea8469ca6265aeeb45e281f77717e311663eae300d7333b2b08cf9"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/crm-operational.tsx",
+      "manifest": "4d3d15af8666e159d4f4777e5c47f4b66586045687a4caa5b2e2bdaf4b12251f",
+      "runtime": "4d3d15af8666e159d4f4777e5c47f4b66586045687a4caa5b2e2bdaf4b12251f",
+      "authoritativeSource": "4d3d15af8666e159d4f4777e5c47f4b66586045687a4caa5b2e2bdaf4b12251f"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/crm-sales.module.css",
+      "manifest": "afd21572b8cb7482fc5d1aac8d496b8db22877536f0b56bbda37275b4b3c72a4",
+      "runtime": "afd21572b8cb7482fc5d1aac8d496b8db22877536f0b56bbda37275b4b3c72a4",
+      "authoritativeSource": "afd21572b8cb7482fc5d1aac8d496b8db22877536f0b56bbda37275b4b3c72a4"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/ui/input.tsx",
+      "manifest": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04",
+      "runtime": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04",
+      "authoritativeSource": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/record-section-tracker.tsx",
+      "manifest": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc",
+      "runtime": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc",
+      "authoritativeSource": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/record-studies.css",
+      "manifest": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e",
+      "runtime": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e",
+      "authoritativeSource": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/crm/organisations/[id]/page.tsx",
+      "manifest": "7bcf8ed5a9b47a79a0e80d5c0c9c05c07e67e361c46508aa5ac15333910372c4",
+      "runtime": "7bcf8ed5a9b47a79a0e80d5c0c9c05c07e67e361c46508aa5ac15333910372c4",
+      "authoritativeSource": "7bcf8ed5a9b47a79a0e80d5c0c9c05c07e67e361c46508aa5ac15333910372c4"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/crm/new-lead/page.tsx",
+      "manifest": "290c5ae5bdafdab2d773bbc34ccec8735bcb2e398ffbb5e52120622d499707fb",
+      "runtime": "290c5ae5bdafdab2d773bbc34ccec8735bcb2e398ffbb5e52120622d499707fb",
+      "authoritativeSource": "290c5ae5bdafdab2d773bbc34ccec8735bcb2e398ffbb5e52120622d499707fb"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/crm-new-lead.tsx",
+      "manifest": "0a9d7252f64f961b524acb7d96e5f14a0b42e601fa548c082fa2832a8e6d4d16",
+      "runtime": "0a9d7252f64f961b524acb7d96e5f14a0b42e601fa548c082fa2832a8e6d4d16",
+      "authoritativeSource": "0a9d7252f64f961b524acb7d96e5f14a0b42e601fa548c082fa2832a8e6d4d16"
+    },
+    {
+      "stage": "before",
+      "file": "src/components/crm-new-lead.module.css",
+      "manifest": "fb7315cdd31507cdee24ddee427058d0b38fdaa9e4f226415202a9bad4541bb6",
+      "runtime": "fb7315cdd31507cdee24ddee427058d0b38fdaa9e4f226415202a9bad4541bb6",
+      "authoritativeSource": "fb7315cdd31507cdee24ddee427058d0b38fdaa9e4f226415202a9bad4541bb6"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/crm/page.tsx",
+      "manifest": "69157e00b2e9170ae0342731f02de28ed905d3042b84a66ee80f23076ca784ca",
+      "runtime": "69157e00b2e9170ae0342731f02de28ed905d3042b84a66ee80f23076ca784ca",
+      "authoritativeSource": "69157e00b2e9170ae0342731f02de28ed905d3042b84a66ee80f23076ca784ca"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/auth/principal.ts",
+      "manifest": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f",
+      "runtime": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/supabase/server.ts",
+      "manifest": "27a98ceb10f45dfa7ac8d8f1a876fa44fec30a53f710476d635c59e87faada77",
+      "runtime": "27a98ceb10f45dfa7ac8d8f1a876fa44fec30a53f710476d635c59e87faada77"
+    },
+    {
+      "stage": "before",
+      "file": "src/lib/supabase/browser.ts",
+      "manifest": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73",
+      "runtime": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/layout.tsx",
+      "manifest": "dac0f17bc2615a9aef49a493984dae961a94ca46b72e4ec8d408679d361b604d",
+      "runtime": "dac0f17bc2615a9aef49a493984dae961a94ca46b72e4ec8d408679d361b604d"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/(enterprise)/layout.tsx",
+      "manifest": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32",
+      "runtime": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32"
+    },
+    {
+      "stage": "before",
+      "file": "src/app/page.tsx",
+      "manifest": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6",
+      "runtime": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/auth/capabilities.ts",
+      "manifest": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "runtime": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "authoritativeSource": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/enterprise-shell.tsx",
+      "manifest": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "runtime": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "authoritativeSource": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/environment-label.ts",
+      "manifest": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "runtime": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "authoritativeSource": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/ui/sheet.tsx",
+      "manifest": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "runtime": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "authoritativeSource": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/ui/sheet.module.css",
+      "manifest": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "runtime": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "authoritativeSource": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/ui/button.tsx",
+      "manifest": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "runtime": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "authoritativeSource": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/globals.css",
+      "manifest": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "runtime": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "authoritativeSource": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/commercial-handoff/page.tsx",
+      "manifest": "a5daae3f29cbf452cbca4683c9b0e2aff25a5fce941b587d931d6c312289e1ea",
+      "runtime": "a5daae3f29cbf452cbca4683c9b0e2aff25a5fce941b587d931d6c312289e1ea",
+      "authoritativeSource": "a5daae3f29cbf452cbca4683c9b0e2aff25a5fce941b587d931d6c312289e1ea"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/commercial-handoff-client.tsx",
+      "manifest": "01992772dffbc3e16d42d7ec919ffc5f39374ceca944bd232113c92c7b38dfa2",
+      "runtime": "01992772dffbc3e16d42d7ec919ffc5f39374ceca944bd232113c92c7b38dfa2",
+      "authoritativeSource": "01992772dffbc3e16d42d7ec919ffc5f39374ceca944bd232113c92c7b38dfa2"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/commercial-handoff.module.css",
+      "manifest": "a9685536e07ec388a816ba428265fd318ad6d279399f542c2e2e1d6d34735fd9",
+      "runtime": "a9685536e07ec388a816ba428265fd318ad6d279399f542c2e2e1d6d34735fd9",
+      "authoritativeSource": "a9685536e07ec388a816ba428265fd318ad6d279399f542c2e2e1d6d34735fd9"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/crm/opportunities/[id]/page.tsx",
+      "manifest": "af0367eabacc0ba4454af16dd795e0c61380cad4d375a2ff401028756364f6ee",
+      "runtime": "af0367eabacc0ba4454af16dd795e0c61380cad4d375a2ff401028756364f6ee",
+      "authoritativeSource": "af0367eabacc0ba4454af16dd795e0c61380cad4d375a2ff401028756364f6ee"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/crm-client.tsx",
+      "manifest": "634e30f0b953b0d9e3ad32cffba407be30c6be77779480ac0cc34bde76870ad6",
+      "runtime": "634e30f0b953b0d9e3ad32cffba407be30c6be77779480ac0cc34bde76870ad6",
+      "authoritativeSource": "634e30f0b953b0d9e3ad32cffba407be30c6be77779480ac0cc34bde76870ad6"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/crm-list-work.module.css",
+      "manifest": "9c0dfcb60e450ad2908f62bc0d212db30e0dffce7e9faf6ec4268255a5c39584",
+      "runtime": "9c0dfcb60e450ad2908f62bc0d212db30e0dffce7e9faf6ec4268255a5c39584",
+      "authoritativeSource": "9c0dfcb60e450ad2908f62bc0d212db30e0dffce7e9faf6ec4268255a5c39584"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/commercial-journey.module.css",
+      "manifest": "66482671d2892db49e38dfaf73e537c4a4c2d301f823032b73a810a7d4ceeb4c",
+      "runtime": "66482671d2892db49e38dfaf73e537c4a4c2d301f823032b73a810a7d4ceeb4c",
+      "authoritativeSource": "66482671d2892db49e38dfaf73e537c4a4c2d301f823032b73a810a7d4ceeb4c"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/crm-attention.tsx",
+      "manifest": "d0ce40dcf0ea859727f28c48887e73aba4088ea5b9d1f8fb463c819c187ea1ed",
+      "runtime": "d0ce40dcf0ea859727f28c48887e73aba4088ea5b9d1f8fb463c819c187ea1ed",
+      "authoritativeSource": "d0ce40dcf0ea859727f28c48887e73aba4088ea5b9d1f8fb463c819c187ea1ed"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/crm-attention.module.css",
+      "manifest": "4c1b97079757d75347cdb8efad6f050ac0d84065c08755872511f1bb54bfeac4",
+      "runtime": "4c1b97079757d75347cdb8efad6f050ac0d84065c08755872511f1bb54bfeac4",
+      "authoritativeSource": "4c1b97079757d75347cdb8efad6f050ac0d84065c08755872511f1bb54bfeac4"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/crm/due-status.ts",
+      "manifest": "f1190f79a2d0e62275a4eca1eb74e29bfbc0763a4dd5035618e2814f857fb976",
+      "runtime": "f1190f79a2d0e62275a4eca1eb74e29bfbc0763a4dd5035618e2814f857fb976",
+      "authoritativeSource": "f1190f79a2d0e62275a4eca1eb74e29bfbc0763a4dd5035618e2814f857fb976"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/crm-operational-links.tsx",
+      "manifest": "e70c113e7cea8469ca6265aeeb45e281f77717e311663eae300d7333b2b08cf9",
+      "runtime": "e70c113e7cea8469ca6265aeeb45e281f77717e311663eae300d7333b2b08cf9",
+      "authoritativeSource": "e70c113e7cea8469ca6265aeeb45e281f77717e311663eae300d7333b2b08cf9"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/crm-operational.tsx",
+      "manifest": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c",
+      "runtime": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c",
+      "authoritativeSource": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/crm-sales.module.css",
+      "manifest": "0ea2b91505abfb7033b2fa5668d527cfe39685bdd351b6e061c96780ef7518b4",
+      "runtime": "0ea2b91505abfb7033b2fa5668d527cfe39685bdd351b6e061c96780ef7518b4",
+      "authoritativeSource": "0ea2b91505abfb7033b2fa5668d527cfe39685bdd351b6e061c96780ef7518b4"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/ui/input.tsx",
+      "manifest": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04",
+      "runtime": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04",
+      "authoritativeSource": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/record-section-tracker.tsx",
+      "manifest": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc",
+      "runtime": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc",
+      "authoritativeSource": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/record-studies.css",
+      "manifest": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e",
+      "runtime": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e",
+      "authoritativeSource": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/crm/organisations/[id]/page.tsx",
+      "manifest": "7bcf8ed5a9b47a79a0e80d5c0c9c05c07e67e361c46508aa5ac15333910372c4",
+      "runtime": "7bcf8ed5a9b47a79a0e80d5c0c9c05c07e67e361c46508aa5ac15333910372c4",
+      "authoritativeSource": "7bcf8ed5a9b47a79a0e80d5c0c9c05c07e67e361c46508aa5ac15333910372c4"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/crm/new-lead/page.tsx",
+      "manifest": "290c5ae5bdafdab2d773bbc34ccec8735bcb2e398ffbb5e52120622d499707fb",
+      "runtime": "290c5ae5bdafdab2d773bbc34ccec8735bcb2e398ffbb5e52120622d499707fb",
+      "authoritativeSource": "290c5ae5bdafdab2d773bbc34ccec8735bcb2e398ffbb5e52120622d499707fb"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/crm-new-lead.tsx",
+      "manifest": "cad1bc4f58ef1d2b6002d5ddf845764bfde6c137d6faab37fd552f4b5e1f0e84",
+      "runtime": "cad1bc4f58ef1d2b6002d5ddf845764bfde6c137d6faab37fd552f4b5e1f0e84",
+      "authoritativeSource": "cad1bc4f58ef1d2b6002d5ddf845764bfde6c137d6faab37fd552f4b5e1f0e84"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/crm-new-lead.module.css",
+      "manifest": "b7ec5153e9efa866647e1a093e23eeafa76fe4c0e09d33a48847420abb118b6f",
+      "runtime": "b7ec5153e9efa866647e1a093e23eeafa76fe4c0e09d33a48847420abb118b6f",
+      "authoritativeSource": "b7ec5153e9efa866647e1a093e23eeafa76fe4c0e09d33a48847420abb118b6f"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/crm/page.tsx",
+      "manifest": "69157e00b2e9170ae0342731f02de28ed905d3042b84a66ee80f23076ca784ca",
+      "runtime": "69157e00b2e9170ae0342731f02de28ed905d3042b84a66ee80f23076ca784ca",
+      "authoritativeSource": "69157e00b2e9170ae0342731f02de28ed905d3042b84a66ee80f23076ca784ca"
+    },
+    {
+      "stage": "after",
+      "file": "src/components/commercial-record.module.css",
+      "manifest": "fb1a0401c8de989be8f23e193f6ce0d394f9f2ae97f0c56b9c1a1b10ee5e7080",
+      "runtime": "fb1a0401c8de989be8f23e193f6ce0d394f9f2ae97f0c56b9c1a1b10ee5e7080",
+      "authoritativeSource": "fb1a0401c8de989be8f23e193f6ce0d394f9f2ae97f0c56b9c1a1b10ee5e7080"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/auth/principal.ts",
+      "manifest": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f",
+      "runtime": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/supabase/server.ts",
+      "manifest": "27a98ceb10f45dfa7ac8d8f1a876fa44fec30a53f710476d635c59e87faada77",
+      "runtime": "27a98ceb10f45dfa7ac8d8f1a876fa44fec30a53f710476d635c59e87faada77"
+    },
+    {
+      "stage": "after",
+      "file": "src/lib/supabase/browser.ts",
+      "manifest": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73",
+      "runtime": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/layout.tsx",
+      "manifest": "dac0f17bc2615a9aef49a493984dae961a94ca46b72e4ec8d408679d361b604d",
+      "runtime": "dac0f17bc2615a9aef49a493984dae961a94ca46b72e4ec8d408679d361b604d"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/(enterprise)/layout.tsx",
+      "manifest": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32",
+      "runtime": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32"
+    },
+    {
+      "stage": "after",
+      "file": "src/app/page.tsx",
+      "manifest": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6",
+      "runtime": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6"
+    }
+  ]
+}

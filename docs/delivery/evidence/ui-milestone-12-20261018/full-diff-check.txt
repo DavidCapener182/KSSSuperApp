@@ -1,0 +1,11 @@
+docs/delivery/evidence/ui-milestone-12-20261018/build.txt:18: trailing whitespace.
++  Generating static pages using 9 workers (19/76) 
+docs/delivery/evidence/ui-milestone-12-20261018/build.txt:19: trailing whitespace.
++  Generating static pages using 9 workers (38/76) 
+docs/delivery/evidence/ui-milestone-12-20261018/build.txt:20: trailing whitespace.
++  Generating static pages using 9 workers (57/76) 
+docs/delivery/evidence/ui-milestone-12-20261018/build.txt:256: new blank line at EOF.
+docs/delivery/evidence/ui-milestone-12-20261018/crm-four-product-final/review.patch:4: trailing whitespace.
++ 
+docs/delivery/evidence/ui-milestone-12-20261018/final-full-lint.txt:10: new blank line at EOF.
+docs/delivery/evidence/ui-milestone-12-20261018/full-lint.txt:10: new blank line at EOF.

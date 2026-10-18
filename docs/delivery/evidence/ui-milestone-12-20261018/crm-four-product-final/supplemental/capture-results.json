@@ -1,0 +1,890 @@
+[
+  {
+    "stage": "before",
+    "name": "handoff-organisation",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "handoff-mobilisation",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "handoff-organisation",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "handoff-mobilisation",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "handoff-organisation",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "handoff-mobilisation",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "handoff-organisation",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "handoff-mobilisation",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff-organisation",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff-mobilisation",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "task-activity-flows",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "denied-refresh",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "denied-recovery",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "supplemental-interactions",
+    "width": 1440,
+    "synthetic": true,
+    "writes": [
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOrganisation",
+          "name": "Synthetic newly reviewed company",
+          "ownerId": "00000000-0000-4000-8000-000000000001"
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOrganisation",
+          "name": "Synthetic corrected unique company",
+          "ownerId": "00000000-0000-4000-8000-000000000001"
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000102",
+          "title": "Synthetic new-company enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": null,
+          "decisionDate": null,
+          "summary": null
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "createTask",
+          "sourceKind": "CRM_OPPORTUNITY",
+          "sourceId": "00000000-0000-4000-8000-000000000305",
+          "title": "Synthetic browser follow-up",
+          "assigneeId": "00000000-0000-4000-8000-000000000001",
+          "dueLocal": "2026-10-25T10:00"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "REASSIGN",
+          "assigneeId": "00000000-0000-4000-8000-000000000002",
+          "dueLocal": "",
+          "reason": "Synthetic assignment review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "RESCHEDULE",
+          "assigneeId": "",
+          "dueLocal": "2026-10-26T11:00",
+          "reason": "Synthetic date review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "REASSIGN",
+          "assigneeId": "00000000-0000-4000-8000-000000000001",
+          "dueLocal": "",
+          "reason": "Synthetic return to owner"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "COMPLETE",
+          "assigneeId": "",
+          "dueLocal": "",
+          "reason": ""
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "activity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "opportunityId": "00000000-0000-4000-8000-000000000305",
+          "contactId": null,
+          "type": "PHONE_CALL",
+          "subject": "Synthetic manual review note",
+          "summary": "Synthetic observation; no message sent",
+          "correctsId": null
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "REASSIGN",
+          "assigneeId": "00000000-0000-4000-8000-000000000002",
+          "dueLocal": "",
+          "reason": "Synthetic pending review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "RESCHEDULE",
+          "assigneeId": "",
+          "dueLocal": "2026-10-26T11:00",
+          "reason": "Synthetic pending review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "COMPLETE",
+          "assigneeId": "",
+          "dueLocal": "",
+          "reason": ""
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "CANCEL",
+          "assigneeId": "",
+          "dueLocal": "",
+          "reason": "Synthetic pending review"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff-organisation",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff-mobilisation",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "task-activity-flows",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "denied-refresh",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "denied-recovery",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "supplemental-interactions",
+    "width": 834,
+    "synthetic": true,
+    "writes": [
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOrganisation",
+          "name": "Synthetic newly reviewed company",
+          "ownerId": "00000000-0000-4000-8000-000000000001"
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOrganisation",
+          "name": "Synthetic corrected unique company",
+          "ownerId": "00000000-0000-4000-8000-000000000001"
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000102",
+          "title": "Synthetic new-company enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": null,
+          "decisionDate": null,
+          "summary": null
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "createTask",
+          "sourceKind": "CRM_OPPORTUNITY",
+          "sourceId": "00000000-0000-4000-8000-000000000305",
+          "title": "Synthetic browser follow-up",
+          "assigneeId": "00000000-0000-4000-8000-000000000001",
+          "dueLocal": "2026-10-25T10:00"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "REASSIGN",
+          "assigneeId": "00000000-0000-4000-8000-000000000002",
+          "dueLocal": "",
+          "reason": "Synthetic assignment review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "RESCHEDULE",
+          "assigneeId": "",
+          "dueLocal": "2026-10-26T11:00",
+          "reason": "Synthetic date review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "REASSIGN",
+          "assigneeId": "00000000-0000-4000-8000-000000000001",
+          "dueLocal": "",
+          "reason": "Synthetic return to owner"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "COMPLETE",
+          "assigneeId": "",
+          "dueLocal": "",
+          "reason": ""
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "activity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "opportunityId": "00000000-0000-4000-8000-000000000305",
+          "contactId": null,
+          "type": "PHONE_CALL",
+          "subject": "Synthetic manual review note",
+          "summary": "Synthetic observation; no message sent",
+          "correctsId": null
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "REASSIGN",
+          "assigneeId": "00000000-0000-4000-8000-000000000002",
+          "dueLocal": "",
+          "reason": "Synthetic pending review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "RESCHEDULE",
+          "assigneeId": "",
+          "dueLocal": "2026-10-26T11:00",
+          "reason": "Synthetic pending review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "COMPLETE",
+          "assigneeId": "",
+          "dueLocal": "",
+          "reason": ""
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "CANCEL",
+          "assigneeId": "",
+          "dueLocal": "",
+          "reason": "Synthetic pending review"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff-organisation",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff-mobilisation",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "task-activity-flows",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "denied-refresh",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "denied-recovery",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "supplemental-interactions",
+    "width": 390,
+    "synthetic": true,
+    "writes": [
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOrganisation",
+          "name": "Synthetic newly reviewed company",
+          "ownerId": "00000000-0000-4000-8000-000000000001"
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOrganisation",
+          "name": "Synthetic corrected unique company",
+          "ownerId": "00000000-0000-4000-8000-000000000001"
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000102",
+          "title": "Synthetic new-company enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": null,
+          "decisionDate": null,
+          "summary": null
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "createTask",
+          "sourceKind": "CRM_OPPORTUNITY",
+          "sourceId": "00000000-0000-4000-8000-000000000305",
+          "title": "Synthetic browser follow-up",
+          "assigneeId": "00000000-0000-4000-8000-000000000001",
+          "dueLocal": "2026-10-25T10:00"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "REASSIGN",
+          "assigneeId": "00000000-0000-4000-8000-000000000002",
+          "dueLocal": "",
+          "reason": "Synthetic assignment review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "RESCHEDULE",
+          "assigneeId": "",
+          "dueLocal": "2026-10-26T11:00",
+          "reason": "Synthetic date review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "REASSIGN",
+          "assigneeId": "00000000-0000-4000-8000-000000000001",
+          "dueLocal": "",
+          "reason": "Synthetic return to owner"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "COMPLETE",
+          "assigneeId": "",
+          "dueLocal": "",
+          "reason": ""
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "activity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "opportunityId": "00000000-0000-4000-8000-000000000305",
+          "contactId": null,
+          "type": "PHONE_CALL",
+          "subject": "Synthetic manual review note",
+          "summary": "Synthetic observation; no message sent",
+          "correctsId": null
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "REASSIGN",
+          "assigneeId": "00000000-0000-4000-8000-000000000002",
+          "dueLocal": "",
+          "reason": "Synthetic pending review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "RESCHEDULE",
+          "assigneeId": "",
+          "dueLocal": "2026-10-26T11:00",
+          "reason": "Synthetic pending review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "COMPLETE",
+          "assigneeId": "",
+          "dueLocal": "",
+          "reason": ""
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "CANCEL",
+          "assigneeId": "",
+          "dueLocal": "",
+          "reason": "Synthetic pending review"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff-organisation",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff-mobilisation",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "task-activity-flows",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "denied-refresh",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "denied-recovery",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "supplemental-interactions",
+    "width": 320,
+    "synthetic": true,
+    "writes": [
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOrganisation",
+          "name": "Synthetic newly reviewed company",
+          "ownerId": "00000000-0000-4000-8000-000000000001"
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOrganisation",
+          "name": "Synthetic corrected unique company",
+          "ownerId": "00000000-0000-4000-8000-000000000001"
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000102",
+          "title": "Synthetic new-company enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": null,
+          "decisionDate": null,
+          "summary": null
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "createTask",
+          "sourceKind": "CRM_OPPORTUNITY",
+          "sourceId": "00000000-0000-4000-8000-000000000305",
+          "title": "Synthetic browser follow-up",
+          "assigneeId": "00000000-0000-4000-8000-000000000001",
+          "dueLocal": "2026-10-25T10:00"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "REASSIGN",
+          "assigneeId": "00000000-0000-4000-8000-000000000002",
+          "dueLocal": "",
+          "reason": "Synthetic assignment review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "RESCHEDULE",
+          "assigneeId": "",
+          "dueLocal": "2026-10-26T11:00",
+          "reason": "Synthetic date review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "REASSIGN",
+          "assigneeId": "00000000-0000-4000-8000-000000000001",
+          "dueLocal": "",
+          "reason": "Synthetic return to owner"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000402",
+          "kind": "COMPLETE",
+          "assigneeId": "",
+          "dueLocal": "",
+          "reason": ""
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "activity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "opportunityId": "00000000-0000-4000-8000-000000000305",
+          "contactId": null,
+          "type": "PHONE_CALL",
+          "subject": "Synthetic manual review note",
+          "summary": "Synthetic observation; no message sent",
+          "correctsId": null
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "REASSIGN",
+          "assigneeId": "00000000-0000-4000-8000-000000000002",
+          "dueLocal": "",
+          "reason": "Synthetic pending review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "RESCHEDULE",
+          "assigneeId": "",
+          "dueLocal": "2026-10-26T11:00",
+          "reason": "Synthetic pending review"
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "COMPLETE",
+          "assigneeId": "",
+          "dueLocal": "",
+          "reason": ""
+        }
+      },
+      {
+        "path": "/api/crm/work",
+        "body": {
+          "action": "changeTask",
+          "id": "00000000-0000-4000-8000-000000000401",
+          "kind": "CANCEL",
+          "assigneeId": "",
+          "dueLocal": "",
+          "reason": "Synthetic pending review"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  }
+]

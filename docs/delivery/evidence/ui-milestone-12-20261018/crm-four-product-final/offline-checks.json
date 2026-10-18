@@ -1,0 +1,40 @@
+[
+  {
+    "name": "offline",
+    "command": [
+      "node",
+      "--test",
+      "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/tests/ui-commercial-pages-local.test.mjs",
+      "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/tests/ui-commercial-presentation-local.test.mjs",
+      "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/operations-commercial-resumed-20261018/crm-commercial/crm-denied-read-local.test.mjs",
+      "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/operations-commercial-resumed-20261018/crm-commercial/crm-source-contract.test.mjs",
+      "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/operations-commercial-resumed-20261018/crm-commercial/dialog-contract-local.test.mjs"
+    ],
+    "cwd": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3",
+    "exitCode": 0,
+    "logSha256": "1c400a3a4e507148ee8377963c03bc7a40e36891e07f43919d9bb62a4e782f76"
+  },
+  {
+    "name": "types",
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "--noEmit"
+    ],
+    "cwd": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared",
+    "exitCode": 0,
+    "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "lint",
+    "command": [
+      "node",
+      "node_modules/eslint/bin/eslint.js",
+      "src/components/crm-client.tsx",
+      "src/components/crm-operational.tsx"
+    ],
+    "cwd": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared",
+    "exitCode": 0,
+    "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

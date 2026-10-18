@@ -1,0 +1,613 @@
+{
+  "mainRecords": 108,
+  "supplementalRecords": 32,
+  "finalImages": 149,
+  "widths": [
+    1440,
+    834,
+    390,
+    320
+  ],
+  "hostedAcceptance": false,
+  "externalRequests": 0,
+  "pageErrors": 0,
+  "currentHorizontalOverflows": 0,
+  "images": [
+    {
+      "file": "before-overview-1440.png",
+      "sha256": "02a84492119292474665a5a8bf6705a9e7d296e75c52f26186090b9cd8c3580f"
+    },
+    {
+      "file": "before-pipeline-active-1440.png",
+      "sha256": "1b99ad9b43c62822c8cfdb13b492b3e6d29861fa828b2696cf86aa709a407008"
+    },
+    {
+      "file": "before-pipeline-closed-1440.png",
+      "sha256": "05e44a9968e244f8764a9868b18ceed7ed662df84a0fa72dd1ff840d6c85bbe8"
+    },
+    {
+      "file": "before-pipeline-dormant-1440.png",
+      "sha256": "5b142e0230cf0351b7eaa9a488f3c03210914094b65bd55e44aedefdcbc9021f"
+    },
+    {
+      "file": "before-organisations-1440.png",
+      "sha256": "6e66c0553c0bbdb61730ef265957ea505e6b11cba637e3f89d8fbdd5807de697"
+    },
+    {
+      "file": "before-contacts-1440.png",
+      "sha256": "145a8cfbe22e1e68b2743ecdc298c33ff97d400b26b49b7e556298b7583a0c2d"
+    },
+    {
+      "file": "before-opportunities-1440.png",
+      "sha256": "4107bbf7fb0b80dd25ee99201e9d516fc5f9007693a7f84633cd0c44c9d58609"
+    },
+    {
+      "file": "before-new-lead-1440.png",
+      "sha256": "6453dae3490a89d213d0ef783f81ee9276eab00653ff0db6af88363196a34823"
+    },
+    {
+      "file": "before-organisation-1440.png",
+      "sha256": "935e758326a76619f5c509d7654001b65fcaca0000e51e4237a1be4be12a569c"
+    },
+    {
+      "file": "before-opportunity-1440.png",
+      "sha256": "7a6a8dce18cec413f0897c6fd9ec94d78d5f83ba54278e52d94b8fb80a547441"
+    },
+    {
+      "file": "before-handoff-1440.png",
+      "sha256": "c61c73fd0f8d98809f874191e9502ead964d7746330d458e79aa51e13c8088d6"
+    },
+    {
+      "file": "before-overview-834.png",
+      "sha256": "9e16cebc0214f2a3b09ab9e2743fb1d134cc299f1223be9c7e89b93a01e5b4b0"
+    },
+    {
+      "file": "before-pipeline-active-834.png",
+      "sha256": "6b5ff8acdfa2eba3ad017f06d284eb3fe60ed36c087b70bd86220475d6a7a7e8"
+    },
+    {
+      "file": "before-pipeline-closed-834.png",
+      "sha256": "76951c22cdb0d8ed01aa9f5dce75d4e2e5b2f6d0ae415cb6f1654071a8386355"
+    },
+    {
+      "file": "before-pipeline-dormant-834.png",
+      "sha256": "18849e049f0e852c999cc44726c3a2092fc48562fbe7342ba026358a892f8ef5"
+    },
+    {
+      "file": "before-organisations-834.png",
+      "sha256": "b7ec883f88cbcf6f2336e72ddaf5559f20a6a3bd15c31dd3e23cd1b860e0d1e6"
+    },
+    {
+      "file": "before-contacts-834.png",
+      "sha256": "d9580d28df3769d7df9575935d7912dc86b98219294f1c6e4326190ea6dd04d9"
+    },
+    {
+      "file": "before-opportunities-834.png",
+      "sha256": "30502771dd70936661439564d11a1c27d4fb64bd21058ce1ec1b33e79abde962"
+    },
+    {
+      "file": "before-new-lead-834.png",
+      "sha256": "81e55fadf7f2a57901174d69fb5e3233863e493aeff1596e8b61f14a0960d58f"
+    },
+    {
+      "file": "before-organisation-834.png",
+      "sha256": "673751d40811afb52cb48335ffdc07feca2829c6bc1964942fff45f238a46078"
+    },
+    {
+      "file": "before-opportunity-834.png",
+      "sha256": "6a260b1a151d31b76417251db2406b78c177a46a5c261665a982be21d26174f4"
+    },
+    {
+      "file": "before-handoff-834.png",
+      "sha256": "261c0ac16100e4dbd63f426c67d8b548a1039c3ad41310c4c25bd35383eee90c"
+    },
+    {
+      "file": "before-overview-390.png",
+      "sha256": "4a1cf2bc7cb8503da6f6cf023a50011033ac48f9170645755fc136fceaaf7de3"
+    },
+    {
+      "file": "before-pipeline-active-390.png",
+      "sha256": "263063def9c882b5f10c2b8b168746241dc86286a87052683ea7b9ea03311788"
+    },
+    {
+      "file": "before-pipeline-closed-390.png",
+      "sha256": "10903c3eaca86eb30b91e4e75b457d466a4937dde261839563d0633ebb4db6ae"
+    },
+    {
+      "file": "before-pipeline-dormant-390.png",
+      "sha256": "cd69879501760f521bcbdc9dc92323ae611078b4fa7cad9b17720f0ad41f33b0"
+    },
+    {
+      "file": "before-organisations-390.png",
+      "sha256": "9d4aa0ab3437553937781f9c151f4b083ad6ef6e4021992fd7528e12a8975cec"
+    },
+    {
+      "file": "before-contacts-390.png",
+      "sha256": "b22da40746d388b6432b46faf844b9f83980cc95f5d5ef0d20fbd510bf1f096c"
+    },
+    {
+      "file": "before-opportunities-390.png",
+      "sha256": "1d82e4acbf8742994734192bc33f4de021383eaab64d060468cc9dcecc669a48"
+    },
+    {
+      "file": "before-new-lead-390.png",
+      "sha256": "ba5cb40e0ba7d127d6ca93c39d3dcdbaeafacab7c43bde6e0a64293da72bc00e"
+    },
+    {
+      "file": "before-organisation-390.png",
+      "sha256": "6d1df08122730872c1bedb888bea2126343fe84dce0eda663e1d0856cf355374"
+    },
+    {
+      "file": "before-opportunity-390.png",
+      "sha256": "e8d0bac052ff79749035198138f5d703001ea598fc4153655e096886f6247742"
+    },
+    {
+      "file": "before-handoff-390.png",
+      "sha256": "756317f3265278a52ffdca03471d7c773b53c26a08992a5bbf1aaf6a4533a2f4"
+    },
+    {
+      "file": "before-overview-320.png",
+      "sha256": "67992737a095c857d4a9dd8b43f439e7dda03e20d46a53355956dfa72c9ef8fb"
+    },
+    {
+      "file": "before-pipeline-active-320.png",
+      "sha256": "8a343d64c7b5784de9b975320defc3ce6abc7692c85da211fa8b896a034f8609"
+    },
+    {
+      "file": "before-pipeline-closed-320.png",
+      "sha256": "8ee4f9f35c878b4c0bc6351faa799cb824b011c79ffd474f913473fe148b7615"
+    },
+    {
+      "file": "before-pipeline-dormant-320.png",
+      "sha256": "08a99004233031bbe2e3dafc39a863646634115c1100e78907f8b6895f172c86"
+    },
+    {
+      "file": "before-organisations-320.png",
+      "sha256": "3406974afeb47b66994e3d8bccc88dd47b6003db75ea6f55dee69cc067af781e"
+    },
+    {
+      "file": "before-contacts-320.png",
+      "sha256": "0c3e964eef84e510190ca95ed5501d3b0564eef24130b26d512273db19b02cd0"
+    },
+    {
+      "file": "before-opportunities-320.png",
+      "sha256": "e46382316c495993991c41d28f95178c6a1054eceef3f41b89bae78a429d8bc3"
+    },
+    {
+      "file": "before-new-lead-320.png",
+      "sha256": "607cb38c84cdcfff44c972d4128137477141e2a163e6c3acdd4325078c246371"
+    },
+    {
+      "file": "before-organisation-320.png",
+      "sha256": "4a5cdf3bc06a3e1684fffad48dbe92540495bc45b1e0e6e559f23ba4bafe49f2"
+    },
+    {
+      "file": "before-opportunity-320.png",
+      "sha256": "c05735ee3d73f3238bd196b19661c563b9bd8282bfe04adc30f35a4e87adaf22"
+    },
+    {
+      "file": "before-handoff-320.png",
+      "sha256": "7f892c19435b93fd4b37bce85b14b28492375b395d7d3c6492a31040230f9582"
+    },
+    {
+      "file": "after-overview-1440.png",
+      "sha256": "12fc835d6230c8b6d16f1b03a497e53f03914397bf4ef2c187fe8b49e066f35b"
+    },
+    {
+      "file": "after-pipeline-active-1440.png",
+      "sha256": "9b2328a941dd5b625ae4d3f295c8c2a1862b3d563478653fabab6c43b88ebf29"
+    },
+    {
+      "file": "after-pipeline-closed-1440.png",
+      "sha256": "e0dcb9341c06b1bc8eaa149fe59528dd825589b8ed40e4f9855714393e1178d1"
+    },
+    {
+      "file": "after-pipeline-dormant-1440.png",
+      "sha256": "cf9f47356d317881335b6d1819eb1ca704765051015855fc196a31973a11855c"
+    },
+    {
+      "file": "after-organisations-1440.png",
+      "sha256": "9c7a7dfb96ab197896bebc3c15aa793125462d2a6b4da91210d7c455efafb004"
+    },
+    {
+      "file": "after-contacts-1440.png",
+      "sha256": "d0e67ca5bf3c631e650b10da793839aa9d5494c633a463be5ea2ddc6e7b8d1c6"
+    },
+    {
+      "file": "after-opportunities-1440.png",
+      "sha256": "57b9956be56ed42b000cffcb8db8d052b7ce895917dca49caabe0c91440345c1"
+    },
+    {
+      "file": "after-new-lead-1440.png",
+      "sha256": "2cc6449960da0c147570792041229ab0406ad2cd78c5deda28987be4cff58ecf"
+    },
+    {
+      "file": "after-organisation-1440.png",
+      "sha256": "f3625d41656fb2034ab6bd9c78497059d12c1cc82e25d75514bb10611dd25b91"
+    },
+    {
+      "file": "after-opportunity-1440.png",
+      "sha256": "f7356de59491f66f7bf2e7ad3a3c0a8acf5d872f036a527c0ba705a8b0f5d5ac"
+    },
+    {
+      "file": "after-handoff-1440.png",
+      "sha256": "bdc8ffb3c96d1e6f32ac55ef73c5e6785109d4970e415bffe0bbe911f5e93e18"
+    },
+    {
+      "file": "after-crm-denied-1440.png",
+      "sha256": "e9a62035c7f13dd0776f1a6b9cd38472e0dafa5e7a58ba3e70381a3d02ef2afc"
+    },
+    {
+      "file": "after-crm-empty-1440.png",
+      "sha256": "0df5a61be8ca2d98cb09a141c3a974bf52aef86395fb7b35001793b0798a30ac"
+    },
+    {
+      "file": "after-handoff-wrong-source-1440.png",
+      "sha256": "a14a134851ba73de3bf6bc1eb0a8b22d068e8f0ec277faf501c46de2f3436e44"
+    },
+    {
+      "file": "after-lead-review-1440.png",
+      "sha256": "250afcbc52a9e1c7f3cfe8cd5e756ec68d1db9f6e280257ba7539b72a470bf31"
+    },
+    {
+      "file": "after-overview-834.png",
+      "sha256": "515d30a4686c712fffcaa38639e4c6d0225035e97f8e78c6f4b1336bcf86b821"
+    },
+    {
+      "file": "after-pipeline-active-834.png",
+      "sha256": "b637ab226d756fa0a19bdd5ef785b53d5c8dd7f21640aacb9fc8c4186578c306"
+    },
+    {
+      "file": "after-pipeline-closed-834.png",
+      "sha256": "b0f42c10feeca10a5d4d9d2797df46a273d624f48f875ef6262527693866f688"
+    },
+    {
+      "file": "after-pipeline-dormant-834.png",
+      "sha256": "35842ac8a934e896623b75e9b5b45223b17499e030c47d0d5d2b90822798835b"
+    },
+    {
+      "file": "after-organisations-834.png",
+      "sha256": "fe75f7ee0525969ba767e456b944c878a95d9faa80a75dab1d679708689af6d4"
+    },
+    {
+      "file": "after-contacts-834.png",
+      "sha256": "a9a23c538196cadf82df70c673e24209daa5429c4a60975690de4418988b5ace"
+    },
+    {
+      "file": "after-opportunities-834.png",
+      "sha256": "aaa852ec5b338b5113f25a17fd70e31d1a80a0fd4c54538fe088d51c5d83dfcd"
+    },
+    {
+      "file": "after-new-lead-834.png",
+      "sha256": "8611e006a77c3577a5cf28df7e64926fded9628ab1ede719a473beb12bc8df38"
+    },
+    {
+      "file": "after-organisation-834.png",
+      "sha256": "09b08c6cd89a6d62702f1504a0efffe53fe367aef7be8bcd08cde60e0d86c7c3"
+    },
+    {
+      "file": "after-opportunity-834.png",
+      "sha256": "7a82f6860e3fb0fd4c71da2964b94f08feb8a528063dc0303dd300823bff986b"
+    },
+    {
+      "file": "after-handoff-834.png",
+      "sha256": "2cb91fc0a0289eb1fdd28942c9c8e3f2429aa03a05dfd21825ad2b69e8663549"
+    },
+    {
+      "file": "after-crm-denied-834.png",
+      "sha256": "adac8e88412abc5008ee13c3747bf433d07f13a5259c7aa37f6979b7f956679b"
+    },
+    {
+      "file": "after-crm-empty-834.png",
+      "sha256": "62f4ded311de10036e524a43010f722e9a85794bccd37c06f549296598be6e4c"
+    },
+    {
+      "file": "after-handoff-wrong-source-834.png",
+      "sha256": "38051b431a34a61e818d91c6f629fb84ca24fb2f5c8381152efaedcd92d216e9"
+    },
+    {
+      "file": "after-lead-review-834.png",
+      "sha256": "df1e0f6cedaaa78864732d354462bc91b5fcce96a1879e4c9c35d7b476c59371"
+    },
+    {
+      "file": "after-overview-390.png",
+      "sha256": "669ceb76e2551e23753b1e74be757a414e5ee7490fec2cb9a40a9b164dbdb547"
+    },
+    {
+      "file": "after-pipeline-active-390.png",
+      "sha256": "e32ae7eb778835855f7b6dc22d32c5ec1811783369c00b3badabf06f797281ad"
+    },
+    {
+      "file": "after-pipeline-closed-390.png",
+      "sha256": "59ebbfb98e823bcc0597ec04167709cb9014a557f50caf2a9babe776d623140c"
+    },
+    {
+      "file": "after-pipeline-dormant-390.png",
+      "sha256": "c72d6950711050ef52ff651cc76569d373e8182554be16542e3ebcf7e18e0d7c"
+    },
+    {
+      "file": "after-organisations-390.png",
+      "sha256": "9d4aa0ab3437553937781f9c151f4b083ad6ef6e4021992fd7528e12a8975cec"
+    },
+    {
+      "file": "after-contacts-390.png",
+      "sha256": "b22da40746d388b6432b46faf844b9f83980cc95f5d5ef0d20fbd510bf1f096c"
+    },
+    {
+      "file": "after-opportunities-390.png",
+      "sha256": "1d82e4acbf8742994734192bc33f4de021383eaab64d060468cc9dcecc669a48"
+    },
+    {
+      "file": "after-new-lead-390.png",
+      "sha256": "bacda55a8bce4f7f86da5c94f6f0730451366ffd04ad9464ed0a80712617f588"
+    },
+    {
+      "file": "after-organisation-390.png",
+      "sha256": "a971c3dcf377264cf8c230d43544b413f33f51aac72fab7fb16c6e2ea2d33bcd"
+    },
+    {
+      "file": "after-opportunity-390.png",
+      "sha256": "920e72621aee9604cb965766a7665f93ff1f166988cf7fab5cbbb585c4ea58d7"
+    },
+    {
+      "file": "after-handoff-390.png",
+      "sha256": "91632103ef1fa35fd9f853e400ff600653b0ae7a276d027a24979b1f24e8c301"
+    },
+    {
+      "file": "after-crm-denied-390.png",
+      "sha256": "36ec1b09ad707e80eb6e34c5376069cf0f71134fbf587d2092a1edd9d1966a47"
+    },
+    {
+      "file": "after-crm-empty-390.png",
+      "sha256": "c5bf5912ec5d1bcaffb31aa1d37ba9d7caf76b28142aa53f3573d7537d5543b5"
+    },
+    {
+      "file": "after-handoff-wrong-source-390.png",
+      "sha256": "9614683392090056ae0b1e590af2698f793b65cfa11a01668c73882dcac3341a"
+    },
+    {
+      "file": "after-lead-review-390.png",
+      "sha256": "085fd437c6cb80bf934ca7354825947d1b0f36f4ed0af6784a360f5370fe30c9"
+    },
+    {
+      "file": "after-overview-320.png",
+      "sha256": "b793a4f1adfd65a5c60f0174f064c667ee037d0e815d04380644824dd6227f5c"
+    },
+    {
+      "file": "after-pipeline-active-320.png",
+      "sha256": "6183ed3e664e6e15f5640885393e15ef4074e7d5fec33952f9c8b6fd6b62ea33"
+    },
+    {
+      "file": "after-pipeline-closed-320.png",
+      "sha256": "da5f411f2581bc88850d28692911dabf2bb0301b99b0c53ac1c8967ffbb1bd91"
+    },
+    {
+      "file": "after-pipeline-dormant-320.png",
+      "sha256": "981dc19c83406153ba173519863928c7f380c2fa237d8aa06c9bb2241bd8b84b"
+    },
+    {
+      "file": "after-organisations-320.png",
+      "sha256": "3406974afeb47b66994e3d8bccc88dd47b6003db75ea6f55dee69cc067af781e"
+    },
+    {
+      "file": "after-contacts-320.png",
+      "sha256": "6dbfe4be1877d51b81008326de18f8eab61dc15fd11fbc2fbc43513023756306"
+    },
+    {
+      "file": "after-opportunities-320.png",
+      "sha256": "e46382316c495993991c41d28f95178c6a1054eceef3f41b89bae78a429d8bc3"
+    },
+    {
+      "file": "after-new-lead-320.png",
+      "sha256": "b242bf9d2e445cd144d3afac92e64e61f7f4bdb13343022206293958df713a80"
+    },
+    {
+      "file": "after-organisation-320.png",
+      "sha256": "ce989cd9f80e78bbd6e6e110c29b86f95f4aacadc1b0767f80cb0ee0280a780f"
+    },
+    {
+      "file": "after-opportunity-320.png",
+      "sha256": "dc3e2ecd561f95caddfb3589210e3c5f1c33b86f83fd61ea4800056add8edeca"
+    },
+    {
+      "file": "after-handoff-320.png",
+      "sha256": "c1c8847ee0f044bfaea083c4e05e22d25a93602092f65e05f80caebe56664b82"
+    },
+    {
+      "file": "after-crm-denied-320.png",
+      "sha256": "b8764828e39a4100282b3bbc959da6cb3ad5b51960945fb798696035555f327b"
+    },
+    {
+      "file": "after-crm-empty-320.png",
+      "sha256": "806e99fe27d9c06712949c320827f741c0f02429d51646ed5b41672cd29a31ba"
+    },
+    {
+      "file": "after-handoff-wrong-source-320.png",
+      "sha256": "745b0f54a85252d64bbf585a9ef4772a6fba1615e99bd1a1248fb3c90bb75617"
+    },
+    {
+      "file": "after-lead-review-320.png",
+      "sha256": "136d408743a2efc4436f96c24aec6c489c44dbdaceab997b4f9222ddbc1c6cc2"
+    },
+    {
+      "file": "supplemental/before-handoff-organisation-1440.png",
+      "sha256": "c7c7944f777179518c2cca4dfaa56d725fa9e92fa05b06db86cf5af953d92cba"
+    },
+    {
+      "file": "supplemental/before-handoff-mobilisation-1440.png",
+      "sha256": "c61c73fd0f8d98809f874191e9502ead964d7746330d458e79aa51e13c8088d6"
+    },
+    {
+      "file": "supplemental/before-handoff-organisation-834.png",
+      "sha256": "e63f08d5bea988803985688e365b03ebed1b0e3f5a1511bbcc108619ef424be2"
+    },
+    {
+      "file": "supplemental/before-handoff-mobilisation-834.png",
+      "sha256": "cefaecb81beac93955b1c4873c79ade4df2ec781d3b7ea6a2c3e7927301886f1"
+    },
+    {
+      "file": "supplemental/before-handoff-organisation-390.png",
+      "sha256": "40bf45d0a261ddba31306a50352d66e77701733edf4fb0302d86cd395347c981"
+    },
+    {
+      "file": "supplemental/before-handoff-mobilisation-390.png",
+      "sha256": "756317f3265278a52ffdca03471d7c773b53c26a08992a5bbf1aaf6a4533a2f4"
+    },
+    {
+      "file": "supplemental/before-handoff-organisation-320.png",
+      "sha256": "cf9cbb446a0111cee62e76b354016d19c29963de72950938e134197a441d62eb"
+    },
+    {
+      "file": "supplemental/before-handoff-mobilisation-320.png",
+      "sha256": "7f892c19435b93fd4b37bce85b14b28492375b395d7d3c6492a31040230f9582"
+    },
+    {
+      "file": "supplemental/after-handoff-organisation-1440.png",
+      "sha256": "70260c67f3f64dc570a4acdd820bccbd381f8b30013b5f5accee7aaf6ae3d3e4"
+    },
+    {
+      "file": "supplemental/after-handoff-mobilisation-1440.png",
+      "sha256": "bdc8ffb3c96d1e6f32ac55ef73c5e6785109d4970e415bffe0bbe911f5e93e18"
+    },
+    {
+      "file": "supplemental/after-task-activity-flows-1440.png",
+      "sha256": "ec3703e45426f6acb97562c77abf021a275a0c043431c3fc307baed150311d0e"
+    },
+    {
+      "file": "supplemental/after-denied-refresh-1440.png",
+      "sha256": "e9a62035c7f13dd0776f1a6b9cd38472e0dafa5e7a58ba3e70381a3d02ef2afc"
+    },
+    {
+      "file": "supplemental/after-denied-recovery-1440.png",
+      "sha256": "6d9fa033bb5c77dac99f181ac7500d14288ef68bf4556e28879ee6625cb9f788"
+    },
+    {
+      "file": "supplemental/after-handoff-organisation-834.png",
+      "sha256": "da0917015cca1828f1a59613afda1d5b1223b0d644eca5dfcdfbbc1f72f1b85f"
+    },
+    {
+      "file": "supplemental/after-handoff-mobilisation-834.png",
+      "sha256": "2cb91fc0a0289eb1fdd28942c9c8e3f2429aa03a05dfd21825ad2b69e8663549"
+    },
+    {
+      "file": "supplemental/after-task-activity-flows-834.png",
+      "sha256": "fcf141ade8f2788be4fe3724590ab5e5e3048160d9f0458be5e336eb090ea469"
+    },
+    {
+      "file": "supplemental/after-denied-refresh-834.png",
+      "sha256": "adac8e88412abc5008ee13c3747bf433d07f13a5259c7aa37f6979b7f956679b"
+    },
+    {
+      "file": "supplemental/after-denied-recovery-834.png",
+      "sha256": "fe75f7ee0525969ba767e456b944c878a95d9faa80a75dab1d679708689af6d4"
+    },
+    {
+      "file": "supplemental/after-handoff-organisation-390.png",
+      "sha256": "f07bfe01fb7b69fab16588b7a065139ec02973ac20c10dfe4b81b6a3d631b985"
+    },
+    {
+      "file": "supplemental/after-handoff-mobilisation-390.png",
+      "sha256": "91632103ef1fa35fd9f853e400ff600653b0ae7a276d027a24979b1f24e8c301"
+    },
+    {
+      "file": "supplemental/after-task-activity-flows-390.png",
+      "sha256": "e2b28f9658039ede8da89a5ccb22fe5da36317bb3c66461b838a73f0e82f3425"
+    },
+    {
+      "file": "supplemental/after-denied-refresh-390.png",
+      "sha256": "36ec1b09ad707e80eb6e34c5376069cf0f71134fbf587d2092a1edd9d1966a47"
+    },
+    {
+      "file": "supplemental/after-denied-recovery-390.png",
+      "sha256": "9d4aa0ab3437553937781f9c151f4b083ad6ef6e4021992fd7528e12a8975cec"
+    },
+    {
+      "file": "supplemental/after-handoff-organisation-320.png",
+      "sha256": "20a5f41c681f50d7d0722d8e225adb6b251384fcabe333f62c06078e7db50f81"
+    },
+    {
+      "file": "supplemental/after-handoff-mobilisation-320.png",
+      "sha256": "c1c8847ee0f044bfaea083c4e05e22d25a93602092f65e05f80caebe56664b82"
+    },
+    {
+      "file": "supplemental/after-task-activity-flows-320.png",
+      "sha256": "b2ebc9e240c2b375ca28dd1255a58ebef8ad8bc11fb7cf437b4f9132eb028bbc"
+    },
+    {
+      "file": "supplemental/after-denied-refresh-320.png",
+      "sha256": "b8764828e39a4100282b3bbc959da6cb3ad5b51960945fb798696035555f327b"
+    },
+    {
+      "file": "supplemental/after-denied-recovery-320.png",
+      "sha256": "3406974afeb47b66994e3d8bccc88dd47b6003db75ea6f55dee69cc067af781e"
+    },
+    {
+      "file": "after-tablet-pipeline-keyboard.png",
+      "sha256": "1bf7ae5dd905b63c43de99429e968860169c4357beef13ee3b241f25cc4a44ee"
+    },
+    {
+      "file": "supplemental/after-reassign-dialog-1440.png",
+      "sha256": "d2204c530508b7bdc74344cb186e34cb3dc59b0515dca55015b4b1f341b67793"
+    },
+    {
+      "file": "supplemental/after-reassign-dialog-834.png",
+      "sha256": "d89f2d6c43291f1ed6134c2d56cb059411d68adae0cd83b67f2cf20728e14381"
+    },
+    {
+      "file": "supplemental/after-reassign-dialog-390.png",
+      "sha256": "d1312d9184f3e307fb64043af194ed0019851337134f511e32e7348c19b1170b"
+    },
+    {
+      "file": "supplemental/after-reassign-dialog-320.png",
+      "sha256": "ae2a5a401501e74ffde25071e7d5b358194af7bbc1bb443f5786c46bb519d6b3"
+    },
+    {
+      "file": "supplemental/after-reschedule-dialog-1440.png",
+      "sha256": "0148f8b370050a219a18676fe8d75609859346bada9d796bcd52879aa936463a"
+    },
+    {
+      "file": "supplemental/after-reschedule-dialog-834.png",
+      "sha256": "f11f95f0be962861d2205d0b1b9e46b0b55b9367ec32a312f459fada7ac0d8a8"
+    },
+    {
+      "file": "supplemental/after-reschedule-dialog-390.png",
+      "sha256": "5659ac031debbf39f56fb570573edc2aca06ce8c842d04b4e54674eb3dfccf31"
+    },
+    {
+      "file": "supplemental/after-reschedule-dialog-320.png",
+      "sha256": "36004e2edb08b75389b2e6303f0d6426cd187b0c49256d1b07b8871009a6729e"
+    },
+    {
+      "file": "supplemental/after-complete-dialog-1440.png",
+      "sha256": "ece089bc7c08b21b497365de7281b358e76112c3f90293a68938f9405f35d894"
+    },
+    {
+      "file": "supplemental/after-complete-dialog-834.png",
+      "sha256": "19e21e6c65a54fcf48fb964cce46024ff030ecd39e67c3dcccf7c2be548fa01c"
+    },
+    {
+      "file": "supplemental/after-complete-dialog-390.png",
+      "sha256": "e26bf376fdf0a1d8e03120967adb4e3634275f01aa6aa8ba245c4fc4988c7ba1"
+    },
+    {
+      "file": "supplemental/after-complete-dialog-320.png",
+      "sha256": "acb3f4079ca73b95e309efac289d887a891613f14d953f6e87d689f679ef9d57"
+    },
+    {
+      "file": "supplemental/after-cancel-dialog-1440.png",
+      "sha256": "32884e4b406b89685a83808742029c4953276eba6f7eaaa12e6155026bbeba03"
+    },
+    {
+      "file": "supplemental/after-cancel-dialog-834.png",
+      "sha256": "cd55299f646ccb03e4db04a1349a18ab8e892d4eb4b3988722481daf2553f16a"
+    },
+    {
+      "file": "supplemental/after-cancel-dialog-390.png",
+      "sha256": "95bfe31611fdb8a6b1dafb89c6714426fc57f79515e59a6aed0d5e08924e73c4"
+    },
+    {
+      "file": "supplemental/after-cancel-dialog-320.png",
+      "sha256": "8f0d89f0d6cfd94626fbb24bd4dcdd0087b356e1316d18def15bbc6c29239e8e"
+    }
+  ]
+}

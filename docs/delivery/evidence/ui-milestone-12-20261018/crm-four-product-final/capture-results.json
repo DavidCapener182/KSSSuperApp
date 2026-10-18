@@ -1,0 +1,1310 @@
+[
+  {
+    "stage": "before",
+    "name": "overview",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "pipeline-active",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "pipeline-closed",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "pipeline-dormant",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "organisations",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "contacts",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "opportunities",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "new-lead",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "organisation",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "opportunity",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "handoff",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "overview",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "pipeline-active",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 882,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "pipeline-closed",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "pipeline-dormant",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "organisations",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "contacts",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "opportunities",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "new-lead",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "organisation",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 858,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "opportunity",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 858,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "handoff",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "overview",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "pipeline-active",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 399,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "pipeline-closed",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 399,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "pipeline-dormant",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 399,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "organisations",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "contacts",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "opportunities",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "new-lead",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "organisation",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "opportunity",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "handoff",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "overview",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 334,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "pipeline-active",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 399,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "pipeline-closed",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 399,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "pipeline-dormant",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 399,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "organisations",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "contacts",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "opportunities",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "new-lead",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "organisation",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 337,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "opportunity",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 337,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "name": "handoff",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "overview",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "pipeline-active",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "pipeline-closed",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "pipeline-dormant",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "organisations",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "contacts",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "opportunities",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "new-lead",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "organisation",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "opportunity",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "crm-denied",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "crm-empty",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff-wrong-source",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "lead-review",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "interactions",
+    "width": 1440,
+    "synthetic": true,
+    "writes": [
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "title": "Synthetic reviewed browser enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": 125000,
+          "decisionDate": "2026-10-25",
+          "summary": null
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "transition",
+          "id": "00000000-0000-4000-8000-000000000305",
+          "stage": "DORMANT",
+          "reason": "Synthetic reviewed reason"
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "title": "Synthetic retained denied enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": null,
+          "decisionDate": null,
+          "summary": null
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "title": "Synthetic retained denied enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": null,
+          "decisionDate": null,
+          "summary": null
+        }
+      }
+    ],
+    "keyboardFocus": true,
+    "roleGuards": true,
+    "leadExactReadback": true,
+    "stageReason": true,
+    "deniedEmptySeparate": true,
+    "handoffIdentity": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "overview",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "pipeline-active",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "pipeline-closed",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "pipeline-dormant",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "organisations",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "contacts",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "opportunities",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "new-lead",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "organisation",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "opportunity",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "crm-denied",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "crm-empty",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff-wrong-source",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "lead-review",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "interactions",
+    "width": 834,
+    "synthetic": true,
+    "writes": [
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "title": "Synthetic reviewed browser enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": 125000,
+          "decisionDate": "2026-10-25",
+          "summary": null
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "transition",
+          "id": "00000000-0000-4000-8000-000000000305",
+          "stage": "DORMANT",
+          "reason": "Synthetic reviewed reason"
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "title": "Synthetic retained denied enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": null,
+          "decisionDate": null,
+          "summary": null
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "title": "Synthetic retained denied enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": null,
+          "decisionDate": null,
+          "summary": null
+        }
+      }
+    ],
+    "keyboardFocus": true,
+    "roleGuards": true,
+    "leadExactReadback": true,
+    "stageReason": true,
+    "deniedEmptySeparate": true,
+    "handoffIdentity": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "overview",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "pipeline-active",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "pipeline-closed",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "pipeline-dormant",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "organisations",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "contacts",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "opportunities",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "new-lead",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "organisation",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "opportunity",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "crm-denied",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "crm-empty",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff-wrong-source",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "lead-review",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "interactions",
+    "width": 390,
+    "synthetic": true,
+    "writes": [
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "title": "Synthetic reviewed browser enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": 125000,
+          "decisionDate": "2026-10-25",
+          "summary": null
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "transition",
+          "id": "00000000-0000-4000-8000-000000000305",
+          "stage": "DORMANT",
+          "reason": "Synthetic reviewed reason"
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "title": "Synthetic retained denied enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": null,
+          "decisionDate": null,
+          "summary": null
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "title": "Synthetic retained denied enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": null,
+          "decisionDate": null,
+          "summary": null
+        }
+      }
+    ],
+    "keyboardFocus": true,
+    "roleGuards": true,
+    "leadExactReadback": true,
+    "stageReason": true,
+    "deniedEmptySeparate": true,
+    "handoffIdentity": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "overview",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "pipeline-active",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "pipeline-closed",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "pipeline-dormant",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "organisations",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "contacts",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "opportunities",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "new-lead",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "organisation",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "opportunity",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "crm-denied",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "crm-empty",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "handoff-wrong-source",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "lead-review",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "synthetic": true,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "interactions",
+    "width": 320,
+    "synthetic": true,
+    "writes": [
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "title": "Synthetic reviewed browser enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": 125000,
+          "decisionDate": "2026-10-25",
+          "summary": null
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "transition",
+          "id": "00000000-0000-4000-8000-000000000305",
+          "stage": "DORMANT",
+          "reason": "Synthetic reviewed reason"
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "title": "Synthetic retained denied enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": null,
+          "decisionDate": null,
+          "summary": null
+        }
+      },
+      {
+        "path": "/api/crm",
+        "body": {
+          "action": "createOpportunity",
+          "organisationId": "00000000-0000-4000-8000-000000000101",
+          "title": "Synthetic retained denied enquiry",
+          "type": "DIRECT_ENQUIRY",
+          "ownerId": "00000000-0000-4000-8000-000000000001",
+          "contactId": null,
+          "valuePence": null,
+          "decisionDate": null,
+          "summary": null
+        }
+      }
+    ],
+    "keyboardFocus": true,
+    "roleGuards": true,
+    "leadExactReadback": true,
+    "stageReason": true,
+    "deniedEmptySeparate": true,
+    "handoffIdentity": true,
+    "errors": [],
+    "external": []
+  }
+]

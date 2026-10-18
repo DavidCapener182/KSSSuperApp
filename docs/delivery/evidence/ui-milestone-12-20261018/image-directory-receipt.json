@@ -1,0 +1,6 @@
+{
+  "manifest": "image-manifest.json",
+  "baseDirectory": "browser-images",
+  "images": 149,
+  "hashesVerified": true
+}

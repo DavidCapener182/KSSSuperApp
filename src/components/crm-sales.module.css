@@ -21,3 +21,20 @@
   .filtersOpen { display: grid; gap: 12px; }
   .filtersOpen > * { width: 100%; }
 }
+
+.pipeline { min-width: 0; }
+.pipeline :global(.crm-board):focus-visible { outline: 3px solid var(--kss-blue); outline-offset: 3px; }
+@media (min-width: 761px) and (max-width: 1200px) {
+  .pipeline :global(.crm-board) {
+    grid-template-columns: repeat(5, minmax(240px, 1fr));
+    max-width: 100%;
+    overflow-x: auto;
+    padding-block-end: 8px;
+    overscroll-behavior-inline: contain;
+  }
+  .pipeline :global(.crm-board--closed) { grid-template-columns: repeat(2, minmax(240px, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .pipeline :global(.crm-view-switch) { width: 100%; min-width: 0; flex-wrap: wrap; }
+}

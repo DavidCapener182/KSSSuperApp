@@ -1,0 +1,11 @@
+{
+  "sourceTestsReportExit": 0,
+  "fullExit": 2,
+  "files": [
+    "docs/delivery/evidence/ui-milestone-12-20261018/build.txt",
+    "docs/delivery/evidence/ui-milestone-12-20261018/crm-four-product-final/review.patch",
+    "docs/delivery/evidence/ui-milestone-12-20261018/final-full-lint.txt",
+    "docs/delivery/evidence/ui-milestone-12-20261018/full-lint.txt"
+  ],
+  "reason": "Any warnings are byte-preserved diagnostic logs/unified patch whitespace; no product/test/report whitespace issue"
+}

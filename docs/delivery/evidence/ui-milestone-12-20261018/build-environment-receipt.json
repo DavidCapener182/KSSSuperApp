@@ -1,0 +1,14 @@
+{
+  "inheritedAllowlist": [
+    "PATH",
+    "HOME",
+    "TMPDIR",
+    "LANG"
+  ],
+  "compileSupabaseUrl": "https://synthetic.invalid",
+  "compileKeys": "Invalid synthetic placeholders only",
+  "stage": "staging",
+  "VERCEL": "unset",
+  "credentialOrEnvFileReads": false,
+  "source": "output/ui-candidate12-20261018/checks.py controlled environment"
+}

@@ -1,0 +1,23 @@
+.deal { gap: .65rem; }
+.dealTitle { display: grid; gap: .2rem; min-height: 44px; align-content: center; }
+.dealTitle strong { font-size: 1rem; line-height: 1.25; }
+.dealTitle span { font-size: .82rem; color: var(--kss-ink-soft); }
+.stage { justify-self: start; border: 1px solid var(--kss-border); border-radius: 99px; padding: .2rem .5rem; color: var(--kss-ink) !important; font-weight: 750; }
+.value { color: var(--kss-ink); font-size: .9rem; }
+.details { display: grid; gap: .2rem; }
+.next { display: grid; gap: .2rem; border-top: 1px solid var(--kss-border); padding-top: .55rem; }
+.next small { font-weight: 800; letter-spacing: .03em; text-transform: uppercase; color: var(--kss-ink-soft); }
+.next strong { font-size: .84rem; }
+.handoff { min-height: 44px; display: inline-flex; align-items: center; font-weight: 750; }
+.stageControl { border-top: 1px solid var(--kss-border); padding-top: .35rem; }
+.stageControl summary { min-height: 44px; display: inline-flex; align-items: center; color: var(--kss-blue-strong); cursor: pointer; font-size: .8rem; font-weight: 700; }
+.stageControl select { min-height: 44px; }
+.deal a:focus-visible, .stageControl summary:focus-visible { outline: 3px solid var(--kss-blue); outline-offset: 2px; }
+.filters { display: contents; }
+.filterToggle { display: none; }
+@media (max-width: 760px) {
+  .filterToggle { display: inline-flex; width: 100%; justify-content: center; }
+  .filters { display: none; width: 100%; }
+  .filtersOpen { display: grid; gap: 12px; }
+  .filtersOpen > * { width: 100%; }
+}

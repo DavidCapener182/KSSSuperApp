@@ -1,0 +1,290 @@
+--- a/src/components/crm-client.tsx
++++ b/src/components/crm-client.tsx
+@@ -24,7 +24,7 @@
+ 
+ export function CrmClient({ view, id, currentPersonId }: Props) {
+   const router = useRouter();
+-  const [data, setData] = useState<Record<string, unknown> | null>(null);
++  const [snapshot, setSnapshot] = useState<{ key: string; value: Record<string, unknown> } | null>(null);
+   const [owners, setOwners] = useState<{id:string; displayName:string}[]>([]);
+   const [loading, setLoading] = useState(true);
+   const [busy, setBusy] = useState(false);
+@@ -32,6 +32,10 @@
+   const [search, setSearch] = useState("");
+   const [filter, setFilter] = useState("");
+   const [offset, setOffset] = useState(0);
++  const sourceKey = JSON.stringify([currentPersonId, view, id, offset, search, filter]);
++  const data = snapshot?.key === sourceKey ? snapshot.value : null;
++  const lifetime = useRef({ active: false, generation: 0, request: 0 });
++  const mutationPending = useRef(false);
+   const [form, setForm] = useState("");
+   const previousFocus = useRef<HTMLElement | null>(null);
+   const [fields, setFields] = useState<Record<string, string>>({});
+@@ -39,26 +43,42 @@
+   const [stage, setStage] = useState("");
+   const [confirm, setConfirm] = useState(false);
+   const load = useCallback(async (): Promise<Record<string, unknown> | null> => {
++    const context = lifetime.current;
++    if (!context.active) return null;
++    const request = ++context.request;
++    const current = () => context.active && lifetime.current === context && context.request === request;
+     if (view === "pipeline") { setLoading(false); return null; }
+-    setLoading(true); setError("");
++    setSnapshot(null); setLoading(true); setError("");
+     const qs = new URLSearchParams({view, offset:String(offset)});
+     if (id) qs.set("id", id);
+     if (search) qs.set("search",search);
+     if (filter) qs.set(view === "organisations" ? "status" : "stage",filter);
+     try {
+       const response = await fetch(`/api/crm?${qs}`,{cache:"no-store"});
++      if (!current()) return null;
+       if (!response.ok) throw Error("CRM is temporarily unavailable.");
+-      const next = await response.json(); setData(next); return next;
+-    } catch (caught) { setError(caught instanceof Error ? caught.message : "CRM is temporarily unavailable."); return null; }
+-    finally { setLoading(false); }
+-  },[view,id,offset,search,filter]);
+-  useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); },[load]);
++      const next = await response.json();
++      if (!current()) return null;
++      setSnapshot({ key: sourceKey, value: next }); return next;
++    } catch (caught) {
++      if (current()) { setSnapshot(null); setForm(""); setFields({}); setReason(""); setStage(""); setConfirm(false); setError(caught instanceof Error ? caught.message : "CRM is temporarily unavailable."); }
++      return null;
++    } finally { if (current()) setLoading(false); }
++  },[view,id,offset,search,filter,sourceKey]);
+   useEffect(() => {
++    const context = { active: true, generation: lifetime.current.generation + 1, request: 0 };
++    lifetime.current = context; mutationPending.current = false;
++    const timer = setTimeout(() => { setBusy(false); setForm(""); void load(); }, 0);
++    return () => { context.active = false; clearTimeout(timer); };
++  },[load]);
++  useEffect(() => {
++    let active = true;
+     Promise.all(["OFFICE_ADMIN","SUPER_ADMIN"].map((role)=>fetch(`/api/people?role=${role}&limit=50`,{cache:"no-store"}).then((r)=>r.ok?r.json():null)))
+       .then((lists)=>{ const found = new Map<string,{id:string;displayName:string}>();
+         for (const list of lists) for (const item of (list?.items ?? []) as Row[]) found.set(String(item.id),{id:String(item.id),displayName:String(item.displayName)});
+-        setOwners([...found.values()]); }).catch(()=>{});
+-  },[]);
++        if (active) setOwners([...found.values()]); }).catch(()=>{});
++    return () => { active = false; };
++  },[currentPersonId]);
+   useEffect(() => {
+     if (!form) return;
+     previousFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+@@ -82,21 +102,29 @@
+   const choose = (key:string,label:string,options:{value:string;label:string}[],required=false) => <label className="crm-field">{label}<select required={required} value={fields[key] ?? ""} onChange={(event)=>setFields({...fields,[key]:event.target.value})}>
+     <option value="">Select</option>{options.map((option)=><option key={option.value} value={option.value}>{option.label}</option>)}</select></label>;
+   async function act(action:string, extra:Record<string, unknown>) {
++    const context = lifetime.current;
++    const isCurrent = () => context.active && lifetime.current === context;
++    if (!data || !isCurrent() || mutationPending.current) return;
++    mutationPending.current = true;
+     setBusy(true); setError("");
+     try {
+       const response = await fetch("/api/crm",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action,...extra})});
+       const result = await response.json();
++      if (!isCurrent()) return;
+       if (!response.ok) throw Error(result.detail ?? result.error ?? "Action denied");
+       if (action === "createOrganisation" || action === "createOpportunity") {
+         const recordKind = action === "createOrganisation" ? "organisation" : "opportunity";
+         const readback = await fetch(`/api/crm?view=${recordKind}&id=${encodeURIComponent(String(result.id))}`, { cache: "no-store" });
++        if (!isCurrent()) return;
+         if (!readback.ok) throw Error("The new commercial record could not be confirmed. Refresh before trying again.");
+         const confirmed = await readback.json();
++        if (!isCurrent()) return;
+         if (confirmed[recordKind]?.id !== result.id) throw Error("The new commercial record could not be confirmed. Refresh before trying again.");
+         setForm(""); setFields({});
+         router.push(action === "createOrganisation" ? `/crm/organisations/${result.id}` : `/crm/opportunities/${result.id}`);
+       } else {
+         const confirmed = await load();
++        if (!isCurrent()) return;
+         if (!confirmed) throw Error("The server responded, but the commercial record could not be refreshed. Check it before another change.");
+         const current = (action === "updateOrganisation" || action === "createContact" || action === "updateContact" ? confirmed.organisation : confirmed.opportunity) as Row | undefined;
+         if (action === "transition" && current?.stage !== extra.stage ||
+@@ -109,8 +137,8 @@
+         setForm(""); setFields({}); setReason(""); setStage(""); setConfirm(false);
+         router.refresh();
+       }
+-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Action denied"); }
+-    finally { setBusy(false); }
++    } catch (caught) { if (isCurrent()) setError(caught instanceof Error ? caught.message : "Action denied"); }
++    finally { if (isCurrent()) { mutationPending.current = false; setBusy(false); } }
+   }
+   const ownerOptions = owners.map((o)=>({value:o.id,label:o.displayName}));
+   const personName = (personId:unknown) => personId ? owners.find((o)=>o.id===personId)?.displayName ?? "Authorised Office actor" : "Unassigned";
+@@ -220,7 +248,7 @@
+       </div>
+       <p className="enterprise-honesty">Estimated value is not contracted or invoiced revenue.</p>
+     </div>}
+-    {form && <div className="crm-dialog-backdrop" role="presentation"><section className="crm-dialog" role="dialog" aria-modal="true" aria-labelledby="crm-dialog-title">
++    {data && form && <div className="crm-dialog-backdrop" role="presentation"><section className="crm-dialog" role="dialog" aria-modal="true" aria-labelledby="crm-dialog-title">
+       <div className="crm-panel-heading"><h2 id="crm-dialog-title">{form==="organisation"?"New Organisation":form==="editOrganisation"?"Edit Organisation":form==="contact"?"Add Contact":form==="editContact"?"Edit Contact":"New Opportunity"}</h2><Button variant="ghost" onClick={()=>{setForm("");setFields({});}}>Close</Button></div>
+       {error && <p role="alert" className="enterprise-error">{error}</p>}
+       <form onSubmit={(e)=>{e.preventDefault(); if(form==="organisation"||form==="editOrganisation") void act(form==="organisation"?"createOrganisation":"updateOrganisation",{id,name:fields.name,tradingName:fields.tradingName,website:fields.website,email:fields.email,phone:fields.phone,ownerId:fields.ownerId||currentPersonId});
+--- a/src/components/crm-operational.tsx
++++ b/src/components/crm-operational.tsx
+@@ -95,7 +95,7 @@
+     } catch (caught) { setError(caught instanceof Error ? caught.message : "Stage change denied"); }
+     finally { setBusy(false); }
+   }
+-  return <section aria-label="Opportunity pipeline">
++  return <section className={sales.pipeline} aria-label="Opportunity pipeline">
+     <div className="crm-operational-tools">
+       <div className="crm-view-switch"><Button variant={!closed && !dormant ? "default" : "outline"} onClick={() => { setClosed(false); setDormant(false); setMobileStage("NEW_LEAD"); }}>Active pipeline</Button>
+         <Button variant={closed ? "default" : "outline"} onClick={() => { setClosed(true); setDormant(false); setMobileStage("WON"); }}>Closed history</Button>
+@@ -122,7 +122,7 @@
+     </div>
+     {error && <p role="alert" className="enterprise-error">{error} <Button variant="ghost" onClick={() => void load()}>Retry</Button></p>}
+     {loading ? <p role="status" className="crm-skeleton">Loading pipeline…</p> :
+-      <div className={`crm-board ${closed ? "crm-board--closed" : ""}`}>
++      <div className={`crm-board ${closed ? "crm-board--closed" : ""}`} role="region" aria-label="Opportunity stages" tabIndex={0}>
+         {columns.map((column) => <section className={`crm-board-column ${column.stage !== mobileStage ? "crm-mobile-hidden" : ""}`} key={column.stage}
+           aria-label={`${label(column.stage)} opportunities`}
+           onDragOver={(event) => { if (!closed) event.preventDefault(); }}
+@@ -173,6 +173,38 @@
+   const [activityOpen, setActivityOpen] = useState(false);
+   const [task, setTask] = useState({ title: "", assigneeId: currentPersonId, dueLocal: "" });
+   const [taskChange, setTaskChange] = useState<{ id: string; kind: string; assigneeId: string; dueLocal: string; reason: string } | null>(null);
++  const workRoot = useRef<HTMLDivElement | null>(null);
++  const followUpHeading = useRef<HTMLHeadingElement | null>(null);
++  const taskDialog = useRef<HTMLElement | null>(null);
++  const taskDialogTrigger = useRef<HTMLButtonElement | null>(null);
++  const taskDialogPending = useRef(false);
++  const taskDialogKey = taskChange ? `${taskChange.id}:${taskChange.kind}` : "";
++  useEffect(() => {
++    const panel = taskDialog.current;
++    if (!taskDialogKey || !panel) return;
++    const trigger = taskDialogTrigger.current, fallbackHeading = followUpHeading.current, fallbackRoot = workRoot.current;
++    const controls = () => [...panel.querySelectorAll<HTMLElement>("button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), a[href]")];
++    (controls()[0] ?? panel).focus();
++    const onKey = (event: KeyboardEvent) => {
++      if (event.key === "Escape") {
++        event.preventDefault(); event.stopPropagation();
++        if (!taskDialogPending.current) setTaskChange(null);
++      }
++      if (event.key !== "Tab") return;
++      const available = controls(), first = available[0], last = available[available.length - 1];
++      if (!first) { event.preventDefault(); panel.focus(); }
++      else if (!panel.contains(document.activeElement)) { event.preventDefault(); first.focus(); }
++      else if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
++      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
++    };
++    document.addEventListener("keydown", onKey);
++    return () => {
++      document.removeEventListener("keydown", onKey);
++      if (trigger?.isConnected) trigger.focus();
++      else if (fallbackHeading?.isConnected) fallbackHeading.focus();
++      else if (fallbackRoot?.isConnected) fallbackRoot.focus();
++    };
++  }, [taskDialogKey]);
+   const [busy, setBusy] = useState(false);
+   const [error, setError] = useState("");
+   const [loading, setLoading] = useState(true);
+@@ -214,6 +246,12 @@
+     } catch (caught) { setError(caught instanceof Error ? caught.message : "Task action denied"); }
+     finally { setBusy(false); }
+   }
++  async function confirmTaskChange() {
++    if (taskDialogPending.current || busy || !taskChange) return;
++    taskDialogPending.current = true;
++    try { await changeTask(); }
++    finally { taskDialogPending.current = false; }
++  }
+   const tasks = data?.tasks ?? [];
+   const open = tasks.filter((item) => item.state === "OPEN").sort((a, b) => {
+     const da = a.due_at ? Date.parse(String(a.due_at)) : Number.POSITIVE_INFINITY;
+@@ -227,7 +265,7 @@
+     ...(data?.activities ?? []).map((item) => ({ ...item, at: String(item.occurred_at), category: "activity" })),
+     ...(data?.taskEvents ?? []).map((item) => ({ ...item, at: String(item.occurred_at), category: "task" })),
+   ].sort((a, b) => b.at.localeCompare(a.at)).slice(0, 80);
+-  return <div className="crm-operational-record">
++  return <div className="crm-operational-record" ref={workRoot} tabIndex={-1} role="region" aria-label="CRM activity and follow-ups">
+     {error && <p className="enterprise-error" role="alert">{error} <Button variant="ghost" onClick={() => void load()}>Retry</Button></p>}
+     {loading && <p role="status">Loading CRM activity and follow-ups…</p>}
+     {!loading && data && <>
+@@ -235,7 +273,7 @@
+         {open[0] ? <><strong>{String(open[0].title)}</strong><p>{crmDueStatus(open[0].due_at as string | null)} · {open[0].due_at ? time(open[0].due_at) : "No due date"} · Task assignee: {owners.find((o) => o.id === open[0].assignee_person_id)?.displayName ?? "Assigned Office"}</p>
+           {open.length > 1 && <p>{open.length - 1} additional follow-up{open.length === 2 ? "" : "s"}</p>}</> : <p>No follow-up planned</p>}
+       </section>
+-      <section className="crm-panel"><h2>Follow-ups</h2>
++      <section className="crm-panel"><h2 ref={followUpHeading} tabIndex={-1}>Follow-ups</h2>
+         {elsewhere > 0 && <p>{elsewhere} open follow-up{elsewhere === 1 ? " is" : "s are"} assigned to someone other than the Opportunity owner. Reassign selected tasks explicitly if needed.</p>}
+         <form className="crm-operational-form" onSubmit={(event) => void createTask(event)}>
+           <label className="crm-field">Action title<Input required maxLength={160} value={task.title}
+@@ -253,10 +291,10 @@
+           <span>{label(item.state)} · {item.state === "OPEN" ? crmDueStatus(item.due_at as string | null) : "Historical"} · {item.due_at ? time(item.due_at) : "No due date"} · Task assignee: {owners.find((o) => o.id === item.assignee_person_id)?.displayName ?? "Assigned Office"}</span></div>
+           {item.state === "OPEN" && <div className="crm-task-actions">
+             {item.assignee_person_id === currentPersonId && <Button variant="outline" disabled={busy}
+-              onClick={() => setTaskChange({ id: String(item.id), kind: "COMPLETE", assigneeId: "", dueLocal: "", reason: "" })}>Done</Button>}
+-            <Button variant="ghost" onClick={() => setTaskChange({ id: String(item.id), kind: "REASSIGN", assigneeId: "", dueLocal: "", reason: "" })}>Reassign</Button>
+-            <Button variant="ghost" onClick={() => setTaskChange({ id: String(item.id), kind: "RESCHEDULE", assigneeId: "", dueLocal: londonLocal(item.due_at), reason: "" })}>Reschedule</Button>
+-            <Button variant="ghost" onClick={() => setTaskChange({ id: String(item.id), kind: "CANCEL", assigneeId: "", dueLocal: "", reason: "" })}>Cancel</Button>
++              onClick={(event) => { taskDialogTrigger.current = event.currentTarget; setTaskChange({ id: String(item.id), kind: "COMPLETE", assigneeId: "", dueLocal: "", reason: "" }); }}>Done</Button>}
++            <Button variant="ghost" onClick={(event) => { taskDialogTrigger.current = event.currentTarget; setTaskChange({ id: String(item.id), kind: "REASSIGN", assigneeId: "", dueLocal: "", reason: "" }); }}>Reassign</Button>
++            <Button variant="ghost" onClick={(event) => { taskDialogTrigger.current = event.currentTarget; setTaskChange({ id: String(item.id), kind: "RESCHEDULE", assigneeId: "", dueLocal: londonLocal(item.due_at), reason: "" }); }}>Reschedule</Button>
++            <Button variant="ghost" onClick={(event) => { taskDialogTrigger.current = event.currentTarget; setTaskChange({ id: String(item.id), kind: "CANCEL", assigneeId: "", dueLocal: "", reason: "" }); }}>Cancel</Button>
+           </div>}
+         </div>)}
+       </section>
+@@ -292,19 +330,19 @@
+         </div>)}
+       </section>
+     </>}
+-    {taskChange && <div className="crm-dialog-backdrop"><section className="crm-dialog" role="dialog" aria-modal="true" aria-label={`${label(taskChange.kind)} follow-up`}>
++    {taskChange && <div className="crm-dialog-backdrop"><section className="crm-dialog" ref={taskDialog} tabIndex={-1} role="dialog" aria-modal="true" aria-label={`${label(taskChange.kind)} follow-up`}>
+       <h2>{label(taskChange.kind)} follow-up</h2>
+-      {taskChange.kind === "REASSIGN" && <label className="crm-field">New assignee<select value={taskChange.assigneeId}
++      {taskChange.kind === "REASSIGN" && <label className="crm-field">New assignee<select disabled={busy} value={taskChange.assigneeId}
+         onChange={(event) => setTaskChange({ ...taskChange, assigneeId: event.target.value })}>
+         <option value="">Select Office user</option>{owners.map((person) => <option key={person.id} value={person.id}>{person.displayName}</option>)}
+       </select></label>}
+-      {taskChange.kind === "RESCHEDULE" && <label className="crm-field">New due date and time · London<Input type="datetime-local"
++      {taskChange.kind === "RESCHEDULE" && <label className="crm-field">New due date and time · London<Input type="datetime-local" disabled={busy}
+         value={taskChange.dueLocal} onChange={(event) => setTaskChange({ ...taskChange, dueLocal: event.target.value })} /></label>}
+-      {taskChange.kind !== "COMPLETE" && <label className="crm-field">Reason<Input maxLength={300} value={taskChange.reason}
++      {taskChange.kind !== "COMPLETE" && <label className="crm-field">Reason<Input maxLength={300} disabled={busy} value={taskChange.reason}
+         onChange={(event) => setTaskChange({ ...taskChange, reason: event.target.value })} /></label>}
+-      <div className="crm-dialog-actions"><Button variant="outline" onClick={() => setTaskChange(null)}>Back</Button>
++      <div className="crm-dialog-actions"><Button variant="outline" disabled={busy} onClick={() => { if (!taskDialogPending.current) setTaskChange(null); }}>Back</Button>
+         <Button disabled={busy || (taskChange.kind !== "COMPLETE" && taskChange.reason.trim().length < 3) ||
+-          (taskChange.kind === "REASSIGN" && !taskChange.assigneeId)} onClick={() => void changeTask()}>
++          (taskChange.kind === "REASSIGN" && !taskChange.assigneeId)} onClick={() => void confirmTaskChange()}>
+           {busy ? "Saving…" : taskChange.kind === "COMPLETE" ? "Mark Done" : "Confirm"}</Button></div>
+     </section></div>}
+   </div>;
+--- a/src/components/crm-sales.module.css
++++ b/src/components/crm-sales.module.css
+@@ -21,3 +21,20 @@
+   .filtersOpen { display: grid; gap: 12px; }
+   .filtersOpen > * { width: 100%; }
+ }
++
++.pipeline { min-width: 0; }
++.pipeline :global(.crm-board):focus-visible { outline: 3px solid var(--kss-blue); outline-offset: 3px; }
++@media (min-width: 761px) and (max-width: 1200px) {
++  .pipeline :global(.crm-board) {
++    grid-template-columns: repeat(5, minmax(240px, 1fr));
++    max-width: 100%;
++    overflow-x: auto;
++    padding-block-end: 8px;
++    overscroll-behavior-inline: contain;
++  }
++  .pipeline :global(.crm-board--closed) { grid-template-columns: repeat(2, minmax(240px, 1fr)); }
++}
++
++@media (max-width: 760px) {
++  .pipeline :global(.crm-view-switch) { width: 100%; min-width: 0; flex-wrap: wrap; }
++}
+--- a/src/components/commercial-record.module.css
++++ b/src/components/commercial-record.module.css
+@@ -1,3 +1,10 @@
+ .page{max-width:1280px}.page :global(.crm-heading){align-items:start}.page :global(.crm-organisation-header){border:1px solid var(--kss-border);border-radius:12px;background:var(--kss-surface);padding:24px}.page :global(.crm-organisation-header h1){font-size:32px;line-height:1.15;letter-spacing:-.025em;overflow-wrap:anywhere}.page :global(.crm-record-identity){display:flex;flex-wrap:wrap;gap:8px;align-items:center}.page :global(.crm-organisation-related){background:transparent;border:0;padding:0}.registerHeader{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:20px;background:var(--kss-surface-muted);border:1px solid var(--kss-border);border-radius:8px 8px 0 0;padding:12px 16px;font-size:12px;font-weight:750;color:var(--kss-ink-soft)}.organisationLayout{display:grid!important;grid-template-columns:minmax(260px,.85fr) minmax(0,1.65fr);gap:24px;align-items:start}.organisationLayout>:global(.crm-detail-grid){grid-column:1;grid-row:1/span 3;display:grid;grid-template-columns:1fr;gap:16px}.organisationLayout>:global(#organisation-work),.organisationLayout>:global(#organisation-sources){grid-column:2;min-width:0}.organisationLayout>:global(.enterprise-honesty){grid-column:1/-1}.organisationLayout :global(.crm-subrow){display:flex;flex-wrap:wrap;gap:8px;overflow-wrap:anywhere}.opportunityFacts{margin-top:24px;grid-template-columns:minmax(0,1fr) minmax(260px,1fr)!important}.changePanel>summary,.history>summary{min-height:44px;cursor:pointer;font-weight:750;color:var(--kss-blue-strong);line-height:1.5;align-content:center}.changePanel>summary:focus-visible,.history>summary:focus-visible{outline:3px solid var(--kss-focus);outline-offset:3px}.changePanel[open]>summary,.history[open]>summary{margin-bottom:16px;border-bottom:1px solid var(--kss-border);padding-bottom:12px}.stageReview{padding:12px;border-left:3px solid var(--kss-blue);background:var(--kss-surface-muted);font-weight:700}.page :global(.crm-panel){min-width:0;overflow-wrap:anywhere;border-radius:12px}.page :global(.crm-panel dl div){min-width:0}.page :global(.crm-panel dd){overflow-wrap:anywhere}
+ @media(max-width:834px){.organisationLayout{grid-template-columns:1fr}.organisationLayout>:global(.crm-detail-grid),.organisationLayout>:global(#organisation-work),.organisationLayout>:global(#organisation-sources){grid-column:1;grid-row:auto}.opportunityFacts{grid-template-columns:1fr!important}}
+ @media(max-width:700px){.registerHeader{display:none}.page :global(.crm-organisation-header){padding:20px}.page :global(.crm-organisation-header h1){font-size:28px}.page :global(.crm-organisation-sections),.page :global(.crm-opportunity-sections){display:flex;overflow-x:auto;flex-wrap:nowrap;gap:8px}.page :global(.crm-organisation-sections a),.page :global(.crm-opportunity-sections a){white-space:nowrap;min-height:44px}.page :global(.crm-dialog){max-height:calc(100dvh - 32px);overflow:auto}}
++
++@media (max-width: 1200px) {
++  .page :global(.crm-operational-record) { grid-template-columns: minmax(0, 1fr); }
++  .page :global(.crm-operational-record select) { min-width: 0; max-width: 100%; width: 100%; }
++}
++
++.page :global(.crm-actions) { flex-wrap: wrap; }

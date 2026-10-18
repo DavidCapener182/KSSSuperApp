@@ -1,0 +1,16 @@
+[
+  {
+    "original": "crm-source-contract.test.mjs",
+    "packagedTest": "tests/crm-source-contract-local.test.mjs",
+    "originalSha256": "2eb061adf389169d63765e8b349b72aa4ed8071ebfcad275cd91e6dcbaef5ba5",
+    "sha256": "a85305c9ce6974c0fa7bfb700ccb38fe534091992eede1ca8c6a235f0fb6123c",
+    "change": "Only root/source/before fixture paths; all six original assertion bodies retained"
+  },
+  {
+    "original": "dialog-contract-local.test.mjs",
+    "packagedTest": "tests/crm-dialog-contract-local.test.mjs",
+    "originalSha256": "cf18b37261d199cf2ec9a366af7b5ce68cd22805a0fb557847c50e19950e5935",
+    "sha256": "2bfbd6d7130e26e7ab7a69fdace0a03b7d5e99e3e43aba166bad7f5bffbb52b2",
+    "change": "Only root/source/before fixture paths; all six original assertion bodies retained"
+  }
+]

@@ -1,0 +1,15 @@
+.workspace { margin: 1.4rem 0; }
+.heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: .8rem; margin-bottom: .7rem; }
+.heading h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); margin: 0; }
+.heading a { min-height: 44px; display: inline-flex; align-items: center; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
+.panel { background: var(--kss-surface); border: 1px solid var(--kss-border); border-radius: 12px; padding: 1rem; margin-bottom: .85rem; min-width: 0; }
+.panel h3 { margin: 0 0 .6rem; font-size: 1rem; }
+.panel p { color: var(--kss-ink-soft); }
+.item { display: grid; gap: .2rem; padding: .7rem 0; border-top: 1px solid var(--kss-border); color: var(--kss-ink); text-decoration: none; }
+.item span, .item small { color: var(--kss-ink-soft); }
+.compact { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .5rem; }
+.compact a { display: grid; gap: .2rem; min-height: 44px; padding: .6rem; border: 1px solid var(--kss-border); border-radius: 8px; color: var(--kss-ink); text-decoration: none; }
+.compact span { color: var(--kss-ink-soft); font-size: .85rem; }
+.workspace a:focus-visible { outline: 3px solid var(--kss-blue); outline-offset: 2px; }
+@media (max-width: 650px) { .grid, .compact { grid-template-columns: 1fr; } }

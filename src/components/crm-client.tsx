@@ -12,6 +12,7 @@ import { CrmOperationalLinks } from "@/components/crm-operational-links";
 import { CrmAttention } from "@/components/crm-attention";
 import journey from "./commercial-journey.module.css";
 import lists from "./crm-list-work.module.css";
+import record from "./commercial-record.module.css";
 
 type Row = Record<string, unknown>;
 type Props = { view: "overview" | "pipeline" | "organisations" | "contacts" | "opportunities" | "organisation" | "opportunity"; id?: string; currentPersonId: string };
@@ -23,7 +24,7 @@ const date = (raw: unknown) => raw ? new Date(String(raw)).toLocaleString("en-GB
 
 export function CrmClient({ view, id, currentPersonId }: Props) {
   const router = useRouter();
-  const [data, setData] = useState<Record<string, unknown> | null>(null);
+  const [snapshot, setSnapshot] = useState<{ key: string; value: Record<string, unknown> } | null>(null);
   const [owners, setOwners] = useState<{id:string; displayName:string}[]>([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
@@ -31,6 +32,10 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
   const [offset, setOffset] = useState(0);
+  const sourceKey = JSON.stringify([currentPersonId, view, id, offset, search, filter]);
+  const data = snapshot?.key === sourceKey ? snapshot.value : null;
+  const lifetime = useRef({ active: false, generation: 0, request: 0 });
+  const mutationPending = useRef(false);
   const [form, setForm] = useState("");
   const previousFocus = useRef<HTMLElement | null>(null);
   const [fields, setFields] = useState<Record<string, string>>({});
@@ -38,26 +43,42 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
   const [stage, setStage] = useState("");
   const [confirm, setConfirm] = useState(false);
   const load = useCallback(async (): Promise<Record<string, unknown> | null> => {
+    const context = lifetime.current;
+    if (!context.active) return null;
+    const request = ++context.request;
+    const current = () => context.active && lifetime.current === context && context.request === request;
     if (view === "pipeline") { setLoading(false); return null; }
-    setLoading(true); setError("");
+    setSnapshot(null); setLoading(true); setError("");
     const qs = new URLSearchParams({view, offset:String(offset)});
     if (id) qs.set("id", id);
     if (search) qs.set("search",search);
     if (filter) qs.set(view === "organisations" ? "status" : "stage",filter);
     try {
       const response = await fetch(`/api/crm?${qs}`,{cache:"no-store"});
+      if (!current()) return null;
       if (!response.ok) throw Error("CRM is temporarily unavailable.");
-      const next = await response.json(); setData(next); return next;
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "CRM is temporarily unavailable."); return null; }
-    finally { setLoading(false); }
-  },[view,id,offset,search,filter]);
-  useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); },[load]);
+      const next = await response.json();
+      if (!current()) return null;
+      setSnapshot({ key: sourceKey, value: next }); return next;
+    } catch (caught) {
+      if (current()) { setSnapshot(null); setForm(""); setFields({}); setReason(""); setStage(""); setConfirm(false); setError(caught instanceof Error ? caught.message : "CRM is temporarily unavailable."); }
+      return null;
+    } finally { if (current()) setLoading(false); }
+  },[view,id,offset,search,filter,sourceKey]);
   useEffect(() => {
+    const context = { active: true, generation: lifetime.current.generation + 1, request: 0 };
+    lifetime.current = context; mutationPending.current = false;
+    const timer = setTimeout(() => { setBusy(false); setForm(""); void load(); }, 0);
+    return () => { context.active = false; clearTimeout(timer); };
+  },[load]);
+  useEffect(() => {
+    let active = true;
     Promise.all(["OFFICE_ADMIN","SUPER_ADMIN"].map((role)=>fetch(`/api/people?role=${role}&limit=50`,{cache:"no-store"}).then((r)=>r.ok?r.json():null)))
       .then((lists)=>{ const found = new Map<string,{id:string;displayName:string}>();
         for (const list of lists) for (const item of (list?.items ?? []) as Row[]) found.set(String(item.id),{id:String(item.id),displayName:String(item.displayName)});
-        setOwners([...found.values()]); }).catch(()=>{});
-  },[]);
+        if (active) setOwners([...found.values()]); }).catch(()=>{});
+    return () => { active = false; };
+  },[currentPersonId]);
   useEffect(() => {
     if (!form) return;
     previousFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
@@ -81,21 +102,29 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
   const choose = (key:string,label:string,options:{value:string;label:string}[],required=false) => <label className="crm-field">{label}<select required={required} value={fields[key] ?? ""} onChange={(event)=>setFields({...fields,[key]:event.target.value})}>
     <option value="">Select</option>{options.map((option)=><option key={option.value} value={option.value}>{option.label}</option>)}</select></label>;
   async function act(action:string, extra:Record<string, unknown>) {
+    const context = lifetime.current;
+    const isCurrent = () => context.active && lifetime.current === context;
+    if (!data || !isCurrent() || mutationPending.current) return;
+    mutationPending.current = true;
     setBusy(true); setError("");
     try {
       const response = await fetch("/api/crm",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action,...extra})});
       const result = await response.json();
+      if (!isCurrent()) return;
       if (!response.ok) throw Error(result.detail ?? result.error ?? "Action denied");
       if (action === "createOrganisation" || action === "createOpportunity") {
         const recordKind = action === "createOrganisation" ? "organisation" : "opportunity";
         const readback = await fetch(`/api/crm?view=${recordKind}&id=${encodeURIComponent(String(result.id))}`, { cache: "no-store" });
+        if (!isCurrent()) return;
         if (!readback.ok) throw Error("The new commercial record could not be confirmed. Refresh before trying again.");
         const confirmed = await readback.json();
+        if (!isCurrent()) return;
         if (confirmed[recordKind]?.id !== result.id) throw Error("The new commercial record could not be confirmed. Refresh before trying again.");
         setForm(""); setFields({});
         router.push(action === "createOrganisation" ? `/crm/organisations/${result.id}` : `/crm/opportunities/${result.id}`);
       } else {
         const confirmed = await load();
+        if (!isCurrent()) return;
         if (!confirmed) throw Error("The server responded, but the commercial record could not be refreshed. Check it before another change.");
         const current = (action === "updateOrganisation" || action === "createContact" || action === "updateContact" ? confirmed.organisation : confirmed.opportunity) as Row | undefined;
         if (action === "transition" && current?.stage !== extra.stage ||
@@ -108,8 +137,8 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
         setForm(""); setFields({}); setReason(""); setStage(""); setConfirm(false);
         router.refresh();
       }
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Action denied"); }
-    finally { setBusy(false); }
+    } catch (caught) { if (isCurrent()) setError(caught instanceof Error ? caught.message : "Action denied"); }
+    finally { if (isCurrent()) { mutationPending.current = false; setBusy(false); } }
   }
   const ownerOptions = owners.map((o)=>({value:o.id,label:o.displayName}));
   const personName = (personId:unknown) => personId ? owners.find((o)=>o.id===personId)?.displayName ?? "Authorised Office actor" : "Unassigned";
@@ -118,7 +147,7 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
   const backwards = !!opportunity && (stage === "DORMANT" || opportunity.stage === "DORMANT" || ( stageNames.indexOf(stage)>=0 && stageNames.indexOf(stage)<stageNames.indexOf(String(opportunity.stage))));
   const openOrganisationEdit = () => { if (!org) return; setFields({name:String(org.name),tradingName:String(org.trading_name ?? ""),website:String(org.website ?? ""),email:String(org.general_email ?? ""),phone:String(org.main_phone ?? ""),ownerId:String(org.owner_person_id ?? "")}); setForm("editOrganisation"); };
   const openContactEdit = (contact:Row) => { setFields({contactId:String(contact.id),firstName:String(contact.first_name),lastName:String(contact.last_name),jobTitle:String(contact.job_title ?? ""),email:String(contact.business_email ?? ""),phone:String(contact.business_phone ?? ""),primary:contact.is_primary?"yes":"no",active:contact.active?"yes":"no"}); setForm("editContact"); };
-  return <main className={`enterprise-main crm-page ${journey.controls}`}>
+  return <main className={`enterprise-main crm-page ${journey.controls} ${record.page}`}>
     <p className="eyebrow">Commercial workspace</p>
     {view !== "organisation" && view !== "opportunity" && <div className={`crm-heading ${lists.heading}`}><div><h1>CRM</h1>
       <p className="enterprise-intro">{view === "overview" ? "Organisations, business contacts and opportunities in one place." : "Commercial records remain separate from private Staff information."}</p></div><Link className={lists.newLead} href="/crm/new-lead">+ New lead</Link></div>}
@@ -151,6 +180,7 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
         {view==="organisations" ? <Button onClick={()=>setForm("organisation")}>New Organisation</Button> :
           view==="opportunities" ? <Link href="/crm/new-lead">+ New lead</Link> :
           <Link href="/crm?view=organisations">Choose Organisation to add Contact</Link>}</div>
+      <div className={record.registerHeader} aria-hidden="true"><span>{view === "contacts" ? "Business Contact / Organisation" : view === "opportunities" ? "Opportunity / Organisation" : "Organisation"}</span><span>{view === "contacts" ? "Role / current status" : view === "opportunities" ? "Estimate / accountable owner" : "Relationship / account owner"}</span><span>{view === "contacts" ? "Business contact details" : view === "opportunities" ? "Next follow-up" : "Primary Contact / Opportunities"}</span></div>
       {rows("items").length===0?<p className="crm-empty">No matching records. Try a different search or create an Organisation.</p>:<div className="crm-list">
         {rows("items").map((row)=><Link className={lists.row} key={String(row.id)} href={view==="organisations"?`/crm/organisations/${row.id}`:view==="opportunities"?`/crm/opportunities/${row.id}`:`/crm/organisations/${row.organisation_id}`}>
           {view==="organisations" ? <><div><strong>{String(row.name)}</strong><small>{String(row.trading_name ?? "")}</small></div><div><span className={lists.tag}>{title(row.relationship_status)}</span><small>Account owner: {String((row.people as Row)?.display_name ?? personName(row.owner_person_id))}</small></div><div><span>Primary: {String(row.primaryContactName ?? "Not set")}</span><small>{String(row.openOpportunityCount ?? 0)} open Opportunities</small></div></> :
@@ -174,15 +204,15 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
         <div><small>Open Opportunities</small><strong>{rows("opportunities").filter(item => item.stage !== "WON" && item.stage !== "LOST").length}</strong></div>
         <div><small>Delivery relationship</small><Link href={`/commercial-handoff?organisation=${org.id}`}>View factual source context →</Link></div>
       </section>
-      <div className="crm-organisation-content">
+      <div className={`crm-organisation-content ${record.organisationLayout}`}>
       <div className="crm-detail-grid"><section id="organisation-overview" className="crm-panel"><div className="crm-panel-heading"><h2>Overview</h2><Button variant="outline" onClick={openOrganisationEdit}>Edit</Button></div>
         <dl><div><dt>Trading name</dt><dd>{String(org.trading_name ?? "—")}</dd></div><div><dt>Website</dt><dd>{String(org.website ?? "—")}</dd></div><div><dt>General email</dt><dd>{String(org.general_email ?? "—")}</dd></div><div><dt>Main phone</dt><dd>{String(org.main_phone ?? "—")}</dd></div></dl>
       </section><section id="organisation-contacts" className="crm-panel"><div className="crm-panel-heading"><h2>Contacts</h2><Button variant="outline" onClick={()=>setForm("contact")}>Add Contact</Button></div>
         {rows("contacts").length?rows("contacts").map((contact)=><div className="crm-subrow" key={String(contact.id)}><strong>{String(contact.first_name)} {String(contact.last_name)}</strong><span>{String(contact.job_title ?? "")}</span><span>{contact.is_primary?"Primary contact":contact.active?"Active":"Inactive"}</span><small>{String(contact.business_email ?? "")}</small><Button variant="ghost" onClick={()=>openContactEdit(contact)}>Edit</Button></div>):<p>No Contacts yet.</p>}
       </section><section id="organisation-opportunities" className="crm-panel"><div className="crm-panel-heading"><h2>Opportunities</h2><Button variant="outline" onClick={()=>setForm("opportunity")}>New Opportunity</Button></div>
         {rows("opportunities").length?rows("opportunities").map((item)=><Link className="crm-subrow" key={String(item.id)} href={`/crm/opportunities/${item.id}`}><strong>{String(item.title)}</strong><span>{title(item.stage)}</span><span>{value(item.estimated_value_gbp_pence)}</span></Link>):<p>No Opportunities yet.</p>}
-      </section><section id="organisation-history" className="crm-panel"><h2>Relationship history</h2>{rows("history").length?rows("history").map((item)=><p key={String(item.id)}>{title(item.old_status)} → {title(item.new_status)} · {date(item.occurred_at)} · by {personName(item.actor_person_id)}</p>):<p>No relationship transition yet.</p>}
-        {rows("ownerHistory").map((item)=><p key={String(item.id)}>Account owner: {personName(item.old_owner_person_id)} → {personName(item.new_owner_person_id)} · {date(item.occurred_at)} · by {personName(item.actor_person_id)}</p>)}</section></div>
+      </section><details id="organisation-history" className={`crm-panel ${record.history}`}><summary>Relationship and ownership history</summary><h2>Relationship history</h2>{rows("history").length?rows("history").map((item)=><p key={String(item.id)}>{title(item.old_status)} → {title(item.new_status)} · {date(item.occurred_at)} · by {personName(item.actor_person_id)}</p>):<p>No relationship transition yet.</p>}
+        {rows("ownerHistory").map((item)=><p key={String(item.id)}>Account owner: {personName(item.old_owner_person_id)} → {personName(item.new_owner_person_id)} · {date(item.occurred_at)} · by {personName(item.actor_person_id)}</p>)}</details></div>
       <div id="organisation-work"><CrmRecordWork kind="organisation" id={String(org.id)} organisationId={String(org.id)} owners={owners}
         currentPersonId={currentPersonId} commercialHistory={[...rows("history"),...rows("ownerHistory")]} /></div>
       <div id="organisation-sources"><CrmOperationalLinks organisationId={String(org.id)} /></div>
@@ -195,29 +225,30 @@ export function CrmClient({ view, id, currentPersonId }: Props) {
       <RecordSectionTracker label="Opportunity sections" />
       <div className="crm-organisation-related"><strong>Related workflows</strong><Link href={`/crm/organisations/${opportunity.organisation_id}`}>Organisation</Link><Link href={`/commercial-handoff?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Commercial handoff</Link>{opportunity.stage==="WON"&&<><Link href={`/mobilisations?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Authorise mobilisation</Link><Link href={`/events?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Create operational Event</Link></>}</div>
       {opportunity.stage === "WON" && <section className={lists.wonHandoff} aria-label="Won handoff"><h2>Opportunity won</h2><p>This commercial outcome does not authorise Mobilisation or create an operational service.</p><Link href={`/commercial-handoff?organisation=${opportunity.organisation_id}&opportunity=${opportunity.id}`}>Review factual handoff and next step →</Link></section>}
-      <div className="crm-detail-grid"><section id="opportunity-overview" className="crm-panel"><h2>Opportunity</h2><dl>
+      <div id="opportunity-work">{Boolean(data?.importedSource) && <section className="crm-panel"><h2>Imported spreadsheet detail</h2><dl>{Object.entries((data?.importedSource as Row).source_data as Row).filter(([, value]) => value != null && value !== "").map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{String(value)}</dd></div>)}</dl></section>}
+      <CrmRecordWork kind="opportunity" id={String(opportunity.id)} organisationId={String(opportunity.organisation_id)}
+        owners={owners} currentPersonId={currentPersonId} accountableOwnerId={String(opportunity.owner_person_id)} commercialHistory={rows("history")} /></div>
+      <div className={`crm-detail-grid ${record.opportunityFacts}`}><section id="opportunity-overview" className="crm-panel"><h2>Opportunity</h2><dl>
         <div><dt>Estimated opportunity value</dt><dd>{value(opportunity.estimated_value_gbp_pence)}</dd></div>
         <div><dt>Expected decision</dt><dd>{String(opportunity.expected_decision_date ?? "Not set")}</dd></div>
         <div><dt>Opportunity owner</dt><dd>{owners.find((o)=>o.id===opportunity.owner_person_id)?.displayName ?? String((opportunity.people as Row)?.display_name ?? "Assigned Office")}</dd></div>
         <div><dt>Primary Contact</dt><dd>{data?.contact?`${String((data.contact as Row).first_name)} ${String((data.contact as Row).last_name)}`:"Not selected"}</dd></div>
         <div><dt>Summary</dt><dd>{String(opportunity.summary ?? "No summary")}</dd></div>
-      </dl></section><section id="opportunity-stage" className="crm-panel"><h2>Stage and ownership</h2>{!["WON","LOST"].includes(String(opportunity.stage)) ? <>
+      </dl></section><details id="opportunity-stage" className={`crm-panel ${record.changePanel}`}><summary>Stage, ownership and estimate</summary><h2>Stage and ownership</h2>{!["WON","LOST"].includes(String(opportunity.stage)) ? <>
         <label className="crm-field">Move to stage<select value={stage} onChange={(e)=>setStage(e.target.value)}><option value="">Select stage</option>{stageNames.filter((s)=>s!==opportunity.stage).map((s)=><option key={s} value={s}>{title(s)}</option>)}</select></label>
         {(stage==="LOST"||backwards)&&<label className="crm-field">{stage==="LOST"?"Lost reason":"Reason for stage change"}<Input required value={reason} maxLength={500} onChange={(e)=>setReason(e.target.value)}/></label>}
         {stage==="WON"&&<label className="crm-confirm"><input type="checkbox" checked={confirm} onChange={(e)=>setConfirm(e.target.checked)}/> I confirm this opportunity is Won. This does not establish a contract or active service.</label>}
+        {stage && <p className={record.stageReview} aria-live="polite">Review stage: {title(opportunity.stage)} → {title(stage)}</p>}
         <Button disabled={busy||!stage||(stage==="WON"&&!confirm)||((stage==="LOST"||backwards)&&reason.trim().length<3)} onClick={()=>void act("transition",{id:opportunity.id,stage,reason})}>Record stage change</Button>
         <label className="crm-field">Change accountable owner<select value={fields.ownerId ?? ""} onChange={(e)=>setFields({...fields,ownerId:e.target.value})}><option value="">Select owner</option>{ownerOptions.map((x)=><option key={x.value} value={x.value}>{x.label}</option>)}</select></label>
         <Button variant="outline" disabled={busy||!fields.ownerId} onClick={()=>void act("changeOwner",{id:opportunity.id,ownerId:fields.ownerId})}>Change owner</Button>
         <label className="crm-field">Estimated value (£)<Input type="number" min="0" step="0.01" value={fields.value ?? ""} onChange={(e)=>setFields({...fields,value:e.target.value})}/></label>
         <Button variant="outline" disabled={busy} onClick={()=>void act("changeValue",{id:opportunity.id,valuePence:fields.value===""?null:Math.round(Number(fields.value)*100)})}>Update estimate</Button>
-      </>:<><p><strong>{title(opportunity.stage)} recorded</strong></p><p>This outcome is terminal in 05A. The record and its history remain available; corrections require a future approved process.</p></>}</section>
+      </>:<><p><strong>{title(opportunity.stage)} recorded</strong></p><p>This commercial outcome is recorded. The record and its history remain available; no further stage changes are offered here.</p></>}</details>
       </div>
-      <div id="opportunity-work">{Boolean(data?.importedSource) && <section className="crm-panel"><h2>Imported spreadsheet detail</h2><dl>{Object.entries((data?.importedSource as Row).source_data as Row).filter(([, value]) => value != null && value !== "").map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{String(value)}</dd></div>)}</dl></section>}
-      <CrmRecordWork kind="opportunity" id={String(opportunity.id)} organisationId={String(opportunity.organisation_id)}
-        owners={owners} currentPersonId={currentPersonId} accountableOwnerId={String(opportunity.owner_person_id)} commercialHistory={rows("history")} /></div>
       <p className="enterprise-honesty">Estimated value is not contracted or invoiced revenue.</p>
     </div>}
-    {form && <div className="crm-dialog-backdrop" role="presentation"><section className="crm-dialog" role="dialog" aria-modal="true" aria-labelledby="crm-dialog-title">
+    {data && form && <div className="crm-dialog-backdrop" role="presentation"><section className="crm-dialog" role="dialog" aria-modal="true" aria-labelledby="crm-dialog-title">
       <div className="crm-panel-heading"><h2 id="crm-dialog-title">{form==="organisation"?"New Organisation":form==="editOrganisation"?"Edit Organisation":form==="contact"?"Add Contact":form==="editContact"?"Edit Contact":"New Opportunity"}</h2><Button variant="ghost" onClick={()=>{setForm("");setFields({});}}>Close</Button></div>
       {error && <p role="alert" className="enterprise-error">{error}</p>}
       <form onSubmit={(e)=>{e.preventDefault(); if(form==="organisation"||form==="editOrganisation") void act(form==="organisation"?"createOrganisation":"updateOrganisation",{id,name:fields.name,tradingName:fields.tradingName,website:fields.website,email:fields.email,phone:fields.phone,ownerId:fields.ownerId||currentPersonId});

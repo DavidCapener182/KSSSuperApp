@@ -1,0 +1,162 @@
+[
+  {
+    "original": "runtime-parity.json",
+    "packaged": "crm-four-product-final/runtime-parity.json",
+    "sha256": "be7c8a0d4fc4b2b1d8349cb977887d0a1fb7bcc9174b8c9168b7179b3ff0f33e"
+  },
+  {
+    "original": "source-manifest.json",
+    "packaged": "crm-four-product-final/source-manifest.json",
+    "sha256": "516bbdbdd65bf6c155d4e1308f28106971659a74a7a6811b24b6b36008e046b9"
+  },
+  {
+    "original": "offline-checks.json",
+    "packaged": "crm-four-product-final/offline-checks.json",
+    "sha256": "cd2785661b426347c71c7289eabf61083117c30862cc0fed52117e8dbeb47675"
+  },
+  {
+    "original": "portable-helper-initial-resolution-diagnostic.mjs.txt",
+    "packaged": "crm-four-product-final/portable-helper-initial-resolution-diagnostic.mjs.txt",
+    "sha256": "9575f6ac2bdf4d101d19668640b117b368e3fd188dc52141c0e5d799102b0947"
+  },
+  {
+    "original": "review.patch",
+    "packaged": "crm-four-product-final/review.patch",
+    "sha256": "0405be8e73764f38376853111665e56c0c6fc4a45f6065d460ee68ea94c4201d"
+  },
+  {
+    "original": "dialog-ui-contract-revision.json",
+    "packaged": "crm-four-product-final/dialog-ui-contract-revision.json",
+    "sha256": "6f64c12362c7be21bf704391b661daaeeeb702ae684da3f124755860605a6b1a"
+  },
+  {
+    "original": "UI-CRM-COMMERCIAL-BROWSER-20261018.md",
+    "packaged": "crm-four-product-final/UI-CRM-COMMERCIAL-BROWSER-20261018.md",
+    "sha256": "1259a2789b928dd97d31390ec93cc0068d09c3a88e4059c9a46da7dae99a722d"
+  },
+  {
+    "original": "capture-results.json",
+    "packaged": "crm-four-product-final/capture-results.json",
+    "sha256": "1b5b632ad55e655138fd37f7d39c9689926ba7d0cc65ea976dd0cb8ebaa26167"
+  },
+  {
+    "original": "runtime-manifests.json",
+    "packaged": "crm-four-product-final/runtime-manifests.json",
+    "sha256": "3551c57f0adcbe074967f0033ef19e44f988d891941474fe46c8c7dc99b584e8"
+  },
+  {
+    "original": "capture.mjs",
+    "packaged": "crm-four-product-final/capture.mjs.txt",
+    "sha256": "56c147b4bf1b926ee46e7c9e7b6a841c3319198d62819ab2eb90ea8854edc032"
+  },
+  {
+    "original": "test-manifest.json",
+    "packaged": "crm-four-product-final/test-manifest.json",
+    "sha256": "c32b5b5a10c118db5352e220b13e2f76709d967d9181788a2ea8e9e214611f5a"
+  },
+  {
+    "original": "run-final.py",
+    "packaged": "crm-four-product-final/run-final.py",
+    "sha256": "3a8536a48fd34899ae59abe6280c1539f1b2425324de0ab775ce017175cd4158"
+  },
+  {
+    "original": "final-types.log",
+    "packaged": "crm-four-product-final/final-types.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "original": "crm-read-contract-revision.json",
+    "packaged": "crm-four-product-final/crm-read-contract-revision.json",
+    "sha256": "0cb5d496270ac7385fa879d5b4c6e2bfa0f84e2eb9fa81915e32af2db6baa7db"
+  },
+  {
+    "original": "browser-evidence.json",
+    "packaged": "crm-four-product-final/browser-evidence.json",
+    "sha256": "1c220522372475139c3274234085536544730da0b450baaf2565f648bf137bb4"
+  },
+  {
+    "original": "authority.mjs",
+    "packaged": "crm-four-product-final/authority.mjs.txt",
+    "sha256": "ef0f609b7ea2b0063fac54f0dcb468e28a7c0d8a2f6d2c04a56f3840994ee160"
+  },
+  {
+    "original": "final-lint.log",
+    "packaged": "crm-four-product-final/final-lint.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "original": "capture-extra.mjs",
+    "packaged": "crm-four-product-final/capture-extra.mjs.txt",
+    "sha256": "c18edf47eb064cafd15b6fe6b978ec8372ea28584d8fd7847b3b7ebfb22fecc8"
+  },
+  {
+    "original": "prepare.py",
+    "packaged": "crm-four-product-final/prepare.py",
+    "sha256": "a9fa6ecec9e4442304d88af22e08b53105b3fdbf505cdedf2974e6ae4eb0223a"
+  },
+  {
+    "original": "final-offline.log",
+    "packaged": "crm-four-product-final/final-offline.log",
+    "sha256": "1c400a3a4e507148ee8377963c03bc7a40e36891e07f43919d9bb62a4e782f76"
+  },
+  {
+    "original": "tests/crm-current-source-local.test.mjs",
+    "packaged": "crm-four-product-final/tests/crm-current-source-local.test.mjs.txt",
+    "sha256": "8a429c05f6ac4574e30feb18c36598891d297471a7c72e1eed7492db46c6ac30"
+  },
+  {
+    "original": "supplemental/browser.log",
+    "packaged": "crm-four-product-final/supplemental/browser.log",
+    "sha256": "cfae4e2be95483133b337dfb13370e1659054d2de69f0ed71268be6eeeea51a4"
+  },
+  {
+    "original": "supplemental/capture-results.json",
+    "packaged": "crm-four-product-final/supplemental/capture-results.json",
+    "sha256": "f0b910bddc30373b764868a9f1553cde065660f4a5e94c90511a4da90cae6d7c"
+  },
+  {
+    "original": "source/src/components/commercial-record.module.css",
+    "packaged": "crm-four-product-final/source/src/components/commercial-record.module.css",
+    "sha256": "fb1a0401c8de989be8f23e193f6ce0d394f9f2ae97f0c56b9c1a1b10ee5e7080"
+  },
+  {
+    "original": "source/src/components/crm-sales.module.css",
+    "packaged": "crm-four-product-final/source/src/components/crm-sales.module.css",
+    "sha256": "0ea2b91505abfb7033b2fa5668d527cfe39685bdd351b6e061c96780ef7518b4"
+  },
+  {
+    "original": "source/src/components/crm-operational.tsx",
+    "packaged": "crm-four-product-final/source/src/components/crm-operational.tsx.txt",
+    "sha256": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c"
+  },
+  {
+    "original": "source/src/components/crm-client.tsx",
+    "packaged": "crm-four-product-final/source/src/components/crm-client.tsx.txt",
+    "sha256": "634e30f0b953b0d9e3ad32cffba407be30c6be77779480ac0cc34bde76870ad6"
+  },
+  {
+    "original": "tests/helpers/crm-current-source-fixture.mjs",
+    "packaged": "crm-four-product-final/tests/helpers/crm-current-source-fixture.mjs.txt",
+    "sha256": "01104097f69bebf4f846780a798b1352d69637c23786f3a1a3217d3ceea70bc2"
+  },
+  {
+    "original": "before/src/components/commercial-record.module.css",
+    "packaged": "crm-four-product-final/before/src/components/commercial-record.module.css",
+    "sha256": "691e0037b5340f508ae8072fe13fa20a86d98124be3be30f35afcf309a2293b1"
+  },
+  {
+    "original": "before/src/components/crm-sales.module.css",
+    "packaged": "crm-four-product-final/before/src/components/crm-sales.module.css",
+    "sha256": "afd21572b8cb7482fc5d1aac8d496b8db22877536f0b56bbda37275b4b3c72a4"
+  },
+  {
+    "original": "before/src/components/crm-operational.tsx",
+    "packaged": "crm-four-product-final/before/src/components/crm-operational.tsx.txt",
+    "sha256": "4d3d15af8666e159d4f4777e5c47f4b66586045687a4caa5b2e2bdaf4b12251f"
+  },
+  {
+    "original": "before/src/components/crm-client.tsx",
+    "packaged": "crm-four-product-final/before/src/components/crm-client.tsx.txt",
+    "sha256": "8e6c44c9c11b9e12fd6ab36989f11ed2403276db2b76f0dc4eb35f30d7b19a35"
+  }
+]

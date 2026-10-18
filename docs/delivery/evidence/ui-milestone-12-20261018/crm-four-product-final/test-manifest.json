@@ -1,0 +1,10 @@
+[
+  {
+    "file": "tests/crm-current-source-local.test.mjs",
+    "sha256": "8a429c05f6ac4574e30feb18c36598891d297471a7c72e1eed7492db46c6ac30"
+  },
+  {
+    "file": "tests/helpers/crm-current-source-fixture.mjs",
+    "sha256": "01104097f69bebf4f846780a798b1352d69637c23786f3a1a3217d3ceea70bc2"
+  }
+]

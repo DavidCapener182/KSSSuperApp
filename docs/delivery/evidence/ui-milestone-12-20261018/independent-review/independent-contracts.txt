@@ -1,0 +1,15 @@
+✔ all four before and source hashes independently match packet; before equals accepted integration (0.927ms)
+✔ all eight CRM API calls/payload serialisations/query updates remain exact (21.141417ms)
+✔ all accepted CRM presentation, role-driven actions and source links exact except current-data modal gate (0.075042ms)
+✔ CRM action body changes only lifetime/duplicate guards; exact readbacks retained (0.098ms)
+✔ all original operational mutations and reader contracts exact; only non-network confirmation wrapper added (7.128459ms)
+✔ operational existing effects retained and sole added effect is local modal focus/keyboard lifecycle (5.041667ms)
+✔ all149 final image bytes match pinned browser metadata (13.596334ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 159.311625

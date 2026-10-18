@@ -1,0 +1,16 @@
+{
+  "file": "src/components/crm-client.tsx",
+  "beforeSha256": "8e6c44c9c11b9e12fd6ab36989f11ed2403276db2b76f0dc4eb35f30d7b19a35",
+  "sha256": "634e30f0b953b0d9e3ad32cffba407be30c6be77779480ac0cc34bde76870ad6",
+  "apiCallHashes": [
+    "d88405fe769c484ccc779bfe96c69e48178a71c39c3f80616ef8f4d8f3adece5",
+    "92c1bb8e2f3f9d55714c0f853f7af64b73bfd82da1beec94c17b84cdc1aed709",
+    "70ff8dd809135ef575ff82f8b9bbae5204d39910023f41800b743df4de45fee5",
+    "35847e2ef1f279bea2c8bf6448afb99140ee9318db8612ddc3660e47a960767b",
+    "d3ca9f8f807f3d0e7e34e0800dc37863c7973d957cb9450ee9289e14465c11d8",
+    "06005bb5c95e0e4bccc68e276900921490e442572a927e94e146f30f546dad50",
+    "439b8942eeff23256f655d14f3629466c7d997979da98a48c4c30bbc590d1fdb",
+    "15b2c3654e196d0d3c1dc47630d4f05fbbd19c2b11dab82107b6a24eb634f273"
+  ],
+  "scope": "Source snapshot clearing, current person/query lifetime/latest-read guards, failed-read modal retirement, guarded duplicate/context mutation completion; original payload/query/readback conditions and accepted UI preserved"
+}

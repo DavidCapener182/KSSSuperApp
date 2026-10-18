@@ -1,0 +1,240 @@
+{
+  "base": "1ac31f02564820062b3ee037254f5a1933694776",
+  "productsCovered": 8,
+  "executedAfterRows": 29,
+  "mismatches": [],
+  "rows": [
+    {
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "origin": "published-shared",
+      "candidateSha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "frozen": "executed-after-source/src/lib/auth/capabilities.ts.txt"
+    },
+    {
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "origin": "published-shared",
+      "candidateSha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "frozen": "executed-after-source/src/components/enterprise-shell.tsx.txt"
+    },
+    {
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "origin": "published-shared",
+      "candidateSha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "frozen": "executed-after-source/src/lib/environment-label.ts.txt"
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "origin": "published-shared",
+      "candidateSha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "frozen": "executed-after-source/src/components/ui/sheet.tsx.txt"
+    },
+    {
+      "file": "src/components/ui/sheet.module.css",
+      "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "origin": "published-shared",
+      "candidateSha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "frozen": "executed-after-source/src/components/ui/sheet.module.css.txt"
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "origin": "published-shared",
+      "candidateSha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "frozen": "executed-after-source/src/components/ui/button.tsx.txt"
+    },
+    {
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "origin": "published-shared",
+      "candidateSha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "frozen": "executed-after-source/src/app/globals.css.txt"
+    },
+    {
+      "file": "src/app/(enterprise)/commercial-handoff/page.tsx",
+      "sha256": "a5daae3f29cbf452cbca4683c9b0e2aff25a5fce941b587d931d6c312289e1ea",
+      "origin": "current-integration",
+      "candidateSha256": "a5daae3f29cbf452cbca4683c9b0e2aff25a5fce941b587d931d6c312289e1ea",
+      "frozen": "executed-after-source/src/app/(enterprise)/commercial-handoff/page.tsx.txt"
+    },
+    {
+      "file": "src/components/commercial-handoff-client.tsx",
+      "sha256": "01992772dffbc3e16d42d7ec919ffc5f39374ceca944bd232113c92c7b38dfa2",
+      "origin": "current-integration",
+      "candidateSha256": "01992772dffbc3e16d42d7ec919ffc5f39374ceca944bd232113c92c7b38dfa2",
+      "frozen": "executed-after-source/src/components/commercial-handoff-client.tsx.txt"
+    },
+    {
+      "file": "src/components/commercial-handoff.module.css",
+      "sha256": "a9685536e07ec388a816ba428265fd318ad6d279399f542c2e2e1d6d34735fd9",
+      "origin": "current-integration",
+      "candidateSha256": "a9685536e07ec388a816ba428265fd318ad6d279399f542c2e2e1d6d34735fd9",
+      "frozen": "executed-after-source/src/components/commercial-handoff.module.css.txt"
+    },
+    {
+      "file": "src/app/(enterprise)/crm/opportunities/[id]/page.tsx",
+      "sha256": "af0367eabacc0ba4454af16dd795e0c61380cad4d375a2ff401028756364f6ee",
+      "origin": "current-integration",
+      "candidateSha256": "af0367eabacc0ba4454af16dd795e0c61380cad4d375a2ff401028756364f6ee",
+      "frozen": "executed-after-source/src/app/(enterprise)/crm/opportunities/[id]/page.tsx.txt"
+    },
+    {
+      "file": "src/components/crm-client.tsx",
+      "sha256": "634e30f0b953b0d9e3ad32cffba407be30c6be77779480ac0cc34bde76870ad6",
+      "origin": "approved-isolated-crm-four-product-revision",
+      "candidateSha256": "634e30f0b953b0d9e3ad32cffba407be30c6be77779480ac0cc34bde76870ad6",
+      "frozen": "executed-after-source/src/components/crm-client.tsx.txt"
+    },
+    {
+      "file": "src/components/crm-list-work.module.css",
+      "sha256": "9c0dfcb60e450ad2908f62bc0d212db30e0dffce7e9faf6ec4268255a5c39584",
+      "origin": "current-integration",
+      "candidateSha256": "9c0dfcb60e450ad2908f62bc0d212db30e0dffce7e9faf6ec4268255a5c39584",
+      "frozen": "executed-after-source/src/components/crm-list-work.module.css.txt"
+    },
+    {
+      "file": "src/components/commercial-journey.module.css",
+      "sha256": "66482671d2892db49e38dfaf73e537c4a4c2d301f823032b73a810a7d4ceeb4c",
+      "origin": "current-integration",
+      "candidateSha256": "66482671d2892db49e38dfaf73e537c4a4c2d301f823032b73a810a7d4ceeb4c",
+      "frozen": "executed-after-source/src/components/commercial-journey.module.css.txt"
+    },
+    {
+      "file": "src/components/crm-attention.tsx",
+      "sha256": "d0ce40dcf0ea859727f28c48887e73aba4088ea5b9d1f8fb463c819c187ea1ed",
+      "origin": "current-integration",
+      "candidateSha256": "d0ce40dcf0ea859727f28c48887e73aba4088ea5b9d1f8fb463c819c187ea1ed",
+      "frozen": "executed-after-source/src/components/crm-attention.tsx.txt"
+    },
+    {
+      "file": "src/components/crm-attention.module.css",
+      "sha256": "4c1b97079757d75347cdb8efad6f050ac0d84065c08755872511f1bb54bfeac4",
+      "origin": "current-integration",
+      "candidateSha256": "4c1b97079757d75347cdb8efad6f050ac0d84065c08755872511f1bb54bfeac4",
+      "frozen": "executed-after-source/src/components/crm-attention.module.css.txt"
+    },
+    {
+      "file": "src/lib/crm/due-status.ts",
+      "sha256": "f1190f79a2d0e62275a4eca1eb74e29bfbc0763a4dd5035618e2814f857fb976",
+      "origin": "current-integration",
+      "candidateSha256": "f1190f79a2d0e62275a4eca1eb74e29bfbc0763a4dd5035618e2814f857fb976",
+      "frozen": "executed-after-source/src/lib/crm/due-status.ts.txt"
+    },
+    {
+      "file": "src/components/crm-operational-links.tsx",
+      "sha256": "e70c113e7cea8469ca6265aeeb45e281f77717e311663eae300d7333b2b08cf9",
+      "origin": "current-integration",
+      "candidateSha256": "e70c113e7cea8469ca6265aeeb45e281f77717e311663eae300d7333b2b08cf9",
+      "frozen": "executed-after-source/src/components/crm-operational-links.tsx.txt"
+    },
+    {
+      "file": "src/components/crm-operational.tsx",
+      "sha256": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c",
+      "origin": "approved-isolated-crm-four-product-revision",
+      "candidateSha256": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c",
+      "frozen": "executed-after-source/src/components/crm-operational.tsx.txt"
+    },
+    {
+      "file": "src/components/crm-sales.module.css",
+      "sha256": "0ea2b91505abfb7033b2fa5668d527cfe39685bdd351b6e061c96780ef7518b4",
+      "origin": "approved-isolated-crm-four-product-revision",
+      "candidateSha256": "0ea2b91505abfb7033b2fa5668d527cfe39685bdd351b6e061c96780ef7518b4",
+      "frozen": "executed-after-source/src/components/crm-sales.module.css.txt"
+    },
+    {
+      "file": "src/components/ui/input.tsx",
+      "sha256": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04",
+      "origin": "published-shared",
+      "candidateSha256": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04",
+      "frozen": "executed-after-source/src/components/ui/input.tsx.txt"
+    },
+    {
+      "file": "src/components/record-section-tracker.tsx",
+      "sha256": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc",
+      "origin": "current-integration",
+      "candidateSha256": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc",
+      "frozen": "executed-after-source/src/components/record-section-tracker.tsx.txt"
+    },
+    {
+      "file": "src/components/record-studies.css",
+      "sha256": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e",
+      "origin": "current-integration",
+      "candidateSha256": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e",
+      "frozen": "executed-after-source/src/components/record-studies.css.txt"
+    },
+    {
+      "file": "src/app/(enterprise)/crm/organisations/[id]/page.tsx",
+      "sha256": "7bcf8ed5a9b47a79a0e80d5c0c9c05c07e67e361c46508aa5ac15333910372c4",
+      "origin": "current-integration",
+      "candidateSha256": "7bcf8ed5a9b47a79a0e80d5c0c9c05c07e67e361c46508aa5ac15333910372c4",
+      "frozen": "executed-after-source/src/app/(enterprise)/crm/organisations/[id]/page.tsx.txt"
+    },
+    {
+      "file": "src/app/(enterprise)/crm/new-lead/page.tsx",
+      "sha256": "290c5ae5bdafdab2d773bbc34ccec8735bcb2e398ffbb5e52120622d499707fb",
+      "origin": "current-integration",
+      "candidateSha256": "290c5ae5bdafdab2d773bbc34ccec8735bcb2e398ffbb5e52120622d499707fb",
+      "frozen": "executed-after-source/src/app/(enterprise)/crm/new-lead/page.tsx.txt"
+    },
+    {
+      "file": "src/components/crm-new-lead.tsx",
+      "sha256": "cad1bc4f58ef1d2b6002d5ddf845764bfde6c137d6faab37fd552f4b5e1f0e84",
+      "origin": "current-integration",
+      "candidateSha256": "cad1bc4f58ef1d2b6002d5ddf845764bfde6c137d6faab37fd552f4b5e1f0e84",
+      "frozen": "executed-after-source/src/components/crm-new-lead.tsx.txt"
+    },
+    {
+      "file": "src/components/crm-new-lead.module.css",
+      "sha256": "b7ec5153e9efa866647e1a093e23eeafa76fe4c0e09d33a48847420abb118b6f",
+      "origin": "current-integration",
+      "candidateSha256": "b7ec5153e9efa866647e1a093e23eeafa76fe4c0e09d33a48847420abb118b6f",
+      "frozen": "executed-after-source/src/components/crm-new-lead.module.css.txt"
+    },
+    {
+      "file": "src/app/(enterprise)/crm/page.tsx",
+      "sha256": "69157e00b2e9170ae0342731f02de28ed905d3042b84a66ee80f23076ca784ca",
+      "origin": "current-integration",
+      "candidateSha256": "69157e00b2e9170ae0342731f02de28ed905d3042b84a66ee80f23076ca784ca",
+      "frozen": "executed-after-source/src/app/(enterprise)/crm/page.tsx.txt"
+    },
+    {
+      "file": "src/components/commercial-record.module.css",
+      "sha256": "fb1a0401c8de989be8f23e193f6ce0d394f9f2ae97f0c56b9c1a1b10ee5e7080",
+      "origin": "approved-isolated-crm-four-product-revision",
+      "candidateSha256": "fb1a0401c8de989be8f23e193f6ce0d394f9f2ae97f0c56b9c1a1b10ee5e7080",
+      "frozen": "executed-after-source/src/components/commercial-record.module.css.txt"
+    }
+  ],
+  "explicitMocks": [
+    {
+      "file": "src/lib/auth/principal.ts",
+      "sha256": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f"
+    },
+    {
+      "file": "src/lib/supabase/server.ts",
+      "sha256": "27a98ceb10f45dfa7ac8d8f1a876fa44fec30a53f710476d635c59e87faada77"
+    },
+    {
+      "file": "src/lib/supabase/browser.ts",
+      "sha256": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73"
+    },
+    {
+      "file": "src/app/layout.tsx",
+      "sha256": "dac0f17bc2615a9aef49a493984dae961a94ca46b72e4ec8d408679d361b604d"
+    },
+    {
+      "file": "src/app/(enterprise)/layout.tsx",
+      "sha256": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32"
+    },
+    {
+      "file": "src/app/page.tsx",
+      "sha256": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6"
+    }
+  ],
+  "limits": "Synthetic principal/server/browser Supabase clients, root/layout fixture and API interception not candidate Auth/RPC/RLS acceptance. Copied files only count when imported/rendered by the five real routes; no ClientWorkspace/LP/TFS acceptance. Runtime graph rows are source parity, not evidence every branch ran.",
+  "workerPacketRuntimeReceipt": "crm-four-product-final/runtime-parity.json retains69total before/after checks and57source comparisons; this independent candidate receipt verifies29AFTER source rows against exact candidate bytes.",
+  "apiInterception": "capture.mjs/capture-extra.mjs synthetic handlers replace live APIs, full /api/me consistent with fixture principal; API interception has no candidate authoritative source row"
+}

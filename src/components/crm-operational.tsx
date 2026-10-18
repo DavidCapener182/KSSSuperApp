@@ -95,7 +95,7 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Stage change denied"); }
     finally { setBusy(false); }
   }
-  return <section aria-label="Opportunity pipeline">
+  return <section className={sales.pipeline} aria-label="Opportunity pipeline">
     <div className="crm-operational-tools">
       <div className="crm-view-switch"><Button variant={!closed && !dormant ? "default" : "outline"} onClick={() => { setClosed(false); setDormant(false); setMobileStage("NEW_LEAD"); }}>Active pipeline</Button>
         <Button variant={closed ? "default" : "outline"} onClick={() => { setClosed(true); setDormant(false); setMobileStage("WON"); }}>Closed history</Button>
@@ -122,7 +122,7 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
     </div>
     {error && <p role="alert" className="enterprise-error">{error} <Button variant="ghost" onClick={() => void load()}>Retry</Button></p>}
     {loading ? <p role="status" className="crm-skeleton">Loading pipeline…</p> :
-      <div className={`crm-board ${closed ? "crm-board--closed" : ""}`}>
+      <div className={`crm-board ${closed ? "crm-board--closed" : ""}`} role="region" aria-label="Opportunity stages" tabIndex={0}>
         {columns.map((column) => <section className={`crm-board-column ${column.stage !== mobileStage ? "crm-mobile-hidden" : ""}`} key={column.stage}
           aria-label={`${label(column.stage)} opportunities`}
           onDragOver={(event) => { if (!closed) event.preventDefault(); }}
@@ -173,6 +173,38 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
   const [activityOpen, setActivityOpen] = useState(false);
   const [task, setTask] = useState({ title: "", assigneeId: currentPersonId, dueLocal: "" });
   const [taskChange, setTaskChange] = useState<{ id: string; kind: string; assigneeId: string; dueLocal: string; reason: string } | null>(null);
+  const workRoot = useRef<HTMLDivElement | null>(null);
+  const followUpHeading = useRef<HTMLHeadingElement | null>(null);
+  const taskDialog = useRef<HTMLElement | null>(null);
+  const taskDialogTrigger = useRef<HTMLButtonElement | null>(null);
+  const taskDialogPending = useRef(false);
+  const taskDialogKey = taskChange ? `${taskChange.id}:${taskChange.kind}` : "";
+  useEffect(() => {
+    const panel = taskDialog.current;
+    if (!taskDialogKey || !panel) return;
+    const trigger = taskDialogTrigger.current, fallbackHeading = followUpHeading.current, fallbackRoot = workRoot.current;
+    const controls = () => [...panel.querySelectorAll<HTMLElement>("button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), a[href]")];
+    (controls()[0] ?? panel).focus();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault(); event.stopPropagation();
+        if (!taskDialogPending.current) setTaskChange(null);
+      }
+      if (event.key !== "Tab") return;
+      const available = controls(), first = available[0], last = available[available.length - 1];
+      if (!first) { event.preventDefault(); panel.focus(); }
+      else if (!panel.contains(document.activeElement)) { event.preventDefault(); first.focus(); }
+      else if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      if (trigger?.isConnected) trigger.focus();
+      else if (fallbackHeading?.isConnected) fallbackHeading.focus();
+      else if (fallbackRoot?.isConnected) fallbackRoot.focus();
+    };
+  }, [taskDialogKey]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -214,6 +246,12 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Task action denied"); }
     finally { setBusy(false); }
   }
+  async function confirmTaskChange() {
+    if (taskDialogPending.current || busy || !taskChange) return;
+    taskDialogPending.current = true;
+    try { await changeTask(); }
+    finally { taskDialogPending.current = false; }
+  }
   const tasks = data?.tasks ?? [];
   const open = tasks.filter((item) => item.state === "OPEN").sort((a, b) => {
     const da = a.due_at ? Date.parse(String(a.due_at)) : Number.POSITIVE_INFINITY;
@@ -227,7 +265,7 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
     ...(data?.activities ?? []).map((item) => ({ ...item, at: String(item.occurred_at), category: "activity" })),
     ...(data?.taskEvents ?? []).map((item) => ({ ...item, at: String(item.occurred_at), category: "task" })),
   ].sort((a, b) => b.at.localeCompare(a.at)).slice(0, 80);
-  return <div className="crm-operational-record">
+  return <div className="crm-operational-record" ref={workRoot} tabIndex={-1} role="region" aria-label="CRM activity and follow-ups">
     {error && <p className="enterprise-error" role="alert">{error} <Button variant="ghost" onClick={() => void load()}>Retry</Button></p>}
     {loading && <p role="status">Loading CRM activity and follow-ups…</p>}
     {!loading && data && <>
@@ -235,7 +273,7 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
         {open[0] ? <><strong>{String(open[0].title)}</strong><p>{crmDueStatus(open[0].due_at as string | null)} · {open[0].due_at ? time(open[0].due_at) : "No due date"} · Task assignee: {owners.find((o) => o.id === open[0].assignee_person_id)?.displayName ?? "Assigned Office"}</p>
           {open.length > 1 && <p>{open.length - 1} additional follow-up{open.length === 2 ? "" : "s"}</p>}</> : <p>No follow-up planned</p>}
       </section>
-      <section className="crm-panel"><h2>Follow-ups</h2>
+      <section className="crm-panel"><h2 ref={followUpHeading} tabIndex={-1}>Follow-ups</h2>
         {elsewhere > 0 && <p>{elsewhere} open follow-up{elsewhere === 1 ? " is" : "s are"} assigned to someone other than the Opportunity owner. Reassign selected tasks explicitly if needed.</p>}
         <form className="crm-operational-form" onSubmit={(event) => void createTask(event)}>
           <label className="crm-field">Action title<Input required maxLength={160} value={task.title}
@@ -253,10 +291,10 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
           <span>{label(item.state)} · {item.state === "OPEN" ? crmDueStatus(item.due_at as string | null) : "Historical"} · {item.due_at ? time(item.due_at) : "No due date"} · Task assignee: {owners.find((o) => o.id === item.assignee_person_id)?.displayName ?? "Assigned Office"}</span></div>
           {item.state === "OPEN" && <div className="crm-task-actions">
             {item.assignee_person_id === currentPersonId && <Button variant="outline" disabled={busy}
-              onClick={() => setTaskChange({ id: String(item.id), kind: "COMPLETE", assigneeId: "", dueLocal: "", reason: "" })}>Done</Button>}
-            <Button variant="ghost" onClick={() => setTaskChange({ id: String(item.id), kind: "REASSIGN", assigneeId: "", dueLocal: "", reason: "" })}>Reassign</Button>
-            <Button variant="ghost" onClick={() => setTaskChange({ id: String(item.id), kind: "RESCHEDULE", assigneeId: "", dueLocal: londonLocal(item.due_at), reason: "" })}>Reschedule</Button>
-            <Button variant="ghost" onClick={() => setTaskChange({ id: String(item.id), kind: "CANCEL", assigneeId: "", dueLocal: "", reason: "" })}>Cancel</Button>
+              onClick={(event) => { taskDialogTrigger.current = event.currentTarget; setTaskChange({ id: String(item.id), kind: "COMPLETE", assigneeId: "", dueLocal: "", reason: "" }); }}>Done</Button>}
+            <Button variant="ghost" onClick={(event) => { taskDialogTrigger.current = event.currentTarget; setTaskChange({ id: String(item.id), kind: "REASSIGN", assigneeId: "", dueLocal: "", reason: "" }); }}>Reassign</Button>
+            <Button variant="ghost" onClick={(event) => { taskDialogTrigger.current = event.currentTarget; setTaskChange({ id: String(item.id), kind: "RESCHEDULE", assigneeId: "", dueLocal: londonLocal(item.due_at), reason: "" }); }}>Reschedule</Button>
+            <Button variant="ghost" onClick={(event) => { taskDialogTrigger.current = event.currentTarget; setTaskChange({ id: String(item.id), kind: "CANCEL", assigneeId: "", dueLocal: "", reason: "" }); }}>Cancel</Button>
           </div>}
         </div>)}
       </section>
@@ -292,19 +330,19 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
         </div>)}
       </section>
     </>}
-    {taskChange && <div className="crm-dialog-backdrop"><section className="crm-dialog" role="dialog" aria-modal="true" aria-label={`${label(taskChange.kind)} follow-up`}>
+    {taskChange && <div className="crm-dialog-backdrop"><section className="crm-dialog" ref={taskDialog} tabIndex={-1} role="dialog" aria-modal="true" aria-label={`${label(taskChange.kind)} follow-up`}>
       <h2>{label(taskChange.kind)} follow-up</h2>
-      {taskChange.kind === "REASSIGN" && <label className="crm-field">New assignee<select value={taskChange.assigneeId}
+      {taskChange.kind === "REASSIGN" && <label className="crm-field">New assignee<select disabled={busy} value={taskChange.assigneeId}
         onChange={(event) => setTaskChange({ ...taskChange, assigneeId: event.target.value })}>
         <option value="">Select Office user</option>{owners.map((person) => <option key={person.id} value={person.id}>{person.displayName}</option>)}
       </select></label>}
-      {taskChange.kind === "RESCHEDULE" && <label className="crm-field">New due date and time · London<Input type="datetime-local"
+      {taskChange.kind === "RESCHEDULE" && <label className="crm-field">New due date and time · London<Input type="datetime-local" disabled={busy}
         value={taskChange.dueLocal} onChange={(event) => setTaskChange({ ...taskChange, dueLocal: event.target.value })} /></label>}
-      {taskChange.kind !== "COMPLETE" && <label className="crm-field">Reason<Input maxLength={300} value={taskChange.reason}
+      {taskChange.kind !== "COMPLETE" && <label className="crm-field">Reason<Input maxLength={300} disabled={busy} value={taskChange.reason}
         onChange={(event) => setTaskChange({ ...taskChange, reason: event.target.value })} /></label>}
-      <div className="crm-dialog-actions"><Button variant="outline" onClick={() => setTaskChange(null)}>Back</Button>
+      <div className="crm-dialog-actions"><Button variant="outline" disabled={busy} onClick={() => { if (!taskDialogPending.current) setTaskChange(null); }}>Back</Button>
         <Button disabled={busy || (taskChange.kind !== "COMPLETE" && taskChange.reason.trim().length < 3) ||
-          (taskChange.kind === "REASSIGN" && !taskChange.assigneeId)} onClick={() => void changeTask()}>
+          (taskChange.kind === "REASSIGN" && !taskChange.assigneeId)} onClick={() => void confirmTaskChange()}>
           {busy ? "Saving…" : taskChange.kind === "COMPLETE" ? "Mark Done" : "Confirm"}</Button></div>
     </section></div>}
   </div>;

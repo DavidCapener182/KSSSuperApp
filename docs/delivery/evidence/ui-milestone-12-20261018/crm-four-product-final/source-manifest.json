@@ -1,0 +1,22 @@
+[
+  {
+    "file": "src/components/crm-client.tsx",
+    "beforeSha256": "8e6c44c9c11b9e12fd6ab36989f11ed2403276db2b76f0dc4eb35f30d7b19a35",
+    "sha256": "634e30f0b953b0d9e3ad32cffba407be30c6be77779480ac0cc34bde76870ad6"
+  },
+  {
+    "file": "src/components/crm-operational.tsx",
+    "beforeSha256": "4d3d15af8666e159d4f4777e5c47f4b66586045687a4caa5b2e2bdaf4b12251f",
+    "sha256": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c"
+  },
+  {
+    "file": "src/components/crm-sales.module.css",
+    "beforeSha256": "afd21572b8cb7482fc5d1aac8d496b8db22877536f0b56bbda37275b4b3c72a4",
+    "sha256": "0ea2b91505abfb7033b2fa5668d527cfe39685bdd351b6e061c96780ef7518b4"
+  },
+  {
+    "file": "src/components/commercial-record.module.css",
+    "beforeSha256": "691e0037b5340f508ae8072fe13fa20a86d98124be3be30f35afcf309a2293b1",
+    "sha256": "fb1a0401c8de989be8f23e193f6ce0d394f9f2ae97f0c56b9c1a1b10ee5e7080"
+  }
+]

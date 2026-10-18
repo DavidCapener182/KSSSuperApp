@@ -1,0 +1,32 @@
+[
+  {
+    "file": "tests/ui-documents-local.test.mjs",
+    "beforeSha256": "8ecdeb9e63685c3ac0eb87f18db0460b8f8562cf702f769cde6b769a5f41fb31",
+    "sha256": "73a68b26aac0a3a4d6e8e1eea10263e4ab3f9b08ff0663e359c19b1a6c1a1155",
+    "change": "Only exact current non-owned source manifest path; all functional assertions retained"
+  },
+  {
+    "file": "tests/ui-training-learners-local.test.mjs",
+    "beforeSha256": "ecf36115f51ad8a10ff5c884e60b9df8547d636a516ab0fb135548c222c9ad59",
+    "sha256": "51fadc56284a84cd428cf5e0663f999b7279df90c2d3bf95227de13900793ccf",
+    "change": "Only exact current non-owned source manifest path; all functional assertions retained"
+  },
+  {
+    "file": "tests/ui-training-requirements-local.test.mjs",
+    "beforeSha256": "4a00364afb539b7e0946353428ae1fdbe16533218c9b9b058f59a1a83823c308",
+    "sha256": "b95a0ec60a040284c74f64bd00866866cd108157b7378c6d5054ae0fe79097c0",
+    "change": "Only exact current non-owned source manifest path; all functional assertions retained"
+  },
+  {
+    "file": "tests/ui-hr-credentials-local.test.mjs",
+    "beforeSha256": "023fcbdc1a8f89eafecbf5841f979484d430702bd906186ea73b2a0964b48d2a",
+    "sha256": "3ba73fb4228e1438740843abeaf4801bcb65cce8d022853bbbd03c67c7eef517",
+    "change": "Only exact current non-owned source manifest path; all functional assertions retained"
+  },
+  {
+    "file": "tests/ui-staff-records-local.test.mjs",
+    "beforeSha256": "1506f133db716ba5720346b4aeb7a3d48cff54eb6b4550f35ae541110d4d7e22",
+    "sha256": "fae8af4d062c0ca03f83f14d891b5b6202106935ac531e3ad8972b816f710801",
+    "change": "Only exact current non-owned source manifest path; all functional assertions retained"
+  }
+]

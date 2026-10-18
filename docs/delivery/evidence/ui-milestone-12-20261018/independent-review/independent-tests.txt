@@ -1,0 +1,44 @@
+✔ actual CRM list retires prior Organisation facts after a denied current read (53.19825ms)
+✔ current read failure clears inline create controls and Retry recovers facts (31.872958ms)
+✔ superseded response cannot replace newer current source (23.600333ms)
+✔ person/source change hides prior facts synchronously before next effect read (22.212125ms)
+✔ unmounted pending read cannot publish facts (19.796875ms)
+✔ duplicate pending create sends one exact payload and confirms exact created source (15.663041ms)
+✔ old-person create response cannot read back or navigate after source context changes (12.72575ms)
+✔ existing stage action preserves exact payload and confirms fresh source after mutation (15.257667ms)
+✔ CRM page passes exact overview and Person projection (22.062458ms)
+✔ CRM page passes exact pipeline and Person projection (4.251792ms)
+✔ CRM page passes exact organisations and Person projection (2.087125ms)
+✔ CRM page passes exact contacts and Person projection (2.087541ms)
+✔ CRM page passes exact opportunities and Person projection (3.726666ms)
+✔ CRM page redirects anonymous and denies missing capability before client projection (4.831708ms)
+✔ exact CRM organisations page preserves UUID and capability gates (4.103333ms)
+✔ exact CRM opportunities page preserves UUID and capability gates (6.05175ms)
+✔ handoff page binds exact Organisation, Opportunity and Mobilisation and retains Office authority (10.794417ms)
+✔ directory renders only exact returned authorised workspace and no management link for ordinary actor (6.030333ms)
+✔ directory denied read exposes no stale workspace identity and Super access management stays conditional (10.095042ms)
+✔ workspace home reads exact scope and exposes one real module without invented features (3.345042ms)
+✔ actual workspace reader denies malformed IDs, revoked and absent exact workspace results (4.682958ms)
+✔ new lead starts with focused Organisation choice and no premature details or write (41.372875ms)
+✔ selected Organisation is retained through ordered details and visible final summary (20.95625ms)
+✔ handoff shows source-linked stages with no local completion/write controls (13.019834ms)
+✔ handoff scope change and wrong Organisation response cannot display previous authorised facts (8.581583ms)
+✔ CRM overview retains its exact route/source and current view navigation (29.0605ms)
+✔ CRM organisations retains its exact route/source and current view navigation (16.402667ms)
+✔ CRM contacts retains its exact route/source and current view navigation (12.797625ms)
+✔ CRM opportunities retains its exact route/source and current view navigation (15.033083ms)
+✔ CRM pipeline retains its exact route/source and current view navigation (19.516125ms)
+✔ Opportunity primary work precedes supporting facts and From/To review keeps exact source (12.286375ms)
+✔ Organisation retains exact contacts/source links and history is secondary (12.752208ms)
+✔ new lead commits exact reviewed Organisation/details then requires exact NEW_LEAD readback (6.876375ms)
+✔ failed saved-lead readback retains recovery without reposting create (4.7165ms)
+✔ denied create retains reviewed details and never navigates or silently writes again (4.306958ms)
+✔ while a lead write is pending all review fields and back action are locked (4.859916ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 36
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 370.948333
