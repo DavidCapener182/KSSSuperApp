@@ -1,0 +1,17 @@
+[
+  {
+    "file": "src/app/(enterprise)/people/page.tsx",
+    "baselineSha256": "46be9e28e9fd3783fc627217a65b0ef890ed63ee3850a9a43e321d6da9afa4a0",
+    "sha256": "ca961048f6f7f806bca7aec045df856276213250662097d23223ea7f119f2d5b"
+  },
+  {
+    "file": "src/app/(enterprise)/people/[id]/page.tsx",
+    "baselineSha256": "4ad246d53674dadcb74d996e5914714a3863d42de54ac85395cac8635c784bc7",
+    "sha256": "4976fcb623601de6af78b2583f6cc0cf92b0eda467462e5b30080bc6e186879f"
+  },
+  {
+    "file": "src/app/(enterprise)/people/people.module.css",
+    "baselineSha256": "db3567325dd0aca36e657f77a422fb1896c6956dd7a8d4e60d3a941364629dbf",
+    "sha256": "a97dcca379f1bb953c556074990881ebec6f47dd00e0c58fdcdebbf722e76c45"
+  }
+]

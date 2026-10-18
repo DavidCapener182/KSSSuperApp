@@ -1,0 +1,38 @@
+{
+  "verifiedAt": "2026-10-18T02:13:27.710628+00:00",
+  "sourceRevision": 3,
+  "records": 52,
+  "screenshots": 60,
+  "widths": [
+    1440,
+    834,
+    390,
+    320
+  ],
+  "actualRoutes": [
+    "/onboarding",
+    "/onboarding/new",
+    "/onboarding/[id]"
+  ],
+  "publishedShared": "67aad4c0f460cfa64371409ba15fc750d8b073df",
+  "sourceAndBoundaryHashesRechecked": true,
+  "pageErrors": 0,
+  "externalRequests": 0,
+  "mockWrites": 8,
+  "realWrites": 0,
+  "servers": "runner exit0, both terminated",
+  "scripts": [
+    {
+      "file": "ui-milestone-evidence/prepare-onboarding-preview.py",
+      "sha256": "21a01b43fad73ee25e4be9199afe7d786c0c66d04d788166f28691adbf4ff645"
+    },
+    {
+      "file": "ui-milestone-evidence/run-onboarding-preview.py",
+      "sha256": "870aef7ce40c9be092eb9caa5dff5f9f33768452e10ad0d6953df59d1c9940e4"
+    },
+    {
+      "file": "ui-milestone-evidence/onboarding-capture.mjs",
+      "sha256": "f160d369ba738f05ebd693576c08043a81a9054fe6836c8c05acc773a5de31fb"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+(node:3688) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/lib/controlled/reading-list.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ denied create feedback remains within the open request dialog and its retained form (40.480416ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 186.649667
+
+✖ failing tests:
+
+test at tests/ui-documents-local.test.mjs:42:1
+✖ denied create feedback remains within the open request dialog and its retained form (40.480416ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /role="alert"[^>]*>Synthetic denied create feedback/. Input:
+
+  '><h2>New document request</h2><p>Choose the exact authorised person and Site context. Context does not widen private evidence access.</p><form class="documents-form"><h3>Create a synthetic request</h3><label class="ui-field">Site context <select required=""><option value="" selected="">Choose an authorised Site</option></select></label><label class="ui-field">Eligible Security Staff<select required=""><option value="" selected="">Choose a synthetic Person</option></select></label><label class="ui-field">Request title<input maxLength="100" required="" value="Synthetic retained title"/></label><button disabled="" type="submit">Create request</button></form></section></main>'
+
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/tests/ui-documents-local.test.mjs:42:419)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '><h2>New document request</h2><p>Choose the exact authorised person and Site context. Context does not widen private evidence access.</p><form class="documents-form"><h3>Create a synthetic request</h3><label class="ui-field">Site context <select required=""><option value="" selected="">Choose an authorised Site</option></select></label><label class="ui-field">Eligible Security Staff<select required=""><option value="" selected="">Choose a synthetic Person</option></select></label><label class="ui-field">Request title<input maxLength="100" required="" value="Synthetic retained title"/></label><button disabled="" type="submit">Create request</button></form></section></main>',
+    expected: /role="alert"[^>]*>Synthetic denied create feedback/,
+    operator: 'match',
+    diff: 'simple'
+  }

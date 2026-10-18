@@ -1,0 +1,9 @@
+# Controlled Operational Documents — local browser verification
+
+U33 passes 52 browser records / 48 screenshots at 1440, 834, 390 and 320 pixels. Actual route, capability helper, picker, reader and shared components run against synthetic principal/RPC/API boundaries. All 14 after-runtime source entries match the integration. Both local servers stopped after success; no hosted authentication, RLS, durable readback or real file access was tested.
+
+Staff reading, Operations context status, ungranted Office, finite Publisher-only, Assigner-only and mixed SuperAdmin/Office grants were captured. Staff search/status filters preserve exact returned versions; historical and conflicting rows expose no PDF/acknowledgement action. Operations status reports factual 3 of 8 counts for the exact requested Event context without giving PDF access. Ungranted Office gets its grant requirement notice; ungranted SuperAdmin is denied. Publisher and Assigner controls remain independent.
+
+Eight writes were intercepted and denied. The exact assignment acknowledgement carries confirmed:true; no acknowledgement success is claimed after denial. Denied Publisher creation preserves the title and exact payload. Unavailable reading clears old facts. No external requests or page errors occurred. Acknowledgement receipt/current exact-version readback guards also have local negative and positive tests in document-reading-filters-local; the already-published API returns acknowledgementId and is unchanged.
+
+The before UI is the frozen pre-redesign checkpoint, which already includes that local planned acknowledgement guard; publication provenance must distinguish its baseline from the older currently published component. Representative desktop and phone Staff views were visually inspected. This is representative synthetic browser evidence, not whole-route variant or hosted acceptance.

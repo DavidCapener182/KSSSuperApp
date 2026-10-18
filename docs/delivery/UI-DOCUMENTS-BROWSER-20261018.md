@@ -1,0 +1,9 @@
+# Documents requests and evidence — local browser check
+
+U31–U32 pass 36 before/after browser records and 32 screenshots at 1440, 834, 390 and 320 pixels. Actual document routes, capability checks, client components and published shared components execute with synthetic principals and API data. All 14 after-runtime source entries match the integration. This does not establish hosted authentication, RLS, RPC, file access or durable acceptance.
+
+Register, exact current evidence, exact selected historical evidence and Staff own-request views were captured. Current-version review is absent from historical views; Staff cannot create requests or review evidence. Invalid request UUID is denied, unavailable reads clear the queue, and exact version download links are retained. Denied create/review requests preserve the exact target Person/Site/title or current version/decision payload. All 8 writes were intercepted and denied; no real writes or external requests occurred.
+
+A real browser negative check reproduced inaccessible create feedback behind the new Sheet: the message had an aria-hidden ancestor and was outside the dialog. A source red test confirmed the same error was absent from the open form. The bounded JSX fix repeats error feedback inside the form; the original handler and all reads/actions remain exact. Final browser DOM shows insideDialog=true and ariaHiddenAncestor=false, with draft retained and Escape/focus return passing. The source revision and red/green evidence are saved alongside capture results.
+
+Representative desktop and phone images were visually inspected. Both local servers were stopped by the runner after success. Controlled operational documents U33 is outside this browser check. These later product files remain local pending publication as a tested milestone.

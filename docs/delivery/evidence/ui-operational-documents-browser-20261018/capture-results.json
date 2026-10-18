@@ -1,0 +1,694 @@
+[
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "staff",
+    "roles": "SECURITY_STAFF",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "operations",
+    "roles": "OPERATIONS",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents?kind=EVENT&id=00000000-0000-4000-8000-000000000070",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "office-ungranted",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "publisher",
+    "roles": "OFFICE_ADMIN",
+    "publish": true,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "assigner",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "super-granted",
+    "roles": "SUPER_ADMIN,OFFICE_ADMIN",
+    "publish": true,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "staff",
+    "roles": "SECURITY_STAFF",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "operations",
+    "roles": "OPERATIONS",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents?kind=EVENT&id=00000000-0000-4000-8000-000000000070",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "office-ungranted",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "publisher",
+    "roles": "OFFICE_ADMIN",
+    "publish": true,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "assigner",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "super-granted",
+    "roles": "SUPER_ADMIN,OFFICE_ADMIN",
+    "publish": true,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "staff",
+    "roles": "SECURITY_STAFF",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "operations",
+    "roles": "OPERATIONS",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents?kind=EVENT&id=00000000-0000-4000-8000-000000000070",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "office-ungranted",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "publisher",
+    "roles": "OFFICE_ADMIN",
+    "publish": true,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "assigner",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "super-granted",
+    "roles": "SUPER_ADMIN,OFFICE_ADMIN",
+    "publish": true,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "staff",
+    "roles": "SECURITY_STAFF",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "operations",
+    "roles": "OPERATIONS",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents?kind=EVENT&id=00000000-0000-4000-8000-000000000070",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "office-ungranted",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "publisher",
+    "roles": "OFFICE_ADMIN",
+    "publish": true,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "assigner",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "super-granted",
+    "roles": "SUPER_ADMIN,OFFICE_ADMIN",
+    "publish": true,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "staff",
+    "roles": "SECURITY_STAFF",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "operations",
+    "roles": "OPERATIONS",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents?kind=EVENT&id=00000000-0000-4000-8000-000000000070",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "office-ungranted",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "publisher",
+    "roles": "OFFICE_ADMIN",
+    "publish": true,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "assigner",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "super-granted",
+    "roles": "SUPER_ADMIN,OFFICE_ADMIN",
+    "publish": true,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 1440,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "interaction-boundaries",
+    "readingFilters": true,
+    "historicalNoPdfOrAck": true,
+    "deniedExactAckRetainsNoSuccess": true,
+    "publisherDeniedExactCreateRetainsDraft": true,
+    "unavailableClearsReading": true,
+    "ungrantedSuperDenied": true,
+    "writes": [
+      {
+        "path": "/api/operational-documents/my/00000000-0000-4000-8000-000000000031/acknowledge",
+        "method": "POST",
+        "body": {
+          "confirmed": true
+        }
+      },
+      {
+        "path": "/api/operational-documents",
+        "method": "POST",
+        "body": {
+          "title": "Synthetic denied catalogue document"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "staff",
+    "roles": "SECURITY_STAFF",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "operations",
+    "roles": "OPERATIONS",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents?kind=EVENT&id=00000000-0000-4000-8000-000000000070",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "office-ungranted",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "publisher",
+    "roles": "OFFICE_ADMIN",
+    "publish": true,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "assigner",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "super-granted",
+    "roles": "SUPER_ADMIN,OFFICE_ADMIN",
+    "publish": true,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 834,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "interaction-boundaries",
+    "readingFilters": true,
+    "historicalNoPdfOrAck": true,
+    "deniedExactAckRetainsNoSuccess": true,
+    "publisherDeniedExactCreateRetainsDraft": true,
+    "unavailableClearsReading": true,
+    "ungrantedSuperDenied": true,
+    "writes": [
+      {
+        "path": "/api/operational-documents/my/00000000-0000-4000-8000-000000000031/acknowledge",
+        "method": "POST",
+        "body": {
+          "confirmed": true
+        }
+      },
+      {
+        "path": "/api/operational-documents",
+        "method": "POST",
+        "body": {
+          "title": "Synthetic denied catalogue document"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "staff",
+    "roles": "SECURITY_STAFF",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "operations",
+    "roles": "OPERATIONS",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents?kind=EVENT&id=00000000-0000-4000-8000-000000000070",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "office-ungranted",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "publisher",
+    "roles": "OFFICE_ADMIN",
+    "publish": true,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "assigner",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "super-granted",
+    "roles": "SUPER_ADMIN,OFFICE_ADMIN",
+    "publish": true,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 390,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "interaction-boundaries",
+    "readingFilters": true,
+    "historicalNoPdfOrAck": true,
+    "deniedExactAckRetainsNoSuccess": true,
+    "publisherDeniedExactCreateRetainsDraft": true,
+    "unavailableClearsReading": true,
+    "ungrantedSuperDenied": true,
+    "writes": [
+      {
+        "path": "/api/operational-documents/my/00000000-0000-4000-8000-000000000031/acknowledge",
+        "method": "POST",
+        "body": {
+          "confirmed": true
+        }
+      },
+      {
+        "path": "/api/operational-documents",
+        "method": "POST",
+        "body": {
+          "title": "Synthetic denied catalogue document"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "staff",
+    "roles": "SECURITY_STAFF",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "operations",
+    "roles": "OPERATIONS",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents?kind=EVENT&id=00000000-0000-4000-8000-000000000070",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "office-ungranted",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "publisher",
+    "roles": "OFFICE_ADMIN",
+    "publish": true,
+    "assign": false,
+    "path": "/operational-documents",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "assigner",
+    "roles": "OFFICE_ADMIN",
+    "publish": false,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "super-granted",
+    "roles": "SUPER_ADMIN,OFFICE_ADMIN",
+    "publish": true,
+    "assign": true,
+    "path": "/operational-documents",
+    "pageWidth": 320,
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "interaction-boundaries",
+    "readingFilters": true,
+    "historicalNoPdfOrAck": true,
+    "deniedExactAckRetainsNoSuccess": true,
+    "publisherDeniedExactCreateRetainsDraft": true,
+    "unavailableClearsReading": true,
+    "ungrantedSuperDenied": true,
+    "writes": [
+      {
+        "path": "/api/operational-documents/my/00000000-0000-4000-8000-000000000031/acknowledge",
+        "method": "POST",
+        "body": {
+          "confirmed": true
+        }
+      },
+      {
+        "path": "/api/operational-documents",
+        "method": "POST",
+        "body": {
+          "title": "Synthetic denied catalogue document"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  }
+]

@@ -1,0 +1,8 @@
+.filters { display: flex; flex-wrap: wrap; gap: 14px; align-items: end; margin-bottom: 14px; }
+.filters > div { display: grid; gap: 7px; min-width: 0; }
+.filters label { color: var(--kss-ink); font-size: 13px; font-weight: 600; }
+.search { flex: 1 1 240px; }
+.filters input, .filters select { width: 100%; min-width: 0; min-height: 44px; padding: 10px 12px; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface); color: var(--kss-ink); font: inherit; }
+.filters input:focus-visible, .filters select:focus-visible { outline: 3px solid #416eaf; outline-offset: 2px; }
+.summary { margin: 14px 0; font-size: 13px; color: var(--kss-ink-soft); line-height: 1.5; }
+@media (max-width: 600px) { .filters { display: grid; grid-template-columns: minmax(0, 1fr); } }

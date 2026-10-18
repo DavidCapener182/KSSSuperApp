@@ -1,0 +1,15 @@
+{
+  "records": 52,
+  "screenshots": 48,
+  "widths": [
+    1440,
+    834,
+    390,
+    320
+  ],
+  "pageErrors": 0,
+  "externalRequests": 0,
+  "deniedMockWrites": 8,
+  "actualSourceRuntimeHashesMatched": 14,
+  "boundary": "Actualroute/capabilityhelper/components; synthetic principals andfinitegrants via narrow RPCmock; synthetic APIrecords; everywriteinterceptedanddenied; nohostedAuth/RPC/RLS or persistence"
+}

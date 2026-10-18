@@ -1,0 +1,30 @@
+.boundary {
+  border: 1px solid var(--kss-border);
+  border-left: 4px solid var(--kss-blue);
+  border-radius: 12px;
+  background: var(--kss-blue-soft);
+  padding: 16px 18px;
+  color: var(--kss-ink);
+  font: 400 15px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.boundary strong { display: block; font-size: 16px; }
+.boundary p { margin: 5px 0 0; max-width: 80ch; }
+.boundary a { color: var(--kss-blue-strong); font-weight: 700; }
+.boundary a:focus-visible { outline: 3px solid var(--kss-blue); outline-offset: 3px; border-radius: 4px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 12px 0; color: var(--kss-ink-soft); font-size: 14px; }
+.facts > span { overflow-wrap: anywhere; }
+.sectionTitle { margin: 0 0 8px; font-size: 17px; line-height: 1.35; }
+.surface :global(a:focus-visible), .surface :global(button:focus-visible),
+.surface :global(input:focus-visible), .surface :global(select:focus-visible),
+.surface :global(textarea:focus-visible) { outline: 3px solid var(--kss-blue); outline-offset: 3px; }
+.surface :global(.documents-list a), .surface :global(.documents-history a),
+.surface :global(.office-onboarding-views button), .surface :global(.office-onboarding-actions button),
+.surface :global(.office-onboarding-actions a), .surface :global(.office-onboarding-team-admin button),
+.surface :global(.office-onboarding-start a), .surface :global(.office-onboarding-pager button) { min-height: 44px; }
+.surface :global(.documents-history a) { display: inline-flex; align-items: center; }
+.surface :global(.documents-card p), .surface :global(.office-onboarding-mobile-list p),
+.surface :global(.office-onboarding-team-admin li) { font-size: 14px; line-height: 1.5; }
+@media (max-width: 700px) {
+  .boundary { padding: 14px; }
+  .facts { display: grid; gap: 5px; }
+}

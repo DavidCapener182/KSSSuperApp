@@ -1,10 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ActionButton, ConfirmDialog, EmptyState, FeedbackBanner, PageHeader, StatusBadge, type WorkflowStatus } from "@/components/ui/workflow";
-import styles from "./identity-admin.module.css";
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
+import styles from "./documents-workspace.module.css";
 
 type Review = { id: string; version_id: string; reviewer_person_id: string; decision: "ACCEPTED_AS_EVIDENCE" | "REJECTED";
   reason_code: string | null; reviewer_comment: string | null; decided_at: string };
@@ -25,6 +26,9 @@ const date = (value: string | null | undefined) => value ? new Date(value).toLoc
 
 export function DocumentsClient({ requestId, highlightVersionId, mayCreate, mayUpload, mayReview, isSuperAdmin, personId }: Props) {
   const router = useRouter();
+  const [createOpen, setCreateOpen] = useState(false);
+  const createTrigger = useRef<HTMLButtonElement | null>(null);
+  const [readState, setReadState] = useState<"loading" | "ready" | "unavailable">("loading");
   const [items, setItems] = useState<Item[]>([]);
   const [selected, setSelected] = useState<Item | null>(null);
   const [sites, setSites] = useState<Site[]>([]);
@@ -42,17 +46,18 @@ export function DocumentsClient({ requestId, highlightVersionId, mayCreate, mayU
   const [reviewError, setReviewError] = useState("");
 
   const load = useCallback(async () => {
+    setReadState("loading");
     try {
       const response = await fetch("/api/documents", { cache: "no-store" });
-      if (!response.ok) { setMessageTone("error"); setMessage("Unable to load document requests."); return; }
+      if (!response.ok) { setReadState("unavailable"); setMessageTone("error"); setMessage("Unable to load document requests."); return; }
       const result = await response.json();
-      setItems(result.requests ?? []);
+      setItems(result.requests ?? []); setReadState("ready");
       if (requestId) {
         const detail = await fetch(`/api/documents/${requestId}`, { cache: "no-store" });
         if (!detail.ok) { setSelected(null); setMessageTone("error"); setMessage("Document request not found."); return; }
         setSelected((await detail.json()).request);
       } else setSelected(null);
-    } catch { setMessageTone("error"); setMessage("Unable to load document requests."); }
+    } catch { setReadState("unavailable"); setMessageTone("error"); setMessage("Unable to load document requests."); }
   }, [requestId]);
   useEffect(() => { void Promise.resolve().then(() => load()); }, [load]);
   useEffect(() => {
@@ -122,6 +127,20 @@ export function DocumentsClient({ requestId, highlightVersionId, mayCreate, mayU
   const viewingHistorical = Boolean(highlightedVersion && selected?.version?.id !== highlightedVersion.id);
   const mayDecide = mayReview && selected?.version && !selected.version.review && selected.targetPersonId !== personId && !viewingHistorical;
   const maySubmit = mayUpload && selected && (selected.workflowStatus === "REQUESTED" || selected.canUploadReplacement);
+  const evidenceVersion = highlightedVersion ?? selected?.version;
+  const requestQueue = <section className={styles.queue} aria-labelledby="requests-heading">
+        <h2 id="requests-heading">{mayReview ? "Review work" : "Your requests"}</h2>
+        {mayReview && <div className="documents-queue-summary"><strong>{queue.length} awaiting review in recent requests</strong><span>Only requests you are authorised to see appear here.</span></div>}
+        {items.length === 0 ? <EmptyState title="No document requests" description="Authorised synthetic requests will appear here." /> :
+          <ul className="documents-list">{items.map((item) => <li key={item.id}>
+            <Link href={`/documents/${item.id}`} aria-current={requestId === item.id ? "page" : undefined}>
+              <span className={styles.queueIdentity}><strong>{mayReview ? (item.subjectName ?? "Security Staff") : item.title}</strong>{mayReview && <small>{item.title}</small>}</span>
+              <span className={styles.queueVersion}>{item.version ? `Version ${item.version.number} · ${item.version.filename}` : "No submitted evidence"}</span>
+              <StatusBadge state={item.workflowStatus} /><span className={styles.queueAction}>{mayReview && item.workflowStatus === "AWAITING_REVIEW" && item.targetPersonId !== personId ? "Review evidence" : "View request"} →</span>
+            </Link>
+          </li>)}</ul>}
+
+      </section>;
   return <main className={`enterprise-main documents-main ${styles.surface}`}>
     <PageHeader eyebrow="Synthetic personnel evidence" title="Documents"
       description="Request, submit and review private synthetic evidence. Evidence accepted here is not a compliance or deployment decision." />
@@ -130,37 +149,13 @@ export function DocumentsClient({ requestId, highlightVersionId, mayCreate, mayU
       <p>A Site is request context only. It does not give Site viewers access to a Person&apos;s evidence. A submitted file remains unscanned; a review decision applies to that exact submitted version.</p>
     </section>
     {message && <FeedbackBanner tone={messageTone}>{message}</FeedbackBanner>}
-    <div className="documents-grid">
-      <section className="documents-card" aria-labelledby="requests-heading">
-        <h2 id="requests-heading">{mayReview ? "Review work" : "Your requests"}</h2>
-        {mayReview && <div className="documents-queue-summary"><strong>{queue.length} awaiting review in recent requests</strong><span>Only requests you are authorised to see appear here.</span></div>}
-        {items.length === 0 ? <EmptyState title="No document requests" description="Authorised synthetic requests will appear here." /> :
-          <ul className="documents-list">{items.map((item) => <li key={item.id}>
-            <Link href={`/documents/${item.id}`} aria-current={requestId === item.id ? "page" : undefined}>
-              <strong>{mayReview ? (item.subjectName ?? "Security Staff") : item.title}</strong>
-              {mayReview && <small>{item.title}</small>}
-              <StatusBadge state={item.workflowStatus} />
-            </Link>
-          </li>)}</ul>}
-        {mayCreate && <form className="documents-form" onSubmit={(event) => void createRequest(event)}>
-          <h3>Create a synthetic request</h3>
-          <label className="ui-field">Site context {isSuperAdmin ? "(optional)" : ""}
-            <select value={siteId} onChange={(event) => { setSiteId(event.target.value); setTargetId(""); setTargets([]); }} required={!isSuperAdmin}>
-              <option value="">{isSuperAdmin ? "No Site context" : "Choose an authorised Site"}</option>
-              {sites.map((site) => <option value={site.id} key={site.id}>{site.name}</option>)}
-            </select>
-          </label>
-          <label className="ui-field">Eligible Security Staff
-            <select value={targetId} onChange={(event) => setTargetId(event.target.value)} required>
-              <option value="">Choose a synthetic Person</option>
-              {targets.map((target) => <option value={target.person_id} key={target.person_id}>{target.display_name}</option>)}
-            </select>
-          </label>
-          <label className="ui-field">Request title<input value={title} maxLength={100} onChange={(event) => setTitle(event.target.value)} required /></label>
-          <ActionButton disabled={busy || !targetId} type="submit">Create request</ActionButton>
-        </form>}
-      </section>
-      <section className="documents-card" aria-labelledby="detail-heading">
+    {mayCreate && <div className={styles.toolbar}><p>Review the requests and exact evidence versions available to your account.</p><ActionButton type="button" onClick={(event) => { createTrigger.current = event.currentTarget;setCreateOpen(true); }}>New document request</ActionButton></div>}
+    {requestId && <Link className={styles.back} href="/documents">All document requests</Link>}
+    {readState === "loading" && <p role="status" className={styles.readState}>Loading document requests…</p>}
+    {readState === "unavailable" && <section className={styles.readState}><h2>Document requests unavailable</h2><p>Current requests could not be confirmed.</p><ActionButton type="button" variant="secondary" onClick={() => void load()}>Refresh requests</ActionButton></section>}
+    {readState === "ready" && <div className={styles.layout}>
+      {requestId ? <details className={styles.recent}><summary>Recent document requests</summary>{requestQueue}</details> : requestQueue}
+      {requestId && <section className={styles.detail} aria-labelledby="detail-heading">
         <h2 id="detail-heading">Request detail</h2>
         {!selected ? <EmptyState title={requestId ? "Request unavailable" : "Choose a request"}
           description={requestId ? "This request is not available to your account." : "Select a request to view its evidence and history."} /> : <>
@@ -176,17 +171,21 @@ export function DocumentsClient({ requestId, highlightVersionId, mayCreate, mayU
             {viewingHistorical && <> <Link href={`/documents/${selected.id}`}>Return to current version</Link></>}
           </FeedbackBanner>}
           {selected.hasPendingUpload && <FeedbackBanner>Upload pending. Any earlier rejection remains in the history until the replacement is submitted.</FeedbackBanner>}
-          {selected.version ? <div className="documents-current">
-            <h4>Current evidence · Version {selected.version.number}</h4>
-            <p>Submitted {date(selected.version.submittedAt)} · {selected.version.filename}</p>
+          <div className={styles.evidenceLayout}><section className={styles.evidence}>
+          {evidenceVersion ? <div className="documents-current">
+            <h4>{viewingHistorical ? "Historical evidence" : "Current evidence"} · Version {evidenceVersion.number}</h4>
+            <p>Submitted {date(evidenceVersion.submittedAt)} · {evidenceVersion.filename}</p>
+            <dl className={styles.fileFacts}><div><dt>Exact version ID</dt><dd><code>{evidenceVersion.id}</code></dd></div><div><dt>File size</dt><dd>{evidenceVersion.byteSize} bytes</dd></div><div><dt>SHA-256</dt><dd><code>{evidenceVersion.sha256}</code></dd></div></dl>
             <p className="documents-scan">Not scanned. Evidence review does not establish file safety, compliance or deployment eligibility.</p>
-            <a className="ui-action ui-action--secondary" href={`/api/documents/${selected.id}/versions/${selected.version.id}/file`}>Download Version {selected.version.number}</a>
-            {selected.version.review?.decision === "REJECTED" && <FeedbackBanner tone="error"><strong>{REASONS[selected.version.review.reason_code ?? ""] ?? "Rejected"}:</strong> {selected.version.review.reviewer_comment}</FeedbackBanner>}
-            {mayDecide && <div className="documents-review-actions">
+            <a className="ui-action ui-action--secondary" href={`/api/documents/${selected.id}/versions/${evidenceVersion.id}/file`}>Download Version {evidenceVersion.number}</a>
+            {evidenceVersion.review?.decision === "REJECTED" && <FeedbackBanner tone="error"><strong>{REASONS[evidenceVersion.review.reason_code ?? ""] ?? "Rejected"}:</strong> {evidenceVersion.review.reviewer_comment}</FeedbackBanner>}
+
+          </div> : <p>No file has been submitted yet.</p>}
+          </section><aside className={styles.decision} aria-label="Permitted request actions"><h3>Next permitted action</h3>            {mayDecide && <div className="documents-review-actions">
               <ActionButton type="button" onClick={() => { setReviewError(""); setDialogKind("accept"); }}>Accept as evidence</ActionButton>
               <ActionButton type="button" variant="caution" onClick={() => { setReviewError(""); setDialogKind("reject"); }}>Reject evidence</ActionButton>
             </div>}
-          </div> : <p>No file has been submitted yet.</p>}
+            {!mayDecide && !maySubmit && <p>No submission or review action is available in this view.</p>}
           {maySubmit && <form className="documents-form" onSubmit={(event) => void upload(event)}>
             <h4>{selected.canUploadReplacement ? `Submit Version ${(selected.version?.number ?? 0) + 1} replacement` : "Submit evidence"}</h4>
             {selected.canUploadReplacement && <p>Your rejected file remains in the history. Select a new synthetic file for the next version.</p>}
@@ -196,7 +195,8 @@ export function DocumentsClient({ requestId, highlightVersionId, mayCreate, mayU
             </label>
             <ActionButton disabled={busy || !file} type="submit">{busy ? "Uploading…" : selected.canUploadReplacement ? "Upload replacement" : "Upload and submit"}</ActionButton>
           </form>}
-          {selected.versions.length > 0 && <div className="documents-history"><h4>Version and decision history</h4>
+          </aside></div>
+          {selected.versions.length > 0 && <details className="documents-history" open={Boolean(highlightVersionId) || undefined}><summary>Version and decision history · {selected.versions.length}</summary>
             <ol>{selected.versions.map((version) => <li key={version.id} id={`document-version-${version.id}`}
               className={highlightVersionId === version.id ? "documents-history-highlight" : undefined}
               aria-current={highlightVersionId === version.id ? "true" : undefined}>
@@ -206,10 +206,30 @@ export function DocumentsClient({ requestId, highlightVersionId, mayCreate, mayU
               {version.review?.decision === "REJECTED" && <p className="documents-feedback-text">{version.review.reviewer_comment}</p>}
               <a href={`/api/documents/${selected.id}/versions/${version.id}/file`}>Download Version {version.number}</a>
             </li>)}</ol>
-          </div>}
+          </details>}
         </>}
-      </section>
-    </div>
+      </section>}
+    </div>}
+    <Sheet open={createOpen && mayCreate} onOpenChange={(value) => { if (!value && !busy) setCreateOpen(false); }}><SheetContent className={styles.sheet} onEscapeKeyDown={(event) => { if (busy) event.preventDefault(); }} onCloseAutoFocus={(event) => { if (createTrigger.current?.isConnected) { event.preventDefault();createTrigger.current.focus(); } }}><SheetTitle>New document request</SheetTitle><SheetDescription>Choose the exact authorised person and Site context. Context does not widen private evidence access.</SheetDescription>
+        {mayCreate && <form className="documents-form" onSubmit={(event) => void createRequest(event)}>
+          <h3>Create a synthetic request</h3>
+          {messageTone === "error" && message && <FeedbackBanner tone="error">{message}</FeedbackBanner>}
+          <label className="ui-field">Site context {isSuperAdmin ? "(optional)" : ""}
+            <select value={siteId} onChange={(event) => { setSiteId(event.target.value); setTargetId(""); setTargets([]); }} required={!isSuperAdmin}>
+              <option value="">{isSuperAdmin ? "No Site context" : "Choose an authorised Site"}</option>
+              {sites.map((site) => <option value={site.id} key={site.id}>{site.name}</option>)}
+            </select>
+          </label>
+          <label className="ui-field">Eligible Security Staff
+            <select value={targetId} onChange={(event) => setTargetId(event.target.value)} required>
+              <option value="">Choose a synthetic Person</option>
+              {targets.map((target) => <option value={target.person_id} key={target.person_id}>{target.display_name}</option>)}
+            </select>
+          </label>
+          <label className="ui-field">Request title<input value={title} maxLength={100} onChange={(event) => setTitle(event.target.value)} required /></label>
+          <ActionButton disabled={busy || !targetId} type="submit">Create request</ActionButton>
+        </form>}
+    </SheetContent></Sheet>
     <ConfirmDialog open={dialogKind !== null} title={dialogKind === "accept" ? "Accept this version as evidence?" : "Reject this version?"}
       description={dialogKind === "accept" ? `Version ${selected?.version?.number ?? ""} will be accepted as evidence only. This does not verify a requirement or employee.` : `Version ${selected?.version?.number ?? ""} stays in history. Staff will see your reason and feedback.`}
       confirmLabel={dialogKind === "accept" ? "Accept as evidence" : "Reject with feedback"}

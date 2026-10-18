@@ -1,0 +1,140 @@
+[
+  {
+    "stage": "before",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-operational-documents-before-25s2jv14",
+    "port": 3140,
+    "files": [
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+      },
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+      },
+      {
+        "file": "src/components/ui/sheet.module.css",
+        "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+      },
+      {
+        "file": "src/app/(enterprise)/operational-documents/page.tsx",
+        "sha256": "0b2ebbae7f8fdc155936e8f0063ee788e5450641c77b5f3e4fda6f022a666128"
+      },
+      {
+        "file": "src/lib/controlled/operational.ts",
+        "sha256": "3a826df88c34f0312c6696e2ab14cbe349ac701aad24126dfffed882b3c850f6"
+      },
+      {
+        "file": "src/components/operational-documents-client.tsx",
+        "sha256": "104a1fc9672b847fb56814ba09260ad06756a7e7aab64a3e64cf43588df83e44"
+      },
+      {
+        "file": "src/lib/controlled/reading-list.ts",
+        "sha256": "523e3999b0ec4e4c9b1b6fd441aa91603f6c1d68f97afb7f946265f5b421e95e"
+      },
+      {
+        "file": "src/components/operational-reading-filters.module.css",
+        "sha256": "59a89e7fb558354aa1fa85bd46bb8b4e82f363ab8968bd674e86c58c9ad3fb83"
+      },
+      {
+        "file": "src/components/operational-documents.module.css",
+        "sha256": "e463d401c3ecd60230f936645b3ad0517d4ce9523fccc28865ed51cbadbd424e"
+      },
+      {
+        "file": "src/components/operational-document-picker.tsx",
+        "sha256": "c8c038c3c932c03cb7e1d0d3c5978b5b11782bbf803556a0a8a3785fad8d4e19"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "note": "Actual controlled operational document routes/components; shared published2e03e03 foundation; synthetic identities/API data; writes denied; no hosted authentication/RPC/RLS"
+  },
+  {
+    "stage": "after",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-operational-documents-after-ptkrnl1n",
+    "port": 3141,
+    "files": [
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+      },
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+      },
+      {
+        "file": "src/components/ui/sheet.module.css",
+        "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+      },
+      {
+        "file": "src/app/(enterprise)/operational-documents/page.tsx",
+        "sha256": "0b2ebbae7f8fdc155936e8f0063ee788e5450641c77b5f3e4fda6f022a666128"
+      },
+      {
+        "file": "src/lib/controlled/operational.ts",
+        "sha256": "3a826df88c34f0312c6696e2ab14cbe349ac701aad24126dfffed882b3c850f6"
+      },
+      {
+        "file": "src/components/operational-documents-client.tsx",
+        "sha256": "d94452e96277a2a792662d59630793cbc5595f6de523f01002e2b414603f7cb5"
+      },
+      {
+        "file": "src/lib/controlled/reading-list.ts",
+        "sha256": "523e3999b0ec4e4c9b1b6fd441aa91603f6c1d68f97afb7f946265f5b421e95e"
+      },
+      {
+        "file": "src/components/operational-reading-filters.module.css",
+        "sha256": "59a89e7fb558354aa1fa85bd46bb8b4e82f363ab8968bd674e86c58c9ad3fb83"
+      },
+      {
+        "file": "src/components/operational-documents.module.css",
+        "sha256": "0e086bfe73393ed5773948e474451b2b0bcee51cc6cd00b64a1eb7e7e6db3361"
+      },
+      {
+        "file": "src/components/operational-document-picker.tsx",
+        "sha256": "c8c038c3c932c03cb7e1d0d3c5978b5b11782bbf803556a0a8a3785fad8d4e19"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "note": "Actual controlled operational document routes/components; shared published2e03e03 foundation; synthetic identities/API data; writes denied; no hosted authentication/RPC/RLS"
+  }
+]

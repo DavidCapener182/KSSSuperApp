@@ -116,3 +116,26 @@ test('non-Staff view never loads the self reading list or exposes reading filter
   const calls = [], h = harness(async path => { calls.push(path); return response({}); }, { staff: false, manager: false, operations: false, superAdmin: false });
   await h.mount(); assert.deepEqual(calls, []); assert.equal(byId(h.render(), 'reading-search'), undefined);
 });
+
+for (const changed of ['missing-ack', 'wrong-version', 'wrong-document', 'revoked', 'conflict', 'invalid-time', 'missing-receipt']) {
+  test(`exact-version acknowledgement cannot claim success with ${changed} readback`, async () => {
+    let reads=0; const item=row('opened',{opened:true});
+    const h=harness(async (_path,opts)=>{
+      if(opts.method==='POST')return response(changed==='missing-receipt'?{}:{acknowledgementId:'00000000-0000-4000-8000-000000000099'});
+      const refreshed={...item,acknowledged_at:'2026-10-18T09:00:00Z',...(changed==='missing-ack'?{acknowledged_at:null}:changed==='wrong-version'?{version_id:'other-version'}:changed==='wrong-document'?{document_id:'other-document'}:changed==='revoked'?{current:false}:changed==='conflict'?{conflict:true}:changed==='invalid-time'?{acknowledged_at:'invalid'}:{})};
+      return response({assignments:[++reads===1?item:refreshed]});
+    });
+    await h.mount(); let tree=h.render(); nodes(tree).find(n=>n.type==='input'&&n.props.type==='checkbox').props.onChange({target:{checked:true}}); tree=h.render();
+    nodes(tree).find(n=>n.type==='button'&&text(n).includes('Acknowledge version')).props.onClick(); await h.settle();tree=h.render();
+    assert.doesNotMatch(text(tree),/Acknowledgement recorded for this version/);
+    assert.match(text(tree),/could not be verified/);
+  });
+}
+
+test('matching exact-version receipt and current independent readback confirms acknowledgement once',async()=>{
+  let reads=0,posts=0;const item=row('opened',{opened:true});
+  const h=harness(async(_path,opts)=>{if(opts.method==='POST'){posts++;return response({acknowledgementId:'00000000-0000-4000-8000-000000000099'});}return response({assignments:[{...item,acknowledged_at:++reads===1?null:'2026-10-18T09:00:00Z'}]});});
+  await h.mount();let tree=h.render();nodes(tree).find(n=>n.type==='input'&&n.props.type==='checkbox').props.onChange({target:{checked:true}});tree=h.render();
+  nodes(tree).find(n=>n.type==='button'&&text(n).includes('Acknowledge version')).props.onClick();await h.settle();tree=h.render();
+  assert.match(text(tree),/Acknowledgement recorded for this version/);assert.equal(posts,1);assert.equal(reads,2);
+});

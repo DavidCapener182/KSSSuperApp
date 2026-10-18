@@ -1,0 +1,734 @@
+[
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "office-register",
+    "path": "/onboarding",
+    "role": "OFFICE_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "office-new",
+    "path": "/onboarding/new",
+    "role": "OFFICE_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "super-new",
+    "path": "/onboarding/new",
+    "role": "SUPER_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "case",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "OFFICE_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "staff-entry",
+    "path": "/onboarding",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "staff-terms",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "office-register",
+    "path": "/onboarding",
+    "role": "OFFICE_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "office-new",
+    "path": "/onboarding/new",
+    "role": "OFFICE_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "super-new",
+    "path": "/onboarding/new",
+    "role": "SUPER_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "case",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "OFFICE_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "staff-entry",
+    "path": "/onboarding",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "staff-terms",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "office-register",
+    "path": "/onboarding",
+    "role": "OFFICE_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "office-new",
+    "path": "/onboarding/new",
+    "role": "OFFICE_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "super-new",
+    "path": "/onboarding/new",
+    "role": "SUPER_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "case",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "OFFICE_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "staff-entry",
+    "path": "/onboarding",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "staff-terms",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "office-register",
+    "path": "/onboarding",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "office-new",
+    "path": "/onboarding/new",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "super-new",
+    "path": "/onboarding/new",
+    "role": "SUPER_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "case",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "staff-entry",
+    "path": "/onboarding",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "staff-terms",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "office-register",
+    "path": "/onboarding",
+    "role": "OFFICE_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "office-new",
+    "path": "/onboarding/new",
+    "role": "OFFICE_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "super-new",
+    "path": "/onboarding/new",
+    "role": "SUPER_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "case",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "OFFICE_ADMIN",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "staff-entry",
+    "path": "/onboarding",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "staff-terms",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "SECURITY_STAFF",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "interactions",
+    "sourceAndRoleGuards": true,
+    "queueSearch": true,
+    "sheetFocusReturn": true,
+    "finiteCoverEligibility": true,
+    "restrictedSiteExcluded": true,
+    "deniedCreation": true,
+    "privateOverviewExcluded": true,
+    "firstIncompleteJourney": true,
+    "journeyKeyboard": true,
+    "exactEvidenceVersion": true,
+    "staffAcknowledgementAccessOrder": true,
+    "trainingUnavailable": true,
+    "emptyAndUnavailable": true,
+    "unavailableNoFalseEmpty": true,
+    "mockWrites": [
+      {
+        "path": "/api/onboarding",
+        "method": "POST",
+        "body": {
+          "targetPersonId": "00000000-0000-4000-8000-000000000031",
+          "siteId": "00000000-0000-4000-8000-000000000004",
+          "requestKey": "ee0f9002-7ccd-44c6-9241-6ae105c5b66b"
+        }
+      },
+      {
+        "path": "/api/onboarding/00000000-0000-4000-8000-000000003003/contract/acknowledge",
+        "method": "POST",
+        "body": {
+          "confirmed": true
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "office-register",
+    "path": "/onboarding",
+    "role": "OFFICE_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "office-new",
+    "path": "/onboarding/new",
+    "role": "OFFICE_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "super-new",
+    "path": "/onboarding/new",
+    "role": "SUPER_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "case",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "OFFICE_ADMIN",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "staff-entry",
+    "path": "/onboarding",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "staff-terms",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "SECURITY_STAFF",
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "interactions",
+    "sourceAndRoleGuards": true,
+    "queueSearch": true,
+    "sheetFocusReturn": true,
+    "finiteCoverEligibility": true,
+    "restrictedSiteExcluded": true,
+    "deniedCreation": true,
+    "privateOverviewExcluded": true,
+    "firstIncompleteJourney": true,
+    "journeyKeyboard": true,
+    "exactEvidenceVersion": true,
+    "staffAcknowledgementAccessOrder": true,
+    "trainingUnavailable": true,
+    "emptyAndUnavailable": true,
+    "unavailableNoFalseEmpty": true,
+    "mockWrites": [
+      {
+        "path": "/api/onboarding",
+        "method": "POST",
+        "body": {
+          "targetPersonId": "00000000-0000-4000-8000-000000000031",
+          "siteId": "00000000-0000-4000-8000-000000000004",
+          "requestKey": "dca457e2-20fe-488a-8106-308129966b93"
+        }
+      },
+      {
+        "path": "/api/onboarding/00000000-0000-4000-8000-000000003003/contract/acknowledge",
+        "method": "POST",
+        "body": {
+          "confirmed": true
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "office-register",
+    "path": "/onboarding",
+    "role": "OFFICE_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "office-new",
+    "path": "/onboarding/new",
+    "role": "OFFICE_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "super-new",
+    "path": "/onboarding/new",
+    "role": "SUPER_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "case",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "OFFICE_ADMIN",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "staff-entry",
+    "path": "/onboarding",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "staff-terms",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "SECURITY_STAFF",
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "interactions",
+    "sourceAndRoleGuards": true,
+    "queueSearch": true,
+    "sheetFocusReturn": true,
+    "finiteCoverEligibility": true,
+    "restrictedSiteExcluded": true,
+    "deniedCreation": true,
+    "privateOverviewExcluded": true,
+    "firstIncompleteJourney": true,
+    "journeyKeyboard": true,
+    "exactEvidenceVersion": true,
+    "staffAcknowledgementAccessOrder": true,
+    "trainingUnavailable": true,
+    "emptyAndUnavailable": true,
+    "unavailableNoFalseEmpty": true,
+    "mockWrites": [
+      {
+        "path": "/api/onboarding",
+        "method": "POST",
+        "body": {
+          "targetPersonId": "00000000-0000-4000-8000-000000000031",
+          "siteId": "00000000-0000-4000-8000-000000000004",
+          "requestKey": "35b9d635-8889-4692-a34c-088425a8f97f"
+        }
+      },
+      {
+        "path": "/api/onboarding/00000000-0000-4000-8000-000000003003/contract/acknowledge",
+        "method": "POST",
+        "body": {
+          "confirmed": true
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "office-register",
+    "path": "/onboarding",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "office-new",
+    "path": "/onboarding/new",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "super-new",
+    "path": "/onboarding/new",
+    "role": "SUPER_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "case",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "OFFICE_ADMIN",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "staff-entry",
+    "path": "/onboarding",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "staff-terms",
+    "path": "/onboarding/00000000-0000-4000-8000-000000003003",
+    "role": "SECURITY_STAFF",
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "interactions",
+    "sourceAndRoleGuards": true,
+    "queueSearch": true,
+    "sheetFocusReturn": true,
+    "finiteCoverEligibility": true,
+    "restrictedSiteExcluded": true,
+    "deniedCreation": true,
+    "privateOverviewExcluded": true,
+    "firstIncompleteJourney": true,
+    "journeyKeyboard": true,
+    "exactEvidenceVersion": true,
+    "staffAcknowledgementAccessOrder": true,
+    "trainingUnavailable": true,
+    "emptyAndUnavailable": true,
+    "unavailableNoFalseEmpty": true,
+    "mockWrites": [
+      {
+        "path": "/api/onboarding",
+        "method": "POST",
+        "body": {
+          "targetPersonId": "00000000-0000-4000-8000-000000000031",
+          "siteId": "00000000-0000-4000-8000-000000000004",
+          "requestKey": "3ec7be26-7392-4dba-9b3b-67f9601bfb24"
+        }
+      },
+      {
+        "path": "/api/onboarding/00000000-0000-4000-8000-000000003003/contract/acknowledge",
+        "method": "POST",
+        "body": {
+          "confirmed": true
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  }
+]

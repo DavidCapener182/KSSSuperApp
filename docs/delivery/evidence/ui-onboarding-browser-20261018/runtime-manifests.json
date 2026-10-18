@@ -1,0 +1,295 @@
+[
+  {
+    "stage": "before",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-onboarding-before-04459w_m",
+    "port": 3130,
+    "publishedShared": "67aad4c0f460cfa64371409ba15fc750d8b073df",
+    "files": [
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/onboarding/[id]/page.tsx",
+        "sha256": "20dd79c34535eab5e5dc85fd31adb4dec668ee5c1650fd63b693883b84a56a8d",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/lib/onboarding/policy.ts",
+        "sha256": "64b69906947568dcd5ea46d2f0731629cbb89a10f6554dd63dbc38f02b64699e",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/profile/policy.ts",
+        "sha256": "3cd44ca0b0b1564a79e185d07fbe1d54ff8fc6af70dc9c7365bf0ad848cc9fc6",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/documents/policy.ts",
+        "sha256": "2a616d5e53115417722f19ba30b1f7eb5047fc931c1faabe43b7241bb9e0cd87",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/onboarding-client.tsx",
+        "sha256": "a2c2b78728d9a2caa1b8ff5851e535e27a1cf3201afbbcde4c31f22e3e63179e",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/ui/progress.tsx",
+        "sha256": "65fce8b61903cdaffbc2bf51c5b1f65b112bc553df7b37d450f766dac419b26c",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/workflow.tsx",
+        "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/skeleton.tsx",
+        "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/badge.tsx",
+        "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/onboarding-journey.css",
+        "sha256": "a482c1a2a7479eb8e5cfebbbb96fc6f716fb64d257bba72234830592276a95b7",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/record-studies.css",
+        "sha256": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/onboarding/new/page.tsx",
+        "sha256": "f46acd19effe0705527487e1d175210af6fd33beb7605c3500758a1fb9e505b3",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/app/(enterprise)/onboarding/page.tsx",
+        "sha256": "99101d475826ce6281e97e102cddcb52f93f2b6b6e7a70b93fdfefa417c5feee",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/office-onboarding-workspace.tsx",
+        "sha256": "5dfc013497597d8c1d57b510eef1262277efdb0c4d066b95ed7b1f0903862438",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/onboarding-workspace.css",
+        "sha256": "638482b360846617c96af10e937746cc3615d404be1bf93a46d7c3cee571de88",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/identity-admin.module.css",
+        "sha256": "962aa8ffb5919fa4f145ee1922e15eafe0bce966d01dd50c9e0b6e8452a71f96",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/controlled-terms-publisher.tsx",
+        "sha256": "d65e0f5ca78ecebfb1c9bfe5cf39d35c8b42ea89e4ea98186e711bcbd565e27d",
+        "origin": "published-shared-and-dependencies"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "boundaryHashes": [
+      {
+        "file": "src/lib/auth/principal.ts",
+        "sha256": "f24b8576069e6f0c93c62a0bd03ae873024b9494e2c8ed2ed4a6f60743090a00"
+      },
+      {
+        "file": "src/lib/supabase/browser.ts",
+        "sha256": "3ef4092e6e607a5869ac957ecb90a20869f44424ce38f8384f0a12f51fc52dd8"
+      },
+      {
+        "file": "src/lib/supabase/server.ts",
+        "sha256": "0c0fbb78e3b8acfb78220fc93c00ead43641bb379b4b14f11d65643edeb18890"
+      }
+    ],
+    "scope": "Actual Onboarding routes/guards and components; minimal synthetic server case tables for guard checks, independent synthetic rich client API records for visual/action checks; no hosted projection parity claim, no real writes"
+  },
+  {
+    "stage": "after",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-onboarding-after-2u_8uh4_",
+    "port": 3131,
+    "publishedShared": "67aad4c0f460cfa64371409ba15fc750d8b073df",
+    "files": [
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/onboarding/[id]/page.tsx",
+        "sha256": "20dd79c34535eab5e5dc85fd31adb4dec668ee5c1650fd63b693883b84a56a8d",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/onboarding/policy.ts",
+        "sha256": "64b69906947568dcd5ea46d2f0731629cbb89a10f6554dd63dbc38f02b64699e",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/profile/policy.ts",
+        "sha256": "3cd44ca0b0b1564a79e185d07fbe1d54ff8fc6af70dc9c7365bf0ad848cc9fc6",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/documents/policy.ts",
+        "sha256": "2a616d5e53115417722f19ba30b1f7eb5047fc931c1faabe43b7241bb9e0cd87",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/onboarding-client.tsx",
+        "sha256": "0d66a15cd2fb9ccdb8b26b629570c294ebcac3eeac26afbac318dfd8905fac60",
+        "origin": "frozen-after-unavailable-revision-3",
+        "previousSha256": "6fd6fe458663d2024b3bee1af46ee77703db3bbeb0f0303919a3661797c4e754"
+      },
+      {
+        "file": "src/components/ui/progress.tsx",
+        "sha256": "65fce8b61903cdaffbc2bf51c5b1f65b112bc553df7b37d450f766dac419b26c",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/workflow.tsx",
+        "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/skeleton.tsx",
+        "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/badge.tsx",
+        "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/onboarding-journey.css",
+        "sha256": "3582e71126643d6021488165c4bac5b936e961cb4f00fc48ee974889668ee577",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/record-studies.css",
+        "sha256": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/onboarding/new/page.tsx",
+        "sha256": "f46acd19effe0705527487e1d175210af6fd33beb7605c3500758a1fb9e505b3",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/onboarding/page.tsx",
+        "sha256": "99101d475826ce6281e97e102cddcb52f93f2b6b6e7a70b93fdfefa417c5feee",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/office-onboarding-workspace.tsx",
+        "sha256": "352a7b90276ccddb53b2332907af28a919f836ae32bfd12ccc5eca925826e160",
+        "origin": "frozen-after-accessible-name-revision-2",
+        "previousSha256": "cf53130cd816ca8381a3586d857c47d8f2de00da179316d0343129750a90b972"
+      },
+      {
+        "file": "src/components/onboarding-workspace.css",
+        "sha256": "3f8243b96a29657cee079f9824c93ce1ecca6844a659f57a92a4e78fa20d30bf",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/identity-admin.module.css",
+        "sha256": "962aa8ffb5919fa4f145ee1922e15eafe0bce966d01dd50c9e0b6e8452a71f96",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/controlled-terms-publisher.tsx",
+        "sha256": "d65e0f5ca78ecebfb1c9bfe5cf39d35c8b42ea89e4ea98186e711bcbd565e27d",
+        "origin": "published-shared-and-dependencies"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "boundaryHashes": [
+      {
+        "file": "src/lib/auth/principal.ts",
+        "sha256": "f24b8576069e6f0c93c62a0bd03ae873024b9494e2c8ed2ed4a6f60743090a00"
+      },
+      {
+        "file": "src/lib/supabase/browser.ts",
+        "sha256": "3ef4092e6e607a5869ac957ecb90a20869f44424ce38f8384f0a12f51fc52dd8"
+      },
+      {
+        "file": "src/lib/supabase/server.ts",
+        "sha256": "0c0fbb78e3b8acfb78220fc93c00ead43641bb379b4b14f11d65643edeb18890"
+      }
+    ],
+    "scope": "Actual Onboarding routes/guards and components; minimal synthetic server case tables for guard checks, independent synthetic rich client API records for visual/action checks; no hosted projection parity claim, no real writes",
+    "controlledRevision": "kss-ui-shared/output/ui-onboarding-20261018/accessible-name-revision-2.json",
+    "controlledRevisions": [
+      "kss-ui-shared/output/ui-onboarding-20261018/accessible-name-revision-2.json",
+      "kss-ui-shared/output/ui-onboarding-20261018/unavailable-revision-3.json"
+    ]
+  }
+]

@@ -1,0 +1,28 @@
+(node:3701) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/lib/controlled/reading-list.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Documents root is a request register with factual submitted-version context and focused creation (41.823875ms)
+✔ historical query makes exact selected version central and private download stays pinned without current review controls (33.956458ms)
+✔ current evidence review keeps exact request/person, unscanned file facts and separate permitted decision (9.277459ms)
+✔ Staff replacement retains next-version lineage, selected file, pending/error context and cannot review self (10.35175ms)
+✔ new request loading/unavailable states do not falsely report an empty list or show stale evidence (14.80475ms)
+✔ Required reading groups returned exact versions by context and keeps file/acknowledgement adjacent without fabricated content (17.220292ms)
+✔ publisher and assigner modes stay distinct; finite rights do not imply self reading or combined publication/send (12.400333ms)
+✔ audience preview key/conflict gates remain exact and recipient/as-of facts do not imply an audience freeze (12.369125ms)
+✔ actual exact-version rejection retains actionable feedback and a conflict never claims accepted or replaces lineage (16.2235ms)
+✔ actual upload conflict retains selected file for retry and never labels upload verified (14.837083ms)
+✔ actual stale assignment preview stops before any POST; fresh exact preview preserves audience payload (35.951458ms)
+✔ original action/readback/audience/acknowledgement functions and effects stay exact; only request reader UI state added (8.773375ms)
+✔ previous custody and controlled staff-record hashes remain intact (1.053375ms)
+✔ actual request reader denial uses unavailable presentation rather than stale/empty evidence (13.339583ms)
+✔ actual server routes preserve Staff/Office/Super/mixed rights, Operations denial and exact version/context query identity (43.896375ms)
+✔ denied create feedback remains within the open request dialog and its retained form (6.440291ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 423.69475

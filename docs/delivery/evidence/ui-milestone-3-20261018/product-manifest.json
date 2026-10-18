@@ -1,0 +1,63 @@
+[
+  {
+    "file": "src/components/onboarding-client.tsx",
+    "publishedBaselineSha256": "a2c2b78728d9a2caa1b8ff5851e535e27a1cf3201afbbcde4c31f22e3e63179e",
+    "preUIFrozenBaselineSha256": "a2c2b78728d9a2caa1b8ff5851e535e27a1cf3201afbbcde4c31f22e3e63179e",
+    "sha256": "0d66a15cd2fb9ccdb8b26b629570c294ebcac3eeac26afbac318dfd8905fac60",
+    "controlledRevision": null
+  },
+  {
+    "file": "src/components/office-onboarding-workspace.tsx",
+    "publishedBaselineSha256": "5dfc013497597d8c1d57b510eef1262277efdb0c4d066b95ed7b1f0903862438",
+    "preUIFrozenBaselineSha256": "5dfc013497597d8c1d57b510eef1262277efdb0c4d066b95ed7b1f0903862438",
+    "sha256": "352a7b90276ccddb53b2332907af28a919f836ae32bfd12ccc5eca925826e160",
+    "controlledRevision": null
+  },
+  {
+    "file": "src/components/onboarding-journey.css",
+    "publishedBaselineSha256": "a482c1a2a7479eb8e5cfebbbb96fc6f716fb64d257bba72234830592276a95b7",
+    "preUIFrozenBaselineSha256": "a482c1a2a7479eb8e5cfebbbb96fc6f716fb64d257bba72234830592276a95b7",
+    "sha256": "3582e71126643d6021488165c4bac5b936e961cb4f00fc48ee974889668ee577",
+    "controlledRevision": null
+  },
+  {
+    "file": "src/components/onboarding-workspace.css",
+    "publishedBaselineSha256": "638482b360846617c96af10e937746cc3615d404be1bf93a46d7c3cee571de88",
+    "preUIFrozenBaselineSha256": "638482b360846617c96af10e937746cc3615d404be1bf93a46d7c3cee571de88",
+    "sha256": "3f8243b96a29657cee079f9824c93ce1ecca6844a659f57a92a4e78fa20d30bf",
+    "controlledRevision": null
+  },
+  {
+    "file": "src/components/documents-client.tsx",
+    "publishedBaselineSha256": "0b3e44709e62372c6de38dfd601189e6170811becc87fa13c79ff9ff52b84a40",
+    "preUIFrozenBaselineSha256": "0b3e44709e62372c6de38dfd601189e6170811becc87fa13c79ff9ff52b84a40",
+    "sha256": "820b3ce7ca31f91903a4da4873a6f024e77ede3c014db13f13d49fed034e3b49",
+    "controlledRevision": {
+      "file": "src/components/documents-client.tsx",
+      "beforeSha256": "5bd88aded6eeecd5e924c1470acae6e3bd8027203f23f52f6a27772c41e5f457",
+      "sha256": "820b3ce7ca31f91903a4da4873a6f024e77ede3c014db13f13d49fed034e3b49",
+      "reason": "Actual browser DOM and red source test proved denied create feedback was aria-hidden behind Sheet; repeat error within open creation form, preserving handler and draft"
+    }
+  },
+  {
+    "file": "src/components/documents-workspace.module.css",
+    "publishedBaselineSha256": null,
+    "preUIFrozenBaselineSha256": null,
+    "sha256": "a702a3d05173c086f93734a6d28e589002172bfcb04bba5a2e8ac2c77bb31e47",
+    "controlledRevision": null
+  },
+  {
+    "file": "src/components/operational-documents-client.tsx",
+    "publishedBaselineSha256": "f3fe4797a342c8b4f1a18442c2ecde1f8ea8495c37018b5ef3e6b0d3852b2388",
+    "preUIFrozenBaselineSha256": "104a1fc9672b847fb56814ba09260ad06756a7e7aab64a3e64cf43588df83e44",
+    "sha256": "d94452e96277a2a792662d59630793cbc5595f6de523f01002e2b414603f7cb5",
+    "controlledRevision": null
+  },
+  {
+    "file": "src/components/operational-documents.module.css",
+    "publishedBaselineSha256": "e463d401c3ecd60230f936645b3ad0517d4ce9523fccc28865ed51cbadbd424e",
+    "preUIFrozenBaselineSha256": "e463d401c3ecd60230f936645b3ad0517d4ce9523fccc28865ed51cbadbd424e",
+    "sha256": "0e086bfe73393ed5773948e474451b2b0bcee51cc6cd00b64a1eb7e7e6db3361",
+    "controlledRevision": null
+  }
+]

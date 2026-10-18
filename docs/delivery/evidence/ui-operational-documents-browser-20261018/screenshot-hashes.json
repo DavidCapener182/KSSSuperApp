@@ -1,0 +1,194 @@
+[
+  {
+    "file": "after-assigner-1440.png",
+    "sha256": "e15e7ebead7d07e61480aa70f68a18726505ea2ecbce5131c2b764eb61b3103b"
+  },
+  {
+    "file": "after-assigner-320.png",
+    "sha256": "bac6d0156d748bd3df80e3f67c536c80bd50da07cbfa7569fee1574af310df3e"
+  },
+  {
+    "file": "after-assigner-390.png",
+    "sha256": "792b70ecf74b61730f6fc0866a0d85e23a6876a7e8bae53399f609e9a9adc4ac"
+  },
+  {
+    "file": "after-assigner-834.png",
+    "sha256": "4fb67845ebfdea9d976d1e7952fec6c2a578b4d5a628b44c84771afe13b4fde4"
+  },
+  {
+    "file": "after-office-ungranted-1440.png",
+    "sha256": "c7e181fec9dd954cd206ebdfc788cd5bf844a4551993b1b76f8069d93c713f25"
+  },
+  {
+    "file": "after-office-ungranted-320.png",
+    "sha256": "a38247c3527cd2bd32f854d009304128d01b8b4814a594efda349ad9e44e4b03"
+  },
+  {
+    "file": "after-office-ungranted-390.png",
+    "sha256": "6373a9feb77a248b5e16d0dd3a71824ef0583e2e3d872c0e61e6f9adbedae703"
+  },
+  {
+    "file": "after-office-ungranted-834.png",
+    "sha256": "078acf2b92615c504e34cbe47ab87298ab5c9aabe611d330968294edd1eeacaa"
+  },
+  {
+    "file": "after-operations-1440.png",
+    "sha256": "d9a0777304e3fcb4a4b1499bb7a62bbea88881980c6fcf77e95e0a5028455296"
+  },
+  {
+    "file": "after-operations-320.png",
+    "sha256": "f1fe41a2e70306632b63040fe8ab55a150b85a50a0d0310272c3d73ae9f9e96a"
+  },
+  {
+    "file": "after-operations-390.png",
+    "sha256": "896e753e64d30289c4fbec74cf977e7520e5329389e85ba53484f115f34bfa77"
+  },
+  {
+    "file": "after-operations-834.png",
+    "sha256": "9eaa907f0639dbbe3868b3d39abf21a399a9ead7299b310c0befb5d6288af9d3"
+  },
+  {
+    "file": "after-publisher-1440.png",
+    "sha256": "dc10bbbdf5e1d590066b1a3f156f27180c1df9003689875fff8939e21bbe8aaf"
+  },
+  {
+    "file": "after-publisher-320.png",
+    "sha256": "a867eaa942d4df7bb02cb8f473ca22c812e952fa3a754545768a44c7a4d84954"
+  },
+  {
+    "file": "after-publisher-390.png",
+    "sha256": "a01e48e42601bd3d0339295646811d99c1e4e145bf2b9714b5987221351c9ae7"
+  },
+  {
+    "file": "after-publisher-834.png",
+    "sha256": "a67cbf66c60672d36b66d9f7d7c10bb3a84c766f87bef3bc6dbf2bc9331e0b04"
+  },
+  {
+    "file": "after-staff-1440.png",
+    "sha256": "24ca9ca9016c258f449a34f4c32311295f5459a0d275a316ac525ea797286e9e"
+  },
+  {
+    "file": "after-staff-320.png",
+    "sha256": "98f8139978cc645c14277cc2d1c765dd6b4bd255dda80e4c793c30417e49a377"
+  },
+  {
+    "file": "after-staff-390.png",
+    "sha256": "bb9fcb326b8c74e622b6d80015edee6d30b12748627bcf64e7f9a826c04b018a"
+  },
+  {
+    "file": "after-staff-834.png",
+    "sha256": "55908d0713ef295111be51baee2c389a02ea0a73107f51f3fa5170d1556abd0f"
+  },
+  {
+    "file": "after-super-granted-1440.png",
+    "sha256": "5ccfb4cb605dad7f0958bcd70201a767f886748a42b83ae6092364cf52eebbd7"
+  },
+  {
+    "file": "after-super-granted-320.png",
+    "sha256": "4ee2813c54790b8eb893ff76fe7bef8acc585887f37dfd86b2edc901933538f6"
+  },
+  {
+    "file": "after-super-granted-390.png",
+    "sha256": "5cc9ecefcfff475e2a538d51f9dccdccb28ab2f9a2e7c2ddea8644c3e0c8965c"
+  },
+  {
+    "file": "after-super-granted-834.png",
+    "sha256": "449e227ff5541faa55eec6a5faad4814f4341b3bac68de05c0bd44c61b31e274"
+  },
+  {
+    "file": "before-assigner-1440.png",
+    "sha256": "a630cfcf9e604c7fc375a27201ed52a2ba15bc19ebfe7da4f44778c653e25a0c"
+  },
+  {
+    "file": "before-assigner-320.png",
+    "sha256": "53f38ac5d47eb1f7e90a6e8e882c6705366829f7a3cf9c610bf4f9dec1a6e2a3"
+  },
+  {
+    "file": "before-assigner-390.png",
+    "sha256": "681ca9917dd4f46f82c7396ffb66193321d9356aa9d880f4ad423fda2407c3b0"
+  },
+  {
+    "file": "before-assigner-834.png",
+    "sha256": "044ec189bfdc48410ea0c2e434d1a22aca1315e15b35d19243add3e189980b97"
+  },
+  {
+    "file": "before-office-ungranted-1440.png",
+    "sha256": "0f5dc17a68e56778cb5e1c41a782674be6389f5452bffa96d467b792a5da1964"
+  },
+  {
+    "file": "before-office-ungranted-320.png",
+    "sha256": "a38247c3527cd2bd32f854d009304128d01b8b4814a594efda349ad9e44e4b03"
+  },
+  {
+    "file": "before-office-ungranted-390.png",
+    "sha256": "6373a9feb77a248b5e16d0dd3a71824ef0583e2e3d872c0e61e6f9adbedae703"
+  },
+  {
+    "file": "before-office-ungranted-834.png",
+    "sha256": "33408ccbb140dfe268d7f56e6d42b811cd67089a30c99996b6b5a8f76dad01f1"
+  },
+  {
+    "file": "before-operations-1440.png",
+    "sha256": "31ea5ad9d89a707579bc3baa8977c1b86e8564e5b57cad9862324f1a1b26c735"
+  },
+  {
+    "file": "before-operations-320.png",
+    "sha256": "01b82c0fb2b30e0fc2b4a1c5e32f7f5627b4ac8527db763f46e3ff18cd5c5a84"
+  },
+  {
+    "file": "before-operations-390.png",
+    "sha256": "882b7f7d9687406c7b78b81a5ca84f24f3405df00bf9dd7493105a4c3f2c4a51"
+  },
+  {
+    "file": "before-operations-834.png",
+    "sha256": "46a82cae7f01d2ddaa6fc6d2711b9d98485dcd26de72000bb48e0e16cffc8dd6"
+  },
+  {
+    "file": "before-publisher-1440.png",
+    "sha256": "49737a9687f3b1ea62fef60b4eb9bfe6150e194d9d45aaf126fb1ab13e527a46"
+  },
+  {
+    "file": "before-publisher-320.png",
+    "sha256": "d6e0855f7da8845412dac48dfcbf81cbcb78f8bbbcb7fde04946b29d2edc3e25"
+  },
+  {
+    "file": "before-publisher-390.png",
+    "sha256": "7eba8dc25942aaf7609bd5a1f10c1b1f64930564ca5934ea1095b1c0a38a7b3c"
+  },
+  {
+    "file": "before-publisher-834.png",
+    "sha256": "4b63e390e74a9782572397035753875994be622711215bc1d905186e4e966070"
+  },
+  {
+    "file": "before-staff-1440.png",
+    "sha256": "8be09c46cabcf5164a0b923022a569f09cf32933562f802c07e4798b1b9a85f9"
+  },
+  {
+    "file": "before-staff-320.png",
+    "sha256": "77e205273ae85b3bb2c9a8267a8f22e16a3ddff7c6066d26736328ad4a8096fe"
+  },
+  {
+    "file": "before-staff-390.png",
+    "sha256": "38bac46901aadae3524296e7a2804c5a5ceded9f8c5b164ad549bd0c1e51b202"
+  },
+  {
+    "file": "before-staff-834.png",
+    "sha256": "68cfb24d47f1389f844979d4681b362b4c922b8f6e419926f5fe8cff9e1aaa47"
+  },
+  {
+    "file": "before-super-granted-1440.png",
+    "sha256": "641943020ed7ba1c9c82389074d59e8ca8d39730af7e25faa400b7fb5564303e"
+  },
+  {
+    "file": "before-super-granted-320.png",
+    "sha256": "313a87bc953d38b25bcbc14702fc3618aadb9ee502077d9f4806f9c0aa4c1d3c"
+  },
+  {
+    "file": "before-super-granted-390.png",
+    "sha256": "c144a58ce89c985a93a630cefb38a5f0de776d0b4eade70ae87fdad51d78c2e0"
+  },
+  {
+    "file": "before-super-granted-834.png",
+    "sha256": "5efadaf342bfb3b0d74ce2102f46fe318a47849e2015b42976281693766e8155"
+  }
+]

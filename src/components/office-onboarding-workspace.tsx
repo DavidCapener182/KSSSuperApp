@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { EmptyState, FeedbackBanner, LoadingBlock } from "@/components/ui/workflow";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { ControlledTermsPublisher } from "@/components/controlled-terms-publisher";
 import styles from "./identity-admin.module.css";
 import "./onboarding-workspace.css";
@@ -242,6 +243,7 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
     setBusy(false);
   }
 
+  const actionTrigger = useRef<HTMLButtonElement | null>(null);
   const possibleRecipients = eligible.filter((person) => person.personId !== selectedRow?.ownerPersonId &&
     (selectedRow?.canOpen || superAdmin || person.personId !== currentPersonId));
   return <main className={`enterprise-main office-onboarding-main office-onboarding-redesign ${styles.surface}`}>
@@ -272,7 +274,7 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
     </section>}
     {workspaceTab === "PIPELINE" && <section className="office-onboarding-board" aria-labelledby="onboarding-board-title">
       <div className="office-onboarding-board-heading"><div><p className="eyebrow">Factual work queues</p><h2 id="onboarding-board-title">Follow the next handoff</h2>
-        <p>Cases may appear in more than one queue. These are source views, not lifecycle stages or readiness decisions.</p></div>
+        <details className="office-onboarding-queue-help"><summary>About these queues</summary><p>Cases may appear in more than one queue. These are source views, not lifecycle stages or readiness decisions.</p></details></div>
         <button type="button" onClick={() => void loadPreviews(true)} disabled={previewLoading}>
           {previewLoading ? "Loading previews…" : "Refresh previews"}</button></div>
       {previewError && <FeedbackBanner tone="error">Queue previews are unavailable. Refresh to try again.</FeedbackBanner>}
@@ -281,7 +283,7 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
           {previews[code]?.rows.length ? <ol>{previews[code]?.rows.map((row) => <li key={row.id}>
             <span className="office-onboarding-lane-person">{row.starterName}</span><small>{row.intendedRole.replaceAll("_", " ")} · {row.siteName}</small>
             <span className="office-onboarding-lane-action"><b>{row.nextActor.replaceAll("_", " ")}</b> · {row.nextAction}</span>
-            <small>Owner {row.ownerName} · Last activity {date(row.lastActivity)}</small>
+            <small>Owner {row.ownerName}</small><small>{row.verifiedCount} of {row.totalCount} requirements complete · Last activity {date(row.lastActivity)}</small>
             {row.canOpen ? <Link href={`/onboarding/${row.id}`}>Continue case <span aria-hidden="true">↗</span></Link> : <span>Team triage only · detail restricted</span>}
           </li>)}</ol> : !previewError && <p className="office-onboarding-lane-empty">{previews[code] ? "No cases in this authorised queue." : "Loading preview…"}</p>}
           <button type="button" onClick={() => { chooseView(code); setWorkspaceTab(code === "NEEDS_OFFICE" ? "NEEDS_ACTION" : "PEOPLE"); }}>View full queue →</button>
@@ -316,8 +318,8 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
           <div className="office-onboarding-actions">
             {row.canOpen ? <Link href={`/onboarding/${row.id}`}>Open case <span aria-hidden="true">↗</span></Link> : <span>Private case detail restricted</span>}
             {(row.state !== "CANCELLED" && (row.canReassign || row.canGrantCover)) && <details className="office-onboarding-manage"><summary>Manage case</summary>
-              {row.canReassign && <button type="button" onClick={() => openAction(row, "reassign")}>Reassign</button>}
-              {row.canGrantCover && <button type="button" onClick={() => openAction(row, "cover")}>Arrange cover</button>}</details>}
+              {row.canReassign && <button type="button" onClick={(event) => { actionTrigger.current = event.currentTarget; openAction(row, "reassign"); }}>Reassign</button>}
+              {row.canGrantCover && <button type="button" onClick={(event) => { actionTrigger.current = event.currentTarget; openAction(row, "cover"); }}>Arrange cover</button>}</details>}
           </div></div>
       </li>)}</ol>
       <div className="office-onboarding-pager"><span>{offset + 1}–{offset + data.rows.length} of {data.total}</span>
@@ -378,10 +380,8 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
       </button>}
     </section>}
     {workspaceTab === "ADMIN" && canPublish && <ControlledTermsPublisher />}
-    {action && selectedRow && <div className="office-onboarding-dialog-backdrop" role="presentation">
-      <section role="dialog" aria-modal="true" aria-labelledby="onboarding-action-heading" className="office-onboarding-dialog">
-        <h2 id="onboarding-action-heading">{action === "reassign" ? "Reassign case" : "Arrange named case cover"}</h2>
-        <p>{selectedRow.starterName} · Current owner: {selectedRow.ownerName}</p>
+    {action && selectedRow && <Sheet open onOpenChange={(open) => { if (!open && !busy) { setAction(null); setSelectedRow(null); } }}><SheetContent aria-labelledby="onboarding-action-heading" className="office-onboarding-dialog" onCloseAutoFocus={(event) => { event.preventDefault(); actionTrigger.current?.focus(); }} onEscapeKeyDown={(event) => { if (busy) event.preventDefault(); }} onInteractOutside={(event) => { if (busy) event.preventDefault(); }}>
+        <SheetHeader><SheetTitle id="onboarding-action-heading">{action === "reassign" ? "Reassign case" : "Arrange named case cover"}</SheetTitle><SheetDescription>{selectedRow.starterName} · Current owner: {selectedRow.ownerName}</SheetDescription></SheetHeader>{error && <FeedbackBanner tone="error">{error}</FeedbackBanner>}
         <form onSubmit={submitAction}>
           <label htmlFor="onboarding-action-person">{action === "reassign" ? "New owner" : "Covering Office person"}</label>
           <select id="onboarding-action-person" required value={target} onChange={(event) => setTarget(event.target.value)}>
@@ -402,7 +402,6 @@ export function OfficeOnboardingWorkspace({ superAdmin }: { superAdmin: boolean 
             {date(grant.startsAt)} to {date(grant.endsAt)} · Reason: {grant.reason}
             <button type="button" disabled={busy} onClick={() => revokeCover(grant.id)}>Revoke</button></li>)}
         </ul></div>}
-      </section>
-    </div>}
+    </SheetContent></Sheet>}
   </main>;
 }

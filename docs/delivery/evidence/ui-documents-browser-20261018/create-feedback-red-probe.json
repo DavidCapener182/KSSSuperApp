@@ -1,0 +1,19 @@
+{
+  "stage": "after",
+  "width": 390,
+  "feedbackProbe": {
+    "text": "Could not create this request. Check the selected person and Site.",
+    "ariaHiddenAncestor": true,
+    "insideDialog": false
+  },
+  "writes": [
+    {
+      "path": "/api/documents",
+      "body": {
+        "targetPersonId": "00000000-0000-4000-8000-000000000002",
+        "siteId": "00000000-0000-4000-8000-000000000020",
+        "title": "Synthetic denied request"
+      }
+    }
+  ]
+}

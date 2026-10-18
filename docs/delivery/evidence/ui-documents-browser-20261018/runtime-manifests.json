@@ -1,0 +1,140 @@
+[
+  {
+    "stage": "before",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-documents-before-r4et0bbq",
+    "port": 3140,
+    "files": [
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+      },
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+      },
+      {
+        "file": "src/components/ui/sheet.module.css",
+        "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+      },
+      {
+        "file": "src/app/(enterprise)/documents/[requestId]/page.tsx",
+        "sha256": "d2dd58fb50aaa29beea53a8388ec7a9f553b671b2e253be6d7cb420878cd50eb"
+      },
+      {
+        "file": "src/components/documents-client.tsx",
+        "sha256": "0b3e44709e62372c6de38dfd601189e6170811becc87fa13c79ff9ff52b84a40"
+      },
+      {
+        "file": "src/components/identity-admin.module.css",
+        "sha256": "962aa8ffb5919fa4f145ee1922e15eafe0bce966d01dd50c9e0b6e8452a71f96"
+      },
+      {
+        "file": "src/components/ui/workflow.tsx",
+        "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b"
+      },
+      {
+        "file": "src/components/ui/skeleton.tsx",
+        "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc"
+      },
+      {
+        "file": "src/components/ui/badge.tsx",
+        "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801"
+      },
+      {
+        "file": "src/app/(enterprise)/documents/page.tsx",
+        "sha256": "88e1c96448cad25c0796c110998e9e57e789c8a2cee833e75668f8b162e5a960"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "note": "Actual Documents routes/components; shared published2e03e03 foundation; synthetic identities/API data; writes denied; no hosted authentication/RPC/RLS"
+  },
+  {
+    "stage": "after",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-documents-after-5g4ej73g",
+    "port": 3141,
+    "files": [
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+      },
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+      },
+      {
+        "file": "src/components/ui/sheet.module.css",
+        "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+      },
+      {
+        "file": "src/app/(enterprise)/documents/[requestId]/page.tsx",
+        "sha256": "d2dd58fb50aaa29beea53a8388ec7a9f553b671b2e253be6d7cb420878cd50eb"
+      },
+      {
+        "file": "src/components/documents-client.tsx",
+        "sha256": "820b3ce7ca31f91903a4da4873a6f024e77ede3c014db13f13d49fed034e3b49"
+      },
+      {
+        "file": "src/components/documents-workspace.module.css",
+        "sha256": "a702a3d05173c086f93734a6d28e589002172bfcb04bba5a2e8ac2c77bb31e47"
+      },
+      {
+        "file": "src/components/ui/workflow.tsx",
+        "sha256": "e12517faf5f491d5a7dabba82a4b74cfea536614849f3b63d76d073e46021d2b"
+      },
+      {
+        "file": "src/components/ui/skeleton.tsx",
+        "sha256": "4c2af7fa9c645358a0fb188779deab6f0b981733b62befc25e18aaebea1350dc"
+      },
+      {
+        "file": "src/components/ui/badge.tsx",
+        "sha256": "59953420d01d23d172b4e32583426db153ff09226e2d460d53526b9f25282801"
+      },
+      {
+        "file": "src/app/(enterprise)/documents/page.tsx",
+        "sha256": "88e1c96448cad25c0796c110998e9e57e789c8a2cee833e75668f8b162e5a960"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "note": "Actual Documents routes/components; shared published2e03e03 foundation; synthetic identities/API data; writes denied; no hosted authentication/RPC/RLS"
+  }
+]

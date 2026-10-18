@@ -301,8 +301,10 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
     finally { setBusy(false); }
   }
 
-  const shownCases = office || showOlderCases ? cases : cases.slice(0, 5);
-  return <main className={`enterprise-main onboarding-main${selectedCaseId ? " onboarding-record" : ""}`}>
+  const currentStaffCase = cases.find((item) => item.state === "IN_PROGRESS") ?? cases.find((item) => item.state === "DRAFT") ?? cases[0];
+  const shownCases = office ? cases : showOlderCases ? cases.filter((item) => item.id !== currentStaffCase?.id) : [];
+  const journeyRequirements = detail?.requirements.filter((r) => caseView === "EVIDENCE" ? ["RIGHT_TO_WORK", "SIA_LICENCE", "IDENTITY_EVIDENCE"].includes(r.code) : caseView === "DOCUMENTS" ? r.code === "CONTRACT_TERMS" : true) ?? [];
+  return <main className={`enterprise-main onboarding-main${selectedCaseId ? " onboarding-record" : ""} onboarding-view-${caseView.toLowerCase()} ${office ? "onboarding-office" : "onboarding-staff"}`}>
     {!selectedCaseId && <PageHeader eyebrow="People / onboarding" title={office ? "New starter" : "My Onboarding"}
       description={office ? "Add a person to onboarding. Their case starts with the company checklist; you can add a Site later."
         : "See what is complete and what needs your attention next."} />}
@@ -331,14 +333,11 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
     {error && <FeedbackBanner tone="error">Onboarding is unavailable. Refresh to try again.</FeedbackBanner>}
     <div className="onboarding-grid">
       {!selectedCaseId && <section className="onboarding-panel" aria-labelledby="onboarding-list-title">
-        <h2 id="onboarding-list-title">{office ? "Authorised starters" : "My cases"}</h2>
-        {loading ? <LoadingBlock label="Loading onboarding cases…" /> : cases.length ?
-          <><ul className="onboarding-list">{shownCases.map((c) => <li key={c.id}><Link href={`/onboarding/${c.id}`} aria-current={selectedCaseId === c.id ? "page" : undefined}>
-            <strong>{office ? c.starterName : c.intendedRole.replaceAll("_", " ")}</strong>
-            <span>{c.siteName} · Template V{c.templateVersion} · {label[c.state] ?? c.state} · Started {new Date(c.createdAt).toLocaleString("en-GB")}</span></Link></li>)}</ul>
-          {!office && cases.length > 5 && <button type="button" className="onboarding-history-toggle" onClick={() => setShowOlderCases(!showOlderCases)}>
-            {showOlderCases ? "Show current cases" : `Show ${cases.length - 5} older synthetic cases`}</button>}</> :
-          <EmptyState title="No onboarding cases" description={office ? "Add the first new starter below." : "An authorised Office user will start your onboarding case."} />}
+        <h2 id="onboarding-list-title">{office ? "Create a draft case" : "Your onboarding"}</h2>
+        {loading ? <LoadingBlock label="Loading onboarding cases…" /> : cases.length ? <>
+          {!office && currentStaffCase && <div className="onboarding-current-case"><p className="eyebrow">{currentStaffCase.state === "IN_PROGRESS" ? "Current case" : currentStaffCase.state === "DRAFT" ? "Draft case" : "Latest returned case"}</p><h3>{currentStaffCase.intendedRole.replaceAll("_", " ")}</h3><p>{currentStaffCase.siteName} · {label[currentStaffCase.state] ?? currentStaffCase.state}</p><p className="ui-help">Open this case for its current requirements and next action.</p><Link className="ui-action ui-action--primary" href={`/onboarding/${currentStaffCase.id}`}>Continue case →</Link></div>}
+          {office ? <details className="onboarding-existing-cases"><summary>Existing authorised starters · {cases.length} returned</summary><ul className="onboarding-list">{shownCases.map((c) => <li key={c.id}><Link href={`/onboarding/${c.id}`}><strong>{c.starterName}</strong><span>{c.siteName} · Template V{c.templateVersion} · {label[c.state] ?? c.state}</span></Link></li>)}</ul></details> : cases.length > 1 && <><button type="button" className="onboarding-history-toggle" aria-expanded={showOlderCases} aria-controls="onboarding-previous-cases" onClick={() => setShowOlderCases(!showOlderCases)}>{showOlderCases ? "Hide previous cases" : `Previous cases · ${cases.length - 1}`}</button><ul id="onboarding-previous-cases" className="onboarding-list">{shownCases.map((c) => <li key={c.id}><Link href={`/onboarding/${c.id}`}><strong>{c.intendedRole.replaceAll("_", " ")}</strong><span>{c.siteName} · Template V{c.templateVersion} · {label[c.state] ?? c.state} · Created {new Date(c.createdAt).toLocaleString("en-GB")}</span></Link></li>)}</ul></>}
+        </> : !error ? <EmptyState title="No onboarding cases" description={office ? "Add the first new starter below." : "An authorised Office user will start your onboarding case."} /> : null}
         {office && superAdmin && <form className="onboarding-form" onSubmit={(event) => void registerStarter(event)}>
           <h3>Add a new starter</h3>
           <p className="ui-help">This creates the Person record and a draft onboarding case together. Sign-in access and personal submissions come later.</p>
@@ -350,6 +349,7 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
               <option value="">Choose a Site later</option>{sites.map((site) => <option key={site.id} value={site.id}>{site.name}</option>)}
             </select></label>
           <p className="ui-help">Choosing a Site records context for this case. Staff access to the Site is assigned separately.</p>
+          <dl className="onboarding-create-review"><div><dt>New Person</dt><dd>{starterName.trim() || "Full name required"}</dd></div><div><dt>Site context</dt><dd>{sites.find((site) => site.id === siteId)?.name ?? "Choose a Site later"}</dd></div></dl>
           <ActionButton type="submit" disabled={busy || starterName.trim().length < 2}>
             {busy ? "Adding…" : "Add to onboarding"}</ActionButton>
         </form>}
@@ -364,14 +364,15 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
               <option value="">Choose Staff</option>{targets.map((target) => <option key={target.person_id} value={target.person_id}>{target.display_name}</option>)}
             </select></label>
           {sites.length === 0 && <p className="ui-help">There are no active Sites yet. <Link href="/sites">Create and activate a Site</Link> before creating a case.</p>}
+          <dl className="onboarding-create-review"><div><dt>Selected Staff member</dt><dd>{targets.find((target) => target.person_id === targetId)?.display_name ?? "Choose authorised Staff"}</dd></div><div><dt>Site</dt><dd>{sites.find((site) => site.id === siteId)?.name ?? "Choose authorised Site"}</dd></div></dl>
           <ActionButton type="submit" disabled={busy || !siteId || !targetId}>
             {busy ? "Creating…" : "Create draft case"}</ActionButton>
         </form>}
       </section>}
-      <section className="onboarding-panel" aria-label={selectedCaseId ? "Onboarding case content" : undefined} aria-labelledby={selectedCaseId ? undefined : "onboarding-detail-title"}>
-        {!selectedCaseId && <h2 id="onboarding-detail-title">Case detail</h2>}
-        {loading && selectedCaseId ? <LoadingBlock label="Loading this onboarding case…" /> : !detail ? <EmptyState title={selectedCaseId ? "Case unavailable" : "Choose a case"}
-          description={selectedCaseId ? "This case is not available to your account." : "Open a case to see its checklist and next actions."} /> : <>
+      {(selectedCaseId || office) && <section className="onboarding-panel" aria-label={selectedCaseId ? "Onboarding case content" : undefined} aria-labelledby={selectedCaseId ? undefined : "onboarding-detail-title"}>
+        {!selectedCaseId && <><h2 id="onboarding-detail-title">What happens next</h2><ol className="onboarding-create-next"><li>Create the draft case for the selected person.</li><li>Open the created case and review its exact checklist.</li><li>Start onboarding using the supported case action.</li></ol><p className="ui-help">Case creation does not create sign-in access, send an invitation, or grant Site access.</p></>}
+        {loading && selectedCaseId ? <LoadingBlock label="Loading this onboarding case…" /> : !detail ? selectedCaseId ? <EmptyState title={selectedCaseId ? "Case unavailable" : "Choose a case"}
+          description={selectedCaseId ? "This case is not available to your account." : "Open a case to see its checklist and next actions."} /> : null : <>
           {!selectedCaseId && <div className="onboarding-summary">
             <div><p className="eyebrow">{office ? detail.starterName : "Your starter checklist"}</p>
               <h3>{detail.intendedRole.replaceAll("_", " ")}</h3><p>{detail.siteName} · Template Version {detail.templateVersion} · Created {new Date(detail.createdAt).toLocaleString("en-GB")}</p></div>
@@ -461,18 +462,15 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
           {selectedCaseId && caseView === "DOCUMENTS" && <h2 className="onboarding-case-section-title">Employment terms</h2>}
           {(!selectedCaseId || caseView === "JOURNEY" || caseView === "EVIDENCE" || caseView === "DOCUMENTS") && <>
           <p className="onboarding-journey-intro">{caseView === "EVIDENCE" ? "Protected evidence and separate requirement decisions for this case." : caseView === "DOCUMENTS" ? "Only the exact controlled terms version assigned to this case can be acknowledged." : "Current requirements in template order. Expand a step for its exact source details and guarded actions."}</p>
-          <ol id="onboarding-requirements" className="onboarding-requirements onboarding-journey">{detail.requirements
-            .filter((r) => caseView === "EVIDENCE" ? ["RIGHT_TO_WORK", "SIA_LICENCE", "IDENTITY_EVIDENCE"].includes(r.code) :
-              caseView === "DOCUMENTS" ? r.code === "CONTRACT_TERMS" : true)
-            .map((r) => <Fragment key={r.id}>
+          <ol id="onboarding-requirements" className="onboarding-requirements onboarding-journey">{journeyRequirements.map((r) => <Fragment key={r.id}>
             {caseView === "JOURNEY" && (r.code === "PERSONAL_DETAILS" || r.code === "RIGHT_TO_WORK" || r.code === "CONTRACT_TERMS") && <li className="onboarding-journey-group"><span>{r.code === "PERSONAL_DETAILS" ? "01 / Getting started" : r.code === "RIGHT_TO_WORK" ? "02 / Evidence checks" : "03 / Terms and learning"}</span></li>}
             <li id={`onboarding-requirement-${r.id}`}>
             <div className="onboarding-journey-step" aria-hidden="true">{r.position}</div>
             <div className="onboarding-journey-content">
-              <details className="onboarding-step-detail" open={!isComplete(r)}><summary>
+              <details className="onboarding-step-detail" open={r.id === journeyRequirements.find((item) => !isComplete(item))?.id}><summary>
                 <span className="onboarding-requirement-head"><strong>{r.title}</strong><span className={`onboarding-badge onboarding-badge--${r.state.toLowerCase()}`}>{requirementLabel(r)}</span></span>
                 <small>{isComplete(r) ? `${r.verifiedAt ? `Verified ${new Date(r.verifiedAt).toLocaleDateString("en-GB")}` : requirementLabel(r)}${r.acceptedVersionId ? " · Evidence accepted" : ""}` : `${actorLabel(r.actor)} · ${nextActionText(r)}`}</small>
-              </summary><div className="onboarding-step-expanded">
+              </summary><div className="onboarding-step-expanded"><div className="onboarding-step-source">
               <dl className="onboarding-journey-facts">
                 <div><dt>Current requirement</dt><dd>{requirementLabel(r)}{r.verifiedAt && ` · Decision recorded ${new Date(r.verifiedAt).toLocaleString("en-GB")}`}</dd></div>
                 {r.evidenceState && <div><dt>Document evidence</dt><dd>{evidenceLabel(r.evidenceState)}</dd></div>}
@@ -488,6 +486,7 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
             {r.feedback && <FeedbackBanner tone="error">Evidence review feedback: {r.feedback}</FeedbackBanner>}
             {r.documentRequestId && <Link className="ui-action ui-action--secondary" href={`/documents/${r.documentRequestId}${r.acceptedVersionId ? `?version=${r.acceptedVersionId}` : ""}`}>
               {office ? "Open protected evidence" : "Open my evidence request"}</Link>}
+            </div><div className="onboarding-step-decisions">{caseView === "EVIDENCE" && office && <h3>Requirement decision</h3>}
             {caseView === "DOCUMENTS" && r.code === "CONTRACT_TERMS" && r.controlled && <div className="controlled-assignment">
               <strong>{r.controlled.title}</strong>
               <p>Version {r.controlled.versionNumber} · Published {r.controlled.publishedAt ? new Date(r.controlled.publishedAt).toLocaleString("en-GB") : "—"}
@@ -536,11 +535,11 @@ export function OnboardingClient({ office, selectedCaseId, superAdmin = false }:
             {office && detail.canManage && detail.state === "IN_PROGRESS" && r.code === "SIA_LICENCE" &&
               r.siaSubmissionId && r.acceptedVersionId && r.state === "UNDER_REVIEW" && r.evidenceState === "ACCEPTED_AS_EVIDENCE" &&
               <ActionButton onClick={() => void siaAction("sia-verify", r)} disabled={busy}>Verify exact synthetic SIA submission</ActionButton>}
-            </div></details></div>
+            </div></div></details></div>
           </li></Fragment>)}</ol>
           </>}
         </>}
-      </section>
+      </section>}
     </div>
     <ConfirmDialog open={caseAction !== null} title={caseAction === "reassign" ? "Reassign case owner" : "Manage named case cover"}
       description={detail ? `${detail.starterName} · Current owner: ${detail.ownerName ?? "not named"}. This action uses the existing guarded case workflow.` : ""}

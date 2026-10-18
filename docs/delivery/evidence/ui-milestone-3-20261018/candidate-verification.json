@@ -1,0 +1,19 @@
+{
+  "onboarding-preview": {
+    "runtimeFilesMatched": 23,
+    "mismatches": 0
+  },
+  "documents-preview": {
+    "runtimeFilesMatched": 14,
+    "mismatches": 0
+  },
+  "operational-documents-preview": {
+    "runtimeFilesMatched": 14,
+    "mismatches": 0
+  },
+  "originalDirtyCheckout": {
+    "headUnchanged": true,
+    "statusUnchanged": true,
+    "fileHashesUnchanged": 51
+  }
+}

@@ -1,0 +1,454 @@
+[
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "register",
+    "path": "/documents",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 1440,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "review",
+    "path": "/documents/00000000-0000-4000-8000-000000000071",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 1440,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "history",
+    "path": "/documents/00000000-0000-4000-8000-000000000071?version=00000000-0000-4000-8000-000000000081",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 1440,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 1440,
+    "name": "own-request",
+    "path": "/documents/00000000-0000-4000-8000-000000000072",
+    "role": "SECURITY_STAFF",
+    "pageWidth": 1440,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "register",
+    "path": "/documents",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 834,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "review",
+    "path": "/documents/00000000-0000-4000-8000-000000000071",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 891,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "history",
+    "path": "/documents/00000000-0000-4000-8000-000000000071?version=00000000-0000-4000-8000-000000000081",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 891,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 834,
+    "name": "own-request",
+    "path": "/documents/00000000-0000-4000-8000-000000000072",
+    "role": "SECURITY_STAFF",
+    "pageWidth": 891,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "register",
+    "path": "/documents",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 390,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "review",
+    "path": "/documents/00000000-0000-4000-8000-000000000071",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 390,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "history",
+    "path": "/documents/00000000-0000-4000-8000-000000000071?version=00000000-0000-4000-8000-000000000081",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 390,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 390,
+    "name": "own-request",
+    "path": "/documents/00000000-0000-4000-8000-000000000072",
+    "role": "SECURITY_STAFF",
+    "pageWidth": 390,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "register",
+    "path": "/documents",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 320,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "review",
+    "path": "/documents/00000000-0000-4000-8000-000000000071",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 320,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "history",
+    "path": "/documents/00000000-0000-4000-8000-000000000071?version=00000000-0000-4000-8000-000000000081",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 320,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "before",
+    "width": 320,
+    "name": "own-request",
+    "path": "/documents/00000000-0000-4000-8000-000000000072",
+    "role": "SECURITY_STAFF",
+    "pageWidth": 320,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "register",
+    "path": "/documents",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 1440,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "review",
+    "path": "/documents/00000000-0000-4000-8000-000000000071",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 1440,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "history",
+    "path": "/documents/00000000-0000-4000-8000-000000000071?version=00000000-0000-4000-8000-000000000081",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 1440,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "own-request",
+    "path": "/documents/00000000-0000-4000-8000-000000000072",
+    "role": "SECURITY_STAFF",
+    "pageWidth": 1440,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 1440,
+    "name": "interaction-boundaries",
+    "createDeniedExactPayloadAndDraftRetained": true,
+    "createEscapeFocusReturn": true,
+    "currentVersionReviewDeniedExactPayload": true,
+    "historyNoReview": true,
+    "staffNoCreateReview": true,
+    "sourceUnavailableClearsQueue": true,
+    "invalidIdDenied": true,
+    "mockWrites": [
+      {
+        "path": "/api/documents",
+        "body": {
+          "targetPersonId": "00000000-0000-4000-8000-000000000002",
+          "siteId": "00000000-0000-4000-8000-000000000020",
+          "title": "Synthetic denied request"
+        }
+      },
+      {
+        "path": "/api/documents/00000000-0000-4000-8000-000000000071/reviews",
+        "body": {
+          "versionId": "00000000-0000-4000-8000-000000000082",
+          "decision": "ACCEPTED_AS_EVIDENCE",
+          "reasonCode": null,
+          "comment": null
+        }
+      }
+    ],
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "register",
+    "path": "/documents",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 834,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "review",
+    "path": "/documents/00000000-0000-4000-8000-000000000071",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 834,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "history",
+    "path": "/documents/00000000-0000-4000-8000-000000000071?version=00000000-0000-4000-8000-000000000081",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 834,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "own-request",
+    "path": "/documents/00000000-0000-4000-8000-000000000072",
+    "role": "SECURITY_STAFF",
+    "pageWidth": 834,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 834,
+    "name": "interaction-boundaries",
+    "createDeniedExactPayloadAndDraftRetained": true,
+    "createEscapeFocusReturn": true,
+    "currentVersionReviewDeniedExactPayload": true,
+    "historyNoReview": true,
+    "staffNoCreateReview": true,
+    "sourceUnavailableClearsQueue": true,
+    "invalidIdDenied": true,
+    "mockWrites": [
+      {
+        "path": "/api/documents",
+        "body": {
+          "targetPersonId": "00000000-0000-4000-8000-000000000002",
+          "siteId": "00000000-0000-4000-8000-000000000020",
+          "title": "Synthetic denied request"
+        }
+      },
+      {
+        "path": "/api/documents/00000000-0000-4000-8000-000000000071/reviews",
+        "body": {
+          "versionId": "00000000-0000-4000-8000-000000000082",
+          "decision": "ACCEPTED_AS_EVIDENCE",
+          "reasonCode": null,
+          "comment": null
+        }
+      }
+    ],
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "register",
+    "path": "/documents",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 390,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "review",
+    "path": "/documents/00000000-0000-4000-8000-000000000071",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 390,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "history",
+    "path": "/documents/00000000-0000-4000-8000-000000000071?version=00000000-0000-4000-8000-000000000081",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 390,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "own-request",
+    "path": "/documents/00000000-0000-4000-8000-000000000072",
+    "role": "SECURITY_STAFF",
+    "pageWidth": 390,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 390,
+    "name": "interaction-boundaries",
+    "createDeniedExactPayloadAndDraftRetained": true,
+    "createEscapeFocusReturn": true,
+    "currentVersionReviewDeniedExactPayload": true,
+    "historyNoReview": true,
+    "staffNoCreateReview": true,
+    "sourceUnavailableClearsQueue": true,
+    "invalidIdDenied": true,
+    "mockWrites": [
+      {
+        "path": "/api/documents",
+        "body": {
+          "targetPersonId": "00000000-0000-4000-8000-000000000002",
+          "siteId": "00000000-0000-4000-8000-000000000020",
+          "title": "Synthetic denied request"
+        }
+      },
+      {
+        "path": "/api/documents/00000000-0000-4000-8000-000000000071/reviews",
+        "body": {
+          "versionId": "00000000-0000-4000-8000-000000000082",
+          "decision": "ACCEPTED_AS_EVIDENCE",
+          "reasonCode": null,
+          "comment": null
+        }
+      }
+    ],
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "register",
+    "path": "/documents",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 320,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "review",
+    "path": "/documents/00000000-0000-4000-8000-000000000071",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 320,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "history",
+    "path": "/documents/00000000-0000-4000-8000-000000000071?version=00000000-0000-4000-8000-000000000081",
+    "role": "OFFICE_ADMIN",
+    "pageWidth": 320,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "own-request",
+    "path": "/documents/00000000-0000-4000-8000-000000000072",
+    "role": "SECURITY_STAFF",
+    "pageWidth": 320,
+    "pageErrors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "width": 320,
+    "name": "interaction-boundaries",
+    "createDeniedExactPayloadAndDraftRetained": true,
+    "createEscapeFocusReturn": true,
+    "currentVersionReviewDeniedExactPayload": true,
+    "historyNoReview": true,
+    "staffNoCreateReview": true,
+    "sourceUnavailableClearsQueue": true,
+    "invalidIdDenied": true,
+    "mockWrites": [
+      {
+        "path": "/api/documents",
+        "body": {
+          "targetPersonId": "00000000-0000-4000-8000-000000000002",
+          "siteId": "00000000-0000-4000-8000-000000000020",
+          "title": "Synthetic denied request"
+        }
+      },
+      {
+        "path": "/api/documents/00000000-0000-4000-8000-000000000071/reviews",
+        "body": {
+          "versionId": "00000000-0000-4000-8000-000000000082",
+          "decision": "ACCEPTED_AS_EVIDENCE",
+          "reasonCode": null,
+          "comment": null
+        }
+      }
+    ],
+    "pageErrors": [],
+    "external": []
+  }
+]

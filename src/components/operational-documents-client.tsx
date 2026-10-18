@@ -72,13 +72,17 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
   const [grantCapability, setGrantCapability] = useState("PUBLISH");
   const [grantUntil, setGrantUntil] = useState("");
   const [revokeGrantId, setRevokeGrantId] = useState("");
+  const [adminView, setAdminView] = useState<"catalogue" | "assignments">("catalogue");
 
   const load = useCallback(async () => {
+    let reading: ReadingAssignment[] | undefined;
     if (staff) {
       setReadingState("loading");
       try {
         const result = await jsonRequest("/api/operational-documents/my");
-        setMine(result.assignments ?? []);
+        const rows: ReadingAssignment[] = result.assignments ?? [];
+        reading = rows;
+        setMine(rows);
         setReadingState("ready");
       } catch (caught) {
         setMine([]);
@@ -92,6 +96,7 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
       setAssignments(result.assignments?.assignments ?? []);
       setCaps(result.capabilities);
     }
+    return reading;
   }, [staff, manager]);
   useEffect(() => { void Promise.resolve().then(load).catch((caught) => setError(caught instanceof Error ? caught.message : "Documents unavailable")); }, [load]);
   useEffect(() => {
@@ -111,12 +116,34 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
     catch (caught) { setError(caught instanceof Error ? caught.message : "Action unavailable"); }
     finally { setBusy(false); }
   }
+  async function acknowledge(item: ReadingAssignment) {
+    setBusy(true); setError(""); setMessage("");
+    try {
+      const receipt = await jsonRequest(`/api/operational-documents/my/${item.id}/acknowledge`, "POST", { confirmed: true });
+      const refreshed = await load();
+      const exact = refreshed?.find((row) => row.id === item.id && row.document_id === item.document_id && row.version_id === item.version_id);
+      if (typeof receipt.acknowledgementId !== "string" || !/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(receipt.acknowledgementId) ||
+        !exact?.current || exact.conflict || !exact.opened || !exact.acknowledged_at || !Number.isFinite(Date.parse(exact.acknowledged_at))) {
+        throw new Error("Unverified acknowledgement");
+      }
+      setMessage("Acknowledgement recorded for this version");
+    } catch {
+      // A successful POST with unavailable/stale readback may already be saved.
+      // Never infer rejection or retry the write automatically.
+      setError("Acknowledgement could not be verified. Refresh the reading list before trying again.");
+    } finally {
+      setAckConfirmed((previous) => previous.filter((id) => id !== item.id));
+      setBusy(false);
+    }
+  }
   const published = documents.flatMap((doc) => doc.controlled_document_versions
     .filter((version) => version.state === "PUBLISHED" && version.upload_state === "READY")
     .map((version) => ({ ...version, documentTitle: doc.title, documentId: doc.id })));
   const active = assignments.filter((item) => !item.closedAt || new Date(item.closedAt) > new Date());
   const reading = groupReadingAssignments(mine);
   const visibleReading = filterReadingList(reading, readingFilter, readingSearch);
+  const contextGroups = [...new Set(visibleReading.map((item) => item.contexts.join(" · ")))].map((context) => ({ context, items: visibleReading.filter((item) => item.contexts.join(" · ") === context) }));
+  const currentAdminView = adminView === "assignments" && caps.assign ? "assignments" : caps.publish ? "catalogue" : "assignments";
   const readingFiltered = readingFilter !== "ALL" || readingSearch.length > 0;
   const remaining = selected.length && replacementVersion ? active.filter((item) =>
     item.documentId === active.find((candidate) => candidate.id === selected[0])?.documentId &&
@@ -134,7 +161,7 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
     {error && <p className={styles.error} role="alert">{error}</p>}
     {message && <p className={styles.message} role="status">{message}</p>}
 
-    {staff && <section className={styles.section} aria-labelledby="reading-heading"><h2 id="reading-heading">Required reading</h2>
+    {staff && <section className={styles.section} aria-labelledby="reading-heading"><h2 id="reading-heading">Required reading</h2><p className={styles.readingBoundary}>Open the exact published version, then acknowledge it explicitly. Acknowledged does not mean Signed.</p>
       {readingState === "loading" ? <p role="status">Loading your reading list…</p> :
         readingState === "unavailable" ? <p>Reading list unavailable. Refresh to try again.</p> : <>
       <div className={readingStyles.filters} role="search" aria-label="Filter reading list">
@@ -152,7 +179,7 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
       <p className={readingStyles.summary} role="status">Showing {visibleReading.length} of {reading.length} returned document versions.</p>
       {!reading.length && !readingFiltered && <p>No current operational documents or acknowledgement history.</p>}
       {readingFiltered && !visibleReading.length && <p>No matching documents. Try another title, context or status, or clear filters.</p>}
-      <div className={styles.grid}>{visibleReading.map((item) => <article key={`${item.document_id}:${item.version_id}`} className={styles.card}>
+      <div className={styles.readingGroups}>{contextGroups.map((group) => <section className={styles.readingGroup} key={group.context}><header><h3>{group.context}</h3><span>{group.items.length} returned {group.items.length === 1 ? "version" : "versions"}</span></header><div className={styles.readingList}>{group.items.map((item) => <article key={`${item.document_id}:${item.version_id}`} className={`${styles.card} ${styles.readingCard}`}>
         <p className={styles.eyebrow}>{item.contexts.join(" · ")} · Version {item.version_number}</p>
         <h3>{item.title}</h3><p>Effective {dateText(item.effective_from)} · {item.required ? "Acknowledgement required" : "Optional reading"}</p>
         {item.conflict ? <p className={styles.error}>Conflicting current versions. Ask a manager to resolve the assignments.</p>
@@ -164,13 +191,11 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
               <label><input type="checkbox" checked={ackConfirmed.includes(item.id)} onChange={(event) =>
                 setAckConfirmed((previous) => event.target.checked ? [...previous, item.id] : previous.filter((id) => id !== item.id))} />
                 I acknowledge this exact version</label>
-              <button disabled={busy || !ackConfirmed.includes(item.id)} onClick={() => void act(() =>
-                jsonRequest(`/api/operational-documents/my/${item.id}/acknowledge`, "POST", { confirmed: true }),
-                "Acknowledgement recorded for this version")}>Acknowledge version {item.version_number}</button></div>}</>
+              <button disabled={busy || !ackConfirmed.includes(item.id)} onClick={() => void acknowledge(item)}>Acknowledge version {item.version_number}</button></div>}</>
           : <p>Historical {item.close_kind?.toLowerCase() ?? "assignment"}.
             {item.acknowledged_at ? ` Acknowledged ${dateText(item.acknowledged_at)}.` : " No acknowledgement recorded."}
             {" "}PDF access has ended.</p>}
-      </article>)}</div>
+      </article>)}</div></section>)}</div>
       </>}
     </section>}
 
@@ -196,7 +221,8 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
     </section>}
 
     {manager && <>
-      {superAdmin && <section className={styles.section} aria-labelledby="doc-grant-heading"><h2 id="doc-grant-heading">Finite Office capabilities</h2>
+      <div className={styles.adminTabs} role="group" aria-label="Controlled document administration">{caps.publish && <button type="button" aria-pressed={currentAdminView === "catalogue"} onClick={() => setAdminView("catalogue")}>Controlled catalogue</button>}{caps.assign && <button type="button" aria-pressed={currentAdminView === "assignments"} onClick={() => setAdminView("assignments")}>Assignments and replacement</button>}</div>
+      {superAdmin && <details className={styles.secondary}><summary>Finite Office capabilities</summary><section className={styles.section} aria-labelledby="doc-grant-heading"><h2 id="doc-grant-heading">Finite Office capabilities</h2>
         <p>Grant Publisher and Assigner separately to a current Office Person for up to 90 days.</p>
         <div className={styles.form}><label>Office Person ID<input value={grantPerson} onChange={(event) => setGrantPerson(event.target.value)} /></label>
           <label>Capability<select value={grantCapability} onChange={(event) => setGrantCapability(event.target.value)}>
@@ -209,19 +235,19 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
         <div className={styles.actions}><label>Grant ID to revoke<input value={revokeGrantId} onChange={(event) => setRevokeGrantId(event.target.value)} /></label>
           <button disabled={busy || !revokeGrantId} onClick={() => void act(() => jsonRequest(
             "/api/operational-documents/grants", "DELETE", { grantId: revokeGrantId }), "Grant revoked")}>Revoke grant</button></div>
-      </section>}
-      {caps.publish && <section className={styles.section} aria-labelledby="catalog-heading"><h2 id="catalog-heading">Controlled catalogue</h2>
-        <div className={styles.actions}><label>Document title<input value={title} onChange={(event) => setTitle(event.target.value)} maxLength={120} /></label>
+      </section></details>}
+      {caps.publish && currentAdminView === "catalogue" && <section className={styles.section} aria-labelledby="catalog-heading"><h2 id="catalog-heading">Controlled catalogue</h2>
+        <details className={styles.focusedForm}><summary>New controlled document</summary>        <div className={styles.actions}><label>Document title<input value={title} onChange={(event) => setTitle(event.target.value)} maxLength={120} /></label>
           <button disabled={busy || title.trim().length < 3} onClick={() => void act(() =>
-            jsonRequest("/api/operational-documents", "POST", { title }), "Synthetic document created")}>Create document</button></div>
+            jsonRequest("/api/operational-documents", "POST", { title }), "Synthetic document created")}>Create document</button></div></details>
         <div className={styles.grid}>{documents.map((doc) => <article key={doc.id} className={styles.card}><h3>{doc.title}</h3>
           <p className={styles.eyebrow}>Controlled document {doc.id}</p>
-          <label>Upload a synthetic PDF version<input type="file" accept="application/pdf,.pdf" onChange={(event) => {
+          <details className={styles.focusedForm}><summary>Upload a new version</summary>          <label>Upload a synthetic PDF version<input type="file" accept="application/pdf,.pdf" onChange={(event) => {
             const file = event.target.files?.[0]; if (!file) return;
             void act(async () => { const form = new FormData(); form.set("file", file);
               const response = await fetch(`/api/controlled-documents/${doc.id}/versions`, { method: "POST", body: form });
               if (!response.ok) throw new Error("Private PDF upload failed"); }, "Version uploaded; publish deliberately");
-          }} /></label>
+          }} /></label></details>
           {doc.controlled_document_versions.sort((a, b) => b.version_number - a.version_number).map((version) =>
             <div key={version.id} className={styles.version}><strong>Version {version.version_number}</strong> · {version.state}
               {version.state === "DRAFT" && version.upload_state === "READY" &&
@@ -231,9 +257,9 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
             </div>)}
         </article>)}</div></section>}
 
-      {caps.assign && <section className={styles.section} aria-labelledby="assignment-heading"><h2 id="assignment-heading">Exact assignments</h2>
+      {caps.assign && currentAdminView === "assignments" && <section className={styles.section} aria-labelledby="assignment-heading"><h2 id="assignment-heading">Exact assignments</h2>
         <p>A Site Service or role without a qualifying current or future allocation remains manager-side configuration.</p>
-        <div className={styles.form}>
+        <details className={styles.focusedForm}><summary>New exact assignment · preview audience first</summary>        <div className={styles.form}>
           <OperationalDocumentPicker kind="DOCUMENT" title="Published document and version" onChoose={(choice) => {
             setVersionId(choice.id); setVersionLabel(choice.label); setAssignmentPreview(null);
           }} />
@@ -288,7 +314,7 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
               contextId: targetKind === "OPERATIONAL_ROLE" ? contextId : null, required,
               effectiveFrom: iso(effectiveFrom), effectiveUntil: iso(effectiveUntil), reason: assignmentReason });
               setAssignmentPreview(null); }, "Exact assignment created"); }}>Assign exact version</button>
-        </div>
+        </div></details>
         <div className={styles.grid}>{assignments.map((item) => <article key={item.id} className={styles.card}>
           <h3>{item.title} · v{item.version}</h3><p>{item.targetKind.replaceAll("_", " ")} · {item.targetId}</p>
           <p>{item.required ? "Acknowledgement required" : "Optional"} · Effective {dateText(item.effectiveFrom)}
@@ -309,7 +335,7 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
           {status[item.id] && <p>{status[item.id]}</p>}
         </article>)}</div>
       </section>}
-      {caps.assign && <section className={styles.section} aria-labelledby="replace-heading"><h2 id="replace-heading">Explicit replacement</h2>
+      {caps.assign && currentAdminView === "assignments" && <details className={styles.secondary}><summary>Explicit replacement · {selected.length} selected</summary><section className={styles.section} aria-labelledby="replace-heading"><h2 id="replace-heading">Explicit replacement</h2>
         <p>{selected.length} assignment{selected.length === 1 ? "" : "s"} selected. {remaining} older-version assignment{remaining === 1 ? "" : "s"} would remain for the same document.</p>
         <div className={styles.form}><label>Published replacement version<select value={replacementVersion} onChange={(event) => setReplacementVersion(event.target.value)}>
           <option value="">Choose exact version</option>{published.map((version) => <option key={version.id} value={version.id}>{version.documentTitle} · v{version.version_number}</option>)}</select></label>
@@ -330,7 +356,7 @@ export function OperationalDocumentsClient({ staff, manager, operations, superAd
             onClick={() => void act(async () => { await jsonRequest("/api/operational-documents/replacements", "POST", {
               assignmentIds: selected, newVersionId: replacementVersion, effectiveAt: iso(replacementAt), reason });
               setSelected([]); setReplacementPreview(null); }, "Replacement scheduled; old acknowledgements remain historical")}>Replace selected assignments</button></div>
-      </section>}
+      </section></details>}
     </>}
   </main>;
 }
