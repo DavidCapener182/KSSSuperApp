@@ -1,0 +1,52 @@
+✔ denied or unavailable later page removes previous attendance cards/actions and totals (65.628667ms)
+✔ late old exact-focus response cannot replace current source/allocation (45.121292ms)
+✔ unmount invalidates pending attendance read (25.748958ms)
+✔ focused attendance rejects a wrong source or allocation even when response is successful (41.167167ms)
+✔ pagination deduplicates exact source pairs and preserves Event/SiteShift distinction (28.7555ms)
+✔ actual attendance GET route denies missing principal and non-Staff roles before RPC (8.475209ms)
+✔ actual attendance GET validates exact source/offset and forwards typed scope without client authority (8.845042ms)
+✔ a pending action from an old exact view cannot reload old facts or announce success after navigation (48.592958ms)
+✔ role-loss refresh following a successful POST clears prior success and cards (27.411458ms)
+✔ old denied focus cannot clear new facts; pending current read keeps actions hidden (46.680834ms)
+✔ valid attributable Event check-in confirms only after matching current readback (62.730625ms)
+✔ unchanged exact readback cannot confirm successful-looking POST and retains retry token (17.019417ms)
+✔ unattributable missing receipt never confirms or discards retry token (12.941458ms)
+✔ unattributable wrong revision never confirms or discards retry token (12.694084ms)
+✔ unattributable wrong event identity never confirms or discards retry token (12.374208ms)
+✔ unattributable manager event never confirms or discards retry token (10.0465ms)
+✔ wrong source current readback clears confirmation and action facts (9.470417ms)
+✔ denied readback never restores success (10.561334ms)
+✔ denied POST clears stale action facts without deleting manual retry key (8.008083ms)
+✔ unmounted POST does not start readback or remove pending token (10.085667ms)
+✔ manual retry after uncertain network retains identical payload and confirms attributable replay (12.945708ms)
+✔ synchronous duplicate click attempts only one POST (7.118375ms)
+✔ valid Site check-out uses exact source and existing revision (7.052208ms)
+✔ changed allocation retires pending POST before readback (6.794125ms)
+✔ current missing attributable event cannot confirm an older response (7.627167ms)
+✔ current newer current revision cannot confirm an older response (10.589916ms)
+✔ source disappearance after valid receipt never confirms and does not retry write (7.551167ms)
+✔ unmount during exact read cannot start another page read or discard retry token (8.943292ms)
+✔ cancelled Event check-out remains eligible while cancelled Site shift remains unavailable (15.222292ms)
+✔ valid action from an appended page confirms exact readback without discarding page context (6.784125ms)
+(node:21199) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/lib/events/workforce-week.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Schedule remains a page-scoped London agenda, preserving overnight time and exact source/return week links (39.524583ms)
+✔ Deployment offers prioritise response then accepted duties and keep inactive items behind history without response controls (13.878083ms)
+✔ Deployment decline dialog identifies selected source duty/time, reasons, pending controls and live error without falsely empty state (23.340375ms)
+✔ Attendance separates scheduled and recorded facts and exposes only the existing permitted action (11.5535ms)
+✔ Attendance selection is an exact source pair and stale local selection cannot suppress a new exact route (16.522166ms)
+✔ Attendance retains allocated/inactive/no-show/cancelled-Event action boundaries and pending/history facts (13.662541ms)
+✔ actual Deployment response keeps Site Shift revision payload and requires two exact readbacks before success (40.58425ms)
+✔ actual Deployment decline keeps reason/note/source and mismatched readback never confirms (41.010834ms)
+✔ all existing readers/action/idempotency/lifetime functions, effects, route guards and shared CSS are unchanged (13.327ms)
+✔ all prior batches are intact except the explicitly receipted U59 staff Time Away revision (10.21025ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 473.95125

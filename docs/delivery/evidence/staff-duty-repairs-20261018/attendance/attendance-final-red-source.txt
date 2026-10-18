@@ -1,0 +1,320 @@
+✔ valid attributable Event check-in confirms only after matching current readback (132.2445ms)
+✖ unchanged exact readback cannot confirm successful-looking POST and retains retry token (115.182625ms)
+✖ unattributable missing receipt never confirms or discards retry token (16.707584ms)
+✖ unattributable wrong revision never confirms or discards retry token (13.257417ms)
+✖ unattributable wrong event identity never confirms or discards retry token (116.526709ms)
+✖ unattributable manager event never confirms or discards retry token (51.521334ms)
+✖ wrong source current readback clears confirmation and action facts (31.742209ms)
+✖ denied readback never restores success (16.516959ms)
+✖ denied POST clears stale action facts without deleting manual retry key (41.869541ms)
+✖ unmounted POST does not start readback or remove pending token (21.667667ms)
+✔ manual retry after uncertain network retains identical payload and confirms attributable replay (69.545833ms)
+✖ synchronous duplicate click attempts only one POST (27.653708ms)
+✔ valid Site check-out uses exact source and existing revision (19.959209ms)
+✖ changed allocation retires pending POST before readback (12.371084ms)
+✖ current missing attributable event cannot confirm an older response (20.1745ms)
+✖ current newer current revision cannot confirm an older response (12.361917ms)
+✖ source disappearance after valid receipt never confirms and does not retry write (60.049625ms)
+✖ unmount during exact read cannot start another page read or discard retry token (16.9295ms)
+✔ cancelled Event check-out remains eligible while cancelled Site shift remains unavailable (35.615334ms)
+✖ valid action from an appended page confirms exact readback without discarding page context (16.979333ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 4
+ℹ fail 16
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1079.698291
+
+✖ failing tests:
+
+test at tests/ui-my-attendance-readback-local.test.mjs:9:1
+✖ unchanged exact readback cannot confirm successful-looking POST and retains retry token (115.182625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Check-in recorded.'
+  - ''
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:9:242)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Check-in recorded.',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:10:263
+✖ unattributable missing receipt never confirms or discards retry token (16.707584ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Check-in recorded.'
+  - ''
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:10:540)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Check-in recorded.',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:10:263
+✖ unattributable wrong revision never confirms or discards retry token (13.257417ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Check-in recorded.'
+  - ''
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:10:540)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Check-in recorded.',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:10:263
+✖ unattributable wrong event identity never confirms or discards retry token (116.526709ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Check-in recorded.'
+  - ''
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:10:540)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Check-in recorded.',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:10:263
+✖ unattributable manager event never confirms or discards retry token (51.521334ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Check-in recorded.'
+  - ''
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:10:540)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Check-in recorded.',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:11:1
+✖ wrong source current readback clears confirmation and action facts (31.742209ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Check-in recorded.'
+  - ''
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:11:302)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Check-in recorded.',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:12:1
+✖ denied readback never restores success (16.516959ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.storage.has(key))
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:12:341)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:13:1
+✖ denied POST clears stale action facts without deleting manual retry key (41.869541ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:13:234)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:14:1
+✖ unmounted POST does not start readback or remove pending token (21.667667ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.storage.has(key))
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:14:352)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:16:1
+✖ synchronous duplicate click attempts only one POST (27.653708ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:16:306)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:18:1
+✖ changed allocation retires pending POST before readback (12.371084ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.storage.has(key))
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:18:512)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:19:143
+✖ current missing attributable event cannot confirm an older response (20.1745ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Check-in recorded.'
+  - ''
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:19:416)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Check-in recorded.',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:19:143
+✖ current newer current revision cannot confirm an older response (12.361917ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Check-in recorded.'
+  - ''
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:19:416)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Check-in recorded.',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:20:1
+✖ source disappearance after valid receipt never confirms and does not retry write (60.049625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Check-in recorded.'
+  - ''
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:20:268)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Check-in recorded.',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:21:1
+✖ unmount during exact read cannot start another page read or discard retry token (16.9295ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.storage.has(key))
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:21:442)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-attendance-readback-local.test.mjs:23:1
+✖ valid action from an appended page confirms exact readback without discarding page context (16.979333ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 25
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-attendance-repair/tests/ui-my-attendance-readback-local.test.mjs:23:700)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 25,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

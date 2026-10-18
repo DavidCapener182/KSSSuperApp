@@ -1,0 +1,10 @@
+[
+  {
+    "file": "tests/ui-staff-duty-local.test.mjs",
+    "sha256": "6ec39d5dbf609861239236974b490317182dda8de5e74e9fd6ccc9f3fc64a9a4"
+  },
+  {
+    "file": "tests/staff-attendance-contract-local.test.mjs",
+    "sha256": "150166149f5af25d02a3e0a8ca164efd70e757ff6b449f63ec0fb6fbfc82d585"
+  }
+]

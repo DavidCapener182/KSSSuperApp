@@ -1,0 +1,33 @@
+✔ my-schedule denies OFFICE_ADMIN without Staff self-service authority (5.820209ms)
+✔ my-schedule denies SUPER_ADMIN without Staff self-service authority (2.503625ms)
+✔ my-schedule denies OPERATIONS without Staff self-service authority (1.889625ms)
+✔ my-schedule absent principal preserves exact sign-in return route (2.732042ms)
+✔ my-deployments denies OFFICE_ADMIN without Staff self-service authority (3.100958ms)
+✔ my-deployments denies SUPER_ADMIN without Staff self-service authority (2.522958ms)
+✔ my-deployments denies OPERATIONS without Staff self-service authority (2.335334ms)
+✔ my-deployments absent principal preserves exact sign-in return route (3.333167ms)
+✔ my-attendance denies OFFICE_ADMIN without Staff self-service authority (2.021708ms)
+✔ my-attendance denies SUPER_ADMIN without Staff self-service authority (1.614042ms)
+✔ my-attendance denies OPERATIONS without Staff self-service authority (1.939791ms)
+✔ my-attendance absent principal preserves exact sign-in return route (1.693ms)
+✔ Schedule page accepts exact Monday and rejects invalid/non-Monday initial query using actual London-week helper (10.289042ms)
+✔ Deployments carries exact UUID/source and bounded same-family Monday return context (4.9045ms)
+✔ Attendance page retains exact selected Event/Site identity and existing malformed-source fallback (9.317458ms)
+✔ my-schedule read denies missing/non-Staff before any source RPC (7.780334ms)
+✔ my-schedule failed source read returns generic failure and no private error (11.21025ms)
+✔ deployments/me read denies missing/non-Staff before any source RPC (6.023084ms)
+✔ deployments/me failed source read returns generic failure and no private error (3.558083ms)
+✔ attendance/me read denies missing/non-Staff before any source RPC (9.906333ms)
+✔ attendance/me failed source read returns generic failure and no private error (3.623792ms)
+✔ Schedule source RPC uses finite fifty-item London week scope; requested Person is ignored (1.914291ms)
+✔ Deployments exact read RPC preserves focus source and fixed page size without arbitrary Person (2.076125ms)
+✔ Attendance exact read RPC preserves independent allocation/source; pagination cannot widen exact selection (5.943292ms)
+✔ invalid offsets/source filters remain denied before existing RPCs (17.738584ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 313.183833

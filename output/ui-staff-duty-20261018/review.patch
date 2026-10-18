@@ -1,0 +1,305 @@
+--- a/src/components/my-schedule-client.tsx
++++ b/src/components/my-schedule-client.tsx
+@@ -6,7 +6,6 @@
+ import { Input } from "@/components/ui/input";
+ import { addCivilDays, londonToday, londonWeekStart } from "@/lib/events/workforce-week";
+ import { londonDueToIso } from "@/lib/crm/due-time";
+-import styles from "./my-shift-entry.module.css";
+ import presentation from "./my-schedule-presentation.module.css";
+ 
+ type Work = { source:"EVENT"|"SITE_SHIFT";id:string;status:string;service_date:string;report_at:string;shift_starts_at:string;shift_ends_at:string;
+@@ -42,30 +41,31 @@
+       <Button variant="outline" onClick={()=>change(londonToday())}>This week</Button><Button variant="outline" onClick={()=>change(addCivilDays(week,7))}>Next week</Button>
+       <label>Go to date <Input type="date" value={date} onChange={(event)=>change(event.target.value)} /></label></div>
+     <p className="enterprise-honesty">Review offers from each duty below. Change declarations in <Link href="/my-availability">My Availability</Link>.</p>
+-    <nav className={styles.dayPicker} aria-label="Choose schedule day">{days.map((day)=><button type="button" key={day} aria-label={dayLabel(day)} aria-current={selectedDay===day?"date":undefined} onClick={()=>setDate(day)}><span aria-hidden="true">{new Date(`${day}T12:00:00Z`).toLocaleDateString("en-GB",{timeZone:"Europe/London",weekday:"short"})}</span><strong aria-hidden="true">{Number(day.slice(-2))}</strong></button>)}</nav>
++    <nav className={presentation.dayPicker} aria-label="Choose schedule day">{days.map((day)=><button type="button" key={day} aria-label={dayLabel(day)} aria-current={selectedDay===day?"date":undefined} onClick={()=>setDate(day)}><span aria-hidden="true">{new Date(`${day}T12:00:00Z`).toLocaleDateString("en-GB",{timeZone:"Europe/London",weekday:"short"})}</span><strong aria-hidden="true">{Number(day.slice(-2))}</strong></button>)}</nav>
+     {error&&<p role="alert" className={`enterprise-error ${presentation.error}`}>{error} <Button variant="outline" onClick={()=>void load()}>Retry</Button></p>}
+     {loading?<p role="status" className="crm-skeleton">Loading your schedule…</p>:schedule&&<>
++      <p className={presentation.scope} role="status">Showing {schedule.work.length} of {schedule.work_total} week allocations on this returned page. Day selection applies to these returned allocations.</p>
+       <div className="my-schedule-days">{days.map((day)=>{const work=schedule.work.filter((item)=>item.service_date===day);
+         const dayStart=londonDueToIso(`${day}T00:00`)!;
+         const dayEnd=londonDueToIso(`${addCivilDays(day,1)}T00:00`)!;
+         const declarations=schedule.availability.filter((item)=>item.ends_at>dayStart&&item.starts_at<dayEnd);
+-        return <section key={day} className={`my-schedule-day ${day===selectedDay?styles.selectedDay:styles.otherDay}`}><h2>{dayLabel(day)}</h2>
+-          {work.length===0&&declarations.length===0?<p className={presentation.empty}>No work or declaration shown for this day.</p>:<>
++        return <section key={day} className={`my-schedule-day ${day===selectedDay?presentation.selectedDay:presentation.otherDay}`}><h2>{dayLabel(day)}</h2><div className={presentation.dayBody}>
++          {work.length===0&&declarations.length===0?<p className={presentation.empty}>No work or declaration shown for this day on the returned page.</p>:<>
+             {work.map((item)=><article className={`crm-panel my-schedule-work ${presentation.work}`} key={item.id}><div className={presentation.cardContext}><span>{item.source==="EVENT"?"Event work":"Ongoing Site shift"}</span><strong className={item.status==="ALLOCATED"?presentation.awaiting:presentation.accepted}>{item.status==="ALLOCATED"?"Awaiting your response":"Accepted allocation"}</strong></div>
+               <h3>{item.event_name}</h3><p className={presentation.site}>{item.site_name}</p><p>{item.role_name} · {item.area_label}</p>
+               {item.reporting_point&&<p>Reporting point: {item.reporting_point}</p>}
+               <dl className={presentation.times}><div><dt>Report</dt><dd>{clock(item.report_at)}</dd></div><div><dt>Shift</dt><dd>{clock(item.shift_starts_at)} → {clock(item.shift_ends_at)}</dd></div></dl>
+-              <p className={`${presentation.availability} ${item.availability_conflict?"workforce-alert":""}`}>{availabilityLabel(item)}</p>
+-              <div className={styles.actions}>
+-                {item.status==="ALLOCATED"?<Link className={styles.primaryAction} href={`/my-deployments?allocationId=${encodeURIComponent(item.id)}&source=${item.source}&returnWeek=${week}`}>View and respond to allocation</Link>
+-                  :<Link className={styles.primaryAction} href={`/my-attendance?source=${item.source}&allocationId=${encodeURIComponent(item.id)}`}>Open attendance</Link>}
++              <p className={`${presentation.availability} ${item.availability_conflict?"workforce-alert":""}`}>Availability: {availabilityLabel(item)}</p>
++              <div className={presentation.actions}>
++                {item.status==="ALLOCATED"?<Link className={presentation.primaryAction} href={`/my-deployments?allocationId=${encodeURIComponent(item.id)}&source=${item.source}&returnWeek=${week}`}>View and respond to allocation</Link>
++                  :<Link className={presentation.primaryAction} href={`/my-attendance?source=${item.source}&allocationId=${encodeURIComponent(item.id)}`}>Open attendance</Link>}
+                 <Link href={`/my-duty?allocationId=${encodeURIComponent(item.id)}&source=${item.source}`}>Open duty</Link>
+                 {item.status==="ACCEPTED"&&<Link href={`/my-deployments?allocationId=${encodeURIComponent(item.id)}&source=${item.source}&returnWeek=${week}`}>Deployment details</Link>}
+                 {item.status==="ACCEPTED"&&item.source==="EVENT"&&<Link href={`/my-work-time?allocationId=${encodeURIComponent(item.id)}`}>Open worked time</Link>}
+               </div></article>)}
+-            {declarations.map((item)=><article className="my-schedule-declaration" key={item.id}><strong>{item.state==="AVAILABLE"?"Available":"Unavailable"} declaration</strong>
+-              <span>{clock(item.starts_at)} → {clock(item.ends_at)}</span></article>)}
+-          </>}</section>;})}</div>
++            {declarations.length>0&&<section className={presentation.declarations} aria-label="Availability declarations"><h3>Availability declarations</h3>{declarations.map((item)=><article className="my-schedule-declaration" key={item.id}><strong>{item.state==="AVAILABLE"?"Available":"Unavailable"} declaration</strong>
++              <span>{clock(item.starts_at)} → {clock(item.ends_at)}</span></article>)}</section>}
++          </>}</div></section>;})}</div>
+       {schedule.work_total>50&&<div className={`deployment-pagination ${presentation.pagination}`}><Button variant="outline" disabled={offset===0} onClick={()=>setOffset(Math.max(0,offset-50))}>Previous</Button>
+         <span>{offset+1}–{Math.min(offset+50,schedule.work_total)} of {schedule.work_total} allocations</span>
+         <Button variant="outline" disabled={offset+50>=schedule.work_total} onClick={()=>setOffset(offset+50)}>Next</Button></div>}
+--- a/src/components/my-schedule-presentation.module.css
++++ b/src/components/my-schedule-presentation.module.css
+@@ -1,32 +1,42 @@
+-/* My Schedule only. Shared shell and deployment styles remain authoritative. */
+-.page { min-width: 0; }
+-.page h1 { font-size: 2rem; line-height: 1.15; letter-spacing: -.035em; }
+-.weekContext { display: flex; flex-wrap: wrap; align-items: baseline; gap: .35rem 1rem; margin-top: 1.5rem; }
+-.weekContext strong { font-size: 1rem; }
+-.weekContext span { font-size: .8rem; color: var(--kss-ink-soft); }
+-.toolbar { align-items: end; }
+-.toolbar button, .toolbar input, .error button, .pagination button { min-height: 44px; }
+-.toolbar button { padding-inline: .85rem; }
+-.work { overflow-wrap: anywhere; }
+-.cardContext { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; margin-bottom: .75rem; font-size: .8rem; color: var(--kss-ink-soft); }
+-.cardContext strong { padding: .3rem .55rem; border-radius: 6px; font-size: .75rem; line-height: 1.4; }
++/* My Schedule: returned-page agenda; source readers and London week are unchanged. */
++.page { min-width: 0; max-width: 1200px; }
++.page h1 { font-size: 32px; line-height: 1.15; letter-spacing: -.025em; }
++.weekContext { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-top: 24px; }
++.weekContext strong { font-size: 18px; line-height: 1.4; }
++.weekContext span { color: var(--kss-ink-soft); font-size: 13px; }
++.page .toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; padding: 16px 0; margin: 0 0 16px; border: 0; border-bottom: 1px solid var(--kss-border); border-radius: 0; background: transparent; }
++.toolbar button,.toolbar input,.error button,.pagination button { min-height: 44px; }
++.toolbar label { margin-left: auto; font-size: 13px; }
++.dayPicker { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 4px; margin: 20px 0 16px; }
++.dayPicker button { display: grid; align-content: center; justify-items: center; gap: 4px; min-width: 0; min-height: 56px; padding: 6px 2px; border: 1px solid var(--kss-border); border-radius: 8px; background: white; color: var(--kss-ink); font: inherit; font-size: 12px; cursor: pointer; }
++.dayPicker button strong { font-size: 16px; }
++.dayPicker button[aria-current="date"] { border-color: var(--kss-blue); background: var(--kss-blue-soft); color: var(--kss-blue-strong); }
++.scope { margin: 16px 0 20px; color: var(--kss-ink-soft); font-size: 13px; line-height: 1.5; }
++.page :global(.my-schedule-days) { display: grid; grid-template-columns: minmax(0,1fr); gap: 24px; }
++.page :global(.my-schedule-day) { display: grid; grid-template-columns: minmax(150px,1fr) minmax(0,4fr); align-items: start; gap: 24px; padding: 24px 0; border: 0; border-top: 1px solid var(--kss-border); border-radius: 0; background: transparent; }
++.page :global(.my-schedule-day) > h2 { margin: 0; font-size: 18px; line-height: 1.4; }
++.dayBody { display: grid; gap: 16px; min-width: 0; }
++.page .work { margin: 0; padding: 20px 24px; border: 1px solid var(--kss-border); border-radius: 12px; background: white; box-shadow: none; overflow-wrap: anywhere; }
++.cardContext { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-bottom: 12px; color: var(--kss-ink-soft); font-size: 13px; }
++.cardContext strong { padding: 4px 8px; border-radius: 6px; font-size: 12px; line-height: 1.5; }
+ .awaiting { background: var(--kss-amber-soft); color: var(--kss-amber); }
+-.accepted { background: var(--kss-surface-muted); color: var(--kss-ink-soft); }
+-.work h3 { font-size: 1.15rem; font-weight: 750; line-height: 1.4; }
+-.work .site { color: var(--kss-ink); font-weight: 650; margin-top: .5rem; }
+-.work .times { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 1rem; margin: 1rem 0 .75rem; padding-block: .85rem; border-block: 1px solid var(--kss-border); }
++.accepted { background: var(--kss-surface-muted); color: var(--kss-ink); }
++.work h3 { margin: 0; font-size: 21px; font-weight: 700; line-height: 1.35; }
++.work p { font-size: 14px; line-height: 1.5; }
++.work .site { color: var(--kss-ink); font-size: 16px; font-weight: 600; margin-top: 8px; }
++.work .times { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.7fr); gap: 24px; margin: 20px 0 16px; padding-block: 16px; border-block: 1px solid var(--kss-border); }
+ .work .times > div { display: block; border: 0; padding: 0; }
+-.work .times dt { font-size: .75rem; color: var(--kss-ink-soft); font-weight: 650; margin-bottom: .25rem; }
+-.work .times dd { margin: 0; font-size: .875rem; line-height: 1.6; color: var(--kss-ink); font-variant-numeric: tabular-nums; }
+-.work .availability { margin-top: .5rem; font-size: .8rem; }
+-.empty { margin: .5rem 0; color: var(--kss-ink-soft); font-size: .875rem; line-height: 1.6; }
+-.error { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; padding: 1rem; border: 1px solid var(--kss-red); border-radius: 8px; background: var(--kss-red-soft); }
+-@media (max-width: 640px) {
+-  .page h1 { font-size: 1.75rem; }
+-  .weekContext { display: grid; gap: .3rem; }
+-  .toolbar { gap: .5rem; }
+-  .toolbar button { padding-inline: .45rem; font-size: .8rem; }
+-  .work .times { grid-template-columns: 1fr; gap: .75rem; }
+-  .cardContext { align-items: start; }
+-  .empty { padding-block: .75rem; }
+-}
++.work .times dt { color: var(--kss-ink-soft); font-size: 12px; margin-bottom: 6px; }
++.work .times dd { margin: 0; color: var(--kss-ink); font-size: 15px; line-height: 1.5; font-variant-numeric: tabular-nums; }
++.work .availability { color: var(--kss-ink-soft); font-size: 13px; }
++.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 20px; }
++.actions a { display: inline-flex; align-items: center; min-height: 44px; color: var(--kss-blue-strong); font-size: 14px; font-weight: 600; }
++.actions .primaryAction { padding: 10px 16px; border-radius: 8px; background: var(--kss-blue); color: white; text-decoration: none; }
++.actions .primaryAction:hover { background: var(--kss-blue-strong); }
++.declarations { min-width: 0; padding: 16px 20px; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface-muted); }
++.declarations > h3 { margin: 0 0 12px; font-size: 15px; }
++.page :global(.my-schedule-declaration) { display: grid; gap: 6px; padding: 12px 0; border: 0; border-top: 1px solid var(--kss-border); border-radius: 0; background: transparent; color: var(--kss-ink); font-size: 14px; line-height: 1.5; }
++.empty { margin: 0; color: var(--kss-ink-soft); font-size: 14px; line-height: 1.5; }
++.error { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px; border: 1px solid var(--kss-red); border-radius: 8px; background: var(--kss-red-soft); }
++.page :global(:is(a,button,input):focus-visible) { outline: 2px solid var(--kss-focus); outline-offset: 3px; }
++@media (max-width: 760px) { .page h1 { font-size: 28px; } .weekContext { display: grid; } .toolbar label { margin: 8px 0 0; flex-basis: 100%; } .toolbar button { flex: 1; padding-inline: 8px; font-size: 13px; } .page :global(.my-schedule-day) { grid-template-columns: minmax(0,1fr); gap: 16px; padding-top: 20px; } .page .otherDay { display: none; } .page .selectedDay { display: grid; } .page .work { padding: 20px 16px; } .work .times { grid-template-columns: minmax(0,1fr); gap: 16px; } .actions { display: grid; gap: 8px; } .actions .primaryAction { justify-content: center; } }
+--- a/src/components/my-deployments-client.tsx
++++ b/src/components/my-deployments-client.tsx
+@@ -1,10 +1,10 @@
+ "use client";
+ 
+-import { useCallback, useEffect, useState } from "react";
++import { useCallback, useEffect, useRef, useState } from "react";
+ import Link from "next/link";
+ import { Button } from "@/components/ui/button";
+-import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+-import styles from "./my-shift-entry.module.css";
++import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
++import styles from "./deployment-offers.module.css";
+ 
+ type Deployment = { source:"EVENT"|"SITE_SHIFT"; id: string; status: "ALLOCATED"|"ACCEPTED"|"DECLINED"|"CANCELLED"; revision: number;
+   event_name: string; event_status: string; site_name: string; reporting_point: string|null; role_name: string;
+@@ -55,26 +55,30 @@
+     } catch (caught) { setError(caught instanceof Error ? caught.message : "Response not saved"); }
+     finally { setBusy(false); }
+   }
++  const declineTrigger = useRef<HTMLButtonElement | null>(null);
++  const heading = useRef<HTMLHeadingElement | null>(null);
+   const currentItems = items.filter((item) => ["ALLOCATED", "ACCEPTED"].includes(item.status) && !["COMPLETED", "CANCELLED"].includes(item.event_status));
+   const historyItems = items.filter((item) => !currentItems.includes(item));
+-  const card = (item: Deployment) => <article className="crm-panel deployment-self-card" key={item.id}>
++  const responseItems = currentItems.filter((item) => item.status === "ALLOCATED");
++  const acceptedItems = currentItems.filter((item) => item.status === "ACCEPTED");
++  const card = (item: Deployment) => <article className={`crm-panel deployment-self-card ${styles.card}`} data-focused={item.id === focus && (!focusSource || item.source === focusSource) ? "true" : undefined} key={`${item.source}:${item.id}`}>
+     <div className="deployment-self-top"><div><p className="enterprise-eyebrow">{item.source==="EVENT"?"Event work":"Ongoing Site shift"}</p><h2>{item.event_name}</h2><p>{item.site_name} · {item.role_name}</p></div><span className="deployment-state">{labels[item.status]}</span></div>
+     <dl className="deployment-self-facts"><div><dt>Area</dt><dd>{item.area_label}</dd></div><div><dt>Report</dt><dd>{time(item.report_at)}</dd></div><div><dt>Shift</dt><dd>{time(item.shift_starts_at)} → {time(item.shift_ends_at)}</dd></div>{item.reporting_point && <div><dt>Reporting point</dt><dd>{item.reporting_point}</dd></div>}</dl>
+     {item.availability_conflict && <p className="enterprise-error" role="status">{item.availability_conflict === "UNAVAILABLE_CONFLICT" ? "Availability conflict with this allocation" : "Declaration no longer covers this allocation"}. Your response has not changed.</p>}
+-    {item.status === "ALLOCATED" && item.event_status !== "COMPLETED" && item.event_status !== "CANCELLED" && <div className="deployment-actions"><Button disabled={busy} onClick={() => void respond(item, "ACCEPTED")}>Accept allocation</Button><Button variant="outline" disabled={busy} onClick={() => { setDeclining(item); setError(""); }}>Decline</Button></div>}
+-    {item.status === "ACCEPTED" && <div className={styles.actions}><Link className={styles.primaryAction} href={`/my-attendance?source=${item.source}&allocationId=${encodeURIComponent(item.id)}`}>Next: open attendance</Link><Link href={`/operational-contacts?source=${item.source}&allocationId=${encodeURIComponent(item.id)}`}>Operational contacts</Link>{item.source === "EVENT" && <Link href={`/my-work-time?allocationId=${encodeURIComponent(item.id)}`}>Event worked time</Link>}</div>}
++    {item.status === "ALLOCATED" && item.event_status !== "COMPLETED" && item.event_status !== "CANCELLED" && <div className="deployment-actions"><Button disabled={busy} onClick={() => void respond(item, "ACCEPTED")}>Accept allocation</Button><Button variant="outline" disabled={busy} onClick={(event) => { declineTrigger.current = event.currentTarget; setDeclining(item); setError(""); }}>Decline</Button></div>}
++    {item.status === "ACCEPTED" && <div className={styles.actions}><Link className={styles.primaryAction} href={`/my-attendance?source=${item.source}&allocationId=${encodeURIComponent(item.id)}`}>{["COMPLETED", "CANCELLED"].includes(item.event_status) ? "Open attendance record" : "Next: open attendance"}</Link><Link href={`/operational-contacts?source=${item.source}&allocationId=${encodeURIComponent(item.id)}`}>Operational contacts</Link>{item.source === "EVENT" && <Link href={`/my-work-time?allocationId=${encodeURIComponent(item.id)}`}>Event worked time</Link>}</div>}
+   </article>;
+-  return <main className="enterprise-main deployment-self"><div className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Your operational work</p><h1>My Deployments</h1><p>See only your own allocations. Accepting does not record attendance or hours worked.</p></div></div>
++  return <main className={`enterprise-main deployment-self ${styles.page}`}><div className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Your operational work</p><h1 ref={heading} tabIndex={-1}>My Deployments</h1><p>See only your own allocations. Accepting does not record attendance or hours worked.</p></div></div>
+     <p className="enterprise-honesty">Responses and availability are separate from attendance. <Link href={returnWeek?`/my-schedule?week=${returnWeek}`:"/my-schedule"}>{returnWeek?"Return to My Schedule":"My Schedule"}</Link> · <Link href="/my-attendance">My Attendance</Link></p>
+     {notice && <p className="enterprise-honesty" role="status">{notice}</p>}
+     {busy && <p className="enterprise-honesty" role="status">Saving your response…</p>}
+     {error && <p className="enterprise-error" role="alert">{error} <Button variant="outline" onClick={() => void load(offset)}>Retry</Button></p>}
+-    {loading ? <p className="crm-skeleton" role="status">Loading your deployments…</p> : items.length === 0 ? <div className="crm-empty">No deployments to show.</div> : <>
+-      <section aria-label="Current deployments"><h2>Current allocations</h2>{currentItems.length ? <div className="deployment-self-list">{currentItems.map(card)}</div> : <p className="crm-empty">No current allocations on this page.</p>}</section>
++    {loading ? <p className="crm-skeleton" role="status">Loading your deployments…</p> : error ? null : items.length === 0 ? <div className="crm-empty">No deployments to show.</div> : <>
++      <section aria-label="Current deployments"><h2>Awaiting your response</h2>{responseItems.length ? <div className="deployment-self-list">{responseItems.map(card)}</div> : <p className="crm-empty">No offers requiring a response on this page.</p>}</section>{acceptedItems.length > 0 && <section aria-label="Accepted duties"><h2>Accepted duties</h2><div className="deployment-self-list">{acceptedItems.map(card)}</div></section>}
+       {historyItems.length > 0 && <details className="deployment-history"><summary>History · {historyItems.length} on this page</summary><div className="deployment-self-list">{historyItems.map(card)}</div></details>}
+     </>}
+     {total > 25 && <div className="deployment-pagination"><Button variant="outline" disabled={offset === 0 || loading} onClick={() => void load(Math.max(0, offset - 25))}>Previous</Button><span>{offset + 1}–{Math.min(offset + 25, total)} of {total}</span><Button variant="outline" disabled={offset + 25 >= total || loading} onClick={() => void load(offset + 25)}>Next</Button></div>}
+-    <Sheet open={Boolean(declining)} onOpenChange={(open) => { if (!open && !busy) setDeclining(null); }}><SheetContent className="staffing-sheet"><SheetTitle>Decline allocation</SheetTitle><p>Tell Operations why you cannot take this allocation. Please avoid sensitive personal or medical details.</p>
++    <Sheet open={Boolean(declining)} onOpenChange={(open) => { if (!open && !busy) setDeclining(null); }}><SheetContent className={styles.declineSheet} onCloseAutoFocus={(event) => { event.preventDefault(); if (declineTrigger.current?.isConnected) declineTrigger.current.focus(); else heading.current?.focus(); }} onEscapeKeyDown={(event) => { if (busy) event.preventDefault(); }}><SheetTitle>Decline allocation</SheetTitle><SheetDescription>{declining?.event_name} · {declining?.site_name} · {declining?.role_name}</SheetDescription>{declining && <dl className={styles.selectedFacts}><div><dt>Report · London</dt><dd>{time(declining.report_at)}</dd></div><div><dt>Shift · London</dt><dd>{time(declining.shift_starts_at)} → {time(declining.shift_ends_at)}</dd></div></dl>}<p>Tell Operations why you cannot take this allocation. Please avoid sensitive personal or medical details.</p>
+       <label>Reason<select value={reasonCode} onChange={(event) => setReasonCode(event.target.value)}><option value="CANNOT_ATTEND">Cannot attend</option><option value="TIMING_CONFLICT">Timing conflict</option><option value="OTHER">Other</option></select></label>
+       <label>Short note (optional)<textarea maxLength={300} value={note} onChange={(event) => setNote(event.target.value)} /></label>
+       {error && <p className="enterprise-error" role="alert">{error}</p>}
+--- /dev/null
++++ b/src/components/deployment-offers.module.css
+@@ -0,0 +1,32 @@
++.page { max-width: 1120px; }
++.page h1 { margin: 4px 0 8px; font-size: 32px; line-height: 1.15; }
++.page h1:focus { outline: 2px solid var(--kss-focus); outline-offset: 4px; }
++.page > section { margin-top: 28px; }
++.page > section > h2 { margin-bottom: 16px; font-size: 20px; }
++.page :global(.deployment-self-list) { display: grid; gap: 16px; }
++.page .card { margin: 0; padding: 24px; border: 1px solid var(--kss-border); border-radius: 12px; background: white; box-shadow: none; }
++.card[data-focused] { outline: 2px solid var(--kss-blue); outline-offset: 3px; }
++.card :global(.deployment-self-top) { display: flex; justify-content: space-between; align-items: start; gap: 24px; }
++.card h2 { margin: 4px 0 8px; font-size: 22px; line-height: 1.35; }
++.card p { font-size: 14px; line-height: 1.5; }
++.card :global(.deployment-state) { flex: none; border: 1px solid var(--kss-border); border-radius: 6px; padding: 6px 10px; background: var(--kss-surface-muted); color: var(--kss-ink); font-size: 12px; }
++.card :global(.deployment-self-facts) { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px 24px; padding: 20px 0; margin: 16px 0; border-block: 1px solid var(--kss-border); }
++.card :global(.deployment-self-facts dt),.selectedFacts dt { color: var(--kss-ink-soft); font-size: 12px; }
++.card :global(.deployment-self-facts dd),.selectedFacts dd { margin: 6px 0 0; color: var(--kss-ink); font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
++.card :global(.deployment-actions) { gap: 12px; }
++.card :global(.deployment-actions button) { min-height: 44px; }
++.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 20px; }
++.actions a { min-height: 44px; display: inline-flex; align-items: center; color: var(--kss-blue-strong); font-size: 14px; font-weight: 600; }
++.actions .primaryAction { padding: 10px 16px; border-radius: 8px; background: var(--kss-blue); color: white; text-decoration: none; }
++.actions .primaryAction:hover { background: var(--kss-blue-strong); }
++.page :global(.deployment-history) { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--kss-border); }
++.page :global(.deployment-history summary) { min-height: 44px; margin-bottom: 12px; font-size: 16px; font-weight: 600; cursor: pointer; }
++.declineSheet[data-side="right"] { width: min(560px,100vw); max-width: 560px; overflow-y: auto; padding: 24px; }
++.declineSheet [data-slot="sheet-title"] { padding-right: 32px; font-size: 24px; }
++.declineSheet p { color: var(--kss-ink-soft); font-size: 14px; line-height: 1.5; }
++.selectedFacts { display: grid; gap: 16px; padding: 16px; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface-muted); }
++.declineSheet label { display: grid; gap: 8px; font-size: 14px; font-weight: 600; }
++.declineSheet :is(select,textarea) { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--kss-control-border); border-radius: 8px; background: white; color: var(--kss-ink); font: inherit; }
++.declineSheet textarea { min-height: 100px; }
++.page :global(:is(a,button,summary):focus-visible),.declineSheet :is(button,select,textarea):focus-visible { outline: 2px solid var(--kss-focus); outline-offset: 3px; }
++@media (max-width: 600px) { .page h1 { font-size: 28px; } .page .card { padding: 20px 16px; } .card :global(.deployment-self-top) { flex-direction: column; gap: 12px; } .card :global(.deployment-self-facts) { grid-template-columns: minmax(0,1fr); gap: 16px; } .card :global(.deployment-actions) { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); } .actions { display: grid; gap: 8px; } .actions .primaryAction { justify-content: center; } .declineSheet[data-side="right"] { padding: 20px 16px; } }
+--- a/src/components/my-attendance-client.tsx
++++ b/src/components/my-attendance-client.tsx
+@@ -3,7 +3,7 @@
+ import { useCallback, useEffect, useRef, useState } from "react";
+ import Link from "next/link";
+ import { Button } from "@/components/ui/button";
+-import styles from "./attendance.module.css";
++import styles from "./attendance-self.module.css";
+ 
+ type Item = { source:"EVENT"|"SITE_SHIFT"; allocation_id:string; status:string; self_action_available:boolean; service_date:string; report_at:string; shift_starts_at:string; shift_ends_at:string; area_label:string; role_name:string; event_name:string; site_name:string; reporting_point:string|null; attendance:{revision:number;state:string;check_in_at:string|null;check_out_at:string|null;events:{id:string;type:string;actual_at:string|null;effective_actual_at:string|null;recorded_at:string;actor_name:string;reason:string|null}[]} };
+ const PAGE_SIZE=25;
+@@ -44,15 +44,20 @@
+   catch(e){if(view===viewSequence.current)setError(e instanceof Error?e.message:"Attendance was NOT recorded. Check your connection and retry safely.");}
+   finally{if(view===viewSequence.current)setBusy("");}
+  }
++ const [selectedDutyKey,setSelectedDutyKey]=useState("");
++ const visibleDutyKey=!allocationId&&items.some(item=>`${item.source}:${item.allocation_id}`===selectedDutyKey)?selectedDutyKey:"";
++ const showItem=(item:Item)=>!visibleDutyKey||`${item.source}:${item.allocation_id}`===visibleDutyKey;
+  const currentItems=items.filter(item=>item.status==="ALLOCATED"||(item.self_action_available&&!item.attendance.check_out_at)||(item.source==="EVENT"&&item.status==="CANCELLED"&&Boolean(item.attendance.check_in_at)&&!item.attendance.check_out_at));
+  const historyItems=items.filter(item=>!currentItems.includes(item));
+  const renderItem=(item:Item)=>{
+   const canIn=item.self_action_available&&!item.attendance.check_in_at&&!item.attendance.events.some(e=>e.type==="NO_SHOW_RECORDED");const canOut=Boolean(item.attendance.check_in_at)&&!item.attendance.check_out_at&&(item.self_action_available||(item.source==="EVENT"&&item.status==="CANCELLED"));
+   return <article className={styles.card} key={`${item.source}:${item.allocation_id}`}><p><span className={styles.state}>{item.source==="SITE_SHIFT"?"Site shift":"Event"}</span> <span className={styles.state}>{item.attendance.state.replaceAll("_"," ")}</span> <span className={styles.state}>Your response: {item.status.replaceAll("_"," ")}</span></p><h2>{item.event_name}</h2><p>{item.site_name} · {item.role_name}{item.area_label?` · ${item.area_label}`:""}</p>
+-   <dl className={styles.facts}><div><dt>Reporting point</dt><dd>{item.reporting_point||"Not specified"}</dd></div><div><dt>Report time · London</dt><dd>{time(item.report_at)}</dd></div><div><dt>Scheduled shift · London</dt><dd>{time(item.shift_starts_at)} – {time(item.shift_ends_at)}</dd></div><div><dt>Actual check-in</dt><dd>{time(item.attendance.check_in_at)}</dd></div>{item.attendance.check_in_at&&<div><dt>Actual check-out</dt><dd>{time(item.attendance.check_out_at)}</dd></div>}</dl>
++   <section className={styles.scheduled} aria-label="Scheduled duty context"><h3>Scheduled duty</h3><dl className={styles.facts}><div><dt>Reporting point</dt><dd>{item.reporting_point||"Not specified"}</dd></div><div><dt>Report time · London</dt><dd>{time(item.report_at)}</dd></div><div><dt>Scheduled shift · London</dt><dd>{time(item.shift_starts_at)} – {time(item.shift_ends_at)}</dd></div></dl></section>
++   <div className={styles.actionBlock}>
+    {canIn&&<Button className={styles.action} disabled={Boolean(busy)} onClick={()=>void act(item,"CHECK_IN")}>{busy===`${item.source}:${item.allocation_id}`?"Recording…":"Check In"}</Button>}{canOut&&<Button className={styles.action} disabled={Boolean(busy)} onClick={()=>void act(item,"CHECK_OUT")}>{busy===`${item.source}:${item.allocation_id}`?"Recording…":"Check Out"}</Button>}
+    {item.status==="ALLOCATED"&&!item.attendance.check_in_at&&<p className={styles.muted}>Respond to this allocation in <Link href={`/my-deployments?allocationId=${encodeURIComponent(item.allocation_id)}${item.source==="SITE_SHIFT"?"&source=SITE_SHIFT":""}`}>My Deployments</Link> before self check-in.</p>}
+    {item.source==="SITE_SHIFT"&&item.status==="ACCEPTED"&&!item.self_action_available&&<p className={styles.muted}>This Site shift is no longer active for self check-in or check-out. Your attendance history remains available for manager review.</p>}
++   </div><section className={styles.actual} aria-label="Recorded attendance"><h3>Recorded attendance</h3><dl className={styles.facts}><div><dt>Actual check-in</dt><dd>{time(item.attendance.check_in_at)}</dd></div>{item.attendance.check_in_at&&<div><dt>Actual check-out</dt><dd>{time(item.attendance.check_out_at)}</dd></div>}</dl></section>
+    {item.attendance.events.length>0&&<details className={styles.events}><summary>Attendance history</summary>{item.attendance.events.map(e=><div className={styles.event} key={e.id}><span><strong>{e.type.replaceAll("_"," ")}</strong>{e.reason?` · ${e.reason}`:""}</span><span className={styles.muted}>{time(e.effective_actual_at??e.recorded_at)} · {e.actor_name}</span></div>)}</details>}
+   </article>;
+  };
+@@ -62,9 +67,10 @@
+   {!loading&&allocationId&&items.length>0&&<p className={styles.focusNotice}>Showing the selected {source==="SITE_SHIFT"?"Site shift":"Event"} allocation. <Link href="/my-attendance">Show all my attendance</Link></p>}
+   {!loading&&!error&&allocationId&&items.length===0&&<p className={styles.empty}>This allocation is not available in your own attendance view.</p>}
+   {!loading&&!allocationId&&total>0&&<p className={styles.pageCount} aria-live="polite">Showing {items.length} of {total}</p>}
++  {!loading&&!allocationId&&items.length>1&&<label className={styles.selector}>Choose an allocation from this returned list<select value={visibleDutyKey} onChange={(event)=>setSelectedDutyKey(event.target.value)}><option value="">All returned allocations</option>{items.map(item=><option key={`${item.source}:${item.allocation_id}`} value={`${item.source}:${item.allocation_id}`}>{item.source==="SITE_SHIFT"?"Site shift":"Event"} · {item.event_name} · {item.role_name} · {time(item.report_at)}</option>)}</select></label>}
+   {loading?<p role="status">Loading your attendance…</p>:!error&&!allocationId&&items.length===0?<p className={styles.empty}>No allocations are available.</p>:<>
+-   {currentItems.length>0&&<section className={styles.group} aria-label="Current allocations"><h2>Current allocations</h2>{currentItems.map(renderItem)}</section>}
+-   {historyItems.length>0&&<section className={styles.group} aria-label="Attendance history"><h2>Attendance history</h2>{historyItems.map(renderItem)}</section>}
++   {currentItems.some(showItem)&&<section className={styles.group} aria-label="Current allocations"><h2>Current allocations</h2>{currentItems.filter(showItem).map(renderItem)}</section>}
++   {historyItems.some(showItem)&&<details className={styles.historyGroup} open={Boolean(visibleDutyKey)||Boolean(allocationId)}><summary>Attendance history · {historyItems.filter(showItem).length} returned</summary><div className={styles.group}>{historyItems.filter(showItem).map(renderItem)}</div></details>}
+   </>}
+   {!loading&&!allocationId&&items.length>0&&items.length<total&&<nav className={styles.pagination} aria-label="Attendance history"><Button variant="outline" disabled={loading} onClick={()=>void load(offset+PAGE_SIZE,true)}>Load more attendance</Button></nav>}
+  </section>;
+--- /dev/null
++++ b/src/components/attendance-self.module.css
+@@ -0,0 +1,40 @@
++.wrap { display: grid; gap: 20px; max-width: 1040px; margin: 0 auto; color: var(--kss-ink); }
++.heading { padding-bottom: 20px; border-bottom: 1px solid var(--kss-border); }
++.heading h1 { margin: 4px 0 8px; font-size: 32px; line-height: 1.15; }
++.heading p { max-width: 72ch; color: var(--kss-ink-soft); font-size: 14px; line-height: 1.5; }
++.group { display: grid; gap: 20px; }
++.group > h2 { margin: 4px 0 0; font-size: 20px; }
++.card { min-width: 0; padding: 24px; border: 1px solid var(--kss-border); border-radius: 12px; background: white; overflow-wrap: anywhere; }
++.card h2 { margin: 12px 0 8px; font-size: 24px; line-height: 1.3; }
++.card > p { color: var(--kss-ink-soft); font-size: 14px; line-height: 1.5; }
++.state { display: inline-flex; padding: 4px 8px; margin: 0 4px 4px 0; border: 1px solid var(--kss-border); border-radius: 6px; background: var(--kss-surface-muted); color: var(--kss-ink); font-size: 12px; }
++.scheduled { padding: 16px 0; margin-top: 16px; border-block: 1px solid var(--kss-border); }
++.scheduled h3,.actual h3 { margin: 0 0 16px; color: var(--kss-ink-soft); font-size: 14px; font-weight: 600; }
++.facts { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px 24px; margin: 0; }
++.facts div { min-width: 0; }
++.facts dt { color: var(--kss-ink-soft); font-size: 12px; }
++.facts dd { margin: 6px 0 0; font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
++.actionBlock { display: flex; flex-wrap: wrap; gap: 12px; padding: 20px 0; }
++.action { min-width: 200px; min-height: 48px; font-size: 16px; }
++.actual { padding: 16px; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface-muted); }
++.actual .facts { grid-template-columns: repeat(2,minmax(0,1fr)); }
++.events { margin-top: 20px; }
++.events summary,.historyGroup > summary { display: flex; align-items: center; min-height: 44px; padding-block: 8px; color: var(--kss-ink); font-size: 15px; font-weight: 600; cursor: pointer; }
++.events[open] summary { margin-bottom: 12px; }
++.event { display: grid; gap: 8px; padding: 16px 0; border-top: 1px solid var(--kss-border); font-size: 14px; line-height: 1.5; }
++.muted { color: var(--kss-ink-soft); font-size: 14px; line-height: 1.5; }
++.muted a { color: var(--kss-blue-strong); }
++.selector { display: grid; gap: 8px; min-width: 0; color: var(--kss-ink-soft); font-size: 13px; }
++.selector select { width: 100%; min-width: 0; min-height: 44px; border: 1px solid var(--kss-control-border); border-radius: 8px; padding: 10px 12px; background: white; color: var(--kss-ink); font: inherit; font-size: 14px; }
++.pageCount { margin: 0; color: var(--kss-ink-soft); font-size: 13px; }
++.focusNotice { padding: 12px 16px; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface-muted); color: var(--kss-ink); font-size: 14px; line-height: 1.5; }
++.focusNotice a { color: var(--kss-blue-strong); text-underline-offset: 3px; }
++.error,.success { margin: 0; padding: 12px 16px; border: 1px solid var(--kss-border); border-radius: 8px; font-size: 14px; line-height: 1.5; }
++.error { color: #9b2635; background: #fff5f5; border-color: #d2a8ac; }
++.success { color: var(--kss-ink); background: var(--kss-blue-soft); }
++.empty { padding: 20px; border: 1px dashed var(--kss-border); border-radius: 8px; color: var(--kss-ink-soft); font-size: 14px; line-height: 1.5; }
++.historyGroup { padding-top: 12px; border-top: 1px solid var(--kss-border); }
++.historyGroup[open] > summary { margin-bottom: 12px; }
++.pagination { display: flex; justify-content: center; }
++.wrap :is(button,select,summary,a):focus-visible { outline: 2px solid var(--kss-focus); outline-offset: 3px; }
++@media (max-width: 600px) { .heading h1 { font-size: 28px; } .card { padding: 20px 16px; } .card h2 { font-size: 22px; } .facts { grid-template-columns: minmax(0,1fr); gap: 12px; } .scheduled .facts > div { display: grid; grid-template-columns: 100px minmax(0,1fr); gap: 12px; } .scheduled .facts dd { margin: 0; } .actual .facts { grid-template-columns: minmax(0,1fr); } .actionBlock { display: grid; } .action { width: 100%; } }

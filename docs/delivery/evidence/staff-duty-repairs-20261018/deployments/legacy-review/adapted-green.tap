@@ -1,0 +1,22 @@
+(node:19854) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/lib/events/workforce-week.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Schedule remains a page-scoped London agenda, preserving overnight time and exact source/return week links (37.150209ms)
+✔ Deployment offers prioritise response then accepted duties and keep inactive items behind history without response controls (15.769834ms)
+✔ Deployment decline dialog identifies selected source duty/time, reasons, pending controls and live error without falsely empty state (18.006792ms)
+✔ Attendance separates scheduled and recorded facts and exposes only the existing permitted action (7.672083ms)
+✔ Attendance selection is an exact source pair and stale local selection cannot suppress a new exact route (14.706083ms)
+✔ Attendance retains allocated/inactive/no-show/cancelled-Event action boundaries and pending/history facts (6.65825ms)
+✔ actual Deployment response keeps Site Shift revision payload and requires two exact readbacks before success (40.565958ms)
+✔ actual Deployment decline keeps reason/note/source and mismatched readback never confirms (39.04975ms)
+✔ all existing readers/action/idempotency/lifetime functions, effects, route guards and shared CSS are unchanged (10.329125ms)
+✔ all prior batches are intact except the explicitly receipted U59 staff Time Away revision (4.7715ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 321.965417

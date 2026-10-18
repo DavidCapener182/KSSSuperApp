@@ -1,0 +1,6 @@
+{
+  "file": "src/components/assets-workspace.module.css",
+  "previousSha256": "8cd159304938b38916e544c71ce75ffd10bd11fdeb707554ec111c2098890554",
+  "sha256": "91aa4ed8bf89a5fd2f14981895114ddd01c1072ff83885aa1c959b37f7fe38aa",
+  "change": "Existing Assets Sheet width/max-width preserved; desktop padding24px and phone<=700 padding16px. Same family styling applies to U30 without claiming U30browser acceptance. Components/actions/roles/API/sharedSheet untouched."
+}

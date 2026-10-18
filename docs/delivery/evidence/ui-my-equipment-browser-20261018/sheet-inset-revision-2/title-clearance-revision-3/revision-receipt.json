@@ -1,0 +1,7 @@
+{
+  "file": "src/components/assets-workspace.module.css",
+  "previousSha256": "91aa4ed8bf89a5fd2f14981895114ddd01c1072ff83885aa1c959b37f7fe38aa",
+  "sha256": "320e976760f3951684fb06ab351f80722ef8a07f66cc14ec93299b584b8d3c1a",
+  "originalPreInsetSha256": "8cd159304938b38916e544c71ce75ffd10bd11fdeb707554ec111c2098890554",
+  "change": "Reserve32px trailing space inside Assets-family Sheet titles to avoid overlap with existing Close button at320px; padding24desktop/16phone retained, widths and all component behavior unchanged."
+}

@@ -1,0 +1,19 @@
+{
+  "file": "src/components/my-schedule-client.tsx",
+  "preUiBaselineSha256": "84899e2b3db8e8847a2fbd3fb9fd8605df12488e496afc61e5e695b8bc44c3db",
+  "previousUiSha256": "54aa526fb2275bc677cb50dff7b3f423c710566e3bb10278bc406f9e5643c1bc",
+  "sha256": "ca584402e87f3c31fd6e5963e997ad9f93263d4afd306dffa130ae7c79632115",
+  "changes": [
+    {
+      "key": "effect:0",
+      "beforeSha256": "e3a68d72eb8d2df01fe53ef328255aec30e5beb2193ee71a621b6f8bd0e8d662",
+      "sha256": "55ce980287508ebee824f07a152fbc0e00015057f2073c5788fb6f8492023ded"
+    },
+    {
+      "key": "reader:load",
+      "beforeSha256": "ee10775089b541f6f99c9110c3722be942074ec040ef6aa7e378a98d601efcb8",
+      "sha256": "ecea0eabbb4586c147ed36388b8ef7a9d68c4e0cf61f9789d1314e7285a029bd"
+    }
+  ],
+  "reason": "Exact requested week and asynchronous lifetime validation; nine red/green actual-source tests and21browser checks. Every other extracted contract remains exact."
+}

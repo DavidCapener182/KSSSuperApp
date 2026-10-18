@@ -1,0 +1,31 @@
+✔ Assets family Sheet retains width contract and adds desktop/phone inner insets (2.701167ms)
+✖ Assets Sheet title reserves trailing space for its existing Close control (1.55875ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 45.009209
+
+✖ failing tests:
+
+test at ui-milestone-evidence/my-equipment-preview/sheet-inset-revision-2/sheet-inset-local.test.mjs:3:1
+✖ Assets Sheet title reserves trailing space for its existing Close control (1.55875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - '32px'
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/my-equipment-preview/sheet-inset-revision-2/sheet-inset-local.test.mjs:3:322)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: '32px',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,67 @@
+{
+  "createdUtc": "2026-10-18T04:11:12.864058+00:00",
+  "scope": "U56 external-only legacy fixture adaptation; no product edits",
+  "originalLegacySha256": "da01329e7046432f5c0c1986cab681ab45510a2af45443a5ab9fd4558a2e3b4f",
+  "adaptedLegacySha256": "a881e82a120186df778e543292d474e9c4775ef0f89e5c21044461d90aba201d",
+  "tests": {
+    "legacyRed": {
+      "pass": 6,
+      "fail": 4
+    },
+    "adapted": 10,
+    "dedicated": 19,
+    "combined": 29,
+    "fail": 0,
+    "skip": 0
+  },
+  "u55ScheduleReceiptPreserved": true,
+  "integrationLegacyStillOriginal": true,
+  "files": [
+    {
+      "file": "ui-milestone-evidence/staff-duty-integration-review/ui-staff-duty-local.test.mjs.txt",
+      "sha256": "da01329e7046432f5c0c1986cab681ab45510a2af45443a5ab9fd4558a2e3b4f"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-duty-integration-review/ui-staff-duty-local.test.adapted.mjs.txt",
+      "sha256": "a881e82a120186df778e543292d474e9c4775ef0f89e5c21044461d90aba201d"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-duty-integration-review/legacy-fixture.patch",
+      "sha256": "42040648c12c95058e38d448f46af33b940986906a70f16b32934b9d6800141c"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-duty-integration-review/deployments-legacy-contract-revision.json",
+      "sha256": "3d47714ec9924775adb3eda2ccadad9b4818f2dce6ff5310b7ce69ea0f1dbe3e"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-duty-integration-review/legacy-red.tap",
+      "sha256": "91d534ce401af3560b7adf315b7b3aa3b6c675c86822b7e468f1b9b5ab1a7658"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-duty-integration-review/adapted-green.tap",
+      "sha256": "d19f24e0622a2fc9441b3320d3d3ab00271a44cfe00211b2dde9da3a912ad09f"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-duty-integration-review/combined-green.tap",
+      "sha256": "dbfd224bb547639677510d5144ef099525fd94b9cf06324ef6fa96f4811ea917"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-duty-integration-review/REVIEW.md",
+      "sha256": "1e6728d61dd92b4b4bee7279514f09572abbd5032d282ba46497daa51a6756b5"
+    }
+  ],
+  "reviewedApiSource": [
+    {
+      "file": "src/app/api/deployments/me/route.ts",
+      "sha256": "26cab5cadf7a2cb42c7891b7335e0d141a9cc13ef73384f993335e05ba30ecb3"
+    },
+    {
+      "file": "src/app/api/deployments/me/[allocationId]/route.ts",
+      "sha256": "f9dcf90890f41aa244836d7a8bd167dab9854da18ea961f9fde7b781cfab6d71"
+    },
+    {
+      "file": "src/app/api/deployments/site-shifts/me/[allocationId]/route.ts",
+      "sha256": "737754b785a9194e450a99b85c6ad02f7292464bb136230efb12de9616499060"
+    }
+  ]
+}

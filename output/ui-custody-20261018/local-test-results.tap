@@ -1,0 +1,25 @@
+✔ register separates equipment from uniform and keeps custody, condition, repair, receipt and return facts independent (58.38025ms)
+✔ Office setup remains deliberate and scoped grants stay Super-only (59.855292ms)
+✔ selected exact equipment record opens focused actions and retains two-sided handover review and history (14.2745ms)
+✔ wrong selected history no longer leaks previous asset serial/events (26.70325ms)
+✔ staff kit cards are concise and selected record exposes only acknowledgement/dispute or observation actions (12.312834ms)
+✔ uniform record repeats exact size/stock revision and movement history retains issue ID independently (13.805584ms)
+✔ new labelled discrepancy panel identifies exact issue and closes visually after acknowledgement or role loss (29.372125ms)
+✔ register loading/unavailable does not show a false empty register or stale actions (11.161791ms)
+✔ actual uniform dispute submits exact issue, reason and original receipt handler, with no custody mutation (22.839709ms)
+✔ actual handover review sends selected asset revision/exact destination and mismatched receipt never claims recorded (19.877708ms)
+✔ all original named functions, refresh/action logic, stock form, API and server route guards remain exact (5.943166ms)
+✔ previous staff record and controlled Time Away revision hashes stay intact (0.820334ms)
+✔ actual asset routes keep singleton/mixed Staff/register roles and self-only component props (19.199292ms)
+✔ stock history never substitutes a previous stock record and revoked grant reason panel cannot remain actionable (30.874ms)
+✔ self view must show loading or denied source instead of falsely empty equipment and uniform (11.551125ms)
+✔ actual self mount now uses existing reload and a denied fetch ends loading with unavailable feedback (18.62675ms)
+✔ actual unchanged asset API preserves role/action boundaries and rejects mismatched event receipt (39.804167ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 499.8725

@@ -1,0 +1,21 @@
+(node:17359) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-schedule-repair/src/lib/events/workforce-week.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-schedule-repair/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ actual valid requested Monday is accepted without changing fixed fifty-item pagination (44.267708ms)
+✔ wrong returned week must not be described as the current week or an empty current day (11.5045ms)
+✔ retired old week is ignored even before the replacement read starts (10.288625ms)
+✔ changing requested week hides previous facts before the next read timer fires (10.548209ms)
+✔ response after unmount cannot replace schedule or create follow-up requests (7.833167ms)
+✔ malformed scope missing fails unavailable rather than inventing an empty week (6.607166ms)
+✔ malformed scope missing arrays fails unavailable rather than inventing an empty week (6.819667ms)
+✔ malformed scope negative total fails unavailable rather than inventing an empty week (7.304083ms)
+✔ denied current read clears facts and retry retains the same canonical week (7.950542ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 274.052875

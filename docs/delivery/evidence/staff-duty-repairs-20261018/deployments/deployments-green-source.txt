@@ -1,0 +1,27 @@
+✔ valid exact focus accepts existing implicit EVENT default (52.43025ms)
+✔ focused read rejects unrelated source EVENT00000000-0000-4000-8000-000000000002 (13.357875ms)
+✔ focused read rejects unrelated source SITE_SHIFT00000000-0000-4000-8000-000000000001 (11.506833ms)
+✔ successful matching receipt and both current reads confirm exactly once (10.54125ms)
+✔ denied mutation clears stale facts and decline action (9.592625ms)
+✔ known rejected 409 preserves exact current draft and reason (10.021167ms)
+✔ unmounted pending PATCH cannot start an old read or confirmation (7.552792ms)
+✔ changed focus hides previous facts immediately and ignores pending old PATCH (9.328625ms)
+✔ unattributable receipt cannot confirm {} (7.249167ms)
+✔ unattributable receipt cannot confirm {"revision":3} (8.880042ms)
+✔ unattributable receipt cannot confirm {"revision":5} (9.323375ms)
+✔ stale same-status readback cannot confirm a new revision (6.671667ms)
+✔ synchronous double invocation makes only one PATCH (6.152417ms)
+✔ failed current read clears selected draft target (6.071625ms)
+✔ matching declined receipt/readback confirms and clears only its completed draft (6.757416ms)
+✔ known rejected newer source preserves draft but disables stale revision submission (8.238792ms)
+✔ exact read success followed by denied general read never restores confirmation (6.568834ms)
+✔ network error is uncertain and retires action facts without automatic write retry (6.260583ms)
+✔ retired exact read cannot start a general page read after unmount (6.384709ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 327.9915

@@ -1,0 +1,14 @@
+[
+  {
+    "file": "src/components/assets-workspace.module.css",
+    "sha256": "320e976760f3951684fb06ab351f80722ef8a07f66cc14ec93299b584b8d3c1a"
+  },
+  {
+    "file": "src/components/assets-workspace.tsx",
+    "sha256": "4b3f3d2236e28ecbfefbc8d7244c918dfdb5adb20c58651bb6660edf21c4128b"
+  },
+  {
+    "file": "src/app/(enterprise)/my-equipment/page.tsx",
+    "sha256": "295e73960770d80f3b2536d0e66d0978f123d9b53800e3e7bb95fa2f98090952"
+  }
+]

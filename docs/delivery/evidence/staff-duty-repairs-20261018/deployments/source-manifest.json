@@ -1,0 +1,28 @@
+{
+  "scope": "U56 My Deployments only",
+  "files": [
+    {
+      "path": "src/components/my-deployments-client.tsx",
+      "sha256": "5261b1b595d484923070beaa120c756745b009cb1ed7536916922bf6afda0730",
+      "beforeSha256": "d958b0047d566e9cf981d819cd0364f132e17843f754edcfb0bf0d88f6c19d4f"
+    },
+    {
+      "path": "tests/ui-my-deployments-scope-local.test.mjs",
+      "sha256": "82498ae89d4b93bc3e407f6482e7851af34c2be96fa5a09fd5efcc810f32af96",
+      "beforeSha256": null
+    },
+    {
+      "path": "docs/delivery/UI-MY-DEPLOYMENTS-SCOPE-REPAIR-20261018.md",
+      "sha256": "852a7d353de13ba7f1c26aab0d4309fe7404a06a467d3b7b4369288e9a62937f",
+      "beforeSha256": null
+    }
+  ],
+  "nonOwnedSrcPreserved": 410,
+  "checks": {
+    "source": 19,
+    "browser": 22,
+    "types": 0,
+    "lint": 0
+  },
+  "patchSha256": "69cb51e7f141abb997219675eb2b5e0e40d2120442c0d839f0cd1565aeaab85b"
+}

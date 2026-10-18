@@ -1,0 +1,41 @@
+✔ valid exact focus accepts existing implicit EVENT default (69.228583ms)
+✔ focused read rejects unrelated source EVENT00000000-0000-4000-8000-000000000002 (25.498334ms)
+✔ focused read rejects unrelated source SITE_SHIFT00000000-0000-4000-8000-000000000001 (18.256625ms)
+✔ successful matching receipt and both current reads confirm exactly once (30.076083ms)
+✔ denied mutation clears stale facts and decline action (16.731791ms)
+✔ known rejected 409 preserves exact current draft and reason (14.742167ms)
+✔ unmounted pending PATCH cannot start an old read or confirmation (13.835709ms)
+✔ changed focus hides previous facts immediately and ignores pending old PATCH (16.440333ms)
+✔ unattributable receipt cannot confirm {} (9.683416ms)
+✔ unattributable receipt cannot confirm {"revision":3} (12.028ms)
+✔ unattributable receipt cannot confirm {"revision":5} (10.332792ms)
+✔ stale same-status readback cannot confirm a new revision (7.844042ms)
+✔ synchronous double invocation makes only one PATCH (7.459125ms)
+✔ failed current read clears selected draft target (7.30525ms)
+✔ matching declined receipt/readback confirms and clears only its completed draft (7.920333ms)
+✔ known rejected newer source preserves draft but disables stale revision submission (10.056292ms)
+✔ exact read success followed by denied general read never restores confirmation (6.917291ms)
+✔ network error is uncertain and retires action facts without automatic write retry (6.331875ms)
+✔ retired exact read cannot start a general page read after unmount (6.285542ms)
+(node:19943) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/lib/events/workforce-week.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Schedule remains a page-scoped London agenda, preserving overnight time and exact source/return week links (54.673583ms)
+✔ Deployment offers prioritise response then accepted duties and keep inactive items behind history without response controls (19.462375ms)
+✔ Deployment decline dialog identifies selected source duty/time, reasons, pending controls and live error without falsely empty state (24.87575ms)
+✔ Attendance separates scheduled and recorded facts and exposes only the existing permitted action (13.602334ms)
+✔ Attendance selection is an exact source pair and stale local selection cannot suppress a new exact route (21.55825ms)
+✔ Attendance retains allocated/inactive/no-show/cancelled-Event action boundaries and pending/history facts (9.137375ms)
+✔ actual Deployment response keeps Site Shift revision payload and requires two exact readbacks before success (54.857125ms)
+✔ actual Deployment decline keeps reason/note/source and mismatched readback never confirms (44.653042ms)
+✔ all existing readers/action/idempotency/lifetime functions, effects, route guards and shared CSS are unchanged (13.181458ms)
+✔ all prior batches are intact except the explicitly receipted U59 staff Time Away revision (8.110541ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 461.193333

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Schedule remains a page-scoped London agenda, preserving overnight time and exact source/return week links",
+    "changed": false,
+    "beforeSha256": "064b4725daae530b5ded32b8bf5ba0f07e4e718d4d40c77f481dea187b309605",
+    "sha256": "064b4725daae530b5ded32b8bf5ba0f07e4e718d4d40c77f481dea187b309605"
+  },
+  {
+    "name": "Deployment offers prioritise response then accepted duties and keep inactive items behind history without response controls",
+    "changed": false,
+    "beforeSha256": "d3c0ec9676aa630b0fbc03e5804b9a15787974a1d5294e508e85265c18350f38",
+    "sha256": "d3c0ec9676aa630b0fbc03e5804b9a15787974a1d5294e508e85265c18350f38"
+  },
+  {
+    "name": "Deployment decline dialog identifies selected source duty/time, reasons, pending controls and live error without falsely empty state",
+    "changed": false,
+    "beforeSha256": "d8a1adf085992a5e14652b78d40785f26f73061eef3b571d079fc0cd5011ffce",
+    "sha256": "d8a1adf085992a5e14652b78d40785f26f73061eef3b571d079fc0cd5011ffce"
+  },
+  {
+    "name": "Attendance separates scheduled and recorded facts and exposes only the existing permitted action",
+    "changed": false,
+    "beforeSha256": "58198877a736c288a18824de66f16e363a0c54f9f6b25c179dbba8fdae3e10a2",
+    "sha256": "58198877a736c288a18824de66f16e363a0c54f9f6b25c179dbba8fdae3e10a2"
+  },
+  {
+    "name": "Attendance selection is an exact source pair and stale local selection cannot suppress a new exact route",
+    "changed": false,
+    "beforeSha256": "f72bf787ffec7889d32f0a5aeaad43477d50d11d936a63e39243eb3edee5f705",
+    "sha256": "f72bf787ffec7889d32f0a5aeaad43477d50d11d936a63e39243eb3edee5f705"
+  },
+  {
+    "name": "Attendance retains allocated/inactive/no-show/cancelled-Event action boundaries and pending/history facts",
+    "changed": false,
+    "beforeSha256": "9fe88a08f7441580aa3a39f0e8c9e5a3e3048ace954d9fb3825d66c9a3ee7361",
+    "sha256": "9fe88a08f7441580aa3a39f0e8c9e5a3e3048ace954d9fb3825d66c9a3ee7361"
+  },
+  {
+    "name": "actual Deployment response keeps Site Shift revision payload and requires two exact readbacks before success",
+    "changed": false,
+    "beforeSha256": "fe4b3e6221adb07a9e32744173ed185d541292c117f55a01a8bdc12c96fe653d",
+    "sha256": "fe4b3e6221adb07a9e32744173ed185d541292c117f55a01a8bdc12c96fe653d"
+  },
+  {
+    "name": "actual Deployment decline keeps reason/note/source and mismatched readback never confirms",
+    "changed": false,
+    "beforeSha256": "9886d559f76151794fbd09852c3f1baec45232a1e1a3fc814d0c17a4dc8a9d73",
+    "sha256": "9886d559f76151794fbd09852c3f1baec45232a1e1a3fc814d0c17a4dc8a9d73"
+  },
+  {
+    "name": "all existing readers/action/idempotency/lifetime functions, effects, route guards and shared CSS are unchanged",
+    "changed": true,
+    "beforeSha256": "d82424956607843fccf34265be685311a58567aa1e94f27a14ee121977f1f4f9",
+    "sha256": "25cf6307a272ac6dd29f127ecd05db0db78519116a629a39830dae88b29efb69"
+  },
+  {
+    "name": "all prior batches are intact except the explicitly receipted U59 staff Time Away revision",
+    "changed": false,
+    "beforeSha256": "e30d2d91792234618a5a1fc70610b0348fce61bb204e492580e68f26703cb022",
+    "sha256": "e30d2d91792234618a5a1fc70610b0348fce61bb204e492580e68f26703cb022"
+  }
+]

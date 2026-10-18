@@ -1,32 +1,42 @@
-/* My Schedule only. Shared shell and deployment styles remain authoritative. */
-.page { min-width: 0; }
-.page h1 { font-size: 2rem; line-height: 1.15; letter-spacing: -.035em; }
-.weekContext { display: flex; flex-wrap: wrap; align-items: baseline; gap: .35rem 1rem; margin-top: 1.5rem; }
-.weekContext strong { font-size: 1rem; }
-.weekContext span { font-size: .8rem; color: var(--kss-ink-soft); }
-.toolbar { align-items: end; }
-.toolbar button, .toolbar input, .error button, .pagination button { min-height: 44px; }
-.toolbar button { padding-inline: .85rem; }
-.work { overflow-wrap: anywhere; }
-.cardContext { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; margin-bottom: .75rem; font-size: .8rem; color: var(--kss-ink-soft); }
-.cardContext strong { padding: .3rem .55rem; border-radius: 6px; font-size: .75rem; line-height: 1.4; }
+/* My Schedule: returned-page agenda; source readers and London week are unchanged. */
+.page { min-width: 0; max-width: 1200px; }
+.page h1 { font-size: 32px; line-height: 1.15; letter-spacing: -.025em; }
+.weekContext { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-top: 24px; }
+.weekContext strong { font-size: 18px; line-height: 1.4; }
+.weekContext span { color: var(--kss-ink-soft); font-size: 13px; }
+.page .toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; padding: 16px 0; margin: 0 0 16px; border: 0; border-bottom: 1px solid var(--kss-border); border-radius: 0; background: transparent; }
+.toolbar button,.toolbar input,.error button,.pagination button { min-height: 44px; }
+.toolbar label { margin-left: auto; font-size: 13px; }
+.dayPicker { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 4px; margin: 20px 0 16px; }
+.dayPicker button { display: grid; align-content: center; justify-items: center; gap: 4px; min-width: 0; min-height: 56px; padding: 6px 2px; border: 1px solid var(--kss-border); border-radius: 8px; background: white; color: var(--kss-ink); font: inherit; font-size: 12px; cursor: pointer; }
+.dayPicker button strong { font-size: 16px; }
+.dayPicker button[aria-current="date"] { border-color: var(--kss-blue); background: var(--kss-blue-soft); color: var(--kss-blue-strong); }
+.scope { margin: 16px 0 20px; color: var(--kss-ink-soft); font-size: 13px; line-height: 1.5; }
+.page :global(.my-schedule-days) { display: grid; grid-template-columns: minmax(0,1fr); gap: 24px; }
+.page :global(.my-schedule-day) { display: grid; grid-template-columns: minmax(150px,1fr) minmax(0,4fr); align-items: start; gap: 24px; padding: 24px 0; border: 0; border-top: 1px solid var(--kss-border); border-radius: 0; background: transparent; }
+.page :global(.my-schedule-day) > h2 { margin: 0; font-size: 18px; line-height: 1.4; }
+.dayBody { display: grid; gap: 16px; min-width: 0; }
+.page .work { margin: 0; padding: 20px 24px; border: 1px solid var(--kss-border); border-radius: 12px; background: white; box-shadow: none; overflow-wrap: anywhere; }
+.cardContext { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-bottom: 12px; color: var(--kss-ink-soft); font-size: 13px; }
+.cardContext strong { padding: 4px 8px; border-radius: 6px; font-size: 12px; line-height: 1.5; }
 .awaiting { background: var(--kss-amber-soft); color: var(--kss-amber); }
-.accepted { background: var(--kss-surface-muted); color: var(--kss-ink-soft); }
-.work h3 { font-size: 1.15rem; font-weight: 750; line-height: 1.4; }
-.work .site { color: var(--kss-ink); font-weight: 650; margin-top: .5rem; }
-.work .times { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 1rem; margin: 1rem 0 .75rem; padding-block: .85rem; border-block: 1px solid var(--kss-border); }
+.accepted { background: var(--kss-surface-muted); color: var(--kss-ink); }
+.work h3 { margin: 0; font-size: 21px; font-weight: 700; line-height: 1.35; }
+.work p { font-size: 14px; line-height: 1.5; }
+.work .site { color: var(--kss-ink); font-size: 16px; font-weight: 600; margin-top: 8px; }
+.work .times { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.7fr); gap: 24px; margin: 20px 0 16px; padding-block: 16px; border-block: 1px solid var(--kss-border); }
 .work .times > div { display: block; border: 0; padding: 0; }
-.work .times dt { font-size: .75rem; color: var(--kss-ink-soft); font-weight: 650; margin-bottom: .25rem; }
-.work .times dd { margin: 0; font-size: .875rem; line-height: 1.6; color: var(--kss-ink); font-variant-numeric: tabular-nums; }
-.work .availability { margin-top: .5rem; font-size: .8rem; }
-.empty { margin: .5rem 0; color: var(--kss-ink-soft); font-size: .875rem; line-height: 1.6; }
-.error { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; padding: 1rem; border: 1px solid var(--kss-red); border-radius: 8px; background: var(--kss-red-soft); }
-@media (max-width: 640px) {
-  .page h1 { font-size: 1.75rem; }
-  .weekContext { display: grid; gap: .3rem; }
-  .toolbar { gap: .5rem; }
-  .toolbar button { padding-inline: .45rem; font-size: .8rem; }
-  .work .times { grid-template-columns: 1fr; gap: .75rem; }
-  .cardContext { align-items: start; }
-  .empty { padding-block: .75rem; }
-}
+.work .times dt { color: var(--kss-ink-soft); font-size: 12px; margin-bottom: 6px; }
+.work .times dd { margin: 0; color: var(--kss-ink); font-size: 15px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.work .availability { color: var(--kss-ink-soft); font-size: 13px; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 20px; }
+.actions a { display: inline-flex; align-items: center; min-height: 44px; color: var(--kss-blue-strong); font-size: 14px; font-weight: 600; }
+.actions .primaryAction { padding: 10px 16px; border-radius: 8px; background: var(--kss-blue); color: white; text-decoration: none; }
+.actions .primaryAction:hover { background: var(--kss-blue-strong); }
+.declarations { min-width: 0; padding: 16px 20px; border: 1px solid var(--kss-border); border-radius: 8px; background: var(--kss-surface-muted); }
+.declarations > h3 { margin: 0 0 12px; font-size: 15px; }
+.page :global(.my-schedule-declaration) { display: grid; gap: 6px; padding: 12px 0; border: 0; border-top: 1px solid var(--kss-border); border-radius: 0; background: transparent; color: var(--kss-ink); font-size: 14px; line-height: 1.5; }
+.empty { margin: 0; color: var(--kss-ink-soft); font-size: 14px; line-height: 1.5; }
+.error { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px; border: 1px solid var(--kss-red); border-radius: 8px; background: var(--kss-red-soft); }
+.page :global(:is(a,button,input):focus-visible) { outline: 2px solid var(--kss-focus); outline-offset: 3px; }
+@media (max-width: 760px) { .page h1 { font-size: 28px; } .weekContext { display: grid; } .toolbar label { margin: 8px 0 0; flex-basis: 100%; } .toolbar button { flex: 1; padding-inline: 8px; font-size: 13px; } .page :global(.my-schedule-day) { grid-template-columns: minmax(0,1fr); gap: 16px; padding-top: 20px; } .page .otherDay { display: none; } .page .selectedDay { display: grid; } .page .work { padding: 20px 16px; } .work .times { grid-template-columns: minmax(0,1fr); gap: 16px; } .actions { display: grid; gap: 8px; } .actions .primaryAction { justify-content: center; } }

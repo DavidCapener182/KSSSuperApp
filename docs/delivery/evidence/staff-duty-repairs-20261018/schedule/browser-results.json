@@ -1,0 +1,199 @@
+{
+  "status": "passed",
+  "results": [
+    {
+      "name": "before my-schedule 1440 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-schedule 834 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-schedule 390 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-schedule 320 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-schedule 1440 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-schedule 834 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-schedule 390 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-schedule 320 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "schedule bounded pagination and source return context 1440",
+      "status": "passed"
+    },
+    {
+      "name": "schedule denied week refresh clears previous source 1440",
+      "status": "passed"
+    },
+    {
+      "name": "schedule wrong week response cannot present unrelated source as current 1440",
+      "status": "passed"
+    },
+    {
+      "name": "schedule bounded pagination and source return context 390",
+      "status": "passed"
+    },
+    {
+      "name": "schedule denied week refresh clears previous source 390",
+      "status": "passed"
+    },
+    {
+      "name": "schedule wrong week response cannot present unrelated source as current 390",
+      "status": "passed"
+    },
+    {
+      "name": "schedule delayed old week cannot replace current week 1440",
+      "status": "passed"
+    },
+    {
+      "name": "schedule factual empty returned page total0 1440",
+      "status": "passed"
+    },
+    {
+      "name": "schedule factual empty returned page total100 1440",
+      "status": "passed"
+    },
+    {
+      "name": "schedule delayed old week cannot replace current week 390",
+      "status": "passed"
+    },
+    {
+      "name": "schedule factual empty returned page total0 390",
+      "status": "passed"
+    },
+    {
+      "name": "schedule factual empty returned page total100 390",
+      "status": "passed"
+    },
+    {
+      "name": "actual Staff page denies synthetic Office identity my-schedule",
+      "status": "passed"
+    }
+  ],
+  "captures": [
+    {
+      "name": "before-my-schedule-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "before-my-schedule-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "before-my-schedule-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "before-my-schedule-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "after-my-schedule-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-my-schedule-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "after-my-schedule-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-my-schedule-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "after-schedule-last-page-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-schedule-denied-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-schedule-wrong-week-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-schedule-last-page-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-schedule-denied-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-schedule-wrong-week-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-schedule-delayed-week-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-schedule-empty-total0-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-schedule-empty-total100-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-schedule-delayed-week-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-schedule-empty-total0-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-schedule-empty-total100-390",
+      "width": 390,
+      "scrollWidth": 390
+    }
+  ],
+  "external": [],
+  "writes": [],
+  "limitations": [
+    "Actual routes/components against synthetic principal and APIs",
+    "No hosted authentication/RPC/RLS/persistence",
+    "Before route-local StaffDuty source with published shared shell",
+    "External requests aborted and real/unmatched writes denied"
+  ]
+}

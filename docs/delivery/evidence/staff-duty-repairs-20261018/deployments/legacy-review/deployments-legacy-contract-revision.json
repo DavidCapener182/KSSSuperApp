@@ -1,0 +1,33 @@
+{
+  "file": "src/components/my-deployments-client.tsx",
+  "preUiBaselineSha256": "28861743a632d57c53644cdad69fe2ad2d0509b32e4826e6bb8e483225b572fc",
+  "previousUiSha256": "d958b0047d566e9cf981d819cd0364f132e17843f754edcfb0bf0d88f6c19d4f",
+  "sha256": "5261b1b595d484923070beaa120c756745b009cb1ed7536916922bf6afda0730",
+  "originalLegacyTestSha256": "da01329e7046432f5c0c1986cab681ab45510a2af45443a5ab9fd4558a2e3b4f",
+  "frozenManifestSha256": "d2d1c5536546a3d81676d7d2ce8fc0558dfbf9aae6987873f0eb02be87cb41fc",
+  "changes": [
+    {
+      "key": "reader:clearFacts",
+      "beforeSha256": null,
+      "sha256": "af71f11fbb29cdfce919cb7f1725a274ae0e19fb358867e76cfd261d63bb3fc5"
+    },
+    {
+      "key": "reader:load",
+      "beforeSha256": "a065f70ccaadea0a8245394f5785e489a872a58480d62908b599510466ebfd88",
+      "sha256": "0bac3dba7d350aa985825c6e93cb61980c15bc49e75edb9fbb7e11b3123ae68b"
+    },
+    {
+      "key": "effect:0",
+      "beforeSha256": "862b2f14515fcf630f18a0de2a4fd14c23706148ffc20e6ead3538db32f502d2",
+      "sha256": "6684435480e0b2e38b4db2e97113e58fa9521976024f071dda4882edac69e8be"
+    },
+    {
+      "key": "fn:respond",
+      "beforeSha256": "884bb030756035bcbea0503c642e800387db52c746fec4c37845bdf3a71b1727",
+      "sha256": "e9c153144f0e6c2ba018ba37e8b195f11490dfbce7485b5829639551168e5b4a"
+    }
+  ],
+  "unaffectedContracts": [],
+  "scheduleReceiptSha256": "a940738963243b4613f2316ab1de1cac13412d04c125b99058988ca9e28b0dab",
+  "reason": "Controlled U56 readback/lifetime revision only; U55 two-key receipt retained unchanged; no product edits."
+}

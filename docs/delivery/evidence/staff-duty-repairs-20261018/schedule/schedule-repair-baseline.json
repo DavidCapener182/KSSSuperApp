@@ -1,0 +1,6 @@
+{
+  "archiveHead": "810136361023ac513f8c484aee1a2bca3614ba3a",
+  "file": "src/components/my-schedule-client.tsx",
+  "beforeSha256": "54aa526fb2275bc677cb50dff7b3f423c710566e3bb10278bc406f9e5643c1bc",
+  "scope": "OnlyMySchedule component plus dedicated tests/report"
+}

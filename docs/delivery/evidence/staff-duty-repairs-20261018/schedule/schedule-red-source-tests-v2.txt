@@ -1,0 +1,118 @@
+(node:17016) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-schedule-repair/src/lib/events/workforce-week.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-schedule-repair/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ actual valid requested Monday is accepted without changing fixed fifty-item pagination (44.610541ms)
+✖ wrong returned week must not be described as the current week or an empty current day (11.46975ms)
+✔ retired old week is ignored even before the replacement read starts (10.15725ms)
+✖ changing requested week hides previous facts before the next read timer fires (10.76225ms)
+✔ response after unmount cannot replace schedule or create follow-up requests (6.889625ms)
+✖ malformed scope missing fails unavailable rather than inventing an empty week (7.594667ms)
+✖ malformed scope missing arrays fails unavailable rather than inventing an empty week (6.590625ms)
+✖ malformed scope negative total fails unavailable rather than inventing an empty week (6.754708ms)
+✔ denied current read clears facts and retry retains the same canonical week (9.518458ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 4
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 257.972041
+
+✖ failing tests:
+
+test at tests/ui-my-schedule-scope-local.test.mjs:7:1
+✖ wrong returned week must not be described as the current week or an empty current day (11.46975ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   availability: [],
+  +   week_start: '2026-10-19',
+  +   work: [],
+  +   work_total: 0
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-schedule-repair/tests/ui-my-schedule-scope-local.test.mjs:7:174)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { week_start: '2026-10-19', work_total: 0, work: [], availability: [] },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-schedule-scope-local.test.mjs:9:1
+✖ changing requested week hides previous facts before the next read timer fires (10.76225ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Showing 0 of 0/. Input:
+  
+  'Your operational week My Schedule Your allocated work and availability declarations, shown separately. Accepted work is not attendance or worked time. Monday 19 October – Sunday 25 October Times shown in London time Previous week This week Next week Go to date Review offers from each duty below. Change declarations in My Availability . Mon 19 Tue 20 Wed 21 Thu 22 Fri 23 Sat 24 Sun 25 Showing 0 of 0 week allocations on this returned page. Day selection applies to these returned allocations. Monday 19 October No work or declaration shown for this day on the returned page. Tuesday 20 October No work or declaration shown for this day on the returned page. Wednesday 21 October No work or declaration shown for this day on the returned page. Thursday 22 October No work or declaration shown for this day on the returned page. Friday 23 October No work or declaration shown for this day on the returned page. Saturday 24 October No work or declaration shown for this day on the returned page. Sunday 25 October No work or declaration shown for this day on the returned page. '
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-schedule-repair/tests/ui-my-schedule-scope-local.test.mjs:9:228)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Your operational week My Schedule Your allocated work and availability declarations, shown separately. Accepted work is not attendance or worked time. Monday 19 October – Sunday 25 October Times shown in London time Previous week This week Next week Go to date Review offers from each duty below. Change declarations in My Availability . Mon 19 Tue 20 Wed 21 Thu 22 Fri 23 Sat 24 Sun 25 Showing 0 of 0 week allocations on this returned page. Day selection applies to these returned allocations. Monday 19 October No work or declaration shown for this day on the returned page. Tuesday 20 October No work or declaration shown for this day on the returned page. Wednesday 21 October No work or declaration shown for this day on the returned page. Thursday 22 October No work or declaration shown for this day on the returned page. Friday 23 October No work or declaration shown for this day on the returned page. Saturday 24 October No work or declaration shown for this day on the returned page. Sunday 25 October No work or declaration shown for this day on the returned page. ',
+    expected: /Showing 0 of 0/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-schedule-scope-local.test.mjs:11:206
+✖ malformed scope missing fails unavailable rather than inventing an empty week (7.594667ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-schedule-repair/tests/ui-my-schedule-scope-local.test.mjs:11:359)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-schedule-scope-local.test.mjs:11:206
+✖ malformed scope missing arrays fails unavailable rather than inventing an empty week (6.590625ms)
+  TypeError: Cannot read properties of undefined (reading 'length')
+      at Object.MyScheduleClient (evalmachine.<anonymous>:56:3195)
+      at Object.render (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-schedule-repair/tests/ui-my-schedule-scope-local.test.mjs:4:2178)
+      at Object.flush (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-schedule-repair/tests/ui-my-schedule-scope-local.test.mjs:4:2332)
+      at async Object.ready (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-schedule-repair/tests/ui-my-schedule-scope-local.test.mjs:4:2367)
+      at async TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-schedule-repair/tests/ui-my-schedule-scope-local.test.mjs:11:336)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at tests/ui-my-schedule-scope-local.test.mjs:11:206
+✖ malformed scope negative total fails unavailable rather than inventing an empty week (6.754708ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   availability: [],
+  +   week_start: '2026-10-12',
+  +   work: [],
+  +   work_total: -1
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-schedule-repair/tests/ui-my-schedule-scope-local.test.mjs:11:359)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { week_start: '2026-10-12', work_total: -1, work: [], availability: [] },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

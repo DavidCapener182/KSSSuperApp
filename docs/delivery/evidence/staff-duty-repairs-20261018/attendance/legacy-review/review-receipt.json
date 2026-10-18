@@ -1,0 +1,55 @@
+{
+  "createdUtc": "2026-10-18T04:17:12.295189+00:00",
+  "scope": "U57 external-only controlled legacy contract adaptation",
+  "originalLegacySha256": "a881e82a120186df778e543292d474e9c4775ef0f89e5c21044461d90aba201d",
+  "adaptedLegacySha256": "27d7cea029f43234ae4f7bf8189bb1cef94b489100cbde6d5ff7bbe385da286d",
+  "tests": {
+    "redPass": 39,
+    "redFail": 1,
+    "legacy": 10,
+    "dedicated": 20,
+    "existingAttendance": 10,
+    "greenPass": 40,
+    "greenFail": 0,
+    "skipped": 0
+  },
+  "preservedExactTestBodies": 9,
+  "controlledTestBodies": 1,
+  "u55U56ReceiptsPreserved": true,
+  "integrationLegacyStillOriginal": true,
+  "productEdits": false,
+  "files": [
+    {
+      "file": "ui-milestone-evidence/staff-attendance-integration-review/ui-staff-duty-local.test.mjs.txt",
+      "sha256": "a881e82a120186df778e543292d474e9c4775ef0f89e5c21044461d90aba201d"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-attendance-integration-review/ui-staff-duty-local.test.adapted.mjs.txt",
+      "sha256": "27d7cea029f43234ae4f7bf8189bb1cef94b489100cbde6d5ff7bbe385da286d"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-attendance-integration-review/legacy-fixture.patch",
+      "sha256": "c6fc10342d07b416ef5217414c1f4a66ec49daa42ce8d2e0146dcf3507d7534d"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-attendance-integration-review/attendance-legacy-contract-revision.json",
+      "sha256": "2d9bb6a051b3ba968c9ed7b4e7abd086bc9e559d0213e38e46eb879175709322"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-attendance-integration-review/legacy-red.tap",
+      "sha256": "b7180c3264bba70608f3813bea4b33ebded5f8b4e780592cea38fde76005d224"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-attendance-integration-review/combined-green.tap",
+      "sha256": "2603e8d9310669132a0916b81603087e30756a2c2474bd8657e8670ba2fec247"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-attendance-integration-review/preserved-test-bodies.json",
+      "sha256": "6f41a6d10aa9ebed88add35e8fdb9306f7e3644afb31890454396aa437890d7e"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-attendance-integration-review/REVIEW.md",
+      "sha256": "dde130f9889317f088c1c417581db73dd2c4993ca06ae390330962bfe3752506"
+    }
+  ]
+}

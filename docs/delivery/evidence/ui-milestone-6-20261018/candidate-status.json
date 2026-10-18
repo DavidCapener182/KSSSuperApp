@@ -1,0 +1,14 @@
+{
+  "status": "VERIFIED_LOCAL_AWAITING_COMMIT_PUSH",
+  "tests": 485,
+  "failures": 0,
+  "skips": 0,
+  "build": "pass",
+  "types": "pass",
+  "lintErrors": 0,
+  "existingLintWarnings": 1,
+  "products": 9,
+  "nonOwnedPublishedFiles": 413,
+  "sourceParity": "Independent review passed; documented fixture provenance limits",
+  "published": false
+}

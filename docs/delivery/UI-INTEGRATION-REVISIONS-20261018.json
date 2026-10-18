@@ -82,5 +82,29 @@
     "beforeSha256": "663b1f00490688bb1185a27dc99509e1728159345f15aab93dc6587662e5efb0",
     "sha256": "b6d45cfb29a429724b15a9590199e46b3787301038884874978dc35981391e04",
     "reason": "Actual synthetic browser red/green Staff self-source denial/exact allocation readback; scope and54source tests in STAFF-SELF-SOURCE-REPAIRS-20261018.md; APIs/auth/SQL unchanged."
+  },
+  {
+    "file": "src/components/my-schedule-client.tsx",
+    "beforeSha256": "54aa526fb2275bc677cb50dff7b3f423c710566e3bb10278bc406f9e5643c1bc",
+    "sha256": "ca584402e87f3c31fd6e5963e997ad9f93263d4afd306dffa130ae7c79632115",
+    "reason": "Actual browser returned week scope mismatch; reject mismatched/delayed week source, preserve valid week and pagination.9source and21browser tests in separate frozen U55repair."
+  },
+  {
+    "file": "src/components/my-deployments-client.tsx",
+    "beforeSha256": "d958b0047d566e9cf981d819cd0364f132e17843f754edcfb0bf0d88f6c19d4f",
+    "sha256": "5261b1b595d484923070beaa120c756745b009cb1ed7536916922bf6afda0730",
+    "reason": "Actual Staff browser exact focused source, denied authority and late write readback reds;19actualsource tests and22browser checks pass; preserves original APIs and controlled decline rendering."
+  },
+  {
+    "file": "src/components/assets-workspace.module.css",
+    "beforeSha256": "8cd159304938b38916e544c71ce75ffd10bd11fdeb707554ec111c2098890554",
+    "sha256": "320e976760f3951684fb06ab351f80722ef8a07f66cc14ec93299b584b8d3c1a",
+    "reason": "Atomic import of two reviewed CSS revisions:24pxdesktop/16pxphone Sheet inset and32px title trailing clearance. Actual320viewport clipping/title overlap proven red then green; widths/components/handlers unchanged. Immutable intermediate91aa receipt retained."
+  },
+  {
+    "file": "src/components/my-attendance-client.tsx",
+    "beforeSha256": "cfd70f16572ac6e066f89eb1e4f40eba6a6a5a1b69216d78765af9e106c31ac5",
+    "sha256": "1b1b7902ea4bd07b70bdde14a08053a5a5beec863a1662263cd8d56d7cca2856",
+    "reason": "Actual Staff browser false confirmation after unchanged currentreadback; exact receipt/current Event/revision/time validation, pending/lifetime/idempotency protection and later-page exact row update.20new+10preserved source cases and23browser checks pass; APIs/auth/SQL unchanged."
   }
 ]

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FactualStatus, FilterBar, ResponsiveRecordList, SourceCard, StatePanel, type ResponsiveRecord } from "@/components/ui13/operational";
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
 import styles from "./assets-workspace.module.css";
 
 type Item = { id: string; reference: string; class: string; description: string; condition: string;
@@ -74,6 +75,11 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
   const [busy, setBusy] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
+  const [familyTab, setFamilyTab] = useState<"equipment" | "uniform">("equipment");
+  const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
+  const [reasonDialog, setReasonDialog] = useState<{ kind: "dispute" | "revoke"; id: string; label: string } | null>(null);
+  const [dialogReason, setDialogReason] = useState("");
+  const panelTrigger = useRef<HTMLButtonElement | null>(null);
   const registerRequest = useRef(0);
   const refresh = useCallback(async () => {
     if (mode === "self") setData(await api(undefined, "?self=1") as Data);
@@ -102,8 +108,7 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
     finally { setLoading(false); }
   }, [refresh]);
   useEffect(() => {
-    if (mode === "register") void Promise.resolve().then(reload);
-    else void Promise.resolve().then(refresh).catch(() => setMessage("Asset view unavailable."));
+    void Promise.resolve().then(reload);
   }, [mode, refresh, reload]);
   async function submit(body: Record<string, unknown>) {
     setBusy(true); setMessage("");
@@ -138,6 +143,10 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
       ...(operations ? ["INSPECT", "RECOVER", "REPAIR_START", "REPAIR_COMPLETE"] : []),
       ...(office || operations ? ["RETIRE"] : []),
     ];
+  const currentStock = data.stock.find((value) => value.id === selectedStock?.id) ?? selectedStock;
+  const reasonAllowed = reasonDialog?.kind === "revoke"
+    ? mode === "register" && superAdmin && Boolean(admin?.grants.some((value) => value.id === reasonDialog.id))
+    : mode === "self" && Boolean(data.myStock.some((value) => value.issueId === reasonDialog?.id && value.acknowledgement === "PENDING"));
   const store = data.stores[0];
   const contexts = data.contexts ?? [];
   const visibleItems = mode === "register" ? data.items : data.items.filter((value) =>
@@ -151,7 +160,7 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
       <span key="condition"><FactualStatus label={`Condition ${value.condition}`} /><br />Repair: {value.maintenanceState}<br />Exception: {value.exceptionState}</span>,
       <span key="return">{stamp(value.expectedReturnAt)}{value.overdue && <><br />Expected return has passed.</>}{value.pendingAck && <><br />Handover acknowledgement pending: {value.pendingAck}</>}</span>,
       <span key="available">{availableToIssue(value)} · {availabilityReason(value)}</span>,
-      <button key="action" type="button" className={styles.rowAction} onClick={() => open(value)}>View history and actions</button>,
+      <button key="action" type="button" className={styles.rowAction} onClick={(event) => { panelTrigger.current = event.currentTarget;void open(value); }}>View history and actions</button>,
     ],
     mobile: {
       title: `${value.reference} · ${value.description}`,
@@ -165,16 +174,109 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
         ...(value.overdue ? ["Expected return has passed."] : []),
         ...(value.pendingAck ? [`Handover acknowledgement pending: ${value.pendingAck}`] : []),
       ],
-      action: <button type="button" className={styles.rowAction} onClick={() => open(value)}>View history and actions</button>,
+      action: <button type="button" className={styles.rowAction} onClick={(event) => { panelTrigger.current = event.currentTarget;void open(value); }}>View history and actions</button>,
     },
   }));
-  return <div className={styles.workspace}>
+  return <div className={styles.workspace} data-custody-mode={mode}>
     <p className={styles.hint}>Synthetic development only. Custody, condition and repair are recorded separately. Damage or loss is an operational fact, not an attribution of blame.</p>
     <p role="status" aria-live="polite">{busy ? "Saving…" : message}</p>
-    {mode === "register" && loading && <StatePanel kind="loading" title="Loading authorised assets" description="Waiting for the current asset register read." />}
-    {mode === "register" && loadError && <StatePanel kind="error" title="Asset view unavailable" description={loadError}
+    {mode === "register" && <div className={styles.familyTabs} role="group" aria-label="Asset registers"><button type="button" aria-pressed={familyTab === "equipment"} onClick={() => setFamilyTab("equipment")}>Equipment register</button><button type="button" aria-pressed={familyTab === "uniform"} onClick={() => setFamilyTab("uniform")}>Uniform stock</button></div>}
+    {loading && <StatePanel kind="loading" title="Loading authorised assets" description="Waiting for the current asset register read." />}
+    {loadError && <StatePanel kind="error" title="Asset view unavailable" description={loadError}
       action={<button type="button" className={styles.retry} onClick={() => void reload()}>Retry</button>} />}
-    {(mode === "self" || (!loading && !loadError)) && <>
+    {!loading && !loadError && <>
+    {mode === "register" && familyTab === "equipment" && <section className={styles.registerSection} aria-labelledby="asset-register-heading">
+      <h2 id="asset-register-heading">Asset register</h2>
+      <p className={styles.hint}>Search authorised items and inspect custody, location, condition, repair and exception separately. Open an item for exact history and guarded actions.</p>
+      <div className={styles.views} aria-label="Asset views">{["ALL", "AVAILABLE", "ISSUED", "OVERDUE", "REPAIR", "EXCEPTIONS"].map((value) =>
+        <button key={value} type="button" aria-pressed={view === value} onClick={() => changeFilter(setView, value)}>{value.replaceAll("_", " ")}</button>)}</div>
+      <FilterBar resultCount={`${total} authorised ${total === 1 ? "item" : "items"}; page ${page}`}>
+        <label>Search reference or description<input type="search" value={search} onChange={(event) => changeFilter(setSearch, event.target.value)} /></label>
+        <label>Class<select value={assetClass} onChange={(event) => changeFilter(setAssetClass, event.target.value)}><option value="">All classes</option>{classes.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>Holder type<select value={holderFilter} onChange={(event) => { changeFilter(setHolderFilter, event.target.value); setContextFilter(""); }}><option value="">All holders</option>{["PERSON", "STORE", "SITE", "SITE_SERVICE", "EVENT"].map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>Exact holder / context<select value={contextFilter} onChange={(event) => changeFilter(setContextFilter, event.target.value)}><option value="">All authorised contexts</option>
+          {contexts.filter((value) => !holderFilter || value.kind === holderFilter).map((value) => <option key={value.kind + value.id} value={value.kind + ":" + value.id}>{value.kind.replaceAll("_", " ")} · {value.label}</option>)}
+        </select></label>
+        <label>Condition<select value={conditionFilter} onChange={(event) => changeFilter(setConditionFilter, event.target.value)}><option value="">All conditions</option>{conditions.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>Repair<select value={repairFilter} onChange={(event) => changeFilter(setRepairFilter, event.target.value)}><option value="">All repair states</option>{["NONE", "QUARANTINED", "IN_REPAIR"].map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>Exception<select value={exceptionFilter} onChange={(event) => changeFilter(setExceptionFilter, event.target.value)}><option value="">All exceptions</option>{["NONE", "LOST", "RETIRED"].map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>Return status<select value={returnFilter} onChange={(event) => changeFilter(setReturnFilter, event.target.value)}><option value="">All return states</option>{["OVERDUE", "DUE", "NOT_SET"].map((value) => <option key={value}>{value.replaceAll("_", " ")}</option>)}</select></label>
+      </FilterBar>
+      <ResponsiveRecordList label="Authorised asset register" columns={["Item", "Custody / location", "Condition / repair / exception", "Expected return", "Available to issue", "Record"]}
+        rows={registerRows} empty={<StatePanel kind="empty" title="No assets in this view" description="Try a different search or context filter." />} />
+      <div className={styles.pagination}><button type="button" disabled={page <= 1} onClick={() => setPage(page - 1)}>Previous page</button>
+        <span>Page {page} of {Math.max(1, Math.ceil(total / 30))}</span>
+        <button type="button" disabled={page * 30 >= total} onClick={() => setPage(page + 1)}>Next page</button></div>
+    </section>}
+    {mode === "self" && <section className={styles.panel}><h2>My equipment</h2><p className={styles.hint}>Current items issued to you. Open an item to acknowledge, dispute or report an observation.</p>
+      <label>Find asset by reference or description<input type="search" value={search}
+        onChange={(event) => setSearch(event.target.value)} /></label>
+      <p className={styles.count} role="status">{visibleItems.length} {visibleItems.length === 1 ? "item" : "items"} in this view</p>
+      {visibleItems.length === 0 && <p>No assets in this view.</p>}
+      <div className={styles.grid}>{visibleItems.map((value) => <article className={styles.card} key={value.id}>
+        <span className={styles.reference}>{value.reference} · {value.class.replaceAll("_", " ")}</span><h3>{value.description}</h3>
+        <dl><dt>Expected return</dt><dd>{stamp(value.expectedReturnAt)}</dd><dt>Recorded condition</dt><dd>{value.condition}</dd><dt>Receipt</dt><dd>{value.pendingAck ? `Acknowledgement pending: ${value.pendingAck}` : "No acknowledgement pending"}</dd></dl>
+        {value.overdue && <p className={styles.alert}>Expected return has passed.</p>}
+        {value.pendingAck && <p className={styles.alert}>Handover acknowledgement pending: {value.pendingAck}</p>}
+        <button type="button" onClick={(event) => { panelTrigger.current = event.currentTarget;void open(value); }}>View history and actions</button>
+      </article>)}</div>
+    </section>}
+    <Sheet open={Boolean(current)} onOpenChange={(value) => { if (!value && !busy) { setItem(null);setReview(null);setHistory(null); } }}><SheetContent className={styles.sheet} onEscapeKeyDown={(event) => { if (busy) event.preventDefault(); }} onCloseAutoFocus={(event) => { if (panelTrigger.current?.isConnected) { event.preventDefault();panelTrigger.current.focus(); } }}><SheetTitle>{current ? `${current.reference} · equipment record` : "Equipment record"}</SheetTitle><SheetDescription>Review custody, condition, repair and receipt independently. A handover does not establish readiness or use.</SheetDescription>
+    {current && <section className={`${styles.panel} ${styles.selectedSection}`}>
+      <SourceCard identity={`${current.reference} · ${current.description}`}
+        context={`${current.class.replaceAll("_", " ")} · selected asset`} state={`Condition ${current.condition}`}
+        freshness={`Revision ${current.revision}`} primary>
+        <p>Custody: {current.holderKind.replaceAll("_", " ")} · {current.holderLabel ?? current.holderId}. Last location: {current.locationLabel ?? "Not recorded"}.</p>
+        <p>Repair: {current.maintenanceState}. Exception: {current.exceptionState}. Expected return: {stamp(current.expectedReturnAt)}.</p>
+        <p>Receipt: {current.pendingAck ? `Acknowledgement pending: ${current.pendingAck}` : "No acknowledgement pending"}. Available to issue: {availableToIssue(current)} · {availabilityReason(current)}.</p>
+      </SourceCard>
+      {history?.reference === current.reference && history.serial && <p>Serial: {history.serial}</p>}
+      {actionList.length > 0 && !review && <form onSubmit={(event) => { event.preventDefault();
+        const payload = { action, assetId: current.id, expectedRevision: current.revision,
+          holderKind: ["ISSUE", "TRANSFER", "RETURN"].includes(action) ? holderKind : null,
+          holderId: ["ISSUE", "TRANSFER", "RETURN"].includes(action) ? holderId : null,
+          condition: ["RETURN", "INSPECT"].includes(action) ? condition : null,
+          expectedReturnAt: expectedReturn ? new Date(expectedReturn).toISOString() : null, reason: reason || null };
+        if (["ISSUE", "TRANSFER", "RETURN"].includes(action)) setReview(payload);
+        else void submit(payload); }}>
+        <label>Action<select value={action} onChange={(event) => { const next = event.target.value; setAction(next); if (next === "RETURN") { setHolderKind("STORE"); setHolderId(store?.id ?? ""); } }}>
+          {actionList.map((value) => <option key={value}>{value}</option>)}</select></label>
+        {["ISSUE", "TRANSFER", "RETURN"].includes(action) && <>
+          <label>New holder type<select disabled={action === "RETURN"} value={holderKind} onChange={(event) => { setHolderKind(event.target.value); setHolderId(""); }}>
+            {(action === "RETURN" ? ["STORE"] : ["PERSON", "STORE", "SITE", "SITE_SERVICE", "EVENT"]).map((value) => <option key={value}>{value}</option>)}</select></label>
+          <label>Exact holder<select value={holderId} onChange={(event) => setHolderId(event.target.value)} required>
+            <option value="">Choose a {holderKind.toLowerCase().replaceAll("_", " ")}</option>
+            {holders.filter((value) => value.kind === holderKind).map((value) =>
+              <option key={value.id} value={value.id}>{value.name}</option>)}
+          </select></label>
+          {holderKind === "STORE" && store && <button type="button" onClick={() => setHolderId(store.id)}>Use KSS store</button>}
+          <label>Expected return (optional)<input type="datetime-local" value={expectedReturn} onChange={(event) => setExpectedReturn(event.target.value)} /></label>
+        </>}
+        {["RETURN", "INSPECT"].includes(action) && <label>Observed condition<select value={condition} onChange={(event) => setCondition(event.target.value)}>
+          {conditions.map((value) => <option key={value}>{value}</option>)}</select></label>}
+        <label>Reason / observation<input value={reason} onChange={(event) => setReason(event.target.value)} maxLength={500}
+          required={["DISPUTE_ISSUE", "REPORT_DAMAGE", "REPORT_LOSS", "RECOVER", "RETIRE"].includes(action)} /></label>
+        <button disabled={busy}>{["ISSUE", "TRANSFER", "RETURN"].includes(action) ? "Review handover" : "Record " + action.replaceAll("_", " ").toLowerCase()}</button>
+      </form>}
+      {review && <div className={styles.review} role="group" aria-label="Review custody change"><h3>Review {String(review.action).toLowerCase()}</h3>
+        <p>{current.reference} · {current.description}</p>
+        <p>Current holder: {current.holderLabel ?? current.holderId}. New holder: {String(holders.find((value) => value.id === review.holderId)?.name ?? review.holderId)} ({String(review.holderKind)}).</p>
+        <p>Observed condition: {String(review.condition ?? current.condition)}. Expected return: {stamp(review.expectedReturnAt as string | null)}.</p>
+        <p>This records one custody event. Recipient or receiving acknowledgement remains a separate action.</p>
+        <button type="button" disabled={busy} onClick={() => void submit(review)}>Confirm {String(review.action).toLowerCase()}</button>{" "}
+        <button type="button" onClick={() => setReview(null)}>Edit</button>
+      </div>}
+      <details className={styles.recordHistory}><summary>Equipment history</summary>{history?.reference === current.reference ? <ol className={styles.history}>{history.events.map((value) => <li key={value.id}>
+        <strong>{value.action.replaceAll("_", " ")}</strong> · {stamp(value.recordedAt)} · revision {value.revision}
+        <span>Custody {value.holderAfter}; condition {value.conditionAfter}; repair {value.maintenanceAfter}</span>
+        {value.reason && <span>Observation: {value.reason}</span>}
+      </li>)}</ol> : <p role="status">History is not confirmed for this selected item.</p>}</details>
+    </section>}</SheetContent></Sheet>
+    {mode === "register" && familyTab === "uniform" && <section className={styles.panel}><h2>Uniform stock by size</h2>
+      <p className={styles.hint}>Sized stock and outstanding issued quantities are separate from equipment custody.</p>
+      <div className={styles.stockRegister}>{data.stock.map((value) => <article className={styles.stockRow} key={value.id}><div><h3>{value.garment} · {value.size}</h3><p className={styles.reference}>{value.sku}</p></div><dl><div><dt>Available</dt><dd>{value.available}</dd></div><div><dt>Issued</dt><dd>{value.issued}</dd></div></dl><button type="button" onClick={async (event) => { panelTrigger.current = event.currentTarget;setSelectedStock(value);setStockHistory(null);try { setStockHistory(await api(undefined, "?stockId=" + encodeURIComponent(value.id)) as StockHistory); } catch { setMessage("Stock history unavailable."); } }}>Movements and actions</button></article>)}</div>
+      {data.stock.length === 0 && <p>No uniform stock in this authorised view.</p>}
+    </section>}
     {mode === "register" && office && <details className={styles.setup}><summary>Register items and opening stock</summary><p>Use these controls after confirming the exact item or stock record does not already exist.</p><div className={styles.grid}>
       <section className={styles.panel}><h2>Register an item</h2>
         <form onSubmit={(event) => { event.preventDefault(); const f = new FormData(event.currentTarget);
@@ -218,129 +320,26 @@ export function AssetsWorkspace({ mode, office, operations, superAdmin }: {
         <button disabled={busy || admin.operations.length === 0}>Grant</button>
       </form>
       <ul>{admin.grants.map((grant) => <li key={grant.id}>{grant.scopeKind} · {grant.personId.slice(0, 8)} · until {stamp(grant.effectiveUntil)}{" "}
-        <button type="button" disabled={busy} onClick={() => { const why = window.prompt("Revocation reason");
-          if (why) submit({ action: "REVOKE_GRANT", grantId: grant.id, reason: why }); }}>Revoke</button></li>)}</ul>
+        <button type="button" disabled={busy} onClick={(event) => { panelTrigger.current = event.currentTarget;setDialogReason("");setReasonDialog({ kind: "revoke", id: grant.id, label: `${grant.scopeKind} · ${grant.personId} · until ${stamp(grant.effectiveUntil)}` }); }}>Revoke</button></li>)}</ul>
       <details><summary>Recent grant history</summary><ol className={styles.history}>{admin.grantEvents.map((event) =>
         <li key={event.id}>{event.kind} · {stamp(event.occurredAt)} · grant {event.grantId.slice(0, 8)}
           <span>Reason: {event.reason}</span></li>)}</ol></details>
       </details>
     </section>}
-    {mode === "register" && <section className={styles.registerSection} aria-labelledby="asset-register-heading">
-      <h2 id="asset-register-heading">Asset register</h2>
-      <p className={styles.hint}>Search authorised items and inspect custody, location, condition, repair and exception separately. Open an item for exact history and guarded actions.</p>
-      <div className={styles.views} aria-label="Asset views">{["ALL", "AVAILABLE", "ISSUED", "OVERDUE", "REPAIR", "EXCEPTIONS"].map((value) =>
-        <button key={value} type="button" aria-pressed={view === value} onClick={() => changeFilter(setView, value)}>{value.replaceAll("_", " ")}</button>)}</div>
-      <FilterBar resultCount={`${total} authorised ${total === 1 ? "item" : "items"}; page ${page}`}>
-        <label>Search reference or description<input type="search" value={search} onChange={(event) => changeFilter(setSearch, event.target.value)} /></label>
-        <label>Class<select value={assetClass} onChange={(event) => changeFilter(setAssetClass, event.target.value)}><option value="">All classes</option>{classes.map((value) => <option key={value}>{value}</option>)}</select></label>
-        <label>Holder type<select value={holderFilter} onChange={(event) => { changeFilter(setHolderFilter, event.target.value); setContextFilter(""); }}><option value="">All holders</option>{["PERSON", "STORE", "SITE", "SITE_SERVICE", "EVENT"].map((value) => <option key={value}>{value}</option>)}</select></label>
-        <label>Exact holder / context<select value={contextFilter} onChange={(event) => changeFilter(setContextFilter, event.target.value)}><option value="">All authorised contexts</option>
-          {contexts.filter((value) => !holderFilter || value.kind === holderFilter).map((value) => <option key={value.kind + value.id} value={value.kind + ":" + value.id}>{value.kind.replaceAll("_", " ")} · {value.label}</option>)}
-        </select></label>
-        <label>Condition<select value={conditionFilter} onChange={(event) => changeFilter(setConditionFilter, event.target.value)}><option value="">All conditions</option>{conditions.map((value) => <option key={value}>{value}</option>)}</select></label>
-        <label>Repair<select value={repairFilter} onChange={(event) => changeFilter(setRepairFilter, event.target.value)}><option value="">All repair states</option>{["NONE", "QUARANTINED", "IN_REPAIR"].map((value) => <option key={value}>{value}</option>)}</select></label>
-        <label>Exception<select value={exceptionFilter} onChange={(event) => changeFilter(setExceptionFilter, event.target.value)}><option value="">All exceptions</option>{["NONE", "LOST", "RETIRED"].map((value) => <option key={value}>{value}</option>)}</select></label>
-        <label>Return status<select value={returnFilter} onChange={(event) => changeFilter(setReturnFilter, event.target.value)}><option value="">All return states</option>{["OVERDUE", "DUE", "NOT_SET"].map((value) => <option key={value}>{value.replaceAll("_", " ")}</option>)}</select></label>
-      </FilterBar>
-      <ResponsiveRecordList label="Authorised asset register" columns={["Item", "Custody / location", "Condition / repair / exception", "Expected return", "Available to issue", "Record"]}
-        rows={registerRows} empty={<StatePanel kind="empty" title="No assets in this view" description="Try a different search or context filter." />} />
-      <div className={styles.pagination}><button type="button" disabled={page <= 1} onClick={() => setPage(page - 1)}>Previous page</button>
-        <span>Page {page} of {Math.max(1, Math.ceil(total / 30))}</span>
-        <button type="button" disabled={page * 30 >= total} onClick={() => setPage(page + 1)}>Next page</button></div>
-    </section>}
-    {mode === "self" && <section className={styles.panel}><h2>My equipment</h2><p className={styles.hint}>Current items issued to you. Open an item to acknowledge, dispute or report an observation.</p>
-      <label>Find asset by reference or description<input type="search" value={search}
-        onChange={(event) => setSearch(event.target.value)} /></label>
-      <p className={styles.count} role="status">{visibleItems.length} {visibleItems.length === 1 ? "item" : "items"} in this view</p>
-      {visibleItems.length === 0 && <p>No assets in this view.</p>}
-      <div className={styles.grid}>{visibleItems.map((value) => <article className={styles.card} key={value.id}>
-        <span className={styles.reference}>{value.reference} · {value.class.replaceAll("_", " ")}</span><h3>{value.description}</h3>
-        <dl><dt>Available to issue</dt><dd>{value.holderKind === "STORE" && value.pendingAck === null &&
-          value.maintenanceState === "NONE" && value.exceptionState === "NONE" &&
-          ["GOOD", "SERVICEABLE"].includes(value.condition) ? "Yes" : "No"}</dd>
-          <dt>Custody</dt><dd>{value.holderKind.replaceAll("_", " ")} · {value.holderLabel ?? value.holderId}</dd>
-          <dt>Last location</dt><dd>{value.locationLabel ?? "Not recorded"}</dd>
-          <dt>Condition</dt><dd>{value.condition}</dd><dt>Repair</dt><dd>{value.maintenanceState}</dd>
-          <dt>Exception</dt><dd>{value.exceptionState}</dd><dt>Return expected</dt><dd>{stamp(value.expectedReturnAt)}</dd></dl>
-        {value.overdue && <p className={styles.alert}>Expected return has passed.</p>}
-        {value.pendingAck && <p className={styles.alert}>Handover acknowledgement pending: {value.pendingAck}</p>}
-        <button type="button" onClick={() => open(value)}>View history and actions</button>
-      </article>)}</div>
-    </section>}
-    {current && <section className={mode === "register" ? `${styles.panel} ${styles.selectedSection}` : styles.panel}>
-      {mode === "register" ? <SourceCard identity={`${current.reference} · ${current.description}`}
-        context={`${current.class.replaceAll("_", " ")} · selected asset`} state={`Condition ${current.condition}`}
-        freshness={`Revision ${current.revision}`} primary>
-        <p>Custody: {current.holderKind.replaceAll("_", " ")} · {current.holderLabel ?? current.holderId}. Last location: {current.locationLabel ?? "Not recorded"}.</p>
-        <p>Repair: {current.maintenanceState}. Exception: {current.exceptionState}. Expected return: {stamp(current.expectedReturnAt)}.</p>
-      </SourceCard> : <h2>{current.reference} · history</h2>}
-      {history?.serial && <p>Serial: {history.serial}</p>}
-      {actionList.length > 0 && !review && <form onSubmit={(event) => { event.preventDefault();
-        const payload = { action, assetId: current.id, expectedRevision: current.revision,
-          holderKind: ["ISSUE", "TRANSFER", "RETURN"].includes(action) ? holderKind : null,
-          holderId: ["ISSUE", "TRANSFER", "RETURN"].includes(action) ? holderId : null,
-          condition: ["RETURN", "INSPECT"].includes(action) ? condition : null,
-          expectedReturnAt: expectedReturn ? new Date(expectedReturn).toISOString() : null, reason: reason || null };
-        if (["ISSUE", "TRANSFER", "RETURN"].includes(action)) setReview(payload);
-        else void submit(payload); }}>
-        <label>Action<select value={action} onChange={(event) => { const next = event.target.value; setAction(next); if (next === "RETURN") { setHolderKind("STORE"); setHolderId(store?.id ?? ""); } }}>
-          {actionList.map((value) => <option key={value}>{value}</option>)}</select></label>
-        {["ISSUE", "TRANSFER", "RETURN"].includes(action) && <>
-          <label>New holder type<select disabled={action === "RETURN"} value={holderKind} onChange={(event) => { setHolderKind(event.target.value); setHolderId(""); }}>
-            {(action === "RETURN" ? ["STORE"] : ["PERSON", "STORE", "SITE", "SITE_SERVICE", "EVENT"]).map((value) => <option key={value}>{value}</option>)}</select></label>
-          <label>Exact holder<select value={holderId} onChange={(event) => setHolderId(event.target.value)} required>
-            <option value="">Choose a {holderKind.toLowerCase().replaceAll("_", " ")}</option>
-            {holders.filter((value) => value.kind === holderKind).map((value) =>
-              <option key={value.id} value={value.id}>{value.name}</option>)}
-          </select></label>
-          {holderKind === "STORE" && store && <button type="button" onClick={() => setHolderId(store.id)}>Use KSS store</button>}
-          <label>Expected return (optional)<input type="datetime-local" value={expectedReturn} onChange={(event) => setExpectedReturn(event.target.value)} /></label>
-        </>}
-        {["RETURN", "INSPECT"].includes(action) && <label>Observed condition<select value={condition} onChange={(event) => setCondition(event.target.value)}>
-          {conditions.map((value) => <option key={value}>{value}</option>)}</select></label>}
-        <label>Reason / observation<input value={reason} onChange={(event) => setReason(event.target.value)} maxLength={500}
-          required={["DISPUTE_ISSUE", "REPORT_DAMAGE", "REPORT_LOSS", "RECOVER", "RETIRE"].includes(action)} /></label>
-        <button disabled={busy}>{["ISSUE", "TRANSFER", "RETURN"].includes(action) ? "Review handover" : "Record " + action.replaceAll("_", " ").toLowerCase()}</button>
-      </form>}
-      {review && <div className={styles.review} role="group" aria-label="Review custody change"><h3>Review {String(review.action).toLowerCase()}</h3>
-        <p>{current.reference} · {current.description}</p>
-        <p>Current holder: {current.holderLabel ?? current.holderId}. New holder: {String(holders.find((value) => value.id === review.holderId)?.name ?? review.holderId)} ({String(review.holderKind)}).</p>
-        <p>Observed condition: {String(review.condition ?? current.condition)}. Expected return: {stamp(review.expectedReturnAt as string | null)}.</p>
-        <p>This records one custody event. Recipient or receiving acknowledgement remains a separate action.</p>
-        <button type="button" disabled={busy} onClick={() => void submit(review)}>Confirm {String(review.action).toLowerCase()}</button>{" "}
-        <button type="button" onClick={() => setReview(null)}>Edit</button>
-      </div>}
-      <ol className={styles.history}>{history?.events.map((value) => <li key={value.id}>
-        <strong>{value.action.replaceAll("_", " ")}</strong> · {stamp(value.recordedAt)} · revision {value.revision}
-        <span>Custody {value.holderAfter}; condition {value.conditionAfter}; repair {value.maintenanceAfter}</span>
-        {value.reason && <span>Observation: {value.reason}</span>}
-      </li>)}</ol>
-    </section>}
-    {mode === "register" && <section className={styles.panel}><h2>Uniform stock by size</h2>
-      <div className={styles.grid}>{data.stock.map((value) => <article className={styles.card} key={value.id}>
-        <strong>{value.garment} · {value.size}</strong><p>{value.sku} · Available {value.available} · Issued {value.issued}</p>
-        <button type="button" onClick={async () => { try { setStockHistory(await api(undefined, "?stockId=" + encodeURIComponent(value.id)) as StockHistory); }
-          catch { setMessage("Stock history unavailable."); } }}>View movements and issue IDs</button>
-        {(operations || office) && <StockMoveForm value={value} holders={holders} operations={operations} office={office} busy={busy} submit={submit} />}
-      </article>)}</div>
-      {stockHistory && <div className={styles.card}><h3>{stockHistory.sku} · movement history</h3>
-        <ol className={styles.history}>{stockHistory.events.map((value) => <li key={value.id}>
-          <strong>{value.action}</strong> · {stamp(value.recordedAt)} · quantity {value.quantity} · available after {value.availableAfter}
-          {value.issueId && <span>Issue ID for return: {value.issueId}</span>}
-          {value.reason && <span>Reason: {value.reason}</span>}
-        </li>)}</ol></div>}
-    </section>}
     {mode === "self" && <section className={styles.panel}><h2>My issued uniform</h2>
       {data.myStock.length === 0 && <p>No uniform issue is outstanding.</p>}
       {data.myStock.map((value) => <article className={styles.card} key={value.issueId}>
-        <strong>{value.garment} · {value.size}</strong><p>Quantity {value.outstanding}. Acknowledgement: {value.acknowledgement}.</p>
+        <strong>{value.garment} · {value.size}</strong><p className={styles.reference}>Issue {value.issueId}</p><p>Quantity {value.outstanding}. Acknowledgement: {value.acknowledgement}.</p>
         {value.acknowledgement === "PENDING" && <>
           <button disabled={busy} onClick={() => submit({ action: "STOCK_ACK", issueId: value.issueId, dispute: false })}>Acknowledge receipt</button>{" "}
-          <button disabled={busy} onClick={() => { const why = window.prompt("Describe the discrepancy");
-            if (why) submit({ action: "STOCK_ACK", issueId: value.issueId, dispute: true, reason: why }); }}>Dispute receipt</button>
+          <button disabled={busy} onClick={(event) => { panelTrigger.current = event.currentTarget;setDialogReason("");setReasonDialog({ kind: "dispute", id: value.issueId, label: `${value.garment} · ${value.size} · quantity ${value.outstanding}` }); }}>Dispute receipt</button>
         </>}
       </article>)}
     </section>}
+    <Sheet open={Boolean(selectedStock)} onOpenChange={(value) => { if (!value && !busy) { setSelectedStock(null);setStockHistory(null); } }}><SheetContent className={styles.sheet} onEscapeKeyDown={(event) => { if (busy) event.preventDefault(); }} onCloseAutoFocus={(event) => { if (panelTrigger.current?.isConnected) { event.preventDefault();panelTrigger.current.focus(); } }}><SheetTitle>{currentStock ? `${currentStock.sku} · uniform stock` : "Uniform stock"}</SheetTitle><SheetDescription>Review the exact stock size, quantity and issued line before recording a movement.</SheetDescription>
+      {currentStock && <section className={styles.panel}><h2>{currentStock.garment} · {currentStock.size}</h2><p>Available {currentStock.available} · Issued {currentStock.issued} · Revision {currentStock.revision}</p>{(operations || office) && <StockMoveForm value={currentStock} holders={holders} operations={operations} office={office} busy={busy} submit={submit} />}<details className={styles.recordHistory}><summary>Stock movement history and issue IDs</summary>{stockHistory?.id === currentStock.id ? <ol className={styles.history}>{stockHistory.events.map((value) => <li key={value.id}><strong>{value.action}</strong> · {stamp(value.recordedAt)} · revision {value.revision} · quantity {value.quantity} · available after {value.availableAfter} · outstanding after {value.outstandingAfter}{value.issueId && <span>Issue ID for return: {value.issueId}</span>}{value.reason && <span>Reason: {value.reason}</span>}</li>)}</ol> : <p role="status">Movement history is not confirmed for this selected stock record.</p>}</details></section>}
+    </SheetContent></Sheet>
+    <Sheet open={Boolean(reasonDialog && reasonAllowed)} onOpenChange={(value) => { if (!value && !busy) setReasonDialog(null); }}><SheetContent className={styles.sheet} onEscapeKeyDown={(event) => { if (busy) event.preventDefault(); }} onCloseAutoFocus={(event) => { if (panelTrigger.current?.isConnected) { event.preventDefault();panelTrigger.current.focus(); } }}><SheetTitle>{reasonDialog?.kind === "dispute" ? "Dispute uniform receipt" : "Revoke scoped Operations grant"}</SheetTitle><SheetDescription>{reasonDialog?.label} · Exact {reasonDialog?.kind === "dispute" ? "issue" : "grant"}: {reasonDialog?.id}</SheetDescription><form className={styles.reasonForm} onSubmit={(event) => { event.preventDefault();if (!reasonDialog || !reasonAllowed || !dialogReason.trim()) return;const selected = reasonDialog;void submit(selected.kind === "dispute" ? { action: "STOCK_ACK", issueId: selected.id, dispute: true, reason: dialogReason } : { action: "REVOKE_GRANT", grantId: selected.id, reason: dialogReason }).then(() => setReasonDialog(null)); }}><label>{reasonDialog?.kind === "dispute" ? "Describe the discrepancy" : "Revocation reason"}<textarea required maxLength={reasonDialog?.kind === "dispute" ? 500 : 300} value={dialogReason} onChange={(event) => setDialogReason(event.target.value)} /></label><p>{reasonDialog?.kind === "dispute" ? "A receipt dispute records your observation. It does not change the issued quantity or establish fault." : "Revocation changes access for this exact grant. Custody and stock history remain separate."}</p><button type="submit" disabled={busy || !reasonAllowed || !dialogReason.trim()}>{busy ? "Saving…" : reasonDialog?.kind === "dispute" ? "Record receipt dispute" : "Confirm revocation"}</button></form></SheetContent></Sheet>
     </>}
   </div>;
 }

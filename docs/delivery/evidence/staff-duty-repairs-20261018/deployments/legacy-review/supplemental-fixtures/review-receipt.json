@@ -1,0 +1,42 @@
+{
+  "createdUtc": "2026-10-18T04:12:34.308895+00:00",
+  "scope": "U56 supplemental external legacy fixture adaptation only",
+  "tests": {
+    "redPass": 33,
+    "redFail": 5,
+    "supplementalCases": 38,
+    "combinedPass": 67,
+    "combinedFail": 0,
+    "skipped": 0
+  },
+  "files": [
+    {
+      "file": "tests/staff-shift-entry-local.test.mjs",
+      "beforeSha256": "9f40873d07ec502c6170861491d2118d14f18f4bc9e231cbe2eab83cd0d52388",
+      "sha256": "cf777acdcebc10dbab672f6e8aaa5046af9d572bd74c44b024b98a49f07a6f9d",
+      "patchSha256": "af647ae8b75ff3c8514d3fc23bf417e7959120ce07a93cd0031d40554105415b"
+    },
+    {
+      "file": "tests/event-deployment-journey-local.test.mjs",
+      "beforeSha256": "63941bb76f277bb552d76bcad832c203d0ce258914738c29ec438a210cbe1094",
+      "sha256": "4034bd80d578a1795b247383bd384c01af4ab8bbebadcd92af1531a2a30421bc",
+      "patchSha256": "f788b1ff310fa9b11fe8684283e5894c9d5e0f157648be68e8630bdb53d1065f"
+    }
+  ],
+  "evidence": [
+    {
+      "file": "ui-milestone-evidence/staff-duty-integration-review/supplemental-fixtures/legacy-red.tap",
+      "sha256": "f15a2c22f4e7879fd4ad7ea3641757357d68e36cbd367711b983f507474da142"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-duty-integration-review/supplemental-fixtures/combined-green.tap",
+      "sha256": "2dd3a17a61a576c300cfd7354b50d260bb255ce6e3e1ab52a5f3337cc0187ebc"
+    },
+    {
+      "file": "ui-milestone-evidence/staff-duty-integration-review/supplemental-fixtures/REVIEW.md",
+      "sha256": "1d8befea6eb6b6809d67d56dd6b9c0f76e560562c4ecdce56eb2f2baf332d4cd"
+    }
+  ],
+  "integrationOriginalsUnchanged": true,
+  "productEdits": false
+}

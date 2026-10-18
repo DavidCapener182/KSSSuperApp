@@ -1,0 +1,30 @@
+✖ Assets family Sheet retains width contract and adds desktop/phone inner insets (3.489292ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 59.017417
+
+✖ failing tests:
+
+test at ui-milestone-evidence/my-equipment-preview/sheet-inset-revision-2/sheet-inset-local.test.mjs:2:1
+✖ Assets family Sheet retains width contract and adds desktop/phone inner insets (3.489292ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - '24px'
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/my-equipment-preview/sheet-inset-revision-2/sheet-inset-local.test.mjs:2:542)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: '24px',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

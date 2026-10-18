@@ -1,0 +1,355 @@
+{
+  "status": "passed",
+  "results": [
+    {
+      "name": "before my-deployments 1440 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-deployments 834 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-deployments 390 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-deployments 320 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-deployments 1440 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-deployments 834 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-deployments 390 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-deployments 320 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "deployment decline rejected PATCH preserves controlled draft and feedback 1440",
+      "status": "passed"
+    },
+    {
+      "name": "deployment exact Site offer response and return-week context 1440",
+      "status": "passed"
+    },
+    {
+      "name": "deployment exact focus rejects unrelated response 1440",
+      "status": "passed"
+    },
+    {
+      "name": "deployment authority loss clears stale decline target and actions 1440",
+      "status": "passed"
+    },
+    {
+      "name": "deployment decline rejected PATCH preserves controlled draft and feedback 390",
+      "status": "passed"
+    },
+    {
+      "name": "deployment exact Site offer response and return-week context 390",
+      "status": "passed"
+    },
+    {
+      "name": "deployment exact focus rejects unrelated response 390",
+      "status": "passed"
+    },
+    {
+      "name": "deployment authority loss clears stale decline target and actions 390",
+      "status": "passed"
+    },
+    {
+      "name": "deployment pending response must not launch old-context reads after unmount",
+      "status": "passed"
+    },
+    {
+      "name": "actual Staff page denies synthetic Office identity my-deployments",
+      "status": "passed"
+    },
+    {
+      "name": "deployment matching declined receipt and readback 1440",
+      "status": "passed"
+    },
+    {
+      "name": "deployment stale revision readback remains uncertain 1440",
+      "status": "passed"
+    },
+    {
+      "name": "deployment matching declined receipt and readback 390",
+      "status": "passed"
+    },
+    {
+      "name": "deployment stale revision readback remains uncertain 390",
+      "status": "passed"
+    }
+  ],
+  "captures": [
+    {
+      "name": "before-my-deployments-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "before-deployment-decline-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "before-my-deployments-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "before-deployment-decline-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "before-my-deployments-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "before-deployment-decline-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "before-my-deployments-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "before-deployment-decline-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "after-my-deployments-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-deployment-decline-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-my-deployments-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "after-deployment-decline-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "after-my-deployments-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-deployment-decline-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-my-deployments-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "after-deployment-decline-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "after-deployment-rejected-draft-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-deployment-accepted-site-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-deployment-wrong-source-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-deployment-denied-target-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-deployment-rejected-draft-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-deployment-accepted-site-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-deployment-wrong-source-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-deployment-denied-target-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-deployment-declined-confirmed-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-deployment-stale-revision-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-deployment-declined-confirmed-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-deployment-stale-revision-390",
+      "width": 390,
+      "scrollWidth": 390
+    }
+  ],
+  "external": [],
+  "writes": [
+    {
+      "path": "/api/deployments/me/00000000-0000-4000-8000-000000000001",
+      "method": "PATCH",
+      "body": {
+        "response": "DECLINED",
+        "expectedRevision": 3,
+        "reasonCode": "TIMING_CONFLICT",
+        "note": "Synthetic retained decline note"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/deployments/site-shifts/me/00000000-0000-4000-8000-000000000003",
+      "method": "PATCH",
+      "body": {
+        "response": "ACCEPTED",
+        "expectedRevision": 3
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/deployments/me/00000000-0000-4000-8000-000000000001",
+      "method": "PATCH",
+      "body": {
+        "response": "DECLINED",
+        "expectedRevision": 3,
+        "reasonCode": "CANNOT_ATTEND",
+        "note": ""
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/deployments/me/00000000-0000-4000-8000-000000000001",
+      "method": "PATCH",
+      "body": {
+        "response": "DECLINED",
+        "expectedRevision": 3,
+        "reasonCode": "TIMING_CONFLICT",
+        "note": "Synthetic retained decline note"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/deployments/site-shifts/me/00000000-0000-4000-8000-000000000003",
+      "method": "PATCH",
+      "body": {
+        "response": "ACCEPTED",
+        "expectedRevision": 3
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/deployments/me/00000000-0000-4000-8000-000000000001",
+      "method": "PATCH",
+      "body": {
+        "response": "DECLINED",
+        "expectedRevision": 3,
+        "reasonCode": "CANNOT_ATTEND",
+        "note": ""
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/deployments/me/00000000-0000-4000-8000-000000000001",
+      "method": "PATCH",
+      "body": {
+        "response": "ACCEPTED",
+        "expectedRevision": 3
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/deployments/me/00000000-0000-4000-8000-000000000001",
+      "method": "PATCH",
+      "body": {
+        "response": "DECLINED",
+        "expectedRevision": 3,
+        "reasonCode": "CANNOT_ATTEND",
+        "note": "Synthetic bounded note"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/deployments/me/00000000-0000-4000-8000-000000000001",
+      "method": "PATCH",
+      "body": {
+        "response": "ACCEPTED",
+        "expectedRevision": 3
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/deployments/me/00000000-0000-4000-8000-000000000001",
+      "method": "PATCH",
+      "body": {
+        "response": "DECLINED",
+        "expectedRevision": 3,
+        "reasonCode": "CANNOT_ATTEND",
+        "note": "Synthetic bounded note"
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/deployments/me/00000000-0000-4000-8000-000000000001",
+      "method": "PATCH",
+      "body": {
+        "response": "ACCEPTED",
+        "expectedRevision": 3
+      },
+      "synthetic": true
+    }
+  ],
+  "limitations": [
+    "Actual routes/components against synthetic principal and APIs",
+    "No hosted authentication/RPC/RLS/persistence",
+    "Before route-local StaffDuty source with published shared shell",
+    "External requests aborted and real/unmatched writes denied"
+  ]
+}

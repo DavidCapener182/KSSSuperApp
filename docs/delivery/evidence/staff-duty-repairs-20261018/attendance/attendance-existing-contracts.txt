@@ -1,0 +1,37 @@
+✔ denied or unavailable later page removes previous attendance cards/actions and totals (64.055125ms)
+✔ late old exact-focus response cannot replace current source/allocation (41.838583ms)
+✔ unmount invalidates pending attendance read (25.516583ms)
+✔ focused attendance rejects a wrong source or allocation even when response is successful (37.953708ms)
+✔ pagination deduplicates exact source pairs and preserves Event/SiteShift distinction (28.861208ms)
+✔ actual attendance GET route denies missing principal and non-Staff roles before RPC (7.634042ms)
+✔ actual attendance GET validates exact source/offset and forwards typed scope without client authority (9.365125ms)
+✔ a pending action from an old exact view cannot reload old facts or announce success after navigation (47.633375ms)
+✖ role-loss refresh following a successful POST clears prior success and cards (25.129333ms)
+✔ old denied focus cannot clear new facts; pending current read keeps actions hidden (46.369375ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 457.672958
+
+✖ failing tests:
+
+test at kss-followup-integration/tests/staff-attendance-contract-local.test.mjs:110:1
+✖ role-loss refresh following a successful POST clears prior success and cards (25.129333ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /unavailable/i. Input:
+  
+  'Your attendance · Event and Site shift work My Attendance Record your own attendance for accepted work. Times use Europe/London; attendance does not calculate worked or payable time.  Attendance may have been recorded, but its current state could not be confirmed. Refresh before retrying safely.   Refresh       '
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/tests/staff-attendance-contract-local.test.mjs:113:54)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Your attendance · Event and Site shift work My Attendance Record your own attendance for accepted work. Times use Europe/London; attendance does not calculate worked or payable time.  Attendance may have been recorded, but its current state could not be confirmed. Refresh before retrying safely.   Refresh       ',
+    expected: /unavailable/i,
+    operator: 'match',
+    diff: 'simple'
+  }

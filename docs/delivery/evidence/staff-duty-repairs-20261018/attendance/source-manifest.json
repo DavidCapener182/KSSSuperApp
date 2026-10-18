@@ -1,0 +1,36 @@
+{
+  "scope": "U57 My Attendance only",
+  "files": [
+    {
+      "path": "src/components/my-attendance-client.tsx",
+      "sha256": "1b1b7902ea4bd07b70bdde14a08053a5a5beec863a1662263cd8d56d7cca2856",
+      "beforeSha256": "cfd70f16572ac6e066f89eb1e4f40eba6a6a5a1b69216d78765af9e106c31ac5"
+    },
+    {
+      "path": "tests/ui-my-attendance-readback-local.test.mjs",
+      "sha256": "a2224a790b462c83c611c6fadcb012290202b23c5fcacc8f352d73f930591552",
+      "beforeSha256": null
+    },
+    {
+      "path": "docs/delivery/UI-MY-ATTENDANCE-READBACK-REPAIR-20261018.md",
+      "sha256": "d6c3af74dfbc3e8c7f28b606f3113031fd06afcfaef219c2d6b9c56eba3fe3e5",
+      "beforeSha256": null
+    }
+  ],
+  "nonOwnedSrcPreserved": 410,
+  "checks": {
+    "newSource": 20,
+    "existingSource": 10,
+    "browser": 23,
+    "types": 0,
+    "lint": 0
+  },
+  "patchSha256": "c0002cfc61d9b985e1a0835315c2362f314a58c169fc21649220233ff37d2b03",
+  "existingFixture": {
+    "path": "tests/staff-attendance-contract-local.test.mjs",
+    "beforeSha256": "150166149f5af25d02a3e0a8ca164efd70e757ff6b449f63ec0fb6fbfc82d585",
+    "afterSha256": "36f13285256df68511a1d873bc788c82692e7c1cd5e7fa175cb4977ed2aa10c8",
+    "patchSha256": "6a7c8b3e85aa7e0572f63901e0c044ceb1df5b806e14782ce517d5352d9e497b",
+    "import": "Apply existing-fixture.patch only; do not also import duplicate adapted test"
+  }
+}

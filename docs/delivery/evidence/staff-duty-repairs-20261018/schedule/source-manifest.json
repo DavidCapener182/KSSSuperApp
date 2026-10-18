@@ -1,0 +1,29 @@
+{
+  "status": "LOCAL_VERIFIED_AWAITING_INTEGRATION_U55_ONLY",
+  "files": {
+    "src/components/my-schedule-client.tsx": "ca584402e87f3c31fd6e5963e997ad9f93263d4afd306dffa130ae7c79632115",
+    "tests/ui-my-schedule-scope-local.test.mjs": "c789bf2a93620edf84955113234cde770f2b9747d0fede662bfd8e122089c300",
+    "docs/delivery/UI-MY-SCHEDULE-SCOPE-REPAIR-20261018.md": "386c9eec7b36bc19bff7e0882bd80113f12ea0825051fdd4b4079d9688d2a62b"
+  },
+  "beforeHashes": {
+    "src/components/my-schedule-client.tsx": "54aa526fb2275bc677cb50dff7b3f423c710566e3bb10278bc406f9e5643c1bc",
+    "tests/ui-my-schedule-scope-local.test.mjs": null,
+    "docs/delivery/UI-MY-SCHEDULE-SCOPE-REPAIR-20261018.md": null
+  },
+  "checks": {
+    "source-tests": 0,
+    "types": 0,
+    "lint": 0
+  },
+  "counts": {
+    "sourceTests": 9,
+    "sourceBoundaryTests": 25,
+    "browserChecks": 21,
+    "captures": 20,
+    "images": 40
+  },
+  "preservedTrackedSourceFiles": 410,
+  "unrelatedU56U57": "unchanged; separate red packet",
+  "browserExternalRequests": 0,
+  "visualPacket": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/output/ui-staff-duty-browser-20261018/schedule-visual-final"
+}

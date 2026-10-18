@@ -1,0 +1,64 @@
+--- a/tests/staff-shift-entry-local.test.mjs
++++ b/tests/staff-shift-entry-local.test.mjs
+@@ -67,7 +67,7 @@
+   return typeof tree === 'object' ? text(tree.props?.children) : String(tree);
+ }
+ const button = (tree, label) => nodes(tree).find((node) => node.type === 'button' && text(node) === label);
+-const json = (body, ok = true) => ({ ok, json: async () => body });
++const json = (body, ok = true, status = ok ? 200 : 503) => ({ ok, status, json: async () => body });
+ const allocation = { id: '00000000-0000-4000-8000-000000000001', source: 'EVENT', status: 'ALLOCATED', revision: 1,
+   event_name: 'Synthetic shift', event_status: 'CONFIRMED', site_name: 'Synthetic site', role_name: 'Steward',
+   report_at: '2027-03-08T10:00:00Z', shift_starts_at: '2027-03-08T11:00:00Z', shift_ends_at: '2027-03-08T16:00:00Z',
+@@ -82,7 +82,7 @@
+   const h = deploymentHarness(async (url, options = {}) => {
+     calls.push([url, options.method ?? 'GET']);
+     if (options.method === 'PATCH') return new Promise((resolve) => { release = () => {
+-      state = { ...state, status: 'ACCEPTED', revision: 2 }; resolve(json({}));
++      state = { ...state, status: 'ACCEPTED', revision: 2 }; resolve(json({revision:2}));
+     }; });
+     return json({ deployments: { items: [state], total: 1 } });
+   });
+@@ -98,35 +98,38 @@
+   assert.ok(nodes(h.render()).some((node) => node.props?.href === '/my-schedule?week=2027-03-08'));
+ });
+ 
+-test('Staff rejection retains pending allocation and produces no success/readback', async () => {
++test('Staff explicit rejection retains pending allocation and performs only read-only refresh without success', async () => {
+   const calls = [];
+   const h = deploymentHarness(async (url, options = {}) => {
+     calls.push([url, options.method]);
+-    return options.method === 'PATCH' ? json({ error: 'Synthetic revision conflict' }, false)
++    return options.method === 'PATCH' ? json({ error: 'Synthetic revision conflict' }, false, 409)
+       : json({ deployments: { items: [allocation], total: 1 } });
+   });
+   await h.mount(); button(h.render(), 'Accept allocation').props.onClick(); await h.settle();
+   assert.match(text(h.render()), /Synthetic revision conflict/);
+   assert.match(text(h.render()), /Awaiting your response/);
+   assert.doesNotMatch(text(h.render()), /Accepted allocation confirmed/);
+-  assert.equal(calls.length, 2);
++  assert.equal(calls.length, 3);
++  assert.equal(calls.filter(([,method])=>method==='PATCH').length,1);
++  assert.notEqual(calls[2][1],'PATCH');
+ });
+ 
+ for (const mismatch of ['wrong-source', 'changed-after-readback', 'readback-unavailable']) {
+   test(`Staff response is not confirmed when ${mismatch}`, async () => {
+     let count = 0;
+     const h = deploymentHarness(async (_url, options = {}) => {
+-      if (options.method === 'PATCH') return json({});
++      if (options.method === 'PATCH') return json({revision:2});
+       count++;
+       if (count === 1) return json({ deployments: { items: [allocation], total: 1 } });
+       if (mismatch === 'readback-unavailable') return json({}, false);
+       const status = count === 3 ? 'CANCELLED' : 'ACCEPTED';
+-      return json({ deployments: { items: [{ ...allocation, status,
++      return json({ deployments: { items: [{ ...allocation, status, revision:2,
+         source: mismatch === 'wrong-source' ? 'SITE_SHIFT' : 'EVENT' }], total: 1 } });
+     });
+     await h.mount(); button(h.render(), 'Accept allocation').props.onClick(); await h.settle();
+     assert.doesNotMatch(text(h.render()), /Accepted allocation confirmed/);
+     assert.match(text(h.render()), /could not be confirmed/);
++    assert.equal(count,mismatch==='changed-after-readback'?3:2);
+   });
+ }
+ 

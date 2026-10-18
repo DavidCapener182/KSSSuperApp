@@ -1,0 +1,13 @@
+--- a/tests/staff-attendance-contract-local.test.mjs
++++ b/tests/staff-attendance-contract-local.test.mjs
+@@ -109,8 +109,8 @@
+ });
+ test('role-loss refresh following a successful POST clears prior success and cards', async () => {
+   let denied = false;
+-  const h = harness(async (_url, options) => { if(options?.method === 'POST'){denied = true;return {ok:true,json:async()=>({})};} return denied ? json([],0,false) : json([row(1)]); });
+-  await h.mount(); h.act(); await h.settle(); assert.match(text(h.render()), /unavailable/i); assert.doesNotMatch(text(h.render()), /Check-in recorded|Synthetic attendance|Check In/); h.unmount();
++  const h = harness(async (_url, options) => { if(options?.method === 'POST'){denied = true;const submitted=JSON.parse(options.body);return {ok:true,json:async()=>({result:{event_id:id(80),revision:1,replayed:false,attendance:{revision:1,state:'CHECKED_IN',check_in_at:submitted.actualAt,check_out_at:null,events:[{id:id(80),revision:1,type:'CHECK_IN',actual_at:submitted.actualAt,actor_mode:'STAFF_SELF',method:'AUTHENTICATED_ONLINE'}]}}})};} return denied ? json([],0,false) : json([row(1)]); });
++  await h.mount(); h.act(); await h.settle(); assert.match(text(h.render()), /could not be confirmed/i); assert.doesNotMatch(text(h.render()), /Check-in recorded|Synthetic attendance|Check In/); h.unmount();
+ });
+ test('old denied focus cannot clear new facts; pending current read keeps actions hidden', async () => {
+   const first = deferred(), second = deferred();

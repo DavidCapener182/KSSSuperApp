@@ -1,0 +1,387 @@
+{
+  "review": "Independent read-only candidate6 product/source/browser provenance parity",
+  "createdUtc": "2026-10-18T04:18:15.579421+00:00",
+  "candidate": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-6",
+  "base": "3b7b3d13413e8ba7cc0f747b4635a0ae6f54c876",
+  "status": "PASS_WITH_EXPLICIT_SYNTHETIC_AND_PROVENANCE_LIMITS",
+  "publicationBlockingMismatches": [],
+  "ownedHashesVerified": 9,
+  "nonOwnedHashesVerified": 413,
+  "actualSourceInventory": 422,
+  "exactOwnedSourceDiff": [
+    "src/app/(enterprise)/my-equipment/page.tsx",
+    "src/components/assets-workspace.module.css",
+    "src/components/assets-workspace.tsx",
+    "src/components/attendance-self.module.css",
+    "src/components/deployment-offers.module.css",
+    "src/components/my-attendance-client.tsx",
+    "src/components/my-deployments-client.tsx",
+    "src/components/my-schedule-client.tsx",
+    "src/components/my-schedule-presentation.module.css"
+  ],
+  "ownedChecks": [
+    {
+      "kind": "owned",
+      "file": "src/app/(enterprise)/my-equipment/page.tsx",
+      "sha256": "295e73960770d80f3b2536d0e66d0978f123d9b53800e3e7bb95fa2f98090952",
+      "matchesManifestAndBase": true
+    },
+    {
+      "kind": "owned",
+      "file": "src/components/assets-workspace.module.css",
+      "sha256": "320e976760f3951684fb06ab351f80722ef8a07f66cc14ec93299b584b8d3c1a",
+      "matchesManifestAndBase": true
+    },
+    {
+      "kind": "owned",
+      "file": "src/components/assets-workspace.tsx",
+      "sha256": "4b3f3d2236e28ecbfefbc8d7244c918dfdb5adb20c58651bb6660edf21c4128b",
+      "matchesManifestAndBase": true
+    },
+    {
+      "kind": "owned",
+      "file": "src/components/attendance-self.module.css",
+      "sha256": "9671277e4d0d368b3a00cec00e3f42ff78e00bda926d1684b93e451e1132cd65",
+      "matchesManifestAndBase": true
+    },
+    {
+      "kind": "owned",
+      "file": "src/components/deployment-offers.module.css",
+      "sha256": "2c63b252a56575ca66e61267d4a663c503b2cbbf25511edbeb7821cbc38ec5ef",
+      "matchesManifestAndBase": true
+    },
+    {
+      "kind": "owned",
+      "file": "src/components/my-attendance-client.tsx",
+      "sha256": "1b1b7902ea4bd07b70bdde14a08053a5a5beec863a1662263cd8d56d7cca2856",
+      "matchesManifestAndBase": true
+    },
+    {
+      "kind": "owned",
+      "file": "src/components/my-deployments-client.tsx",
+      "sha256": "5261b1b595d484923070beaa120c756745b009cb1ed7536916922bf6afda0730",
+      "matchesManifestAndBase": true
+    },
+    {
+      "kind": "owned",
+      "file": "src/components/my-schedule-client.tsx",
+      "sha256": "ca584402e87f3c31fd6e5963e997ad9f93263d4afd306dffa130ae7c79632115",
+      "matchesManifestAndBase": true
+    },
+    {
+      "kind": "owned",
+      "file": "src/components/my-schedule-presentation.module.css",
+      "sha256": "660a3c6a2d101ed322d66bcd765ba55b604d47f4b92646d3b52ff48b11970dfd",
+      "matchesManifestAndBase": true
+    }
+  ],
+  "representativeBrowserCoverage": [
+    {
+      "file": "src/components/my-schedule-client.tsx",
+      "sourceSha256": "ca584402e87f3c31fd6e5963e997ad9f93263d4afd306dffa130ae7c79632115",
+      "matchesCandidate": true,
+      "route": "/my-schedule",
+      "browserChecks": 21,
+      "widths": [
+        1440,
+        834,
+        390,
+        320
+      ],
+      "sourceEvidence": "output/ui-staff-duty-browser-20261018/schedule-frozen-source/source-manifest.json",
+      "provenance": "Frozen final component and final passing browser receipt"
+    },
+    {
+      "file": "src/components/my-schedule-presentation.module.css",
+      "sourceSha256": "660a3c6a2d101ed322d66bcd765ba55b604d47f4b92646d3b52ff48b11970dfd",
+      "matchesCandidate": true,
+      "route": "/my-schedule",
+      "browserChecks": 21,
+      "widths": [
+        1440,
+        834,
+        390,
+        320
+      ],
+      "sourceEvidence": "output/ui-staff-duty-browser-20261018/red-deployments-attendance-checkpoint01/source-manifest.json",
+      "provenance": "Immutable initial after-fixture dependency digest; unchanged stylesheet copied once, final runners perform no product writes. No fresh per-run full dependency manifest was emitted."
+    },
+    {
+      "file": "src/components/my-deployments-client.tsx",
+      "sourceSha256": "5261b1b595d484923070beaa120c756745b009cb1ed7536916922bf6afda0730",
+      "matchesCandidate": true,
+      "route": "/my-deployments",
+      "browserChecks": 22,
+      "widths": [
+        1440,
+        834,
+        390,
+        320
+      ],
+      "sourceEvidence": "output/ui-staff-duty-browser-20261018/deployments-frozen-source/source-manifest.json",
+      "provenance": "Frozen final component and final passing browser receipt"
+    },
+    {
+      "file": "src/components/deployment-offers.module.css",
+      "sourceSha256": "2c63b252a56575ca66e61267d4a663c503b2cbbf25511edbeb7821cbc38ec5ef",
+      "matchesCandidate": true,
+      "route": "/my-deployments",
+      "browserChecks": 22,
+      "widths": [
+        1440,
+        834,
+        390,
+        320
+      ],
+      "sourceEvidence": "output/ui-staff-duty-browser-20261018/red-deployments-attendance-checkpoint01/source-manifest.json",
+      "provenance": "Immutable initial after-fixture dependency digest; unchanged stylesheet copied once, final runners perform no product writes. No fresh per-run full dependency manifest was emitted."
+    },
+    {
+      "file": "src/components/my-attendance-client.tsx",
+      "sourceSha256": "1b1b7902ea4bd07b70bdde14a08053a5a5beec863a1662263cd8d56d7cca2856",
+      "matchesCandidate": true,
+      "route": "/my-attendance",
+      "browserChecks": 23,
+      "widths": [
+        1440,
+        834,
+        390,
+        320
+      ],
+      "sourceEvidence": "output/ui-staff-duty-browser-20261018/attendance-frozen-source/source-manifest.json",
+      "provenance": "Frozen final component and final passing browser receipt"
+    },
+    {
+      "file": "src/components/attendance-self.module.css",
+      "sourceSha256": "9671277e4d0d368b3a00cec00e3f42ff78e00bda926d1684b93e451e1132cd65",
+      "matchesCandidate": true,
+      "route": "/my-attendance",
+      "browserChecks": 23,
+      "widths": [
+        1440,
+        834,
+        390,
+        320
+      ],
+      "sourceEvidence": "output/ui-staff-duty-browser-20261018/red-deployments-attendance-checkpoint01/source-manifest.json",
+      "provenance": "Immutable initial after-fixture dependency digest; unchanged stylesheet copied once, final runners perform no product writes. No fresh per-run full dependency manifest was emitted."
+    },
+    {
+      "file": "src/app/(enterprise)/my-equipment/page.tsx",
+      "sourceSha256": "295e73960770d80f3b2536d0e66d0978f123d9b53800e3e7bb95fa2f98090952",
+      "matchesCandidate": true,
+      "route": "/my-equipment",
+      "widths": [
+        1440,
+        834,
+        390,
+        320
+      ],
+      "sourceEvidence": "ui-milestone-evidence/my-equipment-preview/runtime-manifests.json",
+      "provenance": "Final named runtime digest; CSS revision3 receipt; actual self-mode page and AssetsWorkspace selected-record flows"
+    },
+    {
+      "file": "src/components/assets-workspace.tsx",
+      "sourceSha256": "4b3f3d2236e28ecbfefbc8d7244c918dfdb5adb20c58651bb6660edf21c4128b",
+      "matchesCandidate": true,
+      "route": "/my-equipment",
+      "widths": [
+        1440,
+        834,
+        390,
+        320
+      ],
+      "sourceEvidence": "ui-milestone-evidence/my-equipment-preview/runtime-manifests.json",
+      "provenance": "Final named runtime digest; CSS revision3 receipt; actual self-mode page and AssetsWorkspace selected-record flows"
+    },
+    {
+      "file": "src/components/assets-workspace.module.css",
+      "sourceSha256": "320e976760f3951684fb06ab351f80722ef8a07f66cc14ec93299b584b8d3c1a",
+      "matchesCandidate": true,
+      "route": "/my-equipment",
+      "widths": [
+        1440,
+        834,
+        390,
+        320
+      ],
+      "sourceEvidence": "ui-milestone-evidence/my-equipment-preview/runtime-manifests.json",
+      "provenance": "Final named runtime digest; CSS revision3 receipt; actual self-mode page and AssetsWorkspace selected-record flows"
+    }
+  ],
+  "staffFrozenPackets": [
+    {
+      "lane": "schedule",
+      "manifestSha256": "7c7c837bf7749ffca2717aee6801e5cb5711dd5851e69d2e584b8f8b8db8e8e5",
+      "browserReceiptSha256": "19652a6613b6ba189429fe8c8db74ba43b67c277e0d9255ba0f3836727099ae7",
+      "imageHashesVerified": 40,
+      "externalRequests": 0
+    },
+    {
+      "lane": "deployments",
+      "manifestSha256": "d2d1c5536546a3d81676d7d2ce8fc0558dfbf9aae6987873f0eb02be87cb41fc",
+      "browserReceiptSha256": "629f87c4055513dae540855315bf33150fa561d273b48570d966000c58643c88",
+      "imageHashesVerified": 56,
+      "externalRequests": 0
+    },
+    {
+      "lane": "attendance",
+      "manifestSha256": "6124509b9527bb0984ab71eb9197ae7ece3109b5883365cac2ff13b63816045f",
+      "browserReceiptSha256": "dbbb83ac53978232d4a6ad575be0b4f44fc83374f9932e827c70d3aac020efef",
+      "imageHashesVerified": 46,
+      "externalRequests": 0
+    }
+  ],
+  "equipment": {
+    "finalRuntimeManifestSha256": "0cc763be60fb27306234ec93215732f35d1f0b012f66cf4210cbad918851b606",
+    "records": 36,
+    "screenshots": 44,
+    "finalEvidenceHashesVerified": 47,
+    "finalCssRevision": {
+      "file": "src/components/assets-workspace.module.css",
+      "previousSha256": "91aa4ed8bf89a5fd2f14981895114ddd01c1072ff83885aa1c959b37f7fe38aa",
+      "sha256": "320e976760f3951684fb06ab351f80722ef8a07f66cc14ec93299b584b8d3c1a",
+      "originalPreInsetSha256": "8cd159304938b38916e544c71ce75ffd10bd11fdeb707554ec111c2098890554",
+      "change": "Reserve32px trailing space inside Assets-family Sheet titles to avoid overlap with existing Close button at320px; padding24desktop/16phone retained, widths and all component behavior unchanged."
+    },
+    "copiedPacketMatches": true
+  },
+  "dependencyParity": [
+    {
+      "file": "src/app/globals.css",
+      "matches": true
+    },
+    {
+      "file": "postcss.config.mjs",
+      "matches": true
+    },
+    {
+      "file": "src/components/enterprise-shell.tsx",
+      "matches": true
+    },
+    {
+      "file": "src/lib/auth/capabilities.ts",
+      "matches": true
+    },
+    {
+      "file": "src/lib/environment-label.ts",
+      "matches": true
+    },
+    {
+      "file": "src/lib/events/workforce-week.ts",
+      "matches": true
+    },
+    {
+      "file": "src/lib/crm/due-time.ts",
+      "matches": true
+    },
+    {
+      "file": "src/app/(enterprise)/my-schedule/page.tsx",
+      "matches": true
+    },
+    {
+      "file": "src/app/(enterprise)/my-deployments/page.tsx",
+      "matches": true
+    },
+    {
+      "file": "src/app/(enterprise)/my-attendance/page.tsx",
+      "matches": true
+    },
+    {
+      "file": "src/components/ui/badge.tsx",
+      "matches": true
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "matches": true
+    },
+    {
+      "file": "src/components/ui/input.tsx",
+      "matches": true
+    },
+    {
+      "file": "src/components/ui/progress.tsx",
+      "matches": true
+    },
+    {
+      "file": "src/components/ui/sheet.module.css",
+      "matches": true
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "matches": true
+    },
+    {
+      "file": "src/components/ui/skeleton.tsx",
+      "matches": true
+    },
+    {
+      "file": "src/components/ui/workflow.tsx",
+      "matches": true
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "matches": true,
+      "equipmentCopiedShellUnused": false
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "matches": true,
+      "equipmentCopiedShellUnused": false
+    },
+    {
+      "file": "src/components/enterprise-shell.tsx",
+      "matches": true,
+      "equipmentCopiedShellUnused": true
+    },
+    {
+      "file": "src/lib/environment-label.ts",
+      "matches": true,
+      "equipmentCopiedShellUnused": false
+    },
+    {
+      "file": "src/lib/auth/capabilities.ts",
+      "matches": true,
+      "equipmentCopiedShellUnused": false
+    },
+    {
+      "file": "src/app/globals.css",
+      "matches": true,
+      "equipmentCopiedShellUnused": false
+    },
+    {
+      "file": "src/app/(enterprise)/my-equipment/page.tsx",
+      "matches": true,
+      "equipmentCopiedShellUnused": false
+    },
+    {
+      "file": "src/components/ui13/operational.tsx",
+      "matches": true,
+      "equipmentCopiedShellUnused": false
+    },
+    {
+      "file": "src/components/ui13/operational.module.css",
+      "matches": true,
+      "equipmentCopiedShellUnused": false
+    },
+    {
+      "file": "src/components/assets-workspace.tsx",
+      "matches": true,
+      "equipmentCopiedShellUnused": false
+    },
+    {
+      "file": "src/components/assets-workspace.module.css",
+      "matches": true,
+      "equipmentCopiedShellUnused": false
+    }
+  ],
+  "executionExceptions": [
+    "Staff fixture-after is reused and mutable. This review did not use it to establish any historical final-run source parity. Frozen final TSX packets and passing browser receipts are authoritative; unchanged CSS/shared dependency digests come from the immutable initial/red fixture manifest. Final Staff runs did not emit a new complete runtime dependency manifest; CSS provenance is explicit continuity, not a fresh per-run cryptographic attestation.",
+    "Staff U55 filtered callbacks exercise Schedule only; copied Deployments/Attendance are not U55 acceptance. U56 exercises Deployments and navigation to frozen final Schedule; Attendance remains copied/unused. U57 exercises Attendance and navigation to frozen final Deployments; Schedule is not exercised by U57. Later source revisions in unused fixture routes do not invalidate an earlier route-specific result.",
+    "Equipment fixture dependency crawler copies EnterpriseShell but its custom layout does not render EnterpriseShell. It is not U61 shell acceptance. MyEquipment page, ContextHeader, actual AssetsWorkspace self mode and scoped CSS are exercised.",
+    "Equipment synthetic register-mode fixture checks shared Assets-family Sheet CSS only; it grants no authority and does not count as U30 Assets route acceptance.",
+    "Fixture layouts, synthetic principal/Supabase adapters, cookie roles and browser-intercepted APIs are intentional replacements. Product route pages/client files remain exact. No hosted Auth/RPC/RLS/persistence or real business mutation is claimed."
+  ],
+  "browserRerunPerformed": false,
+  "writes": "Only this newly named independent receipt; no product/test changes or publication."
+}

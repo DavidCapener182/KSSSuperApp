@@ -1,0 +1,37 @@
+[
+  {
+    "file": "src/components/work-client.tsx",
+    "baselineSha256": "d1948d73172f99000525b4246c58aa9983284a3fb4c189b92e2a857160fef291",
+    "sha256": "714d6c67f32869178b1074765cd27cab6403ad3d05ed626c0042394c5ebd9b21"
+  },
+  {
+    "file": "src/components/work-filters.module.css",
+    "baselineSha256": "5dba9607f665bb4f067726f396c62ebf682297184e9a655359e253ce74c3f18d",
+    "sha256": "885ac9289ac4e480a4517e523740b90b00c82aab810974019735fbb914dab187"
+  },
+  {
+    "file": "src/components/work-calendar.module.css",
+    "baselineSha256": "a654e96add2c371ffe969d694f9bd8803fef2ee037b5979260348fb47f978c77",
+    "sha256": "aa434b2dec387b729fa612f24daf06a4b15206ea90dc4e8b089db68eba2346b7"
+  },
+  {
+    "file": "src/components/crm-task-actions.tsx",
+    "baselineSha256": "3afdda486d6ac567f3e1525d27323816c368f924115dd819b71136e5814e354c",
+    "sha256": "1bcca9abf2d3529f0ba05c9e19d85f2dde53b6dbb109cad7fc04ac2fb09b303e"
+  },
+  {
+    "file": "src/components/crm-task-actions.module.css",
+    "baselineSha256": "a24a3f3a51eab4e682cb06f3134af2299492529a4f35efa0beb897732624dec0",
+    "sha256": "ef89fafd9fccd32d9a408f32aea44d916f191acb6a36a5318473383cbe71943b"
+  },
+  {
+    "file": "src/components/action-centre-client.tsx",
+    "baselineSha256": "178be61ff937adfdcd38cb129fd3a7485313c837f4c9eb28eb27b6b17d398ea5",
+    "sha256": "62efec36a4fabaf2330e3b3fffa851b71b45f3edfe748b583b2f3ea7a67e40cd"
+  },
+  {
+    "file": "src/components/action-centre.module.css",
+    "baselineSha256": "d375a255a460c8e8da3505db51235cd6b25548afec8c82f1264dc431e9b4f4e8",
+    "sha256": "b06e0d98e039414516816b15cc0347d762a04dacdbcc2fe35010b8b68a017871"
+  }
+]

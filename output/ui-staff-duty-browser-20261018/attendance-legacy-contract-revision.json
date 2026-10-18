@@ -1,0 +1,29 @@
+{
+  "file": "src/components/my-attendance-client.tsx",
+  "preUiBaselineSha256": "63db798ab829a30d8dc79926d28a9f52a433f03958f7a3f621cc204eea2e7670",
+  "previousUiSha256": "cfd70f16572ac6e066f89eb1e4f40eba6a6a5a1b69216d78765af9e106c31ac5",
+  "sha256": "1b1b7902ea4bd07b70bdde14a08053a5a5beec863a1662263cd8d56d7cca2856",
+  "originalLegacyTestSha256": "a881e82a120186df778e543292d474e9c4775ef0f89e5c21044461d90aba201d",
+  "frozenManifestSha256": "6124509b9527bb0984ab71eb9197ae7ece3109b5883365cac2ff13b63816045f",
+  "changes": [
+    {
+      "key": "reader:load",
+      "beforeSha256": "536b6cb16bd66383812db1cc5aea4f9cf089e427be9ff2f26df2771c30b0e9e0",
+      "sha256": "4cd9e9b0d404b5c2aa6ba09bd82e830ea877dce5cdf852f4bd2f57cc48fa294f"
+    },
+    {
+      "key": "effect:0",
+      "beforeSha256": "ed118d9a674ab06a2480ffb6960633087122747357d36105a533b84f50ef688e",
+      "sha256": "ad1b2f04d676bb3b9c6d42aeafd14b09e5e3e4a0646867824f340762e546ce4a"
+    },
+    {
+      "key": "fn:act",
+      "beforeSha256": "00553166ee7397758c68a855b5bdde568350cdde4f78f2a1424d3695d9a41ef4",
+      "sha256": "044c5400c70fc256e0ffca4931d6e3979964750fe8b68f406b16514058b7b6cf"
+    }
+  ],
+  "unaffectedContracts": [],
+  "scheduleReceiptSha256": "a940738963243b4613f2316ab1de1cac13412d04c125b99058988ca9e28b0dab",
+  "deploymentsReceiptSha256": "3d47714ec9924775adb3eda2ccadad9b4818f2dce6ff5310b7ce69ea0f1dbe3e",
+  "reason": "Controlled U57 readback/lifetime revision only; U55 and U56 receipts retained unchanged; no product edits."
+}

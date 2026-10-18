@@ -1,0 +1,17 @@
+[
+  {
+    "file": "src/components/assets-workspace.tsx",
+    "baselineSha256": "eb02a621fdcc85426239a7b594289f9c6d89712da14382ee520479bea8494b59",
+    "sha256": "4b3f3d2236e28ecbfefbc8d7244c918dfdb5adb20c58651bb6660edf21c4128b"
+  },
+  {
+    "file": "src/components/assets-workspace.module.css",
+    "baselineSha256": "a8aacd69ed74631660d51dde408eb78d671a609a696edf0baf63f868925b41be",
+    "sha256": "91aa4ed8bf89a5fd2f14981895114ddd01c1072ff83885aa1c959b37f7fe38aa"
+  },
+  {
+    "file": "src/app/(enterprise)/my-equipment/page.tsx",
+    "baselineSha256": "2f6b80c5ee343b5bb6618487bc187f6f6aed295eced09a58515e2cc7f8e7f404",
+    "sha256": "295e73960770d80f3b2536d0e66d0978f123d9b53800e3e7bb95fa2f98090952"
+  }
+]

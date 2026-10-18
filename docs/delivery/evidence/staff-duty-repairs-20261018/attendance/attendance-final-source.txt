@@ -1,0 +1,38 @@
+✔ denied or unavailable later page removes previous attendance cards/actions and totals (65.730625ms)
+✔ late old exact-focus response cannot replace current source/allocation (43.939458ms)
+✔ unmount invalidates pending attendance read (25.2305ms)
+✔ focused attendance rejects a wrong source or allocation even when response is successful (38.246541ms)
+✔ pagination deduplicates exact source pairs and preserves Event/SiteShift distinction (27.772833ms)
+✔ actual attendance GET route denies missing principal and non-Staff roles before RPC (7.574ms)
+✔ actual attendance GET validates exact source/offset and forwards typed scope without client authority (9.206ms)
+✔ a pending action from an old exact view cannot reload old facts or announce success after navigation (49.811625ms)
+✔ role-loss refresh following a successful POST clears prior success and cards (25.661292ms)
+✔ old denied focus cannot clear new facts; pending current read keeps actions hidden (45.713583ms)
+✔ valid attributable Event check-in confirms only after matching current readback (55.5985ms)
+✔ unchanged exact readback cannot confirm successful-looking POST and retains retry token (14.684834ms)
+✔ unattributable missing receipt never confirms or discards retry token (12.797958ms)
+✔ unattributable wrong revision never confirms or discards retry token (10.426166ms)
+✔ unattributable wrong event identity never confirms or discards retry token (9.027666ms)
+✔ unattributable manager event never confirms or discards retry token (9.346625ms)
+✔ wrong source current readback clears confirmation and action facts (8.639167ms)
+✔ denied readback never restores success (9.701209ms)
+✔ denied POST clears stale action facts without deleting manual retry key (7.743916ms)
+✔ unmounted POST does not start readback or remove pending token (11.442583ms)
+✔ manual retry after uncertain network retains identical payload and confirms attributable replay (12.000917ms)
+✔ synchronous duplicate click attempts only one POST (7.047208ms)
+✔ valid Site check-out uses exact source and existing revision (6.581667ms)
+✔ changed allocation retires pending POST before readback (6.596417ms)
+✔ current missing attributable event cannot confirm an older response (6.989958ms)
+✔ current newer current revision cannot confirm an older response (8.270125ms)
+✔ source disappearance after valid receipt never confirms and does not retry write (6.807458ms)
+✔ unmount during exact read cannot start another page read or discard retry token (7.793292ms)
+✔ cancelled Event check-out remains eligible while cancelled Site shift remains unavailable (15.114ms)
+✔ valid action from an appended page confirms exact readback without discarding page context (6.508292ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 465.886042

@@ -1,0 +1,89 @@
+--- a/src/components/my-schedule-client.tsx
++++ b/src/components/my-schedule-client.tsx
+@@ -27,11 +27,17 @@
+   const [schedule,setSchedule]=useState<Schedule|null>(null);const [loading,setLoading]=useState(true);const [error,setError]=useState("");
+   const load=useCallback(async()=>{const sequence=++requestSequence.current;setLoading(true);setError("");try{const q=new URLSearchParams({week,offset:String(offset)});
+     const response=await fetch(`/api/my-schedule?${q}`,{cache:"no-store"});const data=await response.json().catch(()=>({}));
+-    if(!response.ok)throw new Error(data.error??"My Schedule unavailable");if(sequence===requestSequence.current)setSchedule(data.schedule);
++    if(sequence!==requestSequence.current)return;
++    if(!response.ok)throw new Error(data.error??"My Schedule unavailable");
++    const next=data.schedule;
++    if(!next||next.week_start!==week||!Array.isArray(next.work)||!Array.isArray(next.availability)||!Number.isInteger(next.work_total)||next.work_total<0)
++      throw new Error("The requested schedule week is not confirmed. Retry to read the current source.");
++    setSchedule(next);
+   }catch(caught){if(sequence===requestSequence.current){setSchedule(null);setError(caught instanceof Error?caught.message:"My Schedule unavailable");}}
+     finally{if(sequence===requestSequence.current)setLoading(false);}},[week,offset]);
+-  useEffect(()=>{const timer=setTimeout(()=>void load(),0);return()=>clearTimeout(timer);},[load]);
++  useEffect(()=>{const requests=requestSequence;const timer=setTimeout(()=>void load(),0);return()=>{clearTimeout(timer);requests.current++;};},[load]);
+   function change(value:string){const monday=londonWeekStart(value);if(!monday)return;setWeek(monday);setDate(value);setOffset(0);}
++  const currentSchedule=schedule?.week_start===week?schedule:null;
+   const days=Array.from({length:7},(_,index)=>addCivilDays(week,index));
+   const selectedDay=days.includes(date)?date:week;
+   return <main className={`enterprise-main my-schedule-page ${presentation.page}`}><header className="enterprise-page-heading"><div><p className="enterprise-eyebrow">Your operational week</p><h1>My Schedule</h1>
+@@ -43,12 +49,12 @@
+     <p className="enterprise-honesty">Review offers from each duty below. Change declarations in <Link href="/my-availability">My Availability</Link>.</p>
+     <nav className={presentation.dayPicker} aria-label="Choose schedule day">{days.map((day)=><button type="button" key={day} aria-label={dayLabel(day)} aria-current={selectedDay===day?"date":undefined} onClick={()=>setDate(day)}><span aria-hidden="true">{new Date(`${day}T12:00:00Z`).toLocaleDateString("en-GB",{timeZone:"Europe/London",weekday:"short"})}</span><strong aria-hidden="true">{Number(day.slice(-2))}</strong></button>)}</nav>
+     {error&&<p role="alert" className={`enterprise-error ${presentation.error}`}>{error} <Button variant="outline" onClick={()=>void load()}>Retry</Button></p>}
+-    {loading?<p role="status" className="crm-skeleton">Loading your schedule…</p>:schedule&&<>
+-      <p className={presentation.scope} role="status">Showing {schedule.work.length} of {schedule.work_total} week allocations on this returned page. Day selection applies to these returned allocations.</p>
+-      <div className="my-schedule-days">{days.map((day)=>{const work=schedule.work.filter((item)=>item.service_date===day);
++    {loading||(schedule&&!currentSchedule)?<p role="status" className="crm-skeleton">Loading your schedule…</p>:currentSchedule&&<>
++      <p className={presentation.scope} role="status">Showing {currentSchedule.work.length} of {currentSchedule.work_total} week allocations on this returned page. Day selection applies to these returned allocations.</p>
++      <div className="my-schedule-days">{days.map((day)=>{const work=currentSchedule.work.filter((item)=>item.service_date===day);
+         const dayStart=londonDueToIso(`${day}T00:00`)!;
+         const dayEnd=londonDueToIso(`${addCivilDays(day,1)}T00:00`)!;
+-        const declarations=schedule.availability.filter((item)=>item.ends_at>dayStart&&item.starts_at<dayEnd);
++        const declarations=currentSchedule.availability.filter((item)=>item.ends_at>dayStart&&item.starts_at<dayEnd);
+         return <section key={day} className={`my-schedule-day ${day===selectedDay?presentation.selectedDay:presentation.otherDay}`}><h2>{dayLabel(day)}</h2><div className={presentation.dayBody}>
+           {work.length===0&&declarations.length===0?<p className={presentation.empty}>No work or declaration shown for this day on the returned page.</p>:<>
+             {work.map((item)=><article className={`crm-panel my-schedule-work ${presentation.work}`} key={item.id}><div className={presentation.cardContext}><span>{item.source==="EVENT"?"Event work":"Ongoing Site shift"}</span><strong className={item.status==="ALLOCATED"?presentation.awaiting:presentation.accepted}>{item.status==="ALLOCATED"?"Awaiting your response":"Accepted allocation"}</strong></div>
+@@ -66,9 +72,9 @@
+             {declarations.length>0&&<section className={presentation.declarations} aria-label="Availability declarations"><h3>Availability declarations</h3>{declarations.map((item)=><article className="my-schedule-declaration" key={item.id}><strong>{item.state==="AVAILABLE"?"Available":"Unavailable"} declaration</strong>
+               <span>{clock(item.starts_at)} → {clock(item.ends_at)}</span></article>)}</section>}
+           </>}</div></section>;})}</div>
+-      {schedule.work_total>50&&<div className={`deployment-pagination ${presentation.pagination}`}><Button variant="outline" disabled={offset===0} onClick={()=>setOffset(Math.max(0,offset-50))}>Previous</Button>
+-        <span>{offset+1}–{Math.min(offset+50,schedule.work_total)} of {schedule.work_total} allocations</span>
+-        <Button variant="outline" disabled={offset+50>=schedule.work_total} onClick={()=>setOffset(offset+50)}>Next</Button></div>}
++      {currentSchedule.work_total>50&&<div className={`deployment-pagination ${presentation.pagination}`}><Button variant="outline" disabled={offset===0} onClick={()=>setOffset(Math.max(0,offset-50))}>Previous</Button>
++        <span>{offset+1}–{Math.min(offset+50,currentSchedule.work_total)} of {currentSchedule.work_total} allocations</span>
++        <Button variant="outline" disabled={offset+50>=currentSchedule.work_total} onClick={()=>setOffset(offset+50)}>Next</Button></div>}
+     </>}
+   </main>;
+ }
+--- /dev/null
++++ b/tests/ui-my-schedule-scope-local.test.mjs
+@@ -0,0 +1,12 @@
++import{test}from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';import{resolve,dirname}from'node:path';import{fileURLToPath}from'node:url';import vm from'node:vm';import ts from'typescript';import * as weeks from'../src/lib/events/workforce-week.ts';import{londonDueToIso}from'../src/lib/crm/due-time.ts';
++const root=process.env.KSS_SCHEDULE_SOURCE_ROOT||resolve(dirname(fileURLToPath(import.meta.url)),'..'),file='src/components/my-schedule-client.tsx';
++const all=n=>Array.isArray(n)?n.flatMap(all):n&&typeof n==='object'?[n,...all(n.props?.children)]:[],text=n=>n==null||typeof n==='boolean'?'':Array.isArray(n)?n.map(text).join(' '):typeof n==='object'?text(n.props?.children):String(n);const tick=async()=>{for(let n=0;n<5;n++)await new Promise(setImmediate)},json=(body,status=200)=>Response.json(body,{status}),deferred=()=>{let done;return{promise:new Promise(r=>done=r),resolve:v=>done(v)}};
++function fixture(handler){const source=readFileSync(resolve(root,file),'utf8'),parsed=ts.createSourceFile(file,source,ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX),names=[];function walk(n){if(ts.isVariableDeclaration(n)&&ts.isArrayBindingPattern(n.name)&&n.initializer&&ts.isCallExpression(n.initializer)&&n.initializer.expression.getText(parsed)==='useState')names.push(n.name.elements[0].getText(parsed));ts.forEachChild(n,walk)}walk(parsed);let cursor=0,stateCursor=0,tree;const slots=[],states=new Map(),effects=[],timers=[],calls=[],same=(a,b)=>a?.length===b?.length&&a.every((v,i)=>Object.is(v,b[i]));const react={useState(init){const i=cursor++;states.set(names[stateCursor++],i);if(!slots[i])slots[i]={value:typeof init==='function'?init():init};return[slots[i].value,v=>{slots[i].value=typeof v==='function'?v(slots[i].value):v}]},useRef:v=>{const i=cursor++;return slots[i]??(slots[i]={current:v})},useCallback:(fn,deps)=>{const i=cursor++;if(!slots[i]||!same(slots[i].deps,deps))slots[i]={deps,value:fn};return slots[i].value},useEffect:(fn,deps)=>{const i=cursor++;if(!slots[i]||!same(slots[i].deps,deps)){const prev=slots[i];slots[i]={deps};effects.push(()=>{prev?.cleanup?.();slots[i].cleanup=fn()})}}};const jsx=(type,props)=>({type,props:props??{}}),m={exports:{}};const mocks={react,'react/jsx-runtime':{jsx,jsxs:jsx,Fragment:'fragment'},'next/link':{__esModule:true,default:'a'},'@/components/ui/button':{Button:'button'},'@/components/ui/input':{Input:'input'},'@/lib/events/workforce-week':weeks,'@/lib/crm/due-time':{londonDueToIso}};new vm.Script(ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText).runInNewContext({module:m,exports:m.exports,require:n=>n.endsWith('.css')?{__esModule:true,default:new Proxy({},{get:(_,k)=>String(k)})}:mocks[n]??(()=>{throw Error(n)})(),fetch:async(url,init)=>{calls.push({url,init});return handler(new URL(url,'http://fixture.invalid'),calls)},setTimeout:f=>{timers.push(f);return timers.length},clearTimeout(){},Date,Intl,URLSearchParams});const h={calls,get tree(){return tree},render(){cursor=0;stateCursor=0;tree=m.exports.MyScheduleClient({initialWeek:'2026-10-12'});effects.splice(0).forEach(f=>f());return tree},async flush(){timers.splice(0).forEach(f=>f());await tick();h.render()},async ready(){h.render();await h.flush();return h},state:n=>slots[states.get(n)].value,unmount(){slots.forEach(s=>s?.cleanup?.())}};return h;}
++const empty=week=>({schedule:{week_start:week,work_total:0,work:[],availability:[]}}),button=(h,name)=>all(h.tree).find(n=>n.type==='button'&&text(n)===name);
++test('actual valid requested Monday is accepted without changing fixed fifty-item pagination',async()=>{const h=fixture(u=>json(empty(u.searchParams.get('week'))));await h.ready();assert.equal(h.state('schedule').week_start,'2026-10-12');assert.match(text(h.tree).replace(/\s+/g,' '),/Showing 0 of 0 week allocations/);assert.match(h.calls[0].url,/week=2026-10-12&offset=0/)});
++test('wrong returned week must not be described as the current week or an empty current day',async()=>{const h=fixture(()=>json(empty('2026-10-19')));await h.ready();assert.equal(h.state('schedule'),null);assert.match(text(h.tree).replace(/\s+/g,' '),/role|week|unavailable/i);assert.doesNotMatch(text(h.tree).replace(/\s+/g,' '),/Showing 0 of 0|No work or declaration shown/)});
++test('retired old week is ignored even before the replacement read starts',async()=>{const old=deferred();const h=fixture(u=>u.searchParams.get('week')==='2026-10-12'?old.promise:json(empty('2026-10-19')));h.render();const first=h.flush();await tick();button(h,'Next week').props.onClick();h.render();old.resolve(json(empty('2026-10-12')));await first;assert.notEqual(h.state('schedule')?.week_start,'2026-10-12');await h.flush();assert.equal(h.state('schedule').week_start,'2026-10-19')});
++test('changing requested week hides previous facts before the next read timer fires',async()=>{const h=fixture(u=>json(empty(u.searchParams.get('week'))));await h.ready();button(h,'Next week').props.onClick();h.render();assert.doesNotMatch(text(h.tree).replace(/\s+/g,' '),/Showing 0 of 0/);assert.match(text(h.tree).replace(/\s+/g,' '),/Loading your schedule/)});
++test('response after unmount cannot replace schedule or create follow-up requests',async()=>{const held=deferred();const h=fixture(()=>held.promise);h.render();const first=h.flush();await tick();h.unmount();held.resolve(json(empty('2026-10-12')));await first;assert.equal(h.state('schedule'),null);assert.equal(h.calls.length,1)});
++for(const [label,value]of[['missing',{}],['missing arrays',{schedule:{week_start:'2026-10-12',work_total:0}}],['negative total',{schedule:{week_start:'2026-10-12',work_total:-1,work:[],availability:[]}}]])test('malformed scope '+label+' fails unavailable rather than inventing an empty week',async()=>{const h=fixture(()=>json(value));await h.ready();assert.equal(h.state('schedule'),null);assert.doesNotMatch(text(h.tree).replace(/\s+/g,' '),/No work or declaration shown/);assert.ok(h.state('error'))});
++test('denied current read clears facts and retry retains the same canonical week',async()=>{let reads=0;const h=fixture(u=>++reads===1?json(empty(u.searchParams.get('week'))):json({error:'Synthetic denied'},403));await h.ready();button(h,'Next week').props.onClick();h.render();await h.flush();assert.equal(h.state('schedule'),null);assert.equal(h.state('error'),'Synthetic denied');button(h,'Retry').props.onClick();await tick();h.render();assert.match(h.calls.at(-1).url,/week=2026-10-19/)});
+--- /dev/null
++++ b/docs/delivery/UI-MY-SCHEDULE-SCOPE-REPAIR-20261018.md
+@@ -0,0 +1,19 @@
++# U55 My Schedule — current week and read lifetime
++
++Status: LOCAL_VERIFIED_AWAITING_INTEGRATION. One product file: src/components/my-schedule-client.tsx. No API, SQL, auth, shared styles or other Staff client edits.
++
++Actual Chromium red: request week2026-10-12, response week_start2026-10-19. The old client described that response as3of3 allocations for the current week and displayed empty current-day text. Red screenshots/source/receipt: task-3/output/ui-staff-duty-browser-20261018/red-schedule-checkpoint01. The existing my_schedule_08a projection explicitly emits week_start=p_week; the existing endpoint canonicalises the requested London Monday. No new source contract is needed.
++
++The client now accepts only a response for its current requested week with the existing work/availability arrays and finite non-negative total. Changing week hides previous-week facts before the next fetch timer runs. Effect cleanup retires the previous request generation, including after unmount, so delayed old reads cannot overwrite the new week. Valid query/filter behaviour, fifty-item source pagination, day selection, returnWeek links, Event/Site identity, overnight dates and separate availability declarations remain intact. A failed/unavailable response is not presented as an empty authorised week.
++
++Verification:
++- Actual-source regression:9/9 tests pass. Against the immutable original component the corrected harness records2 passing/7 failing cases; original red and corrected red logs are preserved. Cases include valid week, mismatched week, old response before the replacement timer, immediate stale-fact hiding, unmount, malformed shape/total and denied/retry scope.
++-25 actual source route/API boundary checks passed for the three unchanged U55–57 route families. These are synthetic principal/RPC projections, not auth or database acceptance.
++- Scoped ESLint and TypeScript exit0; isolated Next typegen supplies generated framework route helpers.
++-21/21 scoped real Chromium checks passed in schedule-green01, with1440/834/390/320 matching route-local before/after screenshots. Extra1440/390 checks cover source pagination, return context, current-page emptiness, denied source, wrong week and delayed old week. Zero external requests recorded. Final harness exited0 and closed its temporary loopback fixtures3170/3171.
++
++The before visual source is the frozen StaffDuty baseline, with published3c8ba25 shared foundation used in both phases. The source repair baseline is the already redesigned current component SHA54aa526fb2275bc677cb50dff7b3f423c710566e3bb10278bc406f9e5643c1bc. These are separate, explicitly recorded comparisons. Real route pages and pure London-date helpers are copied verbatim; only fixture principal/Supabase adapters and API responses are synthetic. Unmatched/real writes are denied. No held manager Event/Site attendance command was used.
++
++Additional U56/U57 failures are preserved separately under red-deployments-attendance-checkpoint01 and are not fixed or claimed green by this checkpoint. Root has authorised subsequent bounded repair work. The controlled U56 d958b0047d566e9cf981d819cd0364f132e17843f754edcfb0bf0d88f6c19d4f remains unchanged here.
++
++No hosted authentication, RPC/RLS/persistence, real assignments, push or deployment occurred. Root owns independent integration, legacy UI-only fixture adaptation and publication.

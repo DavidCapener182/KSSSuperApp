@@ -1,0 +1,137 @@
+✔ denied fresh Event read removes old allocations and candidates (59.285209ms)
+✔ late noncooperative candidate A cannot replace newer candidate B (50.9015ms)
+✔ allocation requires exact receipt/person/active source readback: missing (27.700709ms)
+✔ allocation requires exact receipt/person/active source readback: wrong-person (27.271625ms)
+✔ allocation requires exact receipt/person/active source readback: inactive (26.679958ms)
+✔ allocation requires exact receipt/person/active source readback: missing-receipt (28.641125ms)
+✔ allocation requires exact receipt/person/active source readback: correct (26.059875ms)
+✔ cancellation requires exact historical allocation readback: unchanged (26.794542ms)
+✔ cancellation requires exact historical allocation readback: missing (25.72825ms)
+✔ cancellation requires exact historical allocation readback: correct (25.693167ms)
+✔ a pending allocation cannot send a duplicate POST before repaint (28.60175ms)
+✖ Staff response requires two exact source readbacks and retains Schedule return: correct (35.025334ms)
+✔ Staff response requires two exact source readbacks and retains Schedule return: wrong-id (25.153ms)
+✔ Staff response requires two exact source readbacks and retains Schedule return: wrong-source (26.340167ms)
+✔ Staff response requires two exact source readbacks and retains Schedule return: cancelled (27.061333ms)
+✔ Staff response requires two exact source readbacks and retains Schedule return: denied (28.473708ms)
+✔ Staff response requires two exact source readbacks and retains Schedule return: page-denied (28.33625ms)
+✔ Event route rechecks role and exact source identity: null (14.298375ms)
+✔ Event route rechecks role and exact source identity: SECURITY_STAFF (3.228625ms)
+✔ Event route rechecks role and exact source identity: OFFICE_ADMIN (2.8035ms)
+✔ Event route rechecks role and exact source identity: OPERATIONS (2.885ms)
+✔ accepted warning and Time Away boundaries remain explicit: BLOCKED (13.711208ms)
+✔ accepted warning and Time Away boundaries remain explicit: REVIEW_REQUIRED (26.7785ms)
+✔ source allocation RPC conflict is mapped without leaking private details (4.097208ms)
+✖ Staff explicit decline retains reason, revision and typed source: EVENT (28.395583ms)
+✖ Staff explicit decline retains reason, revision and typed source: SITE_SHIFT (27.324875ms)
+✔ a allocate write resolving after unmount starts no old-source read or parent refresh (23.261542ms)
+✔ a cancel write resolving after unmount starts no old-source read or parent refresh (25.837125ms)
+✔ a allocate source readback resolving after unmount invokes no parent refresh (36.713333ms)
+✔ a cancel source readback resolving after unmount invokes no parent refresh (37.789083ms)
+✔ an old drawer callback cannot start a parent plan read after Event context changes (47.2845ms)
+(node:20083) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/lib/events/workforce-week.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ Staff confirmation waits for PATCH, exact source readback and refreshed list (38.479875ms)
+✖ Staff rejection retains pending allocation and produces no success/readback (13.368292ms)
+✔ Staff response is not confirmed when wrong-source (9.830292ms)
+✔ Staff response is not confirmed when changed-after-readback (9.754958ms)
+✔ Staff response is not confirmed when readback-unavailable (9.49275ms)
+✔ deployment read failure removes stale cards and pagination totals (8.11175ms)
+✔ schedule keeps return week and exact duty/source links alongside selected mobile day (7.946583ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 33
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 951.195291
+
+✖ failing tests:
+
+test at tests/event-deployment-journey-local.test.mjs:51:95
+✖ Staff response requires two exact source readbacks and retains Schedule return: correct (35.025334ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Accepted allocation confirmed/. Input:
+  
+  'Your operational work My Deployments See only your own allocations. Accepting does not record attendance or hours worked. Responses and availability are separate from attendance.  Return to My Schedule  ·  My Attendance   Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again.   Retry   Decline allocation   ·    ·    Tell Operations why you cannot take this allocation. Please avoid sensitive personal or medical details.  Decline response Reason Cannot attend Timing conflict Other Short note (optional)  Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again. Keep allocation Confirm decline'
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/staff-duty-integration-review/runtime/tests/event-deployment-journey-local.test.mjs:55:631)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Your operational work My Deployments See only your own allocations. Accepting does not record attendance or hours worked. Responses and availability are separate from attendance.  Return to My Schedule  ·  My Attendance   Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again.   Retry   Decline allocation   ·    ·    Tell Operations why you cannot take this allocation. Please avoid sensitive personal or medical details.  Decline response Reason Cannot attend Timing conflict Other Short note (optional)  Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again. Keep allocation Confirm decline',
+    expected: /Accepted allocation confirmed/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/event-deployment-journey-local.test.mjs:78:44
+✖ Staff explicit decline retains reason, revision and typed source: EVENT (28.395583ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Declined allocation confirmed/. Input:
+  
+  'Your operational work My Deployments See only your own allocations. Accepting does not record attendance or hours worked. Responses and availability are separate from attendance.  My Schedule  ·  My Attendance   Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again.   Retry   Decline allocation   ·    ·    Tell Operations why you cannot take this allocation. Please avoid sensitive personal or medical details.  Decline response Reason Cannot attend Timing conflict Other Short note (optional)  Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again. Keep allocation Confirm decline'
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/staff-duty-integration-review/runtime/tests/event-deployment-journey-local.test.mjs:81:415)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Your operational work My Deployments See only your own allocations. Accepting does not record attendance or hours worked. Responses and availability are separate from attendance.  My Schedule  ·  My Attendance   Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again.   Retry   Decline allocation   ·    ·    Tell Operations why you cannot take this allocation. Please avoid sensitive personal or medical details.  Decline response Reason Cannot attend Timing conflict Other Short note (optional)  Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again. Keep allocation Confirm decline',
+    expected: /Declined allocation confirmed/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/event-deployment-journey-local.test.mjs:78:44
+✖ Staff explicit decline retains reason, revision and typed source: SITE_SHIFT (27.324875ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Declined allocation confirmed/. Input:
+  
+  'Your operational work My Deployments See only your own allocations. Accepting does not record attendance or hours worked. Responses and availability are separate from attendance.  My Schedule  ·  My Attendance   Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again.   Retry   Decline allocation   ·    ·    Tell Operations why you cannot take this allocation. Please avoid sensitive personal or medical details.  Decline response Reason Cannot attend Timing conflict Other Short note (optional)  Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again. Keep allocation Confirm decline'
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/staff-duty-integration-review/runtime/tests/event-deployment-journey-local.test.mjs:81:415)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Your operational work My Deployments See only your own allocations. Accepting does not record attendance or hours worked. Responses and availability are separate from attendance.  My Schedule  ·  My Attendance   Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again.   Retry   Decline allocation   ·    ·    Tell Operations why you cannot take this allocation. Please avoid sensitive personal or medical details.  Decline response Reason Cannot attend Timing conflict Other Short note (optional)  Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again. Keep allocation Confirm decline',
+    expected: /Declined allocation confirmed/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/staff-shift-entry-local.test.mjs:79:1
+✖ Staff confirmation waits for PATCH, exact source readback and refreshed list (38.479875ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Accepted allocation confirmed/. Input:
+  
+  'Your operational work My Deployments See only your own allocations. Accepting does not record attendance or hours worked. Responses and availability are separate from attendance.  Return to My Schedule  ·  My Attendance   Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again.   Retry   Decline allocation   ·    ·    Tell Operations why you cannot take this allocation. Please avoid sensitive personal or medical details.  Decline response Reason Cannot attend Timing conflict Other Short note (optional)  Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again. Keep allocation Confirm decline'
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/staff-duty-integration-review/runtime/tests/staff-shift-entry-local.test.mjs:95:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Your operational work My Deployments See only your own allocations. Accepting does not record attendance or hours worked. Responses and availability are separate from attendance.  Return to My Schedule  ·  My Attendance   Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again.   Retry   Decline allocation   ·    ·    Tell Operations why you cannot take this allocation. Please avoid sensitive personal or medical details.  Decline response Reason Cannot attend Timing conflict Other Short note (optional)  Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again. Keep allocation Confirm decline',
+    expected: /Accepted allocation confirmed/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/staff-shift-entry-local.test.mjs:101:1
+✖ Staff rejection retains pending allocation and produces no success/readback (13.368292ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Synthetic revision conflict/. Input:
+  
+  'Your operational work My Deployments See only your own allocations. Accepting does not record attendance or hours worked. Responses and availability are separate from attendance.  Return to My Schedule  ·  My Attendance   Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again.   Retry   Decline allocation   ·    ·    Tell Operations why you cannot take this allocation. Please avoid sensitive personal or medical details.  Decline response Reason Cannot attend Timing conflict Other Short note (optional)  Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again. Keep allocation Confirm decline'
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/staff-duty-integration-review/runtime/tests/staff-shift-entry-local.test.mjs:109:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Your operational work My Deployments See only your own allocations. Accepting does not record attendance or hours worked. Responses and availability are separate from attendance.  Return to My Schedule  ·  My Attendance   Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again.   Retry   Decline allocation   ·    ·    Tell Operations why you cannot take this allocation. Please avoid sensitive personal or medical details.  Decline response Reason Cannot attend Timing conflict Other Short note (optional)  Your response may have been saved, but its current state could not be confirmed. Reload your deployments before acting again. Keep allocation Confirm decline',
+    expected: /Synthetic revision conflict/,
+    operator: 'match',
+    diff: 'simple'
+  }

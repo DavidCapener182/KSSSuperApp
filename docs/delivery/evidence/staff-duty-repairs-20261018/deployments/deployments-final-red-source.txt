@@ -1,0 +1,309 @@
+✔ valid exact focus accepts existing implicit EVENT default (52.513083ms)
+✖ focused read rejects unrelated source EVENT00000000-0000-4000-8000-000000000002 (10.676ms)
+✖ focused read rejects unrelated source SITE_SHIFT00000000-0000-4000-8000-000000000001 (9.263292ms)
+✔ successful matching receipt and both current reads confirm exactly once (9.995792ms)
+✖ denied mutation clears stale facts and decline action (8.828375ms)
+✔ known rejected 409 preserves exact current draft and reason (8.314667ms)
+✖ unmounted pending PATCH cannot start an old read or confirmation (7.635833ms)
+✖ changed focus hides previous facts immediately and ignores pending old PATCH (6.580875ms)
+✖ unattributable receipt cannot confirm {} (6.647667ms)
+✖ unattributable receipt cannot confirm {"revision":3} (7.189375ms)
+✖ unattributable receipt cannot confirm {"revision":5} (5.823042ms)
+✖ stale same-status readback cannot confirm a new revision (7.577417ms)
+✖ synchronous double invocation makes only one PATCH (7.695791ms)
+✖ failed current read clears selected draft target (6.013042ms)
+✔ matching declined receipt/readback confirms and clears only its completed draft (5.459208ms)
+✖ known rejected newer source preserves draft but disables stale revision submission (5.347167ms)
+✖ exact read success followed by denied general read never restores confirmation (5.213792ms)
+✖ network error is uncertain and retires action facts without automatic write retry (5.263084ms)
+✖ retired exact read cannot start a general page read after unmount (7.141625ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 4
+ℹ fail 15
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 312.060542
+
+✖ failing tests:
+
+test at tests/ui-my-deployments-scope-local.test.mjs:8:62
+✖ focused read rejects unrelated source EVENT00000000-0000-4000-8000-000000000002 (10.676ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:8:216)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:8:62
+✖ focused read rejects unrelated source SITE_SHIFT00000000-0000-4000-8000-000000000001 (9.263292ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:8:216)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:10:1
+✖ denied mutation clears stale facts and decline action (8.828375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:10:249)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:12:1
+✖ unmounted pending PATCH cannot start an old read or confirmation (7.635833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:12:296)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:13:1
+✖ changed focus hides previous facts immediately and ignores pending old PATCH (6.580875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   props: {
+  +     children: 'Accept allocation',
+  +     disabled: true,
+  +     onClick: [Function: onClick]
+  +   },
+  +   type: 'button'
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:13:344)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [Object],
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:14:53
+✖ unattributable receipt cannot confirm {} (6.647667ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:14:339)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:14:53
+✖ unattributable receipt cannot confirm {"revision":3} (7.189375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:14:339)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:14:53
+✖ unattributable receipt cannot confirm {"revision":5} (5.823042ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:14:339)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:15:1
+✖ stale same-status readback cannot confirm a new revision (7.577417ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Accepted allocation confirmed. Attendance and worked time remain separate.'
+  - ''
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:15:282)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Accepted allocation confirmed. Attendance and worked time remain separate.',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:16:1
+✖ synchronous double invocation makes only one PATCH (7.695791ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:16:276)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:17:1
+✖ failed current read clears selected draft target (6.013042ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   event_name: 'Synthetic Event',
+  +   event_status: 'CONFIRMED',
+  +   id: '00000000-0000-4000-8000-000000000001',
+  +   report_at: '2026-10-12T19:00:00Z',
+  +   revision: 3,
+  +   role_name: 'Officer',
+  +   shift_ends_at: '2026-10-12T23:00:00Z',
+  +   shift_starts_at: '2026-10-12T19:00:00Z',
+  +   site_name: 'Synthetic Venue',
+  +   source: 'EVENT',
+  +   status: 'ALLOCATED'
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:17:245)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { source: 'EVENT', id: '00000000-0000-4000-8000-000000000001', status: 'ALLOCATED', revision: 3, event_name: 'Synthetic Event', event_status: 'CONFIRMED', site_name: 'Synthetic Venue', role_name: 'Officer', report_at: '2026-10-12T19:00:00Z', shift_starts_at: '2026-10-12T19:00:00Z', shift_ends_at: '2026-10-12T23:00:00Z' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:19:1
+✖ known rejected newer source preserves draft but disables stale revision submission (5.347167ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:19:374)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:20:1
+✖ exact read success followed by denied general read never restores confirmation (5.213792ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /may have been saved/. Input:
+  
+  'The response was sent, but the current allocation state could not be confirmed. Refresh before acting again.'
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:20:459)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'The response was sent, but the current allocation state could not be confirmed. Refresh before acting again.',
+    expected: /may have been saved/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:21:1
+✖ network error is uncertain and retires action facts without automatic write retry (5.263084ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:21:278)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-my-deployments-scope-local.test.mjs:22:1
+✖ retired exact read cannot start a general page read after unmount (7.141625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  4 !== 3
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-staff-deployments-repair/tests/ui-my-deployments-scope-local.test.mjs:22:407)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

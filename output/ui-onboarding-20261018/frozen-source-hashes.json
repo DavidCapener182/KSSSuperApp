@@ -1,0 +1,22 @@
+[
+  {
+    "file": "src/components/onboarding-client.tsx",
+    "baselineSha256": "a2c2b78728d9a2caa1b8ff5851e535e27a1cf3201afbbcde4c31f22e3e63179e",
+    "sha256": "6fd6fe458663d2024b3bee1af46ee77703db3bbeb0f0303919a3661797c4e754"
+  },
+  {
+    "file": "src/components/office-onboarding-workspace.tsx",
+    "baselineSha256": "5dfc013497597d8c1d57b510eef1262277efdb0c4d066b95ed7b1f0903862438",
+    "sha256": "cf53130cd816ca8381a3586d857c47d8f2de00da179316d0343129750a90b972"
+  },
+  {
+    "file": "src/components/onboarding-journey.css",
+    "baselineSha256": "a482c1a2a7479eb8e5cfebbbb96fc6f716fb64d257bba72234830592276a95b7",
+    "sha256": "3582e71126643d6021488165c4bac5b936e961cb4f00fc48ee974889668ee577"
+  },
+  {
+    "file": "src/components/onboarding-workspace.css",
+    "baselineSha256": "638482b360846617c96af10e937746cc3615d404be1bf93a46d7c3cee571de88",
+    "sha256": "3f8243b96a29657cee079f9824c93ce1ecca6844a659f57a92a4e78fa20d30bf"
+  }
+]

@@ -1,0 +1,173 @@
+[
+  {
+    "stage": "before",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-my-equipment-before-fq7umg7y",
+    "port": 3180,
+    "publishedShared": "3c8ba25deab4c03d89bc847f37688c12bab54c8c",
+    "files": [
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/my-equipment/page.tsx",
+        "sha256": "2f6b80c5ee343b5bb6618487bc187f6f6aed295eced09a58515e2cc7f8e7f404",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/assets-workspace.tsx",
+        "sha256": "eb02a621fdcc85426239a7b594289f9c6d89712da14382ee520479bea8494b59",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/assets-workspace.module.css",
+        "sha256": "a8aacd69ed74631660d51dde408eb78d671a609a696edf0baf63f868925b41be",
+        "origin": "frozen-before"
+      },
+      {
+        "file": "src/components/ui13/operational.tsx",
+        "sha256": "677989d995289f67e059c123155bc3dffdbb1cfa43de1d5d0d76513910248bde",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui13/operational.module.css",
+        "sha256": "51bc245f03f32b68e5753daafeb74bf66dccf27b34fe15494f23e3d2a0d75f6d",
+        "origin": "published-shared-and-dependencies"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts"
+    ],
+    "boundaryHashes": [
+      {
+        "file": "src/lib/auth/principal.ts",
+        "sha256": "f24b8576069e6f0c93c62a0bd03ae873024b9494e2c8ed2ed4a6f60743090a00"
+      },
+      {
+        "file": "src/lib/supabase/browser.ts",
+        "sha256": "3ef4092e6e607a5869ac957ecb90a20869f44424ce38f8384f0a12f51fc52dd8"
+      },
+      {
+        "file": "src/lib/supabase/server.ts",
+        "sha256": "5bc383236cb3788c38d45c52b6a18cbbea61da25eacf91ffffb35cc184d7009f"
+      }
+    ],
+    "scope": "Actual My Equipment route and AssetsWorkspace self mode; synthetic identity/RPC/API boundaries; no real writes or hosted acceptance"
+  },
+  {
+    "stage": "after",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-my-equipment-after-_4eeb3uw",
+    "port": 3181,
+    "publishedShared": "3c8ba25deab4c03d89bc847f37688c12bab54c8c",
+    "files": [
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/app/(enterprise)/my-equipment/page.tsx",
+        "sha256": "295e73960770d80f3b2536d0e66d0978f123d9b53800e3e7bb95fa2f98090952",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/ui13/operational.tsx",
+        "sha256": "677989d995289f67e059c123155bc3dffdbb1cfa43de1d5d0d76513910248bde",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/ui13/operational.module.css",
+        "sha256": "51bc245f03f32b68e5753daafeb74bf66dccf27b34fe15494f23e3d2a0d75f6d",
+        "origin": "published-shared-and-dependencies"
+      },
+      {
+        "file": "src/components/assets-workspace.tsx",
+        "sha256": "4b3f3d2236e28ecbfefbc8d7244c918dfdb5adb20c58651bb6660edf21c4128b",
+        "origin": "frozen-after"
+      },
+      {
+        "file": "src/components/assets-workspace.module.css",
+        "sha256": "320e976760f3951684fb06ab351f80722ef8a07f66cc14ec93299b584b8d3c1a",
+        "origin": "controlled-assets-sheet-title-clearance-revision-3"
+      }
+    ],
+    "boundaries": [
+      "src/lib/auth/principal.ts",
+      "src/lib/supabase/browser.ts",
+      "src/lib/supabase/server.ts",
+      "src/app/(enterprise)/fixture-custody-register/page.tsx"
+    ],
+    "boundaryHashes": [
+      {
+        "file": "src/lib/auth/principal.ts",
+        "sha256": "f24b8576069e6f0c93c62a0bd03ae873024b9494e2c8ed2ed4a6f60743090a00"
+      },
+      {
+        "file": "src/lib/supabase/browser.ts",
+        "sha256": "3ef4092e6e607a5869ac957ecb90a20869f44424ce38f8384f0a12f51fc52dd8"
+      },
+      {
+        "file": "src/lib/supabase/server.ts",
+        "sha256": "5bc383236cb3788c38d45c52b6a18cbbea61da25eacf91ffffb35cc184d7009f"
+      },
+      {
+        "file": "src/app/(enterprise)/fixture-custody-register/page.tsx",
+        "sha256": "6ad94ffcf9f6c80d7c72609f301cb703aa177dfbd2b29078384ceb73df45aa07"
+      }
+    ],
+    "scope": "Actual My Equipment route and AssetsWorkspace self mode; synthetic identity/RPC/API boundaries; no real writes or hosted acceptance"
+  }
+]

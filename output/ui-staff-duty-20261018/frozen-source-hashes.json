@@ -1,0 +1,32 @@
+[
+  {
+    "file": "src/components/my-schedule-client.tsx",
+    "baselineSha256": "84899e2b3db8e8847a2fbd3fb9fd8605df12488e496afc61e5e695b8bc44c3db",
+    "sha256": "54aa526fb2275bc677cb50dff7b3f423c710566e3bb10278bc406f9e5643c1bc"
+  },
+  {
+    "file": "src/components/my-schedule-presentation.module.css",
+    "baselineSha256": "7c947a69e8b47460e3f392a5932d338af13c72b2e88ab2fbf6f425e824203858",
+    "sha256": "660a3c6a2d101ed322d66bcd765ba55b604d47f4b92646d3b52ff48b11970dfd"
+  },
+  {
+    "file": "src/components/my-deployments-client.tsx",
+    "baselineSha256": "28861743a632d57c53644cdad69fe2ad2d0509b32e4826e6bb8e483225b572fc",
+    "sha256": "8ef3816738bd552fb91ffb7b0dd1218cd335621f517d30c5530119016f04a12a"
+  },
+  {
+    "file": "src/components/deployment-offers.module.css",
+    "baselineSha256": null,
+    "sha256": "2c63b252a56575ca66e61267d4a663c503b2cbbf25511edbeb7821cbc38ec5ef"
+  },
+  {
+    "file": "src/components/my-attendance-client.tsx",
+    "baselineSha256": "63db798ab829a30d8dc79926d28a9f52a433f03958f7a3f621cc204eea2e7670",
+    "sha256": "cfd70f16572ac6e066f89eb1e4f40eba6a6a5a1b69216d78765af9e106c31ac5"
+  },
+  {
+    "file": "src/components/attendance-self.module.css",
+    "baselineSha256": null,
+    "sha256": "9671277e4d0d368b3a00cec00e3f42ff78e00bda926d1684b93e451e1132cd65"
+  }
+]

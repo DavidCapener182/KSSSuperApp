@@ -1,0 +1,28 @@
+✖ self view must show loading or denied source instead of falsely empty equipment and uniform (63.814833ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 186.149625
+
+✖ failing tests:
+
+test at tests/ui-custody-local.test.mjs:35:1
+✖ self view must show loading or denied source instead of falsely empty equipment and uniform (63.814833ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Loading authorised assets/. Input:
+  
+  '<div class="workspace" data-custody-mode="self"><p class="hint">Synthetic development only. Custody, condition and repair are recorded separately. Damage or loss is an operational fact, not an attribution of blame.</p><p role="status" aria-live="polite"></p><section class="panel"><h2>My equipment</h2><p class="hint">Current items issued to you. Open an item to acknowledge, dispute or report an observation.</p><label>Find asset by reference or description<input type="search" value=""/></label><p class="count" role="status">0 items in this view</p><p>No assets in this view.</p><div class="grid"></div></section><section class="panel"><h2>My issued uniform</h2><p>No uniform issue is outstanding.</p></section></div>'
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-shared/tests/ui-custody-local.test.mjs:35:211)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '<div class="workspace" data-custody-mode="self"><p class="hint">Synthetic development only. Custody, condition and repair are recorded separately. Damage or loss is an operational fact, not an attribution of blame.</p><p role="status" aria-live="polite"></p><section class="panel"><h2>My equipment</h2><p class="hint">Current items issued to you. Open an item to acknowledge, dispute or report an observation.</p><label>Find asset by reference or description<input type="search" value=""/></label><p class="count" role="status">0 items in this view</p><p>No assets in this view.</p><div class="grid"></div></section><section class="panel"><h2>My issued uniform</h2><p>No uniform issue is outstanding.</p></section></div>',
+    expected: /Loading authorised assets/,
+    operator: 'match',
+    diff: 'simple'
+  }

@@ -1,0 +1,26 @@
+✔ Assets family Sheet retains width contract and adds desktop/phone inner insets (2.747375ms)
+✔ register separates equipment from uniform and keeps custody, condition, repair, receipt and return facts independent (61.453541ms)
+✔ Office setup remains deliberate and scoped grants stay Super-only (60.531042ms)
+✔ selected exact equipment record opens focused actions and retains two-sided handover review and history (14.981583ms)
+✔ wrong selected history no longer leaks previous asset serial/events (30.007917ms)
+✔ staff kit cards are concise and selected record exposes only acknowledgement/dispute or observation actions (13.517833ms)
+✔ uniform record repeats exact size/stock revision and movement history retains issue ID independently (14.279333ms)
+✔ new labelled discrepancy panel identifies exact issue and closes visually after acknowledgement or role loss (30.553791ms)
+✔ register loading/unavailable does not show a false empty register or stale actions (12.035083ms)
+✔ actual uniform dispute submits exact issue, reason and original receipt handler, with no custody mutation (22.4495ms)
+✔ actual handover review sends selected asset revision/exact destination and mismatched receipt never claims recorded (18.896917ms)
+✔ all original named functions, refresh/action logic, stock form, API and server route guards remain exact (10.812917ms)
+✔ previous staff record and controlled Time Away revision hashes stay intact (1.621375ms)
+✔ actual asset routes keep singleton/mixed Staff/register roles and self-only component props (20.92325ms)
+✔ stock history never substitutes a previous stock record and revoked grant reason panel cannot remain actionable (32.672ms)
+✔ self view must show loading or denied source instead of falsely empty equipment and uniform (13.699292ms)
+✔ actual self mount now uses existing reload and a denied fetch ends loading with unavailable feedback (21.965167ms)
+✔ actual unchanged asset API preserves role/action boundaries and rejects mismatched event receipt (45.827167ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 548.096708

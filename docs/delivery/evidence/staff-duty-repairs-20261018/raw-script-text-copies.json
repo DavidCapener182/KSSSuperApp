@@ -1,0 +1,26 @@
+[
+  {
+    "originalArchiveName": "docs/delivery/evidence/staff-duty-repairs-20261018/attendance/attendance-browser-final-v2.mjs",
+    "textArtifact": "docs/delivery/evidence/staff-duty-repairs-20261018/attendance/attendance-browser-final-v2.mjs.txt",
+    "sha256": "19155cac7450746ae342fe526ee632d06b2c05775d8c2486188deff8ef288717",
+    "reason": "Immutable diagnostic script retained as text evidence; canonical executable remains in frozen external worker packet."
+  },
+  {
+    "originalArchiveName": "docs/delivery/evidence/staff-duty-repairs-20261018/schedule/schedule-browser-verified.mjs",
+    "textArtifact": "docs/delivery/evidence/staff-duty-repairs-20261018/schedule/schedule-browser-verified.mjs.txt",
+    "sha256": "b3f9db2ccfbd2f4584ce5e83355d7228ff060d6ad6a1a696a22e54d242ff880b",
+    "reason": "Immutable diagnostic script retained as text evidence; canonical executable remains in frozen external worker packet."
+  },
+  {
+    "originalArchiveName": "docs/delivery/evidence/staff-duty-repairs-20261018/deployments/deployments-browser-final.mjs",
+    "textArtifact": "docs/delivery/evidence/staff-duty-repairs-20261018/deployments/deployments-browser-final.mjs.txt",
+    "sha256": "ef04b30edfc3555b4fe8993a00eff089a2e6fef3c0b41b8b7122bcf3b303367f",
+    "reason": "Immutable diagnostic script retained as text evidence; canonical executable remains in frozen external worker packet."
+  },
+  {
+    "originalArchiveName": "docs/delivery/evidence/ui-my-equipment-browser-20261018/sheet-inset-revision-2/sheet-inset-local.test.mjs",
+    "textArtifact": "docs/delivery/evidence/ui-my-equipment-browser-20261018/sheet-inset-revision-2/sheet-inset-local.test.mjs.txt",
+    "sha256": "16b40113a7263e9402cb183b3243dc4c008d1577832637df6f494e19911a1934",
+    "reason": "Immutable diagnostic script retained as text evidence; canonical executable remains in frozen external worker packet."
+  }
+]

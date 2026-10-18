@@ -1,0 +1,333 @@
+{
+  "status": "passed",
+  "results": [
+    {
+      "name": "before my-attendance 1440 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-attendance 834 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-attendance 390 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "before my-attendance 320 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-attendance 1440 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-attendance 834 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-attendance 390 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "after my-attendance 320 screenshot",
+      "status": "passed"
+    },
+    {
+      "name": "attendance eligibility retains Event/Site cancellation and no-show boundaries 1440",
+      "status": "passed"
+    },
+    {
+      "name": "attendance exact source response guard and denied refresh 1440",
+      "status": "passed"
+    },
+    {
+      "name": "attendance successful write must wait for exact current readback 1440",
+      "status": "passed"
+    },
+    {
+      "name": "attendance eligibility retains Event/Site cancellation and no-show boundaries 390",
+      "status": "passed"
+    },
+    {
+      "name": "attendance exact source response guard and denied refresh 390",
+      "status": "passed"
+    },
+    {
+      "name": "attendance successful write must wait for exact current readback 390",
+      "status": "passed"
+    },
+    {
+      "name": "actual Staff page denies synthetic Office identity my-attendance",
+      "status": "passed"
+    },
+    {
+      "name": "attendance attributable EVENT CHECK_IN confirmation waits for current read 1440",
+      "status": "passed"
+    },
+    {
+      "name": "attendance attributable SITE_SHIFT CHECK_OUT confirmation waits for current read 1440",
+      "status": "passed"
+    },
+    {
+      "name": "attendance denied POST clears facts and retains pending token 1440",
+      "status": "passed"
+    },
+    {
+      "name": "attendance attributable EVENT CHECK_IN confirmation waits for current read 390",
+      "status": "passed"
+    },
+    {
+      "name": "attendance attributable SITE_SHIFT CHECK_OUT confirmation waits for current read 390",
+      "status": "passed"
+    },
+    {
+      "name": "attendance denied POST clears facts and retains pending token 390",
+      "status": "passed"
+    },
+    {
+      "name": "attendance late POST after navigation never starts old read or removes token",
+      "status": "passed"
+    },
+    {
+      "name": "attendance appended-page exact confirmation preserves list and pagination",
+      "status": "passed"
+    }
+  ],
+  "captures": [
+    {
+      "name": "before-my-attendance-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "before-attendance-selected-event-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "before-my-attendance-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "before-my-attendance-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "before-attendance-selected-event-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "before-my-attendance-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "after-my-attendance-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-attendance-selected-event-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-my-attendance-834",
+      "width": 834,
+      "scrollWidth": 834
+    },
+    {
+      "name": "after-my-attendance-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-attendance-selected-event-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-my-attendance-320",
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "name": "after-attendance-denied-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-attendance-stale-readback-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-attendance-denied-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-attendance-stale-readback-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-attendance-confirmed-EVENT-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-attendance-confirmed-SITE_SHIFT-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-attendance-denied-post-1440",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "name": "after-attendance-confirmed-EVENT-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-attendance-confirmed-SITE_SHIFT-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-attendance-denied-post-390",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "name": "after-attendance-later-page-confirmed-390",
+      "width": 390,
+      "scrollWidth": 390
+    }
+  ],
+  "external": [],
+  "writes": [
+    {
+      "path": "/api/attendance/me/00000000-0000-4000-8000-000000000004",
+      "method": "POST",
+      "body": {
+        "action": "CHECK_IN",
+        "actualAt": "2026-10-18T04:12:59.891Z",
+        "idempotencyKey": "94c269f8-7d25-486b-81d4-ebf203480036",
+        "expectedRevision": 0
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/attendance/me/00000000-0000-4000-8000-000000000004",
+      "method": "POST",
+      "body": {
+        "action": "CHECK_IN",
+        "actualAt": "2026-10-18T04:13:08.981Z",
+        "idempotencyKey": "f6000916-7e6e-47b9-8bd3-ba137e897296",
+        "expectedRevision": 0
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/attendance/me/00000000-0000-4000-8000-000000000004",
+      "method": "POST",
+      "body": {
+        "action": "CHECK_IN",
+        "actualAt": "2026-10-18T04:13:10.347Z",
+        "idempotencyKey": "3170852a-79bf-4d81-b1fb-81b49d002a1d",
+        "expectedRevision": 0
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/attendance/me/00000000-0000-4000-8000-000000000002",
+      "method": "POST",
+      "body": {
+        "action": "CHECK_OUT",
+        "actualAt": "2026-10-18T04:13:11.015Z",
+        "idempotencyKey": "fb60cdf6-9eb4-4345-9f94-b27ec2bcdd1b",
+        "expectedRevision": 1
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/attendance/me/00000000-0000-4000-8000-000000000004",
+      "method": "POST",
+      "body": {
+        "action": "CHECK_IN",
+        "actualAt": "2026-10-18T04:13:11.735Z",
+        "idempotencyKey": "2be3c89f-10de-410d-8f08-a13b279e790c",
+        "expectedRevision": 0
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/attendance/me/00000000-0000-4000-8000-000000000004",
+      "method": "POST",
+      "body": {
+        "action": "CHECK_IN",
+        "actualAt": "2026-10-18T04:13:12.485Z",
+        "idempotencyKey": "3f37f654-9330-490c-89ca-e1d84d23ca5e",
+        "expectedRevision": 0
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/attendance/me/00000000-0000-4000-8000-000000000002",
+      "method": "POST",
+      "body": {
+        "action": "CHECK_OUT",
+        "actualAt": "2026-10-18T04:13:13.165Z",
+        "idempotencyKey": "4d837ce1-9920-422e-b316-23caa3034045",
+        "expectedRevision": 1
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/attendance/me/00000000-0000-4000-8000-000000000004",
+      "method": "POST",
+      "body": {
+        "action": "CHECK_IN",
+        "actualAt": "2026-10-18T04:13:13.883Z",
+        "idempotencyKey": "861b353c-cce9-4b0c-a6ae-a529c534dd0b",
+        "expectedRevision": 0
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/attendance/me/00000000-0000-4000-8000-000000000004",
+      "method": "POST",
+      "body": {
+        "action": "CHECK_IN",
+        "actualAt": "2026-10-18T04:13:14.668Z",
+        "idempotencyKey": "c3aacb95-621c-4bed-aa35-2d45291323de",
+        "expectedRevision": 0
+      },
+      "synthetic": true
+    },
+    {
+      "path": "/api/attendance/me/00000000-0000-4000-8000-000000000004",
+      "method": "POST",
+      "body": {
+        "action": "CHECK_IN",
+        "actualAt": "2026-10-18T04:13:16.198Z",
+        "idempotencyKey": "0d369e22-2719-46c7-a604-b9e5a19e5589",
+        "expectedRevision": 0
+      },
+      "synthetic": true
+    }
+  ],
+  "limitations": [
+    "Actual routes/components against synthetic principal and APIs",
+    "No hosted authentication/RPC/RLS/persistence",
+    "Before route-local StaffDuty source with published shared shell",
+    "External requests aborted and real/unmatched writes denied"
+  ]
+}
