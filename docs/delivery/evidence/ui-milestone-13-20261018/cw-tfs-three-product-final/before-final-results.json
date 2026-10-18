@@ -1,0 +1,202 @@
+[
+  {
+    "stage": "before",
+    "name": "directory",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "home",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "board",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "issue",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "access",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "directory",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "home",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "board",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "issue",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "access",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "directory",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "home",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "board",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 837,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "issue",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "access",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "directory",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "home",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "board",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 837,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "issue",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "access",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  }
+]

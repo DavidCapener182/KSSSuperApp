@@ -1,0 +1,15 @@
+{
+  "excludedUnrelatedIntegrationDiffs": [
+    "src/app/api/assistant/my-work/route.ts",
+    "src/app/api/management-reports/route.ts",
+    "src/lib/assistant/my-work-evidence.ts",
+    "src/lib/external-apps.ts"
+  ],
+  "approvedSourceInventory": 437,
+  "products": 11,
+  "preserved": 426,
+  "helperRationale": {
+    "src/lib/client-workspaces/assignment-receipt.ts": "Existing exact workspace/issue/Person/source owner/revision readback guard required by redesigned TfsIssueAction; no new API/grant"
+  },
+  "nativeTfsEntry": "Unchanged /tfs route calls existing cw_tfs_entry RPC and redirects within exact authorised workspace; configured external-apps parser excluded."
+}

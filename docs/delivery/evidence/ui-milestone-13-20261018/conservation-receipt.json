@@ -1,0 +1,10 @@
+{
+  "base": "04f0f2b28c6225f805cf3d360b44eab6bb571dae",
+  "products": 11,
+  "nonOwnedSource": 426,
+  "sourceInventory": 437,
+  "protectedConfigSchemaPublic": 239,
+  "preservedAPIRouteFiles": 144,
+  "helperScope": "assignment-receipt is only owned library dependency; external-apps parser restored to published base",
+  "allHashesVerified": true
+}

@@ -1,0 +1,3 @@
+{
+  "change": "Removed two inherited generic flags from supplemental interactions: issue revision/history and full keyboard matrix are main-run assertions, not supplemental assertions. Added only actual supplemental checks. Raw original retained; no product/test behavior or pass outcome changed."
+}

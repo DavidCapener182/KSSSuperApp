@@ -1,0 +1,256 @@
+{
+  "workspace": {
+    "id": "00000000-0000-4000-8000-000000000101",
+    "organisationId": "00000000-0000-4000-8000-000000000201",
+    "name": "Synthetic Client Workspace",
+    "status": "ACTIVE",
+    "permission": "OPERATE"
+  },
+  "issues": [
+    {
+      "id": "00000000-0000-4000-8000-000000000301",
+      "workspace_id": "00000000-0000-4000-8000-000000000101",
+      "store_name": "Synthetic Northgate",
+      "store_number": "SYN-001",
+      "source_region": "north",
+      "source_owner": "Synthetic source label",
+      "owner_person_id": "00000000-0000-4000-8000-000000000001",
+      "ownerPersonName": "Synthetic Commercial Reviewer",
+      "issue_type": "Stock discrepancy",
+      "priority": "Urgent",
+      "status": "Needs triage",
+      "evidence_date": "2026-10-17",
+      "evidence_summary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+      "next_action": "Review the synthetic source note and confirm the count.",
+      "source_note": "Synthetic frozen source note, not a live sync.",
+      "potential_internal_theft_review": false,
+      "revision": 4,
+      "created_at": "2026-10-01T09:00:00Z",
+      "updated_at": "2026-10-17T09:00:00Z",
+      "history": [
+        {
+          "revision": 4,
+          "action": "UPDATED",
+          "actorPersonId": "00000000-0000-4000-8000-000000000001",
+          "reason": "Synthetic historic source review",
+          "occurredAt": "2026-10-17T09:00:00Z",
+          "before": null,
+          "after": null
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000302",
+      "workspace_id": "00000000-0000-4000-8000-000000000101",
+      "store_name": "Synthetic Riverside",
+      "store_number": "SYN-002",
+      "source_region": "south",
+      "source_owner": "Synthetic source label",
+      "owner_person_id": null,
+      "ownerPersonName": null,
+      "issue_type": "Stock discrepancy",
+      "priority": "High",
+      "status": "Investigating",
+      "evidence_date": "2026-10-17",
+      "evidence_summary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+      "next_action": "Review the synthetic source note and confirm the count.",
+      "source_note": "Synthetic frozen source note, not a live sync.",
+      "potential_internal_theft_review": false,
+      "revision": 4,
+      "created_at": "2026-10-01T09:00:00Z",
+      "updated_at": "2026-10-17T09:00:00Z",
+      "history": [
+        {
+          "revision": 4,
+          "action": "UPDATED",
+          "actorPersonId": "00000000-0000-4000-8000-000000000001",
+          "reason": "Synthetic historic source review",
+          "occurredAt": "2026-10-17T09:00:00Z",
+          "before": null,
+          "after": null
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000303",
+      "workspace_id": "00000000-0000-4000-8000-000000000101",
+      "store_name": "Synthetic Hilltop",
+      "store_number": "SYN-003",
+      "source_region": "north",
+      "source_owner": "Synthetic source label",
+      "owner_person_id": "00000000-0000-4000-8000-000000000001",
+      "ownerPersonName": "Synthetic Commercial Reviewer",
+      "issue_type": "Stock discrepancy",
+      "priority": "Review",
+      "status": "Visit needed",
+      "evidence_date": "2026-10-17",
+      "evidence_summary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+      "next_action": "Review the synthetic source note and confirm the count.",
+      "source_note": "Synthetic frozen source note, not a live sync.",
+      "potential_internal_theft_review": true,
+      "revision": 4,
+      "created_at": "2026-10-01T09:00:00Z",
+      "updated_at": "2026-10-17T09:00:00Z",
+      "history": [
+        {
+          "revision": 4,
+          "action": "UPDATED",
+          "actorPersonId": "00000000-0000-4000-8000-000000000001",
+          "reason": "Synthetic historic source review",
+          "occurredAt": "2026-10-17T09:00:00Z",
+          "before": null,
+          "after": null
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000304",
+      "workspace_id": "00000000-0000-4000-8000-000000000101",
+      "store_name": "Synthetic Eastgate",
+      "store_number": "SYN-004",
+      "source_region": "south",
+      "source_owner": "Synthetic source label",
+      "owner_person_id": null,
+      "ownerPersonName": null,
+      "issue_type": "Stock discrepancy",
+      "priority": "Monitor",
+      "status": "Waiting on store",
+      "evidence_date": "2026-10-17",
+      "evidence_summary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+      "next_action": "Review the synthetic source note and confirm the count.",
+      "source_note": "Synthetic frozen source note, not a live sync.",
+      "potential_internal_theft_review": false,
+      "revision": 4,
+      "created_at": "2026-10-01T09:00:00Z",
+      "updated_at": "2026-10-17T09:00:00Z",
+      "history": [
+        {
+          "revision": 4,
+          "action": "UPDATED",
+          "actorPersonId": "00000000-0000-4000-8000-000000000001",
+          "reason": "Synthetic historic source review",
+          "occurredAt": "2026-10-17T09:00:00Z",
+          "before": null,
+          "after": null
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000305",
+      "workspace_id": "00000000-0000-4000-8000-000000000101",
+      "store_name": "Synthetic Westgate",
+      "store_number": null,
+      "source_region": "north",
+      "source_owner": "Synthetic source label",
+      "owner_person_id": "00000000-0000-4000-8000-000000000001",
+      "ownerPersonName": "Synthetic Commercial Reviewer",
+      "issue_type": "Stock discrepancy",
+      "priority": "Review",
+      "status": "Monitoring",
+      "evidence_date": "2026-10-17",
+      "evidence_summary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+      "next_action": "Review the synthetic source note and confirm the count.",
+      "source_note": "Synthetic frozen source note, not a live sync.",
+      "potential_internal_theft_review": false,
+      "revision": 4,
+      "created_at": "2026-10-01T09:00:00Z",
+      "updated_at": "2026-10-17T09:00:00Z",
+      "history": [
+        {
+          "revision": 4,
+          "action": "UPDATED",
+          "actorPersonId": "00000000-0000-4000-8000-000000000001",
+          "reason": "Synthetic historic source review",
+          "occurredAt": "2026-10-17T09:00:00Z",
+          "before": null,
+          "after": null
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000306",
+      "workspace_id": "00000000-0000-4000-8000-000000000101",
+      "store_name": "Synthetic Harbour",
+      "store_number": "SYN-006",
+      "source_region": "south",
+      "source_owner": "Synthetic source label",
+      "owner_person_id": null,
+      "ownerPersonName": null,
+      "issue_type": "Stock discrepancy",
+      "priority": "Monitor",
+      "status": "Closed",
+      "evidence_date": "2026-10-17",
+      "evidence_summary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+      "next_action": "Review the synthetic source note and confirm the count.",
+      "source_note": "Synthetic frozen source note, not a live sync.",
+      "potential_internal_theft_review": false,
+      "revision": 4,
+      "created_at": "2026-10-01T09:00:00Z",
+      "updated_at": "2026-10-17T09:00:00Z",
+      "history": [
+        {
+          "revision": 4,
+          "action": "UPDATED",
+          "actorPersonId": "00000000-0000-4000-8000-000000000001",
+          "reason": "Synthetic historic source review",
+          "occurredAt": "2026-10-17T09:00:00Z",
+          "before": null,
+          "after": null
+        }
+      ]
+    }
+  ],
+  "owners": [
+    {
+      "id": "00000000-0000-4000-8000-000000000001",
+      "name": "Synthetic Commercial Reviewer"
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000002",
+      "name": "Synthetic exact recipient"
+    }
+  ],
+  "registry": [
+    {
+      "id": "00000000-0000-4000-8000-000000000101",
+      "organisationId": "00000000-0000-4000-8000-000000000201",
+      "name": "Synthetic Client Workspace",
+      "status": "ACTIVE",
+      "creationReason": "Synthetic current workspace reason",
+      "grants": [
+        {
+          "id": "00000000-0000-4000-8000-000000000401",
+          "personId": "00000000-0000-4000-8000-000000000002",
+          "personName": "Synthetic exact recipient",
+          "permission": "VIEW",
+          "effectiveFrom": "2026-10-01T09:00:00Z",
+          "effectiveUntil": null,
+          "revokedAt": null,
+          "reason": "Synthetic existing exact module access"
+        }
+      ]
+    }
+  ],
+  "choices": {
+    "organisations": [
+      {
+        "id": "00000000-0000-4000-8000-000000000201",
+        "name": "Synthetic existing Client"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000202",
+        "name": "Synthetic second Client"
+      }
+    ],
+    "people": [
+      {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "name": "Synthetic Commercial Reviewer"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000002",
+        "name": "Synthetic exact recipient"
+      }
+    ]
+  }
+}

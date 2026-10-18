@@ -1,0 +1,88 @@
+✔ PATCH carries assignment unchanged and returns guarded readback (12.127583ms)
+✔ PATCH carries reassignment unchanged and returns guarded readback (4.599875ms)
+✔ PATCH carries explicit clearing unchanged and returns guarded readback (4.453708ms)
+✔ PATCH carries legacy omitted preservation unchanged and returns guarded readback (6.6595ms)
+✔ create carries exact Person and only confirms the independent guarded readback (3.188417ms)
+✔ unknown Person RPC result fails closed without readback or grant action (2.851125ms)
+✔ invalid UUID RPC result fails closed without readback or grant action (2.869292ms)
+✔ stale revision RPC result fails closed without readback or grant action (2.013042ms)
+✔ OPERATE denial RPC result fails closed without readback or grant action (4.279458ms)
+✔ unavailable or denied readback reports uncertainty, not successful assignment (6.86275ms)
+✔ guessed path format and unauthenticated callers stop before guarded writes (8.526834ms)
+✔ unexpected saved identity and malformed body never proceed to source readback (5.578667ms)
+✔ editor sends explicit exact Person value 00000000-0000-4000-8000-000000000003 without replacing source label (18.688458ms)
+✔ editor sends explicit exact Person value 00000000-0000-4000-8000-000000000004 without replacing source label (25.444958ms)
+✔ editor sends explicit exact Person value null without replacing source label (10.587292ms)
+✔ existing Person omitted from choices is preserved as an explicit fallback option (6.109333ms)
+✔ unavailable choices disable save and prevent an explicit form invocation (5.877083ms)
+✔ pending or failed editor response never refreshes or announces confirmation (8.967875ms)
+✔ owner choices use exact guarded workspace RPC and fail closed on errors/non-arrays (5.800625ms)
+✔ migration source retains exact OPERATE/revision/Person/history boundaries without grant mutations (0.236875ms)
+✔ editor never confirms an unrelated success-shaped assignment receipt (6.850834ms)
+✔ editor does not confirm wrong workspace receipt (6.870875ms)
+✔ editor does not confirm wrong Person receipt (4.849333ms)
+✔ editor does not confirm old revision receipt (5.995125ms)
+✔ editor does not confirm skipped revision receipt (4.957167ms)
+✔ editor does not confirm missing history receipt (5.54325ms)
+✔ editor does not confirm wrong history Person receipt (4.985417ms)
+✔ editor does not confirm wrong history reason receipt (5.947667ms)
+✔ editor does not confirm missing actor receipt (5.486667ms)
+✔ concurrent form invocations have one synchronous pending write (6.699167ms)
+✔ create receipt binds revision one and its existing CREATED history (0.074917ms)
+✔ late editor receipt after unmount never announces confirmation or navigates (4.786458ms)
+(node:16777) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/lib/client-workspaces/types.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ board VIEW projection retains exact workspace and conditional owner choices (27.8315ms)
+✔ board OPERATE projection retains exact workspace and conditional owner choices (3.625208ms)
+✔ issue VIEW preserves evidence, next action, identity and reasoned history (17.38675ms)
+✔ issue OPERATE preserves evidence, next action, identity and reasoned history (6.425667ms)
+✔ source page denies unauthenticated/other workspace before any evidence projection: src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/page.tsx (8.19175ms)
+✔ source page denies unauthenticated/other workspace before any evidence projection: src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/[issueId]/page.tsx (5.949875ms)
+✔ TFS shortcut resolves current guarded destination without a hard-coded workspace identity (12.373459ms)
+✔ TFS shortcut fails closed on unavailable resolver and before RPC when session is absent (12.742166ms)
+(node:16778) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/lib/client-workspaces/types.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ board keeps source owner mapping explicit and exposes a focused add action only to operators (79.220584ms)
+✔ focused update repeats exact scope/revision and blocks dismissal only while presentation pending (18.919208ms)
+✔ region and lane choices retain exact issue routes and never assign a Person or write (20.060958ms)
+✔ actual editor propagates pending state, locks fields and keeps failed receipt unconfirmed (21.765167ms)
+(node:16779) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/lib/client-workspaces/types.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ management page denies absent/non-Super principal before registry or choices RPC (47.6235ms)
+✔ management page reads exact existing registry/choices and preserves Super-only administrative projection (5.780666ms)
+✔ management read failure projects no cached registry or mutation controls (8.594458ms)
+✔ API denies lost Super authority before any mutation or registry read (9.57925ms)
+✔ existing API retains exact create/grant/revoke RPC arguments and independent registry readback (10.92975ms)
+✔ existing API separates rejected mutation from successful-write unavailable-readback without repeating write (28.837ms)
+✔ invalid request/short reason stays rejected before any existing RPC (7.885625ms)
+✔ a changed exact server registry changes the admin component key and retires stale local context (2.909042ms)
+(node:16780) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/src/lib/client-workspaces/types.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ creation is separate from grants and review names exact Organisation before any POST (60.2585ms)
+✔ empty or wrong Organisation registry cannot confirm creation; clears facts without auto retry (44.342083ms)
+✔ exact newly created Organisation/readback confirms current state and opens selected identity (15.660458ms)
+✔ synchronous duplicate confirmation events issue exactly one POST and lock view controls (17.767208ms)
+✔ POST resolving after unmount performs no JSON read, confirmation or further request (12.706833ms)
+✔ unmount while JSON readback pending also suppresses confirmation (7.599042ms)
+✔ grant review identifies exact Person, workspace, module and permission; exact new current grant confirms (15.026958ms)
+✔ stale existing grant, wrong Person/permission, revoked, future, finite or malformed grant cannot confirm a new grant (45.243458ms)
+✔ revocation requires exact grant current-state readback, not another grant or disappearance (27.410084ms)
+✔ denied, failed readback and lost connection clear inaccessible facts and never expose returned errors or retry (17.113042ms)
+✔ invalid review source or reason issues no write, and selecting another workspace clears a pending review (5.044875ms)
+✔ read-only grant rows distinguish future/expired/revoked scope and preserve independent open-if-granted navigation (4.984625ms)
+ℹ tests 64
+ℹ suites 0
+ℹ pass 64
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 443.385334

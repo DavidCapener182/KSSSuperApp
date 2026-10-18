@@ -1,0 +1,11 @@
+{
+  "file": "tests/ui-workspace-admin-boundary-local.test.mjs",
+  "beforeSha256": "3d9d99119cbb7ea6263c34b3ad4ba9f82068d0fc79487da757efaa3ad1cd0d9d",
+  "sha256": "5a4f4209a11dfb4a1500eb39f93cf7c789fd013a9e3307c3b286ba84cb2dabd8",
+  "onlyAddedExplicitModuleMock": "'@/components/workspace-access-admin.module.css':{__esModule:true,default:{page:'fixture-admin-page'}}",
+  "allTestCasesAndOtherImportsExact": true,
+  "casesRetained": 8,
+  "initialCandidateImportFailuresReportedByOwner": 4,
+  "candidateOwner": "local_preview",
+  "integrationMutatedByThisWorker": false
+}

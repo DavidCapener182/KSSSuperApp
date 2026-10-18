@@ -1,0 +1,11 @@
+{
+  "file": "src/components/tfs-workspace.module.css",
+  "beforeSha256": "da2eea21d6bb6a5b612f24d10ad91a6cef4cce0420c9b6d34147d33899d53984",
+  "sha256": "15ba0898be2c27c4790238aa52a795c332a81cabaf7c253ad4c2d72d1b7cf57f",
+  "onlyAddedDeclarations": [
+    "min-width:0",
+    "width:100%",
+    "box-sizing:border-box"
+  ],
+  "originalBytesPreservedAfterRemovingTheseThreeDeclarations": true
+}

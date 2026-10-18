@@ -1,0 +1,17 @@
+{
+  "reason": "Actual parser handles MagSecure/FootasylumAudits/Training configured links, not native /tfs; unrelated to finalU39\u201344 scope. Original integration local work untouched.",
+  "files": [
+    {
+      "file": "src/lib/external-apps.ts",
+      "excludedLocalSha256": "302f7b76928cda564913b4fb6a11eb5bb4cd3bb6c05cafc1bc38f88dd84a1934",
+      "restoredPublishedSha256": "19827804470e65fab7d4c933f53d8d3a42d345697e41fd41979a4eb8df34661f"
+    },
+    {
+      "file": "tests/external-apps.test.mjs",
+      "excludedLocalSha256": "278841efb3c6c0699c107f6045453b389f1de61141c728655c0a69c08f4d966e",
+      "restoredPublishedSha256": "2ea18ba57101c662e4cd1062f5fe717b4f9b97b3d1e474949c477af643649965"
+    }
+  ],
+  "expandedTestsExcludedFromFinalRunner": 15,
+  "functionalAssertionsWeakened": false
+}

@@ -1,0 +1,1 @@
+export default function Page(){return <h1>Synthetic session required</h1>}

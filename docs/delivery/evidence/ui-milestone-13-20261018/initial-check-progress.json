@@ -1,0 +1,7 @@
+[
+  {
+    "check": "offline-tests",
+    "exit": 1,
+    "log": "offline-tests.txt"
+  }
+]

@@ -1,0 +1,632 @@
+[
+  {
+    "original": "source-parity.json",
+    "packaged": "cw-tfs-three-product-final/source-parity.json",
+    "sha256": "0b2043f7e9f0f29af23aca1125fcd75d42f619d785b5f395a0667904cf9aec3e"
+  },
+  {
+    "original": "source-manifest.json",
+    "packaged": "cw-tfs-three-product-final/source-manifest.json",
+    "sha256": "d8d7eec3daa437cf8ad3674907519b94d9c425b18c26ef1944720ca32a9ffc3a"
+  },
+  {
+    "original": "review.patch",
+    "packaged": "cw-tfs-three-product-final/review.patch",
+    "sha256": "41613c4bb5b31d0cb404962f9151fa283a436adbfa1f8fa0c66f96fe0673eccc"
+  },
+  {
+    "original": "run.py",
+    "packaged": "cw-tfs-three-product-final/run.py",
+    "sha256": "f061f3748d233fd174392fef8a70322094ab80cd42c95ae55f6145d7dff2bc01"
+  },
+  {
+    "original": "UI-CLIENT-WORKSPACES-BROWSER-20261018.md",
+    "packaged": "cw-tfs-three-product-final/UI-CLIENT-WORKSPACES-BROWSER-20261018.md",
+    "sha256": "3331758e8cb7bcc85c9ca15ac16f2de5add1238a473c7d3345dc42207866fb58"
+  },
+  {
+    "original": "capture-results.json",
+    "packaged": "cw-tfs-three-product-final/capture-results.json",
+    "sha256": "a31034343aae4839d90d211a69655296851c409202b17f201ffadabbed05607b"
+  },
+  {
+    "original": "capture.mjs",
+    "packaged": "cw-tfs-three-product-final/capture.mjs.txt",
+    "sha256": "86e10b8744cef852d5d19fb94e92764ef93999e800f35ac92d4dbbce13a1ff50"
+  },
+  {
+    "original": "runtime-manifests-main.json",
+    "packaged": "cw-tfs-three-product-final/runtime-manifests-main.json",
+    "sha256": "cd438fb7f0a0a6fab965a62314426de1aa194d0d60daa7f18d73131da7266468"
+  },
+  {
+    "original": "test-manifest.json",
+    "packaged": "cw-tfs-three-product-final/test-manifest.json",
+    "sha256": "8365abf4dbb2036511d66d151413a60ae2f6f922fca23741ec3bf6bd164db234"
+  },
+  {
+    "original": "runtime-manifests-supplemental.json",
+    "packaged": "cw-tfs-three-product-final/runtime-manifests-supplemental.json",
+    "sha256": "e8030561d19d658b0b7d4e066b230e48a994b240664d6359b87e5964f6befb3d"
+  },
+  {
+    "original": "run-extra.py",
+    "packaged": "cw-tfs-three-product-final/run-extra.py",
+    "sha256": "5ab3d057dc5a1f217915e59307719fdcee1028c7b9a8b4b09794a107d8bb3f8a"
+  },
+  {
+    "original": "checks.json",
+    "packaged": "cw-tfs-three-product-final/checks.json",
+    "sha256": "ef91f855dfe11d8e59aef0a563bfe62616013a56d6627bd8211ff39f85e08b94"
+  },
+  {
+    "original": "packet-manifest.json",
+    "packaged": "cw-tfs-three-product-final/packet-manifest.json",
+    "sha256": "00868c38efc8a593cdbd4be7a0d09e814ed70402604334a8a10064cfd65cab66"
+  },
+  {
+    "original": "after-candidate-offline.log",
+    "packaged": "cw-tfs-three-product-final/after-candidate-offline.log",
+    "sha256": "2861ff84b7fb330a22b827a8b4162c79a5be60a3c4ec9804211a828058faff94"
+  },
+  {
+    "original": "page-containment-local.test.mjs",
+    "packaged": "cw-tfs-three-product-final/page-containment-local.test.mjs.txt",
+    "sha256": "4d892309cf22da9553c92adb42edd1f1f827058c5dc0c00ee1a98164cbd1f5e5"
+  },
+  {
+    "original": "browser-evidence.json",
+    "packaged": "cw-tfs-three-product-final/browser-evidence.json",
+    "sha256": "9404b80685c024ac70653a0e831e5f57107c843a489281b58fcac88043add2a1"
+  },
+  {
+    "original": "page-containment-revision.json",
+    "packaged": "cw-tfs-three-product-final/page-containment-revision.json",
+    "sha256": "1d24f6bfd2b86a8a4c38a536d55e5eb31817affc9594eff0c5e4d6e582cf0313"
+  },
+  {
+    "original": "offline.log",
+    "packaged": "cw-tfs-three-product-final/offline.log",
+    "sha256": "a9218b53291c85e63b2e57bc0103b6d290a531a04f4825094be0dcc11e00f5f5"
+  },
+  {
+    "original": "server-boundary-after.ts.txt",
+    "packaged": "cw-tfs-three-product-final/server-boundary-after.ts.txt",
+    "sha256": "db41293879b8cb574e5f0cfb6a0b5a6baebda22231a67fd7fcdded96d9689cf5"
+  },
+  {
+    "original": "server-boundary.ts.txt",
+    "packaged": "cw-tfs-three-product-final/server-boundary.ts.txt",
+    "sha256": "b526e2fbc001313795aa010e5c5704c7d0d8f7e0f548c937fbf2c7190d1402eb"
+  },
+  {
+    "original": "capture-extra.mjs",
+    "packaged": "cw-tfs-three-product-final/capture-extra.mjs.txt",
+    "sha256": "1ad13b905b829b5cba5265d0a26b3218102ab693df8c0a995b922c688b33c227"
+  },
+  {
+    "original": "prepare.py",
+    "packaged": "cw-tfs-three-product-final/prepare.py",
+    "sha256": "a211f200f8ba8439a767ad18a3ac34ce6b41ab53fe2de9364670eebdfe0e6bf3"
+  },
+  {
+    "original": "before-final-results.json",
+    "packaged": "cw-tfs-three-product-final/before-final-results.json",
+    "sha256": "eca488b99e8687ebb27d6e2e6287e57e3fa379337bc5730965abd4d6877ff0cc"
+  },
+  {
+    "original": "board-keyboard-geometry.json",
+    "packaged": "cw-tfs-three-product-final/board-keyboard-geometry.json",
+    "sha256": "5ec370d6d1483d506ccaf7a8ff1ac3f527e5becf97c460b9069855b6cb19469b"
+  },
+  {
+    "original": "admin-palette-contract.test.mjs",
+    "packaged": "cw-tfs-three-product-final/admin-palette-contract.test.mjs.txt",
+    "sha256": "cac3ca12add901d3430fc404cfbcdd6070619001e785005b6f6a810170546db8"
+  },
+  {
+    "original": "fixture-data.json",
+    "packaged": "cw-tfs-three-product-final/fixture-data.json",
+    "sha256": "55c4519e3a547034fd3a98c1229725d19d1b1087c33e5d092c4a5fb35cc4da71"
+  },
+  {
+    "original": "legacy-css-import-fixture/review.patch",
+    "packaged": "cw-tfs-three-product-final/legacy-css-import-fixture/review.patch",
+    "sha256": "b39d3db30690a0f3dff79e3cef9fee00c027cdcf5af7724f10a157d4720cb650"
+  },
+  {
+    "original": "legacy-css-import-fixture/before.mjs.txt",
+    "packaged": "cw-tfs-three-product-final/legacy-css-import-fixture/before.mjs.txt",
+    "sha256": "3d9d99119cbb7ea6263c34b3ad4ba9f82068d0fc79487da757efaa3ad1cd0d9d"
+  },
+  {
+    "original": "legacy-css-import-fixture/revision.json",
+    "packaged": "cw-tfs-three-product-final/legacy-css-import-fixture/revision.json",
+    "sha256": "99c0577c8a1222641ec25807c87b214747858d6da98dcf636b1708d89fd12341"
+  },
+  {
+    "original": "legacy-css-import-fixture/after.mjs.txt",
+    "packaged": "cw-tfs-three-product-final/legacy-css-import-fixture/after.mjs.txt",
+    "sha256": "5a4f4209a11dfb4a1500eb39f93cf7c789fd013a9e3307c3b286ba84cb2dabd8"
+  },
+  {
+    "original": "supplemental/browser.log",
+    "packaged": "cw-tfs-three-product-final/supplemental/browser.log",
+    "sha256": "6b7f16c8c090c4a52cc9214731eb11ddb82609d33818e65c9bc3794e2b1007df"
+  },
+  {
+    "original": "supplemental/capture-results.json",
+    "packaged": "cw-tfs-three-product-final/supplemental/capture-results.json",
+    "sha256": "4337815fa1d98a93bb5063c4be036a06133d61cb049bf4c6ce3856ef5f2d9c97"
+  },
+  {
+    "original": "supplemental/raw-results-before-metadata-clarification.json",
+    "packaged": "cw-tfs-three-product-final/supplemental/raw-results-before-metadata-clarification.json",
+    "sha256": "1f9e7dc571c114de12fc0373a93451c5d976484749bb848fc76d6b95bf3c9f63"
+  },
+  {
+    "original": "supplemental/metadata-clarification.json",
+    "packaged": "cw-tfs-three-product-final/supplemental/metadata-clarification.json",
+    "sha256": "3a50cd3f2b286b8afb54b2e4bec31130d569b46f9c16d977e44688ac1cbb95c7"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/app/layout.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/app/layout.tsx.txt",
+    "sha256": "8c295f15b06642035af1adf2fad33ed6fffa3a82e901faa17e7e94d0624409a7"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/app/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/app/page.tsx.txt",
+    "sha256": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/app/globals.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/app/globals.css",
+    "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/components/enterprise-shell.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/components/enterprise-shell.tsx.txt",
+    "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/components/tfs-workspace.module.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/components/tfs-workspace.module.css",
+    "sha256": "15ba0898be2c27c4790238aa52a795c332a81cabaf7c253ad4c2d72d1b7cf57f"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/components/workspace-access-admin.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/components/workspace-access-admin.tsx.txt",
+    "sha256": "0f8c78c1a074966f6b9a0179ab300037ef36181289dac74383c43b363dea2003"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/components/tfs-workspace-board.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/components/tfs-workspace-board.tsx.txt",
+    "sha256": "d14a26acea5c6a4df616c1ac20ec6124c382459358e146279c87c6017cfb62f2"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/components/workspace-access-admin.module.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/components/workspace-access-admin.module.css",
+    "sha256": "990cef4adbd5aa1b24b355cd6208a4ac898b120c74445e9a3404f900ad71683c"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/lib/environment-label.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/lib/environment-label.ts.txt",
+    "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/lib/fixture-data.json",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/lib/fixture-data.json",
+    "sha256": "55c4519e3a547034fd3a98c1229725d19d1b1087c33e5d092c4a5fb35cc4da71"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/app/(enterprise)/layout.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/app/(enterprise)/layout.tsx.txt",
+    "sha256": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/app/(enterprise)/tfs/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/app/(enterprise)/tfs/page.tsx.txt",
+    "sha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/workspace-directory.module.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/workspace-directory.module.css",
+    "sha256": "4cbc598f518f048f6f8bd1117530f0bd599cb833b5f9011bfdbc8501b802a36a"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/layout.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/layout.tsx.txt",
+    "sha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/workspace.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/workspace.css",
+    "sha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/page.tsx.txt",
+    "sha256": "0f451db7325575d205706a0ae9e709230bfdc2597da926691cde3442f7d9eef5"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/[workspaceId]/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/[workspaceId]/page.tsx.txt",
+    "sha256": "5a69ea46c1201cd590604c90ac0e12ce6d4d80278003699cf0944b24db8b8f03"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/manage/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/manage/page.tsx.txt",
+    "sha256": "383adef481442c24fcf70fd313d697ebb49991398a5f3ce568f23fc27e05e6cf"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/page.tsx.txt",
+    "sha256": "fcc459d52035459645fa6a2b3660ccde9f44caac8ea3f2c2861473ca94443e5c"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/[issueId]/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/[issueId]/page.tsx.txt",
+    "sha256": "57ca505ae6fd46b3e0e917910bc9d7322259afe5922d2e04a613e9d2d8e30a8d"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/components/ui/sheet.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/components/ui/sheet.tsx.txt",
+    "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/components/ui/sheet.module.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/components/ui/sheet.module.css",
+    "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/components/ui/button.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/components/ui/button.tsx.txt",
+    "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/lib/auth/capabilities.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/lib/auth/capabilities.ts.txt",
+    "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/lib/auth/principal.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/lib/auth/principal.ts.txt",
+    "sha256": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/lib/supabase/browser.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/lib/supabase/browser.ts.txt",
+    "sha256": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/lib/supabase/server.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/lib/supabase/server.ts.txt",
+    "sha256": "db41293879b8cb574e5f0cfb6a0b5a6baebda22231a67fd7fcdded96d9689cf5"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/lib/client-workspaces/assignment-receipt.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/lib/client-workspaces/assignment-receipt.ts.txt",
+    "sha256": "dde247422a71a341f0c340e1cf3bf25bca4c8410ea159ff9d81dfe7707424ee7"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/lib/client-workspaces/types.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/lib/client-workspaces/types.ts.txt",
+    "sha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589"
+  },
+  {
+    "original": "source-graph-supplemental/after/src/lib/client-workspaces/server.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-supplemental/after/src/lib/client-workspaces/server.ts.txt",
+    "sha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616"
+  },
+  {
+    "original": "source/src/components/tfs-workspace.module.css",
+    "packaged": "cw-tfs-three-product-final/source/src/components/tfs-workspace.module.css",
+    "sha256": "15ba0898be2c27c4790238aa52a795c332a81cabaf7c253ad4c2d72d1b7cf57f"
+  },
+  {
+    "original": "source/src/components/workspace-access-admin.module.css",
+    "packaged": "cw-tfs-three-product-final/source/src/components/workspace-access-admin.module.css",
+    "sha256": "990cef4adbd5aa1b24b355cd6208a4ac898b120c74445e9a3404f900ad71683c"
+  },
+  {
+    "original": "source/src/app/(enterprise)/client-workspaces/manage/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source/src/app/(enterprise)/client-workspaces/manage/page.tsx.txt",
+    "sha256": "383adef481442c24fcf70fd313d697ebb49991398a5f3ce568f23fc27e05e6cf"
+  },
+  {
+    "original": "before/src/components/tfs-workspace.module.css",
+    "packaged": "cw-tfs-three-product-final/before/src/components/tfs-workspace.module.css",
+    "sha256": "da2eea21d6bb6a5b612f24d10ad91a6cef4cce0420c9b6d34147d33899d53984"
+  },
+  {
+    "original": "before/src/components/workspace-access-admin.module.css",
+    "packaged": "cw-tfs-three-product-final/before/src/components/workspace-access-admin.module.css",
+    "sha256": "3eace16ef54f8c6e3d2d6891087d668e20e7bb33a5695f32255e046427179c65"
+  },
+  {
+    "original": "before/src/app/(enterprise)/client-workspaces/manage/page.tsx",
+    "packaged": "cw-tfs-three-product-final/before/src/app/(enterprise)/client-workspaces/manage/page.tsx.txt",
+    "sha256": "f728fc71c5d59c53c3e85198f707e694acec44604c388e0185e2229d03de1a56"
+  },
+  {
+    "original": "source-graph-main/before/src/app/layout.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/app/layout.tsx.txt",
+    "sha256": "8c295f15b06642035af1adf2fad33ed6fffa3a82e901faa17e7e94d0624409a7"
+  },
+  {
+    "original": "source-graph-main/before/src/app/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/app/page.tsx.txt",
+    "sha256": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6"
+  },
+  {
+    "original": "source-graph-main/before/src/app/globals.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/app/globals.css",
+    "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+  },
+  {
+    "original": "source-graph-main/before/src/components/enterprise-shell.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/components/enterprise-shell.tsx.txt",
+    "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+  },
+  {
+    "original": "source-graph-main/before/src/components/workspace-access-admin.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/components/workspace-access-admin.tsx.txt",
+    "sha256": "be78cdb66d6cdc505122b67c1a78d1d8e13c3efbb8b9c714afbab6aa59f2c921"
+  },
+  {
+    "original": "source-graph-main/before/src/components/tfs-workspace-board.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/components/tfs-workspace-board.tsx.txt",
+    "sha256": "9d0932f63342d03c90140c002b0513fd44ea85b0034f1dc0389c785f52945d1a"
+  },
+  {
+    "original": "source-graph-main/before/src/lib/environment-label.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/lib/environment-label.ts.txt",
+    "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+  },
+  {
+    "original": "source-graph-main/before/src/lib/fixture-data.json",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/lib/fixture-data.json",
+    "sha256": "55c4519e3a547034fd3a98c1229725d19d1b1087c33e5d092c4a5fb35cc4da71"
+  },
+  {
+    "original": "source-graph-main/before/src/app/(enterprise)/layout.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/app/(enterprise)/layout.tsx.txt",
+    "sha256": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32"
+  },
+  {
+    "original": "source-graph-main/before/src/app/(enterprise)/tfs/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/app/(enterprise)/tfs/page.tsx.txt",
+    "sha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d"
+  },
+  {
+    "original": "source-graph-main/before/src/app/(enterprise)/client-workspaces/layout.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/app/(enterprise)/client-workspaces/layout.tsx.txt",
+    "sha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a"
+  },
+  {
+    "original": "source-graph-main/before/src/app/(enterprise)/client-workspaces/workspace.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/app/(enterprise)/client-workspaces/workspace.css",
+    "sha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717"
+  },
+  {
+    "original": "source-graph-main/before/src/app/(enterprise)/client-workspaces/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/app/(enterprise)/client-workspaces/page.tsx.txt",
+    "sha256": "b03bd1420555a2ef208c7b2c9953d6687c3c056d664dd61b0b4d3ada344c0d62"
+  },
+  {
+    "original": "source-graph-main/before/src/app/(enterprise)/client-workspaces/[workspaceId]/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/app/(enterprise)/client-workspaces/[workspaceId]/page.tsx.txt",
+    "sha256": "c904781ee31a5d625c52a44822cebf1ee26e3c96763c6365e5839a0bac212360"
+  },
+  {
+    "original": "source-graph-main/before/src/app/(enterprise)/client-workspaces/manage/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/app/(enterprise)/client-workspaces/manage/page.tsx.txt",
+    "sha256": "3eb7c6be2ca945187a67548af800707ff187ec0a73114ca3431c68501c955414"
+  },
+  {
+    "original": "source-graph-main/before/src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/page.tsx.txt",
+    "sha256": "f85b343e84fa955bd8c0ada08d134173a9e976899ba5c5a4aa73caf7bf62c7fc"
+  },
+  {
+    "original": "source-graph-main/before/src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/[issueId]/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/[issueId]/page.tsx.txt",
+    "sha256": "9fa867afb03cca138c88e7c7fb4e02fbe1def3c90dc2b8743193bdd5f1fec9b0"
+  },
+  {
+    "original": "source-graph-main/before/src/components/ui/sheet.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/components/ui/sheet.tsx.txt",
+    "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+  },
+  {
+    "original": "source-graph-main/before/src/components/ui/sheet.module.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/components/ui/sheet.module.css",
+    "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+  },
+  {
+    "original": "source-graph-main/before/src/components/ui/button.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/components/ui/button.tsx.txt",
+    "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+  },
+  {
+    "original": "source-graph-main/before/src/lib/auth/capabilities.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/lib/auth/capabilities.ts.txt",
+    "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+  },
+  {
+    "original": "source-graph-main/before/src/lib/auth/principal.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/lib/auth/principal.ts.txt",
+    "sha256": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f"
+  },
+  {
+    "original": "source-graph-main/before/src/lib/supabase/browser.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/lib/supabase/browser.ts.txt",
+    "sha256": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73"
+  },
+  {
+    "original": "source-graph-main/before/src/lib/supabase/server.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/lib/supabase/server.ts.txt",
+    "sha256": "b526e2fbc001313795aa010e5c5704c7d0d8f7e0f548c937fbf2c7190d1402eb"
+  },
+  {
+    "original": "source-graph-main/before/src/lib/client-workspaces/types.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/lib/client-workspaces/types.ts.txt",
+    "sha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589"
+  },
+  {
+    "original": "source-graph-main/before/src/lib/client-workspaces/server.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/before/src/lib/client-workspaces/server.ts.txt",
+    "sha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616"
+  },
+  {
+    "original": "source-graph-main/after/src/app/layout.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/app/layout.tsx.txt",
+    "sha256": "8c295f15b06642035af1adf2fad33ed6fffa3a82e901faa17e7e94d0624409a7"
+  },
+  {
+    "original": "source-graph-main/after/src/app/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/app/page.tsx.txt",
+    "sha256": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6"
+  },
+  {
+    "original": "source-graph-main/after/src/app/globals.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/app/globals.css",
+    "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+  },
+  {
+    "original": "source-graph-main/after/src/components/enterprise-shell.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/components/enterprise-shell.tsx.txt",
+    "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+  },
+  {
+    "original": "source-graph-main/after/src/components/tfs-workspace.module.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/components/tfs-workspace.module.css",
+    "sha256": "15ba0898be2c27c4790238aa52a795c332a81cabaf7c253ad4c2d72d1b7cf57f"
+  },
+  {
+    "original": "source-graph-main/after/src/components/workspace-access-admin.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/components/workspace-access-admin.tsx.txt",
+    "sha256": "0f8c78c1a074966f6b9a0179ab300037ef36181289dac74383c43b363dea2003"
+  },
+  {
+    "original": "source-graph-main/after/src/components/tfs-workspace-board.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/components/tfs-workspace-board.tsx.txt",
+    "sha256": "d14a26acea5c6a4df616c1ac20ec6124c382459358e146279c87c6017cfb62f2"
+  },
+  {
+    "original": "source-graph-main/after/src/components/workspace-access-admin.module.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/components/workspace-access-admin.module.css",
+    "sha256": "990cef4adbd5aa1b24b355cd6208a4ac898b120c74445e9a3404f900ad71683c"
+  },
+  {
+    "original": "source-graph-main/after/src/lib/environment-label.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/lib/environment-label.ts.txt",
+    "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+  },
+  {
+    "original": "source-graph-main/after/src/lib/fixture-data.json",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/lib/fixture-data.json",
+    "sha256": "55c4519e3a547034fd3a98c1229725d19d1b1087c33e5d092c4a5fb35cc4da71"
+  },
+  {
+    "original": "source-graph-main/after/src/app/(enterprise)/layout.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/app/(enterprise)/layout.tsx.txt",
+    "sha256": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32"
+  },
+  {
+    "original": "source-graph-main/after/src/app/(enterprise)/tfs/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/app/(enterprise)/tfs/page.tsx.txt",
+    "sha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d"
+  },
+  {
+    "original": "source-graph-main/after/src/app/(enterprise)/client-workspaces/workspace-directory.module.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/app/(enterprise)/client-workspaces/workspace-directory.module.css",
+    "sha256": "4cbc598f518f048f6f8bd1117530f0bd599cb833b5f9011bfdbc8501b802a36a"
+  },
+  {
+    "original": "source-graph-main/after/src/app/(enterprise)/client-workspaces/layout.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/app/(enterprise)/client-workspaces/layout.tsx.txt",
+    "sha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a"
+  },
+  {
+    "original": "source-graph-main/after/src/app/(enterprise)/client-workspaces/workspace.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/app/(enterprise)/client-workspaces/workspace.css",
+    "sha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717"
+  },
+  {
+    "original": "source-graph-main/after/src/app/(enterprise)/client-workspaces/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/app/(enterprise)/client-workspaces/page.tsx.txt",
+    "sha256": "0f451db7325575d205706a0ae9e709230bfdc2597da926691cde3442f7d9eef5"
+  },
+  {
+    "original": "source-graph-main/after/src/app/(enterprise)/client-workspaces/[workspaceId]/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/app/(enterprise)/client-workspaces/[workspaceId]/page.tsx.txt",
+    "sha256": "5a69ea46c1201cd590604c90ac0e12ce6d4d80278003699cf0944b24db8b8f03"
+  },
+  {
+    "original": "source-graph-main/after/src/app/(enterprise)/client-workspaces/manage/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/app/(enterprise)/client-workspaces/manage/page.tsx.txt",
+    "sha256": "383adef481442c24fcf70fd313d697ebb49991398a5f3ce568f23fc27e05e6cf"
+  },
+  {
+    "original": "source-graph-main/after/src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/page.tsx.txt",
+    "sha256": "fcc459d52035459645fa6a2b3660ccde9f44caac8ea3f2c2861473ca94443e5c"
+  },
+  {
+    "original": "source-graph-main/after/src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/[issueId]/page.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/[issueId]/page.tsx.txt",
+    "sha256": "57ca505ae6fd46b3e0e917910bc9d7322259afe5922d2e04a613e9d2d8e30a8d"
+  },
+  {
+    "original": "source-graph-main/after/src/components/ui/sheet.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/components/ui/sheet.tsx.txt",
+    "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+  },
+  {
+    "original": "source-graph-main/after/src/components/ui/sheet.module.css",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/components/ui/sheet.module.css",
+    "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+  },
+  {
+    "original": "source-graph-main/after/src/components/ui/button.tsx",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/components/ui/button.tsx.txt",
+    "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+  },
+  {
+    "original": "source-graph-main/after/src/lib/auth/capabilities.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/lib/auth/capabilities.ts.txt",
+    "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+  },
+  {
+    "original": "source-graph-main/after/src/lib/auth/principal.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/lib/auth/principal.ts.txt",
+    "sha256": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f"
+  },
+  {
+    "original": "source-graph-main/after/src/lib/supabase/browser.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/lib/supabase/browser.ts.txt",
+    "sha256": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73"
+  },
+  {
+    "original": "source-graph-main/after/src/lib/supabase/server.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/lib/supabase/server.ts.txt",
+    "sha256": "b526e2fbc001313795aa010e5c5704c7d0d8f7e0f548c937fbf2c7190d1402eb"
+  },
+  {
+    "original": "source-graph-main/after/src/lib/client-workspaces/assignment-receipt.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/lib/client-workspaces/assignment-receipt.ts.txt",
+    "sha256": "dde247422a71a341f0c340e1cf3bf25bca4c8410ea159ff9d81dfe7707424ee7"
+  },
+  {
+    "original": "source-graph-main/after/src/lib/client-workspaces/types.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/lib/client-workspaces/types.ts.txt",
+    "sha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589"
+  },
+  {
+    "original": "source-graph-main/after/src/lib/client-workspaces/server.ts",
+    "packaged": "cw-tfs-three-product-final/source-graph-main/after/src/lib/client-workspaces/server.ts.txt",
+    "sha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616"
+  }
+]

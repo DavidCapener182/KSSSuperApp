@@ -1,0 +1,10 @@
+{
+  "file": "tests/ui-workspace-admin-boundary-local.test.mjs",
+  "beforeSha256": "3d9d99119cbb7ea6263c34b3ad4ba9f82068d0fc79487da757efaa3ad1cd0d9d",
+  "sha256": "5a4f4209a11dfb4a1500eb39f93cf7c789fd013a9e3307c3b286ba84cb2dabd8",
+  "change": "Only explicit new workspace-access-admin.module.css VM stub; unknown imports remain errors; every original role/registry/readback/API assertion byte-identical",
+  "initialFailures": 4,
+  "initialPassed": 859,
+  "initialTests": 863,
+  "externalResolverCases": "15 executed:five named definitions plus10 malformed URL inputs; all existing assertions preserved"
+}

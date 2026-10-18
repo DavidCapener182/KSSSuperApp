@@ -1,0 +1,89 @@
+{
+  "status": "READY_FOR_ROOT_REVIEW_STAGED_NOT_COMMITTED",
+  "base": "04f0f2b28c6225f805cf3d360b44eab6bb571dae",
+  "branch": "codex/ui-milestone-13-client-workspaces-tfs",
+  "newCommit": null,
+  "products": 11,
+  "nonOwnedPublishedSource": 426,
+  "sourceInventory": 437,
+  "protectedConfigSchemaPublic": 239,
+  "preservedApiRouteFiles": 144,
+  "offlineTests": {
+    "files": 61,
+    "passed": 848,
+    "failed": 0,
+    "skipped": 0,
+    "networkGuard": true,
+    "command": "test-command.json"
+  },
+  "build": {
+    "exit": 0,
+    "log": "build.txt",
+    "syntheticCompileOnly": true
+  },
+  "types": {
+    "exit": 0,
+    "log": "types.txt"
+  },
+  "fullLint": {
+    "exit": 0,
+    "log": "final-full-lint.txt",
+    "warning": "Only existing unused officeId"
+  },
+  "browser": {
+    "workerFinalPacketVerified": true,
+    "packetManifestSha256": "00868c38efc8a593cdbd4be7a0d09e814ed70402604334a8a10064cfd65cab66",
+    "records": 92,
+    "images": 84,
+    "imageManifest": "image-manifest.json",
+    "imageBaseDirectory": "browser-images",
+    "widths": [
+      1440,
+      834,
+      390,
+      320
+    ],
+    "allElevenProductsCovered": true,
+    "frozenAfterGraphRows": 46,
+    "uniqueAfterSourceFiles": 23,
+    "exactMockBoundaryRows": 21,
+    "workerGraphChecks": 86,
+    "workerAuthoritativeComparisons": 65,
+    "sourceParity": "runtime-candidate-parity.json",
+    "allBranchesClaimed": false,
+    "hostedAcceptance": false,
+    "realWrites": 0
+  },
+  "legacyFixture": {
+    "cssImportOnly": true,
+    "sha256": "5a4f4209a11dfb4a1500eb39f93cf7c789fd013a9e3307c3b286ba84cb2dabd8",
+    "casesRetained": 8
+  },
+  "initialAndSupersededRuns": {
+    "initial": {
+      "passed": 859,
+      "failed": 4,
+      "reason": "New explicit CSS import absent from old VM fixture; original assertions retained"
+    },
+    "beforeScopeCorrection": {
+      "passed": 863,
+      "failed": 0,
+      "reason": "Included15 unrelated expanded external parser cases; parser/source/test restored to base and excluded from final runner"
+    },
+    "final": {
+      "passed": 848,
+      "failed": 0
+    }
+  },
+  "scopeExclusions": "scope-exclusions.json; external-apps parser, disabled AI route/helper and ManagementReports API left outside UI batch",
+  "registryReadbackLimit": "Matching returned current registry state only; no transaction or current-actor attribution claim",
+  "packaging": "Byte-preserved .txt snapshots with packaging map; canonical acceptance tests executable",
+  "reportSha256": "869cf7c6526f31f3213428c5b74b0d6f4d3c62c7dc220b663ea9614faba66350",
+  "remainingGate": "Independent root review and root-owned publication",
+  "diffCheck": {
+    "scopedExit": 0,
+    "fullExit": 2,
+    "receipt": "diff-check-receipt.json",
+    "exception": "Immutable diagnostic/patch whitespace only"
+  }
+}

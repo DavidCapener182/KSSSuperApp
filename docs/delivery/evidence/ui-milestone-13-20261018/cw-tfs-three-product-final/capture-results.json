@@ -1,0 +1,966 @@
+[
+  {
+    "stage": "before",
+    "name": "directory",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "home",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "board",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "issue",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "access",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "directory",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "home",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "board",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "issue",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "access",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "directory",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "home",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "board",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 837,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "issue",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "access",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "directory",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "home",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "board",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 837,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "issue",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "before",
+    "name": "access",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "directory",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "home",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "board",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "issue",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "access",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "issue-editor",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "issue-view-only",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "owner-unavailable",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "directory-empty",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "directory-unavailable",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "grant-review",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "interactions",
+    "width": 1440,
+    "synthetic": true,
+    "roleAndGrantChecks": true,
+    "sourceResolverChecks": true,
+    "keyboard": true,
+    "exactRevisionAndHistory": true,
+    "unconfirmedReceiptNoSuccess": true,
+    "writes": [
+      {
+        "path": "/api/client-workspaces/00000000-0000-4000-8000-000000000101/issues/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "revision": 4,
+          "data": {
+            "storeName": "Synthetic Northgate",
+            "storeNumber": "SYN-001",
+            "region": "north",
+            "owner": "Synthetic source label",
+            "ownerPersonId": "00000000-0000-4000-8000-000000000002",
+            "type": "Stock discrepancy",
+            "priority": "Urgent",
+            "status": "Needs triage",
+            "evidenceDate": "2026-10-17",
+            "evidenceSummary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+            "nextAction": "Review the synthetic source note and confirm the count.",
+            "sourceNote": "Synthetic frozen source note, not a live sync.",
+            "potentialInternalTheftReview": false
+          },
+          "reason": "Synthetic exact Person assignment"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/00000000-0000-4000-8000-000000000101/issues/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "revision": 4,
+          "data": {
+            "storeName": "Synthetic Northgate",
+            "storeNumber": "SYN-001",
+            "region": "north",
+            "owner": "Synthetic source label",
+            "ownerPersonId": "00000000-0000-4000-8000-000000000001",
+            "type": "Stock discrepancy",
+            "priority": "Urgent",
+            "status": "Needs triage",
+            "evidenceDate": "2026-10-17",
+            "evidenceSummary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+            "nextAction": "Review the synthetic source note and confirm the count.",
+            "sourceNote": "Synthetic frozen source note, not a live sync.",
+            "potentialInternalTheftReview": false
+          },
+          "reason": "Synthetic stale response review"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "grant",
+          "workspaceId": "00000000-0000-4000-8000-000000000101",
+          "personId": "00000000-0000-4000-8000-000000000001",
+          "permission": "OPERATE",
+          "reason": "Synthetic exact workspace module grant"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "revoke",
+          "grantId": "00000000-0000-4000-8000-000000000401",
+          "reason": "Synthetic exact revocation review"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "directory",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "home",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "board",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "issue",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "access",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "issue-editor",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "issue-view-only",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "owner-unavailable",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "directory-empty",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "directory-unavailable",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "grant-review",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "interactions",
+    "width": 834,
+    "synthetic": true,
+    "roleAndGrantChecks": true,
+    "sourceResolverChecks": true,
+    "keyboard": true,
+    "exactRevisionAndHistory": true,
+    "unconfirmedReceiptNoSuccess": true,
+    "writes": [
+      {
+        "path": "/api/client-workspaces/00000000-0000-4000-8000-000000000101/issues/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "revision": 4,
+          "data": {
+            "storeName": "Synthetic Northgate",
+            "storeNumber": "SYN-001",
+            "region": "north",
+            "owner": "Synthetic source label",
+            "ownerPersonId": "00000000-0000-4000-8000-000000000002",
+            "type": "Stock discrepancy",
+            "priority": "Urgent",
+            "status": "Needs triage",
+            "evidenceDate": "2026-10-17",
+            "evidenceSummary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+            "nextAction": "Review the synthetic source note and confirm the count.",
+            "sourceNote": "Synthetic frozen source note, not a live sync.",
+            "potentialInternalTheftReview": false
+          },
+          "reason": "Synthetic exact Person assignment"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/00000000-0000-4000-8000-000000000101/issues/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "revision": 4,
+          "data": {
+            "storeName": "Synthetic Northgate",
+            "storeNumber": "SYN-001",
+            "region": "north",
+            "owner": "Synthetic source label",
+            "ownerPersonId": "00000000-0000-4000-8000-000000000001",
+            "type": "Stock discrepancy",
+            "priority": "Urgent",
+            "status": "Needs triage",
+            "evidenceDate": "2026-10-17",
+            "evidenceSummary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+            "nextAction": "Review the synthetic source note and confirm the count.",
+            "sourceNote": "Synthetic frozen source note, not a live sync.",
+            "potentialInternalTheftReview": false
+          },
+          "reason": "Synthetic stale response review"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "grant",
+          "workspaceId": "00000000-0000-4000-8000-000000000101",
+          "personId": "00000000-0000-4000-8000-000000000001",
+          "permission": "OPERATE",
+          "reason": "Synthetic exact workspace module grant"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "revoke",
+          "grantId": "00000000-0000-4000-8000-000000000401",
+          "reason": "Synthetic exact revocation review"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "directory",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "home",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "board",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "issue",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "access",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "issue-editor",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "issue-view-only",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "owner-unavailable",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "directory-empty",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "directory-unavailable",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "grant-review",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "interactions",
+    "width": 390,
+    "synthetic": true,
+    "roleAndGrantChecks": true,
+    "sourceResolverChecks": true,
+    "keyboard": true,
+    "exactRevisionAndHistory": true,
+    "unconfirmedReceiptNoSuccess": true,
+    "writes": [
+      {
+        "path": "/api/client-workspaces/00000000-0000-4000-8000-000000000101/issues/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "revision": 4,
+          "data": {
+            "storeName": "Synthetic Northgate",
+            "storeNumber": "SYN-001",
+            "region": "north",
+            "owner": "Synthetic source label",
+            "ownerPersonId": "00000000-0000-4000-8000-000000000002",
+            "type": "Stock discrepancy",
+            "priority": "Urgent",
+            "status": "Needs triage",
+            "evidenceDate": "2026-10-17",
+            "evidenceSummary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+            "nextAction": "Review the synthetic source note and confirm the count.",
+            "sourceNote": "Synthetic frozen source note, not a live sync.",
+            "potentialInternalTheftReview": false
+          },
+          "reason": "Synthetic exact Person assignment"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/00000000-0000-4000-8000-000000000101/issues/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "revision": 4,
+          "data": {
+            "storeName": "Synthetic Northgate",
+            "storeNumber": "SYN-001",
+            "region": "north",
+            "owner": "Synthetic source label",
+            "ownerPersonId": "00000000-0000-4000-8000-000000000001",
+            "type": "Stock discrepancy",
+            "priority": "Urgent",
+            "status": "Needs triage",
+            "evidenceDate": "2026-10-17",
+            "evidenceSummary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+            "nextAction": "Review the synthetic source note and confirm the count.",
+            "sourceNote": "Synthetic frozen source note, not a live sync.",
+            "potentialInternalTheftReview": false
+          },
+          "reason": "Synthetic stale response review"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "grant",
+          "workspaceId": "00000000-0000-4000-8000-000000000101",
+          "personId": "00000000-0000-4000-8000-000000000001",
+          "permission": "OPERATE",
+          "reason": "Synthetic exact workspace module grant"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "revoke",
+          "grantId": "00000000-0000-4000-8000-000000000401",
+          "reason": "Synthetic exact revocation review"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  {
+    "stage": "after",
+    "name": "directory",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "home",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "board",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "issue",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "access",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "issue-editor",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "issue-view-only",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "owner-unavailable",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "directory-empty",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "directory-unavailable",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "grant-review",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "interactions",
+    "width": 320,
+    "synthetic": true,
+    "roleAndGrantChecks": true,
+    "sourceResolverChecks": true,
+    "keyboard": true,
+    "exactRevisionAndHistory": true,
+    "unconfirmedReceiptNoSuccess": true,
+    "writes": [
+      {
+        "path": "/api/client-workspaces/00000000-0000-4000-8000-000000000101/issues/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "revision": 4,
+          "data": {
+            "storeName": "Synthetic Northgate",
+            "storeNumber": "SYN-001",
+            "region": "north",
+            "owner": "Synthetic source label",
+            "ownerPersonId": "00000000-0000-4000-8000-000000000002",
+            "type": "Stock discrepancy",
+            "priority": "Urgent",
+            "status": "Needs triage",
+            "evidenceDate": "2026-10-17",
+            "evidenceSummary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+            "nextAction": "Review the synthetic source note and confirm the count.",
+            "sourceNote": "Synthetic frozen source note, not a live sync.",
+            "potentialInternalTheftReview": false
+          },
+          "reason": "Synthetic exact Person assignment"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/00000000-0000-4000-8000-000000000101/issues/00000000-0000-4000-8000-000000000301",
+        "method": "PATCH",
+        "body": {
+          "revision": 4,
+          "data": {
+            "storeName": "Synthetic Northgate",
+            "storeNumber": "SYN-001",
+            "region": "north",
+            "owner": "Synthetic source label",
+            "ownerPersonId": "00000000-0000-4000-8000-000000000001",
+            "type": "Stock discrepancy",
+            "priority": "Urgent",
+            "status": "Needs triage",
+            "evidenceDate": "2026-10-17",
+            "evidenceSummary": "Synthetic historical discrepancy observation. Counts and deliveries require review; no conclusion is established.",
+            "nextAction": "Review the synthetic source note and confirm the count.",
+            "sourceNote": "Synthetic frozen source note, not a live sync.",
+            "potentialInternalTheftReview": false
+          },
+          "reason": "Synthetic stale response review"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "grant",
+          "workspaceId": "00000000-0000-4000-8000-000000000101",
+          "personId": "00000000-0000-4000-8000-000000000001",
+          "permission": "OPERATE",
+          "reason": "Synthetic exact workspace module grant"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "revoke",
+          "grantId": "00000000-0000-4000-8000-000000000401",
+          "reason": "Synthetic exact revocation review"
+        }
+      }
+    ],
+    "errors": [],
+    "external": []
+  }
+]

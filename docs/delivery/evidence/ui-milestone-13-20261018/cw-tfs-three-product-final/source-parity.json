@@ -1,0 +1,674 @@
+{
+  "graphFileChecks": 86,
+  "authoritativeSourceComparisons": 65,
+  "mismatches": [],
+  "checks": [
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "manifestSha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "authoritativeSourceSha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "manifestSha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "authoritativeSourceSha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "manifestSha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "authoritativeSourceSha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "manifestSha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "authoritativeSourceSha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/components/ui/sheet.module.css",
+      "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "manifestSha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "authoritativeSourceSha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "manifestSha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "authoritativeSourceSha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "manifestSha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "authoritativeSourceSha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/app/(enterprise)/tfs/page.tsx",
+      "sha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d",
+      "manifestSha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d",
+      "authoritativeSourceSha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/lib/client-workspaces/server.ts",
+      "sha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616",
+      "manifestSha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616",
+      "authoritativeSourceSha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/lib/client-workspaces/types.ts",
+      "sha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589",
+      "manifestSha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589",
+      "authoritativeSourceSha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/app/(enterprise)/client-workspaces/manage/page.tsx",
+      "sha256": "3eb7c6be2ca945187a67548af800707ff187ec0a73114ca3431c68501c955414",
+      "manifestSha256": "3eb7c6be2ca945187a67548af800707ff187ec0a73114ca3431c68501c955414",
+      "authoritativeSourceSha256": "3eb7c6be2ca945187a67548af800707ff187ec0a73114ca3431c68501c955414"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/components/workspace-access-admin.tsx",
+      "sha256": "be78cdb66d6cdc505122b67c1a78d1d8e13c3efbb8b9c714afbab6aa59f2c921",
+      "manifestSha256": "be78cdb66d6cdc505122b67c1a78d1d8e13c3efbb8b9c714afbab6aa59f2c921",
+      "authoritativeSourceSha256": "be78cdb66d6cdc505122b67c1a78d1d8e13c3efbb8b9c714afbab6aa59f2c921"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/[issueId]/page.tsx",
+      "sha256": "9fa867afb03cca138c88e7c7fb4e02fbe1def3c90dc2b8743193bdd5f1fec9b0",
+      "manifestSha256": "9fa867afb03cca138c88e7c7fb4e02fbe1def3c90dc2b8743193bdd5f1fec9b0",
+      "authoritativeSourceSha256": "9fa867afb03cca138c88e7c7fb4e02fbe1def3c90dc2b8743193bdd5f1fec9b0"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/components/tfs-workspace-board.tsx",
+      "sha256": "9d0932f63342d03c90140c002b0513fd44ea85b0034f1dc0389c785f52945d1a",
+      "manifestSha256": "9d0932f63342d03c90140c002b0513fd44ea85b0034f1dc0389c785f52945d1a",
+      "authoritativeSourceSha256": "9d0932f63342d03c90140c002b0513fd44ea85b0034f1dc0389c785f52945d1a"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/page.tsx",
+      "sha256": "f85b343e84fa955bd8c0ada08d134173a9e976899ba5c5a4aa73caf7bf62c7fc",
+      "manifestSha256": "f85b343e84fa955bd8c0ada08d134173a9e976899ba5c5a4aa73caf7bf62c7fc",
+      "authoritativeSourceSha256": "f85b343e84fa955bd8c0ada08d134173a9e976899ba5c5a4aa73caf7bf62c7fc"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/page.tsx",
+      "sha256": "c904781ee31a5d625c52a44822cebf1ee26e3c96763c6365e5839a0bac212360",
+      "manifestSha256": "c904781ee31a5d625c52a44822cebf1ee26e3c96763c6365e5839a0bac212360",
+      "authoritativeSourceSha256": "c904781ee31a5d625c52a44822cebf1ee26e3c96763c6365e5839a0bac212360"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/app/(enterprise)/client-workspaces/page.tsx",
+      "sha256": "b03bd1420555a2ef208c7b2c9953d6687c3c056d664dd61b0b4d3ada344c0d62",
+      "manifestSha256": "b03bd1420555a2ef208c7b2c9953d6687c3c056d664dd61b0b4d3ada344c0d62",
+      "authoritativeSourceSha256": "b03bd1420555a2ef208c7b2c9953d6687c3c056d664dd61b0b4d3ada344c0d62"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/app/(enterprise)/client-workspaces/layout.tsx",
+      "sha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a",
+      "manifestSha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a",
+      "authoritativeSourceSha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/app/(enterprise)/client-workspaces/workspace.css",
+      "sha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717",
+      "manifestSha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717",
+      "authoritativeSourceSha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/lib/auth/principal.ts",
+      "sha256": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f",
+      "manifestSha256": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/lib/supabase/server.ts",
+      "sha256": "b526e2fbc001313795aa010e5c5704c7d0d8f7e0f548c937fbf2c7190d1402eb",
+      "manifestSha256": "b526e2fbc001313795aa010e5c5704c7d0d8f7e0f548c937fbf2c7190d1402eb"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/lib/supabase/browser.ts",
+      "sha256": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73",
+      "manifestSha256": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/app/layout.tsx",
+      "sha256": "8c295f15b06642035af1adf2fad33ed6fffa3a82e901faa17e7e94d0624409a7",
+      "manifestSha256": "8c295f15b06642035af1adf2fad33ed6fffa3a82e901faa17e7e94d0624409a7"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/app/(enterprise)/layout.tsx",
+      "sha256": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32",
+      "manifestSha256": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/app/page.tsx",
+      "sha256": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6",
+      "manifestSha256": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6"
+    },
+    {
+      "run": "main",
+      "stage": "before",
+      "file": "src/lib/fixture-data.json",
+      "sha256": "55c4519e3a547034fd3a98c1229725d19d1b1087c33e5d092c4a5fb35cc4da71",
+      "manifestSha256": "55c4519e3a547034fd3a98c1229725d19d1b1087c33e5d092c4a5fb35cc4da71"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "manifestSha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "authoritativeSourceSha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "manifestSha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "authoritativeSourceSha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "manifestSha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "authoritativeSourceSha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "manifestSha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "authoritativeSourceSha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/components/ui/sheet.module.css",
+      "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "manifestSha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "authoritativeSourceSha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "manifestSha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "authoritativeSourceSha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "manifestSha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "authoritativeSourceSha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/app/(enterprise)/tfs/page.tsx",
+      "sha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d",
+      "manifestSha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d",
+      "authoritativeSourceSha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/lib/client-workspaces/server.ts",
+      "sha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616",
+      "manifestSha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616",
+      "authoritativeSourceSha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/lib/client-workspaces/types.ts",
+      "sha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589",
+      "manifestSha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589",
+      "authoritativeSourceSha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/manage/page.tsx",
+      "sha256": "383adef481442c24fcf70fd313d697ebb49991398a5f3ce568f23fc27e05e6cf",
+      "manifestSha256": "383adef481442c24fcf70fd313d697ebb49991398a5f3ce568f23fc27e05e6cf",
+      "authoritativeSourceSha256": "383adef481442c24fcf70fd313d697ebb49991398a5f3ce568f23fc27e05e6cf"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/components/workspace-access-admin.tsx",
+      "sha256": "0f8c78c1a074966f6b9a0179ab300037ef36181289dac74383c43b363dea2003",
+      "manifestSha256": "0f8c78c1a074966f6b9a0179ab300037ef36181289dac74383c43b363dea2003",
+      "authoritativeSourceSha256": "0f8c78c1a074966f6b9a0179ab300037ef36181289dac74383c43b363dea2003"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/components/workspace-access-admin.module.css",
+      "sha256": "990cef4adbd5aa1b24b355cd6208a4ac898b120c74445e9a3404f900ad71683c",
+      "manifestSha256": "990cef4adbd5aa1b24b355cd6208a4ac898b120c74445e9a3404f900ad71683c",
+      "authoritativeSourceSha256": "990cef4adbd5aa1b24b355cd6208a4ac898b120c74445e9a3404f900ad71683c"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/[issueId]/page.tsx",
+      "sha256": "57ca505ae6fd46b3e0e917910bc9d7322259afe5922d2e04a613e9d2d8e30a8d",
+      "manifestSha256": "57ca505ae6fd46b3e0e917910bc9d7322259afe5922d2e04a613e9d2d8e30a8d",
+      "authoritativeSourceSha256": "57ca505ae6fd46b3e0e917910bc9d7322259afe5922d2e04a613e9d2d8e30a8d"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/components/tfs-workspace-board.tsx",
+      "sha256": "d14a26acea5c6a4df616c1ac20ec6124c382459358e146279c87c6017cfb62f2",
+      "manifestSha256": "d14a26acea5c6a4df616c1ac20ec6124c382459358e146279c87c6017cfb62f2",
+      "authoritativeSourceSha256": "d14a26acea5c6a4df616c1ac20ec6124c382459358e146279c87c6017cfb62f2"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/components/tfs-workspace.module.css",
+      "sha256": "15ba0898be2c27c4790238aa52a795c332a81cabaf7c253ad4c2d72d1b7cf57f",
+      "manifestSha256": "15ba0898be2c27c4790238aa52a795c332a81cabaf7c253ad4c2d72d1b7cf57f",
+      "authoritativeSourceSha256": "15ba0898be2c27c4790238aa52a795c332a81cabaf7c253ad4c2d72d1b7cf57f"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/lib/client-workspaces/assignment-receipt.ts",
+      "sha256": "dde247422a71a341f0c340e1cf3bf25bca4c8410ea159ff9d81dfe7707424ee7",
+      "manifestSha256": "dde247422a71a341f0c340e1cf3bf25bca4c8410ea159ff9d81dfe7707424ee7",
+      "authoritativeSourceSha256": "dde247422a71a341f0c340e1cf3bf25bca4c8410ea159ff9d81dfe7707424ee7"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/page.tsx",
+      "sha256": "fcc459d52035459645fa6a2b3660ccde9f44caac8ea3f2c2861473ca94443e5c",
+      "manifestSha256": "fcc459d52035459645fa6a2b3660ccde9f44caac8ea3f2c2861473ca94443e5c",
+      "authoritativeSourceSha256": "fcc459d52035459645fa6a2b3660ccde9f44caac8ea3f2c2861473ca94443e5c"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/page.tsx",
+      "sha256": "5a69ea46c1201cd590604c90ac0e12ce6d4d80278003699cf0944b24db8b8f03",
+      "manifestSha256": "5a69ea46c1201cd590604c90ac0e12ce6d4d80278003699cf0944b24db8b8f03",
+      "authoritativeSourceSha256": "5a69ea46c1201cd590604c90ac0e12ce6d4d80278003699cf0944b24db8b8f03"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/workspace-directory.module.css",
+      "sha256": "4cbc598f518f048f6f8bd1117530f0bd599cb833b5f9011bfdbc8501b802a36a",
+      "manifestSha256": "4cbc598f518f048f6f8bd1117530f0bd599cb833b5f9011bfdbc8501b802a36a",
+      "authoritativeSourceSha256": "4cbc598f518f048f6f8bd1117530f0bd599cb833b5f9011bfdbc8501b802a36a"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/page.tsx",
+      "sha256": "0f451db7325575d205706a0ae9e709230bfdc2597da926691cde3442f7d9eef5",
+      "manifestSha256": "0f451db7325575d205706a0ae9e709230bfdc2597da926691cde3442f7d9eef5",
+      "authoritativeSourceSha256": "0f451db7325575d205706a0ae9e709230bfdc2597da926691cde3442f7d9eef5"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/layout.tsx",
+      "sha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a",
+      "manifestSha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a",
+      "authoritativeSourceSha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/workspace.css",
+      "sha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717",
+      "manifestSha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717",
+      "authoritativeSourceSha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/lib/auth/principal.ts",
+      "sha256": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f",
+      "manifestSha256": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/lib/supabase/server.ts",
+      "sha256": "b526e2fbc001313795aa010e5c5704c7d0d8f7e0f548c937fbf2c7190d1402eb",
+      "manifestSha256": "b526e2fbc001313795aa010e5c5704c7d0d8f7e0f548c937fbf2c7190d1402eb"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/lib/supabase/browser.ts",
+      "sha256": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73",
+      "manifestSha256": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/app/layout.tsx",
+      "sha256": "8c295f15b06642035af1adf2fad33ed6fffa3a82e901faa17e7e94d0624409a7",
+      "manifestSha256": "8c295f15b06642035af1adf2fad33ed6fffa3a82e901faa17e7e94d0624409a7"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/app/(enterprise)/layout.tsx",
+      "sha256": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32",
+      "manifestSha256": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/app/page.tsx",
+      "sha256": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6",
+      "manifestSha256": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6"
+    },
+    {
+      "run": "main",
+      "stage": "after",
+      "file": "src/lib/fixture-data.json",
+      "sha256": "55c4519e3a547034fd3a98c1229725d19d1b1087c33e5d092c4a5fb35cc4da71",
+      "manifestSha256": "55c4519e3a547034fd3a98c1229725d19d1b1087c33e5d092c4a5fb35cc4da71"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "manifestSha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+      "authoritativeSourceSha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "manifestSha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+      "authoritativeSourceSha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "manifestSha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+      "authoritativeSourceSha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "manifestSha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+      "authoritativeSourceSha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/components/ui/sheet.module.css",
+      "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "manifestSha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+      "authoritativeSourceSha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "manifestSha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "authoritativeSourceSha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "manifestSha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "authoritativeSourceSha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/app/(enterprise)/tfs/page.tsx",
+      "sha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d",
+      "manifestSha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d",
+      "authoritativeSourceSha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/lib/client-workspaces/server.ts",
+      "sha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616",
+      "manifestSha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616",
+      "authoritativeSourceSha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/lib/client-workspaces/types.ts",
+      "sha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589",
+      "manifestSha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589",
+      "authoritativeSourceSha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/manage/page.tsx",
+      "sha256": "383adef481442c24fcf70fd313d697ebb49991398a5f3ce568f23fc27e05e6cf",
+      "manifestSha256": "383adef481442c24fcf70fd313d697ebb49991398a5f3ce568f23fc27e05e6cf",
+      "authoritativeSourceSha256": "383adef481442c24fcf70fd313d697ebb49991398a5f3ce568f23fc27e05e6cf"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/components/workspace-access-admin.tsx",
+      "sha256": "0f8c78c1a074966f6b9a0179ab300037ef36181289dac74383c43b363dea2003",
+      "manifestSha256": "0f8c78c1a074966f6b9a0179ab300037ef36181289dac74383c43b363dea2003",
+      "authoritativeSourceSha256": "0f8c78c1a074966f6b9a0179ab300037ef36181289dac74383c43b363dea2003"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/components/workspace-access-admin.module.css",
+      "sha256": "990cef4adbd5aa1b24b355cd6208a4ac898b120c74445e9a3404f900ad71683c",
+      "manifestSha256": "990cef4adbd5aa1b24b355cd6208a4ac898b120c74445e9a3404f900ad71683c",
+      "authoritativeSourceSha256": "990cef4adbd5aa1b24b355cd6208a4ac898b120c74445e9a3404f900ad71683c"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/[issueId]/page.tsx",
+      "sha256": "57ca505ae6fd46b3e0e917910bc9d7322259afe5922d2e04a613e9d2d8e30a8d",
+      "manifestSha256": "57ca505ae6fd46b3e0e917910bc9d7322259afe5922d2e04a613e9d2d8e30a8d",
+      "authoritativeSourceSha256": "57ca505ae6fd46b3e0e917910bc9d7322259afe5922d2e04a613e9d2d8e30a8d"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/components/tfs-workspace-board.tsx",
+      "sha256": "d14a26acea5c6a4df616c1ac20ec6124c382459358e146279c87c6017cfb62f2",
+      "manifestSha256": "d14a26acea5c6a4df616c1ac20ec6124c382459358e146279c87c6017cfb62f2",
+      "authoritativeSourceSha256": "d14a26acea5c6a4df616c1ac20ec6124c382459358e146279c87c6017cfb62f2"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/components/tfs-workspace.module.css",
+      "sha256": "15ba0898be2c27c4790238aa52a795c332a81cabaf7c253ad4c2d72d1b7cf57f",
+      "manifestSha256": "15ba0898be2c27c4790238aa52a795c332a81cabaf7c253ad4c2d72d1b7cf57f",
+      "authoritativeSourceSha256": "15ba0898be2c27c4790238aa52a795c332a81cabaf7c253ad4c2d72d1b7cf57f"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/lib/client-workspaces/assignment-receipt.ts",
+      "sha256": "dde247422a71a341f0c340e1cf3bf25bca4c8410ea159ff9d81dfe7707424ee7",
+      "manifestSha256": "dde247422a71a341f0c340e1cf3bf25bca4c8410ea159ff9d81dfe7707424ee7",
+      "authoritativeSourceSha256": "dde247422a71a341f0c340e1cf3bf25bca4c8410ea159ff9d81dfe7707424ee7"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/page.tsx",
+      "sha256": "fcc459d52035459645fa6a2b3660ccde9f44caac8ea3f2c2861473ca94443e5c",
+      "manifestSha256": "fcc459d52035459645fa6a2b3660ccde9f44caac8ea3f2c2861473ca94443e5c",
+      "authoritativeSourceSha256": "fcc459d52035459645fa6a2b3660ccde9f44caac8ea3f2c2861473ca94443e5c"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/page.tsx",
+      "sha256": "5a69ea46c1201cd590604c90ac0e12ce6d4d80278003699cf0944b24db8b8f03",
+      "manifestSha256": "5a69ea46c1201cd590604c90ac0e12ce6d4d80278003699cf0944b24db8b8f03",
+      "authoritativeSourceSha256": "5a69ea46c1201cd590604c90ac0e12ce6d4d80278003699cf0944b24db8b8f03"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/workspace-directory.module.css",
+      "sha256": "4cbc598f518f048f6f8bd1117530f0bd599cb833b5f9011bfdbc8501b802a36a",
+      "manifestSha256": "4cbc598f518f048f6f8bd1117530f0bd599cb833b5f9011bfdbc8501b802a36a",
+      "authoritativeSourceSha256": "4cbc598f518f048f6f8bd1117530f0bd599cb833b5f9011bfdbc8501b802a36a"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/page.tsx",
+      "sha256": "0f451db7325575d205706a0ae9e709230bfdc2597da926691cde3442f7d9eef5",
+      "manifestSha256": "0f451db7325575d205706a0ae9e709230bfdc2597da926691cde3442f7d9eef5",
+      "authoritativeSourceSha256": "0f451db7325575d205706a0ae9e709230bfdc2597da926691cde3442f7d9eef5"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/layout.tsx",
+      "sha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a",
+      "manifestSha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a",
+      "authoritativeSourceSha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/app/(enterprise)/client-workspaces/workspace.css",
+      "sha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717",
+      "manifestSha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717",
+      "authoritativeSourceSha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/lib/auth/principal.ts",
+      "sha256": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f",
+      "manifestSha256": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/lib/supabase/server.ts",
+      "sha256": "db41293879b8cb574e5f0cfb6a0b5a6baebda22231a67fd7fcdded96d9689cf5",
+      "manifestSha256": "db41293879b8cb574e5f0cfb6a0b5a6baebda22231a67fd7fcdded96d9689cf5"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/lib/supabase/browser.ts",
+      "sha256": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73",
+      "manifestSha256": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/app/layout.tsx",
+      "sha256": "8c295f15b06642035af1adf2fad33ed6fffa3a82e901faa17e7e94d0624409a7",
+      "manifestSha256": "8c295f15b06642035af1adf2fad33ed6fffa3a82e901faa17e7e94d0624409a7"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/app/(enterprise)/layout.tsx",
+      "sha256": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32",
+      "manifestSha256": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/app/page.tsx",
+      "sha256": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6",
+      "manifestSha256": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6"
+    },
+    {
+      "run": "supplemental",
+      "stage": "after",
+      "file": "src/lib/fixture-data.json",
+      "sha256": "55c4519e3a547034fd3a98c1229725d19d1b1087c33e5d092c4a5fb35cc4da71",
+      "manifestSha256": "55c4519e3a547034fd3a98c1229725d19d1b1087c33e5d092c4a5fb35cc4da71"
+    }
+  ]
+}

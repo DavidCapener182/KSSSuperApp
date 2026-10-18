@@ -1,0 +1,36 @@
+{
+  "offlineExisting": {
+    "count": 64,
+    "fail": 0,
+    "skip": 0,
+    "source": "kss-ui-milestone-13",
+    "command": "node --test tests/ui-tfs-pages-local.test.mjs tests/ui-tfs-presentation-local.test.mjs tests/tfs-person-assignment-local.test.mjs tests/ui-workspace-admin-local.test.mjs tests/ui-workspace-admin-boundary-local.test.mjs",
+    "log": "after-candidate-offline.log"
+  },
+  "newScopeContracts": {
+    "count": 3,
+    "fail": 0,
+    "skip": 0,
+    "command": "node --test page-containment-local.test.mjs admin-palette-contract.test.mjs"
+  },
+  "archiveTypes": {
+    "exitCode": 0,
+    "sessionId": 45108,
+    "command": "node node_modules/typescript/bin/tsc --noEmit"
+  },
+  "focusedLint": {
+    "exitCode": 0,
+    "chunkId": "b819a3",
+    "command": "node node_modules/eslint/bin/eslint.js 'src/app/(enterprise)/client-workspaces/manage/page.tsx'"
+  },
+  "mainBrowser": {
+    "exitCode": 0,
+    "sessionId": 5402,
+    "records": 68
+  },
+  "supplementalBrowser": {
+    "exitCode": 0,
+    "sessionId": 12384,
+    "records": 24
+  }
+}

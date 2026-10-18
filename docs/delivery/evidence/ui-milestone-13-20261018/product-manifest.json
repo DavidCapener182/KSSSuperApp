@@ -1,0 +1,60 @@
+[
+  {
+    "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/[issueId]/page.tsx",
+    "beforeSha256": "9fa867afb03cca138c88e7c7fb4e02fbe1def3c90dc2b8743193bdd5f1fec9b0",
+    "sha256": "57ca505ae6fd46b3e0e917910bc9d7322259afe5922d2e04a613e9d2d8e30a8d"
+  },
+  {
+    "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/page.tsx",
+    "beforeSha256": "f85b343e84fa955bd8c0ada08d134173a9e976899ba5c5a4aa73caf7bf62c7fc",
+    "sha256": "fcc459d52035459645fa6a2b3660ccde9f44caac8ea3f2c2861473ca94443e5c"
+  },
+  {
+    "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/page.tsx",
+    "beforeSha256": "c904781ee31a5d625c52a44822cebf1ee26e3c96763c6365e5839a0bac212360",
+    "sha256": "5a69ea46c1201cd590604c90ac0e12ce6d4d80278003699cf0944b24db8b8f03"
+  },
+  {
+    "file": "src/app/(enterprise)/client-workspaces/manage/page.tsx",
+    "beforeSha256": "3eb7c6be2ca945187a67548af800707ff187ec0a73114ca3431c68501c955414",
+    "sha256": "383adef481442c24fcf70fd313d697ebb49991398a5f3ce568f23fc27e05e6cf",
+    "controlledRepairBeforeSha256": "f728fc71c5d59c53c3e85198f707e694acec44604c388e0185e2229d03de1a56"
+  },
+  {
+    "file": "src/app/(enterprise)/client-workspaces/page.tsx",
+    "beforeSha256": "b03bd1420555a2ef208c7b2c9953d6687c3c056d664dd61b0b4d3ada344c0d62",
+    "sha256": "0f451db7325575d205706a0ae9e709230bfdc2597da926691cde3442f7d9eef5"
+  },
+  {
+    "file": "src/app/(enterprise)/client-workspaces/workspace-directory.module.css",
+    "beforeSha256": null,
+    "sha256": "4cbc598f518f048f6f8bd1117530f0bd599cb833b5f9011bfdbc8501b802a36a"
+  },
+  {
+    "file": "src/components/tfs-workspace-board.tsx",
+    "beforeSha256": "9d0932f63342d03c90140c002b0513fd44ea85b0034f1dc0389c785f52945d1a",
+    "sha256": "d14a26acea5c6a4df616c1ac20ec6124c382459358e146279c87c6017cfb62f2"
+  },
+  {
+    "file": "src/components/tfs-workspace.module.css",
+    "beforeSha256": null,
+    "sha256": "15ba0898be2c27c4790238aa52a795c332a81cabaf7c253ad4c2d72d1b7cf57f",
+    "controlledRepairBeforeSha256": "da2eea21d6bb6a5b612f24d10ad91a6cef4cce0420c9b6d34147d33899d53984"
+  },
+  {
+    "file": "src/components/workspace-access-admin.module.css",
+    "beforeSha256": null,
+    "sha256": "990cef4adbd5aa1b24b355cd6208a4ac898b120c74445e9a3404f900ad71683c",
+    "controlledRepairBeforeSha256": "3eace16ef54f8c6e3d2d6891087d668e20e7bb33a5695f32255e046427179c65"
+  },
+  {
+    "file": "src/components/workspace-access-admin.tsx",
+    "beforeSha256": "be78cdb66d6cdc505122b67c1a78d1d8e13c3efbb8b9c714afbab6aa59f2c921",
+    "sha256": "0f8c78c1a074966f6b9a0179ab300037ef36181289dac74383c43b363dea2003"
+  },
+  {
+    "file": "src/lib/client-workspaces/assignment-receipt.ts",
+    "beforeSha256": null,
+    "sha256": "dde247422a71a341f0c340e1cf3bf25bca4c8410ea159ff9d81dfe7707424ee7"
+  }
+]

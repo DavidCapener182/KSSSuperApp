@@ -1,0 +1,292 @@
+[
+  {
+    "stage": "before",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-client-workspaces-before-mb4qlo93",
+    "port": 3190,
+    "foundation": "cc477fe3f23238b7ecf963d54692ebdd4101bf21",
+    "beforeRef": "9b958f67c874ddbae16be3b4fed450525ee44d1a",
+    "integrationHead": "810136361023ac513f8c484aee1a2bca3614ba3a",
+    "files": [
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/components/ui/sheet.module.css",
+        "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/app/(enterprise)/tfs/page.tsx",
+        "sha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d",
+        "origin": "exact-before9b958f6"
+      },
+      {
+        "file": "src/lib/client-workspaces/server.ts",
+        "sha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616",
+        "origin": "exact-before9b958f6"
+      },
+      {
+        "file": "src/lib/client-workspaces/types.ts",
+        "sha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589",
+        "origin": "exact-before9b958f6"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/manage/page.tsx",
+        "sha256": "3eb7c6be2ca945187a67548af800707ff187ec0a73114ca3431c68501c955414",
+        "origin": "exact-before9b958f6"
+      },
+      {
+        "file": "src/components/workspace-access-admin.tsx",
+        "sha256": "be78cdb66d6cdc505122b67c1a78d1d8e13c3efbb8b9c714afbab6aa59f2c921",
+        "origin": "exact-before9b958f6"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/[issueId]/page.tsx",
+        "sha256": "9fa867afb03cca138c88e7c7fb4e02fbe1def3c90dc2b8743193bdd5f1fec9b0",
+        "origin": "exact-before9b958f6"
+      },
+      {
+        "file": "src/components/tfs-workspace-board.tsx",
+        "sha256": "9d0932f63342d03c90140c002b0513fd44ea85b0034f1dc0389c785f52945d1a",
+        "origin": "exact-before9b958f6"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/page.tsx",
+        "sha256": "f85b343e84fa955bd8c0ada08d134173a9e976899ba5c5a4aa73caf7bf62c7fc",
+        "origin": "exact-before9b958f6"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/page.tsx",
+        "sha256": "c904781ee31a5d625c52a44822cebf1ee26e3c96763c6365e5839a0bac212360",
+        "origin": "exact-before9b958f6"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/page.tsx",
+        "sha256": "b03bd1420555a2ef208c7b2c9953d6687c3c056d664dd61b0b4d3ada344c0d62",
+        "origin": "exact-before9b958f6"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/layout.tsx",
+        "sha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a",
+        "origin": "exact-before9b958f6"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/workspace.css",
+        "sha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717",
+        "origin": "exact-before9b958f6"
+      }
+    ],
+    "boundaries": [
+      {
+        "file": "src/lib/auth/principal.ts",
+        "sha256": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f"
+      },
+      {
+        "file": "src/lib/supabase/server.ts",
+        "sha256": "b526e2fbc001313795aa010e5c5704c7d0d8f7e0f548c937fbf2c7190d1402eb"
+      },
+      {
+        "file": "src/lib/supabase/browser.ts",
+        "sha256": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73"
+      },
+      {
+        "file": "src/app/layout.tsx",
+        "sha256": "8c295f15b06642035af1adf2fad33ed6fffa3a82e901faa17e7e94d0624409a7"
+      },
+      {
+        "file": "src/app/(enterprise)/layout.tsx",
+        "sha256": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32"
+      },
+      {
+        "file": "src/app/page.tsx",
+        "sha256": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6"
+      },
+      {
+        "file": "src/lib/fixture-data.json",
+        "sha256": "55c4519e3a547034fd3a98c1229725d19d1b1087c33e5d092c4a5fb35cc4da71"
+      }
+    ]
+  },
+  {
+    "stage": "after",
+    "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-client-workspaces-after-t6kyu9q7",
+    "port": 3191,
+    "foundation": "cc477fe3f23238b7ecf963d54692ebdd4101bf21",
+    "beforeRef": "9b958f67c874ddbae16be3b4fed450525ee44d1a",
+    "integrationHead": "810136361023ac513f8c484aee1a2bca3614ba3a",
+    "files": [
+      {
+        "file": "src/lib/auth/capabilities.ts",
+        "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/components/enterprise-shell.tsx",
+        "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/lib/environment-label.ts",
+        "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/components/ui/sheet.tsx",
+        "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/components/ui/sheet.module.css",
+        "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/components/ui/button.tsx",
+        "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/app/globals.css",
+        "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+        "origin": "published-shared"
+      },
+      {
+        "file": "src/app/(enterprise)/tfs/page.tsx",
+        "sha256": "f330303d8893a5089b4c0419a5c9d0adf460ba93fc2b085b7b91e5ab0c74087d",
+        "origin": "current-integration"
+      },
+      {
+        "file": "src/lib/client-workspaces/server.ts",
+        "sha256": "bf918c0d6231086be734e802fbcf5e7682bcb5204a3064ff05ac104d2cc0a616",
+        "origin": "current-integration"
+      },
+      {
+        "file": "src/lib/client-workspaces/types.ts",
+        "sha256": "93188529e937d9ac0fefbae670efd5dbc519080b0797c30ad3fee9ac7b20a589",
+        "origin": "current-integration"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/manage/page.tsx",
+        "sha256": "383adef481442c24fcf70fd313d697ebb49991398a5f3ce568f23fc27e05e6cf",
+        "origin": "approved-isolated-workspace-admin-palette"
+      },
+      {
+        "file": "src/components/workspace-access-admin.tsx",
+        "sha256": "0f8c78c1a074966f6b9a0179ab300037ef36181289dac74383c43b363dea2003",
+        "origin": "current-integration"
+      },
+      {
+        "file": "src/components/workspace-access-admin.module.css",
+        "sha256": "990cef4adbd5aa1b24b355cd6208a4ac898b120c74445e9a3404f900ad71683c",
+        "origin": "approved-isolated-workspace-admin-palette"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/[issueId]/page.tsx",
+        "sha256": "57ca505ae6fd46b3e0e917910bc9d7322259afe5922d2e04a613e9d2d8e30a8d",
+        "origin": "current-integration"
+      },
+      {
+        "file": "src/components/tfs-workspace-board.tsx",
+        "sha256": "d14a26acea5c6a4df616c1ac20ec6124c382459358e146279c87c6017cfb62f2",
+        "origin": "current-integration"
+      },
+      {
+        "file": "src/components/tfs-workspace.module.css",
+        "sha256": "15ba0898be2c27c4790238aa52a795c332a81cabaf7c253ad4c2d72d1b7cf57f",
+        "origin": "approved-isolated-cw-page-containment"
+      },
+      {
+        "file": "src/lib/client-workspaces/assignment-receipt.ts",
+        "sha256": "dde247422a71a341f0c340e1cf3bf25bca4c8410ea159ff9d81dfe7707424ee7",
+        "origin": "current-integration"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/loss-prevention/page.tsx",
+        "sha256": "fcc459d52035459645fa6a2b3660ccde9f44caac8ea3f2c2861473ca94443e5c",
+        "origin": "current-integration"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/[workspaceId]/page.tsx",
+        "sha256": "5a69ea46c1201cd590604c90ac0e12ce6d4d80278003699cf0944b24db8b8f03",
+        "origin": "current-integration"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/workspace-directory.module.css",
+        "sha256": "4cbc598f518f048f6f8bd1117530f0bd599cb833b5f9011bfdbc8501b802a36a",
+        "origin": "current-integration"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/page.tsx",
+        "sha256": "0f451db7325575d205706a0ae9e709230bfdc2597da926691cde3442f7d9eef5",
+        "origin": "current-integration"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/layout.tsx",
+        "sha256": "d6e200d6b60eec09a40666b93fbbbca3ec3cf62d30e7af58c0d50ab57bb2339a",
+        "origin": "current-integration"
+      },
+      {
+        "file": "src/app/(enterprise)/client-workspaces/workspace.css",
+        "sha256": "75fd0fb30f1578182d9c0aa9ecb643a28a89b179b25d3684aef07f80f9a4a717",
+        "origin": "current-integration"
+      }
+    ],
+    "boundaries": [
+      {
+        "file": "src/lib/auth/principal.ts",
+        "sha256": "a8baacd9d05d322694016c7b4740740f9e30f664a36d9cd2bb5b0ab42c2e519f"
+      },
+      {
+        "file": "src/lib/supabase/server.ts",
+        "sha256": "b526e2fbc001313795aa010e5c5704c7d0d8f7e0f548c937fbf2c7190d1402eb"
+      },
+      {
+        "file": "src/lib/supabase/browser.ts",
+        "sha256": "6099b7aeb788f21c4512470366538d9c1282d236e1a14c0ab29f9441d18edb73"
+      },
+      {
+        "file": "src/app/layout.tsx",
+        "sha256": "8c295f15b06642035af1adf2fad33ed6fffa3a82e901faa17e7e94d0624409a7"
+      },
+      {
+        "file": "src/app/(enterprise)/layout.tsx",
+        "sha256": "c776e05662fe205c0717cc3d84cb3d3860c59eb45fb2960511b1a3c4dd0a3c32"
+      },
+      {
+        "file": "src/app/page.tsx",
+        "sha256": "54892001d69c9fbc53b76c80ebb512ef269c779d848a6e80a4ea3655b71ca3b6"
+      },
+      {
+        "file": "src/lib/fixture-data.json",
+        "sha256": "55c4519e3a547034fd3a98c1229725d19d1b1087c33e5d092c4a5fb35cc4da71"
+      }
+    ]
+  }
+]

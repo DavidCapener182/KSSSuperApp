@@ -1,0 +1,16 @@
+[
+  {
+    "original": "page-containment-local.test.mjs",
+    "originalSha256": "4d892309cf22da9553c92adb42edd1f1f827058c5dc0c00ee1a98164cbd1f5e5",
+    "canonicalTest": "tests/ui-tfs-page-containment-local.test.mjs",
+    "sha256": "bb9249900dbe4d05b4d393db716d08145648a42db64a0f6be6b099d0d91b2bf5",
+    "change": "Root/current source and immutable before-file paths only; all three original assertion bodies retained"
+  },
+  {
+    "original": "admin-palette-contract.test.mjs",
+    "originalSha256": "cac3ca12add901d3430fc404cfbcdd6070619001e785005b6f6a810170546db8",
+    "canonicalTest": "tests/ui-workspace-admin-palette-local.test.mjs",
+    "sha256": "aa011614d85e0a20c5cedc36fa3f518d79fe6b7548c4d7d6c3508100a61cd7ca",
+    "change": "Root/current source and immutable before-file paths only; all three original assertion bodies retained"
+  }
+]

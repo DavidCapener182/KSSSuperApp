@@ -1,0 +1,23 @@
+{
+  "packetManifestSha256": "00868c38efc8a593cdbd4be7a0d09e814ed70402604334a8a10064cfd65cab66",
+  "payloadFilesPinned": 125,
+  "mainRecords": 68,
+  "supplementalRecords": 24,
+  "totalRecords": 92,
+  "images": 84,
+  "widths": [
+    1440,
+    834,
+    390,
+    320
+  ],
+  "mainExit": 0,
+  "supplementalExit": 0,
+  "pageErrors": 0,
+  "externalRequests": 0,
+  "realWrites": 0,
+  "sourceCandidateParity": "runtime-candidate-parity.json",
+  "nativeTfsResolver": "Actual unchanged /tfs route uses cw_tfs_entry synthetic RPC boundary, two distinct authorised workspace UUID redirects, unavailable/anonymous denial and supplemental VIEW desk without Add issue",
+  "registryLimit": "Matches returned current registry state; no transaction/actor audit attribution or real persistence claim",
+  "fullMeBoundary": "Principal UUID1,current role cookie,reviewerfalse and full navigation match rendered shell"
+}

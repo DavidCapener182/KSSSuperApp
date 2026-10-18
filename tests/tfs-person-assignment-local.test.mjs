@@ -35,8 +35,8 @@ function loader(mocks) {
       module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX,
     } }).outputText;
     new vm.Script(js, { filename: absolute }).runInNewContext({ module: loaded, exports: loaded.exports,
-      require(name) { assert.ok(Object.hasOwn(mocks, name), `unexpected dependency: ${name}`); return mocks[name]; },
-      Response, Request, FormData, fetch: mocks.fetch ?? (() => { throw new Error('External network forbidden'); }),
+      require(name) { if(name.endsWith('.module.css'))return {__esModule:true,default:{editorFields:'editorFields'}};if(name==='@/components/ui/sheet')return Object.fromEntries(['Sheet','SheetContent','SheetHeader','SheetTitle','SheetDescription','SheetTrigger'].map(key=>[key,key]));assert.ok(Object.hasOwn(mocks, name), `unexpected dependency: ${name}`); return mocks[name]; },
+      Response, Request, FormData, setTimeout, clearTimeout, fetch: mocks.fetch ?? (() => { throw new Error('External network forbidden'); }),
     });
     return loaded.exports;
   };
@@ -130,20 +130,24 @@ function text(tree) {
   if (tree == null || typeof tree === 'boolean') return '';
   return typeof tree === 'object' ? text(tree.props?.children) : String(tree);
 }
+const receiptHelper=loader({})('src/lib/client-workspaces/assignment-receipt.ts');
+function savedIssue(owner=ids.first,extra={}){const after={...issue,owner_person_id:owner,revision:4,...extra};return {...after,history:[{revision:4,action:'UPDATED',actorPersonId:ids.first,reason:'Synthetic assignment review',occurredAt:'2026-10-18T09:00:00Z',before:issue,after}]};}
 function editorHarness({ owners = [{ id: ids.first, name: 'Synthetic first' }, { id: ids.second, name: 'Synthetic second' }],
-  currentIssue = issue, fetcher = async () => json({ issue: { ...issue, revision: 4 } }) } = {}) {
-  const states = [], calls = [], navigation = []; let cursor = 0;
+  currentIssue = issue, fetcher = async (_url,options) => json({issue:savedIssue(JSON.parse(options.body).data.ownerPersonId)}) } = {}) {
+  const states = [], calls = [], navigation = [], cleanups=[]; let cursor = 0;
   const element = (type, props) => ({ type, props });
-  const load = loader({ react: { useState(initial) { const i = cursor++;
+  const load = loader({ react: { useEffect(fn){const cleanup=fn();if(cleanup)cleanups.push(cleanup);},useRef(initial){const i=cursor++;if(!(i in states))states[i]={current:initial};return states[i];},useState(initial) { const i = cursor++;
     if (!(i in states)) states[i] = typeof initial === 'function' ? initial() : initial;
     return [states[i], (value) => { states[i] = value; }]; }, useMemo: (fn) => fn() },
+  'react-dom': { flushSync: fn=>fn() },
   'react/jsx-runtime': { jsx: element, jsxs: element, Fragment: 'fragment' },
   'next/link': { __esModule: true, default: 'a' },
   'next/navigation': { useRouter: () => ({ refresh: () => navigation.push('refresh'), push: (url) => navigation.push(url) }) },
+  '@/lib/client-workspaces/assignment-receipt': receiptHelper,
   '@/lib/client-workspaces/types': { STATUSES: ['Needs triage', 'Investigating', 'Visit needed', 'Waiting on store', 'Monitoring', 'Closed'] },
   fetch: async (url, options) => { calls.push([url, options]); return fetcher(url, options); } });
   const { TfsIssueEditor } = load('src/components/tfs-workspace-board.tsx');
-  return { calls, navigation, render() { cursor = 0; return TfsIssueEditor({ workspaceId: ids.workspace,
+  return { calls, navigation, unmount(){cleanups.forEach(cleanup=>cleanup());}, render() { cursor = 0; return TfsIssueEditor({ workspaceId: ids.workspace,
     issue: currentIssue, owners }); } };
 }
 function form(ownerPersonId) {
@@ -216,3 +220,18 @@ test('migration source retains exact OPERATE/revision/Person/history boundaries 
   assert.doesNotMatch(sql, /(?:insert into|update|delete from)\s+(?:public\.)?(?:client_workspace_grants|role_assignments|site_assignments)\b/i);
   assert.match(sql, /jsonb_build_object\('id',p\.id,'name',p\.display_name\)/);
 });
+
+test('editor never confirms an unrelated success-shaped assignment receipt', async () => {
+  const h=editorHarness({fetcher:async()=>json({issue:{...issue,id:ids.unknown,revision:4,owner_person_id:ids.second}})});
+  await h.render().props.action(form(ids.second));
+  assert.doesNotMatch(text(h.render()),/Server confirmed/);
+  assert.deepEqual(h.navigation,[]);
+});
+
+for(const [name,transform]of[
+ ['wrong workspace',x=>({...x,workspace_id:ids.unknown})],['wrong Person',x=>({...x,owner_person_id:ids.unknown})],['old revision',x=>({...x,revision:3})],['skipped revision',x=>({...x,revision:5})],['missing history',x=>({...x,history:undefined})],['wrong history Person',x=>({...x,history:[{...x.history[0],after:{...x.history[0].after,owner_person_id:ids.unknown}}]})],['wrong history reason',x=>({...x,history:[{...x.history[0],reason:'Another reason'}]})],['missing actor',x=>({...x,history:[{...x.history[0],actorPersonId:null}]})]])test('editor does not confirm '+name+' receipt',async()=>{const h=editorHarness({fetcher:async()=>json({issue:transform(savedIssue(ids.second))})});await h.render().props.action(form(ids.second));assert.doesNotMatch(text(h.render()),/Server confirmed/);assert.match(text(h.render()),/exact Person assignment and history could not be confirmed/);assert.deepEqual(h.navigation,[]);});
+test('concurrent form invocations have one synchronous pending write',async()=>{let release;const h=editorHarness({fetcher:()=>new Promise(r=>release=r)});const tree=h.render(),first=tree.props.action(form(ids.second));await tree.props.action(form(ids.second));assert.equal(h.calls.length,1);release(json({issue:savedIssue(ids.second)}));await first;assert.match(text(h.render()),/Server confirmed revision 4/);});
+
+test('create receipt binds revision one and its existing CREATED history',()=>{const after={...issue,revision:1,owner_person_id:ids.second};const created={...after,history:[{revision:1,action:'CREATED',actorPersonId:ids.first,occurredAt:'2026-10-18T09:00:00Z',before:null,after}]};assert.deepEqual(plain(receiptHelper.assignmentReceipt(created,{workspaceId:ids.workspace,ownerPersonId:ids.second,sourceOwner:issue.source_owner,reason:''})),{id:ids.issue,revision:1});});
+
+test('late editor receipt after unmount never announces confirmation or navigates',async()=>{let release;const h=editorHarness({fetcher:()=>new Promise(r=>release=r)});const pending=h.render().props.action(form(ids.second));h.unmount();release(json({issue:savedIssue(ids.second)}));await pending;assert.deepEqual(h.navigation,[]);assert.doesNotMatch(text(h.render()),/Server confirmed/);});

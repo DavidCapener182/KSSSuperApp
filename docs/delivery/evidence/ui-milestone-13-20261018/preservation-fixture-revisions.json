@@ -1,0 +1,32 @@
+[
+  {
+    "file": "tests/ui-documents-local.test.mjs",
+    "beforeSha256": "73a68b26aac0a3a4d6e8e1eea10263e4ab3f9b08ff0663e359c19b1a6c1a1155",
+    "sha256": "093186960644f31f616764ea269257f2a21f94e5a1dd334b174ac603c95aacb7",
+    "change": "Current425 non-owned manifest reference only; no functional assertion removed"
+  },
+  {
+    "file": "tests/ui-training-learners-local.test.mjs",
+    "beforeSha256": "51fadc56284a84cd428cf5e0663f999b7279df90c2d3bf95227de13900793ccf",
+    "sha256": "48772774b034ee2d8668c04fc8eb03c605ee00b93db91876affc9f88f3889f9d",
+    "change": "Current425 non-owned manifest reference only; no functional assertion removed"
+  },
+  {
+    "file": "tests/ui-training-requirements-local.test.mjs",
+    "beforeSha256": "b95a0ec60a040284c74f64bd00866866cd108157b7378c6d5054ae0fe79097c0",
+    "sha256": "534fccc761b6db6c72c072e3e17da0dcc23180ab71e7eccb89b7710a90bd0b85",
+    "change": "Current425 non-owned manifest reference only; no functional assertion removed"
+  },
+  {
+    "file": "tests/ui-hr-credentials-local.test.mjs",
+    "beforeSha256": "3ba73fb4228e1438740843abeaf4801bcb65cce8d022853bbbd03c67c7eef517",
+    "sha256": "aa80dc71df75263a0ad05e334ef83e65a7aa899cfac36903404899544e34ef60",
+    "change": "Current425 non-owned manifest reference only; no functional assertion removed"
+  },
+  {
+    "file": "tests/ui-staff-records-local.test.mjs",
+    "beforeSha256": "fae8af4d062c0ca03f83f14d891b5b6202106935ac531e3ad8972b816f710801",
+    "sha256": "84ab695eaf8b046a7533466961a2b8ebb38d81f950461b2dd12b3209adbaf20d",
+    "change": "Current425 non-owned manifest reference only; no functional assertion removed"
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "file": "page-containment-local.test.mjs",
+    "sha256": "4d892309cf22da9553c92adb42edd1f1f827058c5dc0c00ee1a98164cbd1f5e5"
+  },
+  {
+    "file": "admin-palette-contract.test.mjs",
+    "sha256": "cac3ca12add901d3430fc404cfbcdd6070619001e785005b6f6a810170546db8"
+  },
+  {
+    "file": "legacy-css-import-fixture/before.mjs.txt",
+    "sha256": "3d9d99119cbb7ea6263c34b3ad4ba9f82068d0fc79487da757efaa3ad1cd0d9d"
+  },
+  {
+    "file": "legacy-css-import-fixture/after.mjs.txt",
+    "sha256": "5a4f4209a11dfb4a1500eb39f93cf7c789fd013a9e3307c3b286ba84cb2dabd8"
+  }
+]

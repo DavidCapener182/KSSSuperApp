@@ -1,0 +1,356 @@
+{
+  "mainRecords": 68,
+  "supplementalRecords": 24,
+  "finalImages": 84,
+  "widths": [
+    1440,
+    834,
+    390,
+    320
+  ],
+  "pageErrors": 0,
+  "externalRequests": 0,
+  "currentHorizontalOverflows": 0,
+  "realWrites": 0,
+  "hostedAcceptance": false,
+  "mainMockWriteAttempts": 16,
+  "supplementalMockWriteAttempts": 8,
+  "images": [
+    {
+      "file": "before-directory-1440.png",
+      "sha256": "40d2de9c6fc412302f37d4b045dee6fe93cd7b78b80f4e3c2144d46210d9f878"
+    },
+    {
+      "file": "before-home-1440.png",
+      "sha256": "6ddf50d45be09f3ed4ab3119ceb135abd94b8ff611020a52cffc560269e7d7f7"
+    },
+    {
+      "file": "before-board-1440.png",
+      "sha256": "63e6bb7a7910b560debc9930066b9a9755a89be2ed6f013de1b070c83ccefbd2"
+    },
+    {
+      "file": "before-issue-1440.png",
+      "sha256": "a128792a8254c3bd4658e734431325f45622d11ce3089bc16728385f39131cce"
+    },
+    {
+      "file": "before-access-1440.png",
+      "sha256": "c2547834fcda2b4e919c9e2df8576ebbf241c75703447670b54e929cdd73229a"
+    },
+    {
+      "file": "before-directory-834.png",
+      "sha256": "92a9ae96c25ac5a1d570932700c313b4b38539f68c793abe23191e1d3fbbce91"
+    },
+    {
+      "file": "before-home-834.png",
+      "sha256": "0e1341b64b3b76c9ba992a1546bb9f7fb675b0c326cce825840cf88d765695ab"
+    },
+    {
+      "file": "before-board-834.png",
+      "sha256": "e3a73f2427ef900e6d61cdce94aa7cf954bd86b3fe1cec5e73cf4811218048e8"
+    },
+    {
+      "file": "before-issue-834.png",
+      "sha256": "030122133b57f8e6d3221deb0b0c957497f94fcbbc126ae7c2a16b064345a66d"
+    },
+    {
+      "file": "before-access-834.png",
+      "sha256": "43c8d3c259dc27d51426f1289176c95e689a3636b1c7e75dea72fc773595fc53"
+    },
+    {
+      "file": "before-directory-390.png",
+      "sha256": "b52403f01e8caaf6af3416b65abaff353524832f28fad46172fa8c6a0b54da9b"
+    },
+    {
+      "file": "before-home-390.png",
+      "sha256": "42307aacfc1442df3ab67e78eae942e301fcb5388fefc96c9acd584577b8ee98"
+    },
+    {
+      "file": "before-board-390.png",
+      "sha256": "7011c9871af6a40c9a4aace206c9360c2ffe427259b0bfd4a7732c866a531e0e"
+    },
+    {
+      "file": "before-issue-390.png",
+      "sha256": "ef9f11690991cb845715bc23b1ac4e47152a3f583d9c305c458102d4ec6da01f"
+    },
+    {
+      "file": "before-access-390.png",
+      "sha256": "ce87262b247761d55f337b841fc0efe41e28b057aa7e2078ecfd9a521508f749"
+    },
+    {
+      "file": "before-directory-320.png",
+      "sha256": "a447106f381022aa31abddaa176be168aa75ead5d0ab264b155037391777a9b3"
+    },
+    {
+      "file": "before-home-320.png",
+      "sha256": "60992fc8001127a5209e26e5b2579a5cfc8012c528448c64158055ce807bd82b"
+    },
+    {
+      "file": "before-board-320.png",
+      "sha256": "33bd0c5737c57fd021b388f7ed2220d196876899a233ca8689e389f356916a27"
+    },
+    {
+      "file": "before-issue-320.png",
+      "sha256": "59dc4967813f2ea8f44c46c6b57b970a07e2c76659244c5fb0bb71ee6f70773f"
+    },
+    {
+      "file": "before-access-320.png",
+      "sha256": "fe5a8b29a537c886b77020f97188ca53a59245e4289bdde8b9e7d8458043ab44"
+    },
+    {
+      "file": "after-directory-1440.png",
+      "sha256": "c70a879463baa61e8c77ed92e69d750951fbdfe2548cca178384e5d0b8f82779"
+    },
+    {
+      "file": "after-home-1440.png",
+      "sha256": "8aa86981bd82e88ef361f664003a0c4c570e88f90225a02f127b34d319822b62"
+    },
+    {
+      "file": "after-board-1440.png",
+      "sha256": "8392c76f30c5696e1b87e7e81eb783b2007d4f7a0fa71cae5e11b9196341e26b"
+    },
+    {
+      "file": "after-issue-1440.png",
+      "sha256": "d5b5719ae986a9f13a2dcaef22fa5224ec88d2d957716fd5253e44b68883ecdb"
+    },
+    {
+      "file": "after-access-1440.png",
+      "sha256": "8f031a2ad765c6175b2b120573c4b33e416b89b37042d9da96abdb52921e9934"
+    },
+    {
+      "file": "after-issue-editor-1440.png",
+      "sha256": "cf63579ea6f98ec258b53e010c125c21ee4d7a179a3bfd981f3195e36161ec87"
+    },
+    {
+      "file": "after-issue-view-only-1440.png",
+      "sha256": "7bcd0eddd1ed119900b435532bb0cb26cc31a800c39726b9235f22fa362a7e57"
+    },
+    {
+      "file": "after-owner-unavailable-1440.png",
+      "sha256": "abacc1fd9f64a1b5aabc30a24a180ffb1139487d5bb5954c0270a7c05d06034d"
+    },
+    {
+      "file": "after-directory-empty-1440.png",
+      "sha256": "e2b7452c4eb37c032c6a0fe17b0b0ed76cd8a241b2169ab86a2209840359309a"
+    },
+    {
+      "file": "after-directory-unavailable-1440.png",
+      "sha256": "d1f91ae40fca0f90c32c03af50fb8b6b6194357bbebac68ea56cd020a6eb3768"
+    },
+    {
+      "file": "after-grant-review-1440.png",
+      "sha256": "975af0d0a74f6fde267d9dc45ee9fa64a0faffcf2cd0d104922e0b1ee933ee42"
+    },
+    {
+      "file": "after-directory-834.png",
+      "sha256": "3e80302d5e6b39ba8075b0afe0b36ee7ded6910cc7084761b4994490fde0b06f"
+    },
+    {
+      "file": "after-home-834.png",
+      "sha256": "f514b98447e6ec092727f937673e81027a8c3706f5896947d4023a5f11c27cc7"
+    },
+    {
+      "file": "after-board-834.png",
+      "sha256": "210919ae91790af975faa8b8479ec3a05b3be2a607958394e09ba677512b893a"
+    },
+    {
+      "file": "after-issue-834.png",
+      "sha256": "381f53069c6f77f50bcd3524d63ba5eb949f26bbf133c0fa83d5f2780e9e9c92"
+    },
+    {
+      "file": "after-access-834.png",
+      "sha256": "f7e3ed99163dfd252a52692d583a75b5cb8ef50f7298ecc89ec130b2c4d6507b"
+    },
+    {
+      "file": "after-issue-editor-834.png",
+      "sha256": "67c63f829ca5bb069e0d0107dab553a67d016cdadbf8da43ff55000d4edada8e"
+    },
+    {
+      "file": "after-issue-view-only-834.png",
+      "sha256": "0c4bd8c98cc53a5fdd98df3c95d3d3b86a1d4bc84a6f560c1d2e7b0e59e85852"
+    },
+    {
+      "file": "after-owner-unavailable-834.png",
+      "sha256": "285fb73c349ec5e9a64b2837cea3d5f337ea58244b4a9ae585bebaf71e071b2c"
+    },
+    {
+      "file": "after-directory-empty-834.png",
+      "sha256": "f89079c4bf1e3ba60485b8561468b4d13bfd9585e96bf6044d3c655b536a8ac9"
+    },
+    {
+      "file": "after-directory-unavailable-834.png",
+      "sha256": "b4badb8c1c55317943c22c55b06ecbc99d816095ececa0fb486b23b46f330234"
+    },
+    {
+      "file": "after-grant-review-834.png",
+      "sha256": "b164c5534a082096676d7ca945df754189fc8905374634ba21ff25515fcd5a7b"
+    },
+    {
+      "file": "after-directory-390.png",
+      "sha256": "86314f6cf907ca83582bfffba96833564a245ff00d775fa9612c0223647d8601"
+    },
+    {
+      "file": "after-home-390.png",
+      "sha256": "976cfd801df407d3cccd8f6bcffb828df78ee0b83e27433173e54545a906c8eb"
+    },
+    {
+      "file": "after-board-390.png",
+      "sha256": "aa1f21c69ec0ef9440cd6f59658949a3a04dd1dccb853bb99befcfe3b6cbdcba"
+    },
+    {
+      "file": "after-issue-390.png",
+      "sha256": "177983254803ba08dfe78f41fe6cbe4c31e13e69494b1629c026370879c39b2b"
+    },
+    {
+      "file": "after-access-390.png",
+      "sha256": "7bcce1174360d4c45e8356e64e3424b7652d0f752c325a2a3f866ed7568588ae"
+    },
+    {
+      "file": "after-issue-editor-390.png",
+      "sha256": "3404137c0e7d23f44006d6e37224cc006715f04354421e5b48e911baa5eec96b"
+    },
+    {
+      "file": "after-issue-view-only-390.png",
+      "sha256": "afda8f83b1c5d2273875e3035d69acabf98eda93a582356775e7724fbc7e8eb2"
+    },
+    {
+      "file": "after-owner-unavailable-390.png",
+      "sha256": "64595d1b323b38201bea1b4094d3c645ff50195bb7ba521238156172e93d3883"
+    },
+    {
+      "file": "after-directory-empty-390.png",
+      "sha256": "ba23e139788d04ff932ab81e58e656041f835d27f6250cb3c9715bbe7e5bd372"
+    },
+    {
+      "file": "after-directory-unavailable-390.png",
+      "sha256": "53d6b4711d07a3f1c788768c8602594ecd3873b228b786b270d6a9f96e35684e"
+    },
+    {
+      "file": "after-grant-review-390.png",
+      "sha256": "6acd7d2a9b276a889300f3d10abbcbfaada35ae7b8daeb10301b4feef5ce91e2"
+    },
+    {
+      "file": "after-directory-320.png",
+      "sha256": "ea95097caece46a974a167bb8bf5973c4f6b0c6d0e98c015882eb0fc99ff2b56"
+    },
+    {
+      "file": "after-home-320.png",
+      "sha256": "aaef57e3f41674f17eea755eb80f88de115a4723e6e8382ba2e532b04af38b31"
+    },
+    {
+      "file": "after-board-320.png",
+      "sha256": "3842c45f6b0387336ffcac32a4f28ab23d41820d80e0ec53e1b106cc7c843ccd"
+    },
+    {
+      "file": "after-issue-320.png",
+      "sha256": "73fabdbdcbdfaa43ac57daa945f87adfce965b279a4d20cb5d006c797dabae36"
+    },
+    {
+      "file": "after-access-320.png",
+      "sha256": "d93ade8bc5c3652f528d9db3763c72e01de31ce02ee1ab0931c4c17430c120e2"
+    },
+    {
+      "file": "after-issue-editor-320.png",
+      "sha256": "6eb9cf7b0935a8acaff1355dd06444befa2507eb8349c5e4f48f88ed182b89e2"
+    },
+    {
+      "file": "after-issue-view-only-320.png",
+      "sha256": "fc6654a190d27d4d9685155db132ff353b6d0b87726c671252f137426a0f75ff"
+    },
+    {
+      "file": "after-owner-unavailable-320.png",
+      "sha256": "1102f728addbc1c8a873b535dbcffce34eff303fe47dc82742dfe3b6b0efbc47"
+    },
+    {
+      "file": "after-directory-empty-320.png",
+      "sha256": "f4f279e9a4e6cfeb375e23257fc7e07ee216aa135beeb72139cb8944c5933061"
+    },
+    {
+      "file": "after-directory-unavailable-320.png",
+      "sha256": "a26233d152ba4ce5a6d12074594018362fab27a7e7d3790a47ce617dfc455260"
+    },
+    {
+      "file": "after-grant-review-320.png",
+      "sha256": "3e9dd92f1a24593541baf686c9229abad5d320b4907e730065c076c4cfd25b64"
+    },
+    {
+      "file": "supplemental/after-historical-tfs-header-1440.png",
+      "sha256": "ba35b26cda8569c33b658504cdc980e714ec05ccd9cebcfdcd72002a31c18017"
+    },
+    {
+      "file": "supplemental/after-add-issue-editor-1440.png",
+      "sha256": "014be683882838514b8f2a02c27aeb4d0c3afa99a01ecbeec6a817bb26c32831"
+    },
+    {
+      "file": "supplemental/after-unmapped-owner-detail-1440.png",
+      "sha256": "ab9c5ea87f667b00874ab4800d8ea93ac65592678f9efa75b5940fd0a455b796"
+    },
+    {
+      "file": "supplemental/after-workspace-create-review-1440.png",
+      "sha256": "25771a360ff7a8ddf46f7db95cc4e0de13bcf1f75fdcf1e35e41ee3631a74ba9"
+    },
+    {
+      "file": "supplemental/after-admin-unconfirmed-1440.png",
+      "sha256": "e42837ba8c92f90233ae1dc2cb1bc6bf68e23e1b126cdb0ebb87505128526443"
+    },
+    {
+      "file": "supplemental/after-historical-tfs-header-834.png",
+      "sha256": "d802dddb3fe699a3218d1b534d307ebd172581d65367fa2920b1bda935c94ca7"
+    },
+    {
+      "file": "supplemental/after-add-issue-editor-834.png",
+      "sha256": "568d7851b655ca78eaf498b6ab428e3da647c725b36b94e56d410ad16d93194c"
+    },
+    {
+      "file": "supplemental/after-unmapped-owner-detail-834.png",
+      "sha256": "e69abb3bd4b0ae5fb4c5f859f4134a9c419a1ef272d5719bfb1711901beb8ee5"
+    },
+    {
+      "file": "supplemental/after-workspace-create-review-834.png",
+      "sha256": "24fce5deed7dbb25b0e9995b3ac92ccb8f94132a896ae064dcd1b8b3d264fac5"
+    },
+    {
+      "file": "supplemental/after-admin-unconfirmed-834.png",
+      "sha256": "2fdd1c323c8bce264c9946df22550238b8dfb8d7cbff6617b1c709cc627bc63c"
+    },
+    {
+      "file": "supplemental/after-historical-tfs-header-390.png",
+      "sha256": "97cefd07bc1205909cb9290a9b952c3f31b1156489c17086fc6922f3ad90545f"
+    },
+    {
+      "file": "supplemental/after-add-issue-editor-390.png",
+      "sha256": "512be7749b5b12cab5759f2442a5d1aa6f1a1ab6643120c58338fa0fb4f0400a"
+    },
+    {
+      "file": "supplemental/after-unmapped-owner-detail-390.png",
+      "sha256": "5185eaa5715514810d1ea844304a1ec39253233cb9a08d54c0beeb1012bfe952"
+    },
+    {
+      "file": "supplemental/after-workspace-create-review-390.png",
+      "sha256": "872565d0d48a3a164011e110fb9cf39aa4b595efb619e17ad6e97f4dff3287c0"
+    },
+    {
+      "file": "supplemental/after-admin-unconfirmed-390.png",
+      "sha256": "e54826e744d2a7ac7417759c470dea09404ed3ea508ea4c04235af6097e68427"
+    },
+    {
+      "file": "supplemental/after-historical-tfs-header-320.png",
+      "sha256": "cd5ed06c506d0ebee63c3ae2f9cbb7ca9eca4d5c820376c9307d39db9aa85b12"
+    },
+    {
+      "file": "supplemental/after-add-issue-editor-320.png",
+      "sha256": "291279ea093b8d2447719cae2c3012a1df57fefb5e5a2a1af33ec95046b0f9ab"
+    },
+    {
+      "file": "supplemental/after-unmapped-owner-detail-320.png",
+      "sha256": "dd31b30bc9dd386bf4bf908022d610aea9c5783bf152bea9c946ad2238cbb825"
+    },
+    {
+      "file": "supplemental/after-workspace-create-review-320.png",
+      "sha256": "3d979f93235c3d55140b3dce14c1cbeff6802db0711f93657d0ec0a0e608d9e8"
+    },
+    {
+      "file": "supplemental/after-admin-unconfirmed-320.png",
+      "sha256": "4c27a67a3785b19b27feb810e7f074f7fb68a44df710503a1a984cdfe64b8583"
+    }
+  ]
+}

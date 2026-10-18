@@ -1,0 +1,354 @@
+[
+  {
+    "stage": "after",
+    "name": "historical-tfs-header",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "add-issue-editor",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "unmapped-owner-detail",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "workspace-create-review",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "admin-unconfirmed",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "supplemental-interactions",
+    "width": 1440,
+    "synthetic": true,
+    "roleAndGrantChecks": true,
+    "sourceResolverChecks": true,
+    "unconfirmedReceiptNoSuccess": true,
+    "writes": [
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "create",
+          "organisationId": "00000000-0000-4000-8000-000000000202",
+          "reason": "Synthetic exact Client workspace creation"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "grant",
+          "workspaceId": "00000000-0000-4000-8000-000000000101",
+          "personId": "00000000-0000-4000-8000-000000000001",
+          "permission": "VIEW",
+          "reason": "Synthetic unconfirmed registry scenario"
+        }
+      }
+    ],
+    "errors": [],
+    "external": [],
+    "escapeClosesAddIssue": true,
+    "unmappedOwnerHasNoPersonLink": true,
+    "viewOnlyResolver": true,
+    "exactOrganisationCreateConfirmed": true,
+    "unconfirmedRegistryFactsCleared": true
+  },
+  {
+    "stage": "after",
+    "name": "historical-tfs-header",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "add-issue-editor",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "unmapped-owner-detail",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "workspace-create-review",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "admin-unconfirmed",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "supplemental-interactions",
+    "width": 834,
+    "synthetic": true,
+    "roleAndGrantChecks": true,
+    "sourceResolverChecks": true,
+    "unconfirmedReceiptNoSuccess": true,
+    "writes": [
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "create",
+          "organisationId": "00000000-0000-4000-8000-000000000202",
+          "reason": "Synthetic exact Client workspace creation"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "grant",
+          "workspaceId": "00000000-0000-4000-8000-000000000101",
+          "personId": "00000000-0000-4000-8000-000000000001",
+          "permission": "VIEW",
+          "reason": "Synthetic unconfirmed registry scenario"
+        }
+      }
+    ],
+    "errors": [],
+    "external": [],
+    "escapeClosesAddIssue": true,
+    "unmappedOwnerHasNoPersonLink": true,
+    "viewOnlyResolver": true,
+    "exactOrganisationCreateConfirmed": true,
+    "unconfirmedRegistryFactsCleared": true
+  },
+  {
+    "stage": "after",
+    "name": "historical-tfs-header",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "add-issue-editor",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "unmapped-owner-detail",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "workspace-create-review",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "admin-unconfirmed",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "supplemental-interactions",
+    "width": 390,
+    "synthetic": true,
+    "roleAndGrantChecks": true,
+    "sourceResolverChecks": true,
+    "unconfirmedReceiptNoSuccess": true,
+    "writes": [
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "create",
+          "organisationId": "00000000-0000-4000-8000-000000000202",
+          "reason": "Synthetic exact Client workspace creation"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "grant",
+          "workspaceId": "00000000-0000-4000-8000-000000000101",
+          "personId": "00000000-0000-4000-8000-000000000001",
+          "permission": "VIEW",
+          "reason": "Synthetic unconfirmed registry scenario"
+        }
+      }
+    ],
+    "errors": [],
+    "external": [],
+    "escapeClosesAddIssue": true,
+    "unmappedOwnerHasNoPersonLink": true,
+    "viewOnlyResolver": true,
+    "exactOrganisationCreateConfirmed": true,
+    "unconfirmedRegistryFactsCleared": true
+  },
+  {
+    "stage": "after",
+    "name": "historical-tfs-header",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "add-issue-editor",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "unmapped-owner-detail",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "workspace-create-review",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "admin-unconfirmed",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320,
+    "errors": [],
+    "external": [],
+    "synthetic": true
+  },
+  {
+    "stage": "after",
+    "name": "supplemental-interactions",
+    "width": 320,
+    "synthetic": true,
+    "roleAndGrantChecks": true,
+    "sourceResolverChecks": true,
+    "unconfirmedReceiptNoSuccess": true,
+    "writes": [
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "create",
+          "organisationId": "00000000-0000-4000-8000-000000000202",
+          "reason": "Synthetic exact Client workspace creation"
+        }
+      },
+      {
+        "path": "/api/client-workspaces/manage",
+        "method": "POST",
+        "body": {
+          "action": "grant",
+          "workspaceId": "00000000-0000-4000-8000-000000000101",
+          "personId": "00000000-0000-4000-8000-000000000001",
+          "permission": "VIEW",
+          "reason": "Synthetic unconfirmed registry scenario"
+        }
+      }
+    ],
+    "errors": [],
+    "external": [],
+    "escapeClosesAddIssue": true,
+    "unmappedOwnerHasNoPersonLink": true,
+    "viewOnlyResolver": true,
+    "exactOrganisationCreateConfirmed": true,
+    "unconfirmedRegistryFactsCleared": true
+  }
+]

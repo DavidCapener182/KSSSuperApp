@@ -1,0 +1,13 @@
+{
+  "scopedSourceTestsReportExit": 0,
+  "fullStagedExit": 2,
+  "files": [
+    "docs/delivery/evidence/ui-milestone-13-20261018/build.txt",
+    "docs/delivery/evidence/ui-milestone-13-20261018/final-full-lint.txt",
+    "docs/delivery/evidence/ui-milestone-13-20261018/full-lint.txt",
+    "docs/delivery/evidence/ui-milestone-13-20261018/initial-offline-tests.txt",
+    "docs/delivery/evidence/ui-milestone-13-20261018/pre-scope-correction-build.txt",
+    "docs/delivery/evidence/ui-milestone-13-20261018/pre-scope-correction-full-lint.txt"
+  ],
+  "reason": "Only byte-preserved diagnostic logs/unified patch whitespace; no product/test/report issue"
+}

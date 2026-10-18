@@ -1,0 +1,11 @@
+--- before/tests/ui-workspace-admin-boundary-local.test.mjs
++++ after/tests/ui-workspace-admin-boundary-local.test.mjs
+@@ -8,7 +8,7 @@
+ function harness({roles=['SUPER_ADMIN'],signed=true,errorAt=null,missingReadback=false}={}){
+  const calls=[];const registry=[{id:id(1),organisationId:id(2),name:'Synthetic exact Organisation',status:'ACTIVE',grants:[]}];
+  const client={rpc:async(name,args)=>{calls.push({name,args});return {error:name===errorAt?{code:'42501',message:'private source detail'}:null,data:name==='cw_admin_registry'?(missingReadback?null:registry):name==='cw_admin_choices'?{organisations:[],people:[]}:id(9)};}};
+- const jsx=(type,props,key)=>({type,key,props:props??{}}),mocks={'react/jsx-runtime':{jsx,jsxs:jsx},'next/link':{__esModule:true,default:'a'},'next/navigation':{notFound:()=>{throw Error('NOT_FOUND');}},'@/lib/auth/principal':{getPrincipal:async()=>signed?{roles}:null,isUuid:value=>/^[0-9a-f-]{36}$/i.test(value)},'@/lib/supabase/server':{createServerSupabase:async()=>client},'@/components/workspace-access-admin':{WorkspaceAccessAdmin:'admin'}};
++ const jsx=(type,props,key)=>({type,key,props:props??{}}),mocks={'react/jsx-runtime':{jsx,jsxs:jsx},'next/link':{__esModule:true,default:'a'},'next/navigation':{notFound:()=>{throw Error('NOT_FOUND');}},'@/lib/auth/principal':{getPrincipal:async()=>signed?{roles}:null,isUuid:value=>/^[0-9a-f-]{36}$/i.test(value)},'@/lib/supabase/server':{createServerSupabase:async()=>client},'@/components/workspace-access-admin':{WorkspaceAccessAdmin:'admin'},'@/components/workspace-access-admin.module.css':{__esModule:true,default:{page:'fixture-admin-page'}}};
+  const load=file=>{const m={exports:{}};const js=ts.transpileModule(readFileSync(new URL(`../${file}`,import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText;new vm.Script(js).runInNewContext({module:m,exports:m.exports,require:name=>{assert.ok(Object.hasOwn(mocks,name),'Unexpected import '+name);return mocks[name];},Response});return m.exports;};
+  return {calls,registry,page:()=>load(page).default(),post:body=>load(api).POST({json:async()=>body})};
+ }

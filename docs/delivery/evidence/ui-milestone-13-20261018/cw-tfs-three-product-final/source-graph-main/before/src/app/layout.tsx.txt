@@ -1,0 +1,1 @@
+import './globals.css';export default function Layout({children}){return <html lang='en'><body><aside style={{padding:8,background:'#fff1d7',color:'#182334'}}>Synthetic Client Workspace browser review · mock identity and records · no live Auth/RPC/RLS · no real writes</aside>{children}</body></html>}

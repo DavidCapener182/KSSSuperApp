@@ -1,0 +1,17 @@
+[
+  {
+    "file": "src/components/tfs-workspace.module.css",
+    "beforeSha256": "da2eea21d6bb6a5b612f24d10ad91a6cef4cce0420c9b6d34147d33899d53984",
+    "sha256": "15ba0898be2c27c4790238aa52a795c332a81cabaf7c253ad4c2d72d1b7cf57f"
+  },
+  {
+    "file": "src/app/(enterprise)/client-workspaces/manage/page.tsx",
+    "beforeSha256": "f728fc71c5d59c53c3e85198f707e694acec44604c388e0185e2229d03de1a56",
+    "sha256": "383adef481442c24fcf70fd313d697ebb49991398a5f3ce568f23fc27e05e6cf"
+  },
+  {
+    "file": "src/components/workspace-access-admin.module.css",
+    "beforeSha256": "3eace16ef54f8c6e3d2d6891087d668e20e7bb33a5695f32255e046427179c65",
+    "sha256": "990cef4adbd5aa1b24b355cd6208a4ac898b120c74445e9a3404f900ad71683c"
+  }
+]
