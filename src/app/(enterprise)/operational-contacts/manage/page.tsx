@@ -13,7 +13,7 @@ export default async function OperationalContactsManagePage({ searchParams }: {
  if (!principal.roles.some((role)=>["OFFICE_ADMIN","SUPER_ADMIN","OPERATIONS"].includes(role))) notFound();
  const q=await searchParams;
  if (!q.id||!isUuid(q.id)||!["SITE","SITE_SERVICE","EVENT"].includes(q.kind??"")) notFound();
- return <main className="enterprise-main operational-contacts"><header><p className="enterprise-eyebrow">Synthetic development · Exact context</p>
+ return <main className="enterprise-main operational-contacts"><header><p className="enterprise-eyebrow">Operations / Contact publication</p>
   <h1>Operational contacts</h1><p>Publish only reviewed operational values for this specific context. Publication does not indicate availability or response.</p>
   </header><OperationalContactsManager kind={q.kind!} contextId={q.id} isSuper={principal.roles.includes("SUPER_ADMIN")} /></main>;
 }

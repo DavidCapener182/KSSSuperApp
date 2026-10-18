@@ -1,0 +1,17 @@
+.page { max-width: 1100px; width: 100%; margin-inline: auto; padding-bottom: 4rem; }
+.page h1 { font-size: clamp(2rem, 5vw, 3.3rem); margin: .5rem 0; }
+.page h2 { font-size: 1.35rem; margin: .25rem 0 .5rem; }
+.page h3 { font-size: 1rem; margin: 1.15rem 0 .4rem; }
+.page a { color: var(--kss-blue-strong); text-underline-offset: .2em; }
+.page a:focus-visible { outline: 3px solid var(--kss-blue); outline-offset: 3px; }
+.intro { color: var(--kss-ink-soft); max-width: 72ch; }
+.header, .card { background: var(--kss-surface); border: 1px solid var(--kss-border); border-radius: 14px; padding: clamp(1rem, 3vw, 1.5rem); margin: 1rem 0; min-width: 0; }
+.header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.kicker { color: var(--kss-ink-soft); font-size: .75rem; font-weight: 750; letter-spacing: .07em; text-transform: uppercase; }
+.facts { display: flex; flex-wrap: wrap; gap: .5rem; }
+.facts span { background: var(--kss-surface-muted); border-radius: 8px; padding: .5rem .7rem; }
+.sources { padding-inline-start: 1.25rem; }
+.sources li { margin: .45rem 0; display: flex; flex-wrap: wrap; gap: .5rem; justify-content: space-between; }
+.contextGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.contextGrid > div { min-width: 0; border-top: 1px solid var(--kss-border); }
+@media (max-width: 650px) { .header { display: block; } .contextGrid { grid-template-columns: 1fr; } }

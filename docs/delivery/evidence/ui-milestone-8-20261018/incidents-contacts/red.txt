@@ -1,0 +1,138 @@
+✖ successful incident submission releases busy state after readback (44.26775ms)
+✖ repeated UK clock time exposes its required occurrence selector (12.771666ms)
+✖ record read authority overrides a stale reviewer page projection (9.091208ms)
+✖ denied Incident readback clears inaccessible narrative and action controls (8.244417ms)
+✖ unmounted Incident write cannot start old-source readback (8.585542ms)
+✖ late contact refresh cannot restore a superseded published snapshot (5.197208ms)
+✖ late publication preview cannot attach an old marker to an edited draft (13.795959ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 0
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 234.64425
+
+✖ failing tests:
+
+test at tests/ui-incidents-contacts-local.test.mjs:8:1
+✖ successful incident submission releases busy state after readback (44.26775ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - false
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-operations/tests/ui-incidents-contacts-local.test.mjs:8:412)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-incidents-contacts-local.test.mjs:9:1
+✖ repeated UK clock time exposes its required occurrence selector (12.771666ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(nodes(f.tree,'label').some(n=>text(n).startsWith('UK clock change')))
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-operations/tests/ui-incidents-contacts-local.test.mjs:9:301)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/ui-incidents-contacts-local.test.mjs:10:1
+✖ record read authority overrides a stale reviewer page projection (9.091208ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-operations/tests/ui-incidents-contacts-local.test.mjs:10:258)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-incidents-contacts-local.test.mjs:11:1
+✖ denied Incident readback clears inaccessible narrative and action controls (8.244417ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Synthetic submitted original facts/. Input:
+  
+  '←  Incident queue Safety hazard Incident ·  00000000  ·  Open Occurred  01/09/2026, 09:00:00  ·  Synthetic exact Service Report version    · Submitted by Synthetic Staff Report  Operational follow-up    The action was accepted, but the current Incident could not be refreshed. Refresh before acting again. Submitted report Synthetic submitted original facts    Operational follow-up Actions and reviewer notes are visible to authorised Operations reviewers and Super Admin only.  Next action Acknowledge report     Acknowledge   The action was accepted, but the current Incident could not be refreshed. Refresh before acting again. '
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-operations/tests/ui-incidents-contacts-local.test.mjs:11:378)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '←  Incident queue Safety hazard Incident ·  00000000  ·  Open Occurred  01/09/2026, 09:00:00  ·  Synthetic exact Service Report version    · Submitted by Synthetic Staff Report  Operational follow-up    The action was accepted, but the current Incident could not be refreshed. Refresh before acting again. Submitted report Synthetic submitted original facts    Operational follow-up Actions and reviewer notes are visible to authorised Operations reviewers and Super Admin only.  Next action Acknowledge report     Acknowledge   The action was accepted, but the current Incident could not be refreshed. Refresh before acting again. ',
+    expected: /Synthetic submitted original facts/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests/ui-incidents-contacts-local.test.mjs:12:1
+✖ unmounted Incident write cannot start old-source readback (8.585542ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-operations/tests/ui-incidents-contacts-local.test.mjs:12:358)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/ui-incidents-contacts-local.test.mjs:13:1
+✖ late contact refresh cannot restore a superseded published snapshot (5.197208ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Synthetic current Event/. Input:
+  
+  'Back to My Deployments Refresh current contacts   Published for this allocation Synthetic stale Event   ·  Event Exact context:  00000000-0000-4000-8000-000000000001  No current KSS escalation contact published for this  event .'
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-operations/tests/ui-incidents-contacts-local.test.mjs:13:569)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Back to My Deployments Refresh current contacts   Published for this allocation Synthetic stale Event   ·  Event Exact context:  00000000-0000-4000-8000-000000000001  No current KSS escalation contact published for this  event .',
+    expected: /Synthetic current Event/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/ui-incidents-contacts-local.test.mjs:14:1
+✖ late publication preview cannot attach an old marker to an edited draft (13.795959ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-operations/tests/ui-incidents-contacts-local.test.mjs:14:728)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

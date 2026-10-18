@@ -1,0 +1,52 @@
+✔ successful incident submission releases busy state after readback (41.518708ms)
+✔ repeated UK clock time exposes its required occurrence selector (11.409ms)
+✔ record read authority overrides a stale reviewer page projection (9.368417ms)
+✔ denied Incident readback clears inaccessible narrative and action controls (9.2105ms)
+✔ unmounted Incident write cannot start old-source readback (6.567541ms)
+✔ late contact refresh cannot restore a superseded published snapshot (5.875833ms)
+✔ late publication preview cannot attach an old marker to an edited draft (12.429791ms)
+✔ Staff reporting and reviewer queue remain distinct source projections (18.888917ms)
+✔ uncertain report retry retains its original request identity and narrative (7.722708ms)
+✔ recovered submission uses current returned state rather than inventing OPEN (5.832875ms)
+✔ denied receipt lookup cannot confirm a report even if body claims found (5.633208ms)
+✔ report context keeps the exact authorised Site Service selection (7.800125ms)
+✔ Staff record projection does not render privileged notes or external descriptors (4.845459ms)
+✔ review action keeps exact incident, revision and unchanged retry identity (5.0405ms)
+✔ correction preserves original occurrence, context and exact revision on a new version (6.105542ms)
+✔ unmounted correction starts no parent readback callback (5.515084ms)
+✔ non-current contact routes reveal no phone/email links or private source values (3.228666ms)
+✔ typed Reorder keeps all contact fields pinned and previews exact selected revision (9.786ms)
+✔ typed Review permits review date but pins priority and contact values (11.331667ms)
+✔ Operations current projection supplies no publication, private history or grant controls (8.565833ms)
+✔ accepted publication confirms returned route and new version before success (9.160375ms)
+✔ unchanged publication readback cannot claim a new version confirmation (17.82025ms)
+✔ held publication after unmount performs no old-context readback or duplicate write (8.746209ms)
+✔ revoked grant-read authority removes cached contact grants and issue controls (8.257125ms)
+✖ denied grant mutation readback clears inaccessible cached access rather than retaining it (8.141917ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 24
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 374.096916
+
+✖ failing tests:
+
+test at tests/ui-incidents-contacts-local.test.mjs:35:1
+✖ denied grant mutation readback clears inaccessible cached access rather than retaining it (8.141917ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Synthetic restricted grantee/. Input:
+  
+  'Published contact management Site Service  contacts Exact context:  00000000-0000-4000-8000-000000000002 Publishing creates a reviewed version for this context. Current contact access is checked separately for each viewer. Grant was sent, but current access could not be confirmed. Refresh before trying again.  Refresh context   Published routes   Review purpose, priority, source health and effective time before correcting or republishing. KSS Escalation  ·  Primary contact Synthetic published contact Duty manager Current snapshot and source evidence Source:  MANUAL_OPERATIONAL   ·  CURRENT  ·  CURRENT Published telephone:  +440000000000  · email:  Not published Controlled origin:  Synthetic approved source  · accountable manager:  00000000-0000-4000-8000-000000000008 Current version:  00000000-0000-4000-8000-000000000011  · revision   Effective:  1 Sept 2026, 09:00  to  1 Dec 2026, 08:00 Daily London applicability:  All day  · Reviewed:  01/09/2026 Correct / republish Reorder Review Revoke Record expiry if due Read restricted history Restricted source history Reason for privileged history read   New publication Publish new route    Staff will see only the previewed fields below. A source change after preview blocks publication. Purpose Client Operational Site Management KSS Duty Manager KSS Escalation Facilities Maintenance Health Safety Emergency Site Contact Other Operational Source type Manual operational Exact CRM Contact Exact KSS Person Display name  Approved telephone  Approved email  Controlled origin  Accountable Contact Manager Person ID  Role / organisation  Priority (1 primary, 2+ backup)  Effective from (ISO with offset)  Effective until / expiry (ISO with offset)  Daily London start (optional)  Daily London end (optional)  Reviewed on  Controlled reason  Preview exact Staff view       Staff-visible snapshot Use Preview exact Staff view after editing. Publication is available only beside a current reviewed snapshot. Exact-context Contact Manager access Exact-context Contact Manager grants Office Admin role alone grants no contact publication authority. Office Admin Person ID  Grant starts (ISO with offset)  Grant ends (ISO with offset)  Controlled reason  Issue finite grant Synthetic restricted grantee  ·  1 Sept 2026, 09:00  to  1 Dec 2026, 08:00  ·  Active unless expired Revoke grant Record exact revocation SITE SERVICE  ·  00000000-0000-4000-8000-000000000002 .   Grant was sent, but current access could not be confirmed. Refresh before trying again.  Controlled reason  Confirm exact revocation'
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-operations/tests/ui-incidents-contacts-local.test.mjs:35:573)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Published contact management Site Service  contacts Exact context:  00000000-0000-4000-8000-000000000002 Publishing creates a reviewed version for this context. Current contact access is checked separately for each viewer. Grant was sent, but current access could not be confirmed. Refresh before trying again.  Refresh context   Published routes   Review purpose, priority, source health and effective time before correcting or republishing. KSS Escalation  ·  Primary contact Synthetic published contact Duty manager Current snapshot and source evidence Source:  MANUAL_OPERATIONAL   ·  CURRENT  ·  CURRENT Published telephone:  +440000000000  · email:  Not published Controlled origin:  Synthetic approved source  · accountable manager:  00000000-0000-4000-8000-000000000008 Current version:  00000000-0000-4000-8000-000000000011  · revision   Effective:  1 Sept 2026, 09:00  to  1 Dec 2026, 08:00 Daily London applicability:  All day  · Reviewed:  01/09/2026 Correct / republish Reorder Review Revoke Record expiry if due Read restricted history Restricted source history Reason for privileged history read   New publication Publish new route    Staff will see only the previewed fields below. A source change after preview blocks publication. Purpose Client Operational Site Management KSS Duty Manager KSS Escalation Facilities Maintenance Health Safety Emergency Site Contact Other Operational Source type Manual operational Exact CRM Contact Exact KSS Person Display name  Approved telephone  Approved email  Controlled origin  Accountable Contact Manager Person ID  Role / organisation  Priority (1 primary, 2+ backup)  Effective from (ISO with offset)  Effective until / expiry (ISO with offset)  Daily London start (optional)  Daily London end (optional)  Reviewed on  Controlled reason  Preview exact Staff view       Staff-visible snapshot Use Preview exact Staff view after editing. Publication is available only beside a current reviewed snapshot. Exact-context Contact Manager access Exact-context Contact Manager grants Office Admin role alone grants no contact publication authority. Office Admin Person ID  Grant starts (ISO with offset)  Grant ends (ISO with offset)  Controlled reason  Issue finite grant Synthetic restricted grantee  ·  1 Sept 2026, 09:00  to  1 Dec 2026, 08:00  ·  Active unless expired Revoke grant Record exact revocation SITE SERVICE  ·  00000000-0000-4000-8000-000000000002 .   Grant was sent, but current access could not be confirmed. Refresh before trying again.  Controlled reason  Confirm exact revocation',
+    expected: /Synthetic restricted grantee/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }

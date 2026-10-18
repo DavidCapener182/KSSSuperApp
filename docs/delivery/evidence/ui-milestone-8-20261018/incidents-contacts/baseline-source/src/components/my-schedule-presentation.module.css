@@ -1,0 +1,32 @@
+/* My Schedule only. Shared shell and deployment styles remain authoritative. */
+.page { min-width: 0; }
+.page h1 { font-size: 2rem; line-height: 1.15; letter-spacing: -.035em; }
+.weekContext { display: flex; flex-wrap: wrap; align-items: baseline; gap: .35rem 1rem; margin-top: 1.5rem; }
+.weekContext strong { font-size: 1rem; }
+.weekContext span { font-size: .8rem; color: var(--kss-ink-soft); }
+.toolbar { align-items: end; }
+.toolbar button, .toolbar input, .error button, .pagination button { min-height: 44px; }
+.toolbar button { padding-inline: .85rem; }
+.work { overflow-wrap: anywhere; }
+.cardContext { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; margin-bottom: .75rem; font-size: .8rem; color: var(--kss-ink-soft); }
+.cardContext strong { padding: .3rem .55rem; border-radius: 6px; font-size: .75rem; line-height: 1.4; }
+.awaiting { background: var(--kss-amber-soft); color: var(--kss-amber); }
+.accepted { background: var(--kss-surface-muted); color: var(--kss-ink-soft); }
+.work h3 { font-size: 1.15rem; font-weight: 750; line-height: 1.4; }
+.work .site { color: var(--kss-ink); font-weight: 650; margin-top: .5rem; }
+.work .times { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 1rem; margin: 1rem 0 .75rem; padding-block: .85rem; border-block: 1px solid var(--kss-border); }
+.work .times > div { display: block; border: 0; padding: 0; }
+.work .times dt { font-size: .75rem; color: var(--kss-ink-soft); font-weight: 650; margin-bottom: .25rem; }
+.work .times dd { margin: 0; font-size: .875rem; line-height: 1.6; color: var(--kss-ink); font-variant-numeric: tabular-nums; }
+.work .availability { margin-top: .5rem; font-size: .8rem; }
+.empty { margin: .5rem 0; color: var(--kss-ink-soft); font-size: .875rem; line-height: 1.6; }
+.error { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; padding: 1rem; border: 1px solid var(--kss-red); border-radius: 8px; background: var(--kss-red-soft); }
+@media (max-width: 640px) {
+  .page h1 { font-size: 1.75rem; }
+  .weekContext { display: grid; gap: .3rem; }
+  .toolbar { gap: .5rem; }
+  .toolbar button { padding-inline: .45rem; font-size: .8rem; }
+  .work .times { grid-template-columns: 1fr; gap: .75rem; }
+  .cardContext { align-items: start; }
+  .empty { padding-block: .75rem; }
+}

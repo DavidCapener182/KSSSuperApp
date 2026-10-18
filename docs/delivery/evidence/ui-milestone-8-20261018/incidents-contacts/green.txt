@@ -1,0 +1,47 @@
+✔ actual Incident page denies ordinary Operations without explicit authority (23.147292ms)
+✔ actual Incident page denies Office without explicit authority (2.877291ms)
+✔ actual Incident page denies unauthenticated without explicit authority (2.424ms)
+✔ actual Incident page keeps Staff projection (1.978958ms)
+✔ actual Incident page keeps granted reviewer projection (2.384833ms)
+✔ actual Incident page keeps Super Admin projection (1.658292ms)
+✔ actual Incident detail page validates exact record identity (5.293625ms)
+✔ actual contact page redirects unauthenticated readers (2.008833ms)
+✔ actual duty contact page does not forward malformed scope (1.870208ms)
+✔ actual contact manager page preserves exact context and separate Super grant projection (5.938875ms)
+✔ actual contact manager page denies Staff and unsupported context kinds (4.49775ms)
+✔ successful incident submission releases busy state after readback (44.9495ms)
+✔ repeated UK clock time exposes its required occurrence selector (11.865542ms)
+✔ record read authority overrides a stale reviewer page projection (10.844292ms)
+✔ denied Incident readback clears inaccessible narrative and action controls (8.457667ms)
+✔ unmounted Incident write cannot start old-source readback (8.483958ms)
+✔ late contact refresh cannot restore a superseded published snapshot (6.37575ms)
+✔ late publication preview cannot attach an old marker to an edited draft (13.001166ms)
+✔ Staff reporting and reviewer queue remain distinct source projections (20.372084ms)
+✔ uncertain report retry retains its original request identity and narrative (8.000083ms)
+✔ recovered submission uses current returned state rather than inventing OPEN (6.040375ms)
+✔ denied receipt lookup cannot confirm a report even if body claims found (5.759708ms)
+✔ report context keeps the exact authorised Site Service selection (8.265708ms)
+✔ Staff record projection does not render privileged notes or external descriptors (4.92375ms)
+✔ review action keeps exact incident, revision and unchanged retry identity (4.770125ms)
+✔ correction preserves original occurrence, context and exact revision on a new version (5.079125ms)
+✔ unmounted correction starts no parent readback callback (4.991167ms)
+✔ non-current contact routes reveal no phone/email links or private source values (2.996708ms)
+✔ typed Reorder keeps all contact fields pinned and previews exact selected revision (12.588375ms)
+✔ typed Review permits review date but pins priority and contact values (9.083333ms)
+✔ Operations current projection supplies no publication, private history or grant controls (8.537583ms)
+✔ accepted publication confirms returned route and new version before success (9.508208ms)
+✔ unchanged publication readback cannot claim a new version confirmation (15.546458ms)
+✔ held publication after unmount performs no old-context readback or duplicate write (8.338917ms)
+✔ revoked grant-read authority removes cached contact grants and issue controls (8.512709ms)
+✔ denied grant mutation readback clears inaccessible cached access rather than retaining it (8.543875ms)
+✔ correction cannot write while the current parent record is refreshing (4.352833ms)
+✔ preview receipt from another exact context cannot expose a publication action (7.900291ms)
+✔ malformed report receipt does not clear an unconfirmed draft (5.440959ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 403.624875

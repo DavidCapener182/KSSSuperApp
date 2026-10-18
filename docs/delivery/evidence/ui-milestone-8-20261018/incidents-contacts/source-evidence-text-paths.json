@@ -1,0 +1,90 @@
+{
+  "selectedBeforeSourceFiles": [
+    {
+      "originalPath": "baseline-source/src/app/(enterprise)/incidents/[id]/page.tsx",
+      "textEvidencePath": "baseline-source/src/app/(enterprise)/incidents/[id]/page.tsx.txt",
+      "sha256": "df62026136b2f02b4a973f29a6de78d80546614ab2a34b5799d2975aed6e5c24"
+    },
+    {
+      "originalPath": "baseline-source/src/app/(enterprise)/incidents/page.tsx",
+      "textEvidencePath": "baseline-source/src/app/(enterprise)/incidents/page.tsx.txt",
+      "sha256": "bf1657f674ff9e8fc19f0cbe78412548574e73d9a0e3a3676d0d1809051fd1e6"
+    },
+    {
+      "originalPath": "baseline-source/src/app/(enterprise)/operational-contacts/manage/page.tsx",
+      "textEvidencePath": "baseline-source/src/app/(enterprise)/operational-contacts/manage/page.tsx.txt",
+      "sha256": "70ac0806e6e3f746a06c1ed5cff4c7d94931196fd0f42faf0f963e50f787799b"
+    },
+    {
+      "originalPath": "baseline-source/src/app/(enterprise)/operational-contacts/page.tsx",
+      "textEvidencePath": "baseline-source/src/app/(enterprise)/operational-contacts/page.tsx.txt",
+      "sha256": "fb0b8b8a055c1456e16ce22f61b5c662047ef033de1aac940e5d3428bece8100"
+    },
+    {
+      "originalPath": "baseline-source/src/components/enterprise-shell.tsx",
+      "textEvidencePath": "baseline-source/src/components/enterprise-shell.tsx.txt",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "originalPath": "baseline-source/src/components/incident-detail.tsx",
+      "textEvidencePath": "baseline-source/src/components/incident-detail.tsx.txt",
+      "sha256": "4325f83b79d786d164ef5a22251f2dcce535a47efe37885d9d62172e4e3e9d8e"
+    },
+    {
+      "originalPath": "baseline-source/src/components/incidents-workspace.tsx",
+      "textEvidencePath": "baseline-source/src/components/incidents-workspace.tsx.txt",
+      "sha256": "6eaebde57cb9742d36841cbd3d6ba45e2fc92619091b71472b0e02f6771165bc"
+    },
+    {
+      "originalPath": "baseline-source/src/components/operational-contacts-client.tsx",
+      "textEvidencePath": "baseline-source/src/components/operational-contacts-client.tsx.txt",
+      "sha256": "7acaeb199dbb6e87378880691ca0753988aff109a49c39ce234de6a7233d4bbb"
+    },
+    {
+      "originalPath": "baseline-source/src/components/operational-contacts-manager.tsx",
+      "textEvidencePath": "baseline-source/src/components/operational-contacts-manager.tsx.txt",
+      "sha256": "eec6c155655c66376a246b263cca795461ddbdeeabcada01ad2442594b7acc30"
+    },
+    {
+      "originalPath": "baseline-source/src/components/record-section-tracker.tsx",
+      "textEvidencePath": "baseline-source/src/components/record-section-tracker.tsx.txt",
+      "sha256": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc"
+    },
+    {
+      "originalPath": "baseline-source/src/components/ui/button.tsx",
+      "textEvidencePath": "baseline-source/src/components/ui/button.tsx.txt",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "originalPath": "baseline-source/src/components/ui/sheet.tsx",
+      "textEvidencePath": "baseline-source/src/components/ui/sheet.tsx.txt",
+      "sha256": "9af6a0da7258746624346506c3ff98c9e300ceb10ef17ca079a1c8c5d5090814"
+    },
+    {
+      "originalPath": "baseline-source/src/lib/auth/capabilities.ts",
+      "textEvidencePath": "baseline-source/src/lib/auth/capabilities.ts.txt",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+    },
+    {
+      "originalPath": "baseline-source/src/lib/auth/principal.ts",
+      "textEvidencePath": "baseline-source/src/lib/auth/principal.ts.txt",
+      "sha256": "b52efe57b1bc7972f53d9f311e53a5336b8abec6be608f6b45fa3c5c4d02a66f"
+    },
+    {
+      "originalPath": "baseline-source/src/lib/environment-label.ts",
+      "textEvidencePath": "baseline-source/src/lib/environment-label.ts.txt",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "originalPath": "baseline-source/src/lib/supabase/browser.ts",
+      "textEvidencePath": "baseline-source/src/lib/supabase/browser.ts.txt",
+      "sha256": "95b36e0a551b9946d5d9de9991298a7eb982130658ca196b31f9bf72f665fe4b"
+    },
+    {
+      "originalPath": "baseline-source/src/lib/supabase/server.ts",
+      "textEvidencePath": "baseline-source/src/lib/supabase/server.ts.txt",
+      "sha256": "bb7cef1301e054872e53a4fc4247730f61655bfa830101118eb40e721f1b209b"
+    }
+  ],
+  "omitted": "Unrelated whole-project duplicate baseline files; original worker snapshot remains unchanged outside this candidate."
+}

@@ -14,7 +14,7 @@ export default async function OperationalContactsPage({ searchParams }: {
   const allocation = q.allocationId && isUuid(q.allocationId) ? q.allocationId : undefined;
   const source = q.source === "EVENT" || q.source === "SITE_SHIFT" ? q.source : undefined;
   return <main className="enterprise-main operational-contacts"><header>
-    <p className="enterprise-eyebrow">Synthetic development · Current operational routes</p>
+    <p className="enterprise-eyebrow">Operations / Published duty contacts</p>
     <h1>Operational contacts</h1>
     <p>Contacts published for this exact deployment. These routes do not confirm anyone is working or available.</p>
   </header><OperationalContactsClient allocationId={allocation} source={source} /></main>;

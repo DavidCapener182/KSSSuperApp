@@ -1,0 +1,97 @@
+{
+  "publishedCommit": "661cac13f0392fd41543207b9a73e28888b8eae8",
+  "recordedOriginalSourceInputs": 24,
+  "actualUnmodifiedRuntimeFiles": 21,
+  "explicitlyMockedBoundaryFiles": [
+    "src/lib/auth/principal.ts",
+    "src/lib/supabase/browser.ts",
+    "src/lib/supabase/server.ts"
+  ],
+  "clarification": "The earlier count24 describes copied original source inputs.21 runtime files remain exact; principal and two Supabase factories are the three explicitly disclosed synthetic replacements. No real authentication acceptance was claimed.",
+  "actualRuntimeVerified": [
+    {
+      "file": "src/app/(enterprise)/control-room/page.tsx",
+      "sha256": "504cd14828b715b8b495ce4c5e220ef66e7839a2f43d28fbad4538770bd1aea1"
+    },
+    {
+      "file": "src/components/control-room-client.tsx",
+      "sha256": "67e0c57ec48c76da2a680698a52ce4385bc0dac5d87a81578bb37b836b48da26"
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "file": "src/components/control-room.css",
+      "sha256": "11de2333492057a58f3bad8fdc79ca7e92c3ddc6353c6bda83a1db70d580215f"
+    },
+    {
+      "file": "src/app/(enterprise)/site-book/page.tsx",
+      "sha256": "2adb1d4b8d59cb97fcc5709a056241b6524f4e713ed77f9dcbd0a8c61ef0a7f1"
+    },
+    {
+      "file": "src/components/site-book-workspace.tsx",
+      "sha256": "c5df6f21965229ad6db5341b23e76c0e2c25f9e2a646017e8b05048fd787703a"
+    },
+    {
+      "file": "src/components/record-studies.css",
+      "sha256": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e"
+    },
+    {
+      "file": "src/components/site-book-panel.tsx",
+      "sha256": "1b1971ea3537beb0e7ae7b893a7ae893e7f4a3cf09b343bc20a58375ce15cbbc"
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+    },
+    {
+      "file": "src/components/ui/sheet.module.css",
+      "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+    },
+    {
+      "file": "src/components/site-book-operations.module.css",
+      "sha256": "3d37ab9e9c7f35f83dbaa23d60eec7121b032e9e32eb6236ab988ff58ea8ab6d"
+    },
+    {
+      "file": "src/components/record-section-tracker.tsx",
+      "sha256": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc"
+    },
+    {
+      "file": "src/app/(enterprise)/site-book/site-book.css",
+      "sha256": "8ff033be1cf2a512ef76e0e9ce01d488852072eebf6085a8217a0c5b0d19c539"
+    },
+    {
+      "file": "src/app/(enterprise)/site-book/[serviceId]/page.tsx",
+      "sha256": "4dc6a87a80aff8c405e82fb0970b7a8ce9d7d2f12bfb83f54ae935fba3146fee"
+    },
+    {
+      "file": "src/app/(enterprise)/site-book/access/page.tsx",
+      "sha256": "74ca9c9f9573fc7349eee4dcd2f7732415a85ddcd2d0061c233a3784f92c2bbc"
+    },
+    {
+      "file": "src/components/site-book-access.tsx",
+      "sha256": "be12df3d2a4ca5fa83dbe25413024b792099a187c2c5b44e401a713cce00d58b"
+    },
+    {
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+    },
+    {
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    },
+    {
+      "file": "postcss.config.mjs",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "productFiles": [
+    "src/components/incidents-workspace.tsx",
+    "src/components/incident-detail.tsx",
+    "src/components/incident-focus-panel.tsx",
+    "src/components/operational-contacts-client.tsx",
+    "src/components/operational-contacts-manager.tsx",
+    "src/app/(enterprise)/incidents/incidents.css",
+    "src/app/(enterprise)/operational-contacts/operational-contacts.css",
+    "src/app/(enterprise)/incidents/page.tsx",
+    "src/app/(enterprise)/operational-contacts/page.tsx",
+    "src/app/(enterprise)/operational-contacts/manage/page.tsx"
+  ],
+  "protectedSourceConfigFilesUnchanged": 407,
+  "priorCheckpointFilesUnchanged": {
+    "output/ui-operations-20261018/checkpoint1-source": 9,
+    "output/ui-sites-20261018/checkpoint2-source": 11,
+    "output/ui-book-control-20261018/checkpoint3-source": 14
+  },
+  "pageServerGatePrefixes": {
+    "src/app/(enterprise)/incidents/page.tsx": "byte-identical prefix before returned JSX",
+    "src/app/(enterprise)/operational-contacts/page.tsx": "byte-identical prefix before returned JSX",
+    "src/app/(enterprise)/operational-contacts/manage/page.tsx": "byte-identical prefix before returned JSX"
+  },
+  "navigationSourceUnchanged": true
+}

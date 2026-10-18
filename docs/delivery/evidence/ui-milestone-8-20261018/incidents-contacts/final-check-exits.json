@@ -1,0 +1,17 @@
+{
+  "results": {
+    "combined-tests": 0,
+    "lint": 0,
+    "types": 0,
+    "browser-syntax": 0
+  },
+  "offlineFiles": [
+    "tests/ui-incidents-contacts-local.test.mjs",
+    "tests/ui-incident-contact-pages-local.test.mjs",
+    "tests/ui-control-room-presentation-local.test.mjs",
+    "tests/ui-site-book-contract-local.test.mjs",
+    "tests/ui-site-book-access-local.test.mjs",
+    "tests/ui-sites-contract-local.test.mjs",
+    "tests/ui-attendance-lifetime-local.test.mjs"
+  ]
+}

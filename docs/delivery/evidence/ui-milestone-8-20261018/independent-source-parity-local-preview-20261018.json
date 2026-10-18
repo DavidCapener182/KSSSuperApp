@@ -1,0 +1,54 @@
+{
+  "base": "661cac13f0392fd41543207b9a73e28888b8eae8",
+  "scope": [
+    "U21",
+    "U22",
+    "U23",
+    "U24"
+  ],
+  "productFiles": 10,
+  "nonOwnedPublishedSourceExact": 415,
+  "candidateSourceInputsVerified": 24,
+  "actualUnmodifiedRuntimeFilesVerified": 21,
+  "explicitlyMockedRuntimeBoundaryFiles": [
+    "src/lib/auth/principal.ts",
+    "src/lib/supabase/browser.ts",
+    "src/lib/supabase/server.ts"
+  ],
+  "candidateOfflineTests": {
+    "pass": 555,
+    "fail": 0,
+    "skip": 0
+  },
+  "build": "passed",
+  "typescript": "passed",
+  "lint": {
+    "errors": 0,
+    "preExistingWarnings": 1
+  },
+  "browser": {
+    "baselineAggregateSpecs": 1,
+    "currentAggregateSpecs": 1,
+    "beforeCaptures": 32,
+    "afterCaptures": 40,
+    "widths": [
+      1440,
+      834,
+      390,
+      320
+    ],
+    "roles": [
+      "Staff",
+      "Reviewer",
+      "Super",
+      "Office Manager"
+    ],
+    "externalRequests": 0,
+    "realWrites": 0
+  },
+  "limits": [
+    "Representative synthetic UI and role/source tests; no hosted authentication/RPC/RLS or full-variant acceptance",
+    "Incident action test observes synthetic refreshed revision and exact outgoing request, not authoritative hosted audit persistence",
+    "Copied before snapshot source files are byte-identical text evidence; unrelated duplicate project source omitted"
+  ]
+}

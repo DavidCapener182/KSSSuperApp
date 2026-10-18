@@ -1,0 +1,110 @@
+{
+  "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-ui-incident-contact-fixture-4n7a3m",
+  "manifest": [
+    {
+      "file": "src/app/(enterprise)/incidents/page.tsx",
+      "sha256": "fcdc35aaa207067541f0db7bff35ceb973d7de1e66e21eb98d3624a3972e126f"
+    },
+    {
+      "file": "src/lib/auth/principal.ts",
+      "sha256": "b52efe57b1bc7972f53d9f311e53a5336b8abec6be608f6b45fa3c5c4d02a66f"
+    },
+    {
+      "file": "src/lib/supabase/server.ts",
+      "sha256": "bb7cef1301e054872e53a4fc4247730f61655bfa830101118eb40e721f1b209b"
+    },
+    {
+      "file": "src/components/incidents-workspace.tsx",
+      "sha256": "c4129f6b0edad3d7a2aaf5ab8f6957f0d7dd3829bb08e94cc5a40127957c6d4a"
+    },
+    {
+      "file": "src/app/(enterprise)/incidents/incidents.css",
+      "sha256": "008f71dc202e425eccbba8f1d0364a25f09a23adad8256a94655d371680781ea"
+    },
+    {
+      "file": "src/app/(enterprise)/incidents/[id]/page.tsx",
+      "sha256": "df62026136b2f02b4a973f29a6de78d80546614ab2a34b5799d2975aed6e5c24"
+    },
+    {
+      "file": "src/components/incident-detail.tsx",
+      "sha256": "8be015f717836e5e18e6227ba19ca21608dbb04fca8f6bfb83f4a6aafad897a8"
+    },
+    {
+      "file": "src/components/record-section-tracker.tsx",
+      "sha256": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc"
+    },
+    {
+      "file": "src/components/record-studies.css",
+      "sha256": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e"
+    },
+    {
+      "file": "src/components/incident-focus-panel.tsx",
+      "sha256": "3d3c607bc9ac2066f840f19c300d9b46dfc99374502b6af43d42a749a748bc06"
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "file": "src/components/ui/sheet.module.css",
+      "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+    },
+    {
+      "file": "src/app/(enterprise)/operational-contacts/page.tsx",
+      "sha256": "121a56be5fc965f72551903127f0f01f026bfcd8acc53e16364bbba2dfdb5ed9"
+    },
+    {
+      "file": "src/components/operational-contacts-client.tsx",
+      "sha256": "a4046a2dd5be3bac07b2ceaf133b018dc481b4f9834d258b69f6d355cd4e0941"
+    },
+    {
+      "file": "src/app/(enterprise)/operational-contacts/operational-contacts.css",
+      "sha256": "00aae602ba387ed8e5885a5507a6ea3fc88991a1dffec0565529878b28726fa5"
+    },
+    {
+      "file": "src/app/(enterprise)/operational-contacts/manage/page.tsx",
+      "sha256": "1e10a61d21237235822ce56079ab099a3c8ddcb86567525d6ae33d187f7961a7"
+    },
+    {
+      "file": "src/components/operational-contacts-manager.tsx",
+      "sha256": "3c26cf1d49b5efe308712b63bd285f3c60cdc798ba2f4910ff85db0c0048ed0a"
+    },
+    {
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "file": "src/lib/supabase/browser.ts",
+      "sha256": "95b36e0a551b9946d5d9de9991298a7eb982130658ca196b31f9bf72f665fe4b"
+    },
+    {
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+    },
+    {
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    },
+    {
+      "file": "postcss.config.mjs",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    }
+  ],
+  "mocked": [
+    "principal, shell persona and Supabase factory",
+    "all business APIs"
+  ],
+  "limits": [
+    "No real login or persisted incident/publication",
+    "Shell/route persona uses the same synthetic role; record authority remains a separate mocked API boundary",
+    "External origins blocked; contact links never activated"
+  ]
+}
