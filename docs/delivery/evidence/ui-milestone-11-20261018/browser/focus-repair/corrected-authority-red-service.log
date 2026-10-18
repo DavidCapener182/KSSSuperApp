@@ -1,0 +1,21 @@
+BROWSER_RUNNING after http://127.0.0.1:51481
+CAPTURE after service-delivery 320 320
+CAPTURE after start-service-sheet 320 320
+✖ Mobilisations and Service Delivery actual route composition and synthetic actions (12309.63825ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12576.64875
+
+✖ failing tests:
+
+test at ui-milestone-evidence/mobilisation-service-resumed-20261018/focus-repair/corrected-authority-red-service.mjs:28:1
+✖ Mobilisations and Service Delivery actual route composition and synthetic actions (12309.63825ms)
+  page.waitForFunction: Timeout 2000ms exceeded.
+      at TestContext.<anonymous> (/Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/mobilisation-service-resumed-20261018/focus-repair/corrected-authority-red-service.mjs:35:1249) {
+    name: 'TimeoutError'
+  }

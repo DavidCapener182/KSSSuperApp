@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { london, serviceRequest } from "./service-delivery-api";
 import styles from "./service-delivery.module.css";
+import work from "./service-delivery-workspace.module.css";
 
 type Entry = { id: string; kind: string; revision: number; reason: string | null; occurred_at: string; actor_person_id: string };
 type Commitment = { id: string; category: string; description: string; ownerId: string; ownerName: string; appliesFrom: string; appliesUntil: string | null; state: string; revision: number; history: Entry[] };
@@ -15,9 +16,9 @@ const categories = ["STAFFING", "SERVICE_REVIEW", "OPERATING_INSTRUCTION", "EQUI
 const capabilities = ["SERVICE_CHANGE_PROPOSER", "SERVICE_CHANGE_APPROVER", "SERVICE_CHANGE_RECORDER"];
 
 function Form({ title, children, onSave, busy }: { title: string; children: React.ReactNode; onSave: (fields: Record<string, string>) => void; busy: boolean }) {
-  return <details className={styles.card}><summary>{title}</summary><form className={styles.form} onSubmit={event => {
-    event.preventDefault(); onSave(Object.fromEntries(new FormData(event.currentTarget).entries()) as Record<string,string>);
-  }}>{children}<button className={styles.button} disabled={busy}>{busy ? "Saving…" : title}</button></form></details>;
+  return <details name="service-delivery-action-editor" className={`${styles.card} ${work.editor}`}><summary>{title}</summary><form className={styles.form} onSubmit={event => {
+    event.preventDefault(); if (busy) return; onSave(Object.fromEntries(new FormData(event.currentTarget).entries()) as Record<string,string>);
+  }}><fieldset className={work.editorFields} disabled={busy}>{children}<button className={styles.button} disabled={busy}>{busy ? "Saving…" : title}</button></fieldset></form></details>;
 }
 function Reason() { return <label>Reason<textarea name="reason" required minLength={3} maxLength={500} /></label>; }
 function Owner({ people, value }: { people: Choice[]; value?: string }) {

@@ -1,0 +1,194 @@
+[
+  {
+    "name": "mobilisations",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "authorise-sheet",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "mobilisation",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "action-done",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "mobilisation-denied",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "service-delivery",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "start-service-sheet",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "service-record",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "mobilisations",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "authorise-sheet",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "mobilisation",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "action-done",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "mobilisation-denied",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "service-delivery",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "start-service-sheet",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "service-record",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "mobilisations",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "authorise-sheet",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "mobilisation",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "action-done",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "mobilisation-denied",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "service-delivery",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "start-service-sheet",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "service-record",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "mobilisations",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "authorise-sheet",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "mobilisation",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "action-done",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "mobilisation-denied",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "service-delivery",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "start-service-sheet",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "service-record",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320
+  }
+]

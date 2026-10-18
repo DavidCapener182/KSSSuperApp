@@ -1,0 +1,115 @@
+▲ Next.js 16.3.6 (webpack)
+- Local:         http://127.0.0.1:64540
+- Network:       http://127.0.0.1:64540
+✓ Ready in 236ms
+✓ Running next.config.mjs took 10ms
+
+  We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default.
+  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+  	- allowJs was set to true
+  	- strict was set to false
+  	- noEmit was set to true
+  	- incremental was set to true
+  	- include was set to ['next-env.d.ts', '.next/types/**/*.ts', '.next/dev/types/**/*.ts', '**/*.mts', '**/*.ts', '**/*.tsx']
+  	- plugins was updated to add { name: 'next' }
+  	- exclude was set to ['node_modules']
+
+  The following mandatory changes were made to your tsconfig.json:
+
+  	- resolveJsonModule was set to true (to match webpack resolution)
+  	- isolatedModules was set to true (requirement for SWC / Babel)
+
+
+○ Compiling / ...
+ GET / 200 in 3.7s (next.js: 3.5s, application-code: 215ms)
+ GET /mobilisations 200 in 1765ms (next.js: 1596ms, application-code: 169ms)
+ GET /mobilisations 200 in 54ms (next.js: 4ms, application-code: 50ms)
+ GET /mobilisations 200 in 30ms (next.js: 2ms, application-code: 28ms)
+ GET /mobilisations 200 in 20ms (next.js: 1.7ms, application-code: 18ms)
+ GET /mobilisations 200 in 41ms (next.js: 3ms, application-code: 38ms)
+ GET /mobilisations 200 in 561ms (next.js: 519ms, application-code: 42ms)
+ GET /mobilisations 200 in 27ms (next.js: 3ms, application-code: 24ms)
+ GET /mobilisations 200 in 24ms (next.js: 1.9ms, application-code: 22ms)
+ GET /mobilisations 200 in 20ms (next.js: 2ms, application-code: 18ms)
+ GET /mobilisations 200 in 19ms (next.js: 1.8ms, application-code: 17ms)
+ GET /mobilisations 200 in 172ms (next.js: 1.6ms, application-code: 170ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 1265ms (next.js: 1108ms, application-code: 156ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 59ms (next.js: 5ms, application-code: 54ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 30ms (next.js: 5ms, application-code: 26ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 30ms (next.js: 1.9ms, application-code: 28ms)
+ GET /service-delivery 200 in 770ms (next.js: 613ms, application-code: 158ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 746ms (next.js: 593ms, application-code: 153ms)
+ GET /service-delivery 200 in 36ms (next.js: 2.0ms, application-code: 34ms)
+ GET /service-delivery 200 in 19ms (next.js: 1.6ms, application-code: 17ms)
+ GET /service-delivery 200 in 41ms (next.js: 2ms, application-code: 39ms)
+ GET /service-delivery 200 in 38ms (next.js: 3ms, application-code: 35ms)
+ GET /service-delivery 200 in 541ms (next.js: 518ms, application-code: 23ms)
+ GET /service-delivery 200 in 15ms (next.js: 1.3ms, application-code: 14ms)
+ GET /service-delivery 200 in 16ms (next.js: 1.4ms, application-code: 15ms)
+ GET /service-delivery 200 in 17ms (next.js: 1.4ms, application-code: 15ms)
+ GET /service-delivery 200 in 19ms (next.js: 1.5ms, application-code: 18ms)
+ GET /service-delivery 200 in 15ms (next.js: 1.3ms, application-code: 13ms)
+ GET /service-delivery 200 in 161ms (next.js: 1.4ms, application-code: 160ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 1149ms (next.js: 1000ms, application-code: 149ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 43ms (next.js: 4ms, application-code: 38ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 20ms (next.js: 1.7ms, application-code: 19ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 18ms (next.js: 1.4ms, application-code: 16ms)
+ GET /mobilisations 200 in 71ms (next.js: 3ms, application-code: 67ms)
+ GET /mobilisations 200 in 26ms (next.js: 1.6ms, application-code: 24ms)
+ GET /mobilisations 200 in 12ms (next.js: 1.0ms, application-code: 11ms)
+ GET /mobilisations 200 in 11ms (next.js: 1.2ms, application-code: 10ms)
+ GET /mobilisations 200 in 69ms (next.js: 1.2ms, application-code: 68ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 57ms (next.js: 4ms, application-code: 53ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 34ms (next.js: 3ms, application-code: 31ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 16ms (next.js: 2ms, application-code: 14ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 15ms (next.js: 1.1ms, application-code: 14ms)
+ GET /service-delivery 200 in 62ms (next.js: 0.8ms, application-code: 61ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 40ms (next.js: 21ms, application-code: 19ms)
+ GET /service-delivery 200 in 39ms (next.js: 1.5ms, application-code: 37ms)
+ GET /service-delivery 200 in 23ms (next.js: 1.3ms, application-code: 21ms)
+ GET /service-delivery 200 in 13ms (next.js: 1.6ms, application-code: 11ms)
+ GET /service-delivery 200 in 51ms (next.js: 1.8ms, application-code: 49ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 39ms (next.js: 3ms, application-code: 36ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 36ms (next.js: 3ms, application-code: 33ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 19ms (next.js: 2ms, application-code: 17ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 15ms (next.js: 1.3ms, application-code: 13ms)
+ GET /mobilisations 200 in 45ms (next.js: 1.1ms, application-code: 44ms)
+ GET /mobilisations 200 in 29ms (next.js: 1.7ms, application-code: 27ms)
+ GET /mobilisations 200 in 16ms (next.js: 1.5ms, application-code: 15ms)
+ GET /mobilisations 200 in 13ms (next.js: 1.7ms, application-code: 12ms)
+ GET /mobilisations 200 in 14ms (next.js: 1.7ms, application-code: 12ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 41ms (next.js: 3ms, application-code: 38ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 28ms (next.js: 2ms, application-code: 25ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 14ms (next.js: 1.5ms, application-code: 12ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 13ms (next.js: 1.4ms, application-code: 11ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 37ms (next.js: 21ms, application-code: 16ms)
+ GET /service-delivery 200 in 55ms (next.js: 0.8ms, application-code: 54ms)
+ GET /service-delivery 200 in 27ms (next.js: 1.4ms, application-code: 26ms)
+ GET /service-delivery 200 in 16ms (next.js: 1.3ms, application-code: 15ms)
+ GET /service-delivery 200 in 13ms (next.js: 1.7ms, application-code: 12ms)
+ GET /service-delivery 200 in 46ms (next.js: 1.5ms, application-code: 44ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 35ms (next.js: 1.9ms, application-code: 33ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 35ms (next.js: 3ms, application-code: 31ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 20ms (next.js: 1.4ms, application-code: 18ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 28ms (next.js: 1.5ms, application-code: 27ms)
+ GET /mobilisations 200 in 52ms (next.js: 1.0ms, application-code: 51ms)
+ GET /mobilisations 200 in 26ms (next.js: 1.3ms, application-code: 25ms)
+ GET /mobilisations 200 in 14ms (next.js: 1.3ms, application-code: 12ms)
+ GET /mobilisations 200 in 13ms (next.js: 1.1ms, application-code: 12ms)
+ GET /mobilisations 200 in 28ms (next.js: 16ms, application-code: 12ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 41ms (next.js: 2ms, application-code: 39ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 27ms (next.js: 2ms, application-code: 25ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 15ms (next.js: 1.0ms, application-code: 14ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 16ms (next.js: 1.5ms, application-code: 14ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 13ms (next.js: 1.3ms, application-code: 11ms)
+ GET /service-delivery 200 in 50ms (next.js: 0.8ms, application-code: 49ms)
+ GET /service-delivery 200 in 23ms (next.js: 1.5ms, application-code: 21ms)
+ GET /service-delivery 200 in 12ms (next.js: 0.9ms, application-code: 11ms)
+ GET /service-delivery 200 in 11ms (next.js: 1.4ms, application-code: 9ms)
+ GET /service-delivery 200 in 12ms (next.js: 1.2ms, application-code: 11ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 37ms (next.js: 2ms, application-code: 35ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 38ms (next.js: 3ms, application-code: 35ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 19ms (next.js: 2ms, application-code: 16ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 15ms (next.js: 1.7ms, application-code: 14ms)
+[?25h

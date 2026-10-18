@@ -1,0 +1,22 @@
+BROWSER_RUNNING after http://127.0.0.1:52327
+CAPTURE after service-delivery 1440 1440
+CAPTURE after start-service-sheet 1440 1440
+CAPTURE after return-filter-page-restored 1440 1440
+CAPTURE after service-delivery 834 834
+CAPTURE after start-service-sheet 834 834
+CAPTURE after return-filter-page-restored 834 834
+CAPTURE after service-delivery 390 390
+CAPTURE after start-service-sheet 390 390
+CAPTURE after return-filter-page-restored 390 390
+CAPTURE after service-delivery 320 320
+CAPTURE after start-service-sheet 320 320
+CAPTURE after return-filter-page-restored 320 320
+✔ Mobilisations and Service Delivery actual route composition and synthetic actions (20290.900708ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20422.212708

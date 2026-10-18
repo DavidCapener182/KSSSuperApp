@@ -1,8 +1,8 @@
-.page { max-width: 1100px; margin-inline: auto; width: 100%; padding-bottom: 4rem; }
-.page h1 { font-size: clamp(2rem, 5vw, 3.4rem); }
+.page { max-width: 1280px; margin-inline: auto; width: 100%; padding-bottom: 4rem; }
+.page h1 { font-size: 2rem; }
 .page h2 { font-size: 1.25rem; font-weight: 700; margin: 0 0 1rem; }
 .page h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .7rem; }
-.card { background: var(--kss-surface); border: 1px solid var(--kss-border); border-radius: 14px; padding: clamp(1rem, 3vw, 1.5rem); margin: 1.4rem 0; min-width: 0; }
+.card { background: var(--kss-surface); border: 1px solid var(--kss-border); border-radius: 12px; padding: clamp(1rem, 3vw, 1.5rem); margin: 1.4rem 0; min-width: 0; }
 .form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 .form label, .stack label { display: grid; gap: .4rem; color: var(--kss-ink-soft); font-size: .84rem; font-weight: 700; min-width: 0; }
 .form input, .form select, .form textarea, .stack input, .stack select, .stack textarea { width: 100%; min-width: 0; padding: .62rem .7rem; border: 1px solid var(--kss-border-strong); border-radius: 8px; color: var(--kss-ink); background: var(--kss-surface); font: inherit; font-weight: 400; }
@@ -51,3 +51,8 @@
   .page button, .page input:not([type="checkbox"]):not([type="radio"]), .page select, .page textarea { min-height: 44px; }
   .journey a { display: inline-flex; align-items: center; min-height: 44px; }
 }
+
+.heading{display:flex;align-items:center;justify-content:space-between;gap:20px}.heading h1{margin:.4rem 0}.authoriseSheet{width:min(760px,100vw);max-width:760px!important;overflow:auto;padding:24px}.authorisePanel{min-width:0}.authoriseFields{border:0;padding:0;margin:24px 0 0;display:contents}.authorisePanel .form{margin-top:24px}.journey button{border:0;background:transparent;padding:0;color:var(--kss-blue-strong);font:inherit;font-weight:700;text-align:left;min-height:44px;cursor:pointer}.journey button:focus-visible{outline:3px solid var(--kss-focus);outline-offset:3px}.workstream{border:1px solid var(--kss-border);border-radius:12px;margin:18px 0;overflow:hidden}.workstream>h3{background:var(--kss-surface-muted);padding:12px 16px;margin:0;font-size:14px}.workstream>.action{padding:16px}.workstream>.action>button{justify-self:start}.actionEditor{border:1px solid var(--kss-control-border);border-left:3px solid var(--kss-blue);border-radius:8px;padding:16px;background:var(--kss-surface-muted);margin-top:8px}.actionEditor p{margin-top:0}.page :global(.mobilisation-record-header){border:1px solid var(--kss-border);border-radius:12px;background:var(--kss-surface);padding:24px}.page :global(.mobilisation-record-header h1){margin:.3rem 0;font-size:32px;overflow-wrap:anywhere}.page :global(.mobilisation-record-sections){display:flex;overflow-x:auto;white-space:nowrap;gap:8px}.page :global(.mobilisation-record-sections a){min-height:44px}.card:has(.workstream){padding:20px}.portfolioRow span,.row span{overflow-wrap:anywhere;min-width:0}
+@media(max-width:650px){.heading{align-items:stretch;flex-direction:column}.heading>button{width:100%}.page h1,.page :global(.mobilisation-record-header h1){font-size:28px}.page :global(.mobilisation-record-header){padding:20px}.authoriseSheet{padding:20px 16px}.authorisePanel .form{grid-template-columns:1fr}.card:has(.workstream){padding:16px}.workstream>.action{padding:14px}}
+
+.workspaceFields{border:0;padding:0;margin:0;min-width:0}

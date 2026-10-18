@@ -1,0 +1,61 @@
+▲ Next.js 16.3.6 (webpack)
+- Local:         http://127.0.0.1:52327
+- Network:       http://127.0.0.1:52327
+✓ Ready in 154ms
+✓ Running next.config.mjs took 7ms
+
+  We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default.
+  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+  	- allowJs was set to true
+  	- strict was set to false
+  	- noEmit was set to true
+  	- incremental was set to true
+  	- include was set to ['next-env.d.ts', '.next/types/**/*.ts', '.next/dev/types/**/*.ts', '**/*.mts', '**/*.ts', '**/*.tsx']
+  	- plugins was updated to add { name: 'next' }
+  	- exclude was set to ['node_modules']
+
+  The following mandatory changes were made to your tsconfig.json:
+
+  	- resolveJsonModule was set to true (to match webpack resolution)
+  	- isolatedModules was set to true (requirement for SWC / Babel)
+
+
+ GET / 200 in 1827ms (next.js: 1730ms, application-code: 97ms)
+ GET /service-delivery 200 in 534ms (next.js: 459ms, application-code: 74ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010?returnTo=%2Fservice-delivery%3Fview%3Dmine%26offset%3D25%26client%3DExample%2BLogistics%26state%3DACTIVE 200 in 415ms (next.js: 402ms, application-code: 14ms)
+ GET /service-delivery?view=mine&offset=25&client=Example+Logistics&state=ACTIVE 200 in 8ms (next.js: 2ms, application-code: 6ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010?returnTo=%2Fservice-delivery%3Fview%3Dmine%26offset%3D25%26client%3DExample%2BLogistics%26state%3DACTIVE 200 in 14ms (next.js: 1.8ms, application-code: 12ms)
+ GET /service-delivery 200 in 64ms (next.js: 0.7ms, application-code: 64ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010?returnTo=%2Fservice-delivery%3Fview%3Dmine%26offset%3D25%26client%3DExample%2BLogistics%26state%3DACTIVE 200 in 7ms (next.js: 1.7ms, application-code: 5ms)
+ GET /service-delivery?view=mine&offset=25&client=Example+Logistics&state=ACTIVE 200 in 6ms (next.js: 0.9ms, application-code: 5ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010?returnTo=%2Fservice-delivery%3Fview%3Dmine%26offset%3D25%26client%3DExample%2BLogistics%26state%3DACTIVE 200 in 7ms (next.js: 1.7ms, application-code: 5ms)
+ GET /service-delivery 200 in 31ms (next.js: 0.8ms, application-code: 30ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010?returnTo=%2Fservice-delivery%3Fview%3Dmine%26offset%3D25%26client%3DExample%2BLogistics%26state%3DACTIVE 200 in 7ms (next.js: 1.6ms, application-code: 5ms)
+ GET /service-delivery?view=mine&offset=25&client=Example+Logistics&state=ACTIVE 200 in 5ms (next.js: 0.9ms, application-code: 5ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010?returnTo=%2Fservice-delivery%3Fview%3Dmine%26offset%3D25%26client%3DExample%2BLogistics%26state%3DACTIVE 200 in 7ms (next.js: 1.7ms, application-code: 5ms)
+ GET /service-delivery 200 in 26ms (next.js: 0.7ms, application-code: 25ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010?returnTo=%2Fservice-delivery%3Fview%3Dmine%26offset%3D25%26client%3DExample%2BLogistics%26state%3DACTIVE 200 in 7ms (next.js: 1.7ms, application-code: 5ms)
+ GET /service-delivery?view=mine&offset=25&client=Example+Logistics&state=ACTIVE 200 in 6ms (next.js: 0.7ms, application-code: 5ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010?returnTo=%2Fservice-delivery%3Fview%3Dmine%26offset%3D25%26client%3DExample%2BLogistics%26state%3DACTIVE 200 in 7ms (next.js: 1.8ms, application-code: 5ms)
+ GET /mobilisations 404 in 233ms (next.js: 170ms, application-code: 63ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 404 in 426ms (next.js: 353ms, application-code: 73ms)
+ GET /service-delivery 404 in 33ms (next.js: 1.7ms, application-code: 31ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 404 in 26ms (next.js: 3ms, application-code: 24ms)
+ GET /mobilisations 404 in 19ms (next.js: 1.4ms, application-code: 17ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 404 in 23ms (next.js: 1.7ms, application-code: 21ms)
+ GET /service-delivery 404 in 18ms (next.js: 1.0ms, application-code: 17ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 404 in 18ms (next.js: 1.3ms, application-code: 17ms)
+ GET /mobilisations 200 in 25ms (next.js: 0.6ms, application-code: 24ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 50ms (next.js: 2ms, application-code: 47ms)
+ GET /service-delivery 200 in 24ms (next.js: 0.6ms, application-code: 23ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 40ms (next.js: 1.6ms, application-code: 39ms)
+ GET /mobilisations 307 in 12ms (next.js: 0.6ms, application-code: 11ms)
+ GET /?next=%2Fmobilisations 200 in 13ms (next.js: 5ms, application-code: 8ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 307 in 15ms (next.js: 1.7ms, application-code: 14ms)
+ GET /?next=%2Fmobilisations 200 in 8ms (next.js: 0.5ms, application-code: 7ms)
+ GET /service-delivery 307 in 17ms (next.js: 0.8ms, application-code: 16ms)
+ GET /?next=%2Fservice-delivery 200 in 7ms (next.js: 0.6ms, application-code: 7ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 307 in 18ms (next.js: 1.6ms, application-code: 17ms)
+ GET /?next=%2Fservice-delivery 200 in 18ms (next.js: 0.5ms, application-code: 17ms)
+[?25h

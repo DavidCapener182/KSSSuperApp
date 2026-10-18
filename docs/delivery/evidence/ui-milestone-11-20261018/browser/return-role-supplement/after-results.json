@@ -1,0 +1,202 @@
+[
+  {
+    "name": "service-delivery",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "start-service-sheet",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "return-filter-page-restored",
+    "width": 1440,
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "native-back-forward-restored",
+    "width": 1440
+  },
+  {
+    "name": "service-delivery",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "start-service-sheet",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "return-filter-page-restored",
+    "width": 834,
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "native-back-forward-restored",
+    "width": 834
+  },
+  {
+    "name": "service-delivery",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "start-service-sheet",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "return-filter-page-restored",
+    "width": 390,
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "native-back-forward-restored",
+    "width": 390
+  },
+  {
+    "name": "service-delivery",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "start-service-sheet",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "return-filter-page-restored",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "native-back-forward-restored",
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "SECURITY_STAFF",
+    "path": "/mobilisations",
+    "status": 404,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "SECURITY_STAFF",
+    "path": "/mobilisations/00000000-0000-4000-8000-000000000001",
+    "status": 404,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "SECURITY_STAFF",
+    "path": "/service-delivery",
+    "status": 404,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "SECURITY_STAFF",
+    "path": "/service-delivery/00000000-0000-4000-8000-000000000010",
+    "status": 404,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "OPERATIONS",
+    "path": "/mobilisations",
+    "status": 404,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "OPERATIONS",
+    "path": "/mobilisations/00000000-0000-4000-8000-000000000001",
+    "status": 404,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "OPERATIONS",
+    "path": "/service-delivery",
+    "status": 404,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "OPERATIONS",
+    "path": "/service-delivery/00000000-0000-4000-8000-000000000010",
+    "status": 404,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "SUPER_ADMIN",
+    "path": "/mobilisations",
+    "status": 200,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "SUPER_ADMIN",
+    "path": "/mobilisations/00000000-0000-4000-8000-000000000001",
+    "status": 200,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "SUPER_ADMIN",
+    "path": "/service-delivery",
+    "status": 200,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "SUPER_ADMIN",
+    "path": "/service-delivery/00000000-0000-4000-8000-000000000010",
+    "status": 200,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "ANONYMOUS",
+    "path": "/mobilisations",
+    "status": 200,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "ANONYMOUS",
+    "path": "/mobilisations/00000000-0000-4000-8000-000000000001",
+    "status": 200,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "ANONYMOUS",
+    "path": "/service-delivery",
+    "status": 200,
+    "width": 320
+  },
+  {
+    "name": "server-role-gate",
+    "role": "ANONYMOUS",
+    "path": "/service-delivery/00000000-0000-4000-8000-000000000010",
+    "status": 200,
+    "width": 320
+  }
+]

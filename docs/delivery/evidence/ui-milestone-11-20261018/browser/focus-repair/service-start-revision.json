@@ -1,0 +1,6 @@
+{
+  "file": "src/components/service-delivery-list.tsx",
+  "beforeSha256": "3feaf54cb0f09a5974ed71346adefce8cb57d63ce89679e84ac8afd2cda82a7f",
+  "sha256": "ea41a6676d5abf1db8127c7ae8efb390767124f7b9bbe7b9cb4c08771985dad1",
+  "change": "Restore exact Start Service Delivery opener focus after Sheet close; mutation/read/query semantics unchanged."
+}

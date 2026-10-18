@@ -1,0 +1,11 @@
+{
+  "commit": "2f7233dcefd3c58d7459633d8e1f68f8c63c92e5",
+  "deploymentId": "dpl_DTtRsbMT79czkE2enkUQm5mQs9qq",
+  "state": "READY",
+  "publishedRoutesTotal": 62,
+  "alias": "https://kss-enterprise.vercel.app",
+  "aliasError": null,
+  "checkedAtUTC": "2026-10-18T10:07:50.655134+00:00",
+  "verificationSource": "Read-only Vercel get_deployment: production target, exact SHA and alias confirmed",
+  "limits": "Representative synthetic checkpoints; no authenticated hosted acceptance or full-variant claim"
+}

@@ -1,0 +1,163 @@
+{
+  "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-mobilisation-service-after-R925dR",
+  "phase": "after",
+  "foundation": "b12d213ba07d64019c47f10b23db082a43513abf",
+  "manifest": [
+    {
+      "file": "src/app/(enterprise)/mobilisations/page.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "19c55ef101aac95150df66849b3b82a5e78e791ab7cb9899a1554769d162af43"
+    },
+    {
+      "file": "src/lib/auth/principal.ts",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "b52efe57b1bc7972f53d9f311e53a5336b8abec6be608f6b45fa3c5c4d02a66f"
+    },
+    {
+      "file": "src/lib/supabase/server.ts",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "bb7cef1301e054872e53a4fc4247730f61655bfa830101118eb40e721f1b209b"
+    },
+    {
+      "file": "src/components/mobilisations-client.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "63e904e9a26fe3af6fb45bb7380b589d9f48ed6b0b7970d849fbb837d1570cdf"
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "file": "src/components/ui/input.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04"
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+    },
+    {
+      "file": "src/components/ui/sheet.module.css",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+    },
+    {
+      "file": "src/components/mobilisations.module.css",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "46ea05ffd5fdde15cb120c82701af3ff1703a97a747eff941bc22926bf33b953"
+    },
+    {
+      "file": "src/app/(enterprise)/mobilisations/[id]/page.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "8792ffcc012e7da5319370775a0d858d7b5e099cc0af021d24a1de778401b214"
+    },
+    {
+      "file": "src/components/mobilisation-detail-client.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "c9f875650be5aceeba50f1cd8361dfcf71018ecf5dd1cb40ac3f552693acb4f9"
+    },
+    {
+      "file": "src/components/record-studies.css",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e"
+    },
+    {
+      "file": "src/app/(enterprise)/service-delivery/page.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "a4bec498a243bb972aad8421af85e25174c9c9b3a693e92d7b48d4c4a69ded80"
+    },
+    {
+      "file": "src/components/service-delivery-return-context.ts",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "0b110fe538e524b91181054775bbe7d7b8df69f0a6fbec8733f2acfb427a2d95"
+    },
+    {
+      "file": "src/components/service-delivery-list.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "36850e67776b3e697d9467346711f597bc56bc60295d165237af4812730a0ee7"
+    },
+    {
+      "file": "src/components/service-delivery-api.ts",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "32ace7849ac10a71cfdcad0be437908def07d8e66c548bc89dc722e9191f1b75"
+    },
+    {
+      "file": "src/components/service-delivery.module.css",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "92602dbd76fbe0b7c55a6cd22db17fc30fdfc51eeb243c461a210bf98be498f8"
+    },
+    {
+      "file": "src/components/service-delivery-workspace.module.css",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "b2174e50e3075837c908b6dca51bc2fd067039179d491a40a22e844bb69647a0"
+    },
+    {
+      "file": "src/app/(enterprise)/service-delivery/[id]/page.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "53c6408968e384fc706c9cc72d2e8de88887fc570fac93883c47696ada3a734c"
+    },
+    {
+      "file": "src/components/service-delivery-detail.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "7116d0080d166f50543ebf5dba90031ced69c36a585a8dac6aeab12b3c86ecd7"
+    },
+    {
+      "file": "src/components/service-delivery-source-cards.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "01dad90136c2057c5791444dd91e5cc4b0ac6ae5ca796efca6ba88c83e2e8eda"
+    },
+    {
+      "file": "src/components/service-review-workspace.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "094357f7db1b053ca2154442ef63705e0bc0ac981273551052dde70e17d68cf0"
+    },
+    {
+      "file": "src/components/service-delivery-management.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration",
+      "sha256": "f51a10d0ceac715957dafe6f9b287300f2b398a9d3ac8883677aa40f968a0d50"
+    },
+    {
+      "file": "src/components/enterprise-shell.tsx",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "file": "src/lib/supabase/browser.ts",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "95b36e0a551b9946d5d9de9991298a7eb982130658ca196b31f9bf72f665fe4b"
+    },
+    {
+      "file": "src/lib/auth/capabilities.ts",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+    },
+    {
+      "file": "src/lib/environment-label.ts",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "file": "src/app/globals.css",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    },
+    {
+      "file": "postcss.config.mjs",
+      "sourceRoot": "/Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-ui-milestone-8",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    }
+  ],
+  "mocked": [
+    "src/lib/auth/principal.ts",
+    "src/lib/supabase/server.ts",
+    "src/lib/supabase/browser.ts",
+    "generated layout",
+    "all business API responses"
+  ],
+  "limits": [
+    "Synthetic local component/browser only",
+    "External requests aborted; deny-default unconfigured mutations"
+  ]
+}

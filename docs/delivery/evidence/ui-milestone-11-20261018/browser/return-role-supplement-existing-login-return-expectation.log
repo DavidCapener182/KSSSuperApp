@@ -1,0 +1,44 @@
+BROWSER_RUNNING after http://127.0.0.1:52183
+CAPTURE after service-delivery 1440 1440
+CAPTURE after start-service-sheet 1440 1440
+CAPTURE after return-filter-page-restored 1440 1440
+CAPTURE after service-delivery 834 834
+CAPTURE after start-service-sheet 834 834
+CAPTURE after return-filter-page-restored 834 834
+CAPTURE after service-delivery 390 390
+CAPTURE after start-service-sheet 390 390
+CAPTURE after return-filter-page-restored 390 390
+CAPTURE after service-delivery 320 320
+CAPTURE after start-service-sheet 320 320
+CAPTURE after return-filter-page-restored 320 320
+✖ Mobilisations and Service Delivery actual route composition and synthetic actions (20273.690042ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20431.89225
+
+✖ failing tests:
+
+test at ui-milestone-evidence/mobilisation-service-resumed-20261018/return-role-supplement.mjs:28:1
+✖ Mobilisations and Service Delivery actual route composition and synthetic actions (20273.690042ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '/mobilisations'
+  - '/mobilisations/00000000-0000-4000-8000-000000000001'
+                   ^
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/mobilisation-service-resumed-20261018/return-role-supplement.mjs:45:403)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '/mobilisations',
+    expected: '/mobilisations/00000000-0000-4000-8000-000000000001',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

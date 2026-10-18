@@ -1,0 +1,43 @@
+.crm-organisation-record,.crm-opportunity-record,.site-service-record,.incident-detail,.service-record-header { min-width: 0; }
+.crm-record-back { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: .5rem; }
+.crm-organisation-header,.incident-detail-head,.service-record-header,.mobilisation-record-header,.site-service-record-header,.onboarding-record-header,.site-book-record-header { padding-inline-start: .9rem; border-inline-start: 3px solid var(--kss-blue,#245b96); overflow-wrap: anywhere; }
+.crm-organisation-header h1,.incident-detail-head h1,.service-record-header h1,.mobilisation-record-header h1,.site-service-record-header h1,.onboarding-record-header h1,.site-book-record-header h1 { margin: 0 0 .55rem; font-size: clamp(1.85rem,3vw,2.65rem); line-height: 1.12; letter-spacing: -.035em; }
+.crm-organisation-header p,.incident-detail-head p,.service-record-header p,.mobilisation-record-header p,.site-service-record-header p,.onboarding-record-header p,.site-book-record-header p { margin: .45rem 0; color: var(--kss-ink-soft,#475569); line-height: 1.45; }
+.crm-record-identity,.service-record-identity { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; font-size: .82rem; }
+.crm-record-identity span,.service-record-identity span { color: var(--kss-blue-strong,#1e4c7e); text-transform: uppercase; letter-spacing: .07em; font-size: .72rem; font-weight: 700; }
+.crm-record-identity strong,.service-record-identity strong { color: var(--kss-ink,#17243a); }
+.crm-organisation-sections,.crm-opportunity-sections,.incident-record-sections,.service-record-sections,.mobilisation-record-sections,.site-service-record-sections,.onboarding-record-sections,.site-book-record-sections { position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: nowrap; gap: .25rem; overflow-x: auto; max-width: 100%; margin: 1rem 0; padding: .35rem 0; border-bottom: 1px solid var(--kss-border,#cbd5e1); background: var(--kss-bg,#f8fafc); scrollbar-width: thin; }
+.crm-organisation-sections a,.crm-opportunity-sections a,.incident-record-sections a,.service-record-sections a,.mobilisation-record-sections a,.site-service-record-sections a,.onboarding-record-sections a,.site-book-record-sections a { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; min-height: 44px; padding: .5rem .9rem; border-radius: 8px; color: var(--kss-ink-soft,#475569); font-size: .87rem; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.crm-organisation-sections a:hover,.crm-opportunity-sections a:hover,.incident-record-sections a:hover,.service-record-sections a:hover,.mobilisation-record-sections a:hover,.site-service-record-sections a:hover,.onboarding-record-sections a:hover,.site-book-record-sections a:hover { background: var(--kss-blue-soft,#eaf0f7); color: var(--kss-blue-strong,#1e4c7e); }
+.crm-organisation-sections a[aria-current="location"],.crm-opportunity-sections a[aria-current="location"],.incident-record-sections a[aria-current="location"],.service-record-sections a[aria-current="location"],.mobilisation-record-sections a[aria-current="location"],.site-service-record-sections a[aria-current="location"],.onboarding-record-sections a[aria-current="location"],.site-book-record-sections a[aria-current="location"] { background: var(--kss-blue-soft,#eaf0f7); color: var(--kss-blue-strong,#1e4c7e); }
+.crm-organisation-sections a:focus-visible,.crm-opportunity-sections a:focus-visible,.incident-record-sections a:focus-visible,.service-record-sections a:focus-visible,.mobilisation-record-sections a:focus-visible,.site-service-record-sections a:focus-visible,.onboarding-record-sections a:focus-visible,.site-book-record-sections a:focus-visible,.crm-organisation-related a:focus-visible,.service-record-related a:focus-visible { outline: 3px solid var(--kss-blue,#245b96); outline-offset: 2px; }
+.crm-organisation-record :is(section[id],div[id]),.crm-opportunity-record :is(section[id],div[id]),.incident-detail section[id],.site-service-record section[id],.mobilisation-record-sections ~ :is(section,div) [id],.service-record-sections ~ section[id],.service-record-sections ~ div[id] { scroll-margin-top: 4.5rem; min-width: 0; }
+.crm-organisation-related,.service-record-related,.site-service-record-related { display: flex; align-items: center; flex-wrap: wrap; gap: .3rem 1rem; padding: .3rem 0; border-bottom: 1px solid var(--kss-border,#cbd5e1); }
+.crm-organisation-related strong,.service-record-related strong,.site-service-record-related strong { color: var(--kss-ink-soft,#475569); font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; }
+.crm-organisation-related a,.service-record-related a,.site-service-record-related a { display: inline-flex; align-items: center; min-height: 44px; color: var(--kss-blue-strong,#1e4c7e); font-size: .85rem; font-weight: 650; }
+.crm-organisation-content { display: grid; gap: .85rem; min-width: 0; }
+.crm-organisation-content > nav[aria-label="Client to service journey"] { margin-top: .5rem; }
+.crm-organisation-content .crm-detail-grid { margin-top: 0; }
+.incident-detail .incident-detail-head { padding-block: .3rem; }
+.incident-detail-head .incident-eyebrow { margin: .15rem 0 .5rem; }
+.incident-detail #incident-report { border-inline-start: 3px solid var(--kss-blue,#245b96); }
+.service-record-header { margin-top: .25rem; }
+.service-record-header p { overflow-wrap: anywhere; }
+.service-record-header + [aria-label="Current management record summary"] { margin-top: 1rem; }
+.service-record-sections ~ [hidden],.service-record-sections ~ section[hidden] { display: none !important; }
+@media (max-width: 600px) { .crm-organisation-header h1,.incident-detail-head h1,.service-record-header h1,.mobilisation-record-header h1,.site-service-record-header h1,.onboarding-record-header h1,.site-book-record-header h1 { font-size: 1.9rem; } .crm-organisation-related,.service-record-related,.site-service-record-related { display: grid; gap: 0; } .crm-organisation-related a,.service-record-related a,.site-service-record-related a { border-top: 1px solid var(--kss-border,#cbd5e1); } .crm-organisation-sections,.crm-opportunity-sections,.service-record-sections,.mobilisation-record-sections,.site-service-record-sections,.onboarding-record-sections,.site-book-record-sections { mask-image: linear-gradient(to right,#000 calc(100% - 16px),transparent); } }
+
+.site-service-record-header { margin: .5rem 0 1rem; }
+.mobilisation-record-header { margin: .7rem 0 1rem; }
+.mobilisation-focused-content > [hidden] { display: none !important; }
+.mobilisation-focused-content > section { scroll-margin-top: 4.5rem; }
+.site-service-record-related { margin-bottom: 1rem; }
+.site-service-record-related a:focus-visible { outline: 3px solid var(--kss-blue,#245b96); outline-offset: 2px; }
+.site-service-record section[id] { min-width: 0; }
+
+.onboarding-record .onboarding-grid { grid-template-columns: minmax(0,1fr); }
+.onboarding-record .onboarding-panel { width: 100%; }
+.onboarding-record :is(#onboarding-overview,#onboarding-submitted,#onboarding-requirements) { scroll-margin-top: 4.5rem; }
+.onboarding-record-header,.site-book-record-header { margin: .5rem 0 1rem; min-width: 0; }
+.site-book-record-sections { margin-bottom: 1.25rem; }
+.site-book-page section[id] { scroll-margin-top: 4.5rem; }

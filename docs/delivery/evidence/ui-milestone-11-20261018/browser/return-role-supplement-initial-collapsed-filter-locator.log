@@ -1,0 +1,24 @@
+BROWSER_RUNNING after http://127.0.0.1:51849
+CAPTURE after service-delivery 1440 1440
+CAPTURE after start-service-sheet 1440 1440
+✖ Mobilisations and Service Delivery actual route composition and synthetic actions (39131.98725ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 39592.301833
+
+✖ failing tests:
+
+test at ui-milestone-evidence/mobilisation-service-resumed-20261018/return-role-supplement.mjs:28:1
+✖ Mobilisations and Service Delivery actual route composition and synthetic actions (39131.98725ms)
+  locator.inputValue: Timeout 30000ms exceeded.
+  Call log:
+  [2m  - waiting for getByRole('textbox', { name: 'Client', exact: true })[22m
+  
+      at TestContext.<anonymous> (/Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/mobilisation-service-resumed-20261018/return-role-supplement.mjs:43:186) {
+    name: 'TimeoutError'
+  }

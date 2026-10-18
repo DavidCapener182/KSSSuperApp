@@ -1,0 +1,14 @@
+[
+  {
+    "name": "service-delivery",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "start-service-sheet",
+    "width": 320,
+    "viewport": 320,
+    "pageWidth": 320
+  }
+]

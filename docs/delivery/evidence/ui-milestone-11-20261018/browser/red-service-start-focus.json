@@ -1,0 +1,34 @@
+{
+  "width": 1440,
+  "url": "http://127.0.0.1:49191/service-delivery",
+  "trigger": {
+    "connected": true,
+    "disabled": false,
+    "text": "Start Service Delivery",
+    "rect": {
+      "x": 1209.484375,
+      "y": 356.046875,
+      "width": 198.515625,
+      "height": 45.1875,
+      "top": 356.046875,
+      "right": 1408,
+      "bottom": 401.234375,
+      "left": 1209.484375
+    },
+    "display": "block"
+  },
+  "dom": {
+    "tag": "BODY",
+    "text": "Skip to contentKKSS EnterpriseOverviewHomeMy WorkClients & deliveryCRMSitesEventsMobilisationsService DeliveryOperationsWorkforceControl RoomManagement ReportsAssetsPeople & administrationPeopleHRTime",
+    "focus": [],
+    "bodyStyle": "",
+    "dialogs": [],
+    "buttons": [
+      {
+        "text": "Start Service Delivery",
+        "disabled": false,
+        "display": "block"
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "file": "src/components/service-delivery-list.tsx",
+  "beforeSha256": "ea41a6676d5abf1db8127c7ae8efb390767124f7b9bbe7b9cb4c08771985dad1",
+  "sha256": "36850e67776b3e697d9467346711f597bc56bc60295d165237af4812730a0ee7",
+  "change": "Use existing controlled Radix SheetTrigger context for the single Start opener and built-in focus restoration; mutation/read/query functions unchanged."
+}

@@ -1,0 +1,46 @@
+{
+  "base": "2f7233dcefd3c58d7459633d8e1f68f8c63c92e5",
+  "products": 10,
+  "nonOwnedSource": 422,
+  "protectedArtifacts": 239,
+  "offline": {
+    "files": 49,
+    "pass": 739,
+    "fail": 0,
+    "skip": 0
+  },
+  "buildExit": 0,
+  "typesExit": 0,
+  "lint": {
+    "exit": 0,
+    "errors": 0,
+    "existingWarnings": 1
+  },
+  "browser": {
+    "beforeCaptures": 16,
+    "afterCaptures": 32,
+    "supplementalRecords": 32,
+    "roleCases": 16,
+    "returnAndRoleWrites": 0,
+    "widths": [
+      1440,
+      834,
+      390,
+      320
+    ],
+    "sourceInputRows": 56,
+    "images": 64,
+    "allTenProductsSourceMatch": true,
+    "externalRequests": 0,
+    "pageErrors": 0
+  },
+  "scope": "Synthetic source and browser milestone only; no hosted auth/RPC/RLS/persistence/full-variant acceptance",
+  "logs": {
+    "offline-tests.txt": "dc6359ea64f10cb1c726138ba8322089ffae78e9ea8d141a6b31befca4187614",
+    "build.txt": "8012a564e9def9a1cff2f7727aa31e094b7a605970dd40944ccf0c59a7447bf1",
+    "types.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "full-lint.txt": "4a22d972c15d0103ff42235967de39394d060a24ad13e4b30583c57374d247e3",
+    "browser/after-resume-verified.log": "2cc7226a3e57eebf87cfef5d09f92ca3154dd71208ce7d478ce221d986542596",
+    "browser/return-role-supplement.log": "fe2a76d31d849a0179f55ba22e87696aa128291854e3b3ec4c66e3703e5d8ada"
+  }
+}

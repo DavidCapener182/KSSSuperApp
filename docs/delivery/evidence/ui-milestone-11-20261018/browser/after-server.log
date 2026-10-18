@@ -1,0 +1,41 @@
+▲ Next.js 16.3.6 (webpack)
+- Local:         http://127.0.0.1:51053
+- Network:       http://127.0.0.1:51053
+✓ Ready in 199ms
+✓ Running next.config.mjs took 7ms
+
+  We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default.
+  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+  	- allowJs was set to true
+  	- strict was set to false
+  	- noEmit was set to true
+  	- incremental was set to true
+  	- include was set to ['next-env.d.ts', '.next/types/**/*.ts', '.next/dev/types/**/*.ts', '**/*.mts', '**/*.ts', '**/*.tsx']
+  	- plugins was updated to add { name: 'next' }
+  	- exclude was set to ['node_modules']
+
+  The following mandatory changes were made to your tsconfig.json:
+
+  	- resolveJsonModule was set to true (to match webpack resolution)
+  	- isolatedModules was set to true (requirement for SWC / Babel)
+
+
+ GET / 200 in 3.2s (next.js: 3.0s, application-code: 160ms)
+ GET /mobilisations 200 in 1756ms (next.js: 1618ms, application-code: 138ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 883ms (next.js: 780ms, application-code: 103ms)
+ GET /service-delivery 200 in 721ms (next.js: 592ms, application-code: 128ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 959ms (next.js: 848ms, application-code: 111ms)
+ GET /mobilisations 200 in 51ms (next.js: 5ms, application-code: 46ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 97ms (next.js: 6ms, application-code: 90ms)
+ GET /service-delivery 200 in 61ms (next.js: 2ms, application-code: 59ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 29ms (next.js: 1.9ms, application-code: 27ms)
+ GET /mobilisations 200 in 37ms (next.js: 1.5ms, application-code: 36ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 42ms (next.js: 4ms, application-code: 38ms)
+ GET /service-delivery 200 in 35ms (next.js: 1.0ms, application-code: 34ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 30ms (next.js: 1.6ms, application-code: 28ms)
+ GET /mobilisations 200 in 29ms (next.js: 0.7ms, application-code: 29ms)
+ GET /mobilisations/00000000-0000-4000-8000-000000000001 200 in 23ms (next.js: 1.4ms, application-code: 21ms)
+ GET /service-delivery 200 in 28ms (next.js: 1.6ms, application-code: 26ms)
+ GET /service-delivery/00000000-0000-4000-8000-000000000010 200 in 46ms (next.js: 4ms, application-code: 42ms)
+[?25h

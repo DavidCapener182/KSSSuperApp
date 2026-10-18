@@ -1,0 +1,26 @@
+BROWSER_RUNNING after http://127.0.0.1:64533
+CAPTURE after mobilisations 1440 1440
+CAPTURE after authorise-sheet 1440 1440
+CAPTURE after mobilisation 1440 1440
+CAPTURE after action-done 1440 1440
+CAPTURE after mobilisation-denied 1440 1440
+CAPTURE after service-delivery 1440 1440
+CAPTURE after start-service-sheet 1440 1440
+✖ Mobilisations and Service Delivery actual route composition and synthetic actions (17084.568833ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 17279.611125
+
+✖ failing tests:
+
+test at ui-milestone-evidence/mobilisation-service-resumed-20261018/browser.mjs:28:1
+✖ Mobilisations and Service Delivery actual route composition and synthetic actions (17084.568833ms)
+  page.waitForFunction: Timeout 2000ms exceeded.
+      at TestContext.<anonymous> (/Users/davidcapener/Documents/Codex/2026-10-17/task-3/ui-milestone-evidence/mobilisation-service-resumed-20261018/browser.mjs:35:1240) {
+    name: 'TimeoutError'
+  }

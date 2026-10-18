@@ -1,0 +1,6 @@
+{
+  "file": "tests/helpers/ui-mobilisation-fixture.mjs",
+  "beforeSha256": "42efaf2fd448cbdb832dfac9d8f6fe9cb079b2b3fd4d133449119ec96d24ba06",
+  "sha256": "4e39be77937e77ca23f4f427c3dd88deaa81da94391b44644095213d248a2069",
+  "change": "Supply normal React click currentTarget in existing synthetic hook fixture; assertions unchanged."
+}

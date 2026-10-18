@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import styles from "./mobilisations.module.css";
 
 type Choice = { id: string; name: string };
@@ -16,8 +17,16 @@ async function read(url: string, init?: RequestInit) {
   if (!response.ok) throw new Error(body.error ?? "Mobilisation request denied");
   return body;
 }
-export function MobilisationsClient({ organisation, opportunity, actorId }: { organisation?: string; opportunity?: string; actorId: string }) {
+type PortfolioProps = { organisation?: string; opportunity?: string; actorId: string };
+export function MobilisationsClient(props: PortfolioProps) {
+  return <MobilisationsScope key={`${props.actorId}:${props.organisation ?? ""}:${props.opportunity ?? ""}`} {...props} />;
+}
+function MobilisationsScope({ organisation, opportunity, actorId }: PortfolioProps) {
   const router = useRouter();
+  const authoriseTrigger = useRef<HTMLButtonElement | null>(null);
+  const [authoriseOpen, setAuthoriseOpen] = useState(false);
+  const lifetime = useRef({ active: true, writing: false });
+  useEffect(() => { const token = lifetime.current; token.active = true; return () => { token.active = false; }; }, []);
   const [items, setItems] = useState<Row[]>([]); const [total, setTotal] = useState(0); const [offset, setOffset] = useState(0);
   const [portfolio, setPortfolio] = useState<PortfolioRow[]>([]); const [portfolioError, setPortfolioError] = useState("");
   const [clients, setClients] = useState<Choice[]>([]); const [owners, setOwners] = useState<Choice[]>([]);
@@ -40,17 +49,19 @@ export function MobilisationsClient({ organisation, opportunity, actorId }: { or
     void read(url).then(data => { setClients(data.clients ?? []); setOwners(data.owners ?? []); setWonOpportunities(data.wonOpportunities ?? []); }).catch(() => {});
   }, [draft.organisationId]);
   async function create(event: React.FormEvent) {
-    event.preventDefault(); setBusy(true); setError("");
+    event.preventDefault(); if (busy || lifetime.current.writing || !lifetime.current.active) return; lifetime.current.writing = true; setBusy(true); setError("");
     try { const data = await read("/api/mobilisations", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...draft, requestKey: crypto.randomUUID() }) });
+      if (!lifetime.current.active) return;
       const confirmed = await read(`/api/mobilisations/${data.id}`);
+      if (!lifetime.current.active) return;
       if (confirmed.mobilisation?.id !== data.id) throw new Error("Authorisation response could not be confirmed. Refresh before trying again.");
       router.push(`/mobilisations/${data.id}`); }
-    catch (caught) { setError(caught instanceof Error ? caught.message : "Authorisation denied"); }
-    finally { setBusy(false); }
+    catch (caught) { if (lifetime.current.active) setError(caught instanceof Error ? caught.message : "Authorisation not confirmed. Check the current records before another attempt."); }
+    finally { lifetime.current.writing = false; if (lifetime.current.active) setBusy(false); }
   }
   const authorise = <>
-    <section className={styles.card} aria-labelledby="authorise-heading"><h2 id="authorise-heading">Authorise mobilisation</h2>
-      <form onSubmit={create} className={styles.form}>
+    <section className={styles.authorisePanel} aria-labelledby="authorise-heading"><SheetHeader><SheetTitle id="authorise-heading">Authorise mobilisation</SheetTitle><SheetDescription>Review the exact Client, scope, owner and template. An Opportunity outcome does not authorise this scope.</SheetDescription></SheetHeader>
+      <form onSubmit={create} className={styles.form}><fieldset className={styles.authoriseFields} disabled={busy}>
         <label>Client organisation<select required value={draft.organisationId} onChange={e => setDraft({ ...draft, organisationId: e.target.value })}><option value="">Choose Client</option>{clients.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select></label>
         <label>Scope name<Input required minLength={3} maxLength={180} value={draft.title} onChange={e => setDraft({ ...draft, title: e.target.value })} /></label>
         <label>Template<select value={draft.templateCode} onChange={e => setDraft({ ...draft, templateCode: e.target.value })}><option value="STATIC_SITE">Static Site Mobilisation · v1</option><option value="EVENT">Event Mobilisation · v1</option></select></label>
@@ -59,19 +70,18 @@ export function MobilisationsClient({ organisation, opportunity, actorId }: { or
         <label>Won Opportunity origin, if applicable<select value={draft.opportunityId} onChange={e => setDraft({ ...draft, opportunityId: e.target.value })}><option value="">No Opportunity · authorise from Client</option>{wonOpportunities.map(o => <option key={o.id} value={o.id}>{o.title}</option>)}</select></label>
         <label>Different scope reason, if this Client or Opportunity already has a mobilisation<Input maxLength={500} value={draft.duplicateReason} onChange={e => setDraft({ ...draft, duplicateReason: e.target.value })} /></label>
         <div className={styles.formActions}><Button disabled={busy}>{busy ? "Authorising…" : "Authorise mobilisation"}</Button></div>
-      </form></section>
+      </fieldset></form></section>
   </>;
   return <main className={`enterprise-main ${styles.page}`}>
-    <p className="eyebrow">Office · synthetic development data</p><h1>Mobilisations</h1>
+    <div className={styles.heading}><div><p className="eyebrow">Office · scope coordination</p><h1>Mobilisations</h1></div><Button onClick={event => { authoriseTrigger.current = event.currentTarget; setAuthoriseOpen(true); }}>Authorise mobilisation</Button></div>
     <p className="enterprise-intro">Coordinate an explicitly authorised Client scope through source setup and a recorded human handover. A Won Opportunity is an origin, not an authorisation.</p>
     <nav className={styles.journey} aria-label="Commercial to service journey">
       <span><small>01 · Opportunity</small><Link href="/crm?view=pipeline">Review CRM</Link></span>
       <span><small>02 · Client</small><Link href="/crm?view=organisations">Confirm Client</Link></span>
-      <span><small>03 · Mobilisation</small><a href="#authorise-heading" aria-current="step">Authorise scope</a></span>
+      <span><small>03 · Mobilisation</small><button type="button" aria-haspopup="dialog" onClick={event => { authoriseTrigger.current = event.currentTarget; setAuthoriseOpen(true); }}>Authorise scope</button></span>
       <span><small>04 · Source setup</small><Link href="/sites">Sites and services</Link></span>
     </nav>
     {error && <p role="alert" className="enterprise-error">{error}</p>}
-    {(organisation || opportunity) && authorise}
     <section aria-labelledby="mobilisation-list-heading"><h2 id="mobilisation-list-heading">Current mobilisations <small>{total}</small></h2>
       {loading && <p role="status">Loading authorised records…</p>}
       {!organisation && portfolioError && <p role="status">{portfolioError}</p>}
@@ -89,6 +99,6 @@ export function MobilisationsClient({ organisation, opportunity, actorId }: { or
       </Link>)}</div>
       <div className={styles.pager}><Button variant="outline" disabled={offset === 0 || loading} onClick={() => setOffset(Math.max(0, offset - 25))}>Previous</Button><Button variant="outline" disabled={offset + 25 >= total || loading} onClick={() => setOffset(offset + 25)}>Next</Button></div>
     </section>
-    {!organisation && !opportunity && authorise}
+    <Sheet open={authoriseOpen} onOpenChange={open => { if (!busy) setAuthoriseOpen(open); }}><SheetContent className={styles.authoriseSheet} onCloseAutoFocus={event => { if (authoriseTrigger.current?.isConnected) { event.preventDefault(); authoriseTrigger.current.focus(); } }} onEscapeKeyDown={event => { if (busy) event.preventDefault(); }} onInteractOutside={event => { if (busy) event.preventDefault(); }}>{authoriseOpen && authorise}</SheetContent></Sheet>
   </main>;
 }

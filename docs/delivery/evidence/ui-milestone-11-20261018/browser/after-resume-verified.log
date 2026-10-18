@@ -1,0 +1,42 @@
+BROWSER_RUNNING after http://127.0.0.1:51053
+CAPTURE after mobilisations 1440 1440
+CAPTURE after authorise-sheet 1440 1440
+CAPTURE after mobilisation 1440 1440
+CAPTURE after action-done 1440 1440
+CAPTURE after mobilisation-denied 1440 1440
+CAPTURE after service-delivery 1440 1440
+CAPTURE after start-service-sheet 1440 1440
+CAPTURE after service-record 1440 1440
+CAPTURE after mobilisations 834 834
+CAPTURE after authorise-sheet 834 834
+CAPTURE after mobilisation 834 834
+CAPTURE after action-done 834 834
+CAPTURE after mobilisation-denied 834 834
+CAPTURE after service-delivery 834 834
+CAPTURE after start-service-sheet 834 834
+CAPTURE after service-record 834 834
+CAPTURE after mobilisations 390 390
+CAPTURE after authorise-sheet 390 390
+CAPTURE after mobilisation 390 390
+CAPTURE after action-done 390 390
+CAPTURE after mobilisation-denied 390 390
+CAPTURE after service-delivery 390 390
+CAPTURE after start-service-sheet 390 390
+CAPTURE after service-record 390 390
+CAPTURE after mobilisations 320 320
+CAPTURE after authorise-sheet 320 320
+CAPTURE after mobilisation 320 320
+CAPTURE after action-done 320 320
+CAPTURE after mobilisation-denied 320 320
+CAPTURE after service-delivery 320 320
+CAPTURE after start-service-sheet 320 320
+CAPTURE after service-record 320 320
+✔ Mobilisations and Service Delivery actual route composition and synthetic actions (30030.145209ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 30203.051625

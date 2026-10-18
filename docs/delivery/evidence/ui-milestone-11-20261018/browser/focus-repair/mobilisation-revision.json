@@ -1,0 +1,6 @@
+{
+  "file": "src/components/mobilisations-client.tsx",
+  "beforeSha256": "a24b832f4a46453484445b990eebdbee396a069dbffffd9a5f141f80015eb3a5",
+  "sha256": "63e904e9a26fe3af6fb45bb7380b589d9f48ed6b0b7970d849fbb837d1570cdf",
+  "change": "Restore focus to the exact manual opener after authorisation Sheet closes; no handlers/API/query semantics changed."
+}
