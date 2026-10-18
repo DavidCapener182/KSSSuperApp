@@ -1,0 +1,102 @@
+[
+  {
+    "name": "after-control-room-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "after-book-directory-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "after-book-workspace-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "after-book-access-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "after-book-contribution-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "after-control-room-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "after-book-directory-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "after-book-workspace-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "after-book-access-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "after-book-contribution-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "after-control-room-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "after-book-directory-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "after-book-workspace-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "after-book-access-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "after-book-contribution-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "after-control-room-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "after-book-directory-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "after-book-workspace-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "after-book-access-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "after-book-contribution-320",
+    "viewport": 320,
+    "pageWidth": 320
+  }
+]

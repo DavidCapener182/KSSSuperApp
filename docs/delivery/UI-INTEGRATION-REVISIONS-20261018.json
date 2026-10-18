@@ -106,5 +106,54 @@
     "beforeSha256": "cfd70f16572ac6e066f89eb1e4f40eba6a6a5a1b69216d78765af9e106c31ac5",
     "sha256": "1b1b7902ea4bd07b70bdde14a08053a5a5beec863a1662263cd8d56d7cca2856",
     "reason": "Actual Staff browser false confirmation after unchanged currentreadback; exact receipt/current Event/revision/time validation, pending/lifetime/idempotency protection and later-page exact row update.20new+10preserved source cases and23browser checks pass; APIs/auth/SQL unchanged."
+  },
+  {
+    "file": "src/app/(enterprise)/site-book/access/page.tsx",
+    "beforeSha256": "677a463d7f7b25025c91394b3346a6ad143960df9eed7ebfce64a05af1466f44",
+    "sha256": "74ca9c9f9573fc7349eee4dcd2f7732415a85ddcd2d0061c233a3784f92c2bbc",
+    "reason": "Explicit milestone 7 Control Room/Site Book source ownership; browser-verified composition and exact contribution confirmation correction",
+    "evidence": "docs/delivery/evidence/ui-milestone-7-20261018/product-manifest.json"
+  },
+  {
+    "file": "src/app/(enterprise)/site-book/page.tsx",
+    "beforeSha256": "15f2bb1106e0d963567d0f9c1f616a4c1464dc1b21f8e6ef6599b2ba7f9d694d",
+    "sha256": "2adb1d4b8d59cb97fcc5709a056241b6524f4e713ed77f9dcbd0a8c61ef0a7f1",
+    "reason": "Explicit milestone 7 Control Room/Site Book source ownership; browser-verified composition and exact contribution confirmation correction",
+    "evidence": "docs/delivery/evidence/ui-milestone-7-20261018/product-manifest.json"
+  },
+  {
+    "file": "src/app/(enterprise)/site-book/site-book.css",
+    "beforeSha256": "ebc7ca36ba5fe14ec7f95fe9234854c3b30e766187fac859ca9bf7073b490136",
+    "sha256": "8ff033be1cf2a512ef76e0e9ce01d488852072eebf6085a8217a0c5b0d19c539",
+    "reason": "Explicit milestone 7 Control Room/Site Book source ownership; browser-verified composition and exact contribution confirmation correction",
+    "evidence": "docs/delivery/evidence/ui-milestone-7-20261018/product-manifest.json"
+  },
+  {
+    "file": "src/components/control-room-client.tsx",
+    "beforeSha256": "3db032f9f91eb007d71f8066d290ee74e64fd31ee8a808210c9660304b114a83",
+    "sha256": "67e0c57ec48c76da2a680698a52ce4385bc0dac5d87a81578bb37b836b48da26",
+    "reason": "Explicit milestone 7 Control Room/Site Book source ownership; browser-verified composition and exact contribution confirmation correction",
+    "evidence": "docs/delivery/evidence/ui-milestone-7-20261018/product-manifest.json"
+  },
+  {
+    "file": "src/components/control-room.css",
+    "beforeSha256": "576337ca4ed5cf4fcedf9aff08df1389ee3bf3df7f5d2bc28db8166b46535b4f",
+    "sha256": "11de2333492057a58f3bad8fdc79ca7e92c3ddc6353c6bda83a1db70d580215f",
+    "reason": "Explicit milestone 7 Control Room/Site Book source ownership; browser-verified composition and exact contribution confirmation correction",
+    "evidence": "docs/delivery/evidence/ui-milestone-7-20261018/product-manifest.json"
+  },
+  {
+    "file": "src/components/site-book-access.tsx",
+    "beforeSha256": "2d4325384e36a39e0002384ea4ea93ccab3b1f2162e64be930bef3237ee2edb9",
+    "sha256": "be12df3d2a4ca5fa83dbe25413024b792099a187c2c5b44e401a713cce00d58b",
+    "reason": "Explicit milestone 7 Control Room/Site Book source ownership; browser-verified composition and exact contribution confirmation correction",
+    "evidence": "docs/delivery/evidence/ui-milestone-7-20261018/product-manifest.json"
+  },
+  {
+    "file": "src/components/site-book-workspace.tsx",
+    "beforeSha256": "70cdc170343fbb26dc6a0ce849964997834d51addd15dd32aec96f9272ec980e",
+    "sha256": "c5df6f21965229ad6db5341b23e76c0e2c25f9e2a646017e8b05048fd787703a",
+    "reason": "Explicit milestone 7 Control Room/Site Book source ownership; browser-verified composition and exact contribution confirmation correction",
+    "evidence": "docs/delivery/evidence/ui-milestone-7-20261018/product-manifest.json"
   }
 ]

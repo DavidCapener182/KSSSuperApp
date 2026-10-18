@@ -1,0 +1,87 @@
+▲ Next.js 16.3.6 (webpack)
+- Local:         http://127.0.0.1:61868
+- Network:       http://127.0.0.1:61868
+✓ Ready in 379ms
+✓ Running next.config.mjs took 13ms
+
+  We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default.
+  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+  	- allowJs was set to true
+  	- strict was set to false
+  	- noEmit was set to true
+  	- incremental was set to true
+  	- include was set to ['next-env.d.ts', '.next/types/**/*.ts', '.next/dev/types/**/*.ts', '**/*.mts', '**/*.ts', '**/*.tsx']
+  	- plugins was updated to add { name: 'next' }
+  	- exclude was set to ['node_modules']
+
+  The following mandatory changes were made to your tsconfig.json:
+
+  	- resolveJsonModule was set to true (to match webpack resolution)
+  	- isolatedModules was set to true (requirement for SWC / Babel)
+
+
+ GET / 200 in 2.7s (next.js: 2.6s, application-code: 143ms)
+ GET /control-room 200 in 1400ms (next.js: 1304ms, application-code: 96ms)
+ GET /control-room 200 in 33ms (next.js: 3ms, application-code: 30ms)
+ GET /control-room 200 in 22ms (next.js: 1.5ms, application-code: 21ms)
+ GET /site-book 200 in 305ms (next.js: 231ms, application-code: 74ms)
+⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /site-book 200 in 17ms (next.js: 1.9ms, application-code: 16ms)
+ GET /site-book 200 in 10ms (next.js: 0.9ms, application-code: 9ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 518ms (next.js: 420ms, application-code: 97ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 35ms (next.js: 5ms, application-code: 30ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 34ms (next.js: 17ms, application-code: 17ms)
+ GET /site-book/access 200 in 314ms (next.js: 215ms, application-code: 99ms)
+⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /site-book/access 200 in 23ms (next.js: 1.7ms, application-code: 21ms)
+ GET /site-book/access 200 in 10ms (next.js: 1.3ms, application-code: 8ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 53ms (next.js: 4ms, application-code: 49ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 41ms (next.js: 5ms, application-code: 36ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 28ms (next.js: 2ms, application-code: 25ms)
+ GET /control-room 200 in 56ms (next.js: 3ms, application-code: 53ms)
+ GET /control-room 200 in 21ms (next.js: 0.8ms, application-code: 20ms)
+ GET /control-room 200 in 9ms (next.js: 1.3ms, application-code: 8ms)
+ GET /site-book 200 in 25ms (next.js: 1.7ms, application-code: 23ms)
+ GET /site-book 200 in 21ms (next.js: 1.7ms, application-code: 20ms)
+ GET /site-book 200 in 12ms (next.js: 1.4ms, application-code: 11ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 34ms (next.js: 2ms, application-code: 31ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 30ms (next.js: 4ms, application-code: 26ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 12ms (next.js: 0.9ms, application-code: 11ms)
+ GET /site-book/access 200 in 39ms (next.js: 1.3ms, application-code: 37ms)
+ GET /site-book/access 200 in 25ms (next.js: 1.4ms, application-code: 24ms)
+ GET /site-book/access 200 in 16ms (next.js: 1.7ms, application-code: 14ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 25ms (next.js: 2ms, application-code: 23ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 28ms (next.js: 3ms, application-code: 25ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 14ms (next.js: 1.4ms, application-code: 13ms)
+ GET /control-room 200 in 35ms (next.js: 1.0ms, application-code: 34ms)
+ GET /control-room 200 in 21ms (next.js: 11ms, application-code: 10ms)
+ GET /control-room 200 in 23ms (next.js: 3ms, application-code: 20ms)
+ GET /site-book 200 in 26ms (next.js: 1.2ms, application-code: 25ms)
+ GET /site-book 200 in 20ms (next.js: 2ms, application-code: 18ms)
+ GET /site-book 200 in 9ms (next.js: 1.0ms, application-code: 8ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 31ms (next.js: 4ms, application-code: 27ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 76ms (next.js: 27ms, application-code: 49ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 79ms (next.js: 6ms, application-code: 74ms)
+ GET /site-book/access 200 in 44ms (next.js: 1.1ms, application-code: 42ms)
+ GET /site-book/access 200 in 28ms (next.js: 2ms, application-code: 25ms)
+ GET /site-book/access 200 in 13ms (next.js: 1.4ms, application-code: 11ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 37ms (next.js: 1.7ms, application-code: 35ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 23ms (next.js: 3ms, application-code: 20ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 10ms (next.js: 1.0ms, application-code: 9ms)
+ GET /control-room 200 in 45ms (next.js: 1.4ms, application-code: 44ms)
+ GET /control-room 200 in 19ms (next.js: 9ms, application-code: 10ms)
+ GET /control-room 200 in 21ms (next.js: 2.0ms, application-code: 19ms)
+ GET /site-book 200 in 36ms (next.js: 0.9ms, application-code: 35ms)
+ GET /site-book 200 in 18ms (next.js: 1.0ms, application-code: 17ms)
+ GET /site-book 200 in 13ms (next.js: 0.9ms, application-code: 12ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 42ms (next.js: 3ms, application-code: 39ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 31ms (next.js: 3ms, application-code: 27ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 12ms (next.js: 1.6ms, application-code: 11ms)
+ GET /site-book/access 200 in 45ms (next.js: 0.9ms, application-code: 44ms)
+ GET /site-book/access 200 in 29ms (next.js: 3ms, application-code: 26ms)
+ GET /site-book/access 200 in 12ms (next.js: 1.3ms, application-code: 11ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 28ms (next.js: 3ms, application-code: 26ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 39ms (next.js: 6ms, application-code: 34ms)
+ GET /site-book/00000000-0000-4000-8000-000000000001 200 in 38ms (next.js: 22ms, application-code: 16ms)
+[?25h

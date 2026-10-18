@@ -1,0 +1,79 @@
+{
+  "status": "SOURCE_FROZEN_BROWSER_BLOCKED",
+  "scope": [
+    "U17",
+    "U18",
+    "U19",
+    "U20"
+  ],
+  "baseline": "ad276f566a94b1ff32bc7582eb44a22d45ef6e4e",
+  "preEditSnapshot": "output/ui-sites-20261018/baseline-source",
+  "checks": {
+    "newActualSourcePassed": 20,
+    "frozenSitesAttendancePassed": 16,
+    "combinedPassed": 36,
+    "failed": 0,
+    "skipped": 0,
+    "eslint": "exit0 empty output",
+    "typecheck": "exit0 empty output, actual src config",
+    "protectedBaselineFilesUnchanged": 399,
+    "priorCheckpoint1FilesUnchanged": 9,
+    "priorCheckpoint2FilesUnchanged": 11,
+    "pageServerGatePrefixes": "byte-identical",
+    "browserKeyboardOverflowContrastScreenshots": "NOT_EXECUTED_APPROVAL_TIMEOUT_AND_EXPLICIT_HOLD"
+  },
+  "files": {
+    "src/app/(enterprise)/site-book/access/page.tsx": "74ca9c9f9573fc7349eee4dcd2f7732415a85ddcd2d0061c233a3784f92c2bbc",
+    "src/app/(enterprise)/site-book/page.tsx": "2adb1d4b8d59cb97fcc5709a056241b6524f4e713ed77f9dcbd0a8c61ef0a7f1",
+    "src/app/(enterprise)/site-book/site-book.css": "8ff033be1cf2a512ef76e0e9ce01d488852072eebf6085a8217a0c5b0d19c539",
+    "src/components/control-room-client.tsx": "67e0c57ec48c76da2a680698a52ce4385bc0dac5d87a81578bb37b836b48da26",
+    "src/components/control-room.css": "11de2333492057a58f3bad8fdc79ca7e92c3ddc6353c6bda83a1db70d580215f",
+    "src/components/site-book-access.tsx": "be12df3d2a4ca5fa83dbe25413024b792099a187c2c5b44e401a713cce00d58b",
+    "src/components/site-book-operations.module.css": "3d37ab9e9c7f35f83dbaa23d60eec7121b032e9e32eb6236ab988ff58ea8ab6d",
+    "src/components/site-book-panel.tsx": "1b1971ea3537beb0e7ae7b893a7ae893e7f4a3cf09b343bc20a58375ce15cbbc",
+    "src/components/site-book-workspace.tsx": "e7b5d3524392cddf843157761e19c50683803d4568a4cd318cec47e2b9f3699b",
+    "tests/ui-control-room-presentation-local.test.mjs": "942a5da54bfe2f270a1bbcf587370a71d89ec9f811e9ce6dcd0f2e82380433a6",
+    "tests/ui-site-book-contract-local.test.mjs": "03902c60afd68c1c2464a244f5f4863983a3f33938f86c0647e7637cb18531bd",
+    "tests/ui-site-book-access-local.test.mjs": "9b56da88c51e4ad31bae81dbd1b3018f76387389afd4e64a90e74816661ef984",
+    "tests/ui-book-control-composition-browser.spec.mjs": "a77d46b03827a4b7357e3087e6dca248d26bdf08d694c232a7a721fe2decf3f4",
+    "docs/delivery/UI-BOOK-CONTROL-SOURCE-CHECKPOINT-20261018.md": "0e5b364bbad16bb1449a4cd9d40b301f2c63dca9641ebd0bdb082229dd69e953"
+  },
+  "beforeHashes": {
+    "src/app/(enterprise)/site-book/access/page.tsx": "677a463d7f7b25025c91394b3346a6ad143960df9eed7ebfce64a05af1466f44",
+    "src/app/(enterprise)/site-book/page.tsx": "15f2bb1106e0d963567d0f9c1f616a4c1464dc1b21f8e6ef6599b2ba7f9d694d",
+    "src/app/(enterprise)/site-book/site-book.css": "ebc7ca36ba5fe14ec7f95fe9234854c3b30e766187fac859ca9bf7073b490136",
+    "src/components/control-room-client.tsx": "3db032f9f91eb007d71f8066d290ee74e64fd31ee8a808210c9660304b114a83",
+    "src/components/control-room.css": "576337ca4ed5cf4fcedf9aff08df1389ee3bf3df7f5d2bc28db8166b46535b4f",
+    "src/components/site-book-access.tsx": "2d4325384e36a39e0002384ea4ea93ccab3b1f2162e64be930bef3237ee2edb9",
+    "src/components/site-book-operations.module.css": null,
+    "src/components/site-book-panel.tsx": null,
+    "src/components/site-book-workspace.tsx": "70cdc170343fbb26dc6a0ce849964997834d51addd15dd32aec96f9272ec980e",
+    "tests/ui-control-room-presentation-local.test.mjs": null,
+    "tests/ui-site-book-contract-local.test.mjs": null,
+    "tests/ui-site-book-access-local.test.mjs": null,
+    "tests/ui-book-control-composition-browser.spec.mjs": null,
+    "docs/delivery/UI-BOOK-CONTROL-SOURCE-CHECKPOINT-20261018.md": null
+  },
+  "newFiles": [
+    "src/components/site-book-operations.module.css",
+    "src/components/site-book-panel.tsx",
+    "tests/ui-control-room-presentation-local.test.mjs",
+    "tests/ui-site-book-contract-local.test.mjs",
+    "tests/ui-site-book-access-local.test.mjs",
+    "tests/ui-book-control-composition-browser.spec.mjs",
+    "docs/delivery/UI-BOOK-CONTROL-SOURCE-CHECKPOINT-20261018.md"
+  ],
+  "evidenceHashes": {
+    "evidence/tests.txt": "e0c6ed7d48c4f2e18a880aea398da455069e9ced18e215479a818a61eb2e6694",
+    "evidence/lint.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence/typecheck.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence/check-exits.json": "480377eebd4b89190f21c12e51a5d03312758dd18c26024457ef088c9fc158c3",
+    "evidence/preservation-check.json": "3488b6d0de9d558822ed25e9f6214500d8fea8601e1a1724dc2c721fae22d1c0",
+    "evidence/control-role-loss-red.txt": "dd329fcfe44c34be41d8731d4add4f23e448d9b933cf826b3d7ce9af9d60a2b4",
+    "evidence/tsconfig.json": "e71ffe779b25e1e285475698bca32d09386a4e81e7fb3767f55c8bd4ed4ea0d8",
+    "evidence/site-book-red.txt": "a9518c0f6012e828a77dccec3172f4aa35ebf79a0963f8b1e9d63a61079949c2",
+    "evidence/book-access-red.txt": "c9108f7075bee0987d6abb3b54121ff18cccd2757f9a48a8a086574a23f86de8",
+    "evidence/book-readback-red.txt": "7110451fd869ee96caefe965d9e5ba5e5d872df7ac79a0e66417f851007bc3c4"
+  },
+  "patchSha256": "91e7e1d83ddc23a3b3e63756f7f53abfbad18a00731ca6c10454d6bc1d368947"
+}

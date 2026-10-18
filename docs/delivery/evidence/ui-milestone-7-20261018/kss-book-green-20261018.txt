@@ -1,0 +1,28 @@
+✔ failed handover contribution retains its factual draft and reports source rejection (75.210791ms)
+✔ current handover acknowledgement submits the exact revision once (26.903709ms)
+✔ read-only book keeps facts and lineage without write controls (17.29125ms)
+✔ manager cannot acknowledge as the receiving Staff member (18.770334ms)
+✔ denied book readback clears inaccessible facts and never restores success (15.994292ms)
+✔ held Site Book write after unmount launches no old source read and no new write (16.650208ms)
+✔ focused outstanding update retains exact item and expected revision (15.978125ms)
+✔ focused correction keeps exact entry version, reason and original occurrence (22.523917ms)
+✔ manager closure uses a labelled reason form and exact handover revision (17.408458ms)
+✔ successful transport with an unchanged handover is not a recorded contribution (13.053ms)
+✔ handover contribution stays unconfirmed for missing receipt (14.040416ms)
+✔ handover contribution stays unconfirmed for wrong handover receipt (18.096209ms)
+✔ handover contribution stays unconfirmed for wrong receipt revision (12.915584ms)
+✔ handover contribution stays unconfirmed for unchanged readback (13.38225ms)
+✔ handover contribution stays unconfirmed for different current actor (16.294541ms)
+✔ handover contribution stays unconfirmed for different current handover (15.854084ms)
+✔ handover contribution stays unconfirmed for different event text (15.916167ms)
+✔ handover contribution stays unconfirmed for later revision (13.929084ms)
+✔ exact handover receipt and attributable revision confirms and clears only its draft (12.601209ms)
+✔ mismatched Service readback removes cached Book facts (10.298792ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 567.433791

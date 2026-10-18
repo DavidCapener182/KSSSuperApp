@@ -9,5 +9,5 @@ export default async function SiteBookAccessPage() {
   const principal = await getPrincipal(await createServerSupabase());
   if (!principal) redirect("/?next=%2Fsite-book%2Faccess");
   if (!principal.roles.some(r => r === "OFFICE_ADMIN" || r === "SUPER_ADMIN")) notFound();
-  return <main className="enterprise-main site-book-page"><header className="site-book-header"><p>KSS Enterprise · Synthetic development</p><h1>Site Book access</h1><p>Issue finite, reasoned contributor and manager grants for an exact Site Service.</p></header><SiteBookAccess /></main>;
+  return <main className="enterprise-main site-book-page"><header className="site-book-header"><p>Operations / Site Book</p><h1>Site Book access</h1><p>Issue finite, reasoned contributor and manager grants for an exact Site Service.</p></header><SiteBookAccess /></main>;
 }

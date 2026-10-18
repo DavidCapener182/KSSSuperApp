@@ -1,0 +1,98 @@
+{
+  "runtime": "/var/folders/_q/m23l5tbx09g4_wrfcb9jbghr0000gn/T/kss-ui-book-control-fixture-LvyLg4",
+  "manifest": [
+    {
+      "file": "src/app/(enterprise)/control-room/page.tsx",
+      "sha256": "504cd14828b715b8b495ce4c5e220ef66e7839a2f43d28fbad4538770bd1aea1"
+    },
+    {
+      "file": "src/lib/auth/principal.ts",
+      "sha256": "b52efe57b1bc7972f53d9f311e53a5336b8abec6be608f6b45fa3c5c4d02a66f"
+    },
+    {
+      "file": "src/lib/supabase/server.ts",
+      "sha256": "bb7cef1301e054872e53a4fc4247730f61655bfa830101118eb40e721f1b209b"
+    },
+    {
+      "file": "src/components/control-room-client.tsx",
+      "sha256": "3db032f9f91eb007d71f8066d290ee74e64fd31ee8a808210c9660304b114a83"
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "file": "src/components/control-room.css",
+      "sha256": "576337ca4ed5cf4fcedf9aff08df1389ee3bf3df7f5d2bc28db8166b46535b4f"
+    },
+    {
+      "file": "src/app/(enterprise)/site-book/page.tsx",
+      "sha256": "15f2bb1106e0d963567d0f9c1f616a4c1464dc1b21f8e6ef6599b2ba7f9d694d"
+    },
+    {
+      "file": "src/components/site-book-workspace.tsx",
+      "sha256": "70cdc170343fbb26dc6a0ce849964997834d51addd15dd32aec96f9272ec980e"
+    },
+    {
+      "file": "src/components/record-studies.css",
+      "sha256": "f151da388c1acadf4573a2e56bb6fcbd050e6da60d6d62040223d8e7c5e6b96e"
+    },
+    {
+      "file": "src/components/record-section-tracker.tsx",
+      "sha256": "9c5fa1159654af673dbcb7a0b517e953a96d44b9f26ca9f8c829101ed07bdadc"
+    },
+    {
+      "file": "src/app/(enterprise)/site-book/site-book.css",
+      "sha256": "ebc7ca36ba5fe14ec7f95fe9234854c3b30e766187fac859ca9bf7073b490136"
+    },
+    {
+      "file": "src/app/(enterprise)/site-book/[serviceId]/page.tsx",
+      "sha256": "4dc6a87a80aff8c405e82fb0970b7a8ce9d7d2f12bfb83f54ae935fba3146fee"
+    },
+    {
+      "file": "src/app/(enterprise)/site-book/access/page.tsx",
+      "sha256": "677a463d7f7b25025c91394b3346a6ad143960df9eed7ebfce64a05af1466f44"
+    },
+    {
+      "file": "src/components/site-book-access.tsx",
+      "sha256": "2d4325384e36a39e0002384ea4ea93ccab3b1f2162e64be930bef3237ee2edb9"
+    },
+    {
+      "file": "src/components/enterprise-shell.tsx",
+      "sha256": "31396f9e17d7eebdf0b0b15aee4e6cdba7e86ea71c644717614381609abd578c"
+    },
+    {
+      "file": "src/lib/supabase/browser.ts",
+      "sha256": "95b36e0a551b9946d5d9de9991298a7eb982130658ca196b31f9bf72f665fe4b"
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "9af6a0da7258746624346506c3ff98c9e300ceb10ef17ca079a1c8c5d5090814"
+    },
+    {
+      "file": "src/lib/auth/capabilities.ts",
+      "sha256": "e37d910d58abf34c29b7d755441ee916c486cec39b1e8851770bb333ed74e87e"
+    },
+    {
+      "file": "src/lib/environment-label.ts",
+      "sha256": "0bd48a679fc1180fc7d00215f809e528dc9838193366c69e2f277b628606e6bf"
+    },
+    {
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    },
+    {
+      "file": "postcss.config.mjs",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    }
+  ],
+  "mocked": [
+    "principal and Supabase factory",
+    "all business API responses"
+  ],
+  "limits": [
+    "No real login, grants or persisted actions",
+    "External origins blocked",
+    "Source Book authority independent from shell role"
+  ]
+}

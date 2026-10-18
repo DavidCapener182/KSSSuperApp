@@ -1,0 +1,37 @@
+✔ failed handover contribution retains its factual draft and reports source rejection (76.133917ms)
+✔ current handover acknowledgement submits the exact revision once (24.11575ms)
+✔ read-only book keeps facts and lineage without write controls (19.700375ms)
+✔ manager cannot acknowledge as the receiving Staff member (16.326042ms)
+✔ denied book readback clears inaccessible facts and never restores success (19.76225ms)
+✔ held Site Book write after unmount launches no old source read and no new write (16.680042ms)
+✔ focused outstanding update retains exact item and expected revision (18.258542ms)
+✔ focused correction keeps exact entry version, reason and original occurrence (17.540208ms)
+✔ manager closure uses a labelled reason form and exact handover revision (21.482625ms)
+✖ successful transport with an unchanged handover is not a recorded contribution (17.505042ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 423.281417
+
+✖ failing tests:
+
+test at tests/ui-site-book-contract-local.test.mjs:36:1
+✖ successful transport with an unchanged handover is not a recorded contribution (17.505042ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Contribution recorded as a new handover revision/. Input:
+  
+  '← All Site Books Synthetic Service Refresh authorised book Site Book Routine operational record Synthetic Site  ·    open items Handover Outstanding Recent notes History Add a fact   Contribution recorded as a new handover revision.  Start of shift Handover Revision    ·  Current handover Previous shift:   17 Oct 2026, 21:00  –  18 Oct 2026, 09:00 From  Synthetic colleague  · Recorded  18 Oct 2026, 09:01  Awaiting your acknowledgement  Acknowledge this handover Add an attributable handover contribution  Add contribution  Outgoing shift from  Outgoing shift until  Handover summary  Record handover Carries across shifts Outstanding    open Synthetic outstanding fact Opened by  Synthetic officer  ·  18 Oct 2026, 09:00  · OPEN Item lineage (   actions)  Update outstanding item Action Factual update · remains open Resolve Factual note   Record item action  Previous 48 hours Recent operational notes No recent entries.  Authorised history Search this Service book Words in current entry  Entry type All routine types Routine observation Contractor, visitor or delivery Keys or equipment Maintenance Client instruction Outstanding item Search authorised entries  Record a fact Keep the next shift informed Record only operational facts needed for the next shift. Do not include private personnel, medical or safeguarding details. Use the approved Incident or restricted process when appropriate. Entry type Routine observation Contractor, visitor or delivery Keys or equipment Maintenance Client instruction Outstanding item  How do you know? I observed it It was reported to me Factual note   /1200 · Do not include personal contact details. Record entry Online only. A draft is not received until KSS confirms it.'
+  
+      at TestContext.<anonymous> (file:///Users/davidcapener/Documents/Codex/2026-10-17/task-3/kss-followup-integration/tests/ui-site-book-contract-local.test.mjs:36:247)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '← All Site Books Synthetic Service Refresh authorised book Site Book Routine operational record Synthetic Site  ·    open items Handover Outstanding Recent notes History Add a fact   Contribution recorded as a new handover revision.  Start of shift Handover Revision    ·  Current handover Previous shift:   17 Oct 2026, 21:00  –  18 Oct 2026, 09:00 From  Synthetic colleague  · Recorded  18 Oct 2026, 09:01  Awaiting your acknowledgement  Acknowledge this handover Add an attributable handover contribution  Add contribution  Outgoing shift from  Outgoing shift until  Handover summary  Record handover Carries across shifts Outstanding    open Synthetic outstanding fact Opened by  Synthetic officer  ·  18 Oct 2026, 09:00  · OPEN Item lineage (   actions)  Update outstanding item Action Factual update · remains open Resolve Factual note   Record item action  Previous 48 hours Recent operational notes No recent entries.  Authorised history Search this Service book Words in current entry  Entry type All routine types Routine observation Contractor, visitor or delivery Keys or equipment Maintenance Client instruction Outstanding item Search authorised entries  Record a fact Keep the next shift informed Record only operational facts needed for the next shift. Do not include private personnel, medical or safeguarding details. Use the approved Incident or restricted process when appropriate. Entry type Routine observation Contractor, visitor or delivery Keys or equipment Maintenance Client instruction Outstanding item  How do you know? I observed it It was reported to me Factual note   /1200 · Do not include personal contact details. Record entry Online only. A draft is not received until KSS confirms it.',
+    expected: /Contribution recorded as a new handover revision/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }

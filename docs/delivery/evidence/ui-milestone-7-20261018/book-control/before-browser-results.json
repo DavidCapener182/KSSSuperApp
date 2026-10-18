@@ -1,0 +1,82 @@
+[
+  {
+    "name": "before-control-room-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "before-book-directory-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "before-book-workspace-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "before-book-access-1440",
+    "viewport": 1440,
+    "pageWidth": 1440
+  },
+  {
+    "name": "before-control-room-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "before-book-directory-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "before-book-workspace-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "before-book-access-834",
+    "viewport": 834,
+    "pageWidth": 834
+  },
+  {
+    "name": "before-control-room-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "before-book-directory-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "before-book-workspace-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "before-book-access-390",
+    "viewport": 390,
+    "pageWidth": 390
+  },
+  {
+    "name": "before-control-room-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "before-book-directory-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "before-book-workspace-320",
+    "viewport": 320,
+    "pageWidth": 320
+  },
+  {
+    "name": "before-book-access-320",
+    "viewport": 320,
+    "pageWidth": 320
+  }
+]

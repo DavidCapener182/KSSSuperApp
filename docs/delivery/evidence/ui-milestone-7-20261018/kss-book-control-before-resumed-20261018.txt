@@ -1,0 +1,9 @@
+✔ Control Room and Site Book compositions, exact source actions and failure state — synthetic only (13335.16ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13450.696959

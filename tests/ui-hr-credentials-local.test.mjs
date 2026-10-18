@@ -69,4 +69,4 @@ test('all source action/readback/approval functions and effects remain exact; so
  for(const file of ['src/app/(enterprise)/credentials/page.tsx','src/app/(enterprise)/time-away/page.tsx','src/app/(enterprise)/my-time-away/page.tsx'])assert.deepEqual(await readFile(file),await readFile(baseline+file),file);
  const file='src/app/(enterprise)/hr/page.tsx';assert.equal((await readFile(file,'utf8')).split('  return <main')[0],(await readFile(baseline+file,'utf8')).split('  return <main')[0]);
 });
-test('all non-owned published source files remain exact for this HR and Staff milestone',async()=>{for(const row of JSON.parse(await readFile('docs/delivery/evidence/ui-milestone-6-20261018/non-owned-source-manifest.json','utf8')))assert.equal(createHash('sha256').update(await readFile(row.file)).digest('hex'),row.sha256,row.file);});
+test('all non-owned published source files remain exact for this HR and Staff milestone',async()=>{for(const row of JSON.parse(await readFile('docs/delivery/evidence/ui-milestone-7-20261018/non-owned-source-manifest.json','utf8')))assert.equal(createHash('sha256').update(await readFile(row.file)).digest('hex'),row.sha256,row.file);});

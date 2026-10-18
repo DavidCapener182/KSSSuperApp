@@ -1,0 +1,50 @@
+{
+  "base": "cc477fe3f23238b7ecf963d54692ebdd4101bf21",
+  "scope": [
+    "U17",
+    "U18",
+    "U19",
+    "U20"
+  ],
+  "productFiles": 9,
+  "nonOwnedPublishedSourceExact": 415,
+  "runtimeImportedSourceExact": 24,
+  "offlineCandidateTests": {
+    "pass": 516,
+    "fail": 0,
+    "skip": 0
+  },
+  "integrationOfflineTests": 883,
+  "productionBuild": "passed",
+  "typescript": "passed",
+  "lint": {
+    "errors": 0,
+    "preExistingWarnings": 1
+  },
+  "browser": {
+    "beforeAggregateSpecs": 1,
+    "afterAggregateSpecs": 1,
+    "beforeCaptures": 16,
+    "afterCaptures": 20,
+    "widths": [
+      1440,
+      834,
+      390,
+      320
+    ],
+    "externalRequests": 0,
+    "realAccountOrHostedWrites": 0,
+    "contribution": "missing receipt + unchanged readback retains draft, exact matching receipt and revision confirms; same retry key; focus restore; denied refresh clears facts"
+  },
+  "originalCheckout": {
+    "head": "e8922da9b18effb25c3a525a2d4391c6ff92ccdc",
+    "statusSha256": "5f125a589e98ac9dfc5d5849ca8084769e1133cf6d060bd8139da81e777212b1",
+    "filesVerified": 51
+  },
+  "limits": [
+    "Representative synthetic route checks, not full variant or hosted authentication/RPC/RLS acceptance",
+    "Contribution confirmation correction is specific; other existing Site Book mutation confirmation paths are not newly accepted",
+    "Before screenshots are the exact pre-composition worker snapshot, on its then-current shared shell; after source matches candidate24importedfiles",
+    "Historical coordinator local-browser pause was explicitly resolved by parent18October; hosted denials remain unchanged"
+  ]
+}

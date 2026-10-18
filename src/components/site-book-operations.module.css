@@ -1,0 +1,9 @@
+.panel[data-slot=sheet-content]{width:min(100vw,600px);max-width:600px;overflow-y:auto;gap:0;background:var(--kss-surface);color:var(--kss-ink)}
+.panelHeader{padding:24px 56px 20px 24px;border-bottom:1px solid var(--kss-border);gap:8px}
+.panelHeader [data-slot=sheet-title]{font-size:22px;line-height:1.25;letter-spacing:-.025em}
+.panelHeader [data-slot=sheet-description]{color:var(--kss-ink-soft);line-height:1.6;overflow-wrap:anywhere}
+.panelBody{padding:24px;min-width:0;line-height:1.6}
+.panel :is(button,input,select,textarea):focus-visible{outline:3px solid var(--kss-focus);outline-offset:3px}
+@media(max-width:600px){.panelHeader{padding:20px 56px 16px 16px}.panelBody{padding:16px}}
+
+.trigger[data-slot=button]{white-space:normal;max-width:100%;height:auto;min-height:44px;text-align:left;overflow-wrap:anywhere;line-height:1.4}
