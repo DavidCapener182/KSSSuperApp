@@ -36,10 +36,24 @@ export function StaffingPlanClient({eventId,eventStatus,eventStarts,eventEnds,fo
   const [editing,setEditing]=useState<Line|null>(null);const [creating,setCreating]=useState(false);const [draft,setDraft]=useState<Draft>(empty);
   const [cancelLine,setCancelLine]=useState<Line|null>(null);const [cancelReason,setCancelReason]=useState("");
   const [historyLine,setHistoryLine]=useState<Line|null>(null);const [history,setHistory]=useState<History[]>([]);
-  const load=useCallback(async()=>{setLoading(true);try{const [plan,choice,counts]=await Promise.all([
-    request(`/api/events/${eventId}/staffing-requirements`),request("/api/events/staffing-roles"),request(`/api/events/${eventId}/deployment-summary`)]);
-    setLines(plan.plan.items??[]);setRequired(plan.plan.required_total??0);setRoles(choice.roles??[]);setSummary(counts.summary);setError("");return true;}
-    catch(caught){setError(caught instanceof Error?caught.message:"Staffing plan unavailable");return false;}finally{setLoading(false);}},[eventId]);
+  const eventLifetime = useRef<{ eventId: string; active: boolean } | null>(null);
+  const readSequence = useRef(0);
+  useEffect(() => {
+    const lifetime = { eventId, active: true }; eventLifetime.current = lifetime;
+    return () => { lifetime.active = false; };
+  }, [eventId]);
+  const load=useCallback(async()=>{
+    const lifetime=eventLifetime.current;
+    if(!lifetime?.active||lifetime.eventId!==eventId)return false;
+    const sequence=++readSequence.current;
+    setLoading(true);
+    try{const [plan,choice,counts]=await Promise.all([
+      request(`/api/events/${eventId}/staffing-requirements`),request("/api/events/staffing-roles"),request(`/api/events/${eventId}/deployment-summary`)]);
+      if(!lifetime.active||sequence!==readSequence.current)return false;
+      setLines(plan.plan.items??[]);setRequired(plan.plan.required_total??0);setRoles(choice.roles??[]);setSummary(counts.summary);setError("");return true;
+    }catch(caught){if(lifetime.active&&sequence===readSequence.current)setError(caught instanceof Error?caught.message:"Staffing plan unavailable");return false;}
+    finally{if(lifetime.active&&sequence===readSequence.current)setLoading(false);}
+  },[eventId]);
   useEffect(()=>{const timer=setTimeout(()=>void load(),0);return()=>clearTimeout(timer);},[load]);
   useEffect(()=>{if(!focusRequirement||focusedRef.current||loading)return;
     const exact=lines.find((line)=>line.id===focusRequirement&&line.state==="PLANNED");
@@ -99,7 +113,7 @@ export function StaffingPlanClient({eventId,eventStatus,eventStarts,eventEnds,fo
     {cancelled.length>0&&<details className="staffing-cancelled"><summary>{cancelled.length} cancelled requirement{cancelled.length===1?"":"s"} · history</summary>
       {cancelled.map((line)=><p key={line.id}>{line.role_name} · {dateLabel(line.service_date)} · {line.area_label} · {line.required_quantity} previously required <Button variant="ghost" onClick={()=>void showHistory(line)}>History</Button></p>)}</details>}
     {terminal&&<p className="enterprise-honesty">This Event is {eventStatus.toLowerCase()}; staffing history is read-only.</p>}
-    {deploymentLine&&<DeploymentLineClient eventId={eventId} requirementId={deploymentLine.id} revision={deploymentLine.revision} roleName={deploymentLine.role_name} area={deploymentLine.area_label} disabled={terminal} open={Boolean(deploymentLine)} onClose={()=>setDeploymentLine(null)} onChanged={load}/>}
+    {deploymentLine&&<DeploymentLineClient key={`${eventId}:${deploymentLine.id}:${deploymentLine.revision}:${terminal}`} eventId={eventId} requirementId={deploymentLine.id} revision={deploymentLine.revision} roleName={deploymentLine.role_name} area={deploymentLine.area_label} disabled={terminal} open={Boolean(deploymentLine)} onClose={()=>setDeploymentLine(null)} onChanged={load}/>}
     <Sheet open={creating} onOpenChange={(open)=>{if(!open){setCreating(false);setEditing(null);setError("");}}}><SheetContent className="staffing-sheet" showCloseButton={!busy} onOpenAutoFocus={(event)=>{event.preventDefault();roleSelectRef.current?.focus();}} onEscapeKeyDown={(event)=>{if(busy)event.preventDefault();}}>
       <SheetTitle>{editing?"Edit requirement":"Add staffing requirement"}</SheetTitle><form onSubmit={(e)=>void save(e)} className="staffing-form">
         <label>Operational role<select ref={roleSelectRef} required value={draft.roleId} onChange={(e)=>setDraft({...draft,roleId:e.target.value})}><option value="">Choose role</option>

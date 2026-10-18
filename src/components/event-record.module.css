@@ -1,35 +1,45 @@
 .record { min-width: 0; }
-.recordHeader { margin: .2rem 0 1.25rem; padding-inline-start: .9rem; border-inline-start: 3px solid var(--kss-blue); min-width: 0; }
-.recordHeader h1 { margin: 0 0 .65rem; color: var(--kss-ink); font-size: clamp(2rem, 3vw, 2.8rem); line-height: 1.1; letter-spacing: -.035em; overflow-wrap: anywhere; }
-.identity { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem .8rem; color: var(--kss-ink-soft); font-size: .88rem; font-weight: 650; }
-.kind { color: var(--kss-blue-strong); text-transform: uppercase; letter-spacing: .07em; font-size: .72rem; }
-.headerFacts { display: flex; flex-wrap: wrap; gap: .35rem 1.15rem; margin-top: .8rem; }
-.headerFacts span { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: .3rem; min-width: 0; }
-.headerFacts small { color: var(--kss-ink-soft); font-size: .76rem; }
-.headerFacts strong { color: var(--kss-ink); font-size: .9rem; line-height: 1.4; overflow-wrap: anywhere; }
-.sectionNav { position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: nowrap; gap: .3rem; overflow-x: auto; margin: 0 0 1rem; padding: .35rem 0; border-bottom: 1px solid var(--kss-border); background: var(--kss-bg); scrollbar-width: thin; }
-.sectionNav a { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; min-height: 44px; padding: .5rem .95rem; border-radius: 8px; color: var(--kss-ink-soft); font-size: .88rem; font-weight: 700; text-decoration: none; white-space: nowrap; }
-.sectionNav a:hover { background: var(--kss-blue-soft); color: var(--kss-blue-strong); }
-.sectionNav a[aria-current="location"] { background: var(--kss-blue-soft); color: var(--kss-blue-strong); }
-.sectionNav a:focus-visible, .related a:focus-visible { outline: 3px solid var(--kss-blue); outline-offset: 2px; }
-.content { min-width: 0; display: grid; gap: 1rem; }
-.content :is(section[id], div[id]) { scroll-margin-top: 4.5rem; min-width: 0; }
-.content :global(.crm-detail-grid) { margin: 0; }
-.related { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem 1rem; padding: .45rem 0; border-bottom: 1px solid var(--kss-border); }
-.related h2 { margin: 0; color: var(--kss-ink-soft); font-size: .77rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
-.related > div { display: flex; flex-wrap: wrap; gap: .3rem .9rem; }
-.related a { display: inline-flex; align-items: center; gap: .3rem; min-height: 44px; color: var(--kss-blue-strong); font-size: .86rem; font-weight: 650; text-decoration: none; }
+.recordHeader { min-width: 0; margin: 0 0 20px; padding: 0 0 24px; border-bottom: 1px solid var(--kss-border); }
+.recordHeader h1 { margin: 0 0 12px; color: var(--kss-ink); font-size: 32px; font-weight: 700; line-height: 1.15; letter-spacing: -.035em; overflow-wrap: anywhere; }
+.identity { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; color: var(--kss-ink-soft); font-size: 14px; }
+.kind { color: var(--kss-ink-soft); font-size: 13px; font-weight: 600; }
+.headerFacts { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 24px; margin-top: 24px; }
+.headerFacts span { display: grid; gap: 6px; min-width: 0; }
+.headerFacts small { color: var(--kss-ink-soft); font-size: 12px; }
+.headerFacts strong { color: var(--kss-ink); font-size: 14px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.sectionNav { position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: nowrap; gap: 8px; overflow-x: auto; margin: 0 0 24px; padding: 8px 0; border-bottom: 1px solid var(--kss-border); background: var(--kss-bg); }
+.sectionNav a { display: inline-flex; align-items: center; justify-content: center; flex: none; min-height: 44px; padding: 8px 16px; border-radius: 8px; color: var(--kss-ink-soft); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.sectionNav a:hover,.sectionNav a[aria-current="location"] { background: var(--kss-blue-soft); color: var(--kss-blue-strong); }
+.sectionNav a:focus-visible,.related a:focus-visible { outline: 3px solid var(--kss-focus); outline-offset: 2px; }
+.content { display: grid; grid-template-columns: minmax(0,2fr) minmax(260px,1fr); gap: 24px; align-items: start; min-width: 0; }
+.mainWork { display: grid; gap: 24px; min-width: 0; }
+.contextRail { display: grid; gap: 24px; min-width: 0; padding-left: 24px; border-left: 1px solid var(--kss-border); }
+.contextRail :global(.crm-detail-grid) { display: grid; grid-template-columns: 1fr; margin: 0; }
+.contextRail :global(.crm-panel) { padding: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+.contextRail :global(.crm-panel dl div) { grid-template-columns: 1fr; gap: 4px; padding-top: 12px; }
+.content :is(section[id],div[id]) { scroll-margin-top: 80px; min-width: 0; }
+.content > :global(#event-history) { grid-column: 1 / -1; }
+.mainWork :global(.staffing-plan) { margin: 0; background: var(--kss-surface); border: 1px solid var(--kss-border); border-radius: 12px; padding: 24px; }
+.mainWork :global(.staffing-heading h2) { font-size: 22px; }
+.mainWork :global(.staffing-table td),.mainWork :global(.staffing-table th) { padding: 16px 8px; }
+.related { display: grid; gap: 12px; }
+.related h2 { margin: 0; color: var(--kss-ink); font-size: 18px; font-weight: 650; }
+.related > div { display: grid; gap: 0; }
+.related a { display: flex; align-items: center; justify-content: space-between; min-height: 48px; border-bottom: 1px solid var(--kss-border); color: var(--kss-blue-strong); font-size: 14px; font-weight: 600; text-decoration: none; }
 .related a:hover { text-decoration: underline; }
-.actions { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
-.actions .destructive { margin-inline-start: auto; color: #a2342b; border-color: #d9aca7; background: var(--kss-surface); }
-.actions .destructive:hover { color: #8d2d25; border-color: #ba7972; background: #fff7f6; }
-@media (max-width: 650px) {
-  .recordHeader h1 { font-size: 1.9rem; }
-  .headerFacts { display: grid; gap: .5rem; }
-  .headerFacts span { display: grid; gap: .1rem; }
-  .sectionNav { margin-bottom: .8rem; mask-image: linear-gradient(to right,#000 calc(100% - 16px),transparent); }
-  .related { display: block; }
-  .related > div { display: grid; gap: 0; }
-  .related a { border-top: 1px solid var(--kss-border); }
-  .actions .destructive { margin-inline-start: 0; }
-}
+.actions { display: grid; gap: 8px; }
+.actions :is(button,a) { justify-content: flex-start; min-height: 44px; }
+.actions .destructive { margin-top: 12px; color: var(--kss-red); border-color: var(--kss-red); background: var(--kss-surface); }
+.actions .destructive:hover { background: var(--kss-red-soft); }
+@media(max-width:1100px) { .content { grid-template-columns: 1fr; } .contextRail { border: 0; padding: 0; grid-template-columns: 1fr 1fr; } .contextRail :global(.crm-detail-grid) { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; } }
+@media(max-width:700px) { .recordHeader h1 { font-size: 28px; } .headerFacts { grid-template-columns: 1fr; gap: 16px; } .sectionNav { gap: 4px; } .sectionNav a { padding-inline: 12px; } .contextRail,.contextRail :global(.crm-detail-grid) { grid-template-columns: 1fr; } .mainWork :global(.staffing-plan) { padding: 16px; } }
+
+.operationPanel[data-side="right"] { width: min(560px, 100vw); max-width: 560px; overflow-y: auto; padding: 24px; gap: 20px; }
+.operationPanel [data-slot="sheet-header"] { padding: 0 36px 0 0; gap: 8px; }
+.operationPanel [data-slot="sheet-title"] { font-size: 24px; line-height: 1.2; font-weight: 700; }
+.operationPanel [data-slot="sheet-description"] { font-size: 14px; line-height: 1.5; }
+.operationPanel :global(.crm-operational-form) { display: grid; gap: 16px; }
+.operationPanel :global(.crm-field) { display: grid; gap: 6px; font-size: 14px; font-weight: 600; }
+.operationPanel select { min-height: 44px; width: 100%; padding: 8px 12px; border: 1px solid var(--kss-control-border); border-radius: 8px; background: white; color: var(--kss-ink); font-size: 14px; }
+.operationPanel :global(.crm-dialog-actions) { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; padding-top: 16px; border-top: 1px solid var(--kss-border); }
+@media (max-width: 600px) { .operationPanel[data-side="right"] { padding: 20px 16px; } }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getPrincipal } from "@/lib/auth/principal";
 import { createServerSupabase } from "@/lib/supabase/server";
+import styles from "./settings.module.css";
 
 export const dynamic = "force-dynamic";
 
@@ -19,12 +20,12 @@ export default async function SettingsPage() {
     { href: "/site-book/access", title: "Site Book access", description: "Manage finite contributor and manager grants for a Site Service." },
   ];
 
-  return <main className="enterprise-main enterprise-settings">
-    <p className="enterprise-settings-eyebrow">ADMINISTRATION</p>
+  return <main className={`enterprise-main ${styles.page}`}>
+    <header className={styles.header}><p className={styles.eyebrow}>Administration</p>
     <h1>Settings</h1>
     <p className="enterprise-intro">Manage access in the area that owns each permission and its history.</p>
-    <div className="enterprise-card-grid">{areas.map((area) => <Link className="enterprise-card" href={area.href} key={area.href}>
-      <strong>{area.title}</strong><span>{area.description}</span>
-    </Link>)}</div>
+    </header><ul className={styles.directory}>{areas.map((area) => <li key={area.href}><Link href={area.href}>
+      <span><strong>{area.title}</strong><small>{area.description}</small></span><span className={styles.arrow} aria-hidden="true">→</span>
+    </Link></li>)}</ul>
   </main>;
 }

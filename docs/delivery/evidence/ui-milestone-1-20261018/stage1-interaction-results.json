@@ -1,0 +1,44 @@
+[
+  {
+    "width": 1440,
+    "event": "keyboard trap/Escape exact focus/required reason/denied write",
+    "workforce": "Schedule Coverage Day keyboard + synthetic duty sheet",
+    "duty": "allocated/accepted/during/end exact-source links + native keyboard phases",
+    "external": [],
+    "errors": [],
+    "writes": [
+      {
+        "path": "/api/events/00000000-0000-4000-8000-000000001001",
+        "method": "PATCH"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "event": "keyboard trap/Escape exact focus/required reason/denied write",
+    "workforce": "Schedule Coverage Day keyboard + synthetic duty sheet",
+    "duty": "allocated/accepted/during/end exact-source links + native keyboard phases",
+    "external": [],
+    "errors": [],
+    "writes": [
+      {
+        "path": "/api/events/00000000-0000-4000-8000-000000001001",
+        "method": "PATCH"
+      }
+    ]
+  },
+  {
+    "width": 320,
+    "event": "keyboard trap/Escape exact focus/required reason/denied write",
+    "workforce": "Schedule Coverage Day keyboard + synthetic duty sheet",
+    "duty": "allocated/accepted/during/end exact-source links + native keyboard phases",
+    "external": [],
+    "errors": [],
+    "writes": [
+      {
+        "path": "/api/events/00000000-0000-4000-8000-000000001001",
+        "method": "PATCH"
+      }
+    ]
+  }
+]

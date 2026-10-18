@@ -47,6 +47,7 @@ test('current server navigation is the only client candidate source; existing Ho
     '@/lib/supabase/server': { createServerSupabase: async () => ({ rpc: async name => { rpcCalls.push(name); return { data: {} }; } }) },
     '@/lib/tasks/policy': { listTasks: async () => { throw new Error('Staff cannot read task service'); } },
     '@/components/external-app-shortcuts': { ExternalAppShortcuts: 'ExternalAppShortcuts' },
+    '@/components/home-attention': { HomeAttention: 'HomeAttention' },
     '@/components/home-favourites': { HomeFavourites: 'HomeFavourites' },
     './home.module.css': { default: new Proxy({}, { get: (_, key) => key }) },
   };

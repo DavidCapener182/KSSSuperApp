@@ -121,12 +121,12 @@ export function FormSection({ title, description, children, error, actions }: {
 }
 
 export function StatePanel({ kind, title, description, action }: {
-  kind: "loading" | "empty" | "error";
+  kind: "loading" | "empty" | "error" | "denied" | "not-connected" | "no-matches" | "stale";
   title: string;
   description: ReactNode;
   action?: ReactNode;
 }) {
-  return <div className={`${styles.statePanel} ${kind === "error" ? styles.stateError : ""}`}
+  return <div className={`${styles.statePanel} ${kind === "error" ? styles.stateError : kind === "stale" || kind === "denied" ? styles.stateAttention : ""}`}
     role={kind === "error" ? "alert" : "status"} aria-busy={kind === "loading" || undefined}>
     <h2>{title}</h2>
     {kind === "loading" && <div className={styles.stateSkeleton} aria-hidden="true"><span /><span /></div>}

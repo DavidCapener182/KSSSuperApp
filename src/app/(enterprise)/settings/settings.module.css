@@ -1,0 +1,14 @@
+.page { max-width: 1000px; }
+.header { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--kss-border); }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--kss-ink-soft); }
+.header p:last-child { max-width: 65ch; color: var(--kss-ink-soft); font-size: 14px; line-height: 1.65; }
+.directory { background: white; border: 1px solid var(--kss-border); border-radius: 12px; overflow: hidden; list-style: none; padding: 0; }
+.directory li + li { border-top: 1px solid var(--kss-border); }
+.directory a { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 100px; padding: 24px; color: var(--kss-ink); text-decoration: none; }
+.directory a:hover { background: var(--kss-blue-soft); }
+.directory a:focus-visible { outline: 3px solid var(--kss-focus); outline-offset: -3px; }
+.directory a > span:first-child { display: grid; gap: 8px; }
+.directory strong { font-size: 16px; }
+.directory small { font-size: 14px; line-height: 1.6; color: var(--kss-ink-soft); }
+.arrow { color: var(--kss-blue); font-size: 20px; }
+@media (max-width: 600px) { .header { margin-bottom: 24px; } .directory a { padding: 20px 16px; gap: 16px; } }

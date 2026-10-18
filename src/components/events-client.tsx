@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { StaffingPlanClient } from "@/components/staffing-plan-client";
 import journey from "./commercial-journey.module.css";
 import record from "./event-record.module.css";
@@ -40,28 +41,11 @@ export function EventsClient({ roles, id, organisation, opportunity, mobilisatio
   const [creating,setCreating] = useState(false); const [loading,setLoading] = useState(true); const [busy,setBusy] = useState(false);
   const [showMobileFilters,setShowMobileFilters] = useState(false);
   const [error,setError] = useState(""); const [notice,setNotice] = useState("");
-  const dialogRef = useRef<HTMLElement | null>(null); const returnFocus = useRef<HTMLElement | null>(null);
+  const returnFocus = useRef<HTMLElement | null>(null);
   const emptyAction = {kind:"",status:"",ownerId:"",startLocal:"",endLocal:"",reason:""};
   const closeDialog = () => { setCreating(false); setAction(emptyAction); returnFocus.current?.focus(); };
   const openCreate = () => { returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null; setCreating(true); };
   const openChange = (next: typeof action) => { returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null; setAction(next); };
-  useEffect(() => {
-    if (!creating && !action.kind) return;
-    const dialog = dialogRef.current;
-    dialog?.querySelector<HTMLElement>("input, select, button")?.focus();
-    const onKey = (keyboardEvent: KeyboardEvent) => {
-      if (keyboardEvent.key === "Escape" && !busy) { closeDialog(); return; }
-      if (keyboardEvent.key !== "Tab" || !dialog) return;
-      const controls = [...dialog.querySelectorAll<HTMLElement>("button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled)")];
-      if (!controls.length) return;
-      if (keyboardEvent.shiftKey && document.activeElement === controls[0]) { keyboardEvent.preventDefault(); controls[controls.length - 1].focus(); }
-      else if (!keyboardEvent.shiftKey && document.activeElement === controls[controls.length - 1]) { keyboardEvent.preventDefault(); controls[0].focus(); }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  // Dialog focus follows only open/close and busy state; field edits retain their current focus.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [creating, action.kind, busy]);
   const load = useCallback(async () => {
     setLoading(true); setError("");
     try {
@@ -150,6 +134,10 @@ export function EventsClient({ roles, id, organisation, opportunity, mobilisatio
       <nav className={record.sectionNav} aria-label="Event sections">{[["event-context","Context"],["event-staffing","Staffing"],["event-attendance","Attendance"],["event-history","History"]].map(([section,name])=><a key={section} href={`#${section}`}>{name}</a>)}</nav>
       <RecordSectionTracker label="Event sections" />
       <div className={record.content}>
+      <div className={record.mainWork}>
+      <div id="event-staffing"><StaffingPlanClient eventId={id} eventStatus={String(event.status)} eventStarts={String(event.starts_at)} eventEnds={String(event.ends_at)} focusRequirement={focusRequirement}/>{workforceReturn&&<p className="enterprise-honesty"><Link href={workforceReturn}>Return to Workforce · same week and filters</Link> after the staffing change is confirmed in this source.</p>}</div>
+      <section id="event-attendance" className="crm-panel"><h2>Attendance</h2><p>Record and review factual attendance against this Event’s allocations. Attendance does not calculate worked time.</p><Button asChild><Link href={`/events/${id}/attendance`}>Open Event attendance</Link></Button></section>
+      </div><aside className={record.contextRail}>
       <nav className={record.related} aria-label="Related Event workflows"><h2>Related workflows</h2><div><Link href={`/events/${id}/attendance`}>Event attendance <span aria-hidden="true">→</span></Link><Link href={`/events/${id}/work-time`}>Worked-time review <span aria-hidden="true">→</span></Link><Link href={`/operational-contacts/manage?kind=EVENT&id=${id}`}>Operational contacts <span aria-hidden="true">→</span></Link></div></nav>
       <OperationalDocumentContextCard kind="EVENT" id={id} />
       <div className="crm-detail-grid"><section id="event-context" className="crm-panel"><h2>Event context</h2><dl>
@@ -169,15 +157,14 @@ export function EventsClient({ roles, id, organisation, opportunity, mobilisatio
         </div>}
         {!nextStatus && <p>Terminal Event history is read-only.</p>}
       </section></div>
-      <div id="event-staffing"><StaffingPlanClient eventId={id} eventStatus={String(event.status)} eventStarts={String(event.starts_at)} eventEnds={String(event.ends_at)} focusRequirement={focusRequirement}/>{workforceReturn&&<p className="enterprise-honesty"><Link href={workforceReturn}>Return to Workforce · same week and filters</Link> after the staffing change is confirmed in this source.</p>}</div>
-      <section id="event-attendance" className="crm-panel"><h2>Attendance</h2><p>Record and review factual attendance against this Event’s allocations. Attendance does not calculate worked time.</p><Button asChild><Link href={`/events/${id}/attendance`}>Open Event attendance</Link></Button></section>
+      </aside>
       <section id="event-history" className="crm-panel"><h2>History</h2>{((event.history as Row[])??[]).map((row)=><div className="crm-timeline-entry" key={String(row.id)}>
         <strong>{label(row.kind)} {row.new_status?`· ${label(row.new_status)}`:""}</strong><span>{london(row.occurred_at)} · {String(row.actor_name ?? "Office / Operations")}</span>
         {Boolean(row.reason) && <p>Reason: {String(row.reason)}</p>}</div>)}</section>
       </div>
     </div>}
-    {creating && <div className="crm-dialog-backdrop"><section ref={dialogRef} className="crm-dialog" role="dialog" aria-modal="true" aria-label="Create Event">
-      <h2>Create operational Event</h2><p>One multi-day Event can span several dates. Staffing times come later.</p>{error && <p role="alert" className="enterprise-error">{error}</p>}
+    {creating && <Sheet open onOpenChange={(open)=>{if(!open&&!busy)closeDialog();}}><SheetContent className={record.operationPanel} onCloseAutoFocus={(e)=>{e.preventDefault();returnFocus.current?.focus();}} onEscapeKeyDown={(e)=>{if(busy)e.preventDefault();}} onInteractOutside={(e)=>{if(busy)e.preventDefault();}}>
+      <SheetHeader><SheetTitle>Create operational Event</SheetTitle><SheetDescription>One multi-day Event can span several dates. Staffing times come later.</SheetDescription></SheetHeader>{error && <p role="alert" className="enterprise-error">{error}</p>}
       <form className="crm-operational-form" onSubmit={(e)=>void create(e)}>
         <label className="crm-field">Client<select required value={draft.organisationId} onChange={(e)=>setDraft({...draft,organisationId:e.target.value,siteId:"",contactId:"",opportunityId:""})}><option value="">Choose Client</option>{clients.map((c)=><option key={c.id} value={c.id}>{c.name}</option>)}</select></label>
         <label className="crm-field">Active linked Site<select required value={draft.siteId} onChange={(e)=>setDraft({...draft,siteId:e.target.value})}><option value="">Choose Site</option>{sites.filter((s)=>s.organisation_id===draft.organisationId&&s.status==="ACTIVE").map((s)=><option key={String(s.id)} value={String(s.id)}>{String(s.name)}</option>)}</select></label>
@@ -189,15 +176,15 @@ export function EventsClient({ roles, id, organisation, opportunity, mobilisatio
         <label className="crm-field">Primary Client Contact<select value={draft.contactId} onChange={(e)=>setDraft({...draft,contactId:e.target.value})}><option value="">None</option>{contacts.map((c)=><option key={c.id} value={c.id}>{c.name}</option>)}</select></label>
         {draft.opportunityId && <p>Exact Won Opportunity selected as provenance. The server checks it before creating the Event.</p>}
         <div className="crm-dialog-actions"><Button type="button" variant="outline" onClick={closeDialog}>Close</Button><Button disabled={busy}>Create Event</Button></div>
-      </form></section></div>}
-    {action.kind && <div className="crm-dialog-backdrop"><section ref={dialogRef} className="crm-dialog" role="dialog" aria-modal="true" aria-label="Change Event">
-      <h2>{action.kind==="STATUS"?`Move to ${label(action.status)}`:action.kind==="OWNER"?"Change operational owner":"Change Event dates"}</h2>{error && <p role="alert" className="enterprise-error">{error}</p>}
+      </form></SheetContent></Sheet>}
+    {action.kind && <Sheet open onOpenChange={(open)=>{if(!open&&!busy)closeDialog();}}><SheetContent className={record.operationPanel} onCloseAutoFocus={(e)=>{e.preventDefault();returnFocus.current?.focus();}} onEscapeKeyDown={(e)=>{if(busy)e.preventDefault();}} onInteractOutside={(e)=>{if(busy)e.preventDefault();}}>
+      <SheetHeader><SheetTitle>{action.kind==="STATUS"?`Move to ${label(action.status)}`:action.kind==="OWNER"?"Change operational owner":"Change Event dates"}</SheetTitle><SheetDescription>{String(event?.name ?? "Selected Event")}</SheetDescription></SheetHeader>{error && <p role="alert" className="enterprise-error">{error}</p>}
       {action.kind==="OWNER" && <label className="crm-field">New owner<select value={action.ownerId} onChange={(e)=>setAction({...action,ownerId:e.target.value})}><option value="">Choose owner</option>{owners.map((o)=><option key={o.id} value={o.id}>{o.name}</option>)}</select></label>}
       {action.kind==="DATES" && <><label className="crm-field">Starts · London<Input type="datetime-local" value={action.startLocal} onChange={(e)=>setAction({...action,startLocal:e.target.value})}/></label>
         <label className="crm-field">Ends · London<Input type="datetime-local" value={action.endLocal} onChange={(e)=>setAction({...action,endLocal:e.target.value})}/></label></>}
       {(action.kind!=="STATUS" || action.status==="CANCELLED") && <label className="crm-field">Reason<Input maxLength={500} value={action.reason} onChange={(e)=>setAction({...action,reason:e.target.value})}/></label>}
       <div className="crm-dialog-actions"><Button variant="outline" onClick={closeDialog}>Back</Button>
         <Button disabled={busy || (action.kind==="OWNER"&&!action.ownerId) || ((action.kind==="OWNER"||action.status==="CANCELLED"||(action.kind==="DATES"&&event?.status!=="PLANNING"))&&action.reason.trim().length<3)} onClick={()=>void change()}>Confirm change</Button></div>
-    </section></div>}
+    </SheetContent></Sheet>}
   </main>;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
@@ -33,35 +33,97 @@ export function DeploymentLineClient({ eventId, requirementId, revision, roleNam
   const [selected, setSelected] = useState<Candidate|null>(null); const [ack, setAck] = useState(false); const [reason, setReason] = useState("");
   const [cancel, setCancel] = useState<Allocation|null>(null); const [cancelReason, setCancelReason] = useState("");
   const [loading, setLoading] = useState(false); const [busy, setBusy] = useState(false); const [error, setError] = useState("");
-  const load = useCallback(async (query = "", page = 0) => { setLoading(true); setError(""); try { const [detailData, candidateData] = await Promise.all([
-    api(`${base}/allocations`), api(`${base}/candidates?search=${encodeURIComponent(query)}&offset=${page}`)]);
-    setDetail(detailData.deployment); setCandidates(candidateData.candidates); setOffset(page); return true;
-  } catch (caught) { setError(caught instanceof Error ? caught.message : "Deployment unavailable"); return false; } finally { setLoading(false); } }, [base]);
-  useEffect(() => { if (!open) return; const timer = setTimeout(() => void load(search, 0), 0); return () => clearTimeout(timer); }, [open, load, search]);
-  async function allocate() { if (!selected) return; setBusy(true); setError(""); try {
-    await api(`${base}/allocations`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({
-      personId: selected.id, expectedRevision: revision, acknowledgeWarnings: ack, reason: reason.trim() || null }) });
-    setSelected(null); setAck(false); setReason(""); if(!await load(search, offset) || !await onChanged())throw new Error("Allocation was sent, but the current source state could not be confirmed. Refresh before acting again.");
-  } catch (caught) { setError(caught instanceof Error ? caught.message : "Allocation denied"); } finally { setBusy(false); } }
-  async function cancelAllocation() { if (!cancel) return; setBusy(true); setError(""); try {
-    await api(`${base}/allocations/${cancel.id}`, { method: "PATCH", headers: { "content-type": "application/json" },
-      body: JSON.stringify({ action: "CANCEL", expectedRevision: cancel.revision, reason: cancelReason.trim() }) });
-    setCancel(null); setCancelReason(""); if(!await load(search, offset) || !await onChanged())throw new Error("Cancellation was sent, but the current source state could not be confirmed. Refresh before acting again.");
-  } catch (caught) { setError(caught instanceof Error ? caught.message : "Cancellation denied"); } finally { setBusy(false); } }
+  const viewLifetime = useRef<{ active: boolean; base: string } | null>(null);
+  useEffect(() => {
+    const lifetime = { active: open, base }; viewLifetime.current = lifetime;
+    return () => { lifetime.active = false; };
+  }, [base, open, revision, disabled]);
+  const mutationPending = useRef(false);
+  const readSequence = useRef(0);
+  const activeRead = useRef<AbortController | null>(null);
+  const load = useCallback(async (query = "", page = 0): Promise<Detail | null> => {
+    const lifetime = viewLifetime.current;
+    if (!lifetime?.active || lifetime.base !== base) return null;
+    activeRead.current?.abort();
+    const controller = new AbortController(); activeRead.current = controller;
+    const sequence = ++readSequence.current;
+    setLoading(true); setError(""); setDetail(null); setCandidates(null);
+    setSelected(null); setCancel(null); setAck(false); setReason(""); setCancelReason("");
+    try {
+      const [detailData, candidateData] = await Promise.all([
+        api(`${base}/allocations`, { signal: controller.signal }),
+        api(`${base}/candidates?search=${encodeURIComponent(query)}&offset=${page}`, { signal: controller.signal }),
+      ]);
+      if (!lifetime.active || controller.signal.aborted || sequence !== readSequence.current) return null;
+      if (!detailData.deployment || !Array.isArray(detailData.deployment.allocations) ||
+        !candidateData.candidates || !Array.isArray(candidateData.candidates.items)) throw new Error("Deployment source unavailable");
+      setDetail(detailData.deployment); setCandidates(candidateData.candidates); setOffset(page);
+      return detailData.deployment as Detail;
+    } catch (caught) {
+      if (lifetime.active && !controller.signal.aborted && sequence === readSequence.current)
+        setError(caught instanceof Error ? caught.message : "Deployment unavailable");
+      return null;
+    } finally { if (lifetime.active && !controller.signal.aborted && sequence === readSequence.current) setLoading(false); }
+  }, [base]);
+  useEffect(() => {
+    if (!open) return;
+    const timer = setTimeout(() => void load(search, 0), 0);
+    return () => { clearTimeout(timer); activeRead.current?.abort(); };
+  }, [open, load, search]);
+  async function allocate() {
+    const lifetime = viewLifetime.current;
+    if (!selected || disabled || !lifetime?.active || lifetime.base !== base || mutationPending.current) return;
+    mutationPending.current = true; setBusy(true); setError("");
+    try {
+      const receipt = await api(`${base}/allocations`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({
+        personId: selected.id, expectedRevision: revision, acknowledgeWarnings: ack, reason: reason.trim() || null }) });
+      // The write may already be accepted. A closed/changed drawer must not
+      // start an old-context read or refresh its former parent after it settles.
+      if (!lifetime.active) return;
+      const current = await load(search, offset);
+      if (!lifetime.active) return;
+      if (typeof receipt.id !== "string" || !current?.allocations.some(item => item.id === receipt.id &&
+        item.person_id === selected.id && ["ALLOCATED", "ACCEPTED"].includes(item.status)))
+        throw new Error("Allocation was sent, but the current source state could not be confirmed. Refresh before acting again.");
+      const refreshed = await onChanged();
+      if (!lifetime.active) return;
+      if (!refreshed) throw new Error("Allocation was sent, but the current source state could not be confirmed. Refresh before acting again.");
+    } catch (caught) { if (lifetime.active) setError(caught instanceof Error ? caught.message : "Allocation denied"); }
+    finally { mutationPending.current = false; if (lifetime.active) setBusy(false); }
+  }
+  async function cancelAllocation() {
+    const lifetime = viewLifetime.current;
+    if (!cancel || disabled || !lifetime?.active || lifetime.base !== base || mutationPending.current) return;
+    mutationPending.current = true; setBusy(true); setError("");
+    try {
+      const receipt = await api(`${base}/allocations/${cancel.id}`, { method: "PATCH", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ action: "CANCEL", expectedRevision: cancel.revision, reason: cancelReason.trim() }) });
+      if (!lifetime.active) return;
+      const current = await load(search, offset);
+      if (!lifetime.active) return;
+      if (!Number.isInteger(receipt.revision) || receipt.revision <= cancel.revision || !current?.allocations.some(item =>
+        item.id === cancel.id && item.person_id === cancel.person_id && item.status === "CANCELLED" && item.revision === receipt.revision))
+        throw new Error("Cancellation was sent, but the current source state could not be confirmed. Refresh before acting again.");
+      const refreshed = await onChanged();
+      if (!lifetime.active) return;
+      if (!refreshed) throw new Error("Cancellation was sent, but the current source state could not be confirmed. Refresh before acting again.");
+    } catch (caught) { if (lifetime.active) setError(caught instanceof Error ? caught.message : "Cancellation denied"); }
+    finally { mutationPending.current = false; if (lifetime.active) setBusy(false); }
+  }
   return <Sheet open={open} onOpenChange={(value) => { if (!value && !busy) onClose(); }}><SheetContent className="staffing-sheet deployment-sheet">
     <SheetTitle>{roleName} · {area}</SheetTitle><p className="enterprise-honesty">Exact requirement · {detail ? `${detail.required} required · ${detail.allocated} allocated · ${detail.remaining} remaining · ${detail.accepted} accepted` : "Loading counts…"}</p>
     {error && <p className="enterprise-error" role="alert">{error} <Button variant="ghost" onClick={() => void load(search, offset)}>Retry</Button></p>}
     {loading && <p className="crm-skeleton" role="status">Checking current allocations and candidates…</p>}
     {detail && <section><h3>Current allocations</h3>{detail.allocations.length === 0 ? <p className="crm-empty">No one allocated yet.</p> : <div className="deployment-allocated-list">{detail.allocations.map((item) => <div className="deployment-allocated-row" key={item.id}><div><strong>{item.person_name}</strong><span>{item.status === "ALLOCATED" ? "Awaiting Staff response" : item.status[0] + item.status.slice(1).toLowerCase()}</span>{item.availability_conflict && <small role="status">{item.availability_conflict === "UNAVAILABLE_CONFLICT" ? "Availability conflict with existing allocation" : "Declaration no longer covers this allocation"}</small>}<LeaveReconciliation source="EVENT" allocationId={item.id} /></div>
-      {!disabled && ["ALLOCATED", "ACCEPTED"].includes(item.status) && <Button variant="outline" disabled={busy} onClick={() => { setCancel(item); setCancelReason(""); }}>Cancel allocation</Button>}</div>)}</div>}</section>}
-    {!disabled && <section><h3>Find a candidate</h3><label>Search Security Staff by name<Input value={search} maxLength={80} onChange={(event) => { setSearch(event.target.value); setSelected(null); }} placeholder="Search name" /></label>
+      {!disabled && ["ALLOCATED", "ACCEPTED"].includes(item.status) && <Button variant="outline" disabled={busy || loading} onClick={() => { setCancel(item); setCancelReason(""); }}>Cancel allocation</Button>}</div>)}</div>}</section>}
+    {!disabled && <section><h3>Find a candidate</h3><label>Search Security Staff by name<Input disabled={busy} value={search} maxLength={80} onChange={(event) => { setSearch(event.target.value); setSelected(null); }} placeholder="Search name" /></label>
       <p className="enterprise-honesty">Declarations, clashes and configured checks are separate. Candidate checks are synthetic development checks, not live eligibility.</p>
-      {candidates && <>{candidates.items.length === 0 ? <p className="crm-empty">No matching candidates.</p> : <div className="deployment-candidate-list">{candidates.items.map((person) => <div className="deployment-candidate" key={person.id}><div><strong>{person.display_name}</strong><span>{person.check.result === "BLOCKED" ? "Blocked" : person.check.result === "REVIEW_REQUIRED" ? "Review required" : "Synthetic checks passed with warnings"}</span><small>{person.check.result !== "BLOCKED" ? "No recorded allocation clash · Travel/rest not assessed · " : ""}{person.check.reasons.map(label).join(" · ")}</small></div><Button variant="outline" disabled={busy || person.check.result === "BLOCKED" || (detail?.remaining ?? 0) < 1} onClick={() => { setSelected(person); setAck(false); setReason(""); }}>Select</Button></div>)}</div>}
-        {candidates.total > 20 && <div className="deployment-pagination"><Button variant="outline" disabled={offset === 0} onClick={() => void load(search, Math.max(0, offset - 20))}>Previous</Button><span>{offset + 1}–{Math.min(offset + 20, candidates.total)} of {candidates.total}</span><Button variant="outline" disabled={offset + 20 >= candidates.total} onClick={() => void load(search, offset + 20)}>Next</Button></div>}</>}
+      {candidates && <>{candidates.items.length === 0 ? <p className="crm-empty">No matching candidates.</p> : <div className="deployment-candidate-list">{candidates.items.map((person) => <div className="deployment-candidate" key={person.id}><div><strong>{person.display_name}</strong><span>{person.check.result === "BLOCKED" ? "Blocked" : person.check.result === "REVIEW_REQUIRED" ? "Review required" : "Synthetic checks passed with warnings"}</span><small>{person.check.result !== "BLOCKED" ? "No recorded allocation clash · Travel/rest not assessed · " : ""}{person.check.reasons.map(label).join(" · ")}</small></div><Button variant="outline" disabled={busy || loading || person.check.result === "BLOCKED" || (detail?.remaining ?? 0) < 1} onClick={() => { setSelected(person); setAck(false); setReason(""); }}>Select</Button></div>)}</div>}
+        {candidates.total > 20 && <div className="deployment-pagination"><Button variant="outline" disabled={busy || loading || offset === 0} onClick={() => void load(search, Math.max(0, offset - 20))}>Previous</Button><span>{offset + 1}–{Math.min(offset + 20, candidates.total)} of {candidates.total}</span><Button variant="outline" disabled={busy || loading || offset + 20 >= candidates.total} onClick={() => void load(search, offset + 20)}>Next</Button></div>}</>}
     </section>}
     {selected && <section className="deployment-confirm"><h3>Allocate {selected.display_name}?</h3><p>{selected.check.reasons.map(label).join(" · ")}</p>
       {selected.check.result === "REVIEW_REQUIRED" && <><label className="staffing-confirm"><input type="checkbox" checked={ack} onChange={(event) => setAck(event.target.checked)} /> I have reviewed these warnings. This is a synthetic allocation, not a qualification or availability decision.</label><label>Reason<textarea maxLength={300} value={reason} onChange={(event) => setReason(event.target.value)} /></label></>}
-      <div className="deployment-actions"><Button variant="outline" disabled={busy} onClick={() => setSelected(null)}>Back</Button><Button disabled={busy || (selected.check.result === "REVIEW_REQUIRED" && (!ack || reason.trim().length < 3))} onClick={() => void allocate()}>Allocate</Button></div></section>}
-    {cancel && <section className="deployment-confirm"><h3>Cancel {cancel.person_name}&apos;s allocation?</h3><label>Reason<textarea maxLength={300} value={cancelReason} onChange={(event) => setCancelReason(event.target.value)} /></label><div className="deployment-actions"><Button variant="outline" disabled={busy} onClick={() => setCancel(null)}>Keep allocation</Button><Button disabled={busy || cancelReason.trim().length < 3} onClick={() => void cancelAllocation()}>Cancel allocation</Button></div></section>}
+      <div className="deployment-actions"><Button variant="outline" disabled={busy || loading} onClick={() => setSelected(null)}>Back</Button><Button disabled={busy || loading || (selected.check.result === "REVIEW_REQUIRED" && (!ack || reason.trim().length < 3))} onClick={() => void allocate()}>Allocate</Button></div></section>}
+    {cancel && <section className="deployment-confirm"><h3>Cancel {cancel.person_name}&apos;s allocation?</h3><label>Reason<textarea maxLength={300} value={cancelReason} onChange={(event) => setCancelReason(event.target.value)} /></label><div className="deployment-actions"><Button variant="outline" disabled={busy || loading} onClick={() => setCancel(null)}>Keep allocation</Button><Button disabled={busy || loading || cancelReason.trim().length < 3} onClick={() => void cancelAllocation()}>Cancel allocation</Button></div></section>}
   </SheetContent></Sheet>;
 }

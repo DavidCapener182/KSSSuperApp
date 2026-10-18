@@ -57,6 +57,25 @@ function harness(options = {}) {
 const fields = h => nodes(h.render()).filter(n => n.type === 'input');
 const alerts = h => nodes(h.render()).filter(n => n.props.role === 'alert').map(text).join(' ');
 
+test('password reveal is an explicit non-submit control and preserves autofill and entered value', async () => {
+  const h = harness(); await h.mount(); h.fill();
+  const show = nodes(h.render()).find(n => n.type === 'button' && /show\s+password/i.test(text(n)));
+  assert.equal(show.props.type, 'button'); assert.equal(show.props['aria-pressed'], false);
+  show.props.onClick();
+  const field = fields(h).find(n => n.props.autoComplete === 'current-password');
+  assert.equal(field.props.type, 'text'); assert.equal(field.props.value, 'synthetic-test-value');
+  const hide = nodes(h.render()).find(n => n.type === 'button' && /hide\s+password/i.test(text(n)));
+  assert.equal(hide.props['aria-controls'], field.props.id); assert.equal(hide.props['aria-pressed'], true);
+  assert.equal(h.calls.filter(c => c[0] === 'signIn').length, 0);
+  hide.props.onClick(); assert.equal(fields(h).find(n => n.props.autoComplete === 'current-password').props.type, 'password');
+});
+test('a revealed password is still cleared after a failed authentication attempt', async () => {
+  const h = harness({ signIn: async () => ({ error: { message: 'Synthetic rejected credentials' } }) });
+  await h.mount(); h.fill(); h.click(/show\s+password/i); await h.submit(); await h.settle();
+  assert.equal(fields(h).find(n => n.props.autoComplete === 'current-password').props.value, '');
+  assert.equal(h.navigation.length, 0); assert.match(alerts(h), /sign-in failed/i);
+});
+
 test('unauthenticated or rejected getUser exposes required labelled email/password without an API call', async () => {
   for (const getUser of [undefined, async () => ({ data: { user: null }, error: { message: 'Synthetic unavailable auth user' } })]) {
     const h = harness({ getUser }); await h.mount(); assert.equal(h.navigation.length, 0); assert.equal(h.calls.filter(c => c[0] === 'fetch').length, 0);

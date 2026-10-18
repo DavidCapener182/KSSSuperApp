@@ -1,0 +1,166 @@
+{
+  "baseline": "9b958f67c874ddbae16be3b4fed450525ee44d1a",
+  "scope": "Shared visual system and Home/Workforce/Event/Duty/Entry/Access representative routes; later browser-pending route batches excluded",
+  "files": [
+    {
+      "file": "scripts/local-acceptance-network-guard.mjs",
+      "sha256": "6a76671d0935942afeccc23666220dbb466abc38799e74c363cacfc7033c48f1"
+    },
+    {
+      "file": "src/app/(enterprise)/access/access.module.css",
+      "sha256": "ba863ef1c6e514c311b61583024c9536b82a7f402c9fb7c5b12d19a778448b08"
+    },
+    {
+      "file": "src/app/(enterprise)/access/incident-reviewers/page.tsx",
+      "sha256": "4b86c70bc9ae42be685f4ae0b2cf8a47d137f9873fb353c40365b7fb39c3248f"
+    },
+    {
+      "file": "src/app/(enterprise)/access/people/[id]/page.tsx",
+      "sha256": "3bc7644c77817c1354dac646f9d22b34b5a202168a3c929ca2c73a285aacd555"
+    },
+    {
+      "file": "src/app/(enterprise)/app/home.module.css",
+      "sha256": "1172e37995b1501940ee8fc7ecced817374ec35f4d40b34393404d05dda8ecdf"
+    },
+    {
+      "file": "src/app/(enterprise)/app/page.tsx",
+      "sha256": "a7c738a1572b73e1b45a9fa6d110fbe7f522fb12bf86fdd4cc40d93b0be082f7"
+    },
+    {
+      "file": "src/app/(enterprise)/my-duty/my-duty.module.css",
+      "sha256": "c8510b743bb281b852cdaabc1e57dc740a03534109ea680bdc3ece886b6ee733"
+    },
+    {
+      "file": "src/app/(enterprise)/settings/page.tsx",
+      "sha256": "04b4762a28453211377984cf51c1760e0e0ceb13aa0d313e13dee3fa278920b2"
+    },
+    {
+      "file": "src/app/(enterprise)/settings/settings.module.css",
+      "sha256": "76429bf6caa284d78988e4f5da64c7788ce870812f18da17591b749e59b2dd84"
+    },
+    {
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    },
+    {
+      "file": "src/app/staging-access/page.tsx",
+      "sha256": "68951978ad5ad7e715fa4ab9389bc97d90a54010a7a307b88ce9216d78278612"
+    },
+    {
+      "file": "src/components/deployment-line-client.tsx",
+      "sha256": "205242d793611deced8b1c4cf9dc70ab09826dbfaca9aa69a5ba9148410fa381"
+    },
+    {
+      "file": "src/components/entry.module.css",
+      "sha256": "197cdf4b348c6c48690d0779e0f2d9f702c9538936c5c40eeab3c1b65de98a13"
+    },
+    {
+      "file": "src/components/event-record.module.css",
+      "sha256": "8d33d0099c5f48f905875a6f400e1360f59baef9c44cb1f2da7796eeab18ee43"
+    },
+    {
+      "file": "src/components/events-client.tsx",
+      "sha256": "d9f8881dc3b7d594f69a93ca20415c3dfedd85b3f2e2edfc3bf184fa79e3acc3"
+    },
+    {
+      "file": "src/components/home-attention.module.css",
+      "sha256": "f3db3cf73a96f9e393755e5bc6147ef7e95cfca329ac781d84da384da309a7f9"
+    },
+    {
+      "file": "src/components/home-attention.tsx",
+      "sha256": "911816c0a653368fb61871e0e6d144af57a33ed283b954fb4d64402068c36e53"
+    },
+    {
+      "file": "src/components/home-favourites.module.css",
+      "sha256": "b032478396e83ca25c787e650e331f9887ffb4944bafe3c97481c36a7b35d4c7"
+    },
+    {
+      "file": "src/components/home-favourites.tsx",
+      "sha256": "49ec544f73ec9ab3d29ec0f89dbf1f25366750e76b7f5d6d7a18509a8306bcff"
+    },
+    {
+      "file": "src/components/incident-reviewer-admin.tsx",
+      "sha256": "ac84c04409c17c9c54610fb97c23c4bfdb234cc55c6d327daf3425058c5f424a"
+    },
+    {
+      "file": "src/components/my-duty-client.tsx",
+      "sha256": "36026f997f4049040da6167e9dad88ec25d966c545e25020dda6f1a6ffdb8d53"
+    },
+    {
+      "file": "src/components/reviewer-admin.module.css",
+      "sha256": "a636daed0d0a5b2aee6d8e29c2ee3a6783eb7cac5f35a9e7355791be19565f74"
+    },
+    {
+      "file": "src/components/sign-in-entry.tsx",
+      "sha256": "f07773816362543e93185ee7a9352eb043a87fcea3e4246db8cd8041dfdc64c3"
+    },
+    {
+      "file": "src/components/staffing-plan-client.tsx",
+      "sha256": "b76eb277fc59c66ae9a8eb88e39044fc70c8b22d7651ea580262ea71a104f21f"
+    },
+    {
+      "file": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "file": "src/components/ui/input.tsx",
+      "sha256": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04"
+    },
+    {
+      "file": "src/components/ui/sheet.module.css",
+      "sha256": "416450f8f15573417cc545ebae3c4b704d2ec6d673dfad083d304e348df9600f"
+    },
+    {
+      "file": "src/components/ui/sheet.tsx",
+      "sha256": "95c189dca50afd8521ccae4c1d36a451ef5bc55dd46c1ae75063877bb5596bdb"
+    },
+    {
+      "file": "src/components/ui13/operational.module.css",
+      "sha256": "51bc245f03f32b68e5753daafeb74bf66dccf27b34fe15494f23e3d2a0d75f6d"
+    },
+    {
+      "file": "src/components/ui13/operational.tsx",
+      "sha256": "677989d995289f67e059c123155bc3dffdbb1cfa43de1d5d0d76513910248bde"
+    },
+    {
+      "file": "src/components/workforce-client.tsx",
+      "sha256": "9838f011ae71642fb9ef8a0366016e151dc57bcbbd4013d01333bb399fa87975"
+    },
+    {
+      "file": "src/components/workforce-planner.module.css",
+      "sha256": "8725eb1f77ab1f7b9603b2551a505b607d1b44c7db62fa682ccef87e315a88a4"
+    },
+    {
+      "file": "tests/event-deployment-journey-local.test.mjs",
+      "sha256": "63941bb76f277bb552d76bcad832c203d0ce258914738c29ec438a210cbe1094"
+    },
+    {
+      "file": "tests/home-attention-local.test.mjs",
+      "sha256": "d2fb2c06b3b65e141a966143d8b8259b2d4f069b2d37e46d766c4b17d6165b1e"
+    },
+    {
+      "file": "tests/home-favourites-local.test.mjs",
+      "sha256": "9e6bbdc1e651430284f368b966457d813db2fbe0b2273e19313a91037d7373e3"
+    },
+    {
+      "file": "tests/my-duty-freshness-local.test.mjs",
+      "sha256": "fc144121b71f10c088df625fbc2779404482f6dea3b0cbf435e4a6809b8503c5"
+    },
+    {
+      "file": "tests/shell-capabilities.test.mjs",
+      "sha256": "7c7766531d6f152ec5850614cc88a769bdb3a8b11156451c619797c0e2750096"
+    },
+    {
+      "file": "tests/sign-in-contract-local.test.mjs",
+      "sha256": "fca682fd411171b26b9da81ada0d5118f31dc1e19effef67021e978a029c0552"
+    },
+    {
+      "file": "tests/staff-shift-entry-local.test.mjs",
+      "sha256": "9f40873d07ec502c6170861491d2118d14f18f4bc9e231cbe2eab83cd0d52388"
+    },
+    {
+      "file": "tests/ui-entry-access-local.test.mjs",
+      "sha256": "118abd3b677b5cc05f953f3cc5a78fef43b14829f68c07e5ece13d84202b0cdd"
+    }
+  ]
+}

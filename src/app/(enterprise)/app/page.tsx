@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { navigationFor } from "@/lib/auth/capabilities";
 import { getPrincipal } from "@/lib/auth/principal";
 import { createServerSupabase } from "@/lib/supabase/server";
+import { HomeAttention } from "@/components/home-attention";
 import { HomeFavourites } from "@/components/home-favourites";
 import { ExternalAppShortcuts } from "@/components/external-app-shortcuts";
 import { listTasks } from "@/lib/tasks/policy";
@@ -107,11 +108,11 @@ export default async function AppHome() {
   const openTasks = work?.filter(isHomeTask).sort((a, b) =>
     taskRank(a, now.getTime()) - taskRank(b, now.getTime()) || b.createdAt.localeCompare(a.createdAt)) ?? [];
   return <main className={`enterprise-main ${styles.home}`}>
-    <header className={styles.hero}><div><p className={styles.kicker}><Layers3 size={15} aria-hidden="true"/> Welcome, {principal.displayName}</p><h1>{staff && !office && !operations ? "Your next move." : "Your working day."}</h1><p>{staff && !office && !operations ? "Your duty and personal records are a step away." : "Open an operational area or continue your assigned work."}</p></div><div className={styles.date}><CalendarDays size={18} aria-hidden="true"/><span>{date}<small>KSS Enterprise workspace</small></span></div>
-    <section className={styles.section} aria-label="Quick access"><h2>Quick access</h2><QuickLinks paths={staff && !office && !operations ? ["/my-duty", "/my-schedule", "/my-deployments"] : ["/workforce", "/events", "/control-room"]} allowed={allowed} /></section></header>
+    <header className={styles.hero}><div><p className={styles.kicker}>Welcome, {principal.displayName}</p><h1>Home</h1><p>{staff && !office && !operations ? "Your duty and personal work." : "Your assigned work and operational updates."}</p></div><div className={styles.date}><CalendarDays size={18} aria-hidden="true"/><span>{date}</span></div></header>
     <div className={styles.workspaceGrid}><div className={styles.mainColumn}>
+    {staff && !office && !operations && <section className={styles.section} aria-label="Quick access"><h2>Your duty</h2><QuickLinks paths={["/my-duty", "/my-schedule", "/my-deployments"]} allowed={allowed}/></section>}
     {allowed.has("/work") && <section className={styles.taskPanel} aria-label="My tasks">
-      <div className={styles.taskHeading}><div><p className={styles.sectionKicker}>01 / Assigned to you</p><h2>My tasks <span>{work === null ? "Unavailable" : openTasks.length}</span></h2></div>
+      <div className={styles.taskHeading}><div><p className={styles.sectionKicker}>Assigned to you</p><h2>My open work <span>{work === null ? "Unavailable" : openTasks.length}</span></h2></div>
         {openTasks.length > 6 && <Link href="/work">Open My Work <span aria-hidden="true">→</span></Link>}
       </div>
       {work === null ? <p>Tasks are unavailable right now.</p> : openTasks.length === 0 ? <p>No open tasks.</p> :
@@ -124,6 +125,8 @@ export default async function AppHome() {
           </Link></li>;
         })}</ul>}
     </section>}
+    <HomeAttention accountId={principal.personId} roles={principal.roles} incidentReviewer={principal.incidentReviewer} allowed={[...allowed]} />
+    {(office || operations) && <section className={styles.section} aria-label="Quick access"><h2>Operational shortcuts</h2><QuickLinks paths={["/workforce", "/events", "/control-room"]} allowed={allowed}/></section>}
     {staff && <div className={styles.groupGrid}><EntryGroup title="Duty records" paths={["/my-attendance", "/my-work-time", "/my-availability"]} allowed={allowed} /><EntryGroup title="Requests & evidence" paths={["/hr", "/my-time-away", "/onboarding", "/documents", "/credentials", "/my-equipment"]} allowed={allowed} /></div>}
     {(office || operations) && <div className={styles.groupGrid}><EntryGroup title="Delivery" paths={["/mobilisations", "/service-delivery", "/documents"]} allowed={allowed} /><EntryGroup title="People & administration" paths={["/people", "/hr", "/onboarding", "/time-away"]} allowed={allowed} /></div>}
     </div><aside className={styles.sideColumn}><HomeFavourites key={principal.personId} accountId={principal.personId} entries={navigation} />

@@ -1,0 +1,24 @@
+.attention { min-width: 0; }
+.heading { padding-bottom: 16px; border-bottom: 1px solid var(--kss-border); }
+.heading h2 { margin: 0; font-size: 21px; font-weight: 650; letter-spacing: -.02em; }
+.heading p { max-width: 70ch; margin: 8px 0 0; color: var(--kss-ink-soft); font-size: 14px; line-height: 1.5; }
+.sources { display: grid; grid-template-columns: 1fr; gap: 0; }
+.source { min-width: 0; padding: 20px 0; border-bottom: 1px solid var(--kss-border); }
+.source > header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.source h3 { margin: 0; font-size: 17px; font-weight: 650; }
+.source button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--kss-control-border); border-radius: 8px; background: var(--kss-surface); color: var(--kss-ink); font: inherit; font-size: 13px; cursor: pointer; }
+.source button:disabled { opacity: .6; cursor: default; }
+.source p { color: var(--kss-ink-soft); font-size: 13px; line-height: 1.55; }
+.source .summary { margin: 12px 0 6px; font-size: 14px; color: var(--kss-ink); font-weight: 600; }
+.source .freshness { margin: 0 0 12px; font-size: 12px; font-variant-numeric: tabular-nums; }
+.source ul { list-style: none; margin: 0; padding: 0; background: var(--kss-surface); border: 1px solid var(--kss-border); border-radius: 12px; }
+.source li + li { border-top: 1px solid var(--kss-border); }
+.source li a { display: grid; gap: 6px; min-height: 56px; padding: 16px; color: var(--kss-ink); text-decoration: none; overflow-wrap: anywhere; }
+.source li a:hover { background: var(--kss-surface-muted); }
+.source strong { font-size: 14px; font-weight: 650; }
+.source li span { color: var(--kss-ink-soft); font-size: 13px; line-height: 1.5; }
+.source small,.destination { font-size: 13px; color: var(--kss-blue-strong); }
+.source .caveat { margin: 12px 0 0; font-size: 12px; }
+.destination { display: inline-flex; min-height: 44px; align-items: center; font-weight: 600; }
+.source :is(a,button):focus-visible { outline: 3px solid var(--kss-focus); outline-offset: 3px; }
+@media(max-width:420px) { .source > header { align-items: flex-start; flex-direction: column; gap: 8px; } }

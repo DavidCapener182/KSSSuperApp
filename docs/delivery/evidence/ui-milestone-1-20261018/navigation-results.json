@@ -1,0 +1,6047 @@
+[
+  {
+    "name": "OFFICE_ADMIN",
+    "roles": [
+      "OFFICE_ADMIN"
+    ],
+    "reviewer": false,
+    "dynamic": false,
+    "states": [
+      {
+        "base": "http://127.0.0.1:3110",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      },
+      {
+        "base": "http://127.0.0.1:3111",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      }
+    ]
+  },
+  {
+    "name": "SUPER_ADMIN",
+    "roles": [
+      "SUPER_ADMIN"
+    ],
+    "reviewer": false,
+    "dynamic": false,
+    "states": [
+      {
+        "base": "http://127.0.0.1:3110",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              },
+              {
+                "href": "/client-workspaces",
+                "label": "Client workspaces",
+                "depth": 0
+              },
+              {
+                "href": "/tfs",
+                "label": "TFS",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              },
+              {
+                "href": "/credentials",
+                "label": "Credentials",
+                "depth": 0
+              },
+              {
+                "href": "/training",
+                "label": "Training",
+                "depth": 0
+              },
+              {
+                "href": "/training-admin",
+                "label": "Training administration",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              },
+              {
+                "href": "/access",
+                "label": "Access administration",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              },
+              {
+                "href": "/client-workspaces",
+                "label": "Client workspaces",
+                "depth": 0
+              },
+              {
+                "href": "/tfs",
+                "label": "TFS",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              },
+              {
+                "href": "/credentials",
+                "label": "Credentials",
+                "depth": 0
+              },
+              {
+                "href": "/training",
+                "label": "Training",
+                "depth": 0
+              },
+              {
+                "href": "/training-admin",
+                "label": "Training administration",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              },
+              {
+                "href": "/access",
+                "label": "Access administration",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      },
+      {
+        "base": "http://127.0.0.1:3111",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              },
+              {
+                "href": "/client-workspaces",
+                "label": "Client workspaces",
+                "depth": 0
+              },
+              {
+                "href": "/tfs",
+                "label": "TFS",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              },
+              {
+                "href": "/credentials",
+                "label": "Credentials",
+                "depth": 0
+              },
+              {
+                "href": "/training",
+                "label": "Training",
+                "depth": 0
+              },
+              {
+                "href": "/training-admin",
+                "label": "Training administration",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              },
+              {
+                "href": "/access",
+                "label": "Access administration",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              },
+              {
+                "href": "/client-workspaces",
+                "label": "Client workspaces",
+                "depth": 0
+              },
+              {
+                "href": "/tfs",
+                "label": "TFS",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              },
+              {
+                "href": "/credentials",
+                "label": "Credentials",
+                "depth": 0
+              },
+              {
+                "href": "/training",
+                "label": "Training",
+                "depth": 0
+              },
+              {
+                "href": "/training-admin",
+                "label": "Training administration",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              },
+              {
+                "href": "/access",
+                "label": "Access administration",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      }
+    ]
+  },
+  {
+    "name": "OPERATIONS",
+    "roles": [
+      "OPERATIONS"
+    ],
+    "reviewer": false,
+    "dynamic": false,
+    "states": [
+      {
+        "base": "http://127.0.0.1:3110",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      },
+      {
+        "base": "http://127.0.0.1:3111",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      }
+    ]
+  },
+  {
+    "name": "SECURITY_STAFF",
+    "roles": [
+      "SECURITY_STAFF"
+    ],
+    "reviewer": false,
+    "dynamic": false,
+    "states": [
+      {
+        "base": "http://127.0.0.1:3110",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "My Work",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "My Documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "My Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "My Work",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "My Documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "My Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      },
+      {
+        "base": "http://127.0.0.1:3111",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "My Work",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "My Documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "My Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "My Work",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "My Documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "My Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      }
+    ]
+  },
+  {
+    "name": "Office + Staff",
+    "roles": [
+      "OFFICE_ADMIN",
+      "SECURITY_STAFF"
+    ],
+    "reviewer": false,
+    "dynamic": false,
+    "states": [
+      {
+        "base": "http://127.0.0.1:3110",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      },
+      {
+        "base": "http://127.0.0.1:3111",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      }
+    ]
+  },
+  {
+    "name": "Operations + Staff",
+    "roles": [
+      "OPERATIONS",
+      "SECURITY_STAFF"
+    ],
+    "reviewer": false,
+    "dynamic": false,
+    "states": [
+      {
+        "base": "http://127.0.0.1:3110",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      },
+      {
+        "base": "http://127.0.0.1:3111",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      }
+    ]
+  },
+  {
+    "name": "All roles",
+    "roles": [
+      "OFFICE_ADMIN",
+      "SUPER_ADMIN",
+      "OPERATIONS",
+      "SECURITY_STAFF"
+    ],
+    "reviewer": false,
+    "dynamic": false,
+    "states": [
+      {
+        "base": "http://127.0.0.1:3110",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              },
+              {
+                "href": "/client-workspaces",
+                "label": "Client workspaces",
+                "depth": 0
+              },
+              {
+                "href": "/tfs",
+                "label": "TFS",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              },
+              {
+                "href": "/credentials",
+                "label": "Credentials",
+                "depth": 0
+              },
+              {
+                "href": "/training",
+                "label": "Training",
+                "depth": 0
+              },
+              {
+                "href": "/training-admin",
+                "label": "Training administration",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              },
+              {
+                "href": "/access",
+                "label": "Access administration",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              },
+              {
+                "href": "/client-workspaces",
+                "label": "Client workspaces",
+                "depth": 0
+              },
+              {
+                "href": "/tfs",
+                "label": "TFS",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              },
+              {
+                "href": "/credentials",
+                "label": "Credentials",
+                "depth": 0
+              },
+              {
+                "href": "/training",
+                "label": "Training",
+                "depth": 0
+              },
+              {
+                "href": "/training-admin",
+                "label": "Training administration",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              },
+              {
+                "href": "/access",
+                "label": "Access administration",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      },
+      {
+        "base": "http://127.0.0.1:3111",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              },
+              {
+                "href": "/client-workspaces",
+                "label": "Client workspaces",
+                "depth": 0
+              },
+              {
+                "href": "/tfs",
+                "label": "TFS",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              },
+              {
+                "href": "/credentials",
+                "label": "Credentials",
+                "depth": 0
+              },
+              {
+                "href": "/training",
+                "label": "Training",
+                "depth": 0
+              },
+              {
+                "href": "/training-admin",
+                "label": "Training administration",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              },
+              {
+                "href": "/access",
+                "label": "Access administration",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              },
+              {
+                "href": "/action-centre",
+                "label": "Action Centre",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              },
+              {
+                "href": "/client-workspaces",
+                "label": "Client workspaces",
+                "depth": 0
+              },
+              {
+                "href": "/tfs",
+                "label": "TFS",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Report incident",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              },
+              {
+                "href": "/credentials",
+                "label": "Credentials",
+                "depth": 0
+              },
+              {
+                "href": "/training",
+                "label": "Training",
+                "depth": 0
+              },
+              {
+                "href": "/training-admin",
+                "label": "Training administration",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              },
+              {
+                "href": "/my-duty",
+                "label": "Today's Duty",
+                "depth": 0
+              },
+              {
+                "href": "/my-schedule",
+                "label": "My Schedule",
+                "depth": 0
+              },
+              {
+                "href": "/my-deployments",
+                "label": "My Deployments",
+                "depth": 0
+              },
+              {
+                "href": "/my-equipment",
+                "label": "My Equipment",
+                "depth": 0
+              },
+              {
+                "href": "/my-work-time",
+                "label": "My Worked Time",
+                "depth": 0
+              },
+              {
+                "href": "/my-availability",
+                "label": "My Availability",
+                "depth": 0
+              },
+              {
+                "href": "/my-time-away",
+                "label": "My Time Away",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              },
+              {
+                "href": "/access",
+                "label": "Access administration",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      }
+    ]
+  },
+  {
+    "name": "No roles",
+    "roles": [],
+    "reviewer": false,
+    "dynamic": false,
+    "states": [
+      {
+        "base": "http://127.0.0.1:3110",
+        "desktop": [],
+        "phone": [],
+        "collapsePersistence": true,
+        "tooltip": false,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      },
+      {
+        "base": "http://127.0.0.1:3111",
+        "desktop": [],
+        "phone": [],
+        "collapsePersistence": true,
+        "tooltip": false,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      }
+    ]
+  },
+  {
+    "name": "Office reviewer",
+    "roles": [
+      "OFFICE_ADMIN"
+    ],
+    "reviewer": true,
+    "dynamic": false,
+    "states": [
+      {
+        "base": "http://127.0.0.1:3110",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      },
+      {
+        "base": "http://127.0.0.1:3111",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      }
+    ]
+  },
+  {
+    "name": "Operations reviewer",
+    "roles": [
+      "OPERATIONS"
+    ],
+    "reviewer": true,
+    "dynamic": false,
+    "states": [
+      {
+        "base": "http://127.0.0.1:3110",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      },
+      {
+        "base": "http://127.0.0.1:3111",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              },
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              },
+              {
+                "href": "/site-book",
+                "label": "Site Book",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      }
+    ]
+  },
+  {
+    "name": "Reviewer without role",
+    "roles": [],
+    "reviewer": true,
+    "dynamic": false,
+    "states": [
+      {
+        "base": "http://127.0.0.1:3110",
+        "desktop": [
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      },
+      {
+        "base": "http://127.0.0.1:3111",
+        "desktop": [
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/incidents",
+                "label": "Incidents",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      }
+    ]
+  },
+  {
+    "name": "Dynamic destination",
+    "roles": [
+      "OFFICE_ADMIN"
+    ],
+    "reviewer": false,
+    "dynamic": true,
+    "states": [
+      {
+        "base": "http://127.0.0.1:3110",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/fixture-authorised-only",
+                "label": "Synthetic authorised destination",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/fixture-authorised-only",
+                "label": "Synthetic authorised destination",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      },
+      {
+        "base": "http://127.0.0.1:3111",
+        "desktop": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/fixture-authorised-only",
+                "label": "Synthetic authorised destination",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "phone": [
+          {
+            "label": "Overview",
+            "links": [
+              {
+                "href": "/app",
+                "label": "Home",
+                "depth": 0
+              },
+              {
+                "href": "/work",
+                "label": "My Work",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Clients & delivery",
+            "links": [
+              {
+                "href": "/crm",
+                "label": "CRM",
+                "depth": 0
+              },
+              {
+                "href": "/sites",
+                "label": "Sites",
+                "depth": 0
+              },
+              {
+                "href": "/events",
+                "label": "Events",
+                "depth": 0
+              },
+              {
+                "href": "/mobilisations",
+                "label": "Mobilisations",
+                "depth": 0
+              },
+              {
+                "href": "/service-delivery",
+                "label": "Service Delivery",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Operations",
+            "links": [
+              {
+                "href": "/workforce",
+                "label": "Workforce",
+                "depth": 0
+              },
+              {
+                "href": "/control-room",
+                "label": "Control Room",
+                "depth": 0
+              },
+              {
+                "href": "/management-reports",
+                "label": "Management Reports",
+                "depth": 0
+              },
+              {
+                "href": "/assets",
+                "label": "Assets",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "People & administration",
+            "links": [
+              {
+                "href": "/people",
+                "label": "People",
+                "depth": 0
+              },
+              {
+                "href": "/hr",
+                "label": "HR",
+                "depth": 1
+              },
+              {
+                "href": "/time-away",
+                "label": "Time Away",
+                "depth": 1
+              },
+              {
+                "href": "/documents",
+                "label": "Documents",
+                "depth": 0
+              },
+              {
+                "href": "/operational-documents",
+                "label": "Operational documents",
+                "depth": 1
+              },
+              {
+                "href": "/onboarding",
+                "label": "Onboarding",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "My account",
+            "links": [
+              {
+                "href": "/profile",
+                "label": "Profile",
+                "depth": 0
+              }
+            ]
+          },
+          {
+            "label": "Administration",
+            "links": [
+              {
+                "href": "/settings",
+                "label": "Settings",
+                "depth": 0
+              },
+              {
+                "href": "/site-book/access",
+                "label": "Site Book access",
+                "depth": 1
+              }
+            ]
+          },
+          {
+            "label": "Other",
+            "links": [
+              {
+                "href": "/fixture-authorised-only",
+                "label": "Synthetic authorised destination",
+                "depth": 0
+              }
+            ]
+          }
+        ],
+        "collapsePersistence": true,
+        "tooltip": true,
+        "mobileFocus": true,
+        "errors": [],
+        "external": []
+      }
+    ]
+  }
+]

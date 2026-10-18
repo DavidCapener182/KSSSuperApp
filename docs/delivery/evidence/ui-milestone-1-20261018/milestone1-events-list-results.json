@@ -1,0 +1,62 @@
+[
+  {
+    "width": 1440,
+    "bounds": {
+      "left": 880,
+      "right": 1440,
+      "viewport": 1440,
+      "animation": "none"
+    },
+    "filterQuery": true,
+    "deniedCreateDraftRetained": true,
+    "exactPayload": true,
+    "focusTrapAndReturn": true,
+    "external": [],
+    "errors": []
+  },
+  {
+    "width": 834,
+    "bounds": {
+      "left": 274,
+      "right": 834,
+      "viewport": 834,
+      "animation": "none"
+    },
+    "filterQuery": true,
+    "deniedCreateDraftRetained": true,
+    "exactPayload": true,
+    "focusTrapAndReturn": true,
+    "external": [],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "bounds": {
+      "left": 0,
+      "right": 390,
+      "viewport": 390,
+      "animation": "none"
+    },
+    "filterQuery": true,
+    "deniedCreateDraftRetained": true,
+    "exactPayload": true,
+    "focusTrapAndReturn": true,
+    "external": [],
+    "errors": []
+  },
+  {
+    "width": 320,
+    "bounds": {
+      "left": 0,
+      "right": 320,
+      "viewport": 320,
+      "animation": "none"
+    },
+    "filterQuery": true,
+    "deniedCreateDraftRetained": true,
+    "exactPayload": true,
+    "focusTrapAndReturn": true,
+    "external": [],
+    "errors": []
+  }
+]

@@ -2,6 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import styles from "@/components/entry.module.css";
 
 const email = "kss-stage.staff@example.test";
 const userId = "48c25c2a-d902-4ca9-bdfe-ffc1aaf01cb3";
@@ -50,19 +53,20 @@ export default function StagingAccess() {
     setBusy(false);
   }
 
-  return <main style={{ maxWidth: 520, margin: "48px auto", padding: 24, fontFamily: "system-ui", lineHeight: 1.5 }}>
+  return <main className={styles.utility}>
+    <p className={styles.eyebrow}>Restricted staging utility</p>
     <h1>Synthetic Staff staging access</h1>
     <p>This temporary page is for <strong>{email}</strong> in KSS Enterprise - Staging only. It does not accept real staff information.</p>
     <p>Enter the one-time recovery code, then choose a password yourself. The password goes directly to Supabase Auth and is not stored in the repository, Vercel settings or the delivery report.</p>
-    {message && <p role="status">{message}</p>}
+    {message && <p className={styles.feedback} role="status">{message}</p>}
     {!verified ? <form onSubmit={verifyCode}>
-      <label>One-time recovery code<br /><input type="text" inputMode="numeric" autoComplete="one-time-code" value={code} onChange={(event) => setCode(event.target.value)} required style={{ width: "100%", minHeight: 44 }} /></label>
-      <p><button type="submit" disabled={busy} style={{ minHeight: 44 }}>{busy ? "Checking…" : "Confirm code"}</button></p>
+      <label>One-time recovery code<Input type="text" inputMode="numeric" autoComplete="one-time-code" value={code} onChange={(event) => setCode(event.target.value)} required /></label>
+      <p><Button type="submit" disabled={busy}>{busy ? "Checking…" : "Confirm code"}</Button></p>
     </form> : <form onSubmit={changePassword}>
       <p>The exact synthetic Staff account is confirmed. Enter your new password now.</p>
-      <label>New password<br /><input type="password" autoComplete="new-password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} required minLength={12} style={{ width: "100%", minHeight: 44 }} /></label>
-      <p><label>Confirm new password<br /><input type="password" autoComplete="new-password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} required minLength={12} style={{ width: "100%", minHeight: 44 }} /></label></p>
-      <button type="submit" disabled={busy} style={{ minHeight: 44 }}>{busy ? "Updating…" : "Change password"}</button>
+      <label>New password<Input type="password" autoComplete="new-password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} required minLength={12} /></label>
+      <p><label>Confirm new password<Input type="password" autoComplete="new-password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} required minLength={12} /></label></p>
+      <Button type="submit" disabled={busy}>{busy ? "Updating…" : "Change password"}</Button>
     </form>}
   </main>;
 }

@@ -1,0 +1,29 @@
+{
+  "baseline": "9b958f67c874ddbae16be3b4fed450525ee44d1a",
+  "localTests": {
+    "passed": 104,
+    "failed": 0,
+    "skipped": 0
+  },
+  "build": {
+    "command": "NEXT_PUBLIC_SUPABASE_URL=https://synthetic-build.invalid NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=synthetic-local-build-only NEXT_TELEMETRY_DISABLED=1 npm run build",
+    "exit": 0
+  },
+  "types": {
+    "command": "node node_modules/typescript/bin/tsc --noEmit --incremental false",
+    "exit": 0
+  },
+  "lint": {
+    "command": "node node_modules/eslint/bin/eslint.js src",
+    "exit": 0
+  },
+  "manifestFilesVerified": 40,
+  "browserRuntimeProductFilesMatch": 31,
+  "originalCheckout": {
+    "headPreserved": true,
+    "statusPreserved": true,
+    "fileHashesPreserved": 51
+  },
+  "protectedSourceChanged": false,
+  "hostedAcceptance": "Not run; no Auth/RPC/RLS/production write claim"
+}

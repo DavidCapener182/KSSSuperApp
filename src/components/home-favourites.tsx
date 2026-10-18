@@ -57,7 +57,7 @@ export function HomeFavourites({ accountId, entries }: { accountId: string; entr
       <Link href={entry.href}>{entry.label}<span aria-hidden="true">↗</span></Link>
       <button type="button" aria-label={`Remove ${entry.label} from favourites`} onClick={() => update(paths.filter(path => path !== entry.href), `${entry.label} removed from favourites.`)}>Remove</button>
     </li>)}</ul> : <p>No favourites yet. Choose the modules you use most.</p>}
-    <details className={styles.picker}><summary>Choose favourites</summary>
+    <details className={styles.picker}><summary>Customise favourites</summary>
       <fieldset disabled={!ready}><legend>Available modules</legend>
         {modules.length ? <div className={styles.choices}>{modules.map(entry => <label key={entry.href}>
           <input type="checkbox" checked={paths.includes(entry.href)} onChange={event => update(event.target.checked ? [...paths, entry.href] : paths.filter(path => path !== entry.href), `${entry.label} ${event.target.checked ? "added to" : "removed from"} favourites.`)} />{entry.label}
