@@ -1,0 +1,144 @@
+{
+  "baseline": "a95d85079c33a3fd352bd190599864a79240c27c",
+  "sourceSha256": "bf4e3d95f2c173ffeac1e1bb3da1c536b357b2bbd0c35b57b135116305a0f107",
+  "proposalSha256": "a56eda24dd65b205c48b586afb5573909663dbcd5240a00baf068157e4a1bfb8",
+  "cases": [
+    {
+      "name": "baseline: two stale reschedules both succeed despite the row lock",
+      "passed": true
+    },
+    {
+      "name": "CAS: only one stale reschedule wins (2026-10-21)",
+      "passed": true
+    },
+    {
+      "name": "CAS: only one stale reschedule wins (2026-10-22)",
+      "passed": true
+    },
+    {
+      "name": "CAS: stale completion/reschedule rejected after RESCHEDULE",
+      "passed": true
+    },
+    {
+      "name": "CAS: stale completion/reschedule rejected after COMPLETE",
+      "passed": true
+    },
+    {
+      "name": "CAS: stale completion/reschedule rejected after CANCEL",
+      "passed": true
+    },
+    {
+      "name": "NULL deadlines use SQL distinctness; removing a deadline is exact",
+      "passed": true
+    },
+    {
+      "name": "same-transaction ABA is rejected even when due/assignee/updated_at match",
+      "passed": true
+    },
+    {
+      "name": "no-op and invalid action do not add history/audit",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: null",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: \"not-object\"",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: []",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"eventCount\":\"0\"}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"eventCount\":\"01\"}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"eventCount\":\"-1\"}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"eventCount\":\"1.5\"}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"eventCount\":\"9223372036854775808\"}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"eventCount\":1}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"eventCount\":null}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"state\":null}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"sourceKind\":null}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"extra\":true}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"dueAt\":\"2026-10-20\"}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"dueAt\":\"infinity\"}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"dueAt\":\"2026-02-30T09:00:00Z\"}",
+      "passed": true
+    },
+    {
+      "name": "malformed expectation rejected: {\"id\":\"bad-uuid\"}",
+      "passed": true
+    },
+    {
+      "name": "wrong identity/source/assignee conflicts before mutation",
+      "passed": true
+    },
+    {
+      "name": "fresh reassignment preserves existing owner and completion authority",
+      "passed": true
+    },
+    {
+      "name": "role loss and non-CRM personas denied without event/audit",
+      "passed": true
+    },
+    {
+      "name": "role revoked while CAS waits for the row lock is denied by the existing writer",
+      "passed": true
+    },
+    {
+      "name": "audit failure rolls back task and history atomically",
+      "passed": true
+    },
+    {
+      "name": "new function ACLs deny anon/PUBLIC; original writer definition remains exact",
+      "passed": true
+    }
+  ],
+  "boundary": "Actual PostgreSQL; source-derived task schema and unchanged CRM writer/triggers/helpers; synthetic session/role prerequisites. Not hosted Auth/RLS.",
+  "version": "PostgreSQL 18.4 on x86_64-apple-darwin24.6.0, compiled by Apple clang version 17.0.0 (clang-1700.6.3.2), 64-bit",
+  "listenAddresses": "",
+  "stopped": true,
+  "clusterDeleted": true
+}

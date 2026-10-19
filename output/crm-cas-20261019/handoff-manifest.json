@@ -1,0 +1,19 @@
+{
+  "baseline": "a95d85079c33a3fd352bd190599864a79240c27c",
+  "sourceFiles": [
+    "docs/delivery/proposals/CRM-FOLLOW-UP-CAS-20261019.sql",
+    "tests/crm-follow-up-cas-postgres-local.test.mjs",
+    "tests/fixtures/crm-cas-prerequisites.sql",
+    "docs/delivery/CRM-FOLLOW-UP-CAS-20261019.md"
+  ],
+  "files": {
+    "docs/delivery/proposals/CRM-FOLLOW-UP-CAS-20261019.sql": "a56eda24dd65b205c48b586afb5573909663dbcd5240a00baf068157e4a1bfb8",
+    "tests/crm-follow-up-cas-postgres-local.test.mjs": "540198f9aa98ea8cfbd35c74b98a7a4a2d86b582152c6e3e9d718fa4a4435945",
+    "tests/fixtures/crm-cas-prerequisites.sql": "f317b85c1517654e71dd34ecb44470c788cc42c3b2d94ddc30da41f46a923a13",
+    "docs/delivery/CRM-FOLLOW-UP-CAS-20261019.md": "a051103afbf6e540f793bdfa9b0fb1585d8a95541a4442625a961be0ee636f6c",
+    "output/crm-cas-20261019/postgres-run.tap": "84a3c03a19f86a73d0708f1eae912b01f4c8aadbbfcd494fdbe1447e1f48233c",
+    "output/crm-cas-20261019/postgres-evidence.json": "b82ed0d432bb5dbbce25d7758b2e279cedf3c89b1b165a91b55208a48baf82c4",
+    "output/crm-cas-20261019/runtime-provenance.json": "9cdd7a67a38f9c86d9781de8e4286b6713f1d7c6881ab42f657bd61018c34314",
+    "output/crm-cas-20261019/lint.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

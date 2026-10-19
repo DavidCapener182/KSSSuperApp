@@ -1,0 +1,22 @@
+{
+  "package": "@embedded-postgres/darwin-arm64",
+  "version": "18.4.0-beta.17",
+  "postgresVersion": "18.4",
+  "tarball": "https://registry.npmjs.org/@embedded-postgres/darwin-arm64/-/darwin-arm64-18.4.0-beta.17.tgz",
+  "integrity": "sha512-Kg1ZMNFzkVIJs3g4V2UYEc5X005km9rGinxFBH8R1sOU2Rblvz4pt2Uf93Pu8Rk273Ue9HIdrbMPpgUqwjUi0Q==",
+  "lifecycleScriptsExecuted": false,
+  "libraryLinks": "Package-local reviewed symlinks only",
+  "tcpListener": false,
+  "globalInstall": false,
+  "client": {
+    "package": "pg",
+    "version": "8.16.3",
+    "integrity": "sha512-enxc1h0jA/aq5oSDMvqyW3q89ra6XIIDZgCX9vkMrnz5DFTw/Ny3Li2lFQ+pt3L6MCgm/5o2o8HW9hiJji+xvw==",
+    "lockSha256": "c50797ebfc7faa50efd89cc32a139215463af794f1186fbf54a6518ee7efa472"
+  },
+  "binarySha256": {
+    "postgres": "515d8e4c690ecd6ae86074eedd5d6d0ed50df434b3743274085b9692f1e923f9",
+    "pg_ctl": "2c37317f9f606d9716e493d6765ff14f84d8df9b8c07eaa722431de16446f071",
+    "initdb": "b81069a19bcec5d2dd263f5c9bce2ce0b5075ae0f9b8a5c81b79f34bef503c39"
+  }
+}
