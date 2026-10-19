@@ -1,0 +1,15 @@
+{
+  "body": "Synthetic CRM component acceptance • no authenticated backend\n\nafter pipeline\nSynthetic source BSynthetic unmount\nActive pipeline\nClosed history\nDormant\nOpportunity owner\nAll Office\nMy Opportunities\nSynthetic Office\nType\nAll types\nTender\nDirect Enquiry\nExisting Client Expansion\nRenewal\nProspecting\nOrganisation\nFilter\n\nPipeline unavailable Retry",
+  "calls": [
+    {
+      "url": "/api/crm/work?view=pipeline&closed=false&dormant=false",
+      "method": "GET",
+      "body": null
+    },
+    {
+      "url": "/api/crm/work?view=pipeline&closed=false&dormant=false&type=TENDER",
+      "method": "GET",
+      "body": null
+    }
+  ]
+}

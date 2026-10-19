@@ -1,0 +1,35 @@
+{
+  "baseline": "a95d85079c33a3fd352bd190599864a79240c27c",
+  "manifest": [
+    {
+      "file": "src/components/crm-task-actions.tsx",
+      "sha256": "1bcca9abf2d3529f0ba05c9e19d85f2dde53b6dbb109cad7fc04ac2fb09b303e"
+    },
+    {
+      "file": "src/components/crm-task-actions.module.css",
+      "sha256": "ef89fafd9fccd32d9a408f32aea44d916f191acb6a36a5318473383cbe71943b"
+    },
+    {
+      "file": "src/lib/tasks/crm-action-readback.ts",
+      "sha256": "f9d3e1dcbe600b86d9a7fbd3a9fbbc6de98cdb2bc1ade4d7582230ff584de96c"
+    },
+    {
+      "file": "src/lib/tasks/calendar.ts",
+      "sha256": "de9f94a0237e5b684dfdb78a9cf5e4a07e8751443a126932c2f99f52b13f7aa6"
+    },
+    {
+      "file": "src/lib/crm/due-time.ts",
+      "sha256": "91c20dd59611328cfd68bd07f43e672bf6719a207654326e09d26e607ea4dd20"
+    },
+    {
+      "file": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    },
+    {
+      "file": "postcss.config.mjs",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    }
+  ],
+  "verificationDate": "2026-10-19",
+  "limits": "Synthetic HTTP/principal/source boundaries; no hosted auth or business writes"
+}

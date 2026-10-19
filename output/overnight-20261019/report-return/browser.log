@@ -1,0 +1,12 @@
+▶ report URL context and safe source return in genuine shell viewports
+  ✔ 390px URL reload/back/forward, exact source return, invalid/denied and stale responses (5244.319833ms)
+  ✔ 1280px URL reload/back/forward, exact source return, invalid/denied and stale responses (2613.5645ms)
+✔ report URL context and safe source return in genuine shell viewports (10902.390083ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13030.967042

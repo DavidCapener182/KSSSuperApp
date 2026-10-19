@@ -1,0 +1,5 @@
+{
+  "pass": false,
+  "results": [],
+  "error": "locator.selectOption: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Type', { exact: true })\u001b[22m\n\n    at /private/tmp/kss-overnight-20261019/tests/CRM-READ-LIFECYCLE-20261019.browser.mjs:38:158"
+}

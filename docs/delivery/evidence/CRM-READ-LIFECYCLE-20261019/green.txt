@@ -1,0 +1,40 @@
+✔ Pipeline current 403 retires facts and stage confirmation; Retry recovers (47.901709ms)
+✔ RecordWork current 403 retires facts and selected task action; Retry recovers (22.274958ms)
+✔ CrmPipeline delayed obsolete response cannot replace newer query/source (14.187667ms)
+✔ CrmPipeline unmounted read cannot publish (22.053583ms)
+✔ CrmRecordWork delayed obsolete response cannot replace newer query/source (11.742ms)
+✔ CrmRecordWork unmounted read cannot publish (12.963333ms)
+✔ RecordWork source and actor change hide prior facts before next read (10.813958ms)
+✔ Pipeline query change hides prior facts before next read (10.855916ms)
+✔ Pipeline late POST after query change starts no obsolete readback/write (13.106209ms)
+✔ Pipeline late POST after unmount starts no obsolete readback/write (10.371958ms)
+✔ RecordWork activity late POST cannot read back or clear new source draft (10.082708ms)
+✔ RecordWork createTask late POST cannot read back or clear new source draft (11.305584ms)
+✔ Pipeline valid exact stage readback preserves transition payload (9.223542ms)
+✔ RecordWork valid activity confirms exact returned id (15.636292ms)
+✔ RecordWork valid createTask confirms exact returned id (12.770958ms)
+✔ CrmPipeline older same-context refresh cannot overwrite latest read (9.0545ms)
+✔ CrmPipeline delayed JSON after retirement cannot publish (8.564791ms)
+✔ CrmRecordWork older same-context refresh cannot overwrite latest read (9.4145ms)
+✔ CrmRecordWork delayed JSON after retirement cannot publish (8.958458ms)
+✔ RecordWork selected task late POST after source change performs no old readback (8.935916ms)
+✔ RecordWork selected task late POST after unmount performs no old readback (12.597958ms)
+✔ RecordWork activity failed confirmation remains uncertain and sends no automatic retry (8.901583ms)
+✔ RecordWork createTask failed confirmation remains uncertain and sends no automatic retry (9.341125ms)
+✔ RecordWork duplicate pending task submission sends one unchanged payload (9.586084ms)
+✔ actual CRM list retires prior Organisation facts after a denied current read (48.915125ms)
+✔ current read failure clears inline create controls and Retry recovers facts (21.430583ms)
+✔ superseded response cannot replace newer current source (15.595667ms)
+✔ person/source change hides prior facts synchronously before next effect read (24.342708ms)
+✔ unmounted pending read cannot publish facts (14.828ms)
+✔ duplicate pending create sends one exact payload and confirms exact created source (13.98025ms)
+✔ old-person create response cannot read back or navigate after source context changes (16.068875ms)
+✔ existing stage action preserves exact payload and confirms fresh source after mutation (12.091709ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 427.267208

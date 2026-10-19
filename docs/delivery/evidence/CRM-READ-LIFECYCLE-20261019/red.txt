@@ -1,0 +1,227 @@
+✖ Pipeline current 403 retires facts and stage confirmation; Retry recovers (43.692333ms)
+✖ RecordWork current 403 retires facts and selected task action; Retry recovers (17.663875ms)
+✖ CrmPipeline delayed obsolete response cannot replace newer query/source (14.613625ms)
+✖ CrmPipeline unmounted read cannot publish (13.0735ms)
+✖ CrmRecordWork delayed obsolete response cannot replace newer query/source (13.5995ms)
+✖ CrmRecordWork unmounted read cannot publish (9.713291ms)
+✖ RecordWork source and actor change hide prior facts before next read (11.416042ms)
+✖ Pipeline query change hides prior facts before next read (10.736ms)
+✖ Pipeline late POST after query change starts no obsolete readback/write (9.606208ms)
+✖ Pipeline late POST after unmount starts no obsolete readback/write (9.327958ms)
+✖ RecordWork activity late POST cannot read back or clear new source draft (9.066625ms)
+✖ RecordWork createTask late POST cannot read back or clear new source draft (10.209041ms)
+✔ Pipeline valid exact stage readback preserves transition payload (8.701709ms)
+✔ RecordWork valid activity confirms exact returned id (15.328125ms)
+✔ RecordWork valid createTask confirms exact returned id (10.922667ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 3
+ℹ fail 12
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 315.196375
+
+✖ failing tests:
+
+test at tests/CRM-READ-LIFECYCLE-20261019.test.mjs:13:1
+✖ Pipeline current 403 retires facts and stage confirmation; Retry recovers (43.692333ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Move to Contacted/. Input:
+  
+  'Active pipeline Closed history Dormant Stage New Lead Contacted Qualified Proposal Tender Negotiation Filter pipeline Opportunity owner All Office My Opportunities Synthetic Office Type All types Tender Direct Enquiry Existing Client Expansion Renewal Prospecting Organisation  Filter  New Lead   opportunities  Synthetic deal Organisation New Lead Estimate not recorded Owner:  Synthetic Office Decision:  Not set  Next action No open Opportunity follow-up  Change stage New stage Select stage Contacted Qualified Proposal Tender Negotiation Dormant Won Lost  Move to  Contacted ? New Lead  →  Contacted    Cancel Record stage change'
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/CRM-READ-LIFECYCLE-20261019.test.mjs:13:231)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Active pipeline Closed history Dormant Stage New Lead Contacted Qualified Proposal Tender Negotiation Filter pipeline Opportunity owner All Office My Opportunities Synthetic Office Type All types Tender Direct Enquiry Existing Client Expansion Renewal Prospecting Organisation  Filter  New Lead   opportunities  Synthetic deal Organisation New Lead Estimate not recorded Owner:  Synthetic Office Decision:  Not set  Next action No open Opportunity follow-up  Change stage New stage Select stage Contacted Qualified Proposal Tender Negotiation Dormant Won Lost  Move to  Contacted ? New Lead  →  Contacted    Cancel Record stage change',
+    expected: /Move to Contacted/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/CRM-READ-LIFECYCLE-20261019.test.mjs:14:1
+✖ RecordWork current 403 retires facts and selected task action; Retry recovers (17.663875ms)
+  AssertionError [ERR_ASSERTION]: Retry
+      at Object.click (file:///private/tmp/kss-overnight-20261019/tests/helpers/CRM-READ-LIFECYCLE-20261019-fixture.mjs:23:522)
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/CRM-READ-LIFECYCLE-20261019.test.mjs:14:319)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/CRM-READ-LIFECYCLE-20261019.test.mjs:16:2
+✖ CrmPipeline delayed obsolete response cannot replace newer query/source (14.613625ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Synthetic latest/. Input:
+  
+  'Active pipeline Closed history Dormant Stage New Lead Contacted Qualified Proposal Tender Negotiation Filter pipeline Opportunity owner All Office My Opportunities Synthetic Office Type All types Tender Direct Enquiry Existing Client Expansion Renewal Prospecting Organisation  Filter  New Lead   opportunities  Synthetic obsolete Organisation New Lead Estimate not recorded Owner:  Synthetic Office Decision:  Not set  Next action No open Opportunity follow-up  Change stage New stage Select stage Contacted Qualified Proposal Tender Negotiation Dormant Won Lost  '
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/CRM-READ-LIFECYCLE-20261019.test.mjs:16:579)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Active pipeline Closed history Dormant Stage New Lead Contacted Qualified Proposal Tender Negotiation Filter pipeline Opportunity owner All Office My Opportunities Synthetic Office Type All types Tender Direct Enquiry Existing Client Expansion Renewal Prospecting Organisation  Filter  New Lead   opportunities  Synthetic obsolete Organisation New Lead Estimate not recorded Owner:  Synthetic Office Decision:  Not set  Next action No open Opportunity follow-up  Change stage New stage Select stage Contacted Qualified Proposal Tender Negotiation Dormant Won Lost  ',
+    expected: /Synthetic latest/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/CRM-READ-LIFECYCLE-20261019.test.mjs:17:2
+✖ CrmPipeline unmounted read cannot publish (13.0735ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Synthetic retired/. Input:
+  
+  'Active pipeline Closed history Dormant Stage New Lead Contacted Qualified Proposal Tender Negotiation Filter pipeline Opportunity owner All Office My Opportunities Synthetic Office Type All types Tender Direct Enquiry Existing Client Expansion Renewal Prospecting Organisation  Filter  New Lead   opportunities  Synthetic retired Organisation New Lead Estimate not recorded Owner:  Synthetic Office Decision:  Not set  Next action No open Opportunity follow-up  Change stage New stage Select stage Contacted Qualified Proposal Tender Negotiation Dormant Won Lost  '
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/CRM-READ-LIFECYCLE-20261019.test.mjs:17:318)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Active pipeline Closed history Dormant Stage New Lead Contacted Qualified Proposal Tender Negotiation Filter pipeline Opportunity owner All Office My Opportunities Synthetic Office Type All types Tender Direct Enquiry Existing Client Expansion Renewal Prospecting Organisation  Filter  New Lead   opportunities  Synthetic retired Organisation New Lead Estimate not recorded Owner:  Synthetic Office Decision:  Not set  Next action No open Opportunity follow-up  Change stage New stage Select stage Contacted Qualified Proposal Tender Negotiation Dormant Won Lost  ',
+    expected: /Synthetic retired/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests/CRM-READ-LIFECYCLE-20261019.test.mjs:16:2
+✖ CrmRecordWork delayed obsolete response cannot replace newer query/source (13.5995ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Synthetic latest/. Input:
+  
+  '  Next action Synthetic obsolete No due date  ·  No due date  · Task assignee:  Synthetic Office  Follow-ups  Action title  Task assignee Synthetic Office Due date and time · London  Create follow-up  Synthetic obsolete Open  ·  No due date  ·  No due date  · Task assignee:  Synthetic Office Done Reassign Reschedule Cancel Activity entry Record activity  Commercial timeline No commercial activity recorded yet.  '
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/CRM-READ-LIFECYCLE-20261019.test.mjs:16:579)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '  Next action Synthetic obsolete No due date  ·  No due date  · Task assignee:  Synthetic Office  Follow-ups  Action title  Task assignee Synthetic Office Due date and time · London  Create follow-up  Synthetic obsolete Open  ·  No due date  ·  No due date  · Task assignee:  Synthetic Office Done Reassign Reschedule Cancel Activity entry Record activity  Commercial timeline No commercial activity recorded yet.  ',
+    expected: /Synthetic latest/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/CRM-READ-LIFECYCLE-20261019.test.mjs:17:2
+✖ CrmRecordWork unmounted read cannot publish (9.713291ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Synthetic retired/. Input:
+  
+  '  Next action Synthetic retired No due date  ·  No due date  · Task assignee:  Synthetic Office  Follow-ups  Action title  Task assignee Synthetic Office Due date and time · London  Create follow-up  Synthetic retired Open  ·  No due date  ·  No due date  · Task assignee:  Synthetic Office Done Reassign Reschedule Cancel Activity entry Record activity  Commercial timeline No commercial activity recorded yet.  '
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/CRM-READ-LIFECYCLE-20261019.test.mjs:17:318)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '  Next action Synthetic retired No due date  ·  No due date  · Task assignee:  Synthetic Office  Follow-ups  Action title  Task assignee Synthetic Office Due date and time · London  Create follow-up  Synthetic retired Open  ·  No due date  ·  No due date  · Task assignee:  Synthetic Office Done Reassign Reschedule Cancel Activity entry Record activity  Commercial timeline No commercial activity recorded yet.  ',
+    expected: /Synthetic retired/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests/CRM-READ-LIFECYCLE-20261019.test.mjs:19:1
+✖ RecordWork source and actor change hide prior facts before next read (11.416042ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Synthetic follow-up|Create follow-up/. Input:
+  
+  '  Next action Synthetic follow-up No due date  ·  No due date  · Task assignee:  Synthetic Office  Follow-ups  Action title  Task assignee Synthetic Office Due date and time · London  Create follow-up  Synthetic follow-up Open  ·  No due date  ·  No due date  · Task assignee:  Synthetic Office  Reassign Reschedule Cancel Activity entry Record activity  Commercial timeline No commercial activity recorded yet.  '
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/CRM-READ-LIFECYCLE-20261019.test.mjs:19:215)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '  Next action Synthetic follow-up No due date  ·  No due date  · Task assignee:  Synthetic Office  Follow-ups  Action title  Task assignee Synthetic Office Due date and time · London  Create follow-up  Synthetic follow-up Open  ·  No due date  ·  No due date  · Task assignee:  Synthetic Office  Reassign Reschedule Cancel Activity entry Record activity  Commercial timeline No commercial activity recorded yet.  ',
+    expected: /Synthetic follow-up|Create follow-up/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests/CRM-READ-LIFECYCLE-20261019.test.mjs:20:1
+✖ Pipeline query change hides prior facts before next read (10.736ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /Synthetic deal/. Input:
+  
+  'Active pipeline Closed history Dormant Stage New Lead Contacted Qualified Proposal Tender Negotiation Filter pipeline Opportunity owner All Office My Opportunities Synthetic Office Type All types Tender Direct Enquiry Existing Client Expansion Renewal Prospecting Organisation  Filter  New Lead   opportunities  Synthetic deal Organisation New Lead Estimate not recorded Owner:  Synthetic Office Decision:  Not set  Next action No open Opportunity follow-up  Change stage New stage Select stage Contacted Qualified Proposal Tender Negotiation Dormant Won Lost  '
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/CRM-READ-LIFECYCLE-20261019.test.mjs:20:188)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Active pipeline Closed history Dormant Stage New Lead Contacted Qualified Proposal Tender Negotiation Filter pipeline Opportunity owner All Office My Opportunities Synthetic Office Type All types Tender Direct Enquiry Existing Client Expansion Renewal Prospecting Organisation  Filter  New Lead   opportunities  Synthetic deal Organisation New Lead Estimate not recorded Owner:  Synthetic Office Decision:  Not set  Next action No open Opportunity follow-up  Change stage New stage Select stage Contacted Qualified Proposal Tender Negotiation Dormant Won Lost  ',
+    expected: /Synthetic deal/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests/CRM-READ-LIFECYCLE-20261019.test.mjs:21:36
+✖ Pipeline late POST after query change starts no obsolete readback/write (9.606208ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  4 !== 3
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/CRM-READ-LIFECYCLE-20261019.test.mjs:21:483)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/CRM-READ-LIFECYCLE-20261019.test.mjs:21:36
+✖ Pipeline late POST after unmount starts no obsolete readback/write (9.327958ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/CRM-READ-LIFECYCLE-20261019.test.mjs:21:483)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/CRM-READ-LIFECYCLE-20261019.test.mjs:22:48
+✖ RecordWork activity late POST cannot read back or clear new source draft (9.066625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  4 !== 3
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/CRM-READ-LIFECYCLE-20261019.test.mjs:22:648)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/CRM-READ-LIFECYCLE-20261019.test.mjs:22:48
+✖ RecordWork createTask late POST cannot read back or clear new source draft (10.209041ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  4 !== 3
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/CRM-READ-LIFECYCLE-20261019.test.mjs:22:648)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,295 @@
+{
+  "pass": true,
+  "results": [
+    {
+      "width": 390,
+      "version": "before",
+      "kind": "pipeline",
+      "priorVisibleAfter403": true,
+      "recovery": true,
+      "retiredWrite": false,
+      "externalRequests": [],
+      "calls": [
+        {
+          "url": "/api/crm/work?view=pipeline&closed=false&dormant=false",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work?view=pipeline&closed=false&dormant=false&type=TENDER",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work?view=pipeline&closed=false&dormant=false&type=TENDER",
+          "method": "GET",
+          "body": null
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "version": "before",
+      "kind": "work",
+      "priorVisibleAfter403": true,
+      "recovery": true,
+      "retiredWrite": false,
+      "externalRequests": [],
+      "calls": [
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work",
+          "method": "POST",
+          "body": {
+            "action": "createTask",
+            "sourceKind": "CRM_ORGANISATION",
+            "sourceId": "00000000-0000-4000-8000-000000000010",
+            "title": "Synthetic attempted task",
+            "assigneeId": "00000000-0000-4000-8000-000000000001",
+            "dueLocal": null
+          }
+        },
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+          "method": "GET",
+          "body": null
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "version": "after",
+      "kind": "pipeline",
+      "priorVisibleAfter403": false,
+      "recovery": true,
+      "retiredWrite": false,
+      "externalRequests": [],
+      "calls": [
+        {
+          "url": "/api/crm/work?view=pipeline&closed=false&dormant=false",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work?view=pipeline&closed=false&dormant=false&type=TENDER",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work?view=pipeline&closed=false&dormant=false&type=TENDER",
+          "method": "GET",
+          "body": null
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "version": "after",
+      "kind": "work",
+      "priorVisibleAfter403": false,
+      "recovery": true,
+      "retiredWrite": true,
+      "externalRequests": [],
+      "calls": [
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work",
+          "method": "POST",
+          "body": {
+            "action": "createTask",
+            "sourceKind": "CRM_ORGANISATION",
+            "sourceId": "00000000-0000-4000-8000-000000000010",
+            "title": "Synthetic attempted task",
+            "assigneeId": "00000000-0000-4000-8000-000000000001",
+            "dueLocal": null
+          }
+        },
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work",
+          "method": "POST",
+          "body": {
+            "action": "createTask",
+            "sourceKind": "CRM_ORGANISATION",
+            "sourceId": "00000000-0000-4000-8000-000000000010",
+            "title": "Synthetic held task",
+            "assigneeId": "00000000-0000-4000-8000-000000000001",
+            "dueLocal": null
+          }
+        },
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000011",
+          "method": "GET",
+          "body": null
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "version": "before",
+      "kind": "pipeline",
+      "priorVisibleAfter403": true,
+      "recovery": true,
+      "retiredWrite": false,
+      "externalRequests": [],
+      "calls": [
+        {
+          "url": "/api/crm/work?view=pipeline&closed=false&dormant=false",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work?view=pipeline&closed=false&dormant=false&type=TENDER",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work?view=pipeline&closed=false&dormant=false&type=TENDER",
+          "method": "GET",
+          "body": null
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "version": "before",
+      "kind": "work",
+      "priorVisibleAfter403": true,
+      "recovery": true,
+      "retiredWrite": false,
+      "externalRequests": [],
+      "calls": [
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work",
+          "method": "POST",
+          "body": {
+            "action": "createTask",
+            "sourceKind": "CRM_ORGANISATION",
+            "sourceId": "00000000-0000-4000-8000-000000000010",
+            "title": "Synthetic attempted task",
+            "assigneeId": "00000000-0000-4000-8000-000000000001",
+            "dueLocal": null
+          }
+        },
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+          "method": "GET",
+          "body": null
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "version": "after",
+      "kind": "pipeline",
+      "priorVisibleAfter403": false,
+      "recovery": true,
+      "retiredWrite": false,
+      "externalRequests": [],
+      "calls": [
+        {
+          "url": "/api/crm/work?view=pipeline&closed=false&dormant=false",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work?view=pipeline&closed=false&dormant=false&type=TENDER",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work?view=pipeline&closed=false&dormant=false&type=TENDER",
+          "method": "GET",
+          "body": null
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "version": "after",
+      "kind": "work",
+      "priorVisibleAfter403": false,
+      "recovery": true,
+      "retiredWrite": true,
+      "externalRequests": [],
+      "calls": [
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work",
+          "method": "POST",
+          "body": {
+            "action": "createTask",
+            "sourceKind": "CRM_ORGANISATION",
+            "sourceId": "00000000-0000-4000-8000-000000000010",
+            "title": "Synthetic attempted task",
+            "assigneeId": "00000000-0000-4000-8000-000000000001",
+            "dueLocal": null
+          }
+        },
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/crm/work",
+          "method": "POST",
+          "body": {
+            "action": "createTask",
+            "sourceKind": "CRM_ORGANISATION",
+            "sourceId": "00000000-0000-4000-8000-000000000010",
+            "title": "Synthetic held task",
+            "assigneeId": "00000000-0000-4000-8000-000000000001",
+            "dueLocal": null
+          }
+        },
+        {
+          "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000011",
+          "method": "GET",
+          "body": null
+        }
+      ]
+    }
+  ]
+}

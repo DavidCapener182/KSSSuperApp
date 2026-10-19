@@ -1,0 +1,56 @@
+// Synthetic actual-component acceptance only. No real auth/RPC/database writes.
+import {readFileSync,writeFileSync,mkdirSync,copyFileSync,symlinkSync,existsSync,mkdtempSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {tmpdir} from 'node:os';
+import {createRequire} from 'node:module';
+import {createHash} from 'node:crypto';
+import {spawn} from 'node:child_process';
+import assert from 'node:assert/strict';
+const root=process.cwd(),stamp=new Date().toISOString().replaceAll(':','-'),
+ out=resolve(root,process.env.KSS_CRM_READ_LIFECYCLE_OUTPUT||`output/CRM-READ-LIFECYCLE-20261019-${stamp}-${process.pid}`),
+ port=Number(process.env.KSS_CRM_READ_LIFECYCLE_PORT||3190);
+assert.ok(Number.isInteger(port)&&port>=1024&&port<=65535,'CRM synthetic port must be an integer from1024 through65535');
+const dir=mkdtempSync(resolve(tmpdir(),`CRM-READ-LIFECYCLE-20261019-${port}-`));
+assert.ok(!existsSync(out),'Immutable browser run already exists; inspect results before rerun');
+mkdirSync(out,{recursive:true});mkdirSync(resolve(dir,'src/app/[version]/[kind]'),{recursive:true});mkdirSync(resolve(dir,'src/components/ui'),{recursive:true});mkdirSync(resolve(dir,'src/lib/crm'),{recursive:true});
+if(!existsSync(resolve(dir,'node_modules')))symlinkSync(resolve(root,'node_modules'),resolve(dir,'node_modules'));
+writeFileSync(resolve(dir,'package.json'),JSON.stringify({private:true,scripts:{dev:'next dev --webpack'}}));
+writeFileSync(resolve(dir,'tsconfig.json'),JSON.stringify({compilerOptions:{target:'ES2022',lib:['dom','esnext'],jsx:'react-jsx',module:'esnext',moduleResolution:'bundler',esModuleInterop:true,resolveJsonModule:true,baseUrl:'.',paths:{'@/*':['./src/*']}},include:['**/*.ts','**/*.tsx','.next/types/**/*.ts']}));
+copyFileSync(resolve(root,'postcss.config.mjs'),resolve(dir,'postcss.config.mjs'));
+const provenance=[];
+function copy(source,target,authority=true){const bytes=readFileSync(resolve(root,source));copyFileSync(resolve(root,source),resolve(dir,target));provenance.push({source,runtime:target,sha256:createHash('sha256').update(bytes).digest('hex'),authority});}
+copy('docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/crm-operational.before.tsx.txt','src/components/crm-before.tsx');
+copy('src/components/crm-operational.tsx','src/components/crm-after.tsx');
+for(const f of ['src/components/crm-sales.module.css','src/components/ui/button.tsx','src/components/ui/input.tsx','src/lib/crm/due-status.ts','src/app/globals.css'])copy(f,f);
+writeFileSync(resolve(dir,'src/app/layout.tsx'),`import './globals.css';export default function Layout({children}:{children:React.ReactNode}){return <html lang="en"><body><main style={{padding:16,maxWidth:1280,margin:'auto'}}><p>Synthetic CRM component acceptance • no authenticated backend</p>{children}</main></body></html>}`);
+writeFileSync(resolve(dir,'src/app/[version]/[kind]/page.tsx'),`import Fixture from '@/components/fixture';export default async function Page({params}:{params:Promise<{version:string;kind:string}>}){return <Fixture {...await params}/>}`);
+writeFileSync(resolve(dir,'src/components/fixture.tsx'),`"use client";import{useState}from'react';import{CrmPipeline as BeforePipeline,CrmRecordWork as BeforeWork}from'./crm-before';import{CrmPipeline as AfterPipeline,CrmRecordWork as AfterWork}from'./crm-after';export default function Fixture({version,kind}:{version:string;kind:string}){const[id,setId]=useState('00000000-0000-4000-8000-000000000010');const[mounted,setMounted]=useState(true);const Pipeline=version==='before'?BeforePipeline:AfterPipeline,Work=version==='before'?BeforeWork:AfterWork;const owners=[{id:'00000000-0000-4000-8000-000000000001',displayName:'Synthetic Office'}];return <><h1>{version} {kind}</h1><button onClick={()=>setId('00000000-0000-4000-8000-000000000011')}>Synthetic source B</button><button onClick={()=>setMounted(false)}>Synthetic unmount</button>{mounted&&(kind==='pipeline'?<Pipeline owners={owners}/>:<Work kind="organisation" id={id} organisationId={id} owners={owners} currentPersonId={owners[0].id} commercialHistory={[]}/>)}</>}`);
+writeFileSync(resolve(out,'runtime-source-manifest.json'),JSON.stringify({provenance,explicitMocks:['root layout replaces authentication/shell','synthetic fixture controls source/unmount','all API responses intercepted in Playwright; no server API routes','Office identity supplied synthetic, no auth/RLS validation'],unusedCopiedSources:[]},null,2));
+const logfile=await import('node:fs').then(m=>m.openSync(resolve(out,'server.log'),'w'));
+const server=spawn(process.execPath,[resolve(root,'node_modules/next/dist/bin/next'),'dev','--webpack','-H','127.0.0.1','-p',String(port)],{cwd:dir,stdio:['ignore',logfile,logfile],env:{...process.env,NEXT_TELEMETRY_DISABLED:'1'}});
+const require=createRequire(resolve(root,'package.json')),pw=require(process.env.KSS_PLAYWRIGHT_MODULE||'/Users/davidcapener/.npm/_npx/e41f203b7505f1fb/node_modules/playwright');let browser;const results=[];
+const id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
+const response=(route,data,status=200)=>route.fulfill({status,contentType:'application/json',body:JSON.stringify(data)});
+try{
+ let ready=false;for(let i=0;i<90;i++){try{const r=await fetch(`http://127.0.0.1:${port}/after/pipeline`);if(r.ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,500));}assert.ok(ready,'Synthetic server ready');
+ browser=await pw.chromium.launch({headless:true,executablePath:process.env.KSS_CHROMIUM_PATH||'/Users/davidcapener/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing'});
+ for(const width of [390,1280])for(const version of ['before','after'])for(const kind of ['pipeline','work']){
+  const page=await browser.newPage({viewport:{width,height:900}}),calls=[],external=[];let denied=false,created=false,hold=false,release;
+  page.on('pageerror',e=>{throw e;});
+  await page.route('**/*',async route=>{const url=new URL(route.request().url());if(url.hostname!=='127.0.0.1'||url.port!==String(port)){external.push(url.origin);return route.abort();}if(!url.pathname.startsWith('/api/'))return route.continue();const method=route.request().method(),body=method==='POST'?route.request().postDataJSON():null;calls.push({url:url.pathname+url.search,method,body});if(method==='POST'){created=true;if(hold)await new Promise(r=>release=r);return response(route,{id:id(99)});}if(denied)return response(route,{error:'Synthetic revoked current source'},403);if(url.searchParams.get('view')==='pipeline')return response(route,{columns:[{stage:'NEW_LEAD',count:1,items:[{id:id(30),title:'Synthetic deal',stage:'NEW_LEAD',organisation_id:id(10),owner_person_id:id(1)}]}]});const source=url.searchParams.get('id');return response(route,{activities:[],tasks:[{id:created?id(99):id(40),title:source===id(11)?'Synthetic source B task':'Synthetic follow-up',state:'OPEN',created_at:'2026-10-19T00:00:00Z',assignee_person_id:id(1)}],taskEvents:[],contacts:[]});});
+  await page.goto(`http://127.0.0.1:${port}/${version}/${kind}`);await page.getByText(kind==='pipeline'?'Synthetic deal':'Synthetic follow-up',{exact:true}).first().waitFor();
+  denied=true;
+  if(kind==='pipeline'){if(width===390)await page.getByRole('button',{name:'Filter pipeline',exact:true}).click();await page.getByRole('combobox',{name:/^Type/}).selectOption('TENDER');}
+  else{await page.getByLabel('Action title',{exact:true}).fill('Synthetic attempted task');await page.getByRole('button',{name:'Create follow-up',exact:true}).click();}
+  await page.getByRole('alert').filter({hasText:kind==='pipeline'?'Pipeline unavailable':'The follow-up response could not be confirmed'}).first().waitFor();await page.getByText(kind==='pipeline'?'Synthetic deal':'Synthetic follow-up',{exact:true}).first().waitFor({state:version==='before'?'visible':'hidden'});await page.screenshot({path:resolve(out,`${version}-${kind}-${width}-diagnostic.png`),fullPage:true});writeFileSync(resolve(out,`${version}-${kind}-${width}-diagnostic.json`),JSON.stringify({body:await page.locator('body').innerText(),calls},null,2));const priorVisible=await page.getByText(kind==='pipeline'?'Synthetic deal':'Synthetic follow-up',{exact:true}).first().isVisible();assert.equal(priorVisible,version==='before');
+  await page.screenshot({path:resolve(out,`${version}-${kind}-${width}-403.png`),fullPage:true});
+  denied=false;await page.getByRole('button',{name:'Retry',exact:true}).first().click();await page.getByText(kind==='pipeline'?'Synthetic deal':'Synthetic follow-up',{exact:true}).first().waitFor();
+  await page.screenshot({path:resolve(out,`${version}-${kind}-${width}-recovered.png`),fullPage:true});
+  if(version==='after'&&kind==='work'){
+   hold=true;await page.getByLabel('Action title',{exact:true}).fill('Synthetic held task');await page.getByRole('button',{name:'Create follow-up',exact:true}).click();while(!release)await page.waitForTimeout(20);await page.getByRole('button',{name:'Synthetic source B',exact:true}).click();await page.getByText('Synthetic source B task',{exact:true}).first().waitFor();await page.getByLabel('Action title',{exact:true}).fill('Synthetic new context draft');const count=calls.length;release();await page.waitForTimeout(150);assert.equal(calls.length,count);assert.equal(await page.getByLabel('Action title',{exact:true}).inputValue(),'Synthetic new context draft');
+   await page.getByRole('button',{name:'Done',exact:true}).first().click();await page.getByRole('dialog').waitFor();await page.keyboard.press('Escape');await assert.equal(await page.getByRole('dialog').count(),0);assert.equal(await page.getByRole('button',{name:'Done',exact:true}).first().evaluate(el=>el===document.activeElement),true);
+  }
+  assert.equal(external.length,0);results.push({width,version,kind,priorVisibleAfter403:priorVisible,recovery:true,retiredWrite:version==='after'&&kind==='work',externalRequests:external,calls});await page.close();
+ }
+ writeFileSync(resolve(out,'results.json'),JSON.stringify({pass:true,results},null,2));
+}catch(error){writeFileSync(resolve(out,'results.json'),JSON.stringify({pass:false,results,error:String(error.stack||error)},null,2));throw error;}finally{await browser?.close();server.kill('SIGTERM');}

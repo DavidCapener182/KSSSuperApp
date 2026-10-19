@@ -1,0 +1,161 @@
+{
+  "runner": "tests/CRM-READ-LIFECYCLE-20261019.browser.mjs",
+  "beforeSha256": "fc239d96323d4481e03b088e055ecd927e8e7ba6fe3354ca682c7ed886839f3e",
+  "afterSha256": "915ec9b263e106fa5fe03c89d773c6e4328c5c35fcf3fc4e7cb750ac9e0e404a",
+  "scope": "Imports and output/fixture/port initialisation only; complete remainder including assertions byte-identical. No product change.",
+  "settings": {
+    "KSS_CRM_READ_LIFECYCLE_OUTPUT": "Optional output path resolved relative to repository; must not exist",
+    "KSS_CRM_READ_LIFECYCLE_PORT": "Optional integer1024\u201365535; default3190"
+  },
+  "defaultOutput": "output/CRM-READ-LIFECYCLE-20261019-<UTC timestamp>-<pid>",
+  "fixture": "Unique mkdtemp under OS temp, port-prefixed",
+  "rerunCommand": "KSS_CRM_READ_LIFECYCLE_PORT=3192 node tests/CRM-READ-LIFECYCLE-20261019.browser.mjs",
+  "rerunOutput": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510",
+  "rerunExitCode": 0,
+  "records": 8,
+  "screenshots": 24,
+  "externalRequests": 0,
+  "originalPacketManifestSha256": "58f49041332e74911772f52cb68d9cc27a4aaba499e467d3800ca96991784581",
+  "runFiles": [
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-pipeline-1280-recovered.png",
+      "sha256": "7372b19024a34638e0342da96878802c26959525251c3e78278dd1ad0b128ca2"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-pipeline-1280-diagnostic.png",
+      "sha256": "6565f9e3078f3d365e62ac058f6e0a4cfbc372237c9866b67964dbb46857175c"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-work-1280-diagnostic.json",
+      "sha256": "0afed0245b67a2cc4e48136ed395ad3cc4789ca34e4972c6c0c7253982eedf80"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-pipeline-390-diagnostic.json",
+      "sha256": "becec54a25f4d9b66626c228040c4ff3eb33b28f428cb2d895d44567ad6e2f4c"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-work-1280-diagnostic.png",
+      "sha256": "50e24f24d253cfb2f55baaf2ac60fa26dd79ee508f646317935edf32e112a5b1"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-work-390-recovered.png",
+      "sha256": "71f0e860024238c5b4140ee11b36a41e77e4fbc66a14729795b84a0ed4d0725e"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-pipeline-390-recovered.png",
+      "sha256": "85f57f1cb7a568cd536c591ffe1872acb5bb594e260d953e85b902dac793234b"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-work-1280-diagnostic.json",
+      "sha256": "912e8c2f3f78c7f7202aca36d9ad757c10fe3453bd9f40ae1e2323875ed3f68f"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-pipeline-390-403.png",
+      "sha256": "57bb97c076abc43467eb470ff0189a480b2e6ed80fd4ab776975526e8821a0a0"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-work-390-recovered.png",
+      "sha256": "62215cc73bc982bb10fe44130999cba94aaf928a469580829c1f6a501e7d8b26"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/results.json",
+      "sha256": "6eab43c8f9caec35d1ea3a99c6d340581194d325a4d944f53263d2f985bc703b"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-work-1280-recovered.png",
+      "sha256": "004ce183d879a5f3f47530836b53b6958a23c3cba0c58f1b8aedeea9cb184944"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-work-390-403.png",
+      "sha256": "973c7ac2feff6882ecd5909fe7369af988322ff8be0245f30964ada0f7447e29"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/runtime-source-manifest.json",
+      "sha256": "667fe7b316540e681b7319e849d61a9a009faefb53b3a36e553b404d63423366"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-work-1280-diagnostic.png",
+      "sha256": "24221a4f3b9f749bd305ce557848b5dcbe090b5241bd5258b9163afc7b6a57f7"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-pipeline-1280-403.png",
+      "sha256": "ce89d7b9470c1ac291b434219a7a0e397adc3021eb61b04411e08dd0c711cb5f"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-pipeline-390-diagnostic.png",
+      "sha256": "ccedc126380764f92409450ee93a33809646a88b8b15aa1f409d0da8545633bd"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-work-1280-recovered.png",
+      "sha256": "afca4e5e3f6f54e98a3a63e19aa975b402c5a4d24252353cead594101e34639b"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-pipeline-390-diagnostic.json",
+      "sha256": "7a8e42aa6b4a27b0a6e2e485d3aeb10f94355eb63441e6b4885298b6232c1822"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-pipeline-390-recovered.png",
+      "sha256": "5e8a3c7e21d9dd29041fb90bee729fd6d02a45faf9330d38e4de83a094c1731f"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-pipeline-390-403.png",
+      "sha256": "1c82b2264cc6761cbf95697924cbca6646caa75922ea993509af6a55a60b55be"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-work-1280-403.png",
+      "sha256": "24221a4f3b9f749bd305ce557848b5dcbe090b5241bd5258b9163afc7b6a57f7"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-pipeline-390-diagnostic.png",
+      "sha256": "a671508b445db179d5375b6f0bc8486d3554bc59e07fcb8891a8f9a5f3e9cb03"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-work-390-diagnostic.json",
+      "sha256": "912e8c2f3f78c7f7202aca36d9ad757c10fe3453bd9f40ae1e2323875ed3f68f"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-pipeline-1280-403.png",
+      "sha256": "6565f9e3078f3d365e62ac058f6e0a4cfbc372237c9866b67964dbb46857175c"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-pipeline-1280-diagnostic.json",
+      "sha256": "9ac31fe6565fa39ae17d31c9902930a32fedce9193413b4915db1a4f74951fb2"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-work-1280-403.png",
+      "sha256": "50e24f24d253cfb2f55baaf2ac60fa26dd79ee508f646317935edf32e112a5b1"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-pipeline-1280-diagnostic.png",
+      "sha256": "ce89d7b9470c1ac291b434219a7a0e397adc3021eb61b04411e08dd0c711cb5f"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-work-390-403.png",
+      "sha256": "92a5d596e5c4b2c290102fc0aafafe70159f8180c85d54e7719640a315bc9080"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/before-work-390-diagnostic.png",
+      "sha256": "92a5d596e5c4b2c290102fc0aafafe70159f8180c85d54e7719640a315bc9080"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-pipeline-1280-diagnostic.json",
+      "sha256": "ca90c30d91bdef4d4794558d28ef8b188a9e74dda03ec8a551f0be7daebd3665"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/server.log",
+      "sha256": "7110edcacdb3038f422f87efa07748da3c74fbadf25bf52f8f4440e2ddacdd5c"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-work-390-diagnostic.json",
+      "sha256": "0afed0245b67a2cc4e48136ed395ad3cc4789ca34e4972c6c0c7253982eedf80"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-work-390-diagnostic.png",
+      "sha256": "973c7ac2feff6882ecd5909fe7369af988322ff8be0245f30964ada0f7447e29"
+    },
+    {
+      "path": "output/CRM-READ-LIFECYCLE-20261019-2026-10-19T01-21-43.255Z-34510/after-pipeline-1280-recovered.png",
+      "sha256": "72c9853d60ffa7e8a13428e9c9f38cf9f2958bb14cb93d2e984f918a255c2970"
+    }
+  ]
+}

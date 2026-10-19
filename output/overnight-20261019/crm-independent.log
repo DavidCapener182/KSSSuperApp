@@ -1,0 +1,44 @@
+✔ Pipeline current 403 retires facts and stage confirmation; Retry recovers (60.30275ms)
+✔ RecordWork current 403 retires facts and selected task action; Retry recovers (23.027583ms)
+✔ CrmPipeline delayed obsolete response cannot replace newer query/source (19.45675ms)
+✔ CrmPipeline unmounted read cannot publish (37.366333ms)
+✔ CrmRecordWork delayed obsolete response cannot replace newer query/source (18.460125ms)
+✔ CrmRecordWork unmounted read cannot publish (18.192541ms)
+✔ RecordWork source and actor change hide prior facts before next read (25.40725ms)
+✔ Pipeline query change hides prior facts before next read (11.760166ms)
+✔ Pipeline late POST after query change starts no obsolete readback/write (14.131041ms)
+✔ Pipeline late POST after unmount starts no obsolete readback/write (15.563375ms)
+✔ RecordWork activity late POST cannot read back or clear new source draft (11.418375ms)
+✔ RecordWork createTask late POST cannot read back or clear new source draft (11.07675ms)
+✔ Pipeline valid exact stage readback preserves transition payload (13.181375ms)
+✔ RecordWork valid activity confirms exact returned id (18.106083ms)
+✔ RecordWork valid createTask confirms exact returned id (10.815583ms)
+✔ CrmPipeline older same-context refresh cannot overwrite latest read (14.223083ms)
+✔ CrmPipeline delayed JSON after retirement cannot publish (10.256208ms)
+✔ CrmRecordWork older same-context refresh cannot overwrite latest read (11.381333ms)
+✔ CrmRecordWork delayed JSON after retirement cannot publish (11.009666ms)
+✔ RecordWork selected task late POST after source change performs no old readback (10.321291ms)
+✔ RecordWork selected task late POST after unmount performs no old readback (10.248834ms)
+✔ RecordWork activity failed confirmation remains uncertain and sends no automatic retry (13.980209ms)
+✔ RecordWork createTask failed confirmation remains uncertain and sends no automatic retry (9.936542ms)
+✔ RecordWork duplicate pending task submission sends one unchanged payload (9.953709ms)
+✔ actual CRM list retires prior Organisation facts after a denied current read (76.637208ms)
+✔ current read failure clears inline create controls and Retry recovers facts (36.254208ms)
+✔ superseded response cannot replace newer current source (19.500917ms)
+✔ person/source change hides prior facts synchronously before next effect read (21.773ms)
+✔ unmounted pending read cannot publish facts (19.46375ms)
+✔ duplicate pending create sends one exact payload and confirms exact created source (16.874125ms)
+✔ old-person create response cannot read back or navigate after source context changes (15.546125ms)
+✔ existing stage action preserves exact payload and confirms fresh source after mutation (19.442959ms)
+✔ all actual API calls, payload serialisation and query filters remain byte-identical (22.782292ms)
+✔ all accepted record/list presentation and source-link actions are exact except retiring modal without current data (0.089625ms)
+✔ commercial action function changes only current-context and duplicate-pending guards (0.107875ms)
+✔ existing modal keyboard effect and field helpers remain exact (0.055709ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 36
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 540.133958

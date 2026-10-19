@@ -1,0 +1,8 @@
+{
+  "baseCommit": "a95d85079c33a3fd352bd190599864a79240c27c",
+  "file": "src/components/crm-operational.tsx",
+  "beforeSha256": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c",
+  "afterSha256": "706b89eebdc019179742cab3bcbe5ad7d98965f11f8d2694a23cbd200b51052d",
+  "reason": "Authorised current-read lifetime repair; exact API calls and payloads retained. Historical source manifest is unchanged.",
+  "proof": "tests/CRM-READ-LIFECYCLE-20261019.test.mjs and tests/crm-source-contract-local.test.mjs; coordinator independent review."
+}

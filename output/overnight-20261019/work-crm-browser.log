@@ -1,0 +1,26 @@
+(node:33144) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///private/tmp/kss-overnight-20261019/src/lib/crm/due-time.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /private/tmp/kss-overnight-20261019/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+▶ exact CRM task actions real Chromium with synthetic guarded API boundaries
+  ✔ explicit completion, pending duplicates, cancel, keyboard/focus and exact source at 390px (672.259375ms)
+  ✔ reschedule London validation, POST-alone uncertainty, exact readback and deadline removal at 390px (667.749166ms)
+  ✔ stale/denied/wrong/unavailable results clear facts and require safe refresh at 390px (4924.008375ms)
+  ✔ explicit completion, pending duplicates, cancel, keyboard/focus and exact source at 1280px (553.295375ms)
+  ✔ reschedule London validation, POST-alone uncertainty, exact readback and deadline removal at 1280px (610.439791ms)
+  ✔ stale/denied/wrong/unavailable results clear facts and require safe refresh at 1280px (4891.24125ms)
+  ✔ historical exact routes expose canonical navigation without action controls or writes (826.765625ms)
+✔ exact CRM task actions real Chromium with synthetic guarded API boundaries (15818.72875ms)
+▶ My Work deadline calendar real Chromium journeys with synthetic projections
+  ✔ London dates/agenda, month navigation, filters, undated links and keyboard at 390px (1949.735792ms)
+  ✔ London dates/agenda, month navigation, filters, undated links and keyboard at 1280px (1789.694583ms)
+  ✔ initial loading, empty calendar/agenda and failed source clears facts at 390px (1228.932708ms)
+✔ My Work deadline calendar real Chromium journeys with synthetic projections (7737.397ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 27793.406833

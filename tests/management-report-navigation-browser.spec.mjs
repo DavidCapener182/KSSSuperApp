@@ -19,7 +19,7 @@ const person = { id: id(100), name: 'Synthetic Office Reviewer' }, roles = ['OFF
 async function prepare() {
   const runtime = await mkdtemp(join(tmpdir(), 'kss-report-context-fixture-'));
   const files = ['src/components/management-reports-client.tsx', 'src/components/management-reports.module.css',
-    'src/components/enterprise-shell.tsx', 'src/components/ui/button.tsx', 'src/components/ui/sheet.tsx',
+    'src/components/enterprise-shell.tsx', 'src/components/ui/button.tsx', 'src/components/ui/sheet.tsx', 'src/components/ui/sheet.module.css',
     'src/components/ui13/operational.tsx', 'src/components/ui13/operational.module.css',
     'src/lib/reports/navigation.ts', 'src/lib/events/workforce-week.ts', 'src/lib/events/workforce-navigation.ts',
     'src/lib/environment-label.ts', 'src/lib/auth/capabilities.ts', 'src/lib/auth/return-target.ts',

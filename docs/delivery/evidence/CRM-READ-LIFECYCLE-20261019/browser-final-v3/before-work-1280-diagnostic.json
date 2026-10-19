@@ -1,0 +1,27 @@
+{
+  "body": "Synthetic CRM component acceptance • no authenticated backend\n\nbefore work\nSynthetic source BSynthetic unmount\n\nThe follow-up response could not be confirmed in the authorised record. Refresh before trying again. Retry\n\nNext action\nSynthetic follow-up\n\nNo due date · No due date · Task assignee: Synthetic Office\n\nFollow-ups\nAction title\nTask assignee\nSynthetic Office\nDue date and time · London\nCreate follow-up\nSynthetic follow-up\nOpen · No due date · No due date · Task assignee: Synthetic Office\nDone\nReassign\nReschedule\nCancel\nActivity entry\nRecord activity\nCommercial timeline\n\nNo commercial activity recorded yet.",
+  "calls": [
+    {
+      "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+      "method": "GET",
+      "body": null
+    },
+    {
+      "url": "/api/crm/work",
+      "method": "POST",
+      "body": {
+        "action": "createTask",
+        "sourceKind": "CRM_ORGANISATION",
+        "sourceId": "00000000-0000-4000-8000-000000000010",
+        "title": "Synthetic attempted task",
+        "assigneeId": "00000000-0000-4000-8000-000000000001",
+        "dueLocal": null
+      }
+    },
+    {
+      "url": "/api/crm/work?view=organisation&id=00000000-0000-4000-8000-000000000010",
+      "method": "GET",
+      "body": null
+    }
+  ]
+}

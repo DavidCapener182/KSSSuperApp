@@ -1,0 +1,53 @@
+{
+  "provenance": [
+    {
+      "source": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/crm-operational.before.tsx.txt",
+      "runtime": "src/components/crm-before.tsx",
+      "sha256": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c",
+      "authority": true
+    },
+    {
+      "source": "src/components/crm-operational.tsx",
+      "runtime": "src/components/crm-after.tsx",
+      "sha256": "706b89eebdc019179742cab3bcbe5ad7d98965f11f8d2694a23cbd200b51052d",
+      "authority": true
+    },
+    {
+      "source": "src/components/crm-sales.module.css",
+      "runtime": "src/components/crm-sales.module.css",
+      "sha256": "0ea2b91505abfb7033b2fa5668d527cfe39685bdd351b6e061c96780ef7518b4",
+      "authority": true
+    },
+    {
+      "source": "src/components/ui/button.tsx",
+      "runtime": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "authority": true
+    },
+    {
+      "source": "src/components/ui/input.tsx",
+      "runtime": "src/components/ui/input.tsx",
+      "sha256": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04",
+      "authority": true
+    },
+    {
+      "source": "src/lib/crm/due-status.ts",
+      "runtime": "src/lib/crm/due-status.ts",
+      "sha256": "f1190f79a2d0e62275a4eca1eb74e29bfbc0763a4dd5035618e2814f857fb976",
+      "authority": true
+    },
+    {
+      "source": "src/app/globals.css",
+      "runtime": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "authority": true
+    }
+  ],
+  "explicitMocks": [
+    "root layout replaces authentication/shell",
+    "synthetic fixture controls source/unmount",
+    "all API responses intercepted in Playwright; no server API routes",
+    "Office identity supplied synthetic, no auth/RLS validation"
+  ],
+  "unusedCopiedSources": []
+}

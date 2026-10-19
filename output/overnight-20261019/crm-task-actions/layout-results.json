@@ -1,0 +1,122 @@
+[
+  {
+    "name": "complete-pending-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "complete-verified-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "reschedule-review-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "reschedule-readback-pending-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "deadline-removed-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "stale-preflight-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "denied-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "wrong-due-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "refresh-loading-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "complete-pending-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "complete-verified-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "reschedule-review-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "reschedule-readback-pending-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "deadline-removed-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "stale-preflight-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "denied-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "wrong-due-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "refresh-loading-1280",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "outside": []
+  },
+  {
+    "name": "historical-done-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  },
+  {
+    "name": "historical-cancelled-390",
+    "width": 390,
+    "scrollWidth": 390,
+    "outside": []
+  }
+]

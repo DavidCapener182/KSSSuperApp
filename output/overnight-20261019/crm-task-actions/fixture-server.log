@@ -1,0 +1,53 @@
+▲ Next.js 16.3.6 (webpack)
+- Local:         http://127.0.0.1:51867
+- Network:       http://127.0.0.1:51867
+✓ Ready in 118ms
+✓ Running next.config.mjs took 5ms
+
+  We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default.
+  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+    - lib was set to dom,dom.iterable,esnext
+    - allowJs was set to true
+    - strict was set to false
+    - noEmit was set to true
+    - incremental was set to true
+    - include was set to ['next-env.d.ts', '.next/types/**/*.ts', '.next/dev/types/**/*.ts', '**/*.mts', '**/*.ts', '**/*.tsx']
+    - plugins was updated to add { name: 'next' }
+    - exclude was set to ['node_modules']
+
+  The following mandatory changes were made to your tsconfig.json:
+
+    - resolveJsonModule was set to true (to match webpack resolution)
+    - isolatedModules was set to true (requirement for SWC / Babel)
+
+
+ GET / 200 in 1332ms (next.js: 1285ms, application-code: 47ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 18ms (next.js: 1.5ms, application-code: 16ms)
+ GET /work/00000000-0000-4000-8000-000000000003 200 in 14ms (next.js: 1.7ms, application-code: 12ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 10ms (next.js: 1.3ms, application-code: 9ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 13ms (next.js: 1.7ms, application-code: 11ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 12ms (next.js: 1.5ms, application-code: 10ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 11ms (next.js: 1.7ms, application-code: 9ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 10ms (next.js: 1.5ms, application-code: 9ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 11ms (next.js: 1.6ms, application-code: 9ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 11ms (next.js: 1.8ms, application-code: 10ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 10ms (next.js: 1.4ms, application-code: 8ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 11ms (next.js: 1.5ms, application-code: 9ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 10ms (next.js: 1.3ms, application-code: 9ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 10ms (next.js: 1.4ms, application-code: 8ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 9ms (next.js: 1.2ms, application-code: 7ms)
+ GET /work/00000000-0000-4000-8000-000000000003 200 in 10ms (next.js: 1.1ms, application-code: 8ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 10ms (next.js: 1.3ms, application-code: 8ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 10ms (next.js: 1.3ms, application-code: 9ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 11ms (next.js: 1.5ms, application-code: 10ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 12ms (next.js: 1.6ms, application-code: 10ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 11ms (next.js: 1.4ms, application-code: 9ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 11ms (next.js: 1.5ms, application-code: 10ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 12ms (next.js: 1.5ms, application-code: 10ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 9ms (next.js: 1.2ms, application-code: 8ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 11ms (next.js: 1.4ms, application-code: 9ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 12ms (next.js: 1.5ms, application-code: 10ms)
+ GET /work/00000000-0000-4000-8000-000000000001 200 in 10ms (next.js: 1.4ms, application-code: 9ms)
+ GET /work/00000000-0000-4000-8000-000000000005 200 in 10ms (next.js: 1.2ms, application-code: 9ms)
+ GET /work/00000000-0000-4000-8000-000000000007 200 in 11ms (next.js: 1.2ms, application-code: 9ms)

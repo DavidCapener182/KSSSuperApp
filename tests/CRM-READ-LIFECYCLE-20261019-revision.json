@@ -1,0 +1,82 @@
+{
+  "baselineCommit": "a95d85079c33a3fd352bd190599864a79240c27c",
+  "file": "src/components/crm-operational.tsx",
+  "beforeSha256": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c",
+  "afterSha256": "706b89eebdc019179742cab3bcbe5ad7d98965f11f8d2694a23cbd200b51052d",
+  "changedFunctions": {
+    "CrmPipeline:commit": {
+      "beforeSha256": "0c7d42a551be5f3002804a0b44a3e97ec6d336ccf908fba3d83c9a74a8acfcd5",
+      "afterSha256": "d69ece2b9cc60507c4a8040d8713d3ea0ee952d5dbfd20e9c22d06dff82fcf7a"
+    },
+    "CrmRecordWork:createActivity": {
+      "beforeSha256": "4aa17607a9fa0b609447c020c67c4aab4bf1ba0049c1e12a6fa1a9ded906ee8c",
+      "afterSha256": "8a2d2f9b230c722f18a40e81892ff51cb4f632d4dc6568297cef056720ec5f95"
+    },
+    "CrmRecordWork:createTask": {
+      "beforeSha256": "4ebb8d2ba87f378eb36ca06cdcb17658dfb9adbb62b548b42dea87f4376e65c6",
+      "afterSha256": "52684c6117dfe9dc8fc39e77fe2840c4aca74c637314af7f60963b02e2bc2d33"
+    },
+    "CrmRecordWork:changeTask": {
+      "beforeSha256": "1756c897b909d84310d75953da2cd195ce13d2294cfd6999e9a550b22619568a",
+      "afterSha256": "430cecd712b8029b5978b331e18890e2471a551e815a9a2cdb64b103c27f3569"
+    }
+  },
+  "changedReaders": {
+    "CrmPipeline:load": {
+      "beforeSha256": "be23ebd3950b8fcf8ac0382d7437e390c5f168aad2681d6a46001535b65a5967",
+      "afterSha256": "de14775b187fbf66b3b9bd4f12b4fd9bffc5d91c364ae634267278bad949f012"
+    },
+    "CrmRecordWork:load": {
+      "beforeSha256": "51a3d625030a822830fe0f44c7a537636bf90ef664e20a2f20c301e4bd2d8250",
+      "afterSha256": "c0915f28ade09515b0872b945acce37ec6f2f769a48a31a037837e51c2541358"
+    }
+  },
+  "changedEffects": [
+    {
+      "owner": "CrmPipeline",
+      "beforeSha256": "862b2f14515fcf630f18a0de2a4fd14c23706148ffc20e6ead3538db32f502d2",
+      "afterSha256": "97d1834b8ed0b6b478e4177321fb08ba6f1433e2b04962cb2810772d404b263e"
+    },
+    {
+      "owner": "CrmRecordWork",
+      "beforeSha256": "862b2f14515fcf630f18a0de2a4fd14c23706148ffc20e6ead3538db32f502d2",
+      "afterSha256": "862efef985ec214f9fe9047410578b47d1473a1731caecf43cab0b70cc078c79"
+    }
+  ],
+  "requestsUnchanged": true,
+  "requestHashes": [
+    {
+      "owner": "send",
+      "sha256": "a4ff1eef9be81096312ddbdda7a66cf7bfd18c83c0e133a05c2267d7c9037f5f"
+    },
+    {
+      "owner": "CrmPipeline",
+      "sha256": "9220b2bd66e0e04bff120bbac7ae7def6a7fa40400b40468fb4c1382f50673e1"
+    },
+    {
+      "owner": "commit",
+      "sha256": "1df178131d2f4a1dd9b85739344d6179e5ecf788a7891388a6adc4004d9641a7"
+    },
+    {
+      "owner": "commit",
+      "sha256": "8e6a189200152418eb0a2aebdc227099174be94bebf2681a9479678d7afa81d4"
+    },
+    {
+      "owner": "CrmRecordWork",
+      "sha256": "d9da1af7ac358511c89b285d2960bd300893b69e366f0d11e3f01ae6125d9982"
+    },
+    {
+      "owner": "createActivity",
+      "sha256": "e422f4632d197d01a6d26fafb9ca0f328d15c559abad861b8171c20eb2fe6022"
+    },
+    {
+      "owner": "createTask",
+      "sha256": "f9ef8e774e4bd0e15d69783b38c3407b398405b84bf0996d95dae2d65bd6e35f"
+    },
+    {
+      "owner": "changeTask",
+      "sha256": "6d1e2d111b1fc5ead9c073b624d25cdcd4a5fcecbc26ee3e7f7798275ee0aff4"
+    }
+  ],
+  "limits": "Client query/current-read lifetime only. Pipeline has no supplied actor key; independent server authority remains unchanged. Different query contexts may deliberately submit separate writes; no universal transaction guarantee."
+}

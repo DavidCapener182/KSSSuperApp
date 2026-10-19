@@ -28,7 +28,7 @@ async function send(path: string, body: Record<string, unknown>) {
 }
 
 export function CrmPipeline({ owners }: { owners: Owner[] }) {
-  const [columns, setColumns] = useState<{ stage: string; count: number; items: Row[] }[]>([]);
+  const [snapshot, setSnapshot] = useState<{ key: string; columns: { stage: string; count: number; items: Row[] }[] } | null>(null);
   const [closed, setClosed] = useState(false);
   const [dormant, setDormant] = useState(false);
   const [owner, setOwner] = useState("");
@@ -45,21 +45,36 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
   const [loading, setLoading] = useState(true);
   const dialogRef = useRef<HTMLElement | null>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
+  const sourceKey = JSON.stringify([closed, dormant, owner, type, orgSearch]);
+  const columns = snapshot?.key === sourceKey ? snapshot.columns : null;
+  const lifetime = useRef({ active: false, key: sourceKey, request: 0, mutation: false });
   const load = useCallback(async () => {
-    setLoading(true);
+    const context = lifetime.current;
+    if (!context.active || context.key !== sourceKey) return;
+    const request = ++context.request;
+    const current = () => context.active && lifetime.current === context && context.request === request;
+    setSnapshot(null); setPending(null); setLoading(true); setError("");
     try {
       const params = new URLSearchParams({ view: "pipeline", closed: String(closed), dormant: String(dormant) });
       if (owner) params.set("owner", owner);
       if (type) params.set("type", type);
       if (orgSearch) params.set("orgSearch", orgSearch);
       const response = await fetch(`/api/crm/work?${params}`, { cache: "no-store" });
+      if (!current()) return;
       if (!response.ok) throw new Error("Pipeline unavailable");
-      setColumns((await response.json()).columns ?? []);
-      setError("");
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Pipeline unavailable"); }
-    finally { setLoading(false); }
-  }, [closed, dormant, owner, type, orgSearch]);
-  useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); }, [load]);
+      const next = await response.json();
+      if (!current()) return;
+      setSnapshot({ key: sourceKey, columns: next.columns ?? [] });
+    } catch (caught) {
+      if (current()) { setSnapshot(null); setPending(null); setReason(""); setConfirm(false); setError(caught instanceof Error ? caught.message : "Pipeline unavailable"); }
+    } finally { if (current()) setLoading(false); }
+  }, [closed, dormant, owner, type, orgSearch, sourceKey]);
+  useEffect(() => {
+    const context = { active: true, key: sourceKey, request: 0, mutation: false };
+    lifetime.current = context;
+    const timer = setTimeout(() => { setBusy(false); setPending(null); setReason(""); setConfirm(false); void load(); }, 0);
+    return () => { context.active = false; clearTimeout(timer); };
+  }, [load, sourceKey]);
   useEffect(() => {
     if (!pending) return;
     const dialog = dialogRef.current;
@@ -77,23 +92,29 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
   }, [pending, busy]);
   const rank = (stage: string) => openStages.indexOf(stage);
   const move = (id: string, from: string, to: string) => {
-    if (!to || to === from || closed) return;
+    if (!columns || loading || busy || !to || to === from || closed) return;
     returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setPending({ id, from, to }); setReason(""); setConfirm(false);
   };
   async function commit() {
-    if (!pending) return;
+    const context = lifetime.current, request = context.request;
+    const current = () => context.active && lifetime.current === context && context.key === sourceKey && context.request === request;
+    if (!pending || !columns || loading || !current() || context.mutation) return;
+    context.mutation = true;
     setBusy(true); setError("");
     try {
       await send("/api/crm", { action: "transition", id: pending.id, stage: pending.to, reason: reason || null });
+      if (!current()) return;
       const response = await fetch(`/api/crm?view=opportunity&id=${encodeURIComponent(pending.id)}`, { cache: "no-store" });
+      if (!current()) return;
       if (!response.ok) throw new Error("The updated Opportunity could not be confirmed. Refresh before trying again.");
       const detail = await response.json();
+      if (!current()) return;
       if (detail.opportunity?.id !== pending.id || detail.opportunity?.stage !== pending.to)
         throw new Error("The server responded, but the Opportunity stage could not be confirmed. Refresh before another change.");
       setPending(null); returnFocus.current?.focus(); await load();
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Stage change denied"); }
-    finally { setBusy(false); }
+    } catch (caught) { if (current()) setError(caught instanceof Error ? caught.message : "Stage change denied"); }
+    finally { context.mutation = false; if (context.active && lifetime.current === context) setBusy(false); }
   }
   return <section className={sales.pipeline} aria-label="Opportunity pipeline">
     <div className="crm-operational-tools">
@@ -121,7 +142,7 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
       </div>
     </div>
     {error && <p role="alert" className="enterprise-error">{error} <Button variant="ghost" onClick={() => void load()}>Retry</Button></p>}
-    {loading ? <p role="status" className="crm-skeleton">Loading pipeline…</p> :
+    {loading ? <p role="status" className="crm-skeleton">Loading pipeline…</p> : columns &&
       <div className={`crm-board ${closed ? "crm-board--closed" : ""}`} role="region" aria-label="Opportunity stages" tabIndex={0}>
         {columns.map((column) => <section className={`crm-board-column ${column.stage !== mobileStage ? "crm-mobile-hidden" : ""}`} key={column.stage}
           aria-label={`${label(column.stage)} opportunities`}
@@ -149,7 +170,7 @@ export function CrmPipeline({ owners }: { owners: Owner[] }) {
           {column.count > column.items.length && <p className="crm-board-empty">Showing first {column.items.length} of {column.count}. Use Opportunities search for more.</p>}
         </section>)}
       </div>}
-    {pending && <div className="crm-dialog-backdrop"><section ref={dialogRef} className="crm-dialog" role="dialog" aria-modal="true" aria-label="Confirm stage change">
+    {!loading && columns && pending && <div className="crm-dialog-backdrop"><section ref={dialogRef} className="crm-dialog" role="dialog" aria-modal="true" aria-label="Confirm stage change">
       <h2>Move to {label(pending.to)}?</h2><p>{label(pending.from)} → {label(pending.to)}</p>
       {error && <p role="alert" className="enterprise-error">{error}</p>}
       {(pending.to === "LOST" || pending.to === "DORMANT" || pending.from === "DORMANT" || rank(pending.to) < rank(pending.from)) && <label className="crm-field">Reason
@@ -168,7 +189,11 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
   kind: "opportunity" | "organisation"; id: string; organisationId: string; owners: Owner[];
   currentPersonId: string; accountableOwnerId?: string; commercialHistory: Row[];
 }) {
-  const [data, setData] = useState<{ activities: Row[]; tasks: Row[]; taskEvents: Row[]; contacts: Row[] } | null>(null);
+  type Work = { activities: Row[]; tasks: Row[]; taskEvents: Row[]; contacts: Row[] };
+  const [snapshot, setSnapshot] = useState<{ key: string; value: Work } | null>(null);
+  const sourceKey = JSON.stringify([kind, id, organisationId, currentPersonId]);
+  const data = snapshot?.key === sourceKey ? snapshot.value : null;
+  const lifetime = useRef({ active: false, key: sourceKey, request: 0, mutation: false });
   const [activity, setActivity] = useState({ type: "PHONE_CALL", subject: "", summary: "", contactId: "", correctsId: "" });
   const [activityOpen, setActivityOpen] = useState(false);
   const [task, setTask] = useState({ title: "", assigneeId: currentPersonId, dueLocal: "" });
@@ -208,43 +233,82 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const load = useCallback(async (): Promise<{ activities: Row[]; tasks: Row[]; taskEvents: Row[]; contacts: Row[] } | null> => {
-    setLoading(true);
+  const load = useCallback(async (): Promise<Work | null> => {
+    const context = lifetime.current;
+    if (!context.active || context.key !== sourceKey) return null;
+    const request = ++context.request;
+    const current = () => context.active && lifetime.current === context && context.request === request;
+    setSnapshot(null); setTaskChange(null); setLoading(true); setError("");
     try { const response = await fetch(`/api/crm/work?view=${kind}&id=${id}`, { cache: "no-store" });
+      if (!current()) return null;
       if (!response.ok) throw new Error("CRM work unavailable");
-      const next = await response.json(); setData(next); setError(""); return next;
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "CRM work unavailable"); return null; }
-    finally { setLoading(false); }
-  }, [kind, id]);
-  useEffect(() => { const timer = setTimeout(() => void load(), 0); return () => clearTimeout(timer); }, [load]);
+      const next = await response.json();
+      if (!current()) return null;
+      setSnapshot({ key: sourceKey, value: next }); return next;
+    } catch (caught) {
+      if (current()) { setSnapshot(null); setTaskChange(null); setActivityOpen(false); setError(caught instanceof Error ? caught.message : "CRM work unavailable"); }
+      return null;
+    } finally { if (current()) setLoading(false); }
+  }, [kind, id, sourceKey]);
+  useEffect(() => {
+    const context = { active: true, key: sourceKey, request: 0, mutation: false };
+    lifetime.current = context;
+    const timer = setTimeout(() => {
+      setBusy(false); setTaskChange(null); setActivityOpen(false);
+      setActivity({ type: "PHONE_CALL", subject: "", summary: "", contactId: "", correctsId: "" });
+      setTask({ title: "", assigneeId: currentPersonId, dueLocal: "" }); void load();
+    }, 0);
+    return () => { context.active = false; clearTimeout(timer); };
+  }, [load, sourceKey, currentPersonId]);
   async function createActivity(event: React.FormEvent) {
-    event.preventDefault(); setBusy(true); setError("");
+    event.preventDefault();
+    const context = lifetime.current;
+    let request = context.request;
+    const current = () => context.active && lifetime.current === context && context.key === sourceKey && context.request === request;
+    if (!data || loading || !current() || context.mutation) return;
+    context.mutation = true; setBusy(true); setError("");
     try { const result = await send("/api/crm/work", { action: "activity", organisationId,
       opportunityId: kind === "opportunity" ? id : null, contactId: activity.contactId || null,
       type: activity.type, subject: activity.subject, summary: activity.summary, correctsId: activity.correctsId || null });
+      if (!current() || context.request !== request) return;
+      request = context.request + 1;
       const confirmed = await load();
+      if (!current()) return;
       if (!confirmed?.activities.some((item) => item.id === result.id)) throw new Error("The activity response could not be confirmed in the authorised record. Refresh before trying again.");
       setActivity({ type: "PHONE_CALL", subject: "", summary: "", contactId: "", correctsId: "" });
       setActivityOpen(false);
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Activity denied"); }
-    finally { setBusy(false); }
+    } catch (caught) { if (current()) setError(caught instanceof Error ? caught.message : "Activity denied"); }
+    finally { context.mutation = false; if (context.active && lifetime.current === context) setBusy(false); }
   }
   async function createTask(event: React.FormEvent) {
-    event.preventDefault(); setBusy(true); setError("");
+    event.preventDefault();
+    const context = lifetime.current;
+    let request = context.request;
+    const current = () => context.active && lifetime.current === context && context.key === sourceKey && context.request === request;
+    if (!data || loading || !current() || context.mutation) return;
+    context.mutation = true; setBusy(true); setError("");
     try { const result = await send("/api/crm/work", { action: "createTask", sourceKind: kind === "opportunity" ? "CRM_OPPORTUNITY" : "CRM_ORGANISATION",
       sourceId: id, title: task.title, assigneeId: task.assigneeId, dueLocal: task.dueLocal || null });
+      if (!current() || context.request !== request) return;
+      request = context.request + 1;
       const confirmed = await load();
+      if (!current()) return;
       if (!confirmed?.tasks.some((item) => item.id === result.id)) throw new Error("The follow-up response could not be confirmed in the authorised record. Refresh before trying again.");
       setTask({ title: "", assigneeId: currentPersonId, dueLocal: "" });
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Task denied"); }
-    finally { setBusy(false); }
+    } catch (caught) { if (current()) setError(caught instanceof Error ? caught.message : "Task denied"); }
+    finally { context.mutation = false; if (context.active && lifetime.current === context) setBusy(false); }
   }
   async function changeTask() {
-    if (!taskChange) return; setBusy(true); setError("");
+    const context = lifetime.current;
+    const request = context.request;
+    const current = () => context.active && lifetime.current === context && context.key === sourceKey && context.request === request;
+    if (!taskChange || !data || loading || !current() || context.mutation) return;
+    context.mutation = true; setBusy(true); setError("");
     try { await send("/api/crm/work", { action: "changeTask", ...taskChange });
+      if (!current() || context.request !== request) return;
       setTaskChange(null); await load();
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Task action denied"); }
-    finally { setBusy(false); }
+    } catch (caught) { if (current()) setError(caught instanceof Error ? caught.message : "Task action denied"); }
+    finally { context.mutation = false; if (context.active && lifetime.current === context) setBusy(false); }
   }
   async function confirmTaskChange() {
     if (taskDialogPending.current || busy || !taskChange) return;
@@ -330,7 +394,7 @@ export function CrmRecordWork({ kind, id, organisationId, owners, currentPersonI
         </div>)}
       </section>
     </>}
-    {taskChange && <div className="crm-dialog-backdrop"><section className="crm-dialog" ref={taskDialog} tabIndex={-1} role="dialog" aria-modal="true" aria-label={`${label(taskChange.kind)} follow-up`}>
+    {!loading && data && taskChange && <div className="crm-dialog-backdrop"><section className="crm-dialog" ref={taskDialog} tabIndex={-1} role="dialog" aria-modal="true" aria-label={`${label(taskChange.kind)} follow-up`}>
       <h2>{label(taskChange.kind)} follow-up</h2>
       {taskChange.kind === "REASSIGN" && <label className="crm-field">New assignee<select disabled={busy} value={taskChange.assigneeId}
         onChange={(event) => setTaskChange({ ...taskChange, assigneeId: event.target.value })}>

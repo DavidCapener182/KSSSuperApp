@@ -1,0 +1,11 @@
+src/app/api/access/roles/[id]/route.ts(5,60): error TS2304: Cannot find name 'RouteContext'.
+src/app/api/access/sites/[id]/route.ts(8,59): error TS2304: Cannot find name 'RouteContext'.
+src/app/api/people/[id]/route.ts(5,58): error TS2304: Cannot find name 'RouteContext'.
+src/app/api/people/directory/[id]/route.ts(6,58): error TS2304: Cannot find name 'RouteContext'.
+src/app/api/sites/[id]/assignments/route.ts(6,58): error TS2304: Cannot find name 'RouteContext'.
+src/app/api/sites/[id]/history/route.ts(6,58): error TS2304: Cannot find name 'RouteContext'.
+src/app/api/sites/[id]/route.ts(6,58): error TS2304: Cannot find name 'RouteContext'.
+src/app/api/sites/[id]/route.ts(22,59): error TS2304: Cannot find name 'RouteContext'.
+src/app/layout.tsx(11,50): error TS2304: Cannot find name 'LayoutProps'.
+tests/fixtures/ui-people-baseline/src/app/api/people/[id]/route.ts(5,58): error TS2304: Cannot find name 'RouteContext'.
+tests/fixtures/ui-people-baseline/src/app/api/people/directory/[id]/route.ts(6,58): error TS2304: Cannot find name 'RouteContext'.

@@ -1,0 +1,23 @@
+✔ Pipeline current 403 retires facts and stage confirmation; Retry recovers (58.9105ms)
+✔ RecordWork current 403 retires facts and selected task action; Retry recovers (30.141792ms)
+✔ CrmPipeline delayed obsolete response cannot replace newer query/source (19.660292ms)
+✔ CrmPipeline unmounted read cannot publish (21.171167ms)
+✔ CrmRecordWork delayed obsolete response cannot replace newer query/source (14.009541ms)
+✔ CrmRecordWork unmounted read cannot publish (16.08075ms)
+✔ RecordWork source and actor change hide prior facts before next read (15.575542ms)
+✔ Pipeline query change hides prior facts before next read (12.313333ms)
+✔ Pipeline late POST after query change starts no obsolete readback/write (13.357458ms)
+✔ Pipeline late POST after unmount starts no obsolete readback/write (15.431125ms)
+✔ RecordWork activity late POST cannot read back or clear new source draft (12.525625ms)
+✔ RecordWork createTask late POST cannot read back or clear new source draft (12.085417ms)
+✔ Pipeline valid exact stage readback preserves transition payload (12.701167ms)
+✔ RecordWork valid activity confirms exact returned id (19.010667ms)
+✔ RecordWork valid createTask confirms exact returned id (9.716667ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 398.231834

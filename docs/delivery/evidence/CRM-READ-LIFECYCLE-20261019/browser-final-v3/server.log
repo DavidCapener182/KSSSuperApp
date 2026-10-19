@@ -1,0 +1,33 @@
+▲ Next.js 16.3.6 (webpack)
+- Local:         http://127.0.0.1:3190
+- Network:       http://127.0.0.1:3190
+✓ Ready in 212ms
+✓ Running next.config took 5ms
+
+  We detected TypeScript in your project and reconfigured your tsconfig.json file for you. Strict-mode is set to false by default.
+  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+  	- allowJs was set to true
+  	- skipLibCheck was set to true
+  	- strict was set to false
+  	- noEmit was set to true
+  	- incremental was set to true
+  	- include was updated to add '.next/dev/types/**/*.ts'
+  	- plugins was updated to add { name: 'next' }
+  	- exclude was set to ['node_modules']
+
+  The following mandatory changes were made to your tsconfig.json:
+
+  	- isolatedModules was set to true (requirement for SWC / Babel)
+
+
+ GET /after/pipeline 200 in 1293ms (next.js: 1233ms, application-code: 60ms)
+ GET /before/pipeline 200 in 14ms (next.js: 1.6ms, application-code: 13ms)
+ GET /before/work 200 in 16ms (next.js: 1.8ms, application-code: 14ms)
+ GET /after/pipeline 200 in 14ms (next.js: 2ms, application-code: 12ms)
+ GET /after/work 200 in 14ms (next.js: 1.5ms, application-code: 13ms)
+ GET /before/pipeline 200 in 15ms (next.js: 1.5ms, application-code: 13ms)
+ GET /before/work 200 in 12ms (next.js: 1.5ms, application-code: 11ms)
+ GET /after/pipeline 200 in 13ms (next.js: 1.4ms, application-code: 12ms)
+ GET /after/work 200 in 14ms (next.js: 1.8ms, application-code: 12ms)
+[?25h

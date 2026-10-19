@@ -1,0 +1,566 @@
+{
+  "baselineCommit": "a95d85079c33a3fd352bd190599864a79240c27c",
+  "productFiles": [
+    "src/components/crm-operational.tsx"
+  ],
+  "ownedPaths": [
+    "src/components/crm-operational.tsx",
+    "tests/crm-dialog-contract-local.test.mjs",
+    "tests/CRM-READ-LIFECYCLE-20261019-revision.json",
+    "tests/CRM-READ-LIFECYCLE-20261019.test.mjs",
+    "tests/CRM-READ-LIFECYCLE-20261019.browser.mjs",
+    "tests/helpers/CRM-READ-LIFECYCLE-20261019-fixture.mjs",
+    "docs/delivery/CRM-READ-LIFECYCLE-20261019.md"
+  ],
+  "finalLocalTests": 39,
+  "newLifecycleTests": 24,
+  "browserRecords": 8,
+  "finalBrowser": "browser-final-v4",
+  "files": [
+    {
+      "path": "src/components/crm-operational.tsx",
+      "sha256": "706b89eebdc019179742cab3bcbe5ad7d98965f11f8d2694a23cbd200b51052d",
+      "bytes": 33603
+    },
+    {
+      "path": "tests/crm-dialog-contract-local.test.mjs",
+      "sha256": "6ed0165a1a5d1d486da1ce5c5f15991f352e49141eef50b5c6710d137972247e",
+      "bytes": 5620
+    },
+    {
+      "path": "tests/CRM-READ-LIFECYCLE-20261019-revision.json",
+      "sha256": "0872a8adc1a7075511a99b557d28772f4eb336626e958ba7807b9e519e2b0c52",
+      "bytes": 3398
+    },
+    {
+      "path": "tests/CRM-READ-LIFECYCLE-20261019.test.mjs",
+      "sha256": "9bcce4fdacaaee73cfb021ef79c1a22b6384174584d80e02c83bb5eb50158731",
+      "bytes": 10252
+    },
+    {
+      "path": "tests/CRM-READ-LIFECYCLE-20261019.browser.mjs",
+      "sha256": "fc239d96323d4481e03b088e055ecd927e8e7ba6fe3354ca682c7ed886839f3e",
+      "bytes": 9910
+    },
+    {
+      "path": "tests/helpers/CRM-READ-LIFECYCLE-20261019-fixture.mjs",
+      "sha256": "525d8d1eab6431b51eba823dcdb9a2ffefa793e58fc325c02be552615d91eef0",
+      "bytes": 4764
+    },
+    {
+      "path": "docs/delivery/CRM-READ-LIFECYCLE-20261019.md",
+      "sha256": "311a94c930ecc9cc95f586496e38bab91b2dd61b6793efe94e84bb0616529768",
+      "bytes": 5329
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/review.patch",
+      "sha256": "d2618cbc13dad3c16cca33acf9f2a66e2133a5e99a9e1b8527220fb74c55a018",
+      "bytes": 23356
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/crm-dialog-contract-local.before.mjs.txt",
+      "sha256": "2bfbd6d7130e26e7ab7a69fdace0a03b7d5e99e3e43aba166bad7f5bffbb52b2",
+      "bytes": 3212
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/green-first.txt",
+      "sha256": "2d402b175bd2d0fe127d3eb6344410cad73b16d807186a7218d392811e7873c5",
+      "bytes": 1353
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/source-delta.json",
+      "sha256": "1803ba3f5223c026269071a763edf55575da86ab8936e806816ee708254bcc3a",
+      "bytes": 553
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/crm-operational.before.tsx.txt",
+      "sha256": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c",
+      "bytes": 29353
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/final-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/final-local.txt",
+      "sha256": "47a09df150e433f4a3d194956cd930f05b6b383f5e6800a3ee5eef4a7065d5e6",
+      "bytes": 3635
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/red-corrected-fixture.txt",
+      "sha256": "452d6379ce17a1f32648dd31307167ec54f8d25f4648447b0dcc14e830310613",
+      "bytes": 17918
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/types.txt",
+      "sha256": "35e51318ddf5e04d15c3b209ec83d0e07a52c1999270fe61a8a4e28b5fc0ce7f",
+      "bytes": 1060
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/red.txt",
+      "sha256": "7502a1f1516f8c4f388270974aadd4df6bbaafd4c0bc9d85ae518625c8b23547",
+      "bytes": 16765
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/green.txt",
+      "sha256": "cf4a1e853320d831bd1754a2da18304faa3bd90006d410db1c38f93627f4fa86",
+      "bytes": 2885
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/final-types.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final/results.json",
+      "sha256": "da0296efc5f752c35579bb3c332cce1c847db8e7773ffee33033ed71a4e380a5",
+      "bytes": 280
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final/runtime-source-manifest.json",
+      "sha256": "667fe7b316540e681b7319e849d61a9a009faefb53b3a36e553b404d63423366",
+      "bytes": 1889
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final/server.log",
+      "sha256": "229125775abe28a29c90cdb040c9a8c7d404538ea7f6acfdc237d8e4c98d0300",
+      "bytes": 1118
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v2/before-pipeline-390-recovered.png",
+      "sha256": "85f57f1cb7a568cd536c591ffe1872acb5bb594e260d953e85b902dac793234b",
+      "bytes": 64705
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v2/before-pipeline-390-403.png",
+      "sha256": "16869fee0aa8eeef0090dfaeb69a62899b1bc4fcdbd722fcbdeaf5a59f8ed761",
+      "bytes": 66219
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v2/before-work-390-recovered.png",
+      "sha256": "62215cc73bc982bb10fe44130999cba94aaf928a469580829c1f6a501e7d8b26",
+      "bytes": 72952
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v2/results.json",
+      "sha256": "854fdb051c2470386c6cac0a21964f947f6961333ebf8feca62db8c2c40458e1",
+      "bytes": 2747
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v2/runtime-source-manifest.json",
+      "sha256": "667fe7b316540e681b7319e849d61a9a009faefb53b3a36e553b404d63423366",
+      "bytes": 1889
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v2/after-pipeline-390-recovered.png",
+      "sha256": "a47f58813d2abd3f40ea9fb417f148c9f5a9e44dfd0c037e3febbe144d407294",
+      "bytes": 64251
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v2/after-pipeline-390-403.png",
+      "sha256": "20fa6af86bec3cda0cdf0fd51dfc4f66989052fc1655ef2b661efe03458a4c1a",
+      "bytes": 42777
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v2/before-work-390-403.png",
+      "sha256": "633575720c1a8f741ba076f779323aa83244f66a45f96af2bb1f12510e922d98",
+      "bytes": 76518
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v2/server.log",
+      "sha256": "43ea9fd31aadff5c5c846046532903961b0610f701e666a3c5d9606445bf0e6e",
+      "bytes": 1225
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-pipeline-1280-recovered.png",
+      "sha256": "7372b19024a34638e0342da96878802c26959525251c3e78278dd1ad0b128ca2",
+      "bytes": 68136
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-pipeline-1280-diagnostic.png",
+      "sha256": "6565f9e3078f3d365e62ac058f6e0a4cfbc372237c9866b67964dbb46857175c",
+      "bytes": 70652
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-work-1280-diagnostic.json",
+      "sha256": "0afed0245b67a2cc4e48136ed395ad3cc4789ca34e4972c6c0c7253982eedf80",
+      "bytes": 900
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-pipeline-390-diagnostic.json",
+      "sha256": "becec54a25f4d9b66626c228040c4ff3eb33b28f428cb2d895d44567ad6e2f4c",
+      "bytes": 749
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-work-1280-diagnostic.png",
+      "sha256": "3ce4ec5afa65c27b46be5628e7efaaf98556f42a781b13401be915f063e66d65",
+      "bytes": 80501
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-work-390-recovered.png",
+      "sha256": "71f0e860024238c5b4140ee11b36a41e77e4fbc66a14729795b84a0ed4d0725e",
+      "bytes": 72038
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-pipeline-390-recovered.png",
+      "sha256": "85f57f1cb7a568cd536c591ffe1872acb5bb594e260d953e85b902dac793234b",
+      "bytes": 64705
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-work-1280-diagnostic.json",
+      "sha256": "912e8c2f3f78c7f7202aca36d9ad757c10fe3453bd9f40ae1e2323875ed3f68f",
+      "bytes": 1332
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-pipeline-390-403.png",
+      "sha256": "a671508b445db179d5375b6f0bc8486d3554bc59e07fcb8891a8f9a5f3e9cb03",
+      "bytes": 67159
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-work-390-recovered.png",
+      "sha256": "62215cc73bc982bb10fe44130999cba94aaf928a469580829c1f6a501e7d8b26",
+      "bytes": 72952
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/results.json",
+      "sha256": "6eab43c8f9caec35d1ea3a99c6d340581194d325a4d944f53263d2f985bc703b",
+      "bytes": 8405
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-work-1280-recovered.png",
+      "sha256": "004ce183d879a5f3f47530836b53b6958a23c3cba0c58f1b8aedeea9cb184944",
+      "bytes": 80360
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-work-390-403.png",
+      "sha256": "973c7ac2feff6882ecd5909fe7369af988322ff8be0245f30964ada0f7447e29",
+      "bytes": 27928
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/runtime-source-manifest.json",
+      "sha256": "667fe7b316540e681b7319e849d61a9a009faefb53b3a36e553b404d63423366",
+      "bytes": 1889
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-work-1280-diagnostic.png",
+      "sha256": "3965b7b56aab98fc893be8f3c6dfdfeb57b8bbb4ce2bb9187454030557d57413",
+      "bytes": 79620
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-pipeline-1280-403.png",
+      "sha256": "ce89d7b9470c1ac291b434219a7a0e397adc3021eb61b04411e08dd0c711cb5f",
+      "bytes": 46305
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-pipeline-390-diagnostic.png",
+      "sha256": "20fa6af86bec3cda0cdf0fd51dfc4f66989052fc1655ef2b661efe03458a4c1a",
+      "bytes": 42777
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-work-1280-recovered.png",
+      "sha256": "afca4e5e3f6f54e98a3a63e19aa975b402c5a4d24252353cead594101e34639b",
+      "bytes": 79481
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-pipeline-390-diagnostic.json",
+      "sha256": "7a8e42aa6b4a27b0a6e2e485d3aeb10f94355eb63441e6b4885298b6232c1822",
+      "bytes": 944
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-pipeline-390-recovered.png",
+      "sha256": "d5ae0de6ef5a4775aa6229edbe92fe157f4358c35b9c4bedbd4a1e658db440db",
+      "bytes": 64255
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-pipeline-390-403.png",
+      "sha256": "6883bcdb6f7a8471fa62f6a629edeb8939a4f9a6df6d3db9660df4289690a34b",
+      "bytes": 45106
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-work-1280-403.png",
+      "sha256": "24221a4f3b9f749bd305ce557848b5dcbe090b5241bd5258b9163afc7b6a57f7",
+      "bytes": 33928
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-pipeline-390-diagnostic.png",
+      "sha256": "16869fee0aa8eeef0090dfaeb69a62899b1bc4fcdbd722fcbdeaf5a59f8ed761",
+      "bytes": 66219
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-work-390-diagnostic.json",
+      "sha256": "912e8c2f3f78c7f7202aca36d9ad757c10fe3453bd9f40ae1e2323875ed3f68f",
+      "bytes": 1332
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-pipeline-1280-403.png",
+      "sha256": "6565f9e3078f3d365e62ac058f6e0a4cfbc372237c9866b67964dbb46857175c",
+      "bytes": 70652
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-pipeline-1280-diagnostic.json",
+      "sha256": "9ac31fe6565fa39ae17d31c9902930a32fedce9193413b4915db1a4f74951fb2",
+      "bytes": 861
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-work-1280-403.png",
+      "sha256": "50e24f24d253cfb2f55baaf2ac60fa26dd79ee508f646317935edf32e112a5b1",
+      "bytes": 88685
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-pipeline-1280-diagnostic.png",
+      "sha256": "ce89d7b9470c1ac291b434219a7a0e397adc3021eb61b04411e08dd0c711cb5f",
+      "bytes": 46305
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-work-390-403.png",
+      "sha256": "92a5d596e5c4b2c290102fc0aafafe70159f8180c85d54e7719640a315bc9080",
+      "bytes": 80292
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/before-work-390-diagnostic.png",
+      "sha256": "633575720c1a8f741ba076f779323aa83244f66a45f96af2bb1f12510e922d98",
+      "bytes": 76518
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-pipeline-1280-diagnostic.json",
+      "sha256": "ca90c30d91bdef4d4794558d28ef8b188a9e74dda03ec8a551f0be7daebd3665",
+      "bytes": 666
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/server.log",
+      "sha256": "0d25e31b97bcc917aa0c719c95212d5415557b18a7637b7828d09d8bd9cc6d95",
+      "bytes": 1517
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-work-390-diagnostic.json",
+      "sha256": "0afed0245b67a2cc4e48136ed395ad3cc4789ca34e4972c6c0c7253982eedf80",
+      "bytes": 900
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-work-390-diagnostic.png",
+      "sha256": "4d4c484d00eb69cdfebff38e4dceb59dc970eb5be768e9ba55d0582e2ac1a797",
+      "bytes": 29519
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v3/after-pipeline-1280-recovered.png",
+      "sha256": "72c9853d60ffa7e8a13428e9c9f38cf9f2958bb14cb93d2e984f918a255c2970",
+      "bytes": 66341
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-pipeline-1280-recovered.png",
+      "sha256": "7372b19024a34638e0342da96878802c26959525251c3e78278dd1ad0b128ca2",
+      "bytes": 68136
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-pipeline-1280-diagnostic.png",
+      "sha256": "6565f9e3078f3d365e62ac058f6e0a4cfbc372237c9866b67964dbb46857175c",
+      "bytes": 70652
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-work-1280-diagnostic.json",
+      "sha256": "0afed0245b67a2cc4e48136ed395ad3cc4789ca34e4972c6c0c7253982eedf80",
+      "bytes": 900
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-pipeline-390-diagnostic.json",
+      "sha256": "becec54a25f4d9b66626c228040c4ff3eb33b28f428cb2d895d44567ad6e2f4c",
+      "bytes": 749
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-work-1280-diagnostic.png",
+      "sha256": "50e24f24d253cfb2f55baaf2ac60fa26dd79ee508f646317935edf32e112a5b1",
+      "bytes": 88685
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-work-390-recovered.png",
+      "sha256": "71f0e860024238c5b4140ee11b36a41e77e4fbc66a14729795b84a0ed4d0725e",
+      "bytes": 72038
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-pipeline-390-recovered.png",
+      "sha256": "85f57f1cb7a568cd536c591ffe1872acb5bb594e260d953e85b902dac793234b",
+      "bytes": 64705
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-work-1280-diagnostic.json",
+      "sha256": "912e8c2f3f78c7f7202aca36d9ad757c10fe3453bd9f40ae1e2323875ed3f68f",
+      "bytes": 1332
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-pipeline-390-403.png",
+      "sha256": "57bb97c076abc43467eb470ff0189a480b2e6ed80fd4ab776975526e8821a0a0",
+      "bytes": 67161
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-work-390-recovered.png",
+      "sha256": "62215cc73bc982bb10fe44130999cba94aaf928a469580829c1f6a501e7d8b26",
+      "bytes": 72952
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/results.json",
+      "sha256": "6eab43c8f9caec35d1ea3a99c6d340581194d325a4d944f53263d2f985bc703b",
+      "bytes": 8405
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-work-1280-recovered.png",
+      "sha256": "004ce183d879a5f3f47530836b53b6958a23c3cba0c58f1b8aedeea9cb184944",
+      "bytes": 80360
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-work-390-403.png",
+      "sha256": "973c7ac2feff6882ecd5909fe7369af988322ff8be0245f30964ada0f7447e29",
+      "bytes": 27928
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/runtime-source-manifest.json",
+      "sha256": "667fe7b316540e681b7319e849d61a9a009faefb53b3a36e553b404d63423366",
+      "bytes": 1889
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-work-1280-diagnostic.png",
+      "sha256": "24221a4f3b9f749bd305ce557848b5dcbe090b5241bd5258b9163afc7b6a57f7",
+      "bytes": 33928
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-pipeline-1280-403.png",
+      "sha256": "ce89d7b9470c1ac291b434219a7a0e397adc3021eb61b04411e08dd0c711cb5f",
+      "bytes": 46305
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-pipeline-390-diagnostic.png",
+      "sha256": "ccedc126380764f92409450ee93a33809646a88b8b15aa1f409d0da8545633bd",
+      "bytes": 45091
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-work-1280-recovered.png",
+      "sha256": "afca4e5e3f6f54e98a3a63e19aa975b402c5a4d24252353cead594101e34639b",
+      "bytes": 79481
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-pipeline-390-diagnostic.json",
+      "sha256": "7a8e42aa6b4a27b0a6e2e485d3aeb10f94355eb63441e6b4885298b6232c1822",
+      "bytes": 944
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-pipeline-390-recovered.png",
+      "sha256": "5e8a3c7e21d9dd29041fb90bee729fd6d02a45faf9330d38e4de83a094c1731f",
+      "bytes": 64255
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-pipeline-390-403.png",
+      "sha256": "1c82b2264cc6761cbf95697924cbca6646caa75922ea993509af6a55a60b55be",
+      "bytes": 45098
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-work-1280-403.png",
+      "sha256": "24221a4f3b9f749bd305ce557848b5dcbe090b5241bd5258b9163afc7b6a57f7",
+      "bytes": 33928
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-pipeline-390-diagnostic.png",
+      "sha256": "427c32368b42f746877b8730b3e2cf8bdb31aa6e46ee847202f3900e8f880a0c",
+      "bytes": 67154
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-work-390-diagnostic.json",
+      "sha256": "912e8c2f3f78c7f7202aca36d9ad757c10fe3453bd9f40ae1e2323875ed3f68f",
+      "bytes": 1332
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-pipeline-1280-403.png",
+      "sha256": "6565f9e3078f3d365e62ac058f6e0a4cfbc372237c9866b67964dbb46857175c",
+      "bytes": 70652
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-pipeline-1280-diagnostic.json",
+      "sha256": "9ac31fe6565fa39ae17d31c9902930a32fedce9193413b4915db1a4f74951fb2",
+      "bytes": 861
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-work-1280-403.png",
+      "sha256": "50e24f24d253cfb2f55baaf2ac60fa26dd79ee508f646317935edf32e112a5b1",
+      "bytes": 88685
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-pipeline-1280-diagnostic.png",
+      "sha256": "ce89d7b9470c1ac291b434219a7a0e397adc3021eb61b04411e08dd0c711cb5f",
+      "bytes": 46305
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-work-390-403.png",
+      "sha256": "92a5d596e5c4b2c290102fc0aafafe70159f8180c85d54e7719640a315bc9080",
+      "bytes": 80292
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/before-work-390-diagnostic.png",
+      "sha256": "92a5d596e5c4b2c290102fc0aafafe70159f8180c85d54e7719640a315bc9080",
+      "bytes": 80292
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-pipeline-1280-diagnostic.json",
+      "sha256": "ca90c30d91bdef4d4794558d28ef8b188a9e74dda03ec8a551f0be7daebd3665",
+      "bytes": 666
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/server.log",
+      "sha256": "ffe5babeff5884faf148faa94ac7c90afec67ba64a21bbba7da5b233e5c69d98",
+      "bytes": 1516
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-work-390-diagnostic.json",
+      "sha256": "0afed0245b67a2cc4e48136ed395ad3cc4789ca34e4972c6c0c7253982eedf80",
+      "bytes": 900
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-work-390-diagnostic.png",
+      "sha256": "973c7ac2feff6882ecd5909fe7369af988322ff8be0245f30964ada0f7447e29",
+      "bytes": 27928
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/browser-final-v4/after-pipeline-1280-recovered.png",
+      "sha256": "72c9853d60ffa7e8a13428e9c9f38cf9f2958bb14cb93d2e984f918a255c2970",
+      "bytes": 66341
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/frozen-runtime-source/src/app/globals.css.txt",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "bytes": 95786
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/frozen-runtime-source/src/components/crm-sales.module.css.txt",
+      "sha256": "0ea2b91505abfb7033b2fa5668d527cfe39685bdd351b6e061c96780ef7518b4",
+      "bytes": 2150
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/frozen-runtime-source/src/components/crm-before.tsx.txt",
+      "sha256": "3844f83adf0656d3d640a018b36a068fd7ad8748b32836ffc6c45bc583dc030c",
+      "bytes": 29353
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/frozen-runtime-source/src/components/crm-after.tsx.txt",
+      "sha256": "706b89eebdc019179742cab3bcbe5ad7d98965f11f8d2694a23cbd200b51052d",
+      "bytes": 33603
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/frozen-runtime-source/src/components/ui/input.tsx.txt",
+      "sha256": "1720869b353265d8818e3c708e7aae4d576a9bd5366fd56e45dce6b60d438f04",
+      "bytes": 1025
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/frozen-runtime-source/src/components/ui/button.tsx.txt",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "bytes": 3452
+    },
+    {
+      "path": "docs/delivery/evidence/CRM-READ-LIFECYCLE-20261019/frozen-runtime-source/src/lib/crm/due-status.ts.txt",
+      "sha256": "f1190f79a2d0e62275a4eca1eb74e29bfbc0763a4dd5035618e2814f857fb976",
+      "bytes": 553
+    }
+  ]
+}

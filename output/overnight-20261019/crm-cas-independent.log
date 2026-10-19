@@ -1,0 +1,44 @@
+✔ CAS proposal is staged separately and does not replace existing write authority (0.390333ms)
+▶ actual local PostgreSQL baseline race and atomic opt-in CAS
+  ✔ baseline: two stale reschedules both succeed despite the row lock (19.643958ms)
+  ✔ CAS: only one stale reschedule wins (2026-10-21) (15.040375ms)
+  ✔ CAS: only one stale reschedule wins (2026-10-22) (1.89575ms)
+  ✔ CAS: stale completion/reschedule rejected after RESCHEDULE (1.417667ms)
+  ✔ CAS: stale completion/reschedule rejected after COMPLETE (1.274042ms)
+  ✔ CAS: stale completion/reschedule rejected after CANCEL (1.400458ms)
+  ✔ NULL deadlines use SQL distinctness; removing a deadline is exact (1.730125ms)
+  ✔ same-transaction ABA is rejected even when due/assignee/updated_at match (3.204959ms)
+  ✔ no-op and invalid action do not add history/audit (1.279333ms)
+  ✔ malformed expectation rejected: null (0.670042ms)
+  ✔ malformed expectation rejected: {} (0.661042ms)
+  ✔ malformed expectation rejected: "not-object" (0.65325ms)
+  ✔ malformed expectation rejected: [] (0.60675ms)
+  ✔ malformed expectation rejected: {"eventCount":"0"} (0.619917ms)
+  ✔ malformed expectation rejected: {"eventCount":"01"} (0.545583ms)
+  ✔ malformed expectation rejected: {"eventCount":"-1"} (0.566375ms)
+  ✔ malformed expectation rejected: {"eventCount":"1.5"} (0.647667ms)
+  ✔ malformed expectation rejected: {"eventCount":"9223372036854775808"} (0.521167ms)
+  ✔ malformed expectation rejected: {"eventCount":1} (0.498333ms)
+  ✔ malformed expectation rejected: {"eventCount":null} (0.444916ms)
+  ✔ malformed expectation rejected: {"state":null} (0.437083ms)
+  ✔ malformed expectation rejected: {"sourceKind":null} (0.526292ms)
+  ✔ malformed expectation rejected: {"extra":true} (0.44275ms)
+  ✔ malformed expectation rejected: {"dueAt":"2026-10-20"} (0.422625ms)
+  ✔ malformed expectation rejected: {"dueAt":"infinity"} (0.471666ms)
+  ✔ malformed expectation rejected: {"dueAt":"2026-02-30T09:00:00Z"} (0.441542ms)
+  ✔ malformed expectation rejected: {"id":"bad-uuid"} (0.770958ms)
+  ✔ wrong identity/source/assignee conflicts before mutation (1.028917ms)
+  ✔ fresh reassignment preserves existing owner and completion authority (5.63825ms)
+  ✔ role loss and non-CRM personas denied without event/audit (5.8655ms)
+  ✔ role revoked while CAS waits for the row lock is denied by the existing writer (1.267792ms)
+  ✔ audit failure rolls back task and history atomically (0.855375ms)
+  ✔ new function ACLs deny anon/PUBLIC; original writer definition remains exact (0.537917ms)
+✔ actual local PostgreSQL baseline race and atomic opt-in CAS (696.948375ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 733.892083
