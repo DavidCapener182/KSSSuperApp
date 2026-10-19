@@ -1,0 +1,237 @@
+{
+  "baselineCommit": "c31c660981532e3beac8238a869153f37fec65b6",
+  "productFiles": [
+    "src/components/my-attendance-client.tsx"
+  ],
+  "productSha256": "896f030f3b273a51d3d993cedd4485ccdec708f38a415048323f661ab5e45be0",
+  "localTests": 62,
+  "newRetryTests": 22,
+  "browserRecords": 8,
+  "screenshots": 16,
+  "ownedPaths": [
+    "src/components/my-attendance-client.tsx",
+    "tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs",
+    "tests/STAFF-ATTENDANCE-RETRY-20261019.browser.mjs",
+    "tests/helpers/STAFF-ATTENDANCE-RETRY-20261019-fixture.mjs",
+    "tests/STAFF-ATTENDANCE-RETRY-20261019-contract-revision.json",
+    "tests/ui-staff-duty-local.test.mjs",
+    "docs/delivery/STAFF-ATTENDANCE-RETRY-20261019.md"
+  ],
+  "files": [
+    {
+      "path": "src/components/my-attendance-client.tsx",
+      "sha256": "896f030f3b273a51d3d993cedd4485ccdec708f38a415048323f661ab5e45be0",
+      "bytes": 17567
+    },
+    {
+      "path": "tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs",
+      "sha256": "5450976beaab6153105c0b9a5085037f1115b114b1c16a4aa3f4410930c6f419",
+      "bytes": 7336
+    },
+    {
+      "path": "tests/STAFF-ATTENDANCE-RETRY-20261019.browser.mjs",
+      "sha256": "63ae0b33758d4c82c8115fb0290c47304c73dc7f1dc3fe2f2112ee016a85c456",
+      "bytes": 8713
+    },
+    {
+      "path": "tests/helpers/STAFF-ATTENDANCE-RETRY-20261019-fixture.mjs",
+      "sha256": "7f5e8b8912d48cc2273fbfa25435d6fd0d7c9adf1f041f4c4ba3b12460a54f24",
+      "bytes": 5095
+    },
+    {
+      "path": "tests/STAFF-ATTENDANCE-RETRY-20261019-contract-revision.json",
+      "sha256": "f6ecda3365415bbd0f386714fb7947acb99125f5b57573a88e368349da9f6993",
+      "bytes": 1050
+    },
+    {
+      "path": "tests/ui-staff-duty-local.test.mjs",
+      "sha256": "f3d557ac5dab735bf2b838794b08691273b0fc73a440f0e559f2666f5f08c515",
+      "bytes": 18916
+    },
+    {
+      "path": "docs/delivery/STAFF-ATTENDANCE-RETRY-20261019.md",
+      "sha256": "45befdb3b718e0c24f4724be26e2192759cebce3f03a31d2814d9deb268b1ada",
+      "bytes": 6663
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/my-attendance.after.tsx.txt",
+      "sha256": "896f030f3b273a51d3d993cedd4485ccdec708f38a415048323f661ab5e45be0",
+      "bytes": 17567
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/review.patch",
+      "sha256": "e0defd9eb7e81f185e077a4376ac971e1ec34e152e44abb95a2b4f0793a42f58",
+      "bytes": 20278
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/my-attendance.before.tsx.txt",
+      "sha256": "1b1b7902ea4bd07b70bdde14a08053a5a5beec863a1662263cd8d56d7cca2856",
+      "bytes": 14988
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/green-first.txt",
+      "sha256": "cab419b8b3f4ccf44fb02e3640e2bf7debd5550d042af618708f708da46ce12a",
+      "bytes": 4088
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/source-delta.json",
+      "sha256": "f51a56fa5a8ad2f975a4ad054c6951f4d18b5a4354dcbffad0392838af7bb8db",
+      "bytes": 594
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/red-cleanup-review.txt",
+      "sha256": "90f343f36a8d88cf537502bfc90ee8b78d5827be75a2d7171e8d9ce545a486f4",
+      "bytes": 1039
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/final-local.txt",
+      "sha256": "79a73ed7cc3510d579c2336eef41768c9012b7f1180ad628aaef556de3405b58",
+      "bytes": 6615
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/types.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/red.txt",
+      "sha256": "c7d987726e62bbf8f8dac249e7690aee59684912d7581b26f7e277abade949e6",
+      "bytes": 7402
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/ui-staff-duty-local.before.mjs.txt",
+      "sha256": "e3617668a37f973fa46268983c0a5bafbe4c854396491c12e0f2d200b46ee9fa",
+      "bytes": 18072
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/before-SITE_SHIFT-390-reviewed.png",
+      "sha256": "a83af15c6bb8d65dd904966a1d978d7c33dd0eab29543a3086b16739a918e545",
+      "bytes": 82667
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/server-error.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/after-EVENT-1280-result.png",
+      "sha256": "923783a756edccc6d195dcb927bdee829bb8c0ae50a9e4d7613e93ef48556b9c",
+      "bytes": 53742
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/after-SITE_SHIFT-390-result.png",
+      "sha256": "8099be1617252d90c4f49469ff1953a0a2c04b3d461dd097957faa15e6240d3e",
+      "bytes": 46684
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/before-EVENT-390-result.png",
+      "sha256": "68813ad1ac9b917c30acc8f866f436b642aee1a69443360544f6da21f30a3a2c",
+      "bytes": 40352
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/before-EVENT-1280-reviewed.png",
+      "sha256": "328a37a4d6bd1242b7f5c849b9e1d5660f491527727f12397cf7d36c4843aa88",
+      "bytes": 85310
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/before-SITE_SHIFT-1280-result.png",
+      "sha256": "7724c41b7cbdc8c58be0f20f8266e173f2b2effdcddee2835c9f95a9816f9314",
+      "bytes": 49813
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/results.json",
+      "sha256": "fc68d60319f67b69b6191f954d5b464cc07e27fe4d5423a77c1a1b52198c9abf",
+      "bytes": 13925
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/before-SITE_SHIFT-390-result.png",
+      "sha256": "c96e8ad61d73299963d81feb7145465c608a58156e900563f80d8381b125fd0f",
+      "bytes": 41281
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/runtime-source-manifest.json",
+      "sha256": "4842270a1f9f2625aca9be63a3e22295f40dad6085fa57b7bc8128376203c1e7",
+      "bytes": 1323
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/after-EVENT-1280-reviewed.png",
+      "sha256": "23973c6be3e0b8cb5136b795062a13d21fa9ec574e9e2989529885fa1e3a2e07",
+      "bytes": 84481
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/after-SITE_SHIFT-1280-reviewed.png",
+      "sha256": "784e23ba3eb67366ea1cf042a8c2af00a36d6136a718a71c4e1880e3dd6409d7",
+      "bytes": 86245
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/before-EVENT-390-reviewed.png",
+      "sha256": "889074d4887a30624c8f38ff7ed3f835d53cb3021caf18555673f6d41e343b51",
+      "bytes": 81327
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/after-SITE_SHIFT-390-reviewed.png",
+      "sha256": "59649464e98a628e8881599ea6adfe581a3aa4b09661c290483d8c87eb4572e7",
+      "bytes": 81901
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/before-SITE_SHIFT-1280-reviewed.png",
+      "sha256": "416a1be4879ae90017d3b5fef71b1f66f9fe0d8233558e455f653ef7b017cdb0",
+      "bytes": 87177
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/server.log",
+      "sha256": "928b69fcd9e17b8998efdd98b5016acd3ae5f249a3b4d2da9cc634d9c5ae2e2a",
+      "bytes": 1628
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/after-SITE_SHIFT-1280-result.png",
+      "sha256": "8679471190810088e8a6d4f79b10f25819b5e4e478b0631f22953b66c20f0301",
+      "bytes": 55376
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/after-EVENT-390-reviewed.png",
+      "sha256": "0896101c55ffa7701325a79274b0231485dae543f4ecbe0064d6e2addb376dd4",
+      "bytes": 80569
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/after-EVENT-390-result.png",
+      "sha256": "a8e56c2487dc92f345f7ba49f641262dae6af45d86836d049a4356b709db6424",
+      "bytes": 45766
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/browser-final/before-EVENT-1280-result.png",
+      "sha256": "ba9878cd4d51839b3cf5893cdd3c59d32a6b76e26feb94f923699b9b79b96700",
+      "bytes": 48359
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/frozen-runtime-source/src/app/globals.css.txt",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788",
+      "bytes": 95786
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/frozen-runtime-source/src/components/attendance-after.tsx.txt",
+      "sha256": "896f030f3b273a51d3d993cedd4485ccdec708f38a415048323f661ab5e45be0",
+      "bytes": 17567
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/frozen-runtime-source/src/components/attendance-self.module.css.txt",
+      "sha256": "9671277e4d0d368b3a00cec00e3f42ff78e00bda926d1684b93e451e1132cd65",
+      "bytes": 4074
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/frozen-runtime-source/src/components/attendance-before.tsx.txt",
+      "sha256": "1b1b7902ea4bd07b70bdde14a08053a5a5beec863a1662263cd8d56d7cca2856",
+      "bytes": 14988
+    },
+    {
+      "path": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/frozen-runtime-source/src/components/ui/button.tsx.txt",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39",
+      "bytes": 3452
+    }
+  ]
+}

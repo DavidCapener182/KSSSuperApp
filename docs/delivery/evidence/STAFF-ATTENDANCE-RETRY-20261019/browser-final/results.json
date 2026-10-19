@@ -1,0 +1,469 @@
+{
+  "pass": true,
+  "results": [
+    {
+      "width": 390,
+      "version": "before",
+      "source": "EVENT",
+      "posts": [
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:37.018Z",
+          "idempotencyKey": "c9fcd23c-43f5-48e0-b1a8-f76f988828b0",
+          "expectedRevision": 1
+        },
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:37.018Z",
+          "idempotencyKey": "c9fcd23c-43f5-48e0-b1a8-f76f988828b0",
+          "expectedRevision": 1
+        }
+      ],
+      "calls": [
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=EVENT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:37.018Z",
+            "idempotencyKey": "c9fcd23c-43f5-48e0-b1a8-f76f988828b0",
+            "expectedRevision": 1
+          }
+        },
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=EVENT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:37.018Z",
+            "idempotencyKey": "c9fcd23c-43f5-48e0-b1a8-f76f988828b0",
+            "expectedRevision": 1
+          }
+        }
+      ],
+      "external": [],
+      "pass": true
+    },
+    {
+      "width": 390,
+      "version": "before",
+      "source": "SITE_SHIFT",
+      "posts": [
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:37.696Z",
+          "idempotencyKey": "f14c65b7-578b-4a33-8fc7-7877a35c866d",
+          "expectedRevision": 1
+        },
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:37.696Z",
+          "idempotencyKey": "f14c65b7-578b-4a33-8fc7-7877a35c866d",
+          "expectedRevision": 1
+        }
+      ],
+      "calls": [
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=SITE_SHIFT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:37.696Z",
+            "idempotencyKey": "f14c65b7-578b-4a33-8fc7-7877a35c866d",
+            "expectedRevision": 1
+          }
+        },
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=SITE_SHIFT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:37.696Z",
+            "idempotencyKey": "f14c65b7-578b-4a33-8fc7-7877a35c866d",
+            "expectedRevision": 1
+          }
+        }
+      ],
+      "external": [],
+      "pass": true
+    },
+    {
+      "width": 390,
+      "version": "after",
+      "source": "EVENT",
+      "posts": [
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:38.425Z",
+          "idempotencyKey": "b8fa7673-16da-4d0d-8fc8-99592cb7c21d",
+          "expectedRevision": 1
+        },
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:38.625Z",
+          "idempotencyKey": "860ee132-6d20-454e-a921-5281abc1e88d",
+          "expectedRevision": 2
+        }
+      ],
+      "calls": [
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=EVENT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:38.425Z",
+            "idempotencyKey": "b8fa7673-16da-4d0d-8fc8-99592cb7c21d",
+            "expectedRevision": 1
+          }
+        },
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me?offset=0&allocationId=00000000-0000-4000-8000-000000000004&source=EVENT",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=EVENT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:38.625Z",
+            "idempotencyKey": "860ee132-6d20-454e-a921-5281abc1e88d",
+            "expectedRevision": 2
+          }
+        },
+        {
+          "url": "/api/attendance/me?offset=0&allocationId=00000000-0000-4000-8000-000000000004&source=EVENT",
+          "method": "GET",
+          "body": null
+        }
+      ],
+      "external": [],
+      "pass": true
+    },
+    {
+      "width": 390,
+      "version": "after",
+      "source": "SITE_SHIFT",
+      "posts": [
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:39.124Z",
+          "idempotencyKey": "998f8080-068b-40b5-bfad-41e447196ea5",
+          "expectedRevision": 1
+        },
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:39.323Z",
+          "idempotencyKey": "9c891e80-e5d9-4d08-9b3b-54dfa69a1a4d",
+          "expectedRevision": 2
+        }
+      ],
+      "calls": [
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=SITE_SHIFT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:39.124Z",
+            "idempotencyKey": "998f8080-068b-40b5-bfad-41e447196ea5",
+            "expectedRevision": 1
+          }
+        },
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me?offset=0&allocationId=00000000-0000-4000-8000-000000000004&source=SITE_SHIFT",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=SITE_SHIFT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:39.323Z",
+            "idempotencyKey": "9c891e80-e5d9-4d08-9b3b-54dfa69a1a4d",
+            "expectedRevision": 2
+          }
+        },
+        {
+          "url": "/api/attendance/me?offset=0&allocationId=00000000-0000-4000-8000-000000000004&source=SITE_SHIFT",
+          "method": "GET",
+          "body": null
+        }
+      ],
+      "external": [],
+      "pass": true
+    },
+    {
+      "width": 1280,
+      "version": "before",
+      "source": "EVENT",
+      "posts": [
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:39.840Z",
+          "idempotencyKey": "df2e5f5d-c7a2-4167-8803-8a1ed805d3d3",
+          "expectedRevision": 1
+        },
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:39.840Z",
+          "idempotencyKey": "df2e5f5d-c7a2-4167-8803-8a1ed805d3d3",
+          "expectedRevision": 1
+        }
+      ],
+      "calls": [
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=EVENT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:39.840Z",
+            "idempotencyKey": "df2e5f5d-c7a2-4167-8803-8a1ed805d3d3",
+            "expectedRevision": 1
+          }
+        },
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=EVENT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:39.840Z",
+            "idempotencyKey": "df2e5f5d-c7a2-4167-8803-8a1ed805d3d3",
+            "expectedRevision": 1
+          }
+        }
+      ],
+      "external": [],
+      "pass": true
+    },
+    {
+      "width": 1280,
+      "version": "before",
+      "source": "SITE_SHIFT",
+      "posts": [
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:40.588Z",
+          "idempotencyKey": "0c4cf0ba-e508-45ee-b184-00b2a5f6fdf7",
+          "expectedRevision": 1
+        },
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:40.588Z",
+          "idempotencyKey": "0c4cf0ba-e508-45ee-b184-00b2a5f6fdf7",
+          "expectedRevision": 1
+        }
+      ],
+      "calls": [
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=SITE_SHIFT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:40.588Z",
+            "idempotencyKey": "0c4cf0ba-e508-45ee-b184-00b2a5f6fdf7",
+            "expectedRevision": 1
+          }
+        },
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=SITE_SHIFT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:40.588Z",
+            "idempotencyKey": "0c4cf0ba-e508-45ee-b184-00b2a5f6fdf7",
+            "expectedRevision": 1
+          }
+        }
+      ],
+      "external": [],
+      "pass": true
+    },
+    {
+      "width": 1280,
+      "version": "after",
+      "source": "EVENT",
+      "posts": [
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:41.308Z",
+          "idempotencyKey": "a2f559fc-7703-4c9a-a9a8-cfcdb01f711d",
+          "expectedRevision": 1
+        },
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:41.505Z",
+          "idempotencyKey": "ffa14b6d-4916-4494-8ea6-5e57b3edf684",
+          "expectedRevision": 2
+        }
+      ],
+      "calls": [
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=EVENT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:41.308Z",
+            "idempotencyKey": "a2f559fc-7703-4c9a-a9a8-cfcdb01f711d",
+            "expectedRevision": 1
+          }
+        },
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me?offset=0&allocationId=00000000-0000-4000-8000-000000000004&source=EVENT",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=EVENT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:41.505Z",
+            "idempotencyKey": "ffa14b6d-4916-4494-8ea6-5e57b3edf684",
+            "expectedRevision": 2
+          }
+        },
+        {
+          "url": "/api/attendance/me?offset=0&allocationId=00000000-0000-4000-8000-000000000004&source=EVENT",
+          "method": "GET",
+          "body": null
+        }
+      ],
+      "external": [],
+      "pass": true
+    },
+    {
+      "width": 1280,
+      "version": "after",
+      "source": "SITE_SHIFT",
+      "posts": [
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:42.012Z",
+          "idempotencyKey": "dd758055-df39-4483-b6d8-1296cc3a5326",
+          "expectedRevision": 1
+        },
+        {
+          "action": "CHECK_OUT",
+          "actualAt": "2026-10-19T01:34:42.226Z",
+          "idempotencyKey": "6669325f-d4d5-43a7-9944-8bb6b50c7c00",
+          "expectedRevision": 2
+        }
+      ],
+      "calls": [
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=SITE_SHIFT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:42.012Z",
+            "idempotencyKey": "dd758055-df39-4483-b6d8-1296cc3a5326",
+            "expectedRevision": 1
+          }
+        },
+        {
+          "url": "/api/attendance/me?offset=0",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me?offset=0&allocationId=00000000-0000-4000-8000-000000000004&source=SITE_SHIFT",
+          "method": "GET",
+          "body": null
+        },
+        {
+          "url": "/api/attendance/me/00000000-0000-4000-8000-000000000004?source=SITE_SHIFT",
+          "method": "POST",
+          "body": {
+            "action": "CHECK_OUT",
+            "actualAt": "2026-10-19T01:34:42.226Z",
+            "idempotencyKey": "6669325f-d4d5-43a7-9944-8bb6b50c7c00",
+            "expectedRevision": 2
+          }
+        },
+        {
+          "url": "/api/attendance/me?offset=0&allocationId=00000000-0000-4000-8000-000000000004&source=SITE_SHIFT",
+          "method": "GET",
+          "body": null
+        }
+      ],
+      "external": [],
+      "pass": true
+    }
+  ]
+}

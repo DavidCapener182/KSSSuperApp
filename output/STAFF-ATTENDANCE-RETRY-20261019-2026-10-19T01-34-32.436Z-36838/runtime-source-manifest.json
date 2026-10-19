@@ -1,0 +1,35 @@
+{
+  "provenance": [
+    {
+      "source": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/my-attendance.before.tsx.txt",
+      "runtime": "src/components/attendance-before.tsx",
+      "sha256": "1b1b7902ea4bd07b70bdde14a08053a5a5beec863a1662263cd8d56d7cca2856"
+    },
+    {
+      "source": "src/components/my-attendance-client.tsx",
+      "runtime": "src/components/attendance-after.tsx",
+      "sha256": "896f030f3b273a51d3d993cedd4485ccdec708f38a415048323f661ab5e45be0"
+    },
+    {
+      "source": "src/components/attendance-self.module.css",
+      "runtime": "src/components/attendance-self.module.css",
+      "sha256": "9671277e4d0d368b3a00cec00e3f42ff78e00bda926d1684b93e451e1132cd65"
+    },
+    {
+      "source": "src/components/ui/button.tsx",
+      "runtime": "src/components/ui/button.tsx",
+      "sha256": "0c21cb2a530a0bd65716eb8a1e198a94c7c9ca7576544ec42aa94bb486649e39"
+    },
+    {
+      "source": "src/app/globals.css",
+      "runtime": "src/app/globals.css",
+      "sha256": "0b9f01b9b05374c65a658b4f1a5659c2d091025f1767ebe07e4b762e8cc08788"
+    }
+  ],
+  "mocks": [
+    "Synthetic root layout replaces auth/shell",
+    "Synthetic wrapper supplies source and unmount control",
+    "Every API request intercepted; no server API routes/auth/RPC/RLS/persistence"
+  ],
+  "completeCompiledGraph": false
+}

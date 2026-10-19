@@ -1,0 +1,19 @@
+{
+  "baselineCommit": "c31c660981532e3beac8238a869153f37fec65b6",
+  "file": "src/components/my-attendance-client.tsx",
+  "beforePath": "docs/delivery/evidence/STAFF-ATTENDANCE-RETRY-20261019/my-attendance.before.tsx.txt",
+  "previousSha256": "1b1b7902ea4bd07b70bdde14a08053a5a5beec863a1662263cd8d56d7cca2856",
+  "sha256": "896f030f3b273a51d3d993cedd4485ccdec708f38a415048323f661ab5e45be0",
+  "changes": [
+    {
+      "key": "fn:act",
+      "beforeSha256": "044c5400c70fc256e0ffca4931d6e3979964750fe8b68f406b16514058b7b6cf",
+      "sha256": "3a1409373762366501beb0f1fcf0e333b52c836bb58b1e724144b91bb545abf9"
+    }
+  ],
+  "unchangedContracts": {
+    "reader:load": "4cd9e9b0d404b5c2aa6ba09bd82e830ea877dce5cdf852f4bd2f57cc48fa294f",
+    "effect:0": "ad1b2f04d676bb3b9c6d42aeafd14b09e5e3e4a0646867824f340762e546ce4a"
+  },
+  "scope": "Only act: conditional exact current complete-history proof and new explicit manual intent, generic409 remains uncertain, read-aware continuation with view-only lock cleanup; all readers/effects/other functions exact"
+}

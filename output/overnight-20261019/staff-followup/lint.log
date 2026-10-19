@@ -1,0 +1,10 @@
+
+> kss-super-app@0.1.0 lint
+> eslint
+
+
+/private/tmp/kss-overnight-20261019/tests/site-horizon-maintenance.test.mjs
+  10:7  warning  'officeId' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 1 problem (0 errors, 1 warning)
+

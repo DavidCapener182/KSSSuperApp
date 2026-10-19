@@ -1,0 +1,8 @@
+{
+  "baseCommit": "c31c660981532e3beac8238a869153f37fec65b6",
+  "file": "src/components/my-attendance-client.tsx",
+  "beforeSha256": "1b1b7902ea4bd07b70bdde14a08053a5a5beec863a1662263cd8d56d7cca2856",
+  "afterSha256": "896f030f3b273a51d3d993cedd4485ccdec708f38a415048323f661ab5e45be0",
+  "reason": "Reviewed newer-revision attendance retry recovery with full exact-history absence proof; uncertain replay remains unchanged. API/SQL/auth unchanged.",
+  "proof": "tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs; actual-component Event/Site before/after browser; independent SQL/source review."
+}

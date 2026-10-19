@@ -1,0 +1,33 @@
+{
+  "sourceBase": "c31c660981532e3beac8238a869153f37fec65b6",
+  "product": "src/components/my-attendance-client.tsx",
+  "sha256": "896f030f3b273a51d3d993cedd4485ccdec708f38a415048323f661ab5e45be0",
+  "compiledPreparedOnlyBoundary": {
+    "src": {
+      "files": 368,
+      "matches": {
+        "crm_change_follow_up_cas": [],
+        "crm_follow_up_cas_snapshot": [],
+        "previewSyntheticIdentityLinks": []
+      }
+    },
+    ".next/server": {
+      "files": 475,
+      "matches": {
+        "crm_change_follow_up_cas": [],
+        "crm_follow_up_cas_snapshot": [],
+        "previewSyntheticIdentityLinks": []
+      }
+    },
+    ".next/static": {
+      "files": 258,
+      "matches": {
+        "crm_change_follow_up_cas": [],
+        "crm_follow_up_cas_snapshot": [],
+        "previewSyntheticIdentityLinks": []
+      }
+    }
+  },
+  "legacyCrmWriter": "src/app/api/crm/work/route.ts:155",
+  "limits": "Source and matching synthetic local build; not a signed-in deployed runtime trace"
+}

@@ -40,25 +40,48 @@ export function MyAttendanceClient({allocationId,source="EVENT"}:{allocationId?:
   const canOut=currentItem&&Boolean(currentItem.attendance.check_in_at)&&!currentItem.attendance.check_out_at&&(currentItem.self_action_available||(currentItem.source==="EVENT"&&currentItem.status==="CANCELLED"));
   if(mutationPending.current||loading||!currentItem||(action==="CHECK_IN"?!canIn:!canOut))return;
   mutationPending.current=true;
-  const view=viewSequence.current;const currentView=()=>view===viewSequence.current;
+  const view=viewSequence.current,read=requestSequence.current;const currentView=()=>view===viewSequence.current&&read===requestSequence.current;
   const storageKey=`kss-attendance-retry:${item.source}:${item.allocation_id}`;
   const uncertain="Attendance may have been recorded, but its current state could not be confirmed. Refresh before retrying safely.";
   const clearFacts=()=>{setItems([]);setTotal(0);setOffset(0);setNotice("");setLoadedSelection(selection);};
   const sameTime=(a:string|null,b:string|null)=>Boolean(a&&b&&Number.isFinite(Date.parse(a))&&Date.parse(a)===Date.parse(b));
   const uuid=(value:unknown)=>typeof value==="string"&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
-  let attempted=false;let rejection="";
+  let attempted=false;let rejection="";let preparingNewIntent=false;
+  const retryProofUnavailable="A new attendance attempt could not be prepared from the current record. Refresh and review it before trying again; the earlier attempt remains uncertain.";
   setBusy(`${item.source}:${item.allocation_id}`);setError("");setNotice("");
   try{
    let pending:{action:string;actualAt:string;idempotencyKey:string;expectedRevision:number}|null=null;
    try{const saved=localStorage.getItem(storageKey);if(saved){const candidate=JSON.parse(saved);if(candidate.action===action&&Number.isInteger(candidate.expectedRevision)&&candidate.expectedRevision>=0&&uuid(candidate.idempotencyKey)&&typeof candidate.actualAt==="string"&&Number.isFinite(Date.parse(candidate.actualAt)))pending=candidate;}}
    catch{/* A malformed local retry token is replaced before any request. */}
+   if(pending&&currentItem.attendance.revision>pending.expectedRevision){
+    preparingNewIntent=true;
+    const proof=await fetch(`/api/attendance/me?${new URLSearchParams({offset:"0",allocationId:item.allocation_id,source:item.source})}`,{cache:"no-store"});
+    if(!currentView())return;
+    if(!proof.ok)throw new Error(retryProofUnavailable);
+    const proofData=await proof.json();if(!currentView())return;
+    const fresh:Item|undefined=Array.isArray(proofData.attendance?.items)&&proofData.attendance.items.length===1?proofData.attendance.items[0]:undefined;
+    const summary=fresh?.attendance,events=summary?.events;
+    // Every case revision appends one immutable event; a partial history cannot prove absence.
+    const complete=summary&&Array.isArray(events)&&events.length===summary.revision&&
+     events.every(event=>event&&uuid(event.id)&&typeof event.revision==="number"&&Number.isInteger(event.revision)&&event.revision>0&&event.revision<=summary.revision&&
+      ["CHECK_IN","CHECK_OUT","NO_SHOW_RECORDED","EXCUSED_ABSENCE_RECORDED","CHECK_IN_NOT_POSSIBLE","REVIEW_REQUIRED","CORRECTION"].includes(event.type))&&
+     new Set(events.map(event=>event.revision)).size===summary.revision&&new Set(events.map(event=>event.id)).size===summary.revision;
+    const sameState=fresh&&fresh.source===item.source&&fresh.allocation_id===item.allocation_id&&fresh.status===currentItem.status&&
+     fresh.self_action_available===currentItem.self_action_available&&summary?.revision===currentItem.attendance.revision&&
+     summary.state===currentItem.attendance.state&&summary.check_in_at===currentItem.attendance.check_in_at&&summary.check_out_at===currentItem.attendance.check_out_at;
+    const eligible=fresh&&summary&&(action==="CHECK_IN"?fresh.self_action_available&&!summary.check_in_at&&!events?.some(event=>event.type==="NO_SHOW_RECORDED"):
+     Boolean(summary.check_in_at)&&!summary.check_out_at&&(fresh.self_action_available||(fresh.source==="EVENT"&&fresh.status==="CANCELLED")));
+    if(!complete||!sameState||!eligible||events!.some(event=>event.type===action))throw new Error(retryProofUnavailable);
+    // A deliberate click with this newer, exact reviewed state is a new intent, never a changed replay.
+    pending=null;
+   }
    if(!pending){pending={action,actualAt:new Date().toISOString(),idempotencyKey:crypto.randomUUID(),expectedRevision:item.attendance.revision};localStorage.setItem(storageKey,JSON.stringify(pending));}
    const submitted=pending;
    attempted=true;
    const response=await fetch(`/api/attendance/me/${item.allocation_id}?source=${item.source}`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(submitted)});
    if(!currentView())return;
    const data=await response.json();if(!currentView())return;
-   if(!response.ok){if([400,401,403,409].includes(response.status))rejection=data.error??"Attendance was not recorded. Refresh and retry safely.";throw new Error(rejection||uncertain);}
+   if(!response.ok){if([400,401,403].includes(response.status))rejection=data.error??"Attendance was not recorded. Refresh and retry safely.";throw new Error(rejection||uncertain);}
    const receipt=data.result;
    const attributable=(summary:Item["attendance"])=>summary&&Number.isInteger(summary.revision)&&summary.revision>=receipt.revision&&Array.isArray(summary.events)&&summary.events.some(event=>event.id===receipt.event_id&&event.revision===receipt.revision&&event.type===action&&event.actor_mode==="STAFF_SELF"&&event.method==="AUTHENTICATED_ONLINE"&&sameTime(event.actual_at,submitted.actualAt));
    if(!receipt||!uuid(receipt.event_id)||!Number.isInteger(receipt.revision)||receipt.revision!==submitted.expectedRevision+1||typeof receipt.replayed!=="boolean"||!attributable(receipt.attendance))throw new Error(uncertain);
@@ -72,8 +95,8 @@ export function MyAttendanceClient({allocationId,source="EVENT"}:{allocationId?:
    setItems(previous=>previous.map(entry=>entry.source===confirmed.source&&entry.allocation_id===confirmed.allocation_id?confirmed:entry));
    localStorage.removeItem(storageKey);
    setNotice(action==="CHECK_IN"?"Check-in recorded.":"Check-out recorded. This records attendance only; it does not calculate worked time.");
-  }catch{if(currentView()){clearFacts();setError(!attempted?"A safe attendance retry could not be prepared. Check local browser storage before trying again.":rejection||uncertain);}}
-  finally{if(currentView()){mutationPending.current=false;setBusy("");}}
+  }catch{if(currentView()){clearFacts();setError(!attempted?preparingNewIntent?retryProofUnavailable:"A safe attendance retry could not be prepared. Check local browser storage before trying again.":rejection||uncertain);}}
+  finally{if(view===viewSequence.current){mutationPending.current=false;setBusy("");}}
  }
  const [selectedDutyKey,setSelectedDutyKey]=useState("");
  const visibleDutyKey=!allocationId&&items.some(item=>`${item.source}:${item.allocation_id}`===selectedDutyKey)?selectedDutyKey:"";

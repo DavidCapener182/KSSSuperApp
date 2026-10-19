@@ -1,0 +1,30 @@
+✖ same-view refresh during held preflight invalidates proof before token rotation or POST (51.534625ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 171.606959
+
+✖ failing tests:
+
+test at tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:13:1
+✖ same-view refresh during held preflight invalidates proof before token rotation or POST (51.534625ms)
+  AssertionError [ERR_ASSERTION]: Retired proof releases same-view mutation lock
+  + actual - expected
+  
+  + 'EVENT:00000000-0000-4000-8000-000000000004'
+  - ''
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:13:707)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'EVENT:00000000-0000-4000-8000-000000000004',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

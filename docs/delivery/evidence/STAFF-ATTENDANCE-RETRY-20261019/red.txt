@@ -1,0 +1,186 @@
+✖ EVENT explicit409 then reviewed newer revision creates distinct manual intent only after exact read (47.832875ms)
+✖ SITE_SHIFT explicit409 then reviewed newer revision creates distinct manual intent only after exact read (14.691625ms)
+✔ network uncertain unchanged revision replays original intent exactly (13.076708ms)
+✔ 409 uncertain unchanged revision replays original intent exactly (8.969666ms)
+✔ 503 uncertain unchanged revision replays original intent exactly (10.590583ms)
+✖ fresh exact denied cannot retire token or create new intent (8.143375ms)
+✖ fresh exact wrong source cannot retire token or create new intent (8.768417ms)
+✖ fresh exact wrong allocation cannot retire token or create new intent (7.616042ms)
+✖ fresh exact newer revision cannot retire token or create new intent (10.944042ms)
+✖ fresh exact incomplete history cannot retire token or create new intent (11.291417ms)
+✖ fresh exact prior same action cannot retire token or create new intent (7.19625ms)
+✔ newer revision with already completed action exposes no duplicate action (6.420083ms)
+✖ retired view during new-intent preflight cannot send a write or replace token (6.600458ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 4
+ℹ fail 9
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 283.761667
+
+✖ failing tests:
+
+test at tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:6:44
+✖ EVENT explicit409 then reviewed newer revision creates distinct manual intent only after exact read (47.832875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      1,
+  +   1
+  -   2
+    ]
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:6:827)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 1, 1 ],
+    expected: [ 1, 2 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:6:44
+✖ SITE_SHIFT explicit409 then reviewed newer revision creates distinct manual intent only after exact read (14.691625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      1,
+  +   1
+  -   2
+    ]
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:6:827)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 1, 1 ],
+    expected: [ 1, 2 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:8:121
+✖ fresh exact denied cannot retire token or create new intent (8.143375ms)
+  AssertionError [ERR_ASSERTION]: Unsafe preflight must not write
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:8:1039)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:8:121
+✖ fresh exact wrong source cannot retire token or create new intent (8.768417ms)
+  AssertionError [ERR_ASSERTION]: Unsafe preflight must not write
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:8:1039)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:8:121
+✖ fresh exact wrong allocation cannot retire token or create new intent (7.616042ms)
+  AssertionError [ERR_ASSERTION]: Unsafe preflight must not write
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:8:1039)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:8:121
+✖ fresh exact newer revision cannot retire token or create new intent (10.944042ms)
+  AssertionError [ERR_ASSERTION]: Unsafe preflight must not write
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:8:1039)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:8:121
+✖ fresh exact incomplete history cannot retire token or create new intent (11.291417ms)
+  AssertionError [ERR_ASSERTION]: Unsafe preflight must not write
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:8:1039)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:8:121
+✖ fresh exact prior same action cannot retire token or create new intent (7.19625ms)
+  AssertionError [ERR_ASSERTION]: Unsafe preflight must not write
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:8:1039)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:10:1
+✖ retired view during new-intent preflight cannot send a write or replace token (6.600458ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///private/tmp/kss-overnight-20261019/tests/STAFF-ATTENDANCE-RETRY-20261019.test.mjs:10:559)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
