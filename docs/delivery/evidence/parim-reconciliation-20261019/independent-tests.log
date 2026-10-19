@@ -1,0 +1,47 @@
+✔ exact existing identity only; provenance never asserts freshness, retention or integration (1.619375ms)
+✔ missing source or KSS links require review without deletion or creation instructions (0.1875ms)
+✔ opaque IDs retain case, Unicode, leading whitespace and zeroes; never fuzzy match (0.437625ms)
+✔ duplicate export IDs quarantine exact linked record (0.140125ms)
+✔ duplicate link IDs quarantine all alternatives (0.133958ms)
+✔ one Person with multiple PARIM IDs violates existing source-link uniqueness (0.09375ms)
+✔ UUID case is semantic identity; source ID case is untouched (0.100167ms)
+✔ same batch+scope+semantic snapshot is replay; whitespace has distinct raw receipt (0.121792ms)
+✔ row and JSON property order do not change semantic hash (0.132833ms)
+✔ changed source version under same batch quarantines every row (0.110834ms)
+✔ changed observed timestamp under same batch quarantines every row (0.083541ms)
+✔ changed source contents under same batch quarantines every row (0.07325ms)
+✔ changed Person mapping under same batch quarantines every row (0.055584ms)
+✔ changed batch is NEW while semantic content hash remains stable (0.063708ms)
+✔ trusted scope is required and scope mismatch is rejected (0.154959ms)
+✔ cross-scope ledger cannot mark this batch replay; changing scope changes hash (0.054916ms)
+✔ conflicting ledger history cannot be hidden behind an earlier replay match (0.058292ms)
+✔ empty snapshot is valid preview with no implied absence/deletion authority (0.049417ms)
+✔ reject non-synthetic (0.039333ms)
+✔ reject source mismatch (0.033166ms)
+✔ reject unknown schema (0.027417ms)
+✔ reject unknown name field (0.036666ms)
+✔ reject unknown row field (0.032625ms)
+✔ reject invalid UUID (0.029666ms)
+✔ reject row source mismatch (0.03025ms)
+✔ reject empty source ID (0.03075ms)
+✔ reject numeric source ID (0.034958ms)
+✔ reject control-character ID (0.0455ms)
+✔ reject invalid date (0.033334ms)
+✔ reject timezone ambiguity (0.424208ms)
+✔ reject missing field (0.06325ms)
+✔ reject oversized list (1.427ms)
+✔ reject malformed, non-object and oversized JSON text (0.277667ms)
+✔ reject malformed replay evidence (0.081709ms)
+✔ reject duplicate top-level keys including escaped-equivalent spelling (0.088458ms)
+✔ reject nested duplicate keys including escaped-equivalent Person keys (0.062291ms)
+✔ structural scanner respects braces, brackets, escaped quotes and backslashes in strings (0.083417ms)
+✔ reject unknown prototype keys and bound deeply nested JSON (0.107375ms)
+✔ caller inputs and ledger remain unchanged; repeated results deterministic (0.120917ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 52.966875

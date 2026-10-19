@@ -1,0 +1,85 @@
+{
+  "note": "Synthetic identity-only review; no vendor connection/import or authority proof",
+  "first": {
+    "mode": "SYNTHETIC_READ_ONLY_PREVIEW",
+    "integrationVerified": false,
+    "freshness": "UNVERIFIED",
+    "retention": "OWNER_DECISION_REQUIRED",
+    "replay": "NEW",
+    "receipt": {
+      "sourceSystem": "PARIM",
+      "scope": "synthetic-review-only",
+      "batchId": "synthetic-batch-1",
+      "contentHash": "44e60c13e02e613198024594642b8ecc5d5d7907871354864fa9f7e035846737"
+    },
+    "provenance": {
+      "sourceVersion": "synthetic-v1",
+      "observedAt": "2026-10-19T00:00:00.000Z",
+      "scope": "synthetic-review-only",
+      "rawReceiptHash": "46f8f9782f94ea5ed0e403f57a77e2ca79b63e177c6f3448247ce8d8d9ea7c41"
+    },
+    "entries": [
+      {
+        "externalId": "synthetic-A",
+        "state": "EXACT_EXISTING_LINK",
+        "personId": "11111111-1111-4111-8111-111111111111",
+        "reasons": []
+      },
+      {
+        "externalId": "synthetic-B",
+        "state": "REVIEW_REQUIRED",
+        "reasons": [
+          "NO_EXISTING_LINK"
+        ]
+      },
+      {
+        "externalId": "synthetic-duplicate",
+        "state": "REVIEW_REQUIRED",
+        "reasons": [
+          "DUPLICATE_SOURCE_ID"
+        ]
+      }
+    ]
+  },
+  "replay": {
+    "mode": "SYNTHETIC_READ_ONLY_PREVIEW",
+    "integrationVerified": false,
+    "freshness": "UNVERIFIED",
+    "retention": "OWNER_DECISION_REQUIRED",
+    "replay": "EXACT_REPLAY",
+    "receipt": {
+      "sourceSystem": "PARIM",
+      "scope": "synthetic-review-only",
+      "batchId": "synthetic-batch-1",
+      "contentHash": "44e60c13e02e613198024594642b8ecc5d5d7907871354864fa9f7e035846737"
+    },
+    "provenance": {
+      "sourceVersion": "synthetic-v1",
+      "observedAt": "2026-10-19T00:00:00.000Z",
+      "scope": "synthetic-review-only",
+      "rawReceiptHash": "46f8f9782f94ea5ed0e403f57a77e2ca79b63e177c6f3448247ce8d8d9ea7c41"
+    },
+    "entries": [
+      {
+        "externalId": "synthetic-A",
+        "state": "EXACT_EXISTING_LINK",
+        "personId": "11111111-1111-4111-8111-111111111111",
+        "reasons": []
+      },
+      {
+        "externalId": "synthetic-B",
+        "state": "REVIEW_REQUIRED",
+        "reasons": [
+          "NO_EXISTING_LINK"
+        ]
+      },
+      {
+        "externalId": "synthetic-duplicate",
+        "state": "REVIEW_REQUIRED",
+        "reasons": [
+          "DUPLICATE_SOURCE_ID"
+        ]
+      }
+    ]
+  }
+}
